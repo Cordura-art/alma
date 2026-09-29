@@ -1,4 +1,4 @@
-<!-- @dsCard group="Fundamentos" height=560 subtitle="IBM Design Language + movimiento de marca Cordura · pasa el cursor o enfoca una fila" page -->
+<!-- @dsCard group="Fundamentos" height=560 subtitle="IBM Design Language: curvas, duraciones y coreografía · pasa el cursor o enfoca una fila" page -->
 <div id="m" style="padding:24px;display:grid;gap:12px;"></div>
 <script>
   // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
@@ -13,14 +13,7 @@
     '.mdot{position:absolute;left:0;top:0;width:48px;height:24px;border-radius:var(--radius-pill);background:var(--interactive-01)}' +
     '.mrow:hover .mdot,.mrow:focus-visible .mdot{left:calc(100% - 48px)}' +
     '.mrow:focus-visible .mtrack{outline:2px solid var(--focus);outline-offset:2px}' +
-    '.mname{color:var(--text-01)}' +
-    '.mbrand{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}' +
-    '.mcell{display:grid;gap:8px;font-family:var(--font-flex);font-stretch:150%;font-size:0.6875rem;letter-spacing:.165px;color:var(--text-02)}' +
-    '.mstage{position:relative;height:120px;border-radius:var(--radius-panel);background:var(--ui-01);overflow:hidden;display:grid;place-items:center}' +
-    '.mzoom{position:absolute;inset:0;display:grid;place-items:center}' +
-    '.mzoom > *{position:absolute;border-radius:var(--radius-panel)}' +
-    '.mlines{display:grid;gap:6px}' +
-    '.mlines > *{height:6px;border-radius:var(--radius-pill);background:var(--tertiary-500)}';
+    '.mname{color:var(--text-01)}';
   document.head.appendChild(s);
   var root = document.getElementById('m');
   rows.forEach(function (r) {
@@ -29,22 +22,30 @@
     row.querySelector('.mdot').style.transition = 'left var(--duration-' + r[1] + ') var(--easing-' + r[0] + ')';
     root.appendChild(row);
   });
-  var brand = document.createElement('div'); brand.className = 'mbrand';
-  brand.innerHTML =
-    '<div class="mcell"><div class="mstage"><div class="mzoom alma-brand-zoom">' +
-      '<div style="--i:0;inset:10%;background:var(--tertiary-700)"></div>' +
-      '<div style="--i:1;inset:24% 22%;background:var(--secondary-500)"></div>' +
-      '<div style="--i:2;inset:38% 36%;background:var(--interactive-01)"></div></div></div>' +
-      '<span class="mname">Zoom por capas</span><span>De lo general al detalle · slow-01 + entrance-expressive</span></div>' +
-    '<div class="mcell"><div class="mstage"><div class="mlines alma-brand-lines">' +
-      '<div style="--i:0;width:96px"></div><div style="--i:1;width:120px;margin-left:16px"></div><div style="--i:2;width:80px;margin-left:8px"></div><div style="--i:3;width:104px;margin-left:24px"></div></div></div>' +
-      '<span class="mname">Líneas de velocidad</span><span>Escalonadas · moderate-02 + duration-stagger</span></div>' +
-    '<div class="mcell"><div class="mstage"><div class="alma-brand-morph" id="morph"></div></div>' +
-      '<span class="mname">Metamorfosis</span><span>Círculo ↔ píldora · moderate-02 + standard-expressive</span></div>';
-  root.appendChild(brand);
+  // Carbon choreography: 1 shell · 2 static body · 3 dynamic rows (20 ms stagger) · 4 primary action · 5 chart. Total under 500 ms.
+  var k = document.createElement('style');
+  k.textContent = '.cstage{display:grid;grid-template-columns:120px 1fr;gap:8px;margin-top:16px;padding:12px;border-radius:var(--radius-panel);background:var(--ui-01);min-height:180px}' +
+    '.cstage>*,.cstage .row,.cstage .bar{animation:cin var(--duration-moderate-02) var(--easing-entrance-expressive) both;animation-delay:var(--d,0ms)}' +
+    '@keyframes cin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}' +
+    '.cnav{grid-row:span 2;border-radius:var(--radius-chip);background:var(--ui-03)}' +
+    '.cbody{display:grid;gap:6px;align-content:start}.cbody .t{height:10px;width:50%;border-radius:4px;background:var(--text-02)}' +
+    '.cbody .row{height:8px;border-radius:4px;background:var(--ui-03)}' +
+    '.cfoot{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}' +
+    '.cbtn{padding:6px 14px;border-radius:var(--radius-pill);background:var(--interactive-01);color:var(--text-on-interactive);font-size:0.6875rem}' +
+    '.cchart{display:flex;align-items:flex-end;gap:4px;height:48px}.cchart .bar{width:10px;border-radius:2px;background:var(--viz-cat-02);transform-origin:bottom}' +
+    '.clegend{font-family:var(--font-flex);font-stretch:150%;font-size:0.6875rem;letter-spacing:.165px;color:var(--text-02);margin-top:8px}' +
+    '@media (prefers-reduced-motion: reduce){.cstage>*,.cstage .row,.cstage .bar{animation:none}}';
+  document.head.appendChild(k);
+  var stage = document.createElement('div');
+  function render() {
+    var rows = ''; for (var i = 0; i < 6; i++) rows += '<div class="row" style="--d:' + (120 + i * 20) + 'ms;width:' + (60 + (i * 7) % 35) + '%"></div>';
+    var bars = ''; [30, 48, 22, 40, 34].forEach(function (hgt, i) { bars += '<div class="bar" style="--d:' + (320 + i * 20) + 'ms;height:' + hgt + 'px"></div>'; });
+    stage.innerHTML = '<div class="cstage"><div class="cnav" style="--d:0ms"></div>' +
+      '<div class="cbody" style="--d:60ms"><div class="t"></div>' + rows + '</div>' +
+      '<div class="cfoot" style="--d:260ms"><span class="cbtn" style="--d:260ms">Pagar</span><div class="cchart">' + bars + '</div></div></div>' +
+      '<p class="clegend">Coreografía de IBM Carbon: 1 estructura · 2 contenido · 3 datos escalonados a 20 ms · 4 acción principal · 5 gráficos. Todo bajo 500 ms, con easing-entrance-expressive.</p>';
+  }
+  render(); root.appendChild(stage);
   var bar = document.createElement('div'); root.appendChild(bar);
-  ReactDOM.createRoot(bar).render(React.createElement(AlmaDS.Button, { variant: 'tinted', iconBefore: 'restart', onClick: function () {
-    brand.querySelectorAll('.alma-brand-zoom, .alma-brand-lines').forEach(function (el) { var p = el.parentNode, n = el.cloneNode(true); p.replaceChild(n, el); });
-    document.getElementById('morph').classList.toggle('is-on');
-  } }, 'Repetir'));
+  ReactDOM.createRoot(bar).render(React.createElement(AlmaDS.Button, { variant: 'tinted', iconBefore: 'restart', onClick: render }, 'Repetir'));
 </script>

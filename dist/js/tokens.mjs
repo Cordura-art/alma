@@ -2019,7 +2019,7 @@ export const core = {
     "duration-moderate-02": "240ms",
     "duration-slow-01": "400ms",
     "duration-slow-02": "700ms",
-    "duration-stagger": "40ms"
+    "duration-stagger": "20ms"
   },
   "easing": {
     "easing-standard-productive": "cubic-bezier(0.2, 0, 0.38, 0.9)",

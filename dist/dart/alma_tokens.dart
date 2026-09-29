@@ -5116,7 +5116,7 @@ abstract final class AlmaDuration {
   static const Duration moderate02 = Duration(milliseconds: 240);
   static const Duration slow01 = Duration(milliseconds: 400);
   static const Duration slow02 = Duration(milliseconds: 700);
-  static const Duration stagger = Duration(milliseconds: 40);
+  static const Duration stagger = Duration(milliseconds: 20);
 }
 
 abstract final class AlmaEasing {

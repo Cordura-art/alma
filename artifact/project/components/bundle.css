@@ -658,21 +658,6 @@ button.alma-steps__btn:focus-visible { outline: 2px solid var(--focus); outline-
 .alma-cal__day:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .alma-cal__foot { display: flex; justify-content: space-between; margin-top: var(--space-8); }
 
-/* ---------- Movimiento de marca Cordura (derivado del Brand Key de Figma; curvas expresivas de IBM) ---------- */
-/* Zoom por capas: de lo general al detalle. Cada capa lleva --i (0, 1, 2…) y entra después de la anterior. */
-@keyframes alma-brand-zoom { from { opacity: 0; transform: scale(var(--alma-zoom-from, 0.6)); } to { opacity: 1; transform: none; } }
-.alma-brand-zoom > * { transform-origin: var(--alma-zoom-origin, 50% 50%); animation: alma-brand-zoom var(--duration-slow-01) var(--easing-entrance-expressive) both; animation-delay: calc(var(--i, 0) * var(--duration-moderate-02)); }
-/* Líneas de velocidad: las barras del logo entran desde la izquierda, escalonadas. Cada línea lleva --i. */
-@keyframes alma-brand-lines { from { opacity: 0; transform: translateX(-1.5rem) scaleX(0.4); } to { opacity: 1; transform: none; } }
-.alma-brand-lines > * { transform-origin: left center; animation: alma-brand-lines var(--duration-moderate-02) var(--easing-entrance-expressive) both; animation-delay: calc(var(--i, 0) * var(--duration-stagger)); }
-/* Metamorfosis: una forma cambia de estado sin cortar (círculo ↔ píldora). Cambia la clase .is-on. */
-.alma-brand-morph { width: var(--alma-morph-size, 2.5rem); height: var(--alma-morph-size, 2.5rem); border-radius: var(--radius-pill); background: var(--interactive-01); transition: width var(--duration-moderate-02) var(--easing-standard-expressive), background-color var(--duration-moderate-02) var(--easing-standard-expressive); }
-.alma-brand-morph.is-on { width: calc(var(--alma-morph-size, 2.5rem) * 2); }
-/* Giro: un ícono que cambia de estado (favorito) gira sobre su eje, se afina hasta una línea y vuelve con el nuevo estado. Cambia el ícono a la mitad (animationiteration no aplica: usa un temporizador de duration-moderate-01). */
-@keyframes alma-brand-flip { 0% { transform: rotateY(0); } 50% { transform: rotateY(90deg); } 100% { transform: rotateY(0); } }
-.alma-brand-flip.is-flipping { animation: alma-brand-flip var(--duration-slow-01) var(--easing-standard-expressive); }
-@media (prefers-reduced-motion: reduce) { .alma-brand-zoom > *, .alma-brand-lines > * { animation: none; } .alma-brand-morph { transition: none; } .alma-brand-flip.is-flipping { animation: none; } }
-
 /* ---------- Densidad: normal (44 px, Apple) o compacta (Carbon), solo con puntero fino ---------- */
 :root, [data-density="normal"] { --alma-control: var(--size-touch-min); --alma-field: var(--size-field); --alma-row: var(--size-row); }
 @media (pointer: fine) {

@@ -138,15 +138,23 @@ Cordura es un estudio de lenguajes de movimiento, y ALMA usa el lenguaje de movi
   - Las salidas son más cortas que las entradas.
 - **Movimiento reducido:** si el usuario lo pide, toda animación de ALMA se vuelve instantánea. No hay excepciones, y lo aplica `bundle.css` a todo el sistema.
 
-### Movimiento de marca Cordura
+### Movimiento de marca
 
-Sale del Brand Key de Figma (láminas «Brandi Key Cordura» y «Motion Brand Key»). Figma no guarda la animación, así que estas recetas traducen sus ideas a las curvas expresivas de IBM. Solo en momentos de marca: portadas, bienvenidas, cargas largas, el logo y favoritos. Nunca en formularios ni tablas.
+La base son nuestros referentes; las recetas propias de Cordura se iterarán desde aquí.
 
-- **Zoom por capas** (`alma-brand-zoom`): la idea central del Brand Key, de lo general al detalle (pantalla → montaña → bosque → rana → píxel). Las capas entran una tras otra, cada una más cerca. Cada hijo lleva `--i` (0, 1, 2…); `duration-slow-01` + `easing-entrance-expressive`, con `duration-moderate-02` entre capas. `--alma-zoom-origin` fija el punto hacia donde se entra.
-- **Líneas de velocidad** (`alma-brand-lines`): las barras del logo entran desde la izquierda, escalonadas. `duration-moderate-02` + `easing-entrance-expressive`, con `duration-stagger` (40 ms) entre líneas. Úsalas en la entrada del logo y en cargas de marca.
-- **Metamorfosis** (`alma-brand-morph`): una forma cambia de estado sin cortar, como el círculo, la estrella y la píldora de las piezas de marca. Círculo ↔ píldora con la clase `.is-on`; `duration-moderate-02` + `easing-standard-expressive`.
-- **Giro** (`alma-brand-flip`): el ícono de favorito gira sobre su eje, se afina hasta una línea y vuelve relleno. Añade `.is-flipping` y cambia `favorite` por `favorite--filled` a la mitad (`duration-moderate-01` después). `duration-slow-01` + `easing-standard-expressive`.
-- Con movimiento reducido, las cuatro recetas no se animan: el contenido aparece en su estado final.
+**IBM Carbon (movimiento expresivo y coreografía)**
+- Expresivo solo en momentos importantes: abrir una página nueva, la acción principal, alertas y notificaciones del sistema, o cuando el movimiento mismo comunica algo. El resto es productivo.
+- Recorridos sobre la grilla: nada se mueve en diagonal.
+- Consistencia semántica: lo que significa lo mismo se mueve igual (desplegar una fila y abrir un menú usan la misma curva, con duración según el tamaño). La inconsistencia es intencional: avanzar en la dirección de entrada afirma; volver sobre ella cancela.
+- Continuidad: los elementos compartidos entre pantallas (títulos, botones) hacen de puente en la transición.
+- Secuencia y escalonado: si entran varios elementos, repártelos en el tiempo con `duration-stagger` (20 ms), con el total bajo 500 ms. Orden de entrada: 1) estructura (barras de navegación), 2) contenido estático (títulos, texto, imágenes), 3) contenido dinámico (datos de una tabla, resultados), 4) acción principal, 5) gráficos animados.
+
+**Apple HIG**
+- Movimiento con propósito: acompaña la experiencia, no la tapa. Nada de animar por animar.
+- Opcional: nunca es la única forma de comunicar algo importante; con movimiento reducido, todo llega a su estado final sin animación (ALMA lo aplica a todo el sistema).
+- Realista: el movimiento sigue el gesto y la expectativa (lo que baja para abrirse, sube para cerrarse).
+- Breve y preciso en la respuesta a una acción; sin animaciones propias en interacciones frecuentes.
+- Se puede interrumpir: nadie espera a que termine una animación para seguir.
 
 ## Imágenes e ilustración
 
