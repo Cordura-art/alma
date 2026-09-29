@@ -1,5 +1,7 @@
 <!-- @dsCard group="Formularios" height=110 subtitle="Cantidad con − y +" -->
 <div id="root" style="padding:24px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.Stepper, { label: 'Pasajeros', icon: 'ticket', defaultValue: 2, min: 1, max: 9 }));
 </script>

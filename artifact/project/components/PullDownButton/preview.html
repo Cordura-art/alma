@@ -1,6 +1,8 @@
 <!-- @dsCard group="Menús" height=360 subtitle="Lista de acciones · destructiva al final" -->
 <div id="root" style="padding:24px;min-height:300px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.PullDownButton, {
     label: 'Tarjeta', icon: 'purchase',
     actions: [{ value: 'copy', label: 'Copiar número', icon: 'copy' }, { value: 'freeze', label: 'Congelar tarjeta', icon: 'snowflake' }, { value: 'limit', label: 'Cambiar límite…', icon: 'settings--adjust' }, { value: 'delete', label: 'Eliminar tarjeta…', icon: 'trash-can', role: 'destructive' }]

@@ -1,6 +1,8 @@
 <!-- @dsCard group="Formularios" height=300 subtitle="Campo en píldora · etiqueta flotante · contador" -->
 <div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, T = AlmaDS.TextInput;
   ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
     h(T, { label: 'Nombre', helper: 'Mínimo 4 caracteres', maxLength: 60 }),

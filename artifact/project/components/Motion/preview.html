@@ -1,6 +1,8 @@
 <!-- @dsCard group="Fundamentos" height=560 subtitle="IBM Design Language + movimiento de marca Cordura · pasa el cursor o enfoca una fila" page -->
 <div id="m" style="padding:24px;display:grid;gap:12px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var rows = [
     ['standard-productive', 'moderate-01'], ['entrance-productive', 'moderate-01'], ['exit-productive', 'fast-02'],
     ['standard-expressive', 'moderate-02'], ['entrance-expressive', 'moderate-02'], ['exit-expressive', 'moderate-02']

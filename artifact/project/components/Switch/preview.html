@@ -1,6 +1,8 @@
 <!-- @dsCard group="Toggles" height=260 subtitle="Solo en filas de lista · botón-toggle fuera de listas" -->
 <div id="root" style="padding:24px;display:grid;gap:16px;max-width:420px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
     h('div', { style: { borderTop: '1px solid var(--ui-03)', borderBottom: '1px solid var(--ui-03)' } },

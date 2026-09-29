@@ -1,6 +1,8 @@
 <!-- @dsCard group="Navegación" height=360 subtitle="Encabezados con botón · ↑ ↓ Inicio Fin entre secciones" -->
 <div id="root" style="padding:24px;max-width:40rem;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   function Demo() {
     return h(A.Accordion, { defaultOpen: ['equipaje'], items: [

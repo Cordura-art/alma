@@ -32,6 +32,8 @@
   </div>
 </div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   document.body.style.margin = '0';
   var s = document.createElement('style');
   s.textContent = [

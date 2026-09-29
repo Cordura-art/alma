@@ -1,6 +1,8 @@
 <!-- @dsCard group="Contenido" height=420 subtitle="Tarjeta con desplegable" -->
 <div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, P = AlmaDS.ProductCard;
   var body = 'Los tiempos de escucha son aproximados y se midieron con reproducción de música, con el estuche completamente cargado y otras funciones desactivadas.';
   ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,

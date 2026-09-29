@@ -1,6 +1,8 @@
 <!-- @dsCard group="Formularios" height=520 subtitle="dd-mm-aaaa · semana desde el lunes · flechas, Re Pág y Av Pág" -->
 <div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;min-height:460px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   function Demo() {
     var today = new Date();

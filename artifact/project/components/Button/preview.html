@@ -1,6 +1,8 @@
 <!-- @dsCard group="Acciones" height=380 subtitle="Estilos por prominencia · roles · actividad · solo ícono (Apple HIG)" -->
 <div id="root" style="padding:24px;display:grid;gap:16px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, B = AlmaDS.Button;
   var cap = { fontSize: 11, letterSpacing: '0.165px', color: 'var(--text-02)', width: 96, flex: 'none' };
   var row = function (name, children) { return h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' } }, [h('span', { key: 'c', style: cap }, name)].concat(children)); };

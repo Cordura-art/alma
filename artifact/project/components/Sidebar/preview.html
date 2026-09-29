@@ -1,6 +1,8 @@
 <!-- @dsCard group="Navegación" height=420 subtitle="Máx. 2 niveles · grupos desplegables · se puede ocultar" -->
 <div id="root" style="padding:24px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.Sidebar, { defaultValue: 'viajes', groups: [
     { items: [{ value: 'inicio', label: 'Inicio', icon: 'home' }, { value: 'viajes', label: 'Viajes', icon: 'bus', badge: 3 }, { value: 'billetera', label: 'Billetera', icon: 'wallet' }] },
     { title: 'Entretenimiento', items: [{ value: 'peliculas', label: 'Películas', icon: 'video' }, { value: 'historial', label: 'Historial', icon: 'recently-viewed' }] },

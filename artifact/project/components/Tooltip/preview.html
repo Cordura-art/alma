@@ -1,6 +1,8 @@
 <!-- @dsCard group="Ayuda" height=150 subtitle="Pasa el cursor o enfoca con Tab · Esc oculta" -->
 <div id="root" style="padding:64px 24px 24px;display:flex;gap:16px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
     h(A.Tooltip, { text: 'Copiar el número de la tarjeta' }, h(A.Button, { variant: 'gray', icon: 'copy', 'aria-label': 'Copiar' })),

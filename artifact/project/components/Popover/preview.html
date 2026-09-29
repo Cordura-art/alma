@@ -1,6 +1,8 @@
 <!-- @dsCard group="Ayuda" height=300 subtitle="Diálogo no modal junto a su botón · Esc o clic fuera lo cierra" -->
 <div id="root" style="padding:24px;min-height:220px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   function Demo() {
     return h('p', { style: { margin: 0, fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: 8 } }, 'Tasa de embarque $990',

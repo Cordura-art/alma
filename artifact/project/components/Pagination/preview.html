@@ -1,5 +1,7 @@
 <!-- @dsCard group="Datos" height=300 subtitle="Elementos por página · rango · página de páginas" -->
 <div id="root" style="padding:24px;min-height:260px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.Pagination, { totalItems: 1284, itemLabel: 'movimientos', defaultPageSize: 20, pageSizes: [10, 20, 50, 100] }));
 </script>

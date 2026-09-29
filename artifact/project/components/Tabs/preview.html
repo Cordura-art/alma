@@ -1,6 +1,8 @@
 <!-- @dsCard group="Navegación" height=240 subtitle="Paneles relacionados · máx. 6 · flechas del teclado" -->
 <div id="root" style="padding:24px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement;
   ReactDOM.createRoot(document.getElementById('root')).render(h(AlmaDS.Tabs, { label: 'Detalle del viaje', tabs: [
     { value: 'resumen', label: 'Resumen', content: h('p', { style: { margin: 0 } }, 'Santiago → Viña del Mar · Mié 31 Mar · 08:30') },

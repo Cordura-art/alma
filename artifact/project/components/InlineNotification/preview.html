@@ -1,6 +1,8 @@
 <!-- @dsCard group="Comunicación" height=520 subtitle="Inline · accionable · callout (Carbon)" -->
 <div id="root" style="padding:24px;display:grid;gap:12px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, N = AlmaDS.InlineNotification;
   ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
     h(N, { status: 'error', title: 'No se pudo cobrar la tarjeta ···· 7637', message: 'El banco rechazó el pago. Usa otra tarjeta o inténtalo en unos minutos.', actionLabel: 'Cambiar tarjeta' }),

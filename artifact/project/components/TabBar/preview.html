@@ -1,6 +1,8 @@
 <!-- @dsCard group="Navegación" height=180 subtitle="Navegación principal en móvil · siempre visible" -->
 <div id="root" style="padding:24px 0 0;max-width:420px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.TabBar, { defaultValue: 'inicio', items: [
     { value: 'inicio', label: 'Inicio', icon: 'home' },
     { value: 'viajes', label: 'Viajes', icon: 'bus' },

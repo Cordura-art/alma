@@ -1,6 +1,8 @@
 <!-- @dsCard group="Estados" height=320 subtitle="Qué falta · por qué · una acción" -->
 <div id="root" style="padding:24px;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   function Demo() {
     return h(A.EmptyState, { icon: 'ticket', title: 'Aún no tienes viajes', message: 'Cuando compres un pasaje, lo verás aquí con su código para subir al bus.',

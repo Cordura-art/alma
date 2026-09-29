@@ -1,6 +1,8 @@
 <!-- @dsCard group="Comunicación" height=520 subtitle="Máx. 3 botones · Cancelar a la izquierda · Esc cierra" -->
 <div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;"></div>
 <script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   function Demo() {
     var o = React.useState(false);
