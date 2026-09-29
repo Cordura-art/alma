@@ -1,0 +1,14 @@
+<!-- @dsCard group="Toggles" height=260 subtitle="Solo en filas de lista · botón-toggle fuera de listas" -->
+<div id="root" style="padding:24px;display:grid;gap:16px;max-width:420px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h('div', { style: { borderTop: '1px solid var(--ui-03)', borderBottom: '1px solid var(--ui-03)' } },
+      h(A.Switch, { label: 'Notificaciones de pago', description: 'Aviso cuando se aprueba o rechaza un cobro', defaultChecked: true }),
+      h(A.Switch, { label: 'Modo ahorro de datos' }),
+      h(A.Switch, { label: 'Pagos con un toque', disabled: true })),
+    h('div', { style: { display: 'flex', gap: 8 } },
+      h(A.Button, { icon: 'filter', selected: true, 'aria-label': 'Filtrar llamadas perdidas' }),
+      h(A.Button, { icon: 'star', selected: false, 'aria-label': 'Solo favoritos' }))
+  ));
+</script>

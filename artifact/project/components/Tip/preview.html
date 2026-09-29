@@ -1,0 +1,9 @@
+<!-- @dsCard group="Ayuda" height=180 subtitle="Consejo breve y descartable" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.Tip, {
+    icon: 'idea', title: 'Paga con un toque',
+    message: 'Guarda tu tarjeta y confirma tus próximos pasajes sin volver a escribirla.',
+    actionLabel: 'Activar pagos con un toque'
+  }));
+</script>

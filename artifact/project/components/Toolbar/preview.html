@@ -1,0 +1,10 @@
+<!-- @dsCard group="Navegación" height=200 subtitle="Título · volver · pocas acciones · menú Más" -->
+<div id="root" style="padding:24px 0;min-height:160px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(A.Toolbar, {
+    title: 'Mis viajes', onBack: function () {},
+    actions: [{ label: 'Filtrar', icon: 'filter' }, { label: 'Compartir', icon: 'share' }],
+    moreActions: [{ value: 'exportar', label: 'Exportar…', icon: 'document' }, { value: 'orden', label: 'Ordenar', icon: 'arrows--vertical' }]
+  }));
+</script>

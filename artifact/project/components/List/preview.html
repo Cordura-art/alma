@@ -1,0 +1,15 @@
+<!-- @dsCard group="Contenido" height=420 subtitle="Filas de 44 px · separador con sangría · flecha para navegar" -->
+<div id="root" style="padding:24px;display:grid;gap:24px;max-width:28rem;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    return h(React.Fragment, null,
+      h(A.List, { header: 'Cuenta', items: [
+        { icon: 'user', title: 'Datos personales', href: '#perfil' },
+        { icon: 'wallet', title: 'Medios de pago', subtitle: '2 tarjetas', href: '#pagos' },
+        { icon: 'notification', title: 'Notificaciones', trailing: 'Activadas', href: '#avisos' }] }),
+      h(A.List, { header: 'Resumen del viaje', footer: 'El precio incluye la tasa de embarque.', items: [
+        { title: 'Pasaje', trailing: '$7.000' }, { title: 'Seguro de viaje', trailing: '$990' }, { title: 'Total', trailing: '$7.990' }] }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

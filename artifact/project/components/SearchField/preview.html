@@ -1,0 +1,13 @@
+<!-- @dsCard group="Formularios" height=360 subtitle="Busca al escribir · sugerencias · alcance · tokens" -->
+<div id="root" style="padding:24px;min-height:320px;"></div>
+<script>
+  var h = React.createElement;
+  function Demo() {
+    var t = React.useState(['Semicama']);
+    return h(AlmaDS.SearchField, { placeholder: 'Buscar ciudades o terminales', suggestionsTitle: 'Búsquedas recientes',
+      suggestions: [{ label: 'Viña del Mar', icon: 'recently-viewed' }, { label: 'Rancagua', icon: 'recently-viewed' }, { label: 'Terminal Alameda', icon: 'recently-viewed' }],
+      scopes: ['Todo', 'Viajes', 'Pagos'], defaultScope: 'Todo',
+      tokens: t[0], onRemoveToken: function (x) { t[1](t[0].filter(function (y) { return y !== x; })); } });
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

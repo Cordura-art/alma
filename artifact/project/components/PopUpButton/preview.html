@@ -1,0 +1,11 @@
+<!-- @dsCard group="Menús" height=380 subtitle="Elige una opción de una lista · muestra la selección" -->
+<div id="root" style="padding:24px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;min-height:320px;"></div>
+<script>
+  var h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(AlmaDS.PopUpButton, { label: 'Ordenar por', defaultValue: 'recientes',
+      options: [{ value: 'recientes', label: 'Más recientes' }, { value: 'precio', label: 'Precio más bajo' }, { value: 'duracion', label: 'Menor duración' }, { value: 'custom', label: 'Personalizado…' }],
+      help: 'Personalizado te deja combinar criterios.' }),
+    h(AlmaDS.PopUpButton, { label: 'Moneda', options: ['CLP', 'USD', 'EUR'] })
+  ));
+</script>

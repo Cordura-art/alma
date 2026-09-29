@@ -1,0 +1,12 @@
+<!-- @dsCard group="Comunicación" height=320 subtitle="Toast: éxito e info se van en 5 s · errores quedan" -->
+<div id="root" style="padding:24px;display:grid;gap:16px;align-content:start;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h('div', { style: { display: 'flex', gap: 8, flexWrap: 'wrap' } },
+      h(A.Button, { variant: 'gray', onClick: function () { A.toast({ status: 'success', title: 'Pasaje guardado', message: 'Lo encuentras en Mis viajes.', timestamp: 'Ahora' }); } }, 'Mostrar éxito'),
+      h(A.Button, { variant: 'gray', onClick: function () { A.toast({ status: 'error', title: 'No se pudo guardar el pasaje', message: 'Revisa tu conexión e inténtalo otra vez.' }); } }, 'Mostrar error')),
+    h(A.ToastRegion, { inline: true })
+  ));
+  A.toast({ status: 'info', title: 'Hay 3 viajes nuevos a Viña del Mar', duration: 0 });
+</script>

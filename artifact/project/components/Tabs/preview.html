@@ -1,0 +1,11 @@
+<!-- @dsCard group="Navegación" height=240 subtitle="Paneles relacionados · máx. 6 · flechas del teclado" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  var h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(AlmaDS.Tabs, { label: 'Detalle del viaje', tabs: [
+    { value: 'resumen', label: 'Resumen', content: h('p', { style: { margin: 0 } }, 'Santiago → Viña del Mar · Mié 31 Mar · 08:30') },
+    { value: 'asientos', label: 'Asientos', content: h('p', { style: { margin: 0 } }, '2 asientos semicama, fila 4') },
+    { value: 'pagos', label: 'Pagos', content: h('p', { style: { margin: 0 } }, 'Pagado con C.WalletPay ···· 7637') },
+    { value: 'ayuda', label: 'Ayuda', content: h('p', { style: { margin: 0 } }, 'Cambios hasta 4 horas antes de la salida.') }
+  ] }));
+</script>

@@ -1,0 +1,25 @@
+{
+  "icon": {
+    "$description": "Íconos IBM Carbon: un solo peso, dibujados a 32 px y escalados. Usa estos cuatro tamaños (los de Carbon).",
+    "icon-size-sm": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "Dentro de datos densos: tablas, etiquetas, contadores."
+    },
+    "icon-size-md": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$description": "Dentro de controles: menús, campos de búsqueda, selectores."
+    },
+    "icon-size-lg": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": "Por defecto: botones, navegación, avisos."
+    },
+    "icon-size-xl": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$description": "Zonas vacías o para soltar archivos, y piezas destacadas."
+    }
+  }
+}

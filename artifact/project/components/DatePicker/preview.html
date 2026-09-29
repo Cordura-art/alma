@@ -1,0 +1,12 @@
+<!-- @dsCard group="Formularios" height=520 subtitle="dd-mm-aaaa · semana desde el lunes · flechas, Re Pág y Av Pág" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;min-height:460px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    var today = new Date();
+    return h(React.Fragment, null,
+      h(A.DatePicker, { label: 'Fecha de ida', defaultValue: new Date(2026, 2, 31), min: new Date(2026, 0, 1) }),
+      h(A.DatePicker, { label: 'Fecha de vuelta', min: today, max: new Date(today.getFullYear(), today.getMonth() + 6, today.getDate()), helper: 'Hasta 6 meses desde hoy' }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

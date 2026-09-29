@@ -1,0 +1,2479 @@
+{
+  "color": {
+    "brand-lime": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Lima ALMA: el color por el que se reconoce la marca. Acción primaria y acentos."
+    },
+    "brand-ink": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Azul noche de marca (Figma: Dark #141733). Fondos de piezas de marca y superficies oscuras."
+    },
+    "brand-black": {
+      "$type": "color",
+      "$value": "#02010C",
+      "$description": "Negro profundo de marca (Figma: Dark #02010C). Fondo de página del tema oscuro."
+    },
+    "brand-white": {
+      "$type": "color",
+      "$value": "#FFFFFF",
+      "$description": "Blanco de marca."
+    },
+    "brand-steel": {
+      "$type": "color",
+      "$value": "#A0C3D2",
+      "$description": "Azul acero de marca (interactive-02). Piezas de marca claras y acción secundaria."
+    },
+    "tint-white-93": {
+      "$type": "color",
+      "$value": "rgba(255,255,255,0.93)",
+      "$description": "Blanco al 93 % (Figma: Tint). Veladuras sobre imagen o fondos oscuros."
+    },
+    "tint-white-81": {
+      "$type": "color",
+      "$value": "rgba(255,255,255,0.81)",
+      "$description": "Blanco al 81 % (Figma: Tint). Veladuras sobre imagen o fondos oscuros."
+    },
+    "tint-white-64": {
+      "$type": "color",
+      "$value": "rgba(255,255,255,0.64)",
+      "$description": "Blanco al 64 % (Figma: Tint). Veladuras sobre imagen o fondos oscuros."
+    },
+    "tint-white-45": {
+      "$type": "color",
+      "$value": "rgba(255,255,255,0.45)",
+      "$description": "Blanco al 45 % (Figma: Tint). Veladuras sobre imagen o fondos oscuros."
+    },
+    "tint-white-24": {
+      "$type": "color",
+      "$value": "rgba(255,255,255,0.24)",
+      "$description": "Blanco al 24 % (Figma: Tint). Veladuras sobre imagen o fondos oscuros."
+    },
+    "tint-dark-24": {
+      "$type": "color",
+      "$value": "rgba(2,1,12,0.24)",
+      "$description": "Negro #02010C al 24 % (Figma: Tint). Veladuras sobre imagen o fondos claros."
+    },
+    "tint-dark-45": {
+      "$type": "color",
+      "$value": "rgba(2,1,12,0.45)",
+      "$description": "Negro #02010C al 45 % (Figma: Tint). Veladuras sobre imagen o fondos claros."
+    },
+    "tint-dark-64": {
+      "$type": "color",
+      "$value": "rgba(2,1,12,0.64)",
+      "$description": "Negro #02010C al 64 % (Figma: Tint). Veladuras sobre imagen o fondos claros."
+    },
+    "tint-dark-80": {
+      "$type": "color",
+      "$value": "rgba(2,1,12,0.8)",
+      "$description": "Negro #02010C al 80 % (Figma: Tint). Veladuras sobre imagen o fondos claros."
+    },
+    "tint-dark-93": {
+      "$type": "color",
+      "$value": "rgba(2,1,12,0.93)",
+      "$description": "Negro #02010C al 93 % (Figma: Tint). Veladuras sobre imagen o fondos claros."
+    },
+    "ui-01": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Uso (Cordura): Fondo de contenedor principal; fondo de página secundario. Contenedores: tarjetas, alertas, menús, tablas y paneles, sobre ui-02. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "ui-02": {
+      "$type": "color",
+      "$value": "#02010C",
+      "$description": "Uso (Cordura): Fondo de página principal; fondo de contenedor secundario. Fondo de la página. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "ui-03": {
+      "$type": "color",
+      "$value": "#566980",
+      "$description": "Uso (Cordura): Borde sutil; fondo terciario. Borde sutil; fondo terciario. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "ui-04": {
+      "$type": "color",
+      "$value": "#A0C3D2",
+      "$description": "Uso (Cordura): Borde de contraste medio. Borde de contraste medio (3:1 AA de elemento). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "ui-05": {
+      "$type": "color",
+      "$value": "#CBDEE6",
+      "$description": "Uso (Cordura): Borde de alto contraste (4.5:1); elementos de énfasis. Borde de alto contraste; elementos de énfasis."
+    },
+    "text-01": {
+      "$type": "color",
+      "$value": "#F8FBFC",
+      "$description": "Uso (Cordura): Texto principal: cuerpo y encabezados; hover del texto text-02. Texto principal, cuerpo y titulares sobre ui-02 y ui-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "text-02": {
+      "$type": "color",
+      "$value": "#DDE9EF",
+      "$description": "Uso (Cordura): Texto secundario; etiquetas de campos. Texto secundario y etiquetas de input, sobre ui-02 y ui-01. Accesible: en claro se oscureció de #7A94A7 (Figma, 3:1) a #566980 (5.4:1). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "text-03": {
+      "$type": "color",
+      "$value": "#B7D1DD",
+      "$description": "Uso (Cordura): Texto de ejemplo (placeholder). Placeholder, sobre ui-02 y field-01. Accesible: en claro se oscureció de #CBDEE6 (Figma, 1.3:1) a #566980. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "text-04": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Uso (Cordura): Texto sobre colores interactivos. Texto sobre colores interactivos (sobre brand-lime en oscuro). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "text-05": {
+      "$type": "color",
+      "$value": "#ABC0EB",
+      "$description": "Uso (Cordura): Texto terciario; texto de ayuda. Texto terciario y de ayuda. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "text-error": {
+      "$type": "color",
+      "$value": "#F5A9A9",
+      "$description": "Uso (Cordura): Mensajes de error. Mensajes de error sobre ui-02, ui-01 y fondos de notificación. Accesible: en oscuro #EB6161 (el #FF003D de Figma daba 4.4:1 sobre ui-01); en claro #AE2424."
+    },
+    "text-on-interactive": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Texto e íconos sobre interactive-01, interactive-02, hover-secondary, brand-white y etiquetas. Accesible: brand-ink en lugar de #3A4660 de Figma, que fallaba en hover (4.3:1)."
+    },
+    "text-on-pressed": {
+      "$type": "color",
+      "$value": "#02010C",
+      "$description": "Texto sobre active-primary (botón primario presionado): 5:1. Accesible."
+    },
+    "field-border": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Borde del campo de texto en reposo, sobre ui-02. En claro el lima daba 1.2:1. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "field-border-hover": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Borde del campo en hover. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "field-label": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Etiqueta del campo de texto sobre ui-02. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "button-tinted-bg": {
+      "$type": "color",
+      "$value": "rgba(225,245,100,0.16)",
+      "$description": "Fondo del botón tinted (Apple): el acento lima a baja opacidad. Texto encima: button-tinted-text."
+    },
+    "button-tinted-bg-hover": {
+      "$type": "color",
+      "$value": "rgba(225,245,100,0.24)",
+      "$description": "Hover del botón tinted."
+    },
+    "button-tinted-text": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Texto del botón tinted sobre button-tinted-bg."
+    },
+    "button-plain-text": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Texto del botón plain (sin fondo), sobre ui-02 y ui-01. En claro usa el azul de enlace porque el lima no se lee sobre fondo claro."
+    },
+    "button-destructive-fill": {
+      "$type": "color",
+      "$value": "#F5A9A9",
+      "$description": "Fondo del botón destructivo relleno (Apple: rojo del sistema). Texto encima: text-on-pressed."
+    },
+    "button-destructive-text": {
+      "$type": "color",
+      "$value": "#F5A9A9",
+      "$description": "Texto del botón destructivo en estilos tinted y plain, sobre ui-02 y ui-01 (en oscuro, danger-300: 5.8:1 sobre ui-01)."
+    },
+    "button-destructive-tinted-bg": {
+      "$type": "color",
+      "$value": "rgba(235,97,97,0.16)",
+      "$description": "Fondo del botón destructivo tinted."
+    },
+    "button-destructive-tinted-bg-hover": {
+      "$type": "color",
+      "$value": "rgba(235,97,97,0.20)",
+      "$description": "Fondo del botón destructivo tinted al pasar el puntero y al presionar (al presionar suma un borde interior de 2 px). Mismo rojo con más opacidad, nunca lima; el texto button-destructive-text queda sobre 4,5:1 (7:1 en alto contraste). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "control-on": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Relleno de switch, checkbox y radio encendidos. En claro, el lima de Figma no se ve sobre fondo claro (1.2:1); se usa active-primary (4:1)."
+    },
+    "control-on-mark": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Marca sobre control-on: perilla del switch, check, punto del radio."
+    },
+    "control-off-thumb": {
+      "$type": "color",
+      "$value": "#B7D1DD",
+      "$description": "Perilla del switch apagado."
+    },
+    "nav-selected": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Ícono y etiqueta del destino actual en TabBar, Sidebar y Tabs, sobre ui-02 y ui-01. En claro, azul (el lima no se lee sobre claro)."
+    },
+    "status-icon-error": {
+      "$type": "color",
+      "$value": "#F5A9A9",
+      "$description": "Ícono y borde de notificaciones de error, sobre notification-error-bg y ui-01."
+    },
+    "status-icon-success": {
+      "$type": "color",
+      "$value": "#87CB9A",
+      "$description": "Ícono y borde de notificaciones de éxito. En claro, verde más oscuro que support-02 para llegar a 3:1 sobre su fondo."
+    },
+    "status-icon-warning": {
+      "$type": "color",
+      "$value": "#F1C21B",
+      "$description": "Ícono y borde de advertencias. En claro, el amarillo de Figma daba 1.6:1; se usa el texto de etiqueta amarilla."
+    },
+    "status-icon-info": {
+      "$type": "color",
+      "$value": "#ABC0EB",
+      "$description": "Ícono y borde de notificaciones informativas."
+    },
+    "border-control": {
+      "$type": "color",
+      "$value": "#A0C3D2",
+      "$description": "Borde de controles que necesitan verse sobre la página (selector, contador): 3:1 o más en ambos temas."
+    },
+    "link-01": {
+      "$type": "color",
+      "$value": "#C4D2EF",
+      "$description": "Uso (Cordura): Enlaces principales; botón ghost. Enlaces principales; botón fantasma. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "visited-link": {
+      "$type": "color",
+      "$value": "#DDE9EF",
+      "$description": "Uso (Cordura): Enlaces visitados. Enlaces visitados. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "inverse-link": {
+      "$type": "color",
+      "$value": "#0043CC",
+      "$description": "Uso (Cordura): Enlaces sobre fondos inverse-02. Enlaces sobre fondos inverse-02. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "icon-01": {
+      "$type": "color",
+      "$value": "#F8FBFC",
+      "$description": "Uso (Cordura): Íconos principales. Íconos principales. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "icon-02": {
+      "$type": "color",
+      "$value": "#DDE9EF",
+      "$description": "Uso (Cordura): Íconos secundarios. Íconos secundarios sobre ui-02 y ui-01. Accesible: en claro #566980. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "icon-03": {
+      "$type": "color",
+      "$value": "#FFFFFF",
+      "$description": "Uso (Cordura): Íconos sobre colores interactivos o fuera de la interfaz. Íconos sobre colores interactivos y no-UI."
+    },
+    "interactive-01": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Uso (Cordura): Color interactivo principal; botones primarios. Color interactivo principal: botón primario, borde de input."
+    },
+    "hover-primary": {
+      "$type": "color",
+      "$value": "#9CBA54",
+      "$description": "Uso (Cordura): Hover de interactive-01."
+    },
+    "active-primary": {
+      "$type": "color",
+      "$value": "#9CBA54",
+      "$description": "Uso (Cordura): Activo de interactive-01. Estado activo (presionado) de interactive-01. text-04 encima da ~2.4:1 (valor de Figma)."
+    },
+    "hover-primary-text": {
+      "$type": "color",
+      "$value": "#ABC0EB",
+      "$description": "Uso (Cordura): Hover del texto de interactive-01. Hover de texto sobre interactive-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "interactive-02": {
+      "$type": "color",
+      "$value": "#A0C3D2",
+      "$description": "Uso (Cordura): Color interactivo secundario; botones secundarios. Color interactivo secundario: botón secundario."
+    },
+    "hover-secondary": {
+      "$type": "color",
+      "$value": "#B7D1DD",
+      "$description": "Uso (Cordura): Hover de interactive-02."
+    },
+    "active-secondary": {
+      "$type": "color",
+      "$value": "#3A4660",
+      "$description": "Uso (Cordura): Activo de interactive-02 y de inverse-01. Activo de interactive-02 e inverse-01."
+    },
+    "interactive-03": {
+      "$type": "color",
+      "$value": "#FFFFFF",
+      "$description": "Uso (Cordura): Botón terciario (contraste 4.5:1). Acentos: elementos seleccionados y activos, íconos de acento."
+    },
+    "hover-tertiary": {
+      "$type": "color",
+      "$value": "#ABC0EB",
+      "$description": "Uso (Cordura): Hover de interactive-03 y de inverse-01. Hover de interactive-03 e inverse-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "active-tertiary": {
+      "$type": "color",
+      "$value": "#7198E1",
+      "$description": "Uso (Cordura): Activo de interactive-03. Activo de interactive-03. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "interactive-04": {
+      "$type": "color",
+      "$value": "#7198E1",
+      "$description": "Uso (Cordura): Elementos seleccionados y activos; íconos de acento (contraste 3:1). Acentos 3:1 AA: seleccionados y activos. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "field-01": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Uso (Cordura): Campos por defecto; color de campo sobre fondos ui. Fondo de campos sobre ui-02. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "field-02": {
+      "$type": "color",
+      "$value": "#131735",
+      "$description": "Uso (Cordura): Color de campo sobre fondos ui-02. Fondo de campos sobre ui-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "inverse-01": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Uso (Cordura): Texto e íconos inversos. Texto e íconos inversos (sobre inverse-02). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "inverse-02": {
+      "$type": "color",
+      "$value": "#F8FBFC",
+      "$description": "Uso (Cordura): Fondos y elementos de alto contraste. Fondos y elementos de alto contraste. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "inverse-hover-ui": {
+      "$type": "color",
+      "$value": "#DDE9EF",
+      "$description": "Uso (Cordura): Hover sobre inverse-02. Hover sobre inverse-02. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "inverse-focus-ui": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Uso (Cordura): Foco en momentos de alto contraste. Foco en momentos de alto contraste. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "#FFFFFF",
+      "$description": "Uso (Cordura): Borde y subrayado de foco. Anillo de foco de 2px, separado 2px del control, sobre ui-02. Accesible: en claro #0043CC (el #7198E1 de Figma daba 2.8:1)."
+    },
+    "highlight": {
+      "$type": "color",
+      "$value": "#3A4660",
+      "$description": "Uso (Cordura): Resaltado de interactive-01. Resaltado de interactive-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "hover-ui": {
+      "$type": "color",
+      "$value": "#3A4660",
+      "$description": "Uso (Cordura): Hover de ui-01, ui-02 y de fondos transparentes. Hover de ui-02, ui-01 y fondos transparentes. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "active-ui": {
+      "$type": "color",
+      "$value": "#566980",
+      "$description": "Uso (Cordura): Activo de ui-01 y ui-02. Activo de ui-02 y ui-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "selected-ui": {
+      "$type": "color",
+      "$value": "#3A4660",
+      "$description": "Uso (Cordura): Elementos de interfaz seleccionados. Elementos de UI seleccionados. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "hover-selected-ui": {
+      "$type": "color",
+      "$value": "#566980",
+      "$description": "Uso (Cordura): Hover de fila seleccionada. Hover de elementos seleccionados. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "hover-row": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Uso (Cordura): Hover de fila. Hover de fila seleccionada. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "disabled-01": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Uso (Cordura): Campos, fondos y bordes deshabilitados. Campos, fondos y bordes deshabilitados. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "disabled-02": {
+      "$type": "color",
+      "$value": "#3A4660",
+      "$description": "Uso (Cordura): Elementos sobre disabled-01: etiqueta, texto, íconos y bordes deshabilitados. Elementos deshabilitados sobre disabled-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "disabled-03": {
+      "$type": "color",
+      "$value": "#A0C3D2",
+      "$description": "Uso (Cordura): Texto e íconos deshabilitados sobre disabled-02. Texto e íconos deshabilitados (baja legibilidad a propósito). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "skeleton-01": {
+      "$type": "color",
+      "$value": "#141733",
+      "$description": "Uso (Cordura): Estado de carga de gráficos. Esqueleto de gráficos. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "skeleton-02": {
+      "$type": "color",
+      "$value": "#3A4660",
+      "$description": "Uso (Cordura): Estado de carga de texto. Esqueleto de texto. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "overlay-01": {
+      "$type": "color",
+      "$value": "rgba(2,1,12,0.8)",
+      "$description": "Uso (Cordura): Velo de fondo. Velo detrás de modales. Claro: #131735 al 50 % (Cordura: overlay-01 #13173580). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "support-01": {
+      "$type": "color",
+      "$value": "#EB6161",
+      "$description": "Uso (Cordura): Error. Error. En oscuro usa el valor de alto contraste (inverse-support-01). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "hover-danger": {
+      "$type": "color",
+      "$value": "#7C1919",
+      "$description": "Uso (Cordura): Hover de peligro y de support-01. Hover de peligro / support-01."
+    },
+    "active-danger": {
+      "$type": "color",
+      "$value": "#3D0D0D",
+      "$description": "Uso (Cordura): Activo de peligro y de support-01. Activo de peligro / support-01."
+    },
+    "support-02": {
+      "$type": "color",
+      "$value": "#59B874",
+      "$description": "Uso (Cordura): Éxito. Éxito. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "support-03": {
+      "$type": "color",
+      "$value": "#F1C21B",
+      "$description": "Uso (Cordura): Advertencia."
+    },
+    "support-04": {
+      "$type": "color",
+      "$value": "#7398E4",
+      "$description": "Uso (Cordura): Información. Información. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "inverse-support-01": {
+      "$type": "color",
+      "$value": "#E52F2F",
+      "$description": "Uso (Cordura): Peligro en momentos de alto contraste. Peligro en momentos de alto contraste. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "inverse-support-02": {
+      "$type": "color",
+      "$value": "#24A148",
+      "$description": "Uso (Cordura): Éxito en momentos de alto contraste. Éxito en momentos de alto contraste. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "inverse-support-03": {
+      "$type": "color",
+      "$value": "#F1C21B",
+      "$description": "Uso (Cordura): Advertencia en momentos de alto contraste."
+    },
+    "inverse-support-04": {
+      "$type": "color",
+      "$value": "#0043CE",
+      "$description": "Uso (Cordura): Información en momentos de alto contraste. Información en momentos de alto contraste. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "notification-error-bg": {
+      "$type": "color",
+      "$value": "rgba(235,97,97,0.16)",
+      "$description": "Uso (Cordura): Fondo de aviso de error. Fondo de notificación de error. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "notification-success-bg": {
+      "$type": "color",
+      "$value": "rgba(89,184,116,0.16)",
+      "$description": "Uso (Cordura): Fondo de aviso de éxito. Fondo de notificación de éxito. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "notification-warning-bg": {
+      "$type": "color",
+      "$value": "rgba(241,194,27,0.16)",
+      "$description": "Uso (Cordura): Fondo de aviso de advertencia. Fondo de notificación de advertencia. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "notification-info-bg": {
+      "$type": "color",
+      "$value": "rgba(115,152,228,0.16)",
+      "$description": "Uso (Cordura): Fondo de aviso informativo. Fondo de notificación informativa. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+    },
+    "tag-red-bg": {
+      "$type": "color",
+      "$value": "#FDBFC2",
+      "$description": "Fondo de etiqueta red."
+    },
+    "tag-red-hover": {
+      "$type": "color",
+      "$value": "#FC9DA2",
+      "$description": "Hover de etiqueta red."
+    },
+    "tag-red-text": {
+      "$type": "color",
+      "$value": "#5B1C23",
+      "$description": "Texto de etiqueta red, sobre tag-red-bg. En alto contraste usa red-800 para llegar a 7:1."
+    },
+    "tag-yellow-bg": {
+      "$type": "color",
+      "$value": "#FAE9AD",
+      "$description": "Fondo de etiqueta yellow."
+    },
+    "tag-yellow-hover": {
+      "$type": "color",
+      "$value": "#F7DD82",
+      "$description": "Hover de etiqueta yellow."
+    },
+    "tag-yellow-text": {
+      "$type": "color",
+      "$value": "#57460E",
+      "$description": "Texto de etiqueta yellow, sobre tag-yellow-bg. Texto ajustado a yellow-800 para llegar a 4,5:1. En alto contraste usa yellow-800 para llegar a 7:1."
+    },
+    "tag-magenta-bg": {
+      "$type": "color",
+      "$value": "#F9C1D9",
+      "$description": "Fondo de etiqueta magenta."
+    },
+    "tag-magenta-hover": {
+      "$type": "color",
+      "$value": "#F6A0C5",
+      "$description": "Hover de etiqueta magenta."
+    },
+    "tag-magenta-text": {
+      "$type": "color",
+      "$value": "#561E3A",
+      "$description": "Texto de etiqueta magenta, sobre tag-magenta-bg. En alto contraste usa magenta-800 para llegar a 7:1."
+    },
+    "tag-purple-bg": {
+      "$type": "color",
+      "$value": "#DFCBFF",
+      "$description": "Fondo de etiqueta purple."
+    },
+    "tag-purple-hover": {
+      "$type": "color",
+      "$value": "#CDAFFF",
+      "$description": "Hover de etiqueta purple."
+    },
+    "tag-purple-text": {
+      "$type": "color",
+      "$value": "#3C2860",
+      "$description": "Texto de etiqueta purple, sobre tag-purple-bg. En alto contraste usa purple-800 para llegar a 7:1."
+    },
+    "tag-blue-bg": {
+      "$type": "color",
+      "$value": "#BCD5FF",
+      "$description": "Fondo de etiqueta blue."
+    },
+    "tag-blue-hover": {
+      "$type": "color",
+      "$value": "#99BEFF",
+      "$description": "Hover de etiqueta blue."
+    },
+    "tag-blue-text": {
+      "$type": "color",
+      "$value": "#193260",
+      "$description": "Texto de etiqueta blue, sobre tag-blue-bg. En alto contraste usa blue-800 para llegar a 7:1."
+    },
+    "tag-cyan-bg": {
+      "$type": "color",
+      "$value": "#A9D8F7",
+      "$description": "Fondo de etiqueta cyan."
+    },
+    "tag-cyan-hover": {
+      "$type": "color",
+      "$value": "#7CC3F2",
+      "$description": "Hover de etiqueta cyan."
+    },
+    "tag-cyan-text": {
+      "$type": "color",
+      "$value": "#073557",
+      "$description": "Texto de etiqueta cyan, sobre tag-cyan-bg. En alto contraste usa cyan-800 para llegar a 7:1."
+    },
+    "tag-teal-bg": {
+      "$type": "color",
+      "$value": "#A3DCDB",
+      "$description": "Fondo de etiqueta teal."
+    },
+    "tag-teal-hover": {
+      "$type": "color",
+      "$value": "#73C9C7",
+      "$description": "Hover de etiqueta teal."
+    },
+    "tag-teal-text": {
+      "$type": "color",
+      "$value": "#01393B",
+      "$description": "Texto de etiqueta teal, sobre tag-teal-bg. En alto contraste usa teal-800 para llegar a 7:1."
+    },
+    "tag-green-bg": {
+      "$type": "color",
+      "$value": "#B0DDBD",
+      "$description": "Fondo de etiqueta green."
+    },
+    "tag-green-hover": {
+      "$type": "color",
+      "$value": "#87CB9A",
+      "$description": "Hover de etiqueta green."
+    },
+    "tag-green-text": {
+      "$type": "color",
+      "$value": "#0D3A1E",
+      "$description": "Texto de etiqueta green, sobre tag-green-bg. En alto contraste usa green-800 para llegar a 7:1."
+    },
+    "tag-warmgray-bg": {
+      "$type": "color",
+      "$value": "#D7D5D5",
+      "$description": "Fondo de etiqueta warmgray."
+    },
+    "tag-warmgray-hover": {
+      "$type": "color",
+      "$value": "#C1BFBF",
+      "$description": "Hover de etiqueta warmgray."
+    },
+    "tag-warmgray-text": {
+      "$type": "color",
+      "$value": "#343236",
+      "$description": "Texto de etiqueta warmgray, sobre tag-warmgray-bg. En alto contraste usa warmgray-800 para llegar a 7:1."
+    },
+    "tag-gray-bg": {
+      "$type": "color",
+      "$value": "#D6D6D6",
+      "$description": "Fondo de etiqueta gray."
+    },
+    "tag-gray-hover": {
+      "$type": "color",
+      "$value": "#C0C0C0",
+      "$description": "Hover de etiqueta gray."
+    },
+    "tag-gray-text": {
+      "$type": "color",
+      "$value": "#333337",
+      "$description": "Texto de etiqueta gray, sobre tag-gray-bg. En alto contraste usa gray-800 para llegar a 7:1."
+    },
+    "tag-coolgray-bg": {
+      "$type": "color",
+      "$value": "#D0D4D9",
+      "$description": "Fondo de etiqueta coolgray."
+    },
+    "tag-coolgray-hover": {
+      "$type": "color",
+      "$value": "#B6BDC5",
+      "$description": "Hover de etiqueta coolgray."
+    },
+    "tag-coolgray-text": {
+      "$type": "color",
+      "$value": "#2D313A",
+      "$description": "Texto de etiqueta coolgray, sobre tag-coolgray-bg. En alto contraste usa coolgray-800 para llegar a 7:1."
+    },
+    "primary-50": {
+      "$type": "color",
+      "$value": "#FAFDE5",
+      "$description": "Lima de marca 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "primary-100": {
+      "$type": "color",
+      "$value": "#F5FCCB",
+      "$description": "Lima de marca 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "primary-200": {
+      "$type": "color",
+      "$value": "#F0FAB2",
+      "$description": "Lima de marca 200. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "primary-300": {
+      "$type": "color",
+      "$value": "#EBF898",
+      "$description": "Lima de marca 300. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "primary-400": {
+      "$type": "color",
+      "$value": "#E6F77E",
+      "$description": "Lima de marca 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "primary-500": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Lima de marca 500. Valor de Figma."
+    },
+    "primary-600": {
+      "$type": "color",
+      "$value": "#9CBA54",
+      "$description": "Lima de marca 600. Valor de Figma."
+    },
+    "primary-700": {
+      "$type": "color",
+      "$value": "#6F8445",
+      "$description": "Lima de marca 700. Valor de Figma."
+    },
+    "primary-800": {
+      "$type": "color",
+      "$value": "#4B5832",
+      "$description": "Lima de marca 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "primary-900": {
+      "$type": "color",
+      "$value": "#262D1F",
+      "$description": "Lima de marca 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "secondary-50": {
+      "$type": "color",
+      "$value": "#F8FBFC",
+      "$description": "Azul acero 50. Valor de Figma."
+    },
+    "secondary-100": {
+      "$type": "color",
+      "$value": "#EDF4F6",
+      "$description": "Azul acero 100. Valor de Figma."
+    },
+    "secondary-200": {
+      "$type": "color",
+      "$value": "#DDE9EF",
+      "$description": "Azul acero 200. Valor de Figma."
+    },
+    "secondary-300": {
+      "$type": "color",
+      "$value": "#CBDEE6",
+      "$description": "Azul acero 300. Valor de Figma."
+    },
+    "secondary-400": {
+      "$type": "color",
+      "$value": "#B7D1DD",
+      "$description": "Azul acero 400. Valor de Figma."
+    },
+    "secondary-500": {
+      "$type": "color",
+      "$value": "#A0C3D2",
+      "$description": "Azul acero 500. Valor de Figma."
+    },
+    "secondary-600": {
+      "$type": "color",
+      "$value": "#7A94A7",
+      "$description": "Azul acero 600. Valor de Figma."
+    },
+    "secondary-700": {
+      "$type": "color",
+      "$value": "#566980",
+      "$description": "Azul acero 700. Valor de Figma."
+    },
+    "secondary-800": {
+      "$type": "color",
+      "$value": "#485870",
+      "$description": "Azul acero 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "secondary-900": {
+      "$type": "color",
+      "$value": "#3A4660",
+      "$description": "Azul acero 900. Valor de Figma."
+    },
+    "tertiary-50": {
+      "$type": "color",
+      "$value": "#C4D2EF",
+      "$description": "Azul enlace 50. Valor de Figma."
+    },
+    "tertiary-100": {
+      "$type": "color",
+      "$value": "#ABC0EB",
+      "$description": "Azul enlace 100. Valor de Figma."
+    },
+    "tertiary-200": {
+      "$type": "color",
+      "$value": "#85A4E4",
+      "$description": "Azul enlace 200. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "tertiary-300": {
+      "$type": "color",
+      "$value": "#5F88DD",
+      "$description": "Azul enlace 300. Valor de Figma."
+    },
+    "tertiary-400": {
+      "$type": "color",
+      "$value": "#3368D5",
+      "$description": "Azul enlace 400. Valor de Figma."
+    },
+    "tertiary-500": {
+      "$type": "color",
+      "$value": "#0043CC",
+      "$description": "Azul enlace 500. Valor de Figma."
+    },
+    "tertiary-600": {
+      "$type": "color",
+      "$value": "#00339B",
+      "$description": "Azul enlace 600. Valor de Figma."
+    },
+    "tertiary-700": {
+      "$type": "color",
+      "$value": "#00247D",
+      "$description": "Azul enlace 700. Valor de Figma."
+    },
+    "tertiary-800": {
+      "$type": "color",
+      "$value": "#011857",
+      "$description": "Azul enlace 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "tertiary-900": {
+      "$type": "color",
+      "$value": "#010D32",
+      "$description": "Azul enlace 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "danger-50": {
+      "$type": "color",
+      "$value": "#FFF1F1",
+      "$description": "Error / peligro 50. Valor de Figma."
+    },
+    "danger-100": {
+      "$type": "color",
+      "$value": "#FACDCD",
+      "$description": "Error / peligro 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "danger-200": {
+      "$type": "color",
+      "$value": "#F5A9A9",
+      "$description": "Error / peligro 200. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "danger-300": {
+      "$type": "color",
+      "$value": "#F08585",
+      "$description": "Error / peligro 300. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "danger-400": {
+      "$type": "color",
+      "$value": "#EB6161",
+      "$description": "Error / peligro 400. Valor de Figma."
+    },
+    "danger-500": {
+      "$type": "color",
+      "$value": "#E52F2F",
+      "$description": "Error / peligro 500. Valor de Figma."
+    },
+    "danger-600": {
+      "$type": "color",
+      "$value": "#AE2424",
+      "$description": "Error / peligro 600. Valor de Figma."
+    },
+    "danger-700": {
+      "$type": "color",
+      "$value": "#7C1919",
+      "$description": "Error / peligro 700. Valor de Figma."
+    },
+    "danger-800": {
+      "$type": "color",
+      "$value": "#531115",
+      "$description": "Error / peligro 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "danger-900": {
+      "$type": "color",
+      "$value": "#2B0910",
+      "$description": "Error / peligro 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "success-50": {
+      "$type": "color",
+      "$value": "#F0F8F2",
+      "$description": "Éxito 50. Valor de Figma."
+    },
+    "success-100": {
+      "$type": "color",
+      "$value": "#CAE8D2",
+      "$description": "Éxito 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "success-200": {
+      "$type": "color",
+      "$value": "#A4D8B3",
+      "$description": "Éxito 200. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "success-300": {
+      "$type": "color",
+      "$value": "#7FC894",
+      "$description": "Éxito 300. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "success-400": {
+      "$type": "color",
+      "$value": "#59B874",
+      "$description": "Éxito 400. Valor de Figma."
+    },
+    "success-500": {
+      "$type": "color",
+      "$value": "#24A148",
+      "$description": "Éxito 500. Valor de Figma."
+    },
+    "success-600": {
+      "$type": "color",
+      "$value": "#1D813C",
+      "$description": "Éxito 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "success-700": {
+      "$type": "color",
+      "$value": "#166130",
+      "$description": "Éxito 700. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "success-800": {
+      "$type": "color",
+      "$value": "#104124",
+      "$description": "Éxito 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "success-900": {
+      "$type": "color",
+      "$value": "#092118",
+      "$description": "Éxito 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warning-50": {
+      "$type": "color",
+      "$value": "#FEFBEF",
+      "$description": "Advertencia 50. Valor de Figma."
+    },
+    "warning-100": {
+      "$type": "color",
+      "$value": "#FBF0C5",
+      "$description": "Advertencia 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warning-200": {
+      "$type": "color",
+      "$value": "#F9E49A",
+      "$description": "Advertencia 200. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warning-300": {
+      "$type": "color",
+      "$value": "#F6D970",
+      "$description": "Advertencia 300. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warning-400": {
+      "$type": "color",
+      "$value": "#F4CD45",
+      "$description": "Advertencia 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warning-500": {
+      "$type": "color",
+      "$value": "#F1C21B",
+      "$description": "Advertencia 500. Valor de Figma."
+    },
+    "warning-600": {
+      "$type": "color",
+      "$value": "#C19B18",
+      "$description": "Advertencia 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warning-700": {
+      "$type": "color",
+      "$value": "#917515",
+      "$description": "Advertencia 700. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warning-800": {
+      "$type": "color",
+      "$value": "#624E12",
+      "$description": "Advertencia 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warning-900": {
+      "$type": "color",
+      "$value": "#32280F",
+      "$description": "Advertencia 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "info-50": {
+      "$type": "color",
+      "$value": "#EDF5FF",
+      "$description": "Información 50. Valor de Figma."
+    },
+    "info-100": {
+      "$type": "color",
+      "$value": "#CEDEF8",
+      "$description": "Información 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "info-200": {
+      "$type": "color",
+      "$value": "#B0C6F2",
+      "$description": "Información 200. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "info-300": {
+      "$type": "color",
+      "$value": "#92AFEB",
+      "$description": "Información 300. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "info-400": {
+      "$type": "color",
+      "$value": "#7398E4",
+      "$description": "Información 400. Valor de Figma."
+    },
+    "info-500": {
+      "$type": "color",
+      "$value": "#0043CE",
+      "$description": "Información 500. Valor de Figma."
+    },
+    "info-600": {
+      "$type": "color",
+      "$value": "#0036A7",
+      "$description": "Información 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "info-700": {
+      "$type": "color",
+      "$value": "#012980",
+      "$description": "Información 700. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "info-800": {
+      "$type": "color",
+      "$value": "#011B5A",
+      "$description": "Información 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "info-900": {
+      "$type": "color",
+      "$value": "#020E33",
+      "$description": "Información 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "red-50": {
+      "$type": "color",
+      "$value": "#FEEAEB",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "red-100": {
+      "$type": "color",
+      "$value": "#FED4D6",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "red-200": {
+      "$type": "color",
+      "$value": "#FDBFC2",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "red-300": {
+      "$type": "color",
+      "$value": "#FC9DA2",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "red-400": {
+      "$type": "color",
+      "$value": "#DF8085",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "red-500": {
+      "$type": "color",
+      "$value": "#C26468",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "red-600": {
+      "$type": "color",
+      "$value": "#A4474B",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "red-700": {
+      "$type": "color",
+      "$value": "#872A2E",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "red-800": {
+      "$type": "color",
+      "$value": "#5B1C23",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "red-900": {
+      "$type": "color",
+      "$value": "#2E0F17",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "yellow-50": {
+      "$type": "color",
+      "$value": "#FDF8E4",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "yellow-100": {
+      "$type": "color",
+      "$value": "#FCF0C8",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "yellow-200": {
+      "$type": "color",
+      "$value": "#FAE9AD",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "yellow-300": {
+      "$type": "color",
+      "$value": "#F7DD82",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "yellow-400": {
+      "$type": "color",
+      "$value": "#DAC065",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "yellow-500": {
+      "$type": "color",
+      "$value": "#BCA348",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "yellow-600": {
+      "$type": "color",
+      "$value": "#9F862C",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "yellow-700": {
+      "$type": "color",
+      "$value": "#82690F",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "yellow-800": {
+      "$type": "color",
+      "$value": "#57460E",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "yellow-900": {
+      "$type": "color",
+      "$value": "#2D240D",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "magenta-50": {
+      "$type": "color",
+      "$value": "#FDEAF2",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "magenta-100": {
+      "$type": "color",
+      "$value": "#FBD6E6",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "magenta-200": {
+      "$type": "color",
+      "$value": "#F9C1D9",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "magenta-300": {
+      "$type": "color",
+      "$value": "#F6A0C5",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "magenta-400": {
+      "$type": "color",
+      "$value": "#D883A8",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "magenta-500": {
+      "$type": "color",
+      "$value": "#BB668B",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "magenta-600": {
+      "$type": "color",
+      "$value": "#9E4A6E",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "magenta-700": {
+      "$type": "color",
+      "$value": "#802D51",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "magenta-800": {
+      "$type": "color",
+      "$value": "#561E3A",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "magenta-900": {
+      "$type": "color",
+      "$value": "#2C1023",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "purple-50": {
+      "$type": "color",
+      "$value": "#F4EEFF",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "purple-100": {
+      "$type": "color",
+      "$value": "#EADCFF",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "purple-200": {
+      "$type": "color",
+      "$value": "#DFCBFF",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "purple-300": {
+      "$type": "color",
+      "$value": "#CDAFFF",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "purple-400": {
+      "$type": "color",
+      "$value": "#B092E2",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "purple-500": {
+      "$type": "color",
+      "$value": "#9375C4",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "purple-600": {
+      "$type": "color",
+      "$value": "#7658A7",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "purple-700": {
+      "$type": "color",
+      "$value": "#593B8A",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "purple-800": {
+      "$type": "color",
+      "$value": "#3C2860",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "purple-900": {
+      "$type": "color",
+      "$value": "#1F1436",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "blue-50": {
+      "$type": "color",
+      "$value": "#E9F1FF",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "blue-100": {
+      "$type": "color",
+      "$value": "#D2E3FF",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "blue-200": {
+      "$type": "color",
+      "$value": "#BCD5FF",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "blue-300": {
+      "$type": "color",
+      "$value": "#99BEFF",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "blue-400": {
+      "$type": "color",
+      "$value": "#7CA1E2",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "blue-500": {
+      "$type": "color",
+      "$value": "#5F84C4",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "blue-600": {
+      "$type": "color",
+      "$value": "#4267A7",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "blue-700": {
+      "$type": "color",
+      "$value": "#254A8A",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "blue-800": {
+      "$type": "color",
+      "$value": "#193260",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "blue-900": {
+      "$type": "color",
+      "$value": "#0E1936",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "cyan-50": {
+      "$type": "color",
+      "$value": "#E2F2FC",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "cyan-100": {
+      "$type": "color",
+      "$value": "#C6E5FA",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "cyan-200": {
+      "$type": "color",
+      "$value": "#A9D8F7",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "cyan-300": {
+      "$type": "color",
+      "$value": "#7CC3F2",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "cyan-400": {
+      "$type": "color",
+      "$value": "#5FA6D5",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "cyan-500": {
+      "$type": "color",
+      "$value": "#4289B8",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "cyan-600": {
+      "$type": "color",
+      "$value": "#266C9A",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "cyan-700": {
+      "$type": "color",
+      "$value": "#094F7D",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "cyan-800": {
+      "$type": "color",
+      "$value": "#073557",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "cyan-900": {
+      "$type": "color",
+      "$value": "#041B32",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "teal-50": {
+      "$type": "color",
+      "$value": "#E0F3F3",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "teal-100": {
+      "$type": "color",
+      "$value": "#C2E8E7",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "teal-200": {
+      "$type": "color",
+      "$value": "#A3DCDB",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "teal-300": {
+      "$type": "color",
+      "$value": "#73C9C7",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "teal-400": {
+      "$type": "color",
+      "$value": "#56ACAA",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "teal-500": {
+      "$type": "color",
+      "$value": "#3A8F8D",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "teal-600": {
+      "$type": "color",
+      "$value": "#1D7270",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "teal-700": {
+      "$type": "color",
+      "$value": "#005553",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "teal-800": {
+      "$type": "color",
+      "$value": "#01393B",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "teal-900": {
+      "$type": "color",
+      "$value": "#011D24",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "green-50": {
+      "$type": "color",
+      "$value": "#E5F4E9",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "green-100": {
+      "$type": "color",
+      "$value": "#CAE8D3",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "green-200": {
+      "$type": "color",
+      "$value": "#B0DDBD",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "green-300": {
+      "$type": "color",
+      "$value": "#87CB9A",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "green-400": {
+      "$type": "color",
+      "$value": "#6AAE7D",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "green-500": {
+      "$type": "color",
+      "$value": "#4D9160",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "green-600": {
+      "$type": "color",
+      "$value": "#307444",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "green-700": {
+      "$type": "color",
+      "$value": "#135727",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "green-800": {
+      "$type": "color",
+      "$value": "#0D3A1E",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "green-900": {
+      "$type": "color",
+      "$value": "#081E15",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warmgray-50": {
+      "$type": "color",
+      "$value": "#F2F1F1",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warmgray-100": {
+      "$type": "color",
+      "$value": "#E4E3E3",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warmgray-200": {
+      "$type": "color",
+      "$value": "#D7D5D5",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "warmgray-300": {
+      "$type": "color",
+      "$value": "#C1BFBF",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "warmgray-400": {
+      "$type": "color",
+      "$value": "#A4A2A2",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warmgray-500": {
+      "$type": "color",
+      "$value": "#878585",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warmgray-600": {
+      "$type": "color",
+      "$value": "#6A6868",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warmgray-700": {
+      "$type": "color",
+      "$value": "#4D4B4B",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "warmgray-800": {
+      "$type": "color",
+      "$value": "#343236",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "warmgray-900": {
+      "$type": "color",
+      "$value": "#1B1A21",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "gray-50": {
+      "$type": "color",
+      "$value": "#F1F1F1",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "gray-100": {
+      "$type": "color",
+      "$value": "#E4E4E4",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "gray-200": {
+      "$type": "color",
+      "$value": "#D6D6D6",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "gray-300": {
+      "$type": "color",
+      "$value": "#C0C0C0",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "gray-400": {
+      "$type": "color",
+      "$value": "#A3A3A3",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "gray-500": {
+      "$type": "color",
+      "$value": "#868686",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "gray-600": {
+      "$type": "color",
+      "$value": "#696969",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "gray-700": {
+      "$type": "color",
+      "$value": "#4C4C4C",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "gray-800": {
+      "$type": "color",
+      "$value": "#333337",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "gray-900": {
+      "$type": "color",
+      "$value": "#1B1A21",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "coolgray-50": {
+      "$type": "color",
+      "$value": "#EFF1F2",
+      "$description": "Paleta secundaria 50. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "coolgray-100": {
+      "$type": "color",
+      "$value": "#E0E2E6",
+      "$description": "Paleta secundaria 100. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "coolgray-200": {
+      "$type": "color",
+      "$value": "#D0D4D9",
+      "$description": "Paleta secundaria 200. Valor de Figma."
+    },
+    "coolgray-300": {
+      "$type": "color",
+      "$value": "#B6BDC5",
+      "$description": "Paleta secundaria 300. Valor de Figma."
+    },
+    "coolgray-400": {
+      "$type": "color",
+      "$value": "#99A0A8",
+      "$description": "Paleta secundaria 400. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "coolgray-500": {
+      "$type": "color",
+      "$value": "#7C838B",
+      "$description": "Paleta secundaria 500. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "coolgray-600": {
+      "$type": "color",
+      "$value": "#5F666E",
+      "$description": "Paleta secundaria 600. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "coolgray-700": {
+      "$type": "color",
+      "$value": "#424951",
+      "$description": "Paleta secundaria 700. Valor de Figma."
+    },
+    "coolgray-800": {
+      "$type": "color",
+      "$value": "#2D313A",
+      "$description": "Paleta secundaria 800. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "coolgray-900": {
+      "$type": "color",
+      "$value": "#171923",
+      "$description": "Paleta secundaria 900. Interpolado entre los valores de Figma; aprobado el 2026-09-29."
+    },
+    "danger": {
+      "$type": "color",
+      "$value": "{color.support-01}",
+      "$description": "Uso (Cordura): Fondo del botón de peligro (contraste 3:1)."
+    },
+    "viz-cat-01": {
+      "$type": "color",
+      "$value": "#E1F564",
+      "$description": "Serie 1 de gráficos categóricos (lima). 3:1 o más sobre ui-01. Usa las series en este orden; con más de 8 categorías agrupa en «Otros»."
+    },
+    "viz-cat-02": {
+      "$type": "color",
+      "$value": "#3368D5",
+      "$description": "Serie 2 de gráficos categóricos (azul). 3:1 o más sobre ui-01. Usa las series en este orden; con más de 8 categorías agrupa en «Otros»."
+    },
+    "viz-cat-03": {
+      "$type": "color",
+      "$value": "#BB668B",
+      "$description": "Serie 3 de gráficos categóricos (magenta). 3:1 o más sobre ui-01. Usa las series en este orden; con más de 8 categorías agrupa en «Otros»."
+    },
+    "viz-cat-04": {
+      "$type": "color",
+      "$value": "#3A8F8D",
+      "$description": "Serie 4 de gráficos categóricos (verde azulado). 3:1 o más sobre ui-01. Usa las series en este orden; con más de 8 categorías agrupa en «Otros»."
+    },
+    "viz-cat-05": {
+      "$type": "color",
+      "$value": "#BCA348",
+      "$description": "Serie 5 de gráficos categóricos (amarillo). 3:1 o más sobre ui-01. Usa las series en este orden; con más de 8 categorías agrupa en «Otros»."
+    },
+    "viz-cat-06": {
+      "$type": "color",
+      "$value": "#9375C4",
+      "$description": "Serie 6 de gráficos categóricos (morado). 3:1 o más sobre ui-01. Usa las series en este orden; con más de 8 categorías agrupa en «Otros»."
+    },
+    "viz-cat-07": {
+      "$type": "color",
+      "$value": "#4289B8",
+      "$description": "Serie 7 de gráficos categóricos (cian). 3:1 o más sobre ui-01. Usa las series en este orden; con más de 8 categorías agrupa en «Otros»."
+    },
+    "viz-cat-08": {
+      "$type": "color",
+      "$value": "#C26468",
+      "$description": "Serie 8 de gráficos categóricos (rojo). 3:1 o más sobre ui-01. Usa las series en este orden; con más de 8 categorías agrupa en «Otros»."
+    },
+    "viz-seq-1": {
+      "$type": "color",
+      "$value": "#ABC0EB",
+      "$description": "Escala secuencial (paso 1 de 5, de menos a más), para mapas de calor y valores ordenados."
+    },
+    "viz-seq-2": {
+      "$type": "color",
+      "$value": "#5F88DD",
+      "$description": "Escala secuencial (paso 2 de 5, de menos a más), para mapas de calor y valores ordenados."
+    },
+    "viz-seq-3": {
+      "$type": "color",
+      "$value": "#0043CC",
+      "$description": "Escala secuencial (paso 3 de 5, de menos a más), para mapas de calor y valores ordenados."
+    },
+    "viz-seq-4": {
+      "$type": "color",
+      "$value": "#00247D",
+      "$description": "Escala secuencial (paso 4 de 5, de menos a más), para mapas de calor y valores ordenados."
+    },
+    "viz-seq-5": {
+      "$type": "color",
+      "$value": "#010D32",
+      "$description": "Escala secuencial (paso 5 de 5, de menos a más), para mapas de calor y valores ordenados."
+    },
+    "viz-div-1": {
+      "$type": "color",
+      "$value": "#AE2424",
+      "$description": "Escala divergente (paso 1 de 5): rojo = por debajo, acero = neutro, azul = por encima. Nunca solo verde contra rojo."
+    },
+    "viz-div-2": {
+      "$type": "color",
+      "$value": "#F08585",
+      "$description": "Escala divergente (paso 2 de 5): rojo = por debajo, acero = neutro, azul = por encima. Nunca solo verde contra rojo."
+    },
+    "viz-div-3": {
+      "$type": "color",
+      "$value": "#DDE9EF",
+      "$description": "Escala divergente (paso 3 de 5): rojo = por debajo, acero = neutro, azul = por encima. Nunca solo verde contra rojo."
+    },
+    "viz-div-4": {
+      "$type": "color",
+      "$value": "#5F88DD",
+      "$description": "Escala divergente (paso 4 de 5): rojo = por debajo, acero = neutro, azul = por encima. Nunca solo verde contra rojo."
+    },
+    "viz-div-5": {
+      "$type": "color",
+      "$value": "#00339B",
+      "$description": "Escala divergente (paso 5 de 5): rojo = por debajo, acero = neutro, azul = por encima. Nunca solo verde contra rojo."
+    },
+    "button-filled-bg": {
+      "$type": "color",
+      "$value": "{color.interactive-01}",
+      "$description": "Button filled: fondo. Token de componente: alias de interactive-01."
+    },
+    "button-filled-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-primary}",
+      "$description": "Button filled: fondo al pasar el puntero. Token de componente: alias de hover-primary."
+    },
+    "button-filled-bg-active": {
+      "$type": "color",
+      "$value": "{color.active-primary}",
+      "$description": "Button filled: fondo al presionar. Token de componente: alias de active-primary."
+    },
+    "button-filled-text": {
+      "$type": "color",
+      "$value": "{color.text-on-interactive}",
+      "$description": "Button filled: texto e ícono. Token de componente: alias de text-on-interactive."
+    },
+    "button-filled-text-active": {
+      "$type": "color",
+      "$value": "{color.text-on-pressed}",
+      "$description": "Button filled: texto al presionar. Token de componente: alias de text-on-pressed."
+    },
+    "button-gray-bg": {
+      "$type": "color",
+      "$value": "{color.interactive-02}",
+      "$description": "Button gray: fondo. Token de componente: alias de interactive-02."
+    },
+    "button-gray-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-secondary}",
+      "$description": "Button gray: fondo al pasar el puntero. Token de componente: alias de hover-secondary."
+    },
+    "button-gray-bg-active": {
+      "$type": "color",
+      "$value": "{color.active-secondary}",
+      "$description": "Button gray: fondo al presionar. Token de componente: alias de active-secondary."
+    },
+    "button-gray-text": {
+      "$type": "color",
+      "$value": "{color.text-on-interactive}",
+      "$description": "Button gray: texto e ícono. Token de componente: alias de text-on-interactive."
+    },
+    "button-gray-text-active": {
+      "$type": "color",
+      "$value": "{color.brand-white}",
+      "$description": "Button gray: texto al presionar. Token de componente: alias de brand-white."
+    },
+    "button-plain-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "Button plain (y botones de menú planos): fondo al pasar el puntero. En claro, tertiary-50 (hover-row de Figma) para que el texto azul pase 4,5:1. Token de componente: alias por tema: dark → hover-ui, light → tertiary-50, dark-hc → hover-ui, light-hc → tertiary-50."
+    },
+    "button-plain-bg-active": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "Button plain: fondo al presionar; el estado lo marca un borde interior de 2 px. Token de componente: alias por tema: dark → hover-ui, light → tertiary-50, dark-hc → hover-ui, light-hc → tertiary-50."
+    },
+    "button-ghost-bg": {
+      "$type": "color",
+      "$value": "{color.brand-ink}",
+      "$description": "Button ghost (sobre imagen o fondos claros de marca): fondo. Token de componente: alias de brand-ink."
+    },
+    "button-ghost-bg-hover": {
+      "$type": "color",
+      "$value": "{color.active-secondary}",
+      "$description": "Button ghost: fondo al pasar el puntero. Token de componente: alias de active-secondary."
+    },
+    "button-ghost-bg-active": {
+      "$type": "color",
+      "$value": "{color.hover-secondary}",
+      "$description": "Button ghost: fondo al presionar. Token de componente: alias de hover-secondary."
+    },
+    "button-ghost-text": {
+      "$type": "color",
+      "$value": "{color.secondary-50}",
+      "$description": "Button ghost: texto. Token de componente: alias de secondary-50."
+    },
+    "button-ghost-text-active": {
+      "$type": "color",
+      "$value": "{color.text-on-interactive}",
+      "$description": "Button ghost: texto al presionar. Token de componente: alias de text-on-interactive."
+    },
+    "button-ghost-text-disabled": {
+      "$type": "color",
+      "$value": "{color.secondary-700}",
+      "$description": "Button ghost desactivado: texto. Token de componente: alias de secondary-700."
+    },
+    "button-inverse-bg": {
+      "$type": "color",
+      "$value": "{color.brand-white}",
+      "$description": "Button inverse (piezas de marca oscuras): fondo. Token de componente: alias de brand-white."
+    },
+    "button-inverse-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-secondary}",
+      "$description": "Button inverse: fondo al pasar el puntero. Token de componente: alias de hover-secondary."
+    },
+    "button-inverse-bg-active": {
+      "$type": "color",
+      "$value": "{color.active-secondary}",
+      "$description": "Button inverse: fondo al presionar. Token de componente: alias de active-secondary."
+    },
+    "button-inverse-text": {
+      "$type": "color",
+      "$value": "{color.text-on-interactive}",
+      "$description": "Button inverse: texto. Token de componente: alias de text-on-interactive."
+    },
+    "button-inverse-text-active": {
+      "$type": "color",
+      "$value": "{color.brand-white}",
+      "$description": "Button inverse: texto al presionar. Token de componente: alias de brand-white."
+    },
+    "button-destructive-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-danger}",
+      "$description": "Button destructivo relleno: fondo al pasar el puntero. Token de componente: alias de hover-danger."
+    },
+    "button-destructive-bg-active": {
+      "$type": "color",
+      "$value": "{color.active-danger}",
+      "$description": "Button destructivo relleno: fondo al presionar. Token de componente: alias de active-danger."
+    },
+    "button-destructive-text-on-fill": {
+      "$type": "color",
+      "$value": "{color.text-on-pressed}",
+      "$description": "Button destructivo relleno: texto. Token de componente: alias de text-on-pressed."
+    },
+    "button-destructive-text-pressed": {
+      "$type": "color",
+      "$value": "{color.brand-white}",
+      "$description": "Button destructivo: texto al pasar el puntero o presionar. Token de componente: alias de brand-white."
+    },
+    "button-destructive-gray-text": {
+      "$type": "color",
+      "$value": "{color.active-danger}",
+      "$description": "Button destructivo gray: texto. Token de componente: alias de active-danger."
+    },
+    "button-destructive-gray-bg-hover": {
+      "$type": "color",
+      "$value": "{color.secondary-400}",
+      "$description": "Button destructivo gray: fondo al pasar el puntero (se aclara para que el texto rojo mantenga el contraste). Token de componente: alias de secondary-400."
+    },
+    "button-destructive-plain-bg-hover": {
+      "$type": "color",
+      "$value": "{color.button-destructive-tinted-bg}",
+      "$description": "Button destructivo plain: fondo al pasar el puntero (rojo translúcido, nunca neutro ni lima). Token de componente: alias de button-destructive-tinted-bg."
+    },
+    "button-destructive-plain-bg-active": {
+      "$type": "color",
+      "$value": "{color.button-destructive-tinted-bg-hover}",
+      "$description": "Button destructivo plain: fondo al presionar. Token de componente: alias de button-destructive-tinted-bg-hover."
+    },
+    "button-tertiary-text": {
+      "$type": "color",
+      "$value": "{color.interactive-03}",
+      "$description": "Button tertiary: texto (Cordura: interactive-03; en claro interactive-04, porque interactive-03 es blanco y no se ve sobre la página clara). Token de componente: alias por tema: dark → interactive-03, light → interactive-04, dark-hc → interactive-03, light-hc → interactive-04."
+    },
+    "button-tertiary-border": {
+      "$type": "color",
+      "$value": "{color.interactive-03}",
+      "$description": "Button tertiary: borde de 1 px (mismo color que el texto). Token de componente: alias por tema: dark → interactive-03, light → interactive-04, dark-hc → interactive-03, light-hc → interactive-04."
+    },
+    "button-tertiary-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-tertiary}",
+      "$description": "Button tertiary: fondo al pasar el puntero (Cordura: hover-tertiary). Token de componente: alias de hover-tertiary."
+    },
+    "button-tertiary-text-hover": {
+      "$type": "color",
+      "$value": "{color.inverse-01}",
+      "$description": "Button tertiary: texto al pasar el puntero (Cordura: inverse-01). Token de componente: alias de inverse-01."
+    },
+    "button-tertiary-bg-active": {
+      "$type": "color",
+      "$value": "{color.hover-tertiary}",
+      "$description": "Button tertiary: fondo al presionar (Cordura: active-tertiary; en alto contraste oscuro, hover-tertiary para mantener 7:1). Token de componente: alias por tema: dark → active-tertiary, light → active-tertiary, dark-hc → hover-tertiary, light-hc → active-tertiary."
+    },
+    "button-tertiary-text-active": {
+      "$type": "color",
+      "$value": "{color.inverse-01}",
+      "$description": "Button tertiary: texto y borde interior de 2 px al presionar. Token de componente: alias de inverse-01."
+    },
+    "button-disabled-bg": {
+      "$type": "color",
+      "$value": "{color.disabled-01}",
+      "$description": "Button desactivado: fondo. Token de componente: alias de disabled-01."
+    },
+    "button-disabled-text": {
+      "$type": "color",
+      "$value": "{color.disabled-03}",
+      "$description": "Button desactivado: texto. Token de componente: alias de disabled-03."
+    },
+    "field-border-active": {
+      "$type": "color",
+      "$value": "{color.field-border}",
+      "$description": "TextInput: borde al presionar. Token de componente: alias de active-primary; en alto contraste, de field-border."
+    },
+    "field-border-error": {
+      "$type": "color",
+      "$value": "{color.danger-400}",
+      "$description": "TextInput con error: borde. Token de componente: alias de danger-400."
+    },
+    "field-border-disabled": {
+      "$type": "color",
+      "$value": "{color.ui-04}",
+      "$description": "TextInput desactivado: borde. Token de componente: alias de ui-04."
+    },
+    "field-text": {
+      "$type": "color",
+      "$value": "{color.text-01}",
+      "$description": "TextInput: texto escrito. Token de componente: alias de text-01."
+    },
+    "field-text-error": {
+      "$type": "color",
+      "$value": "{color.text-error}",
+      "$description": "TextInput con error: etiqueta y texto. Token de componente: alias de text-error."
+    },
+    "field-text-disabled": {
+      "$type": "color",
+      "$value": "{color.ui-04}",
+      "$description": "TextInput desactivado: etiqueta, texto e ícono. Token de componente: alias de ui-04."
+    },
+    "field-placeholder": {
+      "$type": "color",
+      "$value": "{color.text-03}",
+      "$description": "TextInput: texto de ejemplo. Token de componente: alias de text-03."
+    },
+    "field-icon": {
+      "$type": "color",
+      "$value": "{color.icon-02}",
+      "$description": "TextInput: ícono (mostrar contraseña). Token de componente: alias de icon-02."
+    },
+    "field-label-float-bg": {
+      "$type": "color",
+      "$value": "{color.secondary-50}",
+      "$description": "TextInput: fondo de la etiqueta flotante. Token de componente: alias de secondary-50."
+    },
+    "field-label-float-text": {
+      "$type": "color",
+      "$value": "{color.text-on-interactive}",
+      "$description": "TextInput: texto de la etiqueta flotante. Token de componente: alias de text-on-interactive."
+    },
+    "field-label-float-error": {
+      "$type": "color",
+      "$value": "{color.hover-danger}",
+      "$description": "TextInput con error: texto de la etiqueta flotante. Token de componente: alias de hover-danger."
+    },
+    "control-off-border": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "Switch, Checkbox y Radio apagados: borde. Token de componente: alias de border-control."
+    },
+    "segmented-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "SegmentedControl: fondo del riel. Token de componente: alias de ui-01."
+    },
+    "segmented-border": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "SegmentedControl: borde del riel. Token de componente: alias de border-control."
+    },
+    "segmented-text": {
+      "$type": "color",
+      "$value": "{color.text-02}",
+      "$description": "SegmentedControl: opción sin elegir. Token de componente: alias de text-02."
+    },
+    "segmented-selected-bg": {
+      "$type": "color",
+      "$value": "{color.brand-white}",
+      "$description": "SegmentedControl: fondo de la opción elegida. Token de componente: alias de brand-white."
+    },
+    "segmented-selected-text": {
+      "$type": "color",
+      "$value": "{color.tertiary-600}",
+      "$description": "SegmentedControl: texto de la opción elegida. Token de componente: alias de tertiary-600."
+    },
+    "stepper-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Stepper: fondo. Token de componente: alias de ui-01."
+    },
+    "stepper-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "Stepper: fondo al pasar el puntero. Token de componente: alias de hover-ui."
+    },
+    "stepper-border": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "Stepper: borde. Token de componente: alias de border-control."
+    },
+    "product-card-bg": {
+      "$type": "color",
+      "$value": "{color.tag-red-bg}",
+      "$description": "ProductCard: fondo por defecto (cambia con el tono de la tarjeta). Token de componente: alias de tag-red-bg."
+    },
+    "product-card-text": {
+      "$type": "color",
+      "$value": "{color.text-on-interactive}",
+      "$description": "ProductCard: texto. Token de componente: alias de text-on-interactive."
+    },
+    "product-card-subtitle": {
+      "$type": "color",
+      "$value": "{color.tertiary-700}",
+      "$description": "ProductCard: subtítulo. Token de componente: alias de tertiary-500; en alto contraste, de tertiary-700."
+    },
+    "product-card-toggle-bg": {
+      "$type": "color",
+      "$value": "{color.brand-white}",
+      "$description": "ProductCard: botón para desplegar. Token de componente: alias de brand-white."
+    },
+    "payment-card-brand": {
+      "$type": "color",
+      "$value": "{color.brand-steel}",
+      "$description": "PaymentCard: marca. Token de componente: alias de brand-steel."
+    },
+    "payment-card-text": {
+      "$type": "color",
+      "$value": "{color.secondary-400}",
+      "$description": "PaymentCard: etiquetas y datos. Token de componente: alias de secondary-600; en alto contraste, de secondary-400."
+    },
+    "payment-card-pending": {
+      "$type": "color",
+      "$value": "{color.danger-200}",
+      "$description": "PaymentCard pendiente o activándose: número, chip y copiar. Token de componente: alias de danger-400; en alto contraste, de danger-200."
+    },
+    "payment-card-active": {
+      "$type": "color",
+      "$value": "{color.success-300}",
+      "$description": "PaymentCard habilitada o activa: número, chip y copiar. Token de componente: alias de success-400; en alto contraste, de success-300."
+    },
+    "payment-card-chip-activating": {
+      "$type": "color",
+      "$value": "{color.support-03}",
+      "$description": "PaymentCard activándose: borde del chip. Token de componente: alias de support-03."
+    },
+    "progress-line-loading": {
+      "$type": "color",
+      "$value": "{color.brand-lime}",
+      "$description": "ProgressLine cargando: brillo. Token de componente: alias de brand-lime."
+    },
+    "progress-line-success": {
+      "$type": "color",
+      "$value": "{color.success-400}",
+      "$description": "ProgressLine completa. Token de componente: alias de success-400."
+    },
+    "progress-bar-track": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "ProgressBar: riel. Token de componente: alias de ui-03."
+    },
+    "progress-bar-fill": {
+      "$type": "color",
+      "$value": "{color.control-on}",
+      "$description": "ProgressBar: avance. Token de componente: alias de control-on."
+    },
+    "progress-bar-fill-error": {
+      "$type": "color",
+      "$value": "{color.status-icon-error}",
+      "$description": "ProgressBar con error: avance. Token de componente: alias de status-icon-error."
+    },
+    "progress-bar-fill-success": {
+      "$type": "color",
+      "$value": "{color.status-icon-success}",
+      "$description": "ProgressBar completa: avance. Token de componente: alias de status-icon-success."
+    },
+    "activity-indicator": {
+      "$type": "color",
+      "$value": "{color.control-on}",
+      "$description": "ActivityIndicator: trazo. Token de componente: alias de control-on."
+    },
+    "slider-track": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "Slider: riel. Token de componente: alias de border-control."
+    },
+    "slider-fill": {
+      "$type": "color",
+      "$value": "{color.control-on}",
+      "$description": "Slider: tramo recorrido. Token de componente: alias de control-on."
+    },
+    "slider-thumb": {
+      "$type": "color",
+      "$value": "{color.control-on}",
+      "$description": "Slider: tirador. Token de componente: alias de control-on."
+    },
+    "slider-thumb-ring": {
+      "$type": "color",
+      "$value": "{color.ui-02}",
+      "$description": "Slider: anillo que separa el tirador del riel. Token de componente: alias de ui-02."
+    },
+    "slider-field-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Slider: fondo del campo de valor. Token de componente: alias de ui-01."
+    },
+    "slider-field-border": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "Slider: borde del campo de valor. Token de componente: alias de border-control."
+    },
+    "popup-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "PopUpButton: fondo. Token de componente: alias de ui-01."
+    },
+    "popup-border": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "PopUpButton: borde. Token de componente: alias de border-control."
+    },
+    "popup-border-hover": {
+      "$type": "color",
+      "$value": "{color.field-border-hover}",
+      "$description": "PopUpButton: borde al pasar el puntero. Token de componente: alias de field-border-hover."
+    },
+    "popup-border-open": {
+      "$type": "color",
+      "$value": "{color.field-border}",
+      "$description": "PopUpButton: borde con el menú abierto. Token de componente: alias de field-border."
+    },
+    "menu-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Menú desplegable: fondo. Token de componente: alias de ui-01."
+    },
+    "menu-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Menú desplegable: borde y separadores. Token de componente: alias de ui-03."
+    },
+    "menu-item-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "Menú: opción bajo el puntero o el teclado. Token de componente: alias de hover-ui."
+    },
+    "menu-item-destructive-text": {
+      "$type": "color",
+      "$value": "{color.button-destructive-text}",
+      "$description": "Menú: opción destructiva. Token de componente: alias de button-destructive-text."
+    },
+    "alert-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Alert: fondo. Token de componente: alias de ui-01."
+    },
+    "alert-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Alert: borde. Token de componente: alias de ui-03."
+    },
+    "tooltip-bg": {
+      "$type": "color",
+      "$value": "{color.inverse-02}",
+      "$description": "Tooltip: fondo. Token de componente: alias de inverse-02."
+    },
+    "tooltip-text": {
+      "$type": "color",
+      "$value": "{color.inverse-01}",
+      "$description": "Tooltip: texto. Token de componente: alias de inverse-01."
+    },
+    "tip-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Tip: fondo. Token de componente: alias de ui-01."
+    },
+    "tip-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Tip: borde. Token de componente: alias de ui-03."
+    },
+    "tip-icon": {
+      "$type": "color",
+      "$value": "{color.control-on}",
+      "$description": "Tip: ícono. Token de componente: alias de control-on."
+    },
+    "badge-bg": {
+      "$type": "color",
+      "$value": "{color.button-destructive-fill}",
+      "$description": "Insignia: fondo. Token de componente: alias de button-destructive-fill."
+    },
+    "badge-text": {
+      "$type": "color",
+      "$value": "{color.text-on-pressed}",
+      "$description": "Insignia: número. Token de componente: alias de text-on-pressed."
+    },
+    "tabs-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Tabs: línea base. Token de componente: alias de ui-03."
+    },
+    "tabs-text": {
+      "$type": "color",
+      "$value": "{color.text-02}",
+      "$description": "Tabs: pestaña sin elegir. Token de componente: alias de text-02."
+    },
+    "tabs-text-selected": {
+      "$type": "color",
+      "$value": "{color.nav-selected}",
+      "$description": "Tabs: pestaña elegida. Token de componente: alias de nav-selected."
+    },
+    "tabs-indicator": {
+      "$type": "color",
+      "$value": "{color.nav-selected}",
+      "$description": "Tabs: subrayado de la pestaña elegida. Token de componente: alias de nav-selected."
+    },
+    "tab-bar-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "TabBar: fondo. Token de componente: alias de ui-01."
+    },
+    "tab-bar-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "TabBar: borde superior. Token de componente: alias de ui-03."
+    },
+    "tab-bar-text": {
+      "$type": "color",
+      "$value": "{color.text-02}",
+      "$description": "TabBar: destino sin elegir. Token de componente: alias de text-02."
+    },
+    "tab-bar-text-selected": {
+      "$type": "color",
+      "$value": "{color.nav-selected}",
+      "$description": "TabBar: destino elegido. Token de componente: alias de nav-selected."
+    },
+    "sidebar-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Sidebar: fondo. Token de componente: alias de ui-01."
+    },
+    "sidebar-item-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "Sidebar: fila bajo el puntero. Token de componente: alias de hover-ui."
+    },
+    "sidebar-item-bg-selected": {
+      "$type": "color",
+      "$value": "{color.selected-ui}",
+      "$description": "Sidebar: fila elegida. Token de componente: alias de selected-ui."
+    },
+    "sidebar-item-text-selected": {
+      "$type": "color",
+      "$value": "{color.nav-selected}",
+      "$description": "Sidebar: texto e ícono de la fila elegida. Token de componente: alias de nav-selected."
+    },
+    "toolbar-bg": {
+      "$type": "color",
+      "$value": "{color.ui-02}",
+      "$description": "Toolbar: fondo. Token de componente: alias de ui-02."
+    },
+    "toolbar-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Toolbar: borde inferior. Token de componente: alias de ui-03."
+    },
+    "page-control-dot": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "PageControl: punto. Token de componente: alias de border-control."
+    },
+    "page-control-dot-selected": {
+      "$type": "color",
+      "$value": "{color.nav-selected}",
+      "$description": "PageControl: punto de la página actual. Token de componente: alias de nav-selected."
+    },
+    "pagination-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Pagination: fondo. Token de componente: alias de ui-01."
+    },
+    "search-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "SearchField: fondo. Token de componente: alias de ui-01."
+    },
+    "search-border": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "SearchField: borde. Token de componente: alias de border-control."
+    },
+    "search-border-focus": {
+      "$type": "color",
+      "$value": "{color.field-border}",
+      "$description": "SearchField: borde con foco. Token de componente: alias de field-border."
+    },
+    "search-token-bg": {
+      "$type": "color",
+      "$value": "{color.tag-blue-bg}",
+      "$description": "SearchField: fondo del filtro (token). Token de componente: alias de tag-blue-bg."
+    },
+    "search-token-text": {
+      "$type": "color",
+      "$value": "{color.brand-black}",
+      "$description": "SearchField: texto del filtro (token). Token de componente: alias de tag-blue-text; en alto contraste, de brand-black."
+    },
+    "table-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Table: fondo y encabezado. Token de componente: alias de ui-01."
+    },
+    "table-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Table: separadores de fila. Token de componente: alias de ui-03."
+    },
+    "table-header-text": {
+      "$type": "color",
+      "$value": "{color.text-02}",
+      "$description": "Table: texto del encabezado. Token de componente: alias de text-02."
+    },
+    "table-row-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "Table: fila bajo el puntero. Token de componente: alias de hover-ui."
+    },
+    "table-row-bg-selected": {
+      "$type": "color",
+      "$value": "{color.selected-ui}",
+      "$description": "Table: fila elegida o actual. Token de componente: alias de selected-ui."
+    },
+    "notification-error-accent": {
+      "$type": "color",
+      "$value": "{color.status-icon-error}",
+      "$description": "Notificación de error: borde e ícono. Token de componente: alias de status-icon-error."
+    },
+    "notification-success-accent": {
+      "$type": "color",
+      "$value": "{color.status-icon-success}",
+      "$description": "Notificación de éxito: borde e ícono. Token de componente: alias de status-icon-success."
+    },
+    "notification-warning-accent": {
+      "$type": "color",
+      "$value": "{color.status-icon-warning}",
+      "$description": "Notificación de advertencia: borde e ícono. Token de componente: alias de status-icon-warning."
+    },
+    "notification-info-accent": {
+      "$type": "color",
+      "$value": "{color.status-icon-info}",
+      "$description": "Notificación informativa: borde e ícono. Token de componente: alias de status-icon-info."
+    },
+    "notification-toast-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Toast: fondo. Token de componente: alias de ui-01."
+    },
+    "file-uploader-border": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "FileUploader: borde de la zona para soltar. Token de componente: alias de border-control."
+    },
+    "file-uploader-border-hover": {
+      "$type": "color",
+      "$value": "{color.field-border}",
+      "$description": "FileUploader: borde de la zona al pasar o arrastrar encima. Token de componente: alias de field-border."
+    },
+    "file-uploader-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "FileUploader: fondo de la zona al pasar o arrastrar encima. Token de componente: alias de hover-ui."
+    },
+    "file-uploader-file-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "FileUploader: fila de archivo. Token de componente: alias de ui-01."
+    },
+    "file-uploader-file-border-error": {
+      "$type": "color",
+      "$value": "{color.status-icon-error}",
+      "$description": "FileUploader: borde del archivo con error. Token de componente: alias de status-icon-error."
+    },
+    "link-text": {
+      "$type": "color",
+      "$value": "{color.link-01}",
+      "$description": "Link: texto. Token de componente: alias de link-01."
+    },
+    "link-text-visited": {
+      "$type": "color",
+      "$value": "{color.visited-link}",
+      "$description": "Link: texto de un enlace ya visitado. Token de componente: alias de visited-link."
+    },
+    "tag-disabled-bg": {
+      "$type": "color",
+      "$value": "{color.disabled-01}",
+      "$description": "Tag desactivado: fondo. Token de componente: alias de disabled-01."
+    },
+    "tag-disabled-text": {
+      "$type": "color",
+      "$value": "{color.disabled-03}",
+      "$description": "Tag desactivado: texto. Token de componente: alias de disabled-03."
+    },
+    "card-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Card: fondo. Token de componente: alias de ui-01."
+    },
+    "card-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Card: borde. Token de componente: alias de ui-03."
+    },
+    "card-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "Card que lleva a otra página: fondo al pasar el puntero. Token de componente: alias de hover-ui."
+    },
+    "list-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "List: fondo del grupo. Token de componente: alias de ui-01."
+    },
+    "list-separator": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "List: separador entre filas. Token de componente: alias de ui-03."
+    },
+    "list-row-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "List: fila navegable bajo el puntero. Token de componente: alias de hover-ui."
+    },
+    "empty-state-icon": {
+      "$type": "color",
+      "$value": "{color.icon-02}",
+      "$description": "EmptyState: ícono. Token de componente: alias de icon-02."
+    },
+    "breadcrumb-separator": {
+      "$type": "color",
+      "$value": "{color.text-02}",
+      "$description": "Breadcrumb: barra entre niveles. Token de componente: alias de text-02."
+    },
+    "breadcrumb-current": {
+      "$type": "color",
+      "$value": "{color.text-01}",
+      "$description": "Breadcrumb: página actual. Token de componente: alias de text-01."
+    },
+    "accordion-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Accordion: líneas entre secciones. Token de componente: alias de ui-03."
+    },
+    "accordion-header-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "Accordion: encabezado bajo el puntero. Token de componente: alias de hover-ui."
+    },
+    "progress-indicator-complete": {
+      "$type": "color",
+      "$value": "{color.control-on}",
+      "$description": "ProgressIndicator: ícono de paso completado. Token de componente: alias de control-on."
+    },
+    "progress-indicator-current": {
+      "$type": "color",
+      "$value": "{color.control-on}",
+      "$description": "ProgressIndicator: ícono y línea del paso actual. Token de componente: alias de control-on."
+    },
+    "progress-indicator-incomplete": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "ProgressIndicator: ícono de paso pendiente. Token de componente: alias de border-control."
+    },
+    "progress-indicator-error": {
+      "$type": "color",
+      "$value": "{color.status-icon-error}",
+      "$description": "ProgressIndicator: ícono de paso con error. Token de componente: alias de status-icon-error."
+    },
+    "progress-indicator-line": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "ProgressIndicator: línea de paso pendiente. Token de componente: alias de ui-03."
+    },
+    "progress-indicator-line-complete": {
+      "$type": "color",
+      "$value": "{color.control-on}",
+      "$description": "ProgressIndicator: línea de paso completado. Token de componente: alias de control-on."
+    },
+    "popover-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Popover y calendario del DatePicker: fondo. Token de componente: alias de ui-01."
+    },
+    "popover-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Popover y calendario del DatePicker: borde. Token de componente: alias de ui-03."
+    },
+    "modal-bg": {
+      "$type": "color",
+      "$value": "{color.ui-01}",
+      "$description": "Modal y Sheet: fondo. Token de componente: alias de ui-01."
+    },
+    "modal-border": {
+      "$type": "color",
+      "$value": "{color.ui-03}",
+      "$description": "Modal y Sheet: borde y separador del pie. Token de componente: alias de ui-03."
+    },
+    "date-picker-day-bg-hover": {
+      "$type": "color",
+      "$value": "{color.hover-ui}",
+      "$description": "DatePicker: día bajo el puntero. Token de componente: alias de hover-ui."
+    },
+    "date-picker-day-selected-bg": {
+      "$type": "color",
+      "$value": "{color.interactive-01}",
+      "$description": "DatePicker: fondo del día elegido. Token de componente: alias de interactive-01."
+    },
+    "date-picker-day-selected-text": {
+      "$type": "color",
+      "$value": "{color.text-on-interactive}",
+      "$description": "DatePicker: número del día elegido. Token de componente: alias de text-on-interactive."
+    },
+    "date-picker-day-today-border": {
+      "$type": "color",
+      "$value": "{color.control-on}",
+      "$description": "DatePicker: anillo del día de hoy. Token de componente: alias de control-on."
+    },
+    "date-picker-day-outside-text": {
+      "$type": "color",
+      "$value": "{color.text-03}",
+      "$description": "DatePicker: días del mes anterior o siguiente. Token de componente: alias de text-03."
+    }
+  }
+}

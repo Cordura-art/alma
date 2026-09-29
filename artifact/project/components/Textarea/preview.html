@@ -1,0 +1,11 @@
+<!-- @dsCard group="Formularios" height=300 subtitle="Varias líneas · contador · error con instrucción" -->
+<div id="root" style="padding:24px;display:grid;gap:24px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    return h(React.Fragment, null,
+      h(A.Textarea, { label: 'Comentario para el conductor', placeholder: 'Por ejemplo: viajo con una bicicleta plegable', maxLength: 200, helper: 'Opcional' }),
+      h(A.Textarea, { label: 'Motivo del reclamo', required: true, defaultValue: 'No', error: 'Cuéntanos qué pasó en al menos 20 caracteres.' }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

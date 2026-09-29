@@ -1,0 +1,11 @@
+<!-- @dsCard group="Ayuda" height=300 subtitle="Diálogo no modal junto a su botón · Esc o clic fuera lo cierra" -->
+<div id="root" style="padding:24px;min-height:220px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    return h('p', { style: { margin: 0, fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: 8 } }, 'Tasa de embarque $990',
+      h(A.Popover, { title: '¿Qué es la tasa de embarque?', content: h('p', { style: { margin: 0 } }, 'La cobra el terminal por usar sus andenes. Va incluida en el total y no es reembolsable.') },
+        h(A.Button, { variant: 'plain', icon: 'information', 'aria-label': 'Qué es la tasa de embarque' })));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

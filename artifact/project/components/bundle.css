@@ -1,0 +1,685 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght,XTRA@8..144,25..151,100..1000,323..603&family=Roboto+Mono:wght@400;500&display=swap');
+
+/* ALMA sets Roboto Flex extended (wdth 150), as in every Figma text style. */
+/* Same rendered weight in every theme: macOS "auto" smoothing draws light-on-dark text 11–17 % heavier (IBM Carbon sets this too). */
+html { font-family: var(--font-flex); font-stretch: 150%; font-variation-settings: "wdth" 150; background: var(--ui-02); color: var(--text-01); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.alma-icon { display: block; width: 24px; height: 24px; flex: none; }
+
+/* ---------- Button: pill, 32 / 56 / 72 ---------- */
+.alma-btn {
+  display: inline-flex; text-align: center; align-items: center; justify-content: center; gap: var(--space-2);
+  border: 2px solid transparent; border-radius: var(--radius-pill);
+  font: inherit; font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; font-weight: 400;
+  cursor: pointer; white-space: nowrap; box-sizing: border-box;
+  transition: background-color var(--duration-fast-01) var(--easing-standard-productive), color var(--duration-fast-01) var(--easing-standard-productive);
+}
+.alma-btn--sm { min-height: var(--alma-control); padding: 0 var(--space-16); }
+.alma-btn--md { min-height: 56px; padding: 0 var(--space-24); font-size: 0.875rem; letter-spacing: 0.14px; }
+.alma-btn--lg { min-height: 72px; padding: 0 var(--space-32); font-size: 1rem; letter-spacing: 0.16px; }
+.alma-btn--lead { gap: 10px; }
+.alma-btn--trail { gap: 10px; }
+/* Icon side inset = (height - 24) / 2, so the 24px icon sits in a circle, as in Figma */
+.alma-btn--sm.alma-btn--lead { padding-left: 10px; } .alma-btn--sm.alma-btn--trail { padding-right: 10px; }
+.alma-btn--md.alma-btn--lead { padding-left: var(--space-16); } .alma-btn--md.alma-btn--trail { padding-right: var(--space-16); }
+.alma-btn--lg.alma-btn--lead { padding-left: var(--space-24); } .alma-btn--lg.alma-btn--trail { padding-right: var(--space-24); }
+.alma-btn--lead.alma-btn--trail { gap: var(--space-2); }
+.alma-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-btn:disabled { cursor: not-allowed; background: var(--button-disabled-bg); color: var(--button-disabled-text); }
+
+/* Styles by prominence (Apple HIG). primary/secondary are aliases of filled/gray. */
+.alma-btn--filled { background: var(--button-filled-bg); color: var(--button-filled-text); }
+.alma-btn--filled:hover:not(:disabled) { background: var(--button-filled-bg-hover); }
+.alma-btn--filled:active:not(:disabled) { background: var(--button-filled-bg-active); color: var(--button-filled-text-active); }
+
+.alma-btn--tinted { background: var(--button-tinted-bg); color: var(--button-tinted-text); }
+.alma-btn--tinted:hover:not(:disabled) { background: var(--button-tinted-bg-hover); }
+.alma-btn--tinted:active:not(:disabled) { background: var(--button-tinted-bg); opacity: .8; }
+
+.alma-btn--gray { background: var(--button-gray-bg); color: var(--button-gray-text); }
+.alma-btn--gray:hover:not(:disabled) { background: var(--button-gray-bg-hover); }
+.alma-btn--gray:active:not(:disabled) { background: var(--button-gray-bg-active); color: var(--button-gray-text-active); }
+
+.alma-btn--plain { background: transparent; color: var(--button-plain-text); }
+.alma-btn--plain:hover:not(:disabled) { background: var(--button-plain-bg-hover); }
+.alma-btn--plain:active:not(:disabled) { background: var(--button-plain-bg-active); box-shadow: inset 0 0 0 2px currentColor; }
+.alma-btn--plain:disabled { background: transparent; }
+
+/* Special grounds: ghost on light/imagery, inverse on dark brand pieces */
+.alma-btn--ghost { background: var(--button-ghost-bg); color: var(--button-ghost-text); }
+.alma-btn--ghost:hover:not(:disabled) { background: var(--button-ghost-bg-hover); }
+.alma-btn--ghost:active:not(:disabled) { background: var(--button-ghost-bg-active); color: var(--button-ghost-text-active); }
+.alma-btn--ghost:disabled { background: var(--button-ghost-bg); color: var(--button-ghost-text-disabled); }
+
+.alma-btn--inverse { background: var(--button-inverse-bg); color: var(--button-inverse-text); }
+.alma-btn--inverse:hover:not(:disabled) { background: var(--button-inverse-bg-hover); color: var(--button-inverse-text); }
+.alma-btn--inverse:active:not(:disabled) { background: var(--button-inverse-bg-active); color: var(--button-inverse-text-active); }
+
+/* Role: destructive — system red, never the lime accent (Apple: no primary role for destructive actions) */
+/* Tertiary (Cordura interactive-03 · Carbon tertiary): outline that fills on hover */
+.alma-btn--tertiary { background: transparent; color: var(--button-tertiary-text); box-shadow: inset 0 0 0 1px var(--button-tertiary-border); }
+.alma-btn--tertiary:hover:not(:disabled) { background: var(--button-tertiary-bg-hover); color: var(--button-tertiary-text-hover); box-shadow: none; }
+.alma-btn--tertiary:active:not(:disabled) { background: var(--button-tertiary-bg-active); color: var(--button-tertiary-text-active); box-shadow: inset 0 0 0 2px var(--button-tertiary-text-active); }
+.alma-btn--tertiary:disabled { box-shadow: none; }
+.alma-btn--destructive.alma-btn--filled, .alma-btn--destructive.alma-btn--ghost, .alma-btn--destructive.alma-btn--inverse { background: var(--button-destructive-fill); color: var(--button-destructive-text-on-fill); }
+.alma-btn--destructive.alma-btn--filled:hover:not(:disabled), .alma-btn--destructive.alma-btn--ghost:hover:not(:disabled), .alma-btn--destructive.alma-btn--inverse:hover:not(:disabled) { background: var(--button-destructive-bg-hover); color: var(--button-destructive-text-pressed); }
+.alma-btn--destructive.alma-btn--filled:active:not(:disabled), .alma-btn--destructive.alma-btn--ghost:active:not(:disabled), .alma-btn--destructive.alma-btn--inverse:active:not(:disabled) { background: var(--button-destructive-bg-active); color: var(--button-destructive-text-pressed); }
+.alma-btn--destructive.alma-btn--tinted { background: var(--button-destructive-tinted-bg); color: var(--button-destructive-text); }
+.alma-btn--destructive.alma-btn--tinted:hover:not(:disabled) { background: var(--button-destructive-tinted-bg-hover); }
+.alma-btn--destructive.alma-btn--tinted:active:not(:disabled) { background: var(--button-destructive-tinted-bg-hover); opacity: 1; box-shadow: inset 0 0 0 2px currentColor; }
+.alma-btn--destructive.alma-btn--gray { color: var(--button-destructive-gray-text); }
+.alma-btn--destructive.alma-btn--gray:hover:not(:disabled) { background: var(--button-destructive-gray-bg-hover); }
+.alma-btn--destructive.alma-btn--gray:active:not(:disabled) { background: var(--button-gray-bg-active); color: var(--button-destructive-text-pressed); }
+.alma-btn--destructive.alma-btn--plain { color: var(--button-destructive-text); }
+.alma-btn--destructive.alma-btn--tertiary { color: var(--button-destructive-text); box-shadow: inset 0 0 0 1px var(--button-destructive-text); }
+.alma-btn--destructive.alma-btn--tertiary:hover:not(:disabled) { background: var(--button-destructive-bg-hover); color: var(--button-destructive-text-pressed); box-shadow: none; }
+.alma-btn--destructive.alma-btn--tertiary:active:not(:disabled) { background: var(--button-destructive-bg-active); color: var(--button-destructive-text-pressed); }
+.alma-btn--destructive.alma-btn--plain:hover:not(:disabled) { background: var(--button-destructive-plain-bg-hover); }
+.alma-btn--destructive.alma-btn--plain:active:not(:disabled) { background: var(--button-destructive-plain-bg-active); box-shadow: inset 0 0 0 2px currentColor; }
+
+/* Icon-only: circle of the button height */
+.alma-btn--icon { padding: 0; aspect-ratio: 1; }
+
+/* Activity indicator (Apple: show progress inside the button for actions that don't complete instantly) */
+.alma-btn--loading { cursor: progress; }
+.alma-btn__spinner { width: 20px; height: 20px; margin: 2px; box-sizing: border-box; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: alma-spin calc(var(--duration-slow-02) + var(--duration-moderate-01)) linear infinite; flex: none; }
+@keyframes alma-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .alma-btn__spinner { animation: none; border-right-color: currentColor; opacity: .6; } }
+
+/* ---------- TextInput: pill field, lime border ---------- */
+.alma-field { display: flex; flex-direction: column; gap: var(--space-4); width: 15rem; max-width: 100%; }
+.alma-field__box {
+  position: relative; display: flex; align-items: center; gap: var(--space-8);
+  min-height: var(--alma-field); padding: 0 var(--space-16); box-sizing: border-box;
+  border: 1px solid var(--field-border); border-radius: var(--radius-card); background: transparent;
+  transition: border-color var(--duration-fast-02) var(--easing-standard-productive);
+}
+.alma-field__box:hover { border-color: var(--field-border-hover); }
+.alma-field__box:focus-within { border-width: 2px; border-color: var(--field-border); padding: 0 15px; }
+.alma-field__box:active { border-color: var(--field-border-active); }
+.alma-field__label {
+  position: absolute; left: var(--space-16); top: 50%; transform: translateY(-50%);
+  font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; color: var(--field-label);
+  pointer-events: none; max-width: calc(100% - var(--space-16) * 2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  transition: top var(--duration-moderate-01) var(--easing-standard-productive), left var(--duration-moderate-01) var(--easing-standard-productive), font-size var(--duration-moderate-01) var(--easing-standard-productive), background-color var(--duration-moderate-01) var(--easing-standard-productive);
+}
+.alma-field--filled .alma-field__label, .alma-field__box:focus-within .alma-field__label {
+  top: 0; left: var(--space-8); font-size: 0.6875rem; letter-spacing: 0.165px; padding: 0 var(--space-4);
+  background: var(--field-label-float-bg); color: var(--field-label-float-text); border-radius: var(--radius-chip);
+}
+.alma-field__input {
+  flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; padding: 0;
+  font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; color: var(--field-text);
+}
+.alma-field__input::placeholder { color: var(--field-placeholder); }
+.alma-field__box:has(.alma-field__eye):not(:focus-within) .alma-field__label { max-width: calc(100% - var(--space-16) * 2 - var(--space-8) - 1.5rem); }
+.alma-field__box:not(:focus-within) .alma-field__input::placeholder { color: transparent; }
+.alma-field__eye { display: flex; border: 0; background: none; padding: 0; color: var(--field-icon); cursor: pointer; border-radius: var(--radius-pill); }
+.alma-field__eye:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-field__foot { display: flex; justify-content: space-between; gap: var(--space-8); padding: 0 var(--space-16); font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-01); }
+.alma-field--error .alma-field__box { border-color: var(--field-border-error); }
+.alma-field--error .alma-field__label, .alma-field--error .alma-field__input { color: var(--field-text-error); }
+.alma-field--error.alma-field--filled .alma-field__label, .alma-field--error .alma-field__box:focus-within .alma-field__label { color: var(--field-label-float-error); } /* chip is always light: dark red, 6.6:1 */
+.alma-field--disabled .alma-field__box { border-color: var(--field-border-disabled); }
+.alma-field--disabled .alma-field__label, .alma-field--disabled .alma-field__input, .alma-field--disabled .alma-field__eye { color: var(--field-text-disabled); cursor: not-allowed; }
+
+/* ---------- Icon: IBM Carbon, inline SVG (32 px artwork, currentColor) ---------- */
+.alma-ico { display: inline-block; flex: none; fill: currentColor; vertical-align: middle; }
+
+/* ---------- SegmentedControl: pill track, white selected pill ---------- */
+.alma-seg { display: inline-flex; gap: var(--space-4); padding: var(--space-8); border-radius: var(--radius-pill); background: var(--segmented-bg); border: 1px solid var(--segmented-border); }
+.alma-seg__opt { min-height: var(--alma-control); padding: 0 var(--space-16); border: 0; border-radius: 48px; background: transparent; color: var(--segmented-text); font: inherit; font-size: 0.6875rem; letter-spacing: 0.055px; cursor: pointer; transition: background-color var(--duration-fast-01) var(--easing-standard-productive), color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-seg__opt:hover { color: var(--text-01); }
+.alma-seg__opt--on { background: var(--segmented-selected-bg); color: var(--segmented-selected-text); }
+.alma-seg__opt:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---------- Stepper: three 56px white pills ---------- */
+.alma-step { display: inline-flex; align-items: center; gap: var(--space-24); }
+.alma-step__btn, .alma-step__value { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: var(--alma-field); min-width: var(--alma-field); padding: 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--stepper-border); border-radius: var(--radius-pill); background: var(--stepper-bg); color: var(--text-01); font: inherit; font-size: 1rem; letter-spacing: 0.16px; }
+.alma-step__value { min-width: 130px; color: var(--text-02); }
+.alma-step__btn { cursor: pointer; transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-step__btn:hover:not(:disabled) { background: var(--stepper-bg-hover); }
+.alma-step__btn:disabled { color: var(--disabled-03); cursor: not-allowed; }
+.alma-step__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---------- ProductCard: tag-toned card, radius 24, collapsible ---------- */
+.alma-pcard { width: 20.5rem; max-width: 100%; border-radius: 24px; overflow: hidden; background: var(--product-card-bg); color: var(--product-card-text); }
+.alma-pcard__head { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 9px; padding: var(--space-16); }
+.alma-pcard__title { font-size: 1rem; line-height: 1.72; letter-spacing: 0.16px; }
+.alma-pcard__subtitle, .alma-pcard__img, .alma-pcard__body { animation: alma-disclosure var(--duration-moderate-02) var(--easing-entrance-productive) both; }
+@keyframes alma-disclosure { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.alma-pcard__toggle { display: flex; padding: var(--space-4); border: 0; border-radius: var(--radius-pill); background: var(--product-card-toggle-bg); color: var(--product-card-text); cursor: pointer; }
+.alma-pcard__toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-pcard__subtitle { padding: 0 var(--space-16) var(--space-16); font-size: 1.25rem; line-height: 1.4; letter-spacing: 0.2px; color: var(--product-card-subtitle); }
+.alma-pcard__img { display: block; width: 100%; height: 245px; object-fit: cover; }
+.alma-pcard__body { padding: 20px var(--space-16); font-size: 0.875rem; line-height: 1.72; letter-spacing: 0.07px; opacity: .87; }
+
+/* ---------- PaymentCard: dark glass card ---------- */
+.alma-paycard { position: relative; width: 19.4375rem; min-height: 190px; max-width: 100%; box-sizing: border-box; padding: var(--space-16) 18px; border-radius: 14.4px; border: 0.5px solid rgba(255,255,255,0.42); background: rgba(19,23,53,0.5); box-shadow: inset 0 -1px 0 rgba(0,0,0,0.18); color: var(--secondary-600); display: flex; flex-direction: column; }
+.alma-paycard__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-16); }
+.alma-paycard__brand { font-size: 0.875rem; line-height: 1.43; font-weight: 500; letter-spacing: 0.56px; color: var(--payment-card-brand); }
+.alma-paycard__chip { width: 34px; height: 24px; border-radius: 5px; border: 1px solid var(--st); box-shadow: 0 1px 0 rgba(255,255,255,0.2); }
+.alma-paycard__label { font-size: 0.6875rem; line-height: 1.45; letter-spacing: 0.055px; color: var(--payment-card-text); }
+.alma-paycard__row { display: flex; align-items: center; justify-content: space-between; margin: 2px 0 auto; }
+.alma-paycard__number { font-size: 1rem; line-height: 1.5; font-weight: 500; white-space: pre-wrap; min-width: 0; color: var(--st); text-shadow: 0 1px 1px rgba(0,0,0,0.1), 0 -1px 2px rgba(255,255,255,0.36); }
+.alma-paycard__copy { display: flex; border: 0; background: none; padding: 2px; color: var(--st); cursor: pointer; border-radius: 4px; }
+.alma-paycard__copy:focus-visible { outline: 2px solid var(--focus); }
+.alma-paycard__meta { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); }
+.alma-paycard__val { font-size: 1rem; line-height: 1.25; letter-spacing: 0.016px; color: var(--payment-card-text); }
+.alma-paycard--pending { --st: var(--payment-card-pending); }
+.alma-paycard--activating { --st: var(--payment-card-pending); }
+.alma-paycard--activating .alma-paycard__chip { border-color: var(--payment-card-chip-activating); }
+.alma-paycard--enabled, .alma-paycard--active { --st: var(--payment-card-active); }
+
+/* ---------- ProgressLine: 185px glow line, loading → success ---------- */
+.alma-progress { position: relative; width: 185px; height: 2px; overflow: hidden; border-radius: 1px; }
+.alma-progress--loading { background: linear-gradient(90deg, transparent, var(--progress-line-loading), transparent); background-size: 200% 100%; animation: alma-glow calc(var(--duration-slow-02) * 2) var(--easing-standard-expressive) infinite; }
+.alma-progress--success { background: var(--progress-line-success); }
+@keyframes alma-glow { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .alma-progress--loading { animation: none; background-position: 50% 0; } }
+
+/* ---------- Movimiento reducido: todo el sistema (IBM + Apple) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  [class^="alma-"], [class*=" alma-"] { transition-duration: 1ms !important; animation-duration: 1ms !important; animation-iteration-count: 1 !important; }
+  .alma-progress--loading { background-position: 50% 0; }
+}
+
+/* ---------- Área táctil mínima 44 × 44 (Apple HIG) para controles que se ven más pequeños ---------- */
+.alma-field__eye, .alma-pcard__toggle, .alma-paycard__copy { position: relative; }
+.alma-field__eye::after, .alma-pcard__toggle::after, .alma-paycard__copy::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: var(--alma-control); height: var(--alma-control); transform: translate(-50%, -50%);
+}
+
+/* ---------- Switch: only in list rows (Apple HIG) ---------- */
+.alma-switch-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); min-height: var(--alma-control); padding: var(--space-8) 0; }
+.alma-switch-row__label { display: flex; flex-direction: column; gap: 2px; font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; color: var(--text-01); cursor: pointer; }
+.alma-switch-row__desc { font-size: 0.75rem; line-height: 1.72; letter-spacing: 0.18px; color: var(--text-02); }
+.alma-switch { position: relative; flex: none; width: 52px; height: 32px; padding: 0; border: 1px solid var(--control-off-border); border-radius: var(--radius-pill); background: transparent; cursor: pointer; transition: background-color var(--duration-fast-02) var(--easing-standard-productive), border-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-switch::after { content: ""; position: absolute; left: 50%; top: 50%; width: var(--alma-control); height: var(--alma-control); transform: translate(-50%, -50%); }
+.alma-switch__thumb { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--control-off-thumb); color: var(--control-on); display: flex; align-items: center; justify-content: center; transition: transform var(--duration-moderate-01) var(--easing-standard-productive), background-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-switch.is-on { background: var(--control-on); border-color: var(--control-on); }
+.alma-switch.is-on .alma-switch__thumb { transform: translateX(20px); background: var(--control-on-mark); }
+.alma-switch:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-switch-row.is-disabled { opacity: .45; }
+.alma-switch-row.is-disabled .alma-switch, .alma-switch-row.is-disabled .alma-switch-row__label { cursor: not-allowed; }
+
+/* ---------- Checkbox & Radio ---------- */
+.alma-check { position: relative; display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); cursor: pointer; font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; color: var(--text-01); }
+.alma-check__input { position: absolute; opacity: 0; width: var(--alma-control); height: var(--alma-control); left: -12px; margin: 0; cursor: pointer; }
+.alma-check__box, .alma-radio__dot { flex: none; width: 20px; height: 20px; box-sizing: border-box; border: 2px solid var(--control-off-border); display: flex; align-items: center; justify-content: center; color: var(--control-on-mark); transition: background-color var(--duration-fast-01) var(--easing-standard-productive), border-color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-check__box { border-radius: var(--radius-chip); }
+.alma-check__box.is-on { background: var(--control-on); border-color: var(--control-on); }
+.alma-radio__dot { border-radius: 50%; }
+.alma-radio__dot.is-on { border-color: var(--control-on); }
+.alma-radio__dot.is-on::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--control-on); }
+.alma-check__input:focus-visible + .alma-check__box, .alma-check__input:focus-visible + .alma-radio__dot { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-check.is-disabled { opacity: .45; cursor: not-allowed; }
+.alma-radios { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.alma-radios__legend { padding: 0; margin-bottom: var(--space-4); font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); }
+.alma-radios__help { margin: var(--space-4) 0 0; font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); }
+
+/* ---------- PopUpButton / PullDownButton ---------- */
+.alma-popup { position: relative; display: inline-flex; flex-direction: column; gap: var(--space-4); }
+.alma-popup__label { font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); padding-left: var(--space-16); }
+.alma-popup__btn { display: inline-flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-width: 200px; min-height: var(--alma-control); padding: 0 var(--space-8) 0 var(--space-16); border: 1px solid var(--popup-border); border-radius: var(--radius-pill); background: var(--popup-bg); color: var(--text-01); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; cursor: pointer; transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-popup__btn--pull { min-width: 0; }
+.alma-popup__btn:hover:not(:disabled) { border-color: var(--popup-border-hover); }
+.alma-popup__btn[aria-expanded="true"] { border-color: var(--popup-border-open); }
+.alma-popup__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-popup__btn:disabled { opacity: .45; cursor: not-allowed; }
+.alma-popup__btn .alma-ico { color: var(--icon-02); }
+.alma-menu { position: absolute; top: calc(100% + var(--space-8)); left: 0; z-index: var(--z-dropdown); min-width: 100%; max-width: 320px; padding: var(--space-8); box-sizing: border-box; border-radius: var(--radius-panel); background: var(--menu-bg); border: 1px solid var(--menu-border); box-shadow: var(--shadow-floating); animation: alma-menu-in var(--duration-fast-02) var(--easing-entrance-expressive) both; }
+@keyframes alma-menu-in { from { opacity: 0; transform: translateY(-4px) scale(.98); } to { opacity: 1; transform: none; } }
+.alma-menu__list { list-style: none; margin: 0; padding: 0; outline: none; }
+.alma-menu__item { display: flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-16) 0 var(--space-8); border-radius: var(--radius-pill); font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-01); cursor: pointer; outline: none; }
+.alma-menu__item:hover, .alma-menu__item:focus { background: var(--menu-item-bg-hover); }
+.alma-menu__item:focus-visible { box-shadow: inset 0 0 0 2px var(--focus); }
+.alma-menu__item.is-destructive { color: var(--menu-item-destructive-text); }
+.alma-menu__item.is-disabled { opacity: .45; cursor: not-allowed; }
+.alma-menu__check { width: 24px; display: flex; justify-content: center; color: var(--icon-01); flex: none; }
+.alma-menu__item.is-destructive .alma-menu__check { color: inherit; }
+.alma-menu__footer { margin: var(--space-8) var(--space-8) var(--space-4); padding-top: var(--space-8); border-top: 1px solid var(--menu-border); font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); }
+
+/* ---------- Alert (Apple HIG) ---------- */
+.alma-overlay { position: fixed; inset: 0; z-index: var(--z-modal); display: flex; align-items: center; justify-content: center; padding: var(--space-16); background: var(--overlay-01); animation: alma-fade var(--duration-moderate-02) var(--easing-entrance-productive) both; }
+@keyframes alma-fade { from { opacity: 0; } to { opacity: 1; } }
+.alma-alert { width: 100%; max-width: 22.5rem; box-sizing: border-box; padding: var(--space-24); border-radius: var(--radius-panel); background: var(--alert-bg); border: 1px solid var(--alert-border); color: var(--text-01); animation: alma-invoke var(--duration-moderate-02) var(--easing-standard-expressive) both; }
+@keyframes alma-invoke { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+.alma-alert__title { margin: 0; font-size: 1.25rem; line-height: 1.4; font-weight: 500; letter-spacing: 0; text-wrap: balance; }
+.alma-alert__msg { margin: var(--space-8) 0 0; font-size: 0.875rem; line-height: 1.72; letter-spacing: 0.07px; color: var(--text-02); }
+.alma-alert__extra { margin-top: var(--space-16); }
+.alma-alert__extra .alma-field { width: 100%; }
+.alma-alert__actions { display: flex; gap: var(--space-8); margin-top: var(--space-24); }
+.alma-alert__actions .alma-alert__btn { flex: 1 1 0; min-width: 0; }
+.alma-alert__actions.is-stacked { flex-direction: column; }
+.alma-alert__actions.is-stacked .alma-alert__btn { flex: none; width: 100%; }
+
+/* ---------- Tabs (Apple tab view) ---------- */
+.alma-tabs__list { display: flex; gap: var(--space-8); border-bottom: 1px solid var(--tabs-border); overflow-x: auto; scrollbar-width: none; }
+.alma-tabs__tab { position: relative; display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-16); border: 0; background: none; color: var(--tabs-text); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; white-space: nowrap; cursor: pointer; border-radius: var(--radius-pill) var(--radius-pill) 0 0; transition: color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-tabs__tab:hover { color: var(--text-01); }
+.alma-tabs__tab.is-on { color: var(--tabs-text-selected); }
+.alma-tabs__tab::after { content: ""; position: absolute; left: var(--space-16); right: var(--space-16); bottom: -1px; height: 2px; border-radius: 2px; background: var(--tabs-indicator); transform: scaleX(0); transition: transform var(--duration-moderate-01) var(--easing-standard-productive); }
+.alma-tabs__tab.is-on::after { transform: scaleX(1); }
+.alma-tabs__tab:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-tabs__panel { padding: var(--space-24) 0; color: var(--text-01); outline: none; }
+.alma-tabs__panel:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius-chip); }
+
+/* ---------- Badge (Apple: red oval, critical info only) ---------- */
+.alma-badge { position: absolute; top: -6px; left: 14px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: var(--radius-pill); background: var(--badge-bg); color: var(--badge-text); font-size: 0.6875rem; line-height: 18px; font-weight: 500; text-align: center; }
+
+/* ---------- TabBar (Apple tab bar) ---------- */
+.alma-tabbar { background: var(--tab-bar-bg); border-top: 1px solid var(--tab-bar-border); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.alma-tabbar.is-fixed { position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-header); }
+.alma-tabbar__list { display: flex; justify-content: space-around; list-style: none; margin: 0 auto; padding: 0 var(--space-8); max-width: 672px; }
+.alma-tabbar__list > li { flex: 1 1 0; min-width: 0; }
+.alma-tabbar__item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; padding: var(--space-4) 0; color: var(--tab-bar-text); text-decoration: none; text-align: center; overflow-wrap: anywhere; hyphens: auto; font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; border-radius: var(--radius-panel); transition: color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-tabbar__item.is-on { color: var(--tab-bar-text-selected); }
+.alma-tabbar__item:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-tabbar__icon { position: relative; display: flex; }
+@media (min-width: 672px) { .alma-tabbar__item { flex-direction: row; gap: var(--space-8); font-size: 0.875rem; letter-spacing: 0.14px; } }
+
+/* ---------- Sidebar (Apple sidebar) ---------- */
+.alma-side-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); }
+.alma-side { width: 17.5rem; max-width: 100%; box-sizing: border-box; padding: var(--space-8); border-radius: var(--radius-panel); background: var(--sidebar-bg); animation: alma-disclosure var(--duration-moderate-01) var(--easing-entrance-productive) both; }
+.alma-side__group + .alma-side__group { margin-top: var(--space-16); }
+.alma-side__head { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 36px; padding: 0 var(--space-8) 0 var(--space-16); border: 0; background: none; color: var(--text-02); font: inherit; font-size: 0.6875rem; letter-spacing: 0.165px; text-transform: uppercase; cursor: pointer; border-radius: var(--radius-pill); }
+.alma-side__head:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-side__list { list-style: none; margin: 0; padding: 0; }
+.alma-side__item { display: flex; align-items: center; gap: var(--space-16); min-height: var(--alma-control); padding: 0 var(--space-16); border-radius: var(--radius-pill); color: var(--text-01); text-decoration: none; font-size: 0.875rem; letter-spacing: 0.14px; transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-side__item .alma-ico { color: var(--icon-02); }
+.alma-side__item:hover { background: var(--sidebar-item-bg-hover); }
+.alma-side__item.is-on { background: var(--sidebar-item-bg-selected); color: var(--sidebar-item-text-selected); }
+.alma-side__item.is-on .alma-ico { color: var(--sidebar-item-text-selected); }
+.alma-side__item:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-side__text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alma-side__count { font-size: 0.6875rem; color: var(--text-02); }
+
+/* ---------- Toolbar (Apple toolbar) ---------- */
+.alma-toolbar { display: flex; align-items: center; gap: var(--space-8); min-height: 56px; padding: 0 var(--space-8); background: var(--toolbar-bg); border-bottom: 1px solid var(--toolbar-border); }
+.alma-toolbar.is-sticky { position: sticky; top: env(safe-area-inset-top, 0px); z-index: var(--z-header); }
+.alma-toolbar__lead { display: flex; align-items: center; gap: var(--space-4); min-width: 0; flex: 1; }
+.alma-toolbar__title { margin: 0 var(--space-8); font-size: 1.25rem; line-height: 1.4; font-weight: 500; letter-spacing: 0; color: var(--text-01); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.alma-toolbar__search { flex: 1 1 320px; max-width: 480px; }
+.alma-toolbar__trail { display: flex; align-items: center; gap: var(--space-4); }
+.alma-toolbar .alma-popup__btn--pull, .alma-crumbs .alma-popup__btn--pull { min-width: var(--alma-control); padding: 0 10px; border-color: transparent; background: transparent; color: var(--button-plain-text); }
+.alma-toolbar .alma-popup__btn--pull .alma-ico, .alma-crumbs .alma-popup__btn--pull .alma-ico { color: inherit; }
+.alma-toolbar .alma-popup__btn--pull:hover:not(:disabled), .alma-crumbs .alma-popup__btn--pull:hover:not(:disabled) { background: var(--button-plain-bg-hover); border-color: transparent; }
+.alma-toolbar .alma-menu { left: auto; right: 0; }
+
+/* ---------- SearchField (Apple search field) ---------- */
+.alma-search { position: relative; display: flex; flex-direction: column; gap: var(--space-8); width: 100%; max-width: 480px; }
+.alma-search__box { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-8) 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--search-border); border-radius: var(--radius-pill); background: var(--search-bg); transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-search__box:focus-within { border-color: var(--search-border-focus); box-shadow: 0 0 0 1px var(--search-border-focus); }
+.alma-search__icon { color: var(--icon-02); }
+.alma-search__input { flex: 1; min-width: 120px; height: calc(var(--alma-control) - 2px); border: 0; outline: 0; background: transparent; color: var(--text-01); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; }
+.alma-search__input::placeholder { color: var(--text-03); }
+.alma-search__input::-webkit-search-cancel-button { display: none; }
+.alma-search__clear { display: flex; border: 0; background: none; padding: 0; color: var(--icon-02); cursor: pointer; position: relative; border-radius: 50%; }
+.alma-search__clear::after { content: ""; position: absolute; left: 50%; top: 50%; width: var(--alma-control); height: var(--alma-control); transform: translate(-50%, -50%); }
+.alma-search__clear:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-search__token { display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 0 var(--space-4) 0 var(--space-8); border-radius: var(--radius-pill); background: var(--search-token-bg); color: var(--search-token-text); font-size: 0.75rem; letter-spacing: 0.18px; }
+.alma-search__untoken { position: relative; display: flex; border: 0; background: none; padding: 2px; color: inherit; cursor: pointer; border-radius: 50%; }
+.alma-search__untoken::after { content: ""; position: absolute; left: 50%; top: 50%; width: var(--alma-control); height: var(--alma-control); transform: translate(-50%, -50%); }
+.alma-search__untoken:focus-visible { outline: 2px solid var(--focus); }
+.alma-search__menu { top: calc(var(--alma-control) + var(--space-8)); width: 100%; max-width: none; }
+.alma-search__menutitle { margin: var(--space-4) var(--space-8) var(--space-4); font-size: 0.6875rem; letter-spacing: 0.165px; color: var(--text-02); }
+.alma-menu__item.is-active { background: var(--hover-ui); box-shadow: inset 0 0 0 2px var(--focus); }
+
+/* ---------- Tooltip (Apple help tag) ---------- */
+.alma-tip-anchor { position: relative; display: inline-flex; }
+.alma-tooltip { position: absolute; z-index: var(--z-floating); left: 50%; bottom: calc(100% + var(--space-8)); transform: translateX(-50%) translateY(4px); width: max-content; max-width: 15rem; padding: var(--space-4) var(--space-8); border-radius: var(--radius-chip); background: var(--tooltip-bg); color: var(--tooltip-text); box-shadow: var(--shadow-floating); font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity var(--duration-fast-02) var(--easing-entrance-expressive), transform var(--duration-fast-02) var(--easing-entrance-expressive), visibility 0s linear var(--duration-fast-02); }
+.alma-tooltip--bottom { bottom: auto; top: calc(100% + var(--space-8)); transform: translateX(-50%) translateY(-4px); }
+.alma-tooltip.is-open { opacity: 1; visibility: visible; transform: translateX(calc(-50% + var(--alma-tip-shift, 0px))); transition-delay: 0s; }
+
+/* ---------- Tip (Apple TipKit) ---------- */
+.alma-tipcard { display: flex; align-items: flex-start; gap: var(--space-16); max-width: 26.25rem; padding: var(--space-16) var(--space-8) var(--space-16) var(--space-16); border-radius: var(--radius-panel); background: var(--tip-bg); border: 1px solid var(--tip-border); }
+.alma-tipcard__icon { color: var(--tip-icon); margin-top: 2px; }
+.alma-tipcard__body { flex: 1; min-width: 0; }
+.alma-tipcard__title { margin: 0; font-size: 0.875rem; line-height: 1.4; font-weight: 500; color: var(--text-01); }
+.alma-tipcard__msg { margin: var(--space-4) 0 0; font-size: 0.875rem; line-height: 1.72; letter-spacing: 0.07px; color: var(--text-02); }
+.alma-tipcard__action { margin: var(--space-4) 0 0 calc(-1 * var(--space-16)); }
+.alma-tipcard__close { margin-top: calc(-1 * var(--space-8)); }
+
+/* ---------- Utilidad: solo para lectores de pantalla ---------- */
+.alma-vh { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ---------- Table (Apple lists & tables · Carbon data table) ---------- */
+.alma-table-wrap { border-radius: var(--radius-panel); background: var(--table-bg); overflow: hidden; }
+.alma-table__head { padding: var(--space-16) var(--space-16) var(--space-8); }
+.alma-table__title { margin: 0; font-size: 1rem; line-height: 1.5; font-weight: 500; color: var(--text-01); }
+.alma-table__desc { margin: var(--space-4) 0 0; font-size: 0.75rem; line-height: 1.72; color: var(--text-02); }
+.alma-table-scroll { overflow-x: auto; }
+.alma-table-scroll:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-01); font-variant-numeric: tabular-nums; }
+.alma-table th, .alma-table td { height: var(--alma-row); padding: 0 var(--space-16); text-align: left; border-bottom: 1px solid var(--table-border); white-space: nowrap; font-weight: 400; }
+.is-dense .alma-table th, .is-dense .alma-table td { height: var(--alma-control); }
+.alma-table thead th { height: var(--alma-control); font-size: 0.75rem; letter-spacing: 0.18px; color: var(--table-header-text); background: var(--table-bg); position: sticky; top: 0; }
+.alma-table .is-end { text-align: right; }
+.alma-table tbody tr { transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-table tbody tr:hover { background: var(--table-row-bg-hover); }
+.alma-table tbody tr.is-selected, .alma-table tbody tr.is-current { background: var(--table-row-bg-selected); }
+.alma-table tbody tr.is-clickable { cursor: pointer; }
+.alma-table tbody tr:last-child th, .alma-table tbody tr:last-child td { border-bottom: 0; }
+.alma-table__sel { width: 44px; padding-right: 0 !important; }
+.alma-table__sort { display: inline-flex; align-items: center; gap: var(--space-4); min-height: var(--alma-control); padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.alma-table__sort:focus-visible, .alma-table__rowbtn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius-chip); }
+.alma-table__rowbtn { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; min-height: var(--alma-control); }
+.alma-table__empty { margin: 0; padding: var(--space-32) var(--space-16); text-align: center; color: var(--text-02); font-size: 0.875rem; }
+.alma-table-wrap .alma-pagination { border-top: 1px solid var(--table-border); }
+
+/* ---------- Slider (Apple slider) ---------- */
+.alma-slider { display: flex; flex-direction: column; gap: var(--space-8); max-width: 480px; }
+.alma-slider__top { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.875rem; letter-spacing: 0.14px; }
+.alma-slider__label { color: var(--text-01); }
+.alma-slider__value { color: var(--text-02); font-variant-numeric: tabular-nums; }
+.alma-slider__row { display: flex; align-items: center; gap: var(--space-16); }
+.alma-slider__icon { color: var(--icon-02); }
+.alma-slider__input { flex: 1; min-width: 0; height: var(--alma-control); margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
+.alma-slider__input::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--slider-fill) 0 var(--alma-fill), var(--slider-track) var(--alma-fill) 100%); }
+.alma-slider__input::-moz-range-track { height: 4px; border-radius: 2px; background: var(--slider-track); }
+.alma-slider__input::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--slider-fill); }
+.alma-slider__input::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -10px; border-radius: 50%; background: var(--slider-thumb); border: 3px solid var(--slider-thumb-ring); box-shadow: 0 0 0 1px var(--slider-thumb); transition: transform var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-slider__input::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--slider-thumb); border: 3px solid var(--slider-thumb-ring); box-shadow: 0 0 0 1px var(--slider-thumb); }
+.alma-slider__input:active::-webkit-slider-thumb { transform: scale(1.15); }
+.alma-slider__input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius-pill); }
+.alma-slider__field { width: 6.5rem; min-height: var(--alma-control); padding: 0 var(--space-8); box-sizing: border-box; border: 1px solid var(--slider-field-border); border-radius: var(--radius-pill); background: var(--slider-field-bg); color: var(--text-01); font: inherit; font-size: 0.875rem; text-align: center; font-variant-numeric: tabular-nums; }
+.alma-slider__field:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-slider.is-disabled { opacity: .45; }
+
+/* ---------- ProgressBar & ActivityIndicator (Apple progress indicators) ---------- */
+.alma-progressbar { display: flex; flex-direction: column; gap: var(--space-8); max-width: 480px; }
+.alma-progressbar__top { display: flex; justify-content: space-between; font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-01); }
+.alma-progressbar__pct { color: var(--text-02); font-variant-numeric: tabular-nums; }
+.alma-progressbar__track { position: relative; height: 8px; border-radius: var(--radius-pill); background: var(--progress-bar-track); overflow: hidden; }
+.alma-progressbar__fill { height: 100%; border-radius: inherit; background: var(--progress-bar-fill); transition: width var(--duration-moderate-02) var(--easing-standard-productive); }
+.alma-progressbar.is-error .alma-progressbar__fill { background: var(--progress-bar-fill-error); }
+.alma-progressbar.is-success .alma-progressbar__fill { background: var(--progress-bar-fill-success); }
+.alma-progressbar.is-indeterminate .alma-progressbar__fill { position: absolute; width: 35%; animation: alma-indet calc(var(--duration-slow-02) * 2) var(--easing-standard-productive) infinite; }
+@keyframes alma-indet { from { left: -35%; } to { left: 100%; } }
+.alma-progressbar__desc { margin: 0; font-size: 0.75rem; line-height: 1.72; color: var(--text-02); }
+.alma-activity { display: inline-flex; align-items: center; justify-content: center; color: var(--activity-indicator); }
+@media (prefers-reduced-motion: reduce) { .alma-progressbar.is-indeterminate .alma-progressbar__fill { left: 0; width: 100%; opacity: .5; } }
+
+/* ---------- PageControl (Apple page control) ---------- */
+.alma-pagecontrol { display: inline-flex; align-items: center; }
+.alma-pagecontrol__dot { position: relative; width: 24px; height: var(--alma-control); padding: 0; border: 0; background: none; cursor: pointer; }
+.alma-pagecontrol__dot::before { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; transform: translate(-50%, -50%); border-radius: var(--radius-pill); background: var(--page-control-dot); transition: width var(--duration-moderate-01) var(--easing-standard-productive), background-color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-pagecontrol__dot.is-on { width: 32px; }
+.alma-pagecontrol__dot.is-on::before { width: 24px; background: var(--page-control-dot-selected); }
+.alma-pagecontrol__dot:focus-visible { outline: 2px solid var(--focus); outline-offset: -8px; border-radius: var(--radius-pill); }
+
+/* ---------- Notifications (Carbon inline / toast / actionable / callout) ---------- */
+.alma-notif { display: flex; align-items: flex-start; gap: var(--space-16); max-width: 35rem; padding: var(--space-16) var(--space-8) var(--space-16) var(--space-16); box-sizing: border-box; border-radius: var(--radius-panel); border: 1px solid var(--st); background: var(--stbg); color: var(--text-01); }
+.alma-notif--error { --st: var(--notification-error-accent); --stbg: var(--notification-error-bg); }
+.alma-notif--success { --st: var(--notification-success-accent); --stbg: var(--notification-success-bg); }
+.alma-notif--warning { --st: var(--notification-warning-accent); --stbg: var(--notification-warning-bg); }
+.alma-notif--info { --st: var(--notification-info-accent); --stbg: var(--notification-info-bg); }
+.alma-notif.is-toast { --stbg: var(--notification-toast-bg); box-shadow: var(--shadow-floating); width: 360px; max-width: calc(100vw - 32px); }
+.alma-notif__icon { color: var(--st); margin-top: 2px; }
+.alma-notif__body { flex: 1; min-width: 0; padding-top: 2px; }
+.alma-notif__title { margin: 0; font-size: 0.875rem; line-height: 1.4; font-weight: 500; }
+.alma-notif__msg { margin: var(--space-4) 0 0; font-size: 0.875rem; line-height: 1.72; letter-spacing: 0.07px; color: var(--text-02); }
+.alma-notif__time { margin: var(--space-8) 0 0; font-size: 0.6875rem; color: var(--text-02); }
+.alma-notif__action { margin-top: var(--space-16); }
+.alma-notif__close { margin-top: calc(-1 * var(--space-8)); }
+.alma-toasts { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 72px); right: var(--space-16); z-index: var(--z-floating); display: flex; flex-direction: column; gap: var(--space-8); }
+.alma-toasts.is-inline { position: static; }
+.alma-toasts > div { animation: alma-toast-in var(--duration-moderate-02) var(--easing-entrance-expressive) both; }
+@keyframes alma-toast-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Pagination (Carbon) ---------- */
+.alma-pagination { display: flex; align-items: flex-end; flex-wrap: wrap; gap: var(--space-8) var(--space-24); padding: var(--space-8) var(--space-16); background: var(--pagination-bg); }
+.alma-pagination__range { flex: 1; margin: 0 0 12px; font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-02); font-variant-numeric: tabular-nums; }
+.alma-pagination__pages { display: flex; align-items: center; gap: var(--space-8); }
+.alma-pagination__of { font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-02); margin-right: var(--space-8); font-variant-numeric: tabular-nums; }
+.alma-pagination .alma-popup__btn { min-width: 96px; }
+
+/* ---------- FileUploader (Carbon) ---------- */
+.alma-upload { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); max-width: 30rem; min-width: 0; width: 100%; }
+.alma-upload__list, .alma-upload__file, .alma-upload__row { min-width: 0; }
+.alma-upload__title { margin: 0; font-size: 0.875rem; line-height: 1.4; font-weight: 500; color: var(--text-01); }
+.alma-upload__desc { margin: 0 0 var(--space-8); font-size: 0.75rem; line-height: 1.72; color: var(--text-02); }
+.alma-upload__zone { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-8); width: 100%; min-height: 128px; padding: var(--space-24); box-sizing: border-box; border: 1px dashed var(--file-uploader-border); border-radius: var(--radius-panel); background: transparent; color: var(--text-02); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; cursor: pointer; transition: border-color var(--duration-fast-02) var(--easing-standard-productive), background-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-upload__zone .alma-ico { color: var(--icon-02); }
+.alma-upload__zone:hover, .alma-upload__zone.is-over { border-color: var(--file-uploader-border-hover); border-style: solid; background: var(--file-uploader-bg-hover); color: var(--text-01); }
+.alma-upload__zone:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-upload__list { list-style: none; margin: var(--space-8) 0 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: var(--space-8); }
+.alma-upload__file { border-radius: var(--radius-pill); background: var(--file-uploader-file-bg); }
+.alma-upload__file.is-error { border-radius: var(--radius-panel); border: 1px solid var(--file-uploader-file-border-error); }
+.alma-upload__row { display: flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding-left: var(--space-16); }
+.alma-upload__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-01); }
+.alma-upload__file.is-uploading .alma-upload__row, .alma-upload__file:not(:has(.alma-btn)) .alma-upload__row { padding-right: var(--space-16); }
+.alma-upload__ok { color: var(--status-icon-success); }
+.alma-upload__err { color: var(--status-icon-error); }
+.alma-upload__errmsg { margin: 0; padding: 0 var(--space-16) var(--space-8); font-size: 0.75rem; line-height: 1.72; color: var(--text-error); }
+
+/* ---------- Skeleton (Carbon) ---------- */
+.alma-skeleton { display: flex; flex-direction: column; gap: var(--space-8); }
+.alma-skeleton__bone { display: block; position: relative; overflow: hidden; background: var(--skeleton-02); opacity: .55; border-radius: var(--radius-chip); }
+.alma-skeleton__bone.is-text { height: 12px; }
+.alma-skeleton__bone.is-block { border-radius: var(--radius-panel); height: 120px; }
+.alma-skeleton__bone.is-circle { border-radius: 50%; width: 44px; height: 44px; }
+.alma-skeleton__bone::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, var(--skeleton-01), transparent); animation: alma-shimmer calc(var(--duration-slow-02) * 2) var(--easing-standard-productive) infinite; }
+@keyframes alma-shimmer { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .alma-skeleton__bone::after { animation: none; transform: none; opacity: .5; } }
+
+/* ---------- Link ---------- */
+.alma-link { color: var(--link-text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; border-radius: 2px; }
+.alma-link:visited { color: var(--link-text-visited); }
+.alma-link:hover { text-decoration-thickness: 2px; }
+.alma-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-link--standalone { text-decoration: none; font-weight: 500; }
+.alma-link--standalone:hover { text-decoration: underline; }
+.alma-link__icon { margin-left: 0.25em; vertical-align: -0.125em; }
+
+/* ---------- Tag (Carbon) ---------- */
+.alma-tag { position: relative; display: inline-flex; align-items: center; gap: var(--space-4); max-width: 100%; min-height: 2rem; padding: 0 var(--space-8); box-sizing: border-box; border: 0; border-radius: var(--radius-pill); font: inherit; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; vertical-align: middle; }
+.alma-tag--sm { min-height: 1.5rem; font-size: 0.6875rem; letter-spacing: 0.165px; }
+.alma-tag__text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alma-tag--red { background: var(--tag-red-bg); color: var(--tag-red-text); }
+.alma-tag--yellow { background: var(--tag-yellow-bg); color: var(--tag-yellow-text); }
+.alma-tag--magenta { background: var(--tag-magenta-bg); color: var(--tag-magenta-text); }
+.alma-tag--purple { background: var(--tag-purple-bg); color: var(--tag-purple-text); }
+.alma-tag--blue { background: var(--tag-blue-bg); color: var(--tag-blue-text); }
+.alma-tag--cyan { background: var(--tag-cyan-bg); color: var(--tag-cyan-text); }
+.alma-tag--teal { background: var(--tag-teal-bg); color: var(--tag-teal-text); }
+.alma-tag--green { background: var(--tag-green-bg); color: var(--tag-green-text); }
+.alma-tag--warmgray { background: var(--tag-warmgray-bg); color: var(--tag-warmgray-text); }
+.alma-tag--gray { background: var(--tag-gray-bg); color: var(--tag-gray-text); }
+.alma-tag--coolgray { background: var(--tag-coolgray-bg); color: var(--tag-coolgray-text); }
+.alma-tag.is-disabled, .alma-tag:disabled { background: var(--tag-disabled-bg); color: var(--tag-disabled-text); cursor: not-allowed; }
+.alma-tag__remove { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 1.25rem; height: 1.25rem; margin-right: calc(var(--space-4) * -1); padding: 0; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
+.alma-tag__remove::after { content: ""; position: absolute; left: 50%; top: 50%; width: 2rem; height: 2rem; transform: translate(-50%, -50%); }
+.alma-tag__remove:hover:not(:disabled) { box-shadow: inset 0 0 0 1px currentColor; }
+.alma-tag__remove:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.alma-tag--selectable { cursor: pointer; transition: box-shadow var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-tag--selectable::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: var(--alma-control); transform: translateY(-50%); }
+.alma-tag--selectable:hover:not(:disabled) { box-shadow: inset 0 0 0 1px currentColor; }
+.alma-tag--selectable.is-selected { box-shadow: inset 0 0 0 2px currentColor; font-weight: 500; }
+.alma-tag--selectable:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---------- Textarea ---------- */
+.alma-field--area { width: 100%; max-width: 30rem; }
+.alma-field--area .alma-field__box { align-items: stretch; padding: var(--space-16); border-radius: var(--radius-panel); }
+.alma-field--area .alma-field__box:focus-within { padding: 15px; }
+.alma-field__textarea { min-height: 6rem; resize: vertical; line-height: 1.5; }
+.alma-field--area .alma-field__box .alma-field__input::placeholder { color: var(--field-placeholder); }
+
+/* ---------- Card ---------- */
+.alma-card { position: relative; display: flex; flex-direction: column; max-width: 22.5rem; overflow: hidden; border-radius: var(--radius-panel); background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-01); transition: background-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-card.is-link:hover { background: var(--card-bg-hover); }
+.alma-card.is-link:hover .alma-card__title { text-decoration: underline; text-underline-offset: 0.2em; }
+.alma-card:has(.alma-card__link:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-card__media { display: block; width: 100%; height: auto; object-fit: cover; background: var(--ui-03); }
+.alma-card__body { display: grid; gap: var(--space-8); padding: var(--space-24); }
+.alma-card__eyebrow { margin: 0; font-size: 0.6875rem; letter-spacing: 0.165px; color: var(--text-02); }
+.alma-card__title { margin: 0; font-size: 1.125rem; line-height: 1.4; font-weight: 500; text-wrap: balance; }
+.alma-card__link { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
+.alma-card__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.alma-card__link:focus-visible { outline: none; }
+.alma-card__subtitle { margin: 0; font-size: 0.875rem; line-height: 1.6; color: var(--text-02); }
+.alma-card__content { font-size: 0.875rem; line-height: 1.6; }
+.alma-card__actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: var(--space-8); margin-top: auto; padding: 0 var(--space-24) var(--space-24); }
+
+/* ---------- List (Apple inset grouped) ---------- */
+.alma-list { max-width: 35rem; }
+.alma-list__header { margin: 0 0 var(--space-8) var(--space-16); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18px; color: var(--text-02); }
+.alma-list__rows { margin: 0; padding: 0; list-style: none; overflow: hidden; border-radius: var(--radius-panel); background: var(--list-bg); }
+.alma-list__row { position: relative; display: flex; align-items: center; gap: var(--space-16); width: 100%; min-height: var(--alma-control); padding: var(--space-8) var(--space-16); box-sizing: border-box; border: 0; background: transparent; color: var(--text-01); font: inherit; font-size: 0.875rem; line-height: 1.4; text-align: left; text-decoration: none; }
+.alma-list__item + .alma-list__item > .alma-list__row::before { content: ""; position: absolute; top: 0; left: var(--space-16); right: 0; border-top: 1px solid var(--list-separator); }
+.alma-list__item + .alma-list__item > .alma-list__row.has-icon::before { left: 3.5rem; }
+.alma-list__row.is-nav { cursor: pointer; transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-list__row.is-nav:hover { background: var(--list-row-bg-hover); }
+.alma-list__row:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-list__icon { color: var(--icon-02); }
+.alma-list__text { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.alma-list__title { overflow-wrap: anywhere; }
+.alma-list__subtitle { font-size: 0.75rem; color: var(--text-02); }
+.alma-list__trailing { flex: none; color: var(--text-02); font-variant-numeric: tabular-nums; }
+.alma-list__chevron { color: var(--icon-02); }
+.alma-list__footer { margin: var(--space-8) var(--space-16) 0; font-size: 0.75rem; line-height: 1.5; color: var(--text-02); }
+
+/* ---------- EmptyState ---------- */
+.alma-empty { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); max-width: 26.25rem; margin: 0 auto; padding: var(--space-48) var(--space-24); text-align: center; }
+.alma-empty__icon { margin-bottom: var(--space-8); color: var(--empty-state-icon); }
+.alma-empty__title { margin: 0; font-size: 1.25rem; line-height: 1.4; font-weight: 500; text-wrap: balance; }
+.alma-empty__msg { margin: 0; font-size: 0.875rem; line-height: 1.6; color: var(--text-02); text-wrap: pretty; }
+.alma-empty__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-8); margin-top: var(--space-16); }
+
+/* ---------- Breadcrumb (Carbon) ---------- */
+.alma-crumbs__list { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; font-size: 0.875rem; }
+.alma-crumbs__item { display: inline-flex; align-items: center; min-width: 0; }
+.alma-crumbs__sep { padding: 0 var(--space-8); color: var(--breadcrumb-separator); }
+.alma-crumbs__link { display: inline-flex; align-items: center; min-height: var(--alma-control); color: var(--link-text); text-decoration: none; border-radius: var(--radius-chip); }
+.alma-crumbs__link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.alma-crumbs__link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-crumbs__current { color: var(--breadcrumb-current); font-weight: 500; }
+
+/* ---------- Accordion (Carbon, APG) ---------- */
+.alma-accordion { max-width: 42rem; border-top: 1px solid var(--accordion-border); }
+.alma-accordion__item { border-bottom: 1px solid var(--accordion-border); }
+.alma-accordion__heading { margin: 0; font: inherit; }
+.alma-accordion__btn { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); width: 100%; min-height: var(--alma-control); padding: var(--space-8) var(--space-16); box-sizing: border-box; border: 0; background: transparent; color: var(--text-01); font: inherit; font-size: 0.875rem; font-weight: 500; text-align: left; cursor: pointer; transition: background-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-accordion__btn:hover:not(:disabled) { background: var(--accordion-header-bg-hover); }
+.alma-accordion__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-accordion__btn:disabled { color: var(--disabled-03); cursor: not-allowed; }
+.alma-accordion__chev { flex: none; color: var(--icon-02); transition: transform var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-accordion__item.is-open .alma-accordion__chev { transform: rotate(180deg); }
+.alma-accordion__panel { padding: 0 var(--space-16) var(--space-24); font-size: 0.875rem; line-height: 1.6; animation: alma-disclosure var(--duration-moderate-02) var(--easing-entrance-productive) both; }
+
+/* ---------- ProgressIndicator (Carbon) ---------- */
+.alma-steps { display: flex; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.alma-steps__step { flex: 1 1 0; min-width: 8rem; border-top: 2px solid var(--progress-indicator-line); }
+.alma-steps__step.is-complete { border-top-color: var(--progress-indicator-line-complete); }
+.alma-steps__step.is-current { border-top-color: var(--progress-indicator-current); }
+.alma-steps__btn { display: flex; align-items: flex-start; gap: var(--space-8); width: 100%; min-height: var(--alma-control); padding: var(--space-8) var(--space-16) var(--space-8) 0; box-sizing: border-box; border: 0; background: none; color: var(--text-01); font: inherit; font-size: 0.875rem; line-height: 1.4; text-align: left; }
+button.alma-steps__btn { cursor: pointer; }
+button.alma-steps__btn:hover .alma-steps__label { text-decoration: underline; text-underline-offset: 0.2em; }
+button.alma-steps__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-steps__icon { color: var(--progress-indicator-incomplete); }
+.alma-steps__step.is-complete .alma-steps__icon { color: var(--progress-indicator-complete); }
+.alma-steps__step.is-current .alma-steps__icon { color: var(--progress-indicator-current); }
+.alma-steps__step.is-error .alma-steps__icon { color: var(--progress-indicator-error); }
+.alma-steps__text { display: grid; gap: 2px; }
+.alma-steps__step.is-current .alma-steps__label { font-weight: 500; }
+.alma-steps__desc { font-size: 0.75rem; color: var(--text-02); }
+.alma-steps.is-vertical { flex-direction: column; }
+.alma-steps.is-vertical .alma-steps__step { min-width: 0; border-top: 0; border-left: 2px solid var(--progress-indicator-line); padding-left: var(--space-8); }
+.alma-steps.is-vertical .alma-steps__step.is-complete { border-left-color: var(--progress-indicator-line-complete); }
+.alma-steps.is-vertical .alma-steps__step.is-current { border-left-color: var(--progress-indicator-current); }
+@media (max-width: 671px) {
+  .alma-steps { flex-direction: column; }
+  .alma-steps .alma-steps__step { min-width: 0; border-top: 0; border-left: 2px solid var(--progress-indicator-line); padding-left: var(--space-8); }
+  .alma-steps .alma-steps__step.is-complete { border-left-color: var(--progress-indicator-line-complete); }
+  .alma-steps .alma-steps__step.is-current { border-left-color: var(--progress-indicator-current); }
+}
+
+/* ---------- Popover (Apple popover · Carbon toggletip) ---------- */
+.alma-popover-anchor { position: relative; display: inline-flex; }
+.alma-popover { position: absolute; z-index: var(--z-floating); top: calc(100% + var(--space-8)); left: 0; width: max-content; max-width: min(20rem, calc(100vw - 2rem)); padding: var(--space-16) var(--space-48) var(--space-16) var(--space-16); box-sizing: border-box; border-radius: var(--radius-panel); background: var(--popover-bg); border: 1px solid var(--popover-border); box-shadow: var(--shadow-floating); color: var(--text-01); animation: alma-menu-in var(--duration-fast-02) var(--easing-entrance-expressive) both; }
+.alma-popover--top { top: auto; bottom: calc(100% + var(--space-8)); }
+.alma-popover--end { left: auto; right: 0; }
+.alma-popover:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-popover__title { margin: 0 0 var(--space-4); font-size: 0.875rem; font-weight: 500; }
+.alma-popover__body { font-size: 0.875rem; line-height: 1.6; color: var(--text-02); }
+.alma-popover__close { position: absolute; top: 0; right: 0; }
+
+/* ---------- Modal y Sheet (Carbon modal · Apple sheet) ---------- */
+.alma-modal { position: relative; display: flex; flex-direction: column; width: 100%; max-height: calc(100vh - 2rem); max-height: calc(100dvh - 2rem); box-sizing: border-box; border-radius: var(--radius-panel); background: var(--modal-bg); border: 1px solid var(--modal-border); color: var(--text-01); animation: alma-invoke var(--duration-moderate-02) var(--easing-standard-expressive) both; }
+.alma-modal--sm { max-width: 25rem; }
+.alma-modal--md { max-width: 35rem; }
+.alma-modal--lg { max-width: 48rem; }
+.alma-modal:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-modal__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-16); padding: var(--space-16) var(--space-8) 0 var(--space-24); }
+.alma-modal__eyebrow { margin: var(--space-8) 0 0; font-size: 0.75rem; color: var(--text-02); }
+.alma-modal__title { margin: 0; padding-top: var(--space-8); font-size: 1.25rem; line-height: 1.4; font-weight: 500; text-wrap: balance; }
+.alma-modal__body { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-16) var(--space-24) var(--space-24); font-size: 0.875rem; line-height: 1.6; }
+.alma-modal__desc { margin: 0 0 var(--space-16); color: var(--text-02); }
+.alma-modal__body > .alma-field { width: 100%; }
+.alma-modal__foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-8); padding: var(--space-16) var(--space-24) var(--space-24); border-top: 1px solid var(--modal-border); }
+@media (max-width: 671px) { .alma-modal__foot > .alma-btn { flex: 1 1 0; } }
+.alma-overlay--sheet { align-items: flex-end; padding: 0; }
+.alma-modal--sheet { max-width: none; border-bottom: 0; border-radius: var(--radius-panel) var(--radius-panel) 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); animation: alma-sheet-in var(--duration-moderate-02) var(--easing-entrance-expressive) both; }
+.alma-modal--sheet::before { content: ""; align-self: center; width: 2.25rem; height: 0.3125rem; margin-top: var(--space-8); border-radius: var(--radius-pill); background: var(--border-control); }
+@keyframes alma-sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+@media (min-width: 672px) {
+  .alma-overlay--sheet { align-items: center; padding: var(--space-16); }
+  .alma-modal--sheet { max-width: 35rem; border-bottom: 1px solid var(--modal-border); border-radius: var(--radius-panel); animation-name: alma-invoke; }
+  .alma-modal--sheet::before { display: none; }
+}
+
+/* ---------- Combobox (APG) ---------- */
+.alma-combo { width: 20rem; }
+.alma-combo .alma-field__box { flex-wrap: wrap; row-gap: var(--space-4); cursor: text; }
+.alma-combo--multi .alma-field__box { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+.alma-combo .alma-field__input { flex: 1 1 4rem; min-height: 2rem; }
+.alma-combo__toggle { position: relative; flex: none; display: inline-flex; margin-left: auto; padding: 0; border: 0; background: none; color: var(--field-icon); cursor: pointer; }
+.alma-combo__toggle::after { content: ""; position: absolute; left: 50%; top: 50%; width: var(--alma-control); height: var(--alma-control); transform: translate(-50%, -50%); }
+.alma-combo__menu { width: 100%; max-width: none; }
+.alma-combo__menu .alma-menu__list { max-height: 16rem; overflow-y: auto; }
+.alma-combo__empty { margin: 0; padding: var(--space-8); font-size: 0.875rem; color: var(--text-02); }
+
+/* ---------- DatePicker (Carbon · APG) ---------- */
+.alma-date { position: relative; }
+.alma-cal { position: absolute; z-index: var(--z-dropdown); top: calc(var(--alma-field) + var(--space-8)); left: 0; width: 22rem; max-width: calc(100vw - 2rem); padding: var(--space-16); box-sizing: border-box; border-radius: var(--radius-panel); background: var(--popover-bg); border: 1px solid var(--popover-border); box-shadow: var(--shadow-floating); color: var(--text-01); animation: alma-menu-in var(--duration-fast-02) var(--easing-entrance-expressive) both; }
+.alma-cal__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-8); }
+.alma-cal__month { margin: 0; font-size: 0.875rem; font-weight: 500; }
+.alma-cal__month::first-letter { text-transform: uppercase; }
+.alma-cal__grid { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.alma-cal__grid th { padding: var(--space-4) 0; font-size: 0.6875rem; font-weight: 400; color: var(--text-02); text-align: center; }
+.alma-cal__grid td { padding: 0; text-align: center; }
+.alma-cal__day { display: inline-flex; align-items: center; justify-content: center; width: 100%; height: var(--alma-control); padding: 0; border: 0; border-radius: var(--radius-pill); background: none; color: var(--text-01); font: inherit; font-size: 0.875rem; font-variant-numeric: tabular-nums; cursor: pointer; }
+.alma-cal__day:hover { background: var(--date-picker-day-bg-hover); }
+.alma-cal__day.is-outside { color: var(--date-picker-day-outside-text); }
+.alma-cal__day.is-today { box-shadow: inset 0 0 0 1px var(--date-picker-day-today-border); }
+.alma-cal__day.is-selected { background: var(--date-picker-day-selected-bg); color: var(--date-picker-day-selected-text); font-weight: 500; }
+.alma-cal__day[aria-disabled="true"] { background: none; color: var(--disabled-03); text-decoration: line-through; cursor: not-allowed; }
+.alma-cal__day:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-cal__foot { display: flex; justify-content: space-between; margin-top: var(--space-8); }
+
+/* ---------- Movimiento de marca Cordura (derivado del Brand Key de Figma; curvas expresivas de IBM) ---------- */
+/* Zoom por capas: de lo general al detalle. Cada capa lleva --i (0, 1, 2…) y entra después de la anterior. */
+@keyframes alma-brand-zoom { from { opacity: 0; transform: scale(var(--alma-zoom-from, 0.6)); } to { opacity: 1; transform: none; } }
+.alma-brand-zoom > * { transform-origin: var(--alma-zoom-origin, 50% 50%); animation: alma-brand-zoom var(--duration-slow-01) var(--easing-entrance-expressive) both; animation-delay: calc(var(--i, 0) * var(--duration-moderate-02)); }
+/* Líneas de velocidad: las barras del logo entran desde la izquierda, escalonadas. Cada línea lleva --i. */
+@keyframes alma-brand-lines { from { opacity: 0; transform: translateX(-1.5rem) scaleX(0.4); } to { opacity: 1; transform: none; } }
+.alma-brand-lines > * { transform-origin: left center; animation: alma-brand-lines var(--duration-moderate-02) var(--easing-entrance-expressive) both; animation-delay: calc(var(--i, 0) * var(--duration-stagger)); }
+/* Metamorfosis: una forma cambia de estado sin cortar (círculo ↔ píldora). Cambia la clase .is-on. */
+.alma-brand-morph { width: var(--alma-morph-size, 2.5rem); height: var(--alma-morph-size, 2.5rem); border-radius: var(--radius-pill); background: var(--interactive-01); transition: width var(--duration-moderate-02) var(--easing-standard-expressive), background-color var(--duration-moderate-02) var(--easing-standard-expressive); }
+.alma-brand-morph.is-on { width: calc(var(--alma-morph-size, 2.5rem) * 2); }
+/* Giro: un ícono que cambia de estado (favorito) gira sobre su eje, se afina hasta una línea y vuelve con el nuevo estado. Cambia el ícono a la mitad (animationiteration no aplica: usa un temporizador de duration-moderate-01). */
+@keyframes alma-brand-flip { 0% { transform: rotateY(0); } 50% { transform: rotateY(90deg); } 100% { transform: rotateY(0); } }
+.alma-brand-flip.is-flipping { animation: alma-brand-flip var(--duration-slow-01) var(--easing-standard-expressive); }
+@media (prefers-reduced-motion: reduce) { .alma-brand-zoom > *, .alma-brand-lines > * { animation: none; } .alma-brand-morph { transition: none; } .alma-brand-flip.is-flipping { animation: none; } }
+
+/* ---------- Densidad: normal (44 px, Apple) o compacta (Carbon), solo con puntero fino ---------- */
+:root, [data-density="normal"] { --alma-control: var(--size-touch-min); --alma-field: var(--size-field); --alma-row: var(--size-row); }
+@media (pointer: fine) {
+  [data-density="compact"] { --alma-control: var(--size-control-compact); --alma-field: var(--size-field-compact); --alma-row: var(--size-row-compact); }
+  [data-density="compact"] .alma-seg { padding: var(--space-4); }
+}
+
+/* ---------- Alto contraste: superficies que son claras en todos los temas ---------- */
+[data-theme$="-hc"] .alma-pcard__body { opacity: 1; }
+[data-theme$="-hc"] .alma-paycard__number { text-shadow: none; }

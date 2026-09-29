@@ -1,0 +1,14 @@
+<!-- @dsCard group="Estados" height=260 subtitle="Determinada cuando se puede · siempre en movimiento" -->
+<div id="root" style="padding:24px;display:grid;gap:24px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    var p = React.useState(0.15);
+    React.useEffect(function () { var t = setInterval(function () { p[1](function (x) { return x >= 1 ? 0.15 : Math.min(1, x + 0.05); }); }, 700); return function () { clearInterval(t); }; }, []);
+    return h(React.Fragment, null,
+      h(A.ProgressBar, { label: 'Subiendo fotos del viaje', value: p[0], description: 'Subiendo ' + Math.max(1, Math.round(p[0] * 12)) + ' de 12 fotos' }),
+      h(A.ProgressBar, { label: 'Sincronizando billetera', description: 'Buscando movimientos nuevos en tu banco' }),
+      h('div', { style: { display: 'flex', alignItems: 'center', gap: 12, color: 'var(--text-02)', fontSize: 14 } }, h(A.ActivityIndicator, { label: 'Verificando pago' }), 'Verificando pago'));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

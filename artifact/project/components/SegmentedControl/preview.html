@@ -1,0 +1,5 @@
+<!-- @dsCard group="Formularios" height=100 subtitle="Selección única en píldora" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.SegmentedControl, { label: 'Tipo de viaje', options: ['Ida', 'Ida y regreso', 'Por cobrar'], defaultValue: 'Ida y regreso' }));
+</script>

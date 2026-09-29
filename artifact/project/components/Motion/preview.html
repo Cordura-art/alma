@@ -1,0 +1,48 @@
+<!-- @dsCard group="Fundamentos" height=560 subtitle="IBM Design Language + movimiento de marca Cordura · pasa el cursor o enfoca una fila" page -->
+<div id="m" style="padding:24px;display:grid;gap:12px;"></div>
+<script>
+  var rows = [
+    ['standard-productive', 'moderate-01'], ['entrance-productive', 'moderate-01'], ['exit-productive', 'fast-02'],
+    ['standard-expressive', 'moderate-02'], ['entrance-expressive', 'moderate-02'], ['exit-expressive', 'moderate-02']
+  ];
+  var s = document.createElement('style');
+  s.textContent = '.mrow{display:grid;grid-template-columns:200px 1fr;align-items:center;gap:16px;font-family:var(--font-flex);font-stretch:150%;font-size:0.6875rem;letter-spacing:.165px;color:var(--text-02);outline:none}' +
+    '.mtrack{position:relative;height:24px;border-radius:var(--radius-pill);background:var(--ui-01)}' +
+    '.mdot{position:absolute;left:0;top:0;width:48px;height:24px;border-radius:var(--radius-pill);background:var(--interactive-01)}' +
+    '.mrow:hover .mdot,.mrow:focus-visible .mdot{left:calc(100% - 48px)}' +
+    '.mrow:focus-visible .mtrack{outline:2px solid var(--focus);outline-offset:2px}' +
+    '.mname{color:var(--text-01)}' +
+    '.mbrand{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}' +
+    '.mcell{display:grid;gap:8px;font-family:var(--font-flex);font-stretch:150%;font-size:0.6875rem;letter-spacing:.165px;color:var(--text-02)}' +
+    '.mstage{position:relative;height:120px;border-radius:var(--radius-panel);background:var(--ui-01);overflow:hidden;display:grid;place-items:center}' +
+    '.mzoom{position:absolute;inset:0;display:grid;place-items:center}' +
+    '.mzoom > *{position:absolute;border-radius:var(--radius-panel)}' +
+    '.mlines{display:grid;gap:6px}' +
+    '.mlines > *{height:6px;border-radius:var(--radius-pill);background:var(--tertiary-500)}';
+  document.head.appendChild(s);
+  var root = document.getElementById('m');
+  rows.forEach(function (r) {
+    var row = document.createElement('div'); row.className = 'mrow'; row.tabIndex = 0;
+    row.innerHTML = '<div><div class="mname">easing-' + r[0] + '</div><div>duration-' + r[1] + '</div></div><div class="mtrack"><div class="mdot"></div></div>';
+    row.querySelector('.mdot').style.transition = 'left var(--duration-' + r[1] + ') var(--easing-' + r[0] + ')';
+    root.appendChild(row);
+  });
+  var brand = document.createElement('div'); brand.className = 'mbrand';
+  brand.innerHTML =
+    '<div class="mcell"><div class="mstage"><div class="mzoom alma-brand-zoom">' +
+      '<div style="--i:0;inset:10%;background:var(--tertiary-700)"></div>' +
+      '<div style="--i:1;inset:24% 22%;background:var(--secondary-500)"></div>' +
+      '<div style="--i:2;inset:38% 36%;background:var(--interactive-01)"></div></div></div>' +
+      '<span class="mname">Zoom por capas</span><span>De lo general al detalle · slow-01 + entrance-expressive</span></div>' +
+    '<div class="mcell"><div class="mstage"><div class="mlines alma-brand-lines">' +
+      '<div style="--i:0;width:96px"></div><div style="--i:1;width:120px;margin-left:16px"></div><div style="--i:2;width:80px;margin-left:8px"></div><div style="--i:3;width:104px;margin-left:24px"></div></div></div>' +
+      '<span class="mname">Líneas de velocidad</span><span>Escalonadas · moderate-02 + duration-stagger</span></div>' +
+    '<div class="mcell"><div class="mstage"><div class="alma-brand-morph" id="morph"></div></div>' +
+      '<span class="mname">Metamorfosis</span><span>Círculo ↔ píldora · moderate-02 + standard-expressive</span></div>';
+  root.appendChild(brand);
+  var bar = document.createElement('div'); root.appendChild(bar);
+  ReactDOM.createRoot(bar).render(React.createElement(AlmaDS.Button, { variant: 'tinted', iconBefore: 'restart', onClick: function () {
+    brand.querySelectorAll('.alma-brand-zoom, .alma-brand-lines').forEach(function (el) { var p = el.parentNode, n = el.cloneNode(true); p.replaceChild(n, el); });
+    document.getElementById('morph').classList.toggle('is-on');
+  } }, 'Repetir'));
+</script>

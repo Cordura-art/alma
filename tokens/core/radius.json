@@ -1,0 +1,29 @@
+{
+  "radius": {
+    "radius-chip": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$description": "Etiquetas y chips de token."
+    },
+    "radius-swatch": {
+      "$type": "dimension",
+      "$value": "21px",
+      "$description": "Tarjetas de muestra de color."
+    },
+    "radius-panel": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": "Menús, alertas y tarjetas de lista (en Figma: ProductCard y tarjetas de viaje)."
+    },
+    "radius-card": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$description": "Marcos de documentación y tarjetas grandes; campo de texto."
+    },
+    "radius-pill": {
+      "$type": "dimension",
+      "$value": "100px",
+      "$description": "Botones: siempre en píldora."
+    }
+  }
+}

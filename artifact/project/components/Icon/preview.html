@@ -1,0 +1,12 @@
+<!-- @dsCard group="Iconografía" height=200 subtitle="IBM Carbon · SVG · 896 incluidos, 2.775 en el catálogo" -->
+<div id="root" style="padding:24px;display:grid;gap:16px;color:var(--icon-01);"></div>
+<script>
+  var h = React.createElement, I = AlmaDS.Icon;
+  var names = ['arrow--right', 'location', 'arrows--vertical', 'shopping--cart--plus', 'wallet', 'ticket', 'copy', 'chevron--down', 'checkmark--outline', 'warning'];
+  var lab = { fontSize: '0.6875rem', letterSpacing: '0.165px', color: 'var(--text-02)', width: 72 };
+  var rows = [['Contorno', 'outlined', 24], ['Relleno', 'filled', 24], ['20 px', 'outlined', 20], ['16 px', 'outlined', 16]];
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null, rows.map(function (r) {
+    return h('div', { key: r[0], style: { display: 'flex', alignItems: 'center', gap: 16 } }, h('span', { style: lab }, r[0]),
+      names.map(function (n) { return h(I, { key: n, name: n, variant: r[1], size: r[2] }); }));
+  })));
+</script>

@@ -1,0 +1,12 @@
+{
+  "font": {
+    "flex": {
+      "$type": "fontFamily",
+      "$value": "\"Roboto Flex\", system-ui, sans-serif"
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": "\"Roboto Mono\", ui-monospace, monospace"
+    }
+  }
+}

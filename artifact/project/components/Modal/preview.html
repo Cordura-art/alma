@@ -1,0 +1,15 @@
+<!-- @dsCard group="Comunicación" height=560 subtitle="Atrapa el foco · Esc cierra · vuelve al botón que la abrió" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    var o = React.useState(true), open = o[0];
+    return h(React.Fragment, null,
+      h(A.Button, { variant: 'gray', onClick: function () { o[1](true); } }, 'Cambiar el nombre del pasajero'),
+      h(A.Modal, { open: open, onClose: function () { o[1](false); }, eyebrow: 'Pasaje 4F2K-81', title: 'Cambiar el nombre del pasajero',
+        description: 'El nombre debe coincidir con el carnet que mostrarás al subir.',
+        secondaryAction: { label: 'Cancelar' }, primaryAction: { label: 'Guardar cambio', onClick: function () { o[1](false); } } },
+        h(A.TextInput, { label: 'Nombre completo', defaultValue: 'Camila Rojas' })));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

@@ -1,0 +1,11 @@
+<!-- @dsCard group="Formularios" height=200 subtitle="24 horas · se escribe · valida al salir" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    return h(React.Fragment, null,
+      h(A.TimePicker, { label: 'Hora de salida', defaultValue: '08:30' }),
+      h(A.TimePicker, { label: 'Llegada estimada' }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

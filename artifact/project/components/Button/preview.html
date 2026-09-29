@@ -1,0 +1,41 @@
+<!-- @dsCard group="Acciones" height=380 subtitle="Estilos por prominencia · roles · actividad · solo ícono (Apple HIG)" -->
+<div id="root" style="padding:24px;display:grid;gap:16px;"></div>
+<script>
+  var h = React.createElement, B = AlmaDS.Button;
+  var cap = { fontSize: 11, letterSpacing: '0.165px', color: 'var(--text-02)', width: 96, flex: 'none' };
+  var row = function (name, children) { return h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' } }, [h('span', { key: 'c', style: cap }, name)].concat(children)); };
+  function Demo() {
+    var st = React.useState(false), busy = st[0];
+    return h(React.Fragment, null,
+      row('Prominencia', [
+        h(B, { key: 1, variant: 'filled', iconAfter: 'arrow--right' }, 'Continuar'),
+        h(B, { key: 2, variant: 'tinted' }, 'Guardar borrador'),
+        h(B, { key: 3, variant: 'gray' }, 'Ver detalles'),
+        h(B, { key: 4, variant: 'plain' }, 'Omitir'),
+        h(B, { key: 5, variant: 'tertiary' }, 'Ver horarios')
+      ]),
+      row('Destructivo', [
+        h(B, { key: 1, role: 'destructive' }, 'Eliminar cuenta'),
+        h(B, { key: 2, role: 'destructive', variant: 'tinted' }, 'Quitar'),
+        h(B, { key: 3, role: 'destructive', variant: 'gray' }, 'Descartar'),
+        h(B, { key: 4, role: 'destructive', variant: 'plain' }, 'Borrar'),
+        h(B, { key: 5, role: 'destructive', variant: 'tertiary' }, 'Cancelar viaje')
+      ]),
+      row('Diálogo', [
+        h(B, { key: 1, role: 'cancel', variant: 'gray' }, 'Cancelar'),
+        h(B, { key: 2, role: 'primary' }, 'Confirmar pago')
+      ]),
+      row('Actividad', [
+        h(B, { key: 1, loading: busy, loadingLabel: 'Pagando…', onClick: function () { st[1](true); setTimeout(function () { st[1](false); }, 2400); } }, 'Pagar'),
+        h(B, { key: 2, disabled: true }, 'Deshabilitado')
+      ]),
+      row('Solo ícono', [
+        h(B, { key: 1, icon: 'add', 'aria-label': 'Agregar' }),
+        h(B, { key: 2, icon: 'share', variant: 'tinted', 'aria-label': 'Compartir' }),
+        h(B, { key: 3, icon: 'trash-can', variant: 'plain', role: 'destructive', 'aria-label': 'Eliminar' })
+      ]),
+      row('Tamaños', [h(B, { key: 's' }, 'Pequeño 44'), h(B, { key: 'm', size: 'md' }, 'Mediano 56'), h(B, { key: 'l', size: 'lg', iconAfter: 'arrow--right' }, 'Grande 72')])
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

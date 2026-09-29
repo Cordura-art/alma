@@ -1,0 +1,30 @@
+{
+  "breakpoint": {
+    "$description": "IBM 2x Grid. Mobile first: cada valor aplica desde ese ancho hacia arriba.",
+    "bp-sm": {
+      "$type": "dimension",
+      "$value": "320px",
+      "$description": "Móvil. 4 columnas (grid ALMA de Figma: columna 76, gutter 8, offset 16)."
+    },
+    "bp-md": {
+      "$type": "dimension",
+      "$value": "672px",
+      "$description": "Tablet. 8 columnas, margen 16px, gutter 32px (IBM)."
+    },
+    "bp-lg": {
+      "$type": "dimension",
+      "$value": "1056px",
+      "$description": "Escritorio. 16 columnas, margen 16px, gutter 32px (IBM)."
+    },
+    "bp-xlg": {
+      "$type": "dimension",
+      "$value": "1312px",
+      "$description": "Escritorio ancho. 16 columnas, margen 16px (IBM)."
+    },
+    "bp-max": {
+      "$type": "dimension",
+      "$value": "1584px",
+      "$description": "Máximo: el contenido deja de crecer. 16 columnas, margen 24px (IBM)."
+    }
+  }
+}

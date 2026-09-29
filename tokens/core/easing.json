@@ -1,0 +1,65 @@
+{
+  "easing": {
+    "$description": "IBM Design Language. Productivo = interfaz de trabajo, eficiente. Expresivo = momentos de marca y cambios importantes; en Cordura, el lenguaje de movimiento del estudio.",
+    "easing-standard-productive": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.2,
+        0.0,
+        0.38,
+        0.9
+      ],
+      "$description": "Elementos que se mueven dentro de la pantalla, en interfaz."
+    },
+    "easing-entrance-productive": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.0,
+        0.0,
+        0.38,
+        0.9
+      ],
+      "$description": "Elementos que entran a la pantalla, en interfaz."
+    },
+    "easing-exit-productive": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.2,
+        0.0,
+        1.0,
+        0.9
+      ],
+      "$description": "Elementos que salen de la pantalla, en interfaz."
+    },
+    "easing-standard-expressive": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.4,
+        0.14,
+        0.3,
+        1.0
+      ],
+      "$description": "Movimiento destacado y fluido dentro de la pantalla."
+    },
+    "easing-entrance-expressive": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.0,
+        0.0,
+        0.3,
+        1.0
+      ],
+      "$description": "Entradas destacadas: menús contextuales, piezas de marca."
+    },
+    "easing-exit-expressive": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.4,
+        0.14,
+        1.0,
+        1.0
+      ],
+      "$description": "Salidas destacadas."
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "duration": {
+    "$description": "IBM Design Language (Carbon motion). Elige por tamaño y distancia: cuanto más grande el cambio, más larga la duración.",
+    "duration-fast-01": {
+      "$type": "duration",
+      "$value": "70ms",
+      "$description": "Microinteracciones: botón, toggle. Respuesta instantánea. (IBM fast-01)"
+    },
+    "duration-fast-02": {
+      "$type": "duration",
+      "$value": "110ms",
+      "$description": "Aparición o salida sutil de elementos pequeños; tooltips. (IBM fast-02)"
+    },
+    "duration-moderate-01": {
+      "$type": "duration",
+      "$value": "150ms",
+      "$description": "Duración por defecto: expansiones pequeñas, recorridos cortos, cambios de estado de campo. (IBM moderate-01)"
+    },
+    "duration-moderate-02": {
+      "$type": "duration",
+      "$value": "240ms",
+      "$description": "Expansión (acordeón, ProductCard), comunicación del sistema, toast. (IBM moderate-02)"
+    },
+    "duration-slow-01": {
+      "$type": "duration",
+      "$value": "400ms",
+      "$description": "Expansiones grandes, notificaciones importantes, modales. (IBM slow-01)"
+    },
+    "duration-slow-02": {
+      "$type": "duration",
+      "$value": "700ms",
+      "$description": "Oscurecer el fondo, transiciones de héroe; momentos de marca. (IBM slow-02)"
+    },
+    "duration-stagger": {
+      "$type": "duration",
+      "$value": "40ms",
+      "$description": "Desfase entre elementos de un mismo grupo que entran juntos: las líneas de velocidad de Cordura, filas de una lista. Máximo 6 pasos; después, entran juntos."
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Íconos de IBM Carbon (`@carbon/icons` 11.89, licencia Apache 2.0). `carbon-icons.json` trae los 2.775 íconos (forma SVG de 32 px, sin color), sus sinónimos y categorías; regístralo con `AlmaDS.registerIcons()` para usar cualquiera con el componente `Icon`. `arrow--left.svg` y `arrow--right.svg` son las flechas de los botones como archivo, en `currentColor`.

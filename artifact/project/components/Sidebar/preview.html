@@ -1,0 +1,9 @@
+<!-- @dsCard group="Navegación" height=420 subtitle="Máx. 2 niveles · grupos desplegables · se puede ocultar" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.Sidebar, { defaultValue: 'viajes', groups: [
+    { items: [{ value: 'inicio', label: 'Inicio', icon: 'home' }, { value: 'viajes', label: 'Viajes', icon: 'bus', badge: 3 }, { value: 'billetera', label: 'Billetera', icon: 'wallet' }] },
+    { title: 'Entretenimiento', items: [{ value: 'peliculas', label: 'Películas', icon: 'video' }, { value: 'historial', label: 'Historial', icon: 'recently-viewed' }] },
+    { title: 'Cuenta', items: [{ value: 'ajustes', label: 'Ajustes', icon: 'settings' }, { value: 'ayuda', label: 'Ayuda', icon: 'help' }] }
+  ] }));
+</script>

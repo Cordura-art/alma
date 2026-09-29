@@ -1,0 +1,62 @@
+{
+  "v": 3,
+  "assetGroups": {
+    "Icons": {
+      "name": "Icons",
+      "tile": "s",
+      "order": [
+        "arrow--left.svg",
+        "arrow--right.svg",
+        "carbon-icons.json"
+      ]
+    },
+    "Logos": {
+      "name": "Logos",
+      "tile": "l",
+      "order": [
+        "cordura-logo.svg"
+      ],
+      "files": {
+        "cordura-logo.svg": {
+          "name": "cordura-logo.svg",
+          "blob": "a47639274a046c48548dba2eefd1fb17",
+          "size": 4623,
+          "type": "image/svg+xml"
+        }
+      }
+    }
+  },
+  "blobs": {},
+  "createdOnFiles": {
+    "at": "2026-09-29T15:32:00Z",
+    "v": 1
+  },
+  "docs": {
+    "readme": "project/README.md",
+    "sections": []
+  },
+  "groups": [
+    "Logos",
+    "Icons"
+  ],
+  "lastChange": {
+    "by": "Juan Pablo",
+    "at": "2026-09-30T00:40:00Z",
+    "via": "Claude Code",
+    "note": "Roles del theme de origen: la página va en ui-02 y los contenedores en ui-01 (el oscuro no cambia; en claro la página es blanca). Nuevo botón tertiary."
+  },
+  "layout": "files",
+  "libraries": [
+    {
+      "name": "react",
+      "version": "18"
+    },
+    {
+      "name": "react-dom",
+      "version": "18"
+    }
+  ],
+  "namespace": "AlmaDS",
+  "sections": {},
+  "title": "ALMA"
+}

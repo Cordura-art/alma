@@ -1,0 +1,11 @@
+<!-- @dsCard group="Comunicación" height=520 subtitle="Inline · accionable · callout (Carbon)" -->
+<div id="root" style="padding:24px;display:grid;gap:12px;"></div>
+<script>
+  var h = React.createElement, N = AlmaDS.InlineNotification;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(N, { status: 'error', title: 'No se pudo cobrar la tarjeta ···· 7637', message: 'El banco rechazó el pago. Usa otra tarjeta o inténtalo en unos minutos.', actionLabel: 'Cambiar tarjeta' }),
+    h(N, { status: 'warning', title: 'Tu pasaje sale en 2 horas', message: 'Llega a la terminal 20 minutos antes.' }),
+    h(N, { status: 'success', title: 'Pago aprobado', message: 'Te enviamos el pasaje a tu correo.' }),
+    h(N, { status: 'info', kind: 'callout', title: 'Los cambios de fecha cuestan $1.000', message: 'Puedes cambiar hasta 4 horas antes de la salida.' })
+  ));
+</script>

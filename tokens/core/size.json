@@ -1,0 +1,35 @@
+{
+  "size": {
+    "$description": "Tamaños de interacción y densidad. Normal por defecto; compacta con data-density=\"compact\", solo con puntero fino (mouse o trackpad). En pantallas táctiles siempre se usa la normal.",
+    "size-touch-min": {
+      "$type": "dimension",
+      "$value": "44px",
+      "$description": "Área táctil mínima de todo control (Apple HIG 44 pt; supera WCAG 2.2 AA de 24 px). Si el control se ve más chico, su área de toque se amplía hasta 44."
+    },
+    "size-control-compact": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$description": "Alto de control en densidad compacta: Button sm, SegmentedControl, PopUpButton, menús, Tabs, Sidebar, SearchField, Checkbox, Switch y áreas de toque de íconos. Supera los 24 px de WCAG 2.2 AA."
+    },
+    "size-field": {
+      "$type": "dimension",
+      "$value": "56px",
+      "$description": "Alto de TextInput y Stepper en densidad normal."
+    },
+    "size-field-compact": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$description": "Alto de TextInput y Stepper en densidad compacta."
+    },
+    "size-row": {
+      "$type": "dimension",
+      "$value": "56px",
+      "$description": "Alto de fila de Table en densidad normal."
+    },
+    "size-row-compact": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$description": "Alto de fila de Table en densidad compacta. Table dense usa el alto de control (44 o 32 px)."
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<!-- @dsCard group="Datos" height=520 subtitle="Encabezados con sustantivo · orden · selección · paginación debajo" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  var rows = [
+    { id: 1, iso: '2026-03-31', ruta: 'Santiago → Viña del Mar', fecha: '31 mar 2026', asiento: 'Semicama', precio: 7000 },
+    { id: 2, iso: '2026-04-02', ruta: 'Santiago → Rancagua', fecha: '02 abr 2026', asiento: 'Clásico', precio: 4500 },
+    { id: 3, iso: '2026-04-05', ruta: 'Valparaíso → Santiago (Terminal Alameda)', fecha: '05 abr 2026', asiento: 'Salón cama', precio: 12900 },
+    { id: 4, iso: '2026-04-11', ruta: 'Santiago → Talca', fecha: '11 abr 2026', asiento: 'Semicama', precio: 9800 }
+  ];
+  var clp = function (n) { return '$' + n.toLocaleString('es-CL'); };
+  ReactDOM.createRoot(document.getElementById('root')).render(h(A.Table, {
+    title: 'Mis viajes', description: 'Próximos pasajes comprados', selectable: true, defaultSort: { key: 'fecha', dir: 'asc' },
+    columns: [
+      { key: 'ruta', label: 'Ruta', sortable: true, maxChars: 30 },
+      { key: 'fecha', label: 'Fecha', sortable: true, sortValue: function (r) { return r.iso; } },
+      { key: 'asiento', label: 'Asiento' },
+      { key: 'precio', label: 'Precio', sortable: true, align: 'end', render: function (r) { return clp(r.precio); }, sortValue: function (r) { return r.precio; } }
+    ], rows: rows,
+    footer: h(A.Pagination, { totalItems: 48, itemLabel: 'viajes' })
+  }));
+</script>

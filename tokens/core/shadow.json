@@ -1,0 +1,9 @@
+{
+  "shadow": {
+    "$description": "IBM Carbon separa superficies con capas de color (ui-02 página → ui-01 contenedores → ui-03), no con sombras. La única sombra es para lo que flota sobre el contenido.",
+    "shadow-floating": {
+      "$value": "0 2px 6px 0 rgba(0,0,0,0.3)",
+      "$description": "Menús, popovers y tooltips que flotan sobre el contenido. Nada más lleva sombra."
+    }
+  }
+}

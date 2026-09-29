@@ -1,0 +1,11 @@
+<!-- @dsCard group="Navegación" height=200 subtitle="Subrayado dentro del texto · externo avisa que abre otra pestaña" -->
+<div id="root" style="padding:24px;display:grid;gap:16px;max-width:36rem;font-size:0.875rem;line-height:1.6;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    return h(React.Fragment, null,
+      h('p', { style: { margin: 0 } }, 'Revisa las ', h(A.Link, { href: '#condiciones' }, 'condiciones del pasaje'), ' antes de pagar. Si tienes dudas, escribe a ', h(A.Link, { href: 'https://example.com/ayuda', external: true }, 'soporte de Cordura'), '.'),
+      h(A.Link, { href: '#viajes', standalone: true }, 'Ver todos mis viajes'));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

@@ -1,0 +1,10 @@
+ALMA — Cordura
+
+Este repositorio incluye íconos de IBM Carbon (@carbon/icons 11.89.0),
+Copyright IBM Corp., bajo la licencia Apache 2.0:
+https://github.com/carbon-design-system/carbon/blob/main/LICENSE
+Archivos: artifact/project/assets/Icons/carbon-icons.json y el set incluido en
+artifact/project/components/bundle.js.
+
+La tipografía Roboto Flex (SIL Open Font License 1.1) se carga desde Google Fonts;
+no se redistribuye aquí.

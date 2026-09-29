@@ -1,0 +1,40 @@
+{
+  "zIndex": {
+    "$description": "Capas de IBM Carbon. Úsalas por nombre; no inventes valores intermedios.",
+    "z-hidden": {
+      "$type": "number",
+      "$value": "-1",
+      "$description": "Detrás del contenido."
+    },
+    "z-footer": {
+      "$type": "number",
+      "$value": "5000",
+      "$description": "Pie fijo."
+    },
+    "z-floating": {
+      "$type": "number",
+      "$value": "6000",
+      "$description": "Elementos flotantes: tooltips, popovers."
+    },
+    "z-overlay": {
+      "$type": "number",
+      "$value": "6000",
+      "$description": "Velo overlay-01."
+    },
+    "z-header": {
+      "$type": "number",
+      "$value": "8000",
+      "$description": "Encabezado fijo."
+    },
+    "z-modal": {
+      "$type": "number",
+      "$value": "9000",
+      "$description": "Modales."
+    },
+    "z-dropdown": {
+      "$type": "number",
+      "$value": "9100",
+      "$description": "Menús desplegables, incluso sobre un modal."
+    }
+  }
+}

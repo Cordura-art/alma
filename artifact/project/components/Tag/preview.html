@@ -1,0 +1,17 @@
+<!-- @dsCard group="Contenido" height=240 subtitle="11 colores · se puede quitar · filtro seleccionable" -->
+<div id="root" style="padding:24px;display:grid;gap:16px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    var f = React.useState(['Semicama']), sel = f[0];
+    var r = React.useState(['Viña del Mar', 'Rancagua']), rem = r[0];
+    function flip(x) { f[1](sel.indexOf(x) >= 0 ? sel.filter(function (y) { return y !== x; }) : sel.concat(x)); }
+    return h(React.Fragment, null,
+      h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8 } },
+        h(A.Tag, { color: 'green' }, 'Pagado'), h(A.Tag, { color: 'yellow' }, 'Por vencer'), h(A.Tag, { color: 'red' }, 'Rechazado'), h(A.Tag, { color: 'blue', icon: 'bus' }, 'Interurbano'), h(A.Tag, { color: 'gray', disabled: true }, 'Archivado')),
+      h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8 } }, rem.map(function (x) { return h(A.Tag, { key: x, color: 'cyan', onRemove: function () { r[1](rem.filter(function (y) { return y !== x; })); } }, x); })),
+      h('div', { role: 'group', 'aria-label': 'Filtrar por asiento', style: { display: 'flex', flexWrap: 'wrap', gap: '16px 8px' } },
+        ['Clásico', 'Semicama', 'Salón cama'].map(function (x) { return h(A.Tag, { key: x, color: 'blue', selected: sel.indexOf(x) >= 0, onClick: function () { flip(x); } }, x); })));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

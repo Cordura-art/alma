@@ -1,0 +1,12 @@
+<!-- @dsCard group="Formularios" height=420 subtitle="Escribe para filtrar · varias opciones quedan como etiquetas" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;min-height:360px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  var cities = ['Santiago', 'Valparaíso', 'Viña del Mar', 'Rancagua', 'Talca', 'Concepción', 'Temuco', 'Puerto Montt', 'La Serena', 'Antofagasta'];
+  function Demo() {
+    return h(React.Fragment, null,
+      h(A.Combobox, { label: 'Destino', options: cities, defaultValue: 'Viña del Mar', helper: 'Escribe al menos 2 letras' }),
+      h(A.Combobox, { label: 'Paradas de interés', multiple: true, options: cities, defaultValue: ['Rancagua', 'Talca'] }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

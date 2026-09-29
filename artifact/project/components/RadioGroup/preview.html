@@ -1,0 +1,9 @@
+<!-- @dsCard group="Toggles" height=220 subtitle="Más de dos opciones excluyentes" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.RadioGroup, {
+    label: 'Tipo de asiento', defaultValue: 'semicama',
+    options: [{ value: 'clasico', label: 'Clásico' }, { value: 'semicama', label: 'Semicama' }, { value: 'cama', label: 'Salón cama' }],
+    help: 'El precio cambia según el asiento.'
+  }));
+</script>

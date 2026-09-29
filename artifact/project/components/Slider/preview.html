@@ -1,0 +1,9 @@
+<!-- @dsCard group="Formularios" height=220 subtitle="Mínimo a la izquierda · íconos de extremos · valor exacto" -->
+<div id="root" style="padding:24px;display:grid;gap:24px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(A.Slider, { label: 'Volumen', defaultValue: 60, minIcon: 'volume--mute', maxIcon: 'volume--up', format: function (v) { return v + ' %'; } }),
+    h(A.Slider, { label: 'Presupuesto máximo', min: 0, max: 50000, step: 500, defaultValue: 12000, showField: true, format: function (v) { return '$' + v.toLocaleString('es-CL'); } })
+  ));
+</script>

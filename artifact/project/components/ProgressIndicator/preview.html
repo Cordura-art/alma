@@ -1,0 +1,13 @@
+<!-- @dsCard group="Navegación" height=300 subtitle="Ícono + palabra oculta por estado · se vuelve vertical en móvil" -->
+<div id="root" style="padding:24px;display:grid;gap:32px;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    var c = React.useState(2);
+    var steps = [{ label: 'Viaje', description: 'Origen, destino y fecha' }, { label: 'Asiento' }, { label: 'Pasajeros', description: '2 adultos' }, { label: 'Pago' }];
+    return h(React.Fragment, null,
+      h(A.ProgressIndicator, { label: 'Compra de pasajes', steps: steps, current: c[0], onSelect: c[1] }),
+      h(A.ProgressIndicator, { label: 'Verificación de identidad', vertical: true, current: 1, steps: [{ label: 'Carnet' }, { label: 'Selfie', error: true, description: 'La foto salió borrosa' }, { label: 'Listo' }] }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

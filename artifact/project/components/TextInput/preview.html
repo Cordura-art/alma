@@ -1,0 +1,11 @@
+<!-- @dsCard group="Formularios" height=300 subtitle="Campo en píldora · etiqueta flotante · contador" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;"></div>
+<script>
+  var h = React.createElement, T = AlmaDS.TextInput;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(T, { label: 'Nombre', helper: 'Mínimo 4 caracteres', maxLength: 60 }),
+    h(T, { label: 'Contraseña', type: 'password', defaultValue: 'alma2026', helper: 'Mínimo 4 caracteres', maxLength: 60, required: true }),
+    h(T, { label: 'Correo', defaultValue: 'hola@', error: 'Escribe un correo válido', maxLength: 60, required: true }),
+    h(T, { label: 'Deshabilitado', type: 'password', helper: 'Mínimo 4 caracteres', maxLength: 60, disabled: true })
+  ));
+</script>

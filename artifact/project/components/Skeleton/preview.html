@@ -1,0 +1,8 @@
+<!-- @dsCard group="Estados" height=260 subtitle="Solo contenedores y datos · unos segundos" -->
+<div id="root" style="padding:24px;display:grid;grid-template-columns:44px 1fr;gap:16px;max-width:420px;"></div>
+<script>
+  var h = React.createElement, S = AlmaDS.Skeleton;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(S, { shape: 'circle' }), h(S, { lines: 2 }),
+    h('div', { style: { gridColumn: '1 / -1' } }, h(S, { shape: 'block' }))));
+</script>

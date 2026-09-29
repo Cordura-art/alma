@@ -1,0 +1,45 @@
+{
+  "grid": {
+    "$description": "Móvil: grid ALMA de Figma. Desde tablet: IBM 2x Grid.",
+    "grid-columns-mobile": {
+      "$value": "4",
+      "$description": "Columnas en móvil."
+    },
+    "grid-column-mobile": {
+      "$value": "76px",
+      "$description": "Ancho de columna en móvil."
+    },
+    "grid-gutter-mobile": {
+      "$value": "8px",
+      "$description": "Gutter en móvil."
+    },
+    "grid-offset-mobile": {
+      "$value": "16px",
+      "$description": "Margen lateral en móvil."
+    },
+    "grid-columns-md": {
+      "$value": "8",
+      "$description": "Columnas desde bp-md (IBM)."
+    },
+    "grid-columns-lg": {
+      "$value": "16",
+      "$description": "Columnas desde bp-lg (IBM)."
+    },
+    "grid-gutter": {
+      "$value": "32px",
+      "$description": "Gutter desde bp-md: 16px a cada lado de la columna (IBM 2x Grid)."
+    },
+    "grid-gutter-condensed": {
+      "$value": "1px",
+      "$description": "Gutter condensado para mosaicos de imágenes y tablas de datos (IBM)."
+    },
+    "grid-margin": {
+      "$value": "16px",
+      "$description": "Margen lateral de md a xlg (IBM)."
+    },
+    "grid-margin-max": {
+      "$value": "24px",
+      "$description": "Margen lateral desde bp-max (IBM)."
+    }
+  }
+}

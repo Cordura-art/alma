@@ -1,0 +1,20 @@
+<!-- @dsCard group="Comunicación" height=520 subtitle="Máx. 3 botones · Cancelar a la izquierda · Esc cierra" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;"></div>
+<script>
+  var h = React.createElement, A = AlmaDS;
+  function Demo() {
+    var o = React.useState(false);
+    return h(React.Fragment, null,
+      h(A.Alert, { open: true, inline: true, title: '¿Eliminar la tarjeta C.WalletPay?', message: 'Los pagos programados con esta tarjeta se cancelarán. No se puede deshacer.',
+        actions: [{ label: 'Cancelar', role: 'cancel' }, { label: 'Eliminar', role: 'destructive' }] }),
+      h(A.Alert, { open: true, inline: true, title: 'No se pudo conectar con el banco', message: 'Revisa tu conexión e inténtalo otra vez.',
+        actions: [{ label: 'Reintentar', role: 'default' }, { label: 'Ver estado del servicio' }, { label: 'Cancelar', role: 'cancel' }] }),
+      h('div', null,
+        h(A.Button, { variant: 'gray', onClick: function () { o[1](true); } }, 'Abrir alerta real…'),
+        h(A.Alert, { open: o[0], title: 'Confirma tu contraseña', message: 'La necesitamos para cambiar el límite.',
+          actions: [{ label: 'Cancelar', role: 'cancel', onPress: function () { o[1](false); } }, { label: 'Confirmar', role: 'default', onPress: function () { o[1](false); } }] },
+          h(A.TextInput, { label: 'Contraseña', type: 'password' })))
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>

@@ -1,0 +1,11 @@
+<!-- @dsCard group="Contenido" height=420 subtitle="Tarjeta con desplegable" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;"></div>
+<script>
+  var h = React.createElement, P = AlmaDS.ProductCard;
+  var body = 'Los tiempos de escucha son aproximados y se midieron con reproducción de música, con el estuche completamente cargado y otras funciones desactivadas.';
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(P, { title: 'Detalles del producto', subtitle: 'Autonomía de 11 horas', defaultOpen: true }, body),
+    h(P, { title: 'Garantía y soporte', tone: 'cyan' }, body),
+    h(P, { title: 'Envío', tone: 'yellow' }, body)
+  ));
+</script>

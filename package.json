@@ -1,0 +1,23 @@
+{
+  "name": "@cordura/alma",
+  "version": "0.1.0",
+  "description": "ALMA, el sistema de diseño de Cordura: tokens y componentes.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "repository": "github:Cordura-art/alma",
+  "files": ["dist"],
+  "exports": {
+    "./css": "./dist/css/alma.css",
+    "./tokens": "./dist/js/tokens.mjs",
+    "./tokens.json": "./dist/json/tokens.json"
+  },
+  "scripts": {
+    "build": "node scripts/build-tokens.mjs",
+    "test": "node scripts/check-roundtrip.mjs && node scripts/check-contrast.mjs",
+    "check": "npm run build && npm test"
+  },
+  "engines": { "node": ">=20" },
+  "devDependencies": {
+    "style-dictionary": "^5.5.5"
+  }
+}

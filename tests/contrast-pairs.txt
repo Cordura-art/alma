@@ -1,0 +1,115 @@
+Button|primary texto|text-on-interactive|interactive-01|4.5
+Button|primary hover texto|text-on-interactive|hover-primary|4.5
+Button|primary activo texto|text-on-pressed|active-primary|4.5
+Button|secondary texto|text-on-interactive|interactive-02|4.5
+Button|secondary hover texto|text-on-interactive|hover-secondary|4.5
+Button|secondary activo texto|brand-white|active-secondary|4.5
+Button|ghost texto|secondary-50|brand-ink|4.5
+Button|ghost hover texto|secondary-50|active-secondary|4.5
+Button|ghost activo texto|text-on-interactive|hover-secondary|4.5
+Button|inverse texto|text-on-interactive|brand-white|4.5
+Button|inverse hover texto|text-on-interactive|hover-secondary|4.5
+Button|inverse activo texto|brand-white|active-secondary|4.5
+Button|foco vs página|focus|ui-02|3
+Button|foco vs contenedor|focus|ui-01|3
+TextInput|borde vs página|field-border|ui-02|3
+TextInput|borde hover|field-border-hover|ui-02|3
+TextInput|borde activo|active-primary|ui-02|3
+TextInput|etiqueta|field-label|ui-02|4.5
+TextInput|chip etiqueta|text-on-interactive|secondary-50|4.5
+TextInput|texto|text-01|ui-02|4.5
+TextInput|placeholder|text-03|ui-02|4.5
+TextInput|ayuda/contador|text-01|ui-02|4.5
+TextInput|ojo (ícono)|icon-02|ui-02|3
+TextInput|borde error|danger-400|ui-02|3
+TextInput|texto error|text-error|ui-02|4.5
+SegmentedControl|opción texto|text-02|ui-01|4.5
+SegmentedControl|opción elegida|tertiary-600|brand-white|4.5
+SegmentedControl|borde pista|border-control|ui-02|3
+Stepper|valor|text-02|ui-01|4.5
+Stepper|íconos − +|text-on-interactive|brand-white|3
+Stepper|borde píldora|border-control|ui-02|3
+ProductCard|título/cuerpo|text-on-interactive|tag-red-bg|4.5
+ProductCard|subtítulo|tertiary-500|tag-red-bg|4.5
+ProductCard|subtítulo (cyan)|tertiary-500|tag-cyan-bg|4.5
+ProductCard|subtítulo (yellow)|tertiary-500|tag-yellow-bg|4.5
+PaymentCard|marca|brand-steel|#0A0C20|4.5
+PaymentCard|etiquetas|secondary-600|#0A0C20|4.5
+PaymentCard|dígitos rojo|danger-400|#0A0C20|4.5
+PaymentCard|chip amarillo|support-03|#0A0C20|3
+PaymentCard|dígitos verde|success-400|#0A0C20|4.5
+ProgressLine|éxito|success-400|#0A0C20|3
+Texto|principal|text-01|ui-02|4.5
+Texto|secundario|text-02|ui-02|4.5
+Texto|secundario en contenedor|text-02|ui-01|4.5
+Texto|enlace|link-01|ui-02|4.5
+Texto|ayuda terciaria|text-05|ui-02|4.5
+Button|tinted texto|button-tinted-text|button-tinted-bg|4.5
+Button|tinted hover texto|button-tinted-text|button-tinted-bg-hover|4.5
+Button|plain texto|button-plain-text|ui-02|4.5
+Button|plain texto en contenedor|button-plain-text|ui-01|4.5
+Button|destructivo relleno texto|text-on-pressed|button-destructive-fill|4.5
+Button|destructivo hover texto|brand-white|hover-danger|4.5
+Button|destructivo activo texto|brand-white|active-danger|4.5
+Button|destructivo tinted texto|button-destructive-text|button-destructive-tinted-bg|4.5
+Button|destructivo plain texto|button-destructive-text|ui-02|4.5
+Button|destructivo gray texto|active-danger|interactive-02|4.5
+Button|gray (secondary) activo destructivo|brand-white|active-secondary|4.5
+Button|spinner sobre primario|text-on-interactive|interactive-01|3
+Switch|pista encendida vs página|control-on|ui-02|3
+Switch|perilla encendida|control-on-mark|control-on|3
+Switch|pista apagada (borde)|border-control|ui-02|3
+Switch|perilla apagada|control-off-thumb|ui-02|3
+Checkbox|marca|control-on-mark|control-on|3
+Checkbox|etiqueta|text-01|ui-02|4.5
+Menu|opción|text-01|ui-01|4.5
+Menu|opción hover|text-01|hover-ui|4.5
+Menu|check seleccionado|icon-01|ui-01|3
+Menu|acción destructiva|button-destructive-text|ui-01|4.5
+Menu|nota al pie|text-02|ui-01|4.5
+Alert|título|text-01|ui-01|4.5
+Alert|mensaje|text-02|ui-01|4.5
+Tabs|pestaña|text-02|ui-02|4.5
+Tabs|pestaña activa|nav-selected|ui-02|4.5
+Tabs|indicador activo|nav-selected|ui-02|3
+TabBar|ítem|text-02|ui-01|4.5
+TabBar|ítem activo|nav-selected|ui-01|4.5
+TabBar|badge|text-on-pressed|button-destructive-fill|4.5
+Sidebar|ítem|text-01|ui-01|4.5
+Sidebar|ítem seleccionado|nav-selected|selected-ui|4.5
+Sidebar|título de grupo|text-02|ui-01|4.5
+Toolbar|título|text-01|ui-02|4.5
+SearchField|placeholder|text-03|ui-01|4.5
+SearchField|borde|border-control|ui-02|3
+SearchField|token|tag-blue-text|tag-blue-bg|4.5
+Tooltip|texto|inverse-01|inverse-02|4.5
+Tip|título|text-01|ui-01|4.5
+Tip|texto|text-02|ui-01|4.5
+Tip|ícono|control-on|ui-01|3
+Notification|ícono error|status-icon-error|notification-error-bg|3
+Notification|ícono éxito|status-icon-success|notification-success-bg|3
+Notification|ícono advertencia|status-icon-warning|notification-warning-bg|3
+Notification|ícono info|status-icon-info|notification-info-bg|3
+Notification|título en error|text-01|notification-error-bg|4.5
+Notification|texto en error|text-02|notification-error-bg|4.5
+Notification|texto en éxito|text-02|notification-success-bg|4.5
+Notification|texto en advertencia|text-02|notification-warning-bg|4.5
+Notification|texto en info|text-02|notification-info-bg|4.5
+Toast|título|text-01|ui-01|4.5
+Toast|ícono advertencia|status-icon-warning|ui-01|3
+Toast|ícono éxito|status-icon-success|ui-01|3
+Table|encabezado|text-02|ui-01|4.5
+Table|celda|text-01|ui-01|4.5
+Table|fila seleccionada|text-01|selected-ui|4.5
+Progress|relleno vs pista|control-on|ui-03|3
+Progress|etiqueta|text-01|ui-02|4.5
+Slider|relleno vs página|control-on|ui-02|3
+Slider|pista vacía|border-control|ui-02|3
+PageControl|punto inactivo|border-control|ui-02|3
+PageControl|punto activo|nav-selected|ui-02|3
+FileUploader|zona (borde)|border-control|ui-02|3
+FileUploader|nombre de archivo|text-01|ui-01|4.5
+FileUploader|error|text-error|ui-02|4.5
+Texto|error en contenedor|text-error|ui-01|4.5
+Button|destructivo plain en contenedor|button-destructive-text|ui-01|4.5
+TextInput|chip etiqueta error|hover-danger|secondary-50|4.5

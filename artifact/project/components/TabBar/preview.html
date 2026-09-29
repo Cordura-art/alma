@@ -1,0 +1,10 @@
+<!-- @dsCard group="Navegación" height=180 subtitle="Navegación principal en móvil · siempre visible" -->
+<div id="root" style="padding:24px 0 0;max-width:420px;"></div>
+<script>
+  ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(AlmaDS.TabBar, { defaultValue: 'inicio', items: [
+    { value: 'inicio', label: 'Inicio', icon: 'home' },
+    { value: 'viajes', label: 'Viajes', icon: 'bus' },
+    { value: 'billetera', label: 'Billetera', icon: 'wallet', badge: 2 },
+    { value: 'perfil', label: 'Perfil', icon: 'user' }
+  ] }));
+</script>

@@ -1,0 +1,16 @@
+<!-- @dsCard group="Toggles" height=220 subtitle="Jerarquías · estado mixto" -->
+<div id="root" style="padding:24px;display:grid;gap:0;"></div>
+<script>
+  var h = React.createElement, C = AlmaDS.Checkbox;
+  function Demo() {
+    var a = React.useState(true), b = React.useState(false);
+    var all = a[0] && b[0], some = a[0] || b[0];
+    return h(React.Fragment, null,
+      h(C, { label: 'Todos los medios de pago', checked: all, indeterminate: some && !all, onChange: function (v) { a[1](v); b[1](v); } }),
+      h('div', { style: { paddingLeft: 28, display: 'grid' } },
+        h(C, { label: 'Tarjeta C.WalletPay', checked: a[0], onChange: a[1] }),
+        h(C, { label: 'Transferencia', checked: b[0], onChange: b[1] })),
+      h(C, { label: 'Recordar en este dispositivo', disabled: true }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>
