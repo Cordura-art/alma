@@ -278,9 +278,9 @@ export const componentScenes = [
         if ($('.alma-seg')) num($('.alma-seg'), 6, 'bottom');` }),
 
   scene('search-field', 'style', 'anatomía acotada', 'search-field-medidas',
-    'Medidas de SearchField: alto del campo, relleno, radio, ícono de 24 px y alto de los tokens.',
-    { js: `mount(h('div', { style: { width: '26rem', padding: '56px 180px 64px 150px' } }, h(A.SearchField, { placeholder: 'Buscar ciudades o terminales', tokens: ['Semicama'] })));`,
-      after: `var b = $('.alma-search__box'); dimH(b, 'right'); padL(b); rad(b, box(b).x + box(b).w - 90, box(b).y - 30); dimH($('.alma-search__token'), 'left', null, { d: box($('.alma-search__token')).x - box(b).x + 150 });` }),
+    'Medidas de SearchField: alto del campo, relleno, radio, lupa de 16 px y su separación de 16 px con el texto, y alto de los tokens.',
+    { js: `mount(h('div', { style: { width: '26rem', padding: '56px 180px 64px 260px' } }, h(A.SearchField, { placeholder: 'Buscar ciudades o terminales', tokens: ['Semicama'] })));`,
+      after: `var b = $('.alma-search__box'); dimH(b, 'right'); padL(b); rad(b, box(b).x + box(b).w - 90, box(b).y - 30); dimH($('.alma-search__token'), 'left', null, { d: box($('.alma-search__token')).x - box(b).x + 150 }); var ic = $('.alma-search__icon'); dimW(ic, 'top', null, { d: 20 }); gapX(ic, $('.alma-search__token'), null, box(b).y + box(b).h + 12);` }),
 
   // ---------- Combobox ----------
   scene('combobox', 'usage', 'anatomía numerada del modo simple', 'combobox-anatomia',

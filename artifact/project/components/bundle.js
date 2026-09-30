@@ -567,7 +567,7 @@
     var showList = open && sugg.length > 0;
     return h('div', { ref: wrap, className: 'alma-search', role: 'search' },
       h('div', { className: 'alma-search__box' },
-        h(AlmaIcon, { name: 'search', size: 20, className: 'alma-search__icon' }),
+        h(AlmaIcon, { name: 'search', size: 16, className: 'alma-search__icon' }),
         (props.tokens || []).map(function (t) {
           return h('span', { key: t, className: 'alma-search__token' }, t,
             props.onRemoveToken ? h('button', { type: 'button', className: 'alma-search__untoken', 'aria-label': 'Quitar filtro ' + t, onClick: function () { props.onRemoveToken(t); } }, h(AlmaIcon, { name: 'close', size: 16 })) : null);
@@ -576,7 +576,7 @@
           'aria-label': props.label || props.placeholder || 'Buscar', role: 'combobox', 'aria-autocomplete': 'list',
           'aria-expanded': showList, 'aria-controls': id + '-list', 'aria-activedescendant': active >= 0 ? id + '-o-' + active : undefined,
           autoComplete: 'off', onChange: function (e) { set(e.target.value); }, onFocus: function () { setOpen(true); }, onKeyDown: onKey }),
-        q ? h('button', { type: 'button', className: 'alma-search__clear', 'aria-label': 'Borrar búsqueda', onClick: function () { set(''); input.current && input.current.focus(); } }, h(AlmaIcon, { name: 'close--outline', variant: 'filled', size: 20 })) : null),
+        q ? h('button', { type: 'button', className: 'alma-search__clear', 'aria-label': 'Borrar búsqueda', onClick: function () { set(''); input.current && input.current.focus(); } }, h(AlmaIcon, { name: 'close--outline', variant: 'filled', size: 16 })) : null),
       showList ? h('div', { className: 'alma-menu alma-search__menu' },
         props.suggestionsTitle ? h('p', { className: 'alma-search__menutitle' }, props.suggestionsTitle) : null,
         h('ul', { id: id + '-list', role: 'listbox', className: 'alma-menu__list' },

@@ -328,9 +328,9 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 
 /* ---------- SearchField (Apple search field) ---------- */
 .alma-search { position: relative; display: flex; flex-direction: column; gap: var(--space-8); width: 100%; max-width: 480px; }
-.alma-search__box { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-8) 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--search-border); border-radius: var(--radius-field); background: var(--search-bg); transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-search__box { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--search-border); border-radius: var(--radius-field); background: var(--search-bg); transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
 .alma-search__box:focus-within { border-color: var(--search-border-focus); box-shadow: 0 0 0 1px var(--search-border-focus); }
-.alma-search__icon { color: var(--icon-02); }
+.alma-search__icon { color: var(--icon-02); margin-right: var(--space-8); } /* 8 + the box gap = 16 px to the text, the icon's own size */
 .alma-search__input { flex: 1; min-width: 120px; height: calc(var(--alma-control) - 2px); border: 0; outline: 0; background: transparent; color: var(--text-01); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; }
 .alma-search__input::placeholder { color: var(--text-03); }
 .alma-search__input::-webkit-search-cancel-button { display: none; }

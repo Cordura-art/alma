@@ -32,16 +32,18 @@ summary: Especificaciones visuales del campo de búsqueda.
 | Elemento | Propiedad | Valor |
 |---|---|---|
 | Buscador | ancho máximo | 480 px |
-| Campo | relleno | 16 px al inicio, 8 px al final |
+| Campo | relleno | 16 px a cada lado |
+| Lupa y borrar | tamaño | 16 px (`icon-size-sm`), como en `Toolbar`, `Sidebar` y los menús |
+| Lupa y texto | separación | 16 px, igual a la lupa |
 | Campo | radio | `radius-field` |
-| Elementos | separación | 8 px |
+| Tokens, texto y borrar | separación | 8 px |
 | Texto | ancho mínimo | 120 px |
 | Token | alto, radio | 28 px, `radius-tag` |
 | Borrar y quitar token | área de toque | 44 × 44 px |
 | Sugerencias | separación del campo | 8 px |
 | Sugerencia | ícono y su separación del texto | 16 px (`icon-size-sm`) y 16 px |
 
-![Medidas de SearchField: alto del campo, relleno, radio, ícono de 24 px y alto de los tokens.](assets/Componentes/search-field-medidas.png)
+![Medidas de SearchField: alto del campo, relleno, radio, lupa de 16 px y su separación de 16 px con el texto, y alto de los tokens.](assets/Componentes/search-field-medidas.png)
 
 ## Tamaño
 
