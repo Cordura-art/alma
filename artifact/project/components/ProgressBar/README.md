@@ -74,8 +74,8 @@ Una barra que muestra el avance de una tarea larga.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Etiqueta y porcentaje | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Descripción | 12 / 0,75 | Regular / 400 | `web-body-s` |
+| Etiqueta y porcentaje | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Descripción | 12 / 0,75 | `font-weight-body` | `web-body-s` |
 
 El porcentaje usa cifras tabulares.
 

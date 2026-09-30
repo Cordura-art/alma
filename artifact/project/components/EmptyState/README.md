@@ -51,8 +51,8 @@ Lo que se ve cuando una lista, una búsqueda o una sección no tiene contenido.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Título | 20 / 1,25 | Medium / 500 | 1,4 |
-| Mensaje | 14 / 0,875 | Regular / 400 | 1,6 |
+| Título | 20 / 1,25 | `font-weight-heading` | 1,4 |
+| Mensaje | 14 / 0,875 | `font-weight-body` | 1,6 |
 
 ### Estructura
 

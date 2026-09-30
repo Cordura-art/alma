@@ -18,7 +18,7 @@ Roboto Flex con el eje de ancho, desde Google Fonts:
 `alma.css` define la familia (`--font-flex`, `--font-mono`) y una clase por estilo:
 
 ```css
-body { font-family: var(--font-flex); font-stretch: calc(var(--font-width) * 1%);
+body { font-family: var(--font-flex); font-weight: var(--font-weight-body); font-stretch: calc(var(--font-width) * 1%);
        font-variation-settings: "wdth" var(--font-width), "GRAD" var(--font-grade);
        -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 ```
@@ -28,7 +28,7 @@ body { font-family: var(--font-flex); font-stretch: calc(var(--font-width) * 1%)
 <p class="web-body-m">Próximos pasajes comprados.</p>
 ```
 
-La clase trae tamaño, interlineado, peso y espaciado; el ancho 150 se hereda de `body`.
+La clase trae tamaño, interlineado, peso y espaciado; el ancho y el grado se heredan de `body`. El peso es una variable por rol (`font-weight: var(--font-weight-heading)`), así que puedes cambiarlo en una zona de la página redefiniendo `--font-weight-*`; si cambias `--font-weight-body`, repite también `font-weight: var(--font-weight-body)` en esa zona, porque el texto sin clase hereda el peso ya calculado.
 
 ## JavaScript
 
@@ -39,10 +39,10 @@ typography['web-h1'];  // { fontSize, lineHeight, fontWeight, letterSpacing, …
 
 ## Flutter
 
-`AlmaTypography` trae cada estilo como `TextStyle`, con el ancho 150 como variación de la fuente:
+`AlmaTypography` trae cada estilo como `TextStyle`, con los ejes de ALMA como variaciones de la fuente:
 
 ```dart
 Text('Mis viajes', style: AlmaTypography.webH1.copyWith(color: c.text01));
 ```
 
-Cada estilo lleva `FontVariation('wdth', AlmaFontAxis.fontWidth)` y `FontVariation('GRAD', AlmaFontAxis.fontGrade)`. Agrega Roboto Flex como fuente variable del proyecto para que tengan efecto.
+Cada estilo lleva `FontVariation('wght', AlmaFontWeight.…)`, `FontVariation('wdth', AlmaFontAxis.fontWidth)` y `FontVariation('GRAD', AlmaFontAxis.fontGrade)`. `FontWeight` solo tiene w100 a w900, así que el estilo usa el más cercano y el eje `wght` da el peso exacto (por ejemplo 350). Agrega Roboto Flex como fuente variable del proyecto para que tengan efecto.

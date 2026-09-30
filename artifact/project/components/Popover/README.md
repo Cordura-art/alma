@@ -75,8 +75,8 @@ Un diálogo pequeño y no modal junto al botón que lo abre.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Título | 14 / 0,875 | Medium / 500 | — |
-| Contenido | 14 / 0,875 | Regular / 400 | 1,6 |
+| Título | 14 / 0,875 | `font-weight-heading` | — |
+| Contenido | 14 / 0,875 | `font-weight-body` | 1,6 |
 
 ### Estructura
 

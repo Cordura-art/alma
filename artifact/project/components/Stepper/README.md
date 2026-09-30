@@ -59,7 +59,7 @@ Un contador de cantidad con botones para restar y sumar.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Valor | 16 / 1 | Regular / 400 | `web-label-l` |
+| Valor | 16 / 1 | `font-weight-body` | `web-label-l` |
 
 ### Estructura
 

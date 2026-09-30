@@ -68,8 +68,8 @@ Pegada debajo de la tabla, sin espacio entre ambas: pásala en `Table.footer`.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Rango | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Página N de M | 14 / 0,875 | Regular / 400 | `web-label-m` |
+| Rango | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Página N de M | 14 / 0,875 | `font-weight-body` | `web-label-m` |
 
 Cifras tabulares, para que el texto no salte al cambiar de página.
 

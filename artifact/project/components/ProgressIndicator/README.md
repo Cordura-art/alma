@@ -74,8 +74,8 @@ Los pasos de un flujo de varias pantallas.
 
 | Elemento | Tamaño de letra (px / rem) | Peso |
 |---|---|---|
-| Nombre | 14 / 0,875 | Regular / 400; Medium / 500 en el actual |
-| Descripción | 12 / 0,75 | Regular / 400 |
+| Nombre | 14 / 0,875 | `font-weight-body`; `font-weight-emphasis` en el actual |
+| Descripción | 12 / 0,75 | `font-weight-body` |
 
 ### Estructura
 

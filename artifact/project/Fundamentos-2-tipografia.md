@@ -7,7 +7,7 @@ Una familia, Roboto Flex extendida, en tres escalas: web, app e impresión.
 
 ### La familia
 
-ALMA usa una sola familia: **Roboto Flex**, siempre extendida (ancho 150). Es una fuente variable: un solo archivo tiene todos los anchos y pesos, y ALMA fija el ancho en 150 para que la marca se reconozca en cualquier tamaño. **Roboto Mono** se usa solo para código.
+ALMA usa una sola familia: **Roboto Flex**, siempre extendida. Es una fuente variable: un solo archivo tiene todos los anchos, grados y pesos, y ALMA los fija con tokens para que la marca se reconozca en cualquier tamaño. **Roboto Mono** se usa solo para código.
 
 > **Imagen pendiente:** el alfabeto de Roboto Flex a ancho 100 y a ancho 150, con la diferencia marcada.
 
@@ -20,19 +20,20 @@ Roboto Flex tiene varios ejes; ALMA fija dos para todo el texto, como tokens:
 | `font-width` | `wdth` (25 a 151) | 130 | El ancho: 130, extendido sin llegar al máximo de Roboto Flex (151). |
 | `font-grade` | `GRAD` (−200 a 150) | 20 | El grado, un poco sobre el neutro (0): engrosa o aligera el trazo sin cambiar el ancho del texto, así nada se mueve de lugar. |
 
-El peso (`wght`) va en cada estilo de texto. Para probar otros valores sobre componentes reales, usa la herramienta **Ajustes de ALMA** (`npm run tuner`).
+El peso (`wght`) va por rol, en los tokens `font-weight-*` de la sección siguiente. Para probar otros valores sobre componentes reales, usa la herramienta **Ajustes de ALMA** (`npm run tuner`).
 
 ### Pesos
 
-Un peso por rol, ajustado el 30 de septiembre de 2026 con **Ajustes de ALMA** (los del theme de origen eran 600, 500 y 400).
+Un token de peso por rol, ajustado el 30 de septiembre de 2026 con **Ajustes de ALMA** (los del theme de origen eran 600, 500 y 400). Los estilos de texto y los componentes usan estos tokens: cambiar uno cambia todo el texto de ese rol.
 
-| Peso | Valor | Uso |
+| Token | Valor | Uso |
 |---|---|---|
-| Entre ExtraLight y Light | 220 | *Display*: titulares grandes. |
-| Entre Light y Regular | 350 | Encabezados h1–h6, *headline*, *title* y citas. |
-| Entre Light y Regular | 350 | Cuerpo y etiquetas. |
+| `font-weight-display` | 220 | *Display*: titulares grandes. |
+| `font-weight-heading` | 350 | Encabezados h1–h6, *headline*, *title*, citas y títulos de componentes (Card, Alert, Modal, Toolbar, Accordion…). |
+| `font-weight-body` | 350 | Cuerpo y etiquetas, y todo el texto de los componentes que no es título ni énfasis. |
+| `font-weight-emphasis` | 500 | Énfasis dentro de un componente: opción elegida, página actual, insignias, títulos de grupo, enlaces sueltos, negritas. |
 
-El *display* es más liviano que el resto: a su tamaño, un trazo fino se lee bien y se ve elegante. Títulos y cuerpo comparten peso y se distinguen por tamaño. Los pesos se aplican a los estilos de texto (`web-*`, `app-*`, `print-*`); el texto propio de los componentes conserva el peso de su CSS.
+El *display* es más liviano que el resto: a su tamaño, un trazo fino se lee bien y se ve elegante. Títulos y cuerpo comparten peso y se distinguen por tamaño; `font-weight-emphasis` marca lo elegido o lo actual sin cambiar el tamaño.
 
 ### Tres escalas
 
@@ -112,7 +113,7 @@ Roboto Flex con el eje de ancho, desde Google Fonts:
 `alma.css` define la familia (`--font-flex`, `--font-mono`) y una clase por estilo:
 
 ```css
-body { font-family: var(--font-flex); font-stretch: calc(var(--font-width) * 1%);
+body { font-family: var(--font-flex); font-weight: var(--font-weight-body); font-stretch: calc(var(--font-width) * 1%);
        font-variation-settings: "wdth" var(--font-width), "GRAD" var(--font-grade);
        -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 ```
@@ -122,7 +123,7 @@ body { font-family: var(--font-flex); font-stretch: calc(var(--font-width) * 1%)
 <p class="web-body-m">Próximos pasajes comprados.</p>
 ```
 
-La clase trae tamaño, interlineado, peso y espaciado; el ancho 150 se hereda de `body`.
+La clase trae tamaño, interlineado, peso y espaciado; el ancho y el grado se heredan de `body`. El peso es una variable por rol (`font-weight: var(--font-weight-heading)`), así que puedes cambiarlo en una zona de la página redefiniendo `--font-weight-*`; si cambias `--font-weight-body`, repite también `font-weight: var(--font-weight-body)` en esa zona, porque el texto sin clase hereda el peso ya calculado.
 
 ### JavaScript
 
@@ -133,10 +134,10 @@ typography['web-h1'];  // { fontSize, lineHeight, fontWeight, letterSpacing, …
 
 ### Flutter
 
-`AlmaTypography` trae cada estilo como `TextStyle`, con el ancho 150 como variación de la fuente:
+`AlmaTypography` trae cada estilo como `TextStyle`, con los ejes de ALMA como variaciones de la fuente:
 
 ```dart
 Text('Mis viajes', style: AlmaTypography.webH1.copyWith(color: c.text01));
 ```
 
-Cada estilo lleva `FontVariation('wdth', AlmaFontAxis.fontWidth)` y `FontVariation('GRAD', AlmaFontAxis.fontGrade)`. Agrega Roboto Flex como fuente variable del proyecto para que tengan efecto.
+Cada estilo lleva `FontVariation('wght', AlmaFontWeight.…)`, `FontVariation('wdth', AlmaFontAxis.fontWidth)` y `FontVariation('GRAD', AlmaFontAxis.fontGrade)`. `FontWeight` solo tiene w100 a w900, así que el estilo usa el más cercano y el eje `wght` da el peso exacto (por ejemplo 350). Agrega Roboto Flex como fuente variable del proyecto para que tengan efecto.

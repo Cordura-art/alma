@@ -78,9 +78,9 @@ Un contenedor de un tema: un viaje, una noticia, una configuración.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Antetítulo | 11 / 0,6875 | Regular / 400 | — |
-| Título | 18 / 1,125 | Medium / 500 | 1,4 |
-| Subtítulo y contenido | 14 / 0,875 | Regular / 400 | 1,6 |
+| Antetítulo | 11 / 0,6875 | `font-weight-body` | — |
+| Título | 18 / 1,125 | `font-weight-heading` | 1,4 |
+| Subtítulo y contenido | 14 / 0,875 | `font-weight-body` | 1,6 |
 
 ### Estructura
 

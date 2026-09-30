@@ -1,0 +1,24 @@
+{
+  "fontWeight": {
+    "font-weight-display": {
+      "$type": "fontWeight",
+      "$value": 220,
+      "$description": "Titulares display (web-display-*, app-display-*, print-display-*)."
+    },
+    "font-weight-heading": {
+      "$type": "fontWeight",
+      "$value": 350,
+      "$description": "Encabezados (h1–h6, headline, title, citas) y títulos de componentes: Card, Alert, Modal, Toolbar, Accordion y otros."
+    },
+    "font-weight-body": {
+      "$type": "fontWeight",
+      "$value": 350,
+      "$description": "Cuerpo y etiquetas: todo el texto que no es título ni énfasis, dentro y fuera de los componentes."
+    },
+    "font-weight-emphasis": {
+      "$type": "fontWeight",
+      "$value": 500,
+      "$description": "Énfasis dentro de un componente: la opción elegida, la página actual, insignias, títulos de grupo, enlaces sueltos y texto en negrita."
+    }
+  }
+}

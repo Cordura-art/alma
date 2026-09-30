@@ -77,9 +77,9 @@ Subir uno o varios archivos, con un botón o una zona para arrastrar.
 
 | Elemento | Tamaño de letra (px / rem) | Peso |
 |---|---|---|
-| Título | 14 / 0,875 | Medium / 500 |
-| Descripción y error | 12 / 0,75 | Regular / 400 |
-| Zona y nombre del archivo | 14 / 0,875 | Regular / 400 |
+| Título | 14 / 0,875 | `font-weight-heading` |
+| Descripción y error | 12 / 0,75 | `font-weight-body` |
+| Zona y nombre del archivo | 14 / 0,875 | `font-weight-body` |
 
 ### Estructura
 

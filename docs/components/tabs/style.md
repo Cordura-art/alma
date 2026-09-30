@@ -23,7 +23,7 @@ summary: Especificaciones visuales de las pestañas.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Pestaña | 14 / 0,875 | Regular / 400 | `web-label-m` |
+| Pestaña | 14 / 0,875 | `font-weight-body` | `web-label-m` |
 
 ## Estructura
 

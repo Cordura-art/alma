@@ -78,10 +78,10 @@ Una lista agrupada de filas para navegar, actuar o mostrar datos.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Título del grupo | 12 / 0,75 | Medium / 500 | — |
-| Título de la fila | 14 / 0,875 | Regular / 400 | 1,4 |
-| Subtítulo | 12 / 0,75 | Regular / 400 | — |
-| Nota al pie | 12 / 0,75 | Regular / 400 | 1,5 |
+| Título del grupo | 12 / 0,75 | `font-weight-emphasis` | — |
+| Título de la fila | 14 / 0,875 | `font-weight-body` | 1,4 |
+| Subtítulo | 12 / 0,75 | `font-weight-body` | — |
+| Nota al pie | 12 / 0,75 | `font-weight-body` | 1,5 |
 
 El valor usa cifras tabulares.
 

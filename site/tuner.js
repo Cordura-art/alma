@@ -91,13 +91,14 @@
     var ax = function (k) { return p.ch.fontAxis[k] !== undefined ? p.ch.fontAxis[k] : C.fontAxis[k]; };
     var w = function (k) { return p.ch.weights[k] !== undefined ? p.ch.weights[k] : C.weights[k]; };
     return h('div', null,
-      h('p', { className: 'tnote web-body-s' }, 'Roboto Flex es una fuente variable. El ancho y el grado se aplican a todo el texto de ALMA; los pesos, a los estilos de texto (web-*, app-*, print-*).'),
+      h('p', { className: 'tnote web-body-s' }, 'Roboto Flex es una fuente variable. El ancho y el grado se aplican a todo el texto de ALMA; los pesos van por rol, en los estilos de texto y en los componentes.'),
       h('div', { className: 'tsliders' },
         slider('Ancho (wdth)', 25, 151, 1, ax('font-width'), function (v) { p.set('fontAxis', 'font-width', v, C.fontAxis['font-width']); }),
         slider('Grado (GRAD)', -200, 150, 1, ax('font-grade'), function (v) { p.set('fontAxis', 'font-grade', v, C.fontAxis['font-grade']); }),
         slider('Peso de display', 100, 1000, 10, w('display'), function (v) { p.set('weights', 'display', v, C.weights.display); }),
-        slider('Peso de títulos', 100, 1000, 10, w('heading'), function (v) { p.set('weights', 'heading', v, C.weights.heading); }),
-        slider('Peso de cuerpo y etiquetas', 100, 1000, 10, w('body'), function (v) { p.set('weights', 'body', v, C.weights.body); })));
+        slider('Peso de títulos (también los de componentes)', 100, 1000, 10, w('heading'), function (v) { p.set('weights', 'heading', v, C.weights.heading); }),
+        slider('Peso de cuerpo y etiquetas', 100, 1000, 10, w('body'), function (v) { p.set('weights', 'body', v, C.weights.body); }),
+        slider('Peso de énfasis (opción elegida, página actual, insignias)', 100, 1000, 10, w('emphasis'), function (v) { p.set('weights', 'emphasis', v, C.weights.emphasis); })));
   }
   var RADIUS_LABEL = { 'radius-button': 'Botones', 'radius-field': 'Campos', 'radius-nav': 'Navegación', 'radius-tag': 'Etiquetas',
     'radius-checkbox': 'Casilla', 'radius-panel': 'Paneles y tarjetas', 'radius-card': 'Tarjetas grandes', 'radius-swatch': 'Muestras de color',
@@ -117,7 +118,7 @@
     var ch = p.ch, vars = {};
     Object.keys(ch.themes[p.theme] || {}).forEach(function (k) { vars['--' + k] = ch.themes[p.theme][k]; });
     Object.keys(ch.fontAxis).forEach(function (k) { vars['--' + k] = String(ch.fontAxis[k]); });
-    Object.keys(ch.weights).forEach(function (k) { vars['--w-' + k] = String(ch.weights[k]); });
+    Object.keys(ch.weights).forEach(function (k) { vars['--font-weight-' + k] = String(ch.weights[k]); });
     Object.keys(ch.radius).forEach(function (k) { vars['--' + k] = ch.radius[k]; });
     var B = A.Button;
     return h('div', { ref: p.innerRef, className: 'tuner-preview', 'data-theme': p.theme, style: vars, 'aria-label': 'Vista previa', role: 'region' },

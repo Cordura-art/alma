@@ -45,7 +45,9 @@ for (const th of THEMES.slice(1)) css += cssTheme(th, `[data-theme="${th}"]`);
 css += `:root {\n${coreTokens.map((t) => `  --${t.name}: ${coreValue(t)};`).join('\n')}\n${fonts.map((t) => `  --font-${t.name}: ${t.$value};`).join('\n')}\n}\n`;
 for (const s of styles) {
   const v = s.$value, fam = s.original.$value.fontFamily.slice(1, -1).split('.').pop();
-  css += `.${s.name} { font-family: var(--font-${fam}); font-size: ${v.fontSize}; line-height: ${v.lineHeight}; font-weight: ${v.fontWeight}; letter-spacing: ${v.letterSpacing}; }\n`;
+  // The weight stays a reference to its role token, so changing --font-weight-<role> restyles every class of that role.
+  const w = String(s.original.$value.fontWeight).startsWith('{') ? `var(--${aliasName(s.original.$value.fontWeight)})` : v.fontWeight;
+  css += `.${s.name} { font-family: var(--font-${fam}); font-size: ${v.fontSize}; line-height: ${v.lineHeight}; font-weight: ${w}; letter-spacing: ${v.letterSpacing}; }\n`;
 }
 
 // ---------- JS ----------
@@ -71,7 +73,7 @@ for (const key of cfg.keyOrder) {
     alma.type = { fonts: cfg.type.fonts, families: Object.fromEntries(fonts.map((t) => [t.name, t.$value])),
       groups: cfg.type.groups.map((g) => ({ name: g.name, family: g.family, styles: styles.filter((s) => s.path[1] === g.name).map((s) => {
         const v = s.original.$value, fam = v.fontFamily.slice(1, -1).split('.').pop();
-        const o = { name: s.name, fontSize: v.fontSize, lineHeight: v.lineHeight, fontWeight: v.fontWeight, letterSpacing: v.letterSpacing };
+        const o = { name: s.name, fontSize: v.fontSize, lineHeight: v.lineHeight, fontWeight: s.$value.fontWeight, letterSpacing: v.letterSpacing };
         if (fam !== g.family) o.family = fam;
         if (s.$description) o.usage = s.$description;
         return Object.assign(o, (s.$extensions && s.$extensions.alma) || {});
@@ -111,7 +113,7 @@ for (const th of THEMES) dart += `  static const AlmaColors ${dartThemeId(th)} =
 dart += `  static AlmaColors of(AlmaTheme theme) {\n    switch (theme) {\n${THEMES.map((th) => `      case AlmaTheme.${dartThemeId(th)}:\n        return ${dartThemeId(th)};`).join('\n')}\n    }\n  }\n\n`;
 dart += `  @override\n  AlmaColors copyWith({\n${names.map((n) => `    Color? ${n},`).join('\n')}\n  }) {\n    return AlmaColors(\n${names.map((n) => `      ${n}: ${n} ?? this.${n},`).join('\n')}\n    );\n  }\n\n`;
 dart += `  @override\n  AlmaColors lerp(ThemeExtension<AlmaColors>? other, double t) {\n    if (other is! AlmaColors) return this;\n    return AlmaColors(\n${names.map((n) => `      ${n}: Color.lerp(${n}, other.${n}, t)!,`).join('\n')}\n    );\n  }\n}\n\n`;
-const famClass = { spacing: 'AlmaSpacing', radius: 'AlmaRadius', breakpoint: 'AlmaBreakpoint', size: 'AlmaSize', icon: 'AlmaIconSize', grid: 'AlmaGrid', fontAxis: 'AlmaFontAxis' };
+const famClass = { spacing: 'AlmaSpacing', radius: 'AlmaRadius', breakpoint: 'AlmaBreakpoint', size: 'AlmaSize', icon: 'AlmaIconSize', grid: 'AlmaGrid', fontAxis: 'AlmaFontAxis', fontWeight: 'AlmaFontWeight' };
 for (const [fam, cls] of Object.entries(famClass)) {
   const ts = coreTokens.filter((t) => t.path[0] === fam); if (!ts.length) continue;
   dart += `abstract final class ${cls} {\n${ts.map((t) => `${t.$description ? `  /// ${t.$description.replace(/\n/g, ' ')}\n` : ''}  static const double ${camel(t.name)} = ${num(px(t.$value))};`).join('\n')}\n}\n\n`;
@@ -126,7 +128,10 @@ dart += `abstract final class AlmaShadow {\n${shadows.map((t) => {
 }).join('\n')}\n}\n\n`;
 dart += `/// ALMA text styles. Roboto Flex with the axes of AlmaFontAxis (width and grade).\nabstract final class AlmaTypography {\n${styles.map((s) => {
   const v = s.$value, family = String(v.fontFamily).split(',')[0].replace(/["']/g, '').trim();
-  return `  static const TextStyle ${camel(s.name)} = TextStyle(fontFamily: '${family}', fontSize: ${num(px(v.fontSize))}, height: ${num(+v.lineHeight)}, fontWeight: FontWeight.w${v.fontWeight}, letterSpacing: ${num(px(v.letterSpacing))}, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);`;
+  // FontWeight only has w100–w900: the nearest one picks the face, and the wght axis sets the exact weight (e.g. 350).
+  const ow = String(s.original.$value.fontWeight), wght = ow.startsWith('{') ? `AlmaFontWeight.${camel(aliasName(ow))}` : num(+v.fontWeight);
+  const near = Math.min(900, Math.max(100, Math.round(v.fontWeight / 100) * 100));
+  return `  static const TextStyle ${camel(s.name)} = TextStyle(fontFamily: '${family}', fontSize: ${num(px(v.fontSize))}, height: ${num(+v.lineHeight)}, fontWeight: FontWeight.w${near}, letterSpacing: ${num(px(v.letterSpacing))}, fontVariations: <FontVariation>[FontVariation('wght', ${wght}), FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);`;
 }).join('\n')}\n}\n`;
 
 await mkdir('dist/css', { recursive: true }); await mkdir('dist/js', { recursive: true });

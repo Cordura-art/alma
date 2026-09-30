@@ -68,10 +68,10 @@ Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
 
 | Elemento | Tamaño de letra (px / rem) | Peso |
 |---|---|---|
-| Marca | 14 / 0,875 | Medium / 500 |
-| Estado y etiquetas | 11 / 0,6875 | Regular / 400 |
-| Número | 16 / 1 | Medium / 500 |
-| Vencimiento y CVV | 16 / 1 | Regular / 400 |
+| Marca | 14 / 0,875 | `font-weight-emphasis` |
+| Estado y etiquetas | 11 / 0,6875 | `font-weight-body` |
+| Número | 16 / 1 | `font-weight-emphasis` |
+| Vencimiento y CVV | 16 / 1 | `font-weight-body` |
 
 ### Estructura
 

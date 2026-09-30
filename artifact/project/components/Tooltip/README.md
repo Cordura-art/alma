@@ -65,7 +65,7 @@ El globo invierte los colores del tema para separarse del contenido: claro en te
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Texto | 12 / 0,75 | Regular / 400 | 1,4 |
+| Texto | 12 / 0,75 | `font-weight-body` | 1,4 |
 
 ### Estructura
 

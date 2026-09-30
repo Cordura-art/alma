@@ -85,10 +85,10 @@ El encabezado mide 44 px y queda fijo al desplazar la tabla.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Título | 16 / 1 | Medium / 500 | 1,5 |
-| Descripción | 12 / 0,75 | Regular / 400 | 1,72 |
-| Encabezado | 12 / 0,75 | Regular / 400 | — |
-| Celda | 14 / 0,875 | Regular / 400 | — |
+| Título | 16 / 1 | `font-weight-heading` | 1,5 |
+| Descripción | 12 / 0,75 | `font-weight-body` | 1,72 |
+| Encabezado | 12 / 0,75 | `font-weight-body` | — |
+| Celda | 14 / 0,875 | `font-weight-body` | — |
 
 Los números usan cifras tabulares (`tabular-nums`).
 

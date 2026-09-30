@@ -193,9 +193,9 @@ Roboto Flex extendida (`wdth` 150), peso Regular, en una línea. Las etiquetas u
 
 | Tamaño | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| `sm` | 11 / 0,6875 | Regular / 400 | `web-label-s` |
-| `md` | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| `lg` | 16 / 1 | Regular / 400 | `web-label-l`, con interlineado 1,4 |
+| `sm` | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
+| `md` | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| `lg` | 16 / 1 | `font-weight-body` | `web-label-l`, con interlineado 1,4 |
 
 Los tamaños van en rem: crecen con el tamaño de texto que elige la persona (probado al 200 %).
 

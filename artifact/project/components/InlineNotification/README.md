@@ -93,9 +93,9 @@ Los tokens `notification-*-accent` apuntan a `status-icon-*`, que alcanzan 3:1 s
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Título | 14 / 0,875 | Medium / 500 | 1,4 |
-| Mensaje | 14 / 0,875 | Regular / 400 | 1,72 |
-| Hora | 11 / 0,6875 | Regular / 400 | — |
+| Título | 14 / 0,875 | `font-weight-heading` | 1,4 |
+| Mensaje | 14 / 0,875 | `font-weight-body` | 1,72 |
+| Hora | 11 / 0,6875 | `font-weight-body` | — |
 
 ### Estructura
 

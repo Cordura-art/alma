@@ -71,9 +71,9 @@ Un campo de búsqueda con sugerencias, alcance y filtros.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Texto | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Token | 12 / 0,75 | Regular / 400 | — |
-| Título de sugerencias | 11 / 0,6875 | Regular / 400 | `web-label-s` |
+| Texto | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Token | 12 / 0,75 | `font-weight-body` | — |
+| Título de sugerencias | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
 
 ### Estructura
 

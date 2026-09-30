@@ -68,7 +68,7 @@ Una pista con una perilla para elegir un valor en un rango.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Etiqueta, valor y campo | 14 / 0,875 | Regular / 400 | `web-label-m` |
+| Etiqueta, valor y campo | 14 / 0,875 | `font-weight-body` | `web-label-m` |
 
 El valor usa cifras tabulares.
 

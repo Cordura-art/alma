@@ -70,8 +70,8 @@ Arriba de la página, sobre el título, alineado con él.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Enlace | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Página actual | 14 / 0,875 | Medium / 500 | — |
+| Enlace | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Página actual | 14 / 0,875 | `font-weight-emphasis` | — |
 
 El subrayado aparece al pasar el cursor, 0,2 em bajo el texto.
 

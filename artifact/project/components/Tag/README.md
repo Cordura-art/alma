@@ -86,9 +86,9 @@ Once colores de la paleta secundaria: `red`, `yellow`, `magenta`, `purple`, `blu
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Texto | 12 / 0,75 | Regular / 400 | — |
-| Texto (`sm`) | 11 / 0,6875 | Regular / 400 | `web-label-s` |
-| Texto (elegida) | 12 / 0,75 | Medium / 500 | — |
+| Texto | 12 / 0,75 | `font-weight-body` | — |
+| Texto (`sm`) | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
+| Texto (elegida) | 12 / 0,75 | `font-weight-emphasis` | — |
 
 ### Estructura
 

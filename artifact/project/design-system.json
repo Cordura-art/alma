@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T16:00:00Z",
+    "at": "2026-09-30T17:00:00Z",
     "via": "Claude Code",
-    "note": "Tercer ajuste con Ajustes de ALMA: Roboto Flex ancho 130 y grado 20; display 220, títulos y cuerpo 350; botones 16 px, etiquetas 8 px, casilla 2 px, paneles 2 px, marcos 4 px."
+    "note": "Pesos en tokens: font-weight-display, -heading, -body y -emphasis, usados por los estilos de texto y todos los componentes."
   },
   "layout": "files",
   "libraries": [

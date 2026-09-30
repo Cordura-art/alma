@@ -25,8 +25,8 @@ En tema claro, `control-on` es un oliva oscuro, porque el lima no se ve sobre fo
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado | Estilo de texto |
 |---|---|---|---|---|
-| Etiqueta | 14 / 0,875 | Regular / 400 | 1,4 | `web-label-m` |
-| Descripción | 12 / 0,75 | Regular / 400 | 1,72 | `web-body-s` |
+| Etiqueta | 14 / 0,875 | `font-weight-body` | 1,4 | `web-label-m` |
+| Descripción | 12 / 0,75 | `font-weight-body` | 1,72 | `web-body-s` |
 
 ## Estructura
 

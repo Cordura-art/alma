@@ -20,8 +20,8 @@ summary: Especificaciones visuales del acordeón.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Título | 14 / 0,875 | Regular / 400 | — |
-| Contenido | 14 / 0,875 | Regular / 400 | 1,6 |
+| Título | 14 / 0,875 | `font-weight-heading` | — |
+| Contenido | 14 / 0,875 | `font-weight-body` | 1,6 |
 
 ## Estructura
 

@@ -79,7 +79,7 @@ Cada token cambiado lo dice en su nota. No uses los valores anteriores.
 ## Tipografía
 
 - Una sola familia: **Roboto Flex**, siempre extendida (`font-stretch: 150%`, `"wdth" 150`). Roboto Mono solo para código.
-- Pesos, ajustados el 30 de septiembre de 2026 (antes 600, 500 y 400, del theme de origen de Cordura): *display* a 220 (entre ExtraLight y Light); encabezados web h1–h6, headline, title y blockquote a 350; cuerpo y etiquetas a 350 (entre Light y Regular). Los ejes de Roboto Flex: ancho `font-width` 130 y grado `font-grade` 20. No hay otros pesos.
+- Pesos, un token por rol (`font-weight-display`, `-heading`, `-body`, `-emphasis`) que usan los estilos de texto y los componentes; ajustados el 30 de septiembre de 2026 (antes 600, 500 y 400, del theme de origen de Cordura): *display* a 220 (entre ExtraLight y Light); encabezados web h1–h6, headline, title y blockquote a 350; cuerpo y etiquetas a 350 (entre Light y Regular); énfasis dentro de componentes a 500 (Medium). Los ejes de Roboto Flex: ancho `font-width` 130 y grado `font-grade` 20. No hay otros pesos.
 - Tres escalas, según el soporte:
   - **Web**: `web-display-l` 128 hasta `web-h6` 16, `web-body-m` 14 como cuerpo por defecto, `web-label-s` 11 para botones y ayudas.
   - **App**: `app-display-*`, `app-headline-*`, `app-title-*`, `app-body-*`, `app-label-*`.

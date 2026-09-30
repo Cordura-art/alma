@@ -31,12 +31,9 @@ for (const th of Object.keys(themes)) {
 
 const axis = JSON.parse(await read('tokens/core/fontAxis.json')).fontAxis;
 const radius = Object.entries(JSON.parse(await read('tokens/core/radius.json')).radius).filter(([n]) => n !== 'radius-pill').map(([name, t]) => ({ name, value: t.$value }));
-const styles = JSON.parse(await read('tokens/type/styles.json')).type;
-const role = (n) => (n.includes('display') ? 'display' : /-h[1-6]$|headline|title|blockquote/.test(n) ? 'heading' : 'body');
-const byRole = { display: [], heading: [], body: [] }, weights = {};
-for (const group of Object.values(styles)) for (const [name, t] of Object.entries(group)) { byRole[role(name)].push(name); weights[role(name)] = t.$value.fontWeight; }
-// In the preview, the type styles take their weight from --w-<role>, so the weight sliders act live.
-const weightCss = Object.entries(byRole).map(([r, names]) => `${names.map((n) => `.tuner-preview .${n}`).join(', ')} { font-weight: var(--w-${r}, ${weights[r]}); }`).join('\n');
+// Weights by role: display, heading, body, emphasis. Type styles and components read --font-weight-<role>,
+// so the preview only has to set those variables.
+const weights = Object.fromEntries(Object.entries(JSON.parse(await read('tokens/core/fontWeight.json')).fontWeight).map(([n, t]) => [n.replace(/^font-weight-/, ''), t.$value]));
 
 const data = {
   themes: cfg.themes, colorGroups, values,
@@ -47,7 +44,7 @@ const data = {
 };
 
 const bundle = await read(`${P}/components/bundle.js`);
-const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), await read('site/site.css'), await read('site/tuner.css'), weightCss].join('\n');
+const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), await read('site/site.css'), await read('site/tuner.css')].join('\n');
 const app = await read('site/tuner.js');
 for (const [name, text, bad] of [['bundle.js', bundle, /<\/script|<!--/i], ['tuner.js', app, /<\/script|<!--/i], ['CSS', css, /<\/style/i]]) {
   if (bad.test(text)) throw new Error(`${name} contiene una secuencia que cerraría la etiqueta en línea`);

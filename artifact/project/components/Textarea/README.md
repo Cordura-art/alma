@@ -95,9 +95,9 @@ El texto de ejemplo se ve también en reposo (`field-placeholder`).
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado | Estilo de texto |
 |---|---|---|---|---|
-| Etiqueta flotante | 11 / 0,6875 | Regular / 400 | 1,4 | `web-label-s` |
-| Texto escrito | 14 / 0,875 | Regular / 400 | 1,5 | `web-label-m` con interlineado 1,5 |
-| Ayuda y contador | 11 / 0,6875 | Regular / 400 | 1,4 | `web-label-s` |
+| Etiqueta flotante | 11 / 0,6875 | `font-weight-body` | 1,4 | `web-label-s` |
+| Texto escrito | 14 / 0,875 | `font-weight-body` | 1,5 | `web-label-m` con interlineado 1,5 |
+| Ayuda y contador | 11 / 0,6875 | `font-weight-body` | 1,4 | `web-label-s` |
 
 ### Estructura
 

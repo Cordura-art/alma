@@ -69,7 +69,7 @@ La barra superior con el título de la vista, la navegación y las acciones frec
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Título | 20 / 1,25 | Medium / 500 | 1,4 |
+| Título | 20 / 1,25 | `font-weight-heading` | 1,4 |
 
 ### Estructura
 

@@ -77,9 +77,9 @@ Una barra lateral para moverse entre las áreas de la app en tablet y escritorio
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Título de grupo (mayúsculas) | 11 / 0,6875 | Regular / 400 | `web-label-s` |
-| Destino | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Contador | 11 / 0,6875 | Regular / 400 | `web-label-s` |
+| Título de grupo (mayúsculas) | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
+| Destino | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Contador | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
 
 ### Estructura
 

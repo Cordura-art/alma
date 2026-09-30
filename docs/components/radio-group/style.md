@@ -21,9 +21,9 @@ summary: Especificaciones visuales del grupo de opciones.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Título del grupo | 11 / 0,6875 | Regular / 400 | `web-label-s` |
-| Etiqueta | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Ayuda | 11 / 0,6875 | Regular / 400 | `web-label-s` |
+| Título del grupo | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
+| Etiqueta | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Ayuda | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
 
 ## Estructura
 

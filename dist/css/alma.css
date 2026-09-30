@@ -2016,6 +2016,10 @@
   --easing-exit-expressive: cubic-bezier(0.4, 0.14, 1, 1);
   --font-width: 130;
   --font-grade: 20;
+  --font-weight-display: 220;
+  --font-weight-heading: 350;
+  --font-weight-body: 350;
+  --font-weight-emphasis: 500;
   --grid-columns-mobile: 4;
   --grid-column-mobile: 76px;
   --grid-gutter-mobile: 8px;
@@ -2070,51 +2074,51 @@
   --font-flex: "Roboto Flex", system-ui, sans-serif;
   --font-mono: "Roboto Mono", ui-monospace, monospace;
 }
-.web-display-xl { font-family: var(--font-flex); font-size: 40rem; line-height: 1; font-weight: 220; letter-spacing: -9.6px; }
-.web-display-l { font-family: var(--font-flex); font-size: 8rem; line-height: 0.8; font-weight: 220; letter-spacing: 0.0px; }
-.web-display-m { font-family: var(--font-flex); font-size: 5.5rem; line-height: 1; font-weight: 220; letter-spacing: 0.0px; }
-.web-display-s { font-family: var(--font-flex); font-size: 3.5rem; line-height: 1.1; font-weight: 220; letter-spacing: 0.56px; }
-.web-h1 { font-family: var(--font-flex); font-size: 2.5rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.4px; }
-.web-h2 { font-family: var(--font-flex); font-size: 2rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.0px; }
-.web-h3 { font-family: var(--font-flex); font-size: 1.75rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.0px; }
-.web-h4 { font-family: var(--font-flex); font-size: 1.5rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.0px; }
-.web-h5 { font-family: var(--font-flex); font-size: 1.25rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.2px; }
-.web-h6 { font-family: var(--font-flex); font-size: 1rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.16px; }
-.web-blockquote { font-family: var(--font-flex); font-size: 1.25rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.2px; }
-.web-body-l { font-family: var(--font-flex); font-size: 1rem; line-height: 2; font-weight: 350; letter-spacing: 0.32px; }
-.web-body-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.07px; }
-.web-body-s { font-family: var(--font-flex); font-size: 0.75rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.18px; }
-.web-label-xl { font-family: var(--font-flex); font-size: 1.25rem; line-height: 1.4; font-weight: 350; letter-spacing: 0.2px; }
-.web-label-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.72; font-weight: 350; letter-spacing: 0.16px; }
-.web-label-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4; font-weight: 350; letter-spacing: 0.14px; }
-.web-label-s { font-family: var(--font-flex); font-size: 0.6875rem; line-height: 1.4; font-weight: 350; letter-spacing: 0.165px; }
-.app-display-l { font-family: var(--font-flex); font-size: 3.5625rem; line-height: 1.1228; font-weight: 220; letter-spacing: 0.0px; }
-.app-display-m { font-family: var(--font-flex); font-size: 2.8125rem; line-height: 1.1556; font-weight: 220; letter-spacing: 0.0px; }
-.app-display-s { font-family: var(--font-flex); font-size: 2.25rem; line-height: 1.2222; font-weight: 220; letter-spacing: 0.0px; }
-.app-headline-l { font-family: var(--font-flex); font-size: 2rem; line-height: 1.25; font-weight: 350; letter-spacing: 0.0px; }
-.app-headline-m { font-family: var(--font-flex); font-size: 1.75rem; line-height: 1.2857; font-weight: 350; letter-spacing: 0.0px; }
-.app-headline-s { font-family: var(--font-flex); font-size: 1.5rem; line-height: 1.3333; font-weight: 350; letter-spacing: 0.0px; }
-.app-title-l { font-family: var(--font-flex); font-size: 1.375rem; line-height: 1.2727; font-weight: 350; letter-spacing: 0.0px; }
-.app-title-m { font-family: var(--font-flex); font-size: 1rem; line-height: 1.5; font-weight: 350; letter-spacing: 0.0px; }
-.app-title-s { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4286; font-weight: 350; letter-spacing: 0.56px; }
-.app-body-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.5; font-weight: 350; letter-spacing: 0.15px; }
-.app-body-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4286; font-weight: 350; letter-spacing: 0.25px; }
-.app-body-s { font-family: var(--font-flex); font-size: 0.75rem; line-height: 1.3333; font-weight: 350; letter-spacing: 0.4px; }
-.app-label-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.25; font-weight: 350; letter-spacing: 0.1px; }
-.app-label-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.1429; font-weight: 350; letter-spacing: 0.5px; }
-.app-label-s { font-family: var(--font-flex); font-size: 0.6875rem; line-height: 1.4545; font-weight: 350; letter-spacing: 0.5px; }
-.print-display-l { font-family: var(--font-flex); font-size: 3.5625rem; line-height: 1.1228; font-weight: 220; letter-spacing: 0.0px; }
-.print-display-m { font-family: var(--font-flex); font-size: 2.8125rem; line-height: 1.1556; font-weight: 220; letter-spacing: 0.0px; }
-.print-display-s { font-family: var(--font-flex); font-size: 2.25rem; line-height: 1.2222; font-weight: 220; letter-spacing: 0.0px; }
-.print-headline-l { font-family: var(--font-flex); font-size: 2rem; line-height: 1.25; font-weight: 350; letter-spacing: 0.0px; }
-.print-headline-m { font-family: var(--font-flex); font-size: 1.75rem; line-height: 1.2857; font-weight: 350; letter-spacing: 0.0px; }
-.print-headline-s { font-family: var(--font-flex); font-size: 1.5rem; line-height: 1.3333; font-weight: 350; letter-spacing: 0.0px; }
-.print-title-l { font-family: var(--font-flex); font-size: 1.375rem; line-height: 1.2727; font-weight: 350; letter-spacing: 0.0px; }
-.print-title-m { font-family: var(--font-flex); font-size: 1rem; line-height: 1.5; font-weight: 350; letter-spacing: 0.0px; }
-.print-title-s { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4286; font-weight: 350; letter-spacing: 0.56px; }
-.print-body-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.5; font-weight: 350; letter-spacing: 0.15px; }
-.print-body-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4286; font-weight: 350; letter-spacing: 0.25px; }
-.print-body-s { font-family: var(--font-flex); font-size: 0.5625rem; line-height: 2; font-weight: 350; letter-spacing: 0.3px; }
-.print-label-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.25; font-weight: 350; letter-spacing: 0.1px; }
-.print-label-m { font-family: var(--font-flex); font-size: 1rem; line-height: 1.25; font-weight: 350; letter-spacing: 0.571px; }
-.print-label-s { font-family: var(--font-flex); font-size: 0.6875rem; line-height: 1.4545; font-weight: 350; letter-spacing: 0.5px; }
+.web-display-xl { font-family: var(--font-flex); font-size: 40rem; line-height: 1; font-weight: var(--font-weight-display); letter-spacing: -9.6px; }
+.web-display-l { font-family: var(--font-flex); font-size: 8rem; line-height: 0.8; font-weight: var(--font-weight-display); letter-spacing: 0.0px; }
+.web-display-m { font-family: var(--font-flex); font-size: 5.5rem; line-height: 1; font-weight: var(--font-weight-display); letter-spacing: 0.0px; }
+.web-display-s { font-family: var(--font-flex); font-size: 3.5rem; line-height: 1.1; font-weight: var(--font-weight-display); letter-spacing: 0.56px; }
+.web-h1 { font-family: var(--font-flex); font-size: 2.5rem; line-height: 1.72; font-weight: var(--font-weight-heading); letter-spacing: 0.4px; }
+.web-h2 { font-family: var(--font-flex); font-size: 2rem; line-height: 1.72; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.web-h3 { font-family: var(--font-flex); font-size: 1.75rem; line-height: 1.72; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.web-h4 { font-family: var(--font-flex); font-size: 1.5rem; line-height: 1.72; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.web-h5 { font-family: var(--font-flex); font-size: 1.25rem; line-height: 1.72; font-weight: var(--font-weight-heading); letter-spacing: 0.2px; }
+.web-h6 { font-family: var(--font-flex); font-size: 1rem; line-height: 1.72; font-weight: var(--font-weight-heading); letter-spacing: 0.16px; }
+.web-blockquote { font-family: var(--font-flex); font-size: 1.25rem; line-height: 1.72; font-weight: var(--font-weight-heading); letter-spacing: 0.2px; }
+.web-body-l { font-family: var(--font-flex); font-size: 1rem; line-height: 2; font-weight: var(--font-weight-body); letter-spacing: 0.32px; }
+.web-body-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.72; font-weight: var(--font-weight-body); letter-spacing: 0.07px; }
+.web-body-s { font-family: var(--font-flex); font-size: 0.75rem; line-height: 1.72; font-weight: var(--font-weight-body); letter-spacing: 0.18px; }
+.web-label-xl { font-family: var(--font-flex); font-size: 1.25rem; line-height: 1.4; font-weight: var(--font-weight-body); letter-spacing: 0.2px; }
+.web-label-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.72; font-weight: var(--font-weight-body); letter-spacing: 0.16px; }
+.web-label-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4; font-weight: var(--font-weight-body); letter-spacing: 0.14px; }
+.web-label-s { font-family: var(--font-flex); font-size: 0.6875rem; line-height: 1.4; font-weight: var(--font-weight-body); letter-spacing: 0.165px; }
+.app-display-l { font-family: var(--font-flex); font-size: 3.5625rem; line-height: 1.1228; font-weight: var(--font-weight-display); letter-spacing: 0.0px; }
+.app-display-m { font-family: var(--font-flex); font-size: 2.8125rem; line-height: 1.1556; font-weight: var(--font-weight-display); letter-spacing: 0.0px; }
+.app-display-s { font-family: var(--font-flex); font-size: 2.25rem; line-height: 1.2222; font-weight: var(--font-weight-display); letter-spacing: 0.0px; }
+.app-headline-l { font-family: var(--font-flex); font-size: 2rem; line-height: 1.25; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.app-headline-m { font-family: var(--font-flex); font-size: 1.75rem; line-height: 1.2857; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.app-headline-s { font-family: var(--font-flex); font-size: 1.5rem; line-height: 1.3333; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.app-title-l { font-family: var(--font-flex); font-size: 1.375rem; line-height: 1.2727; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.app-title-m { font-family: var(--font-flex); font-size: 1rem; line-height: 1.5; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.app-title-s { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4286; font-weight: var(--font-weight-heading); letter-spacing: 0.56px; }
+.app-body-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.5; font-weight: var(--font-weight-body); letter-spacing: 0.15px; }
+.app-body-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4286; font-weight: var(--font-weight-body); letter-spacing: 0.25px; }
+.app-body-s { font-family: var(--font-flex); font-size: 0.75rem; line-height: 1.3333; font-weight: var(--font-weight-body); letter-spacing: 0.4px; }
+.app-label-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.25; font-weight: var(--font-weight-body); letter-spacing: 0.1px; }
+.app-label-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.1429; font-weight: var(--font-weight-body); letter-spacing: 0.5px; }
+.app-label-s { font-family: var(--font-flex); font-size: 0.6875rem; line-height: 1.4545; font-weight: var(--font-weight-body); letter-spacing: 0.5px; }
+.print-display-l { font-family: var(--font-flex); font-size: 3.5625rem; line-height: 1.1228; font-weight: var(--font-weight-display); letter-spacing: 0.0px; }
+.print-display-m { font-family: var(--font-flex); font-size: 2.8125rem; line-height: 1.1556; font-weight: var(--font-weight-display); letter-spacing: 0.0px; }
+.print-display-s { font-family: var(--font-flex); font-size: 2.25rem; line-height: 1.2222; font-weight: var(--font-weight-display); letter-spacing: 0.0px; }
+.print-headline-l { font-family: var(--font-flex); font-size: 2rem; line-height: 1.25; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.print-headline-m { font-family: var(--font-flex); font-size: 1.75rem; line-height: 1.2857; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.print-headline-s { font-family: var(--font-flex); font-size: 1.5rem; line-height: 1.3333; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.print-title-l { font-family: var(--font-flex); font-size: 1.375rem; line-height: 1.2727; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.print-title-m { font-family: var(--font-flex); font-size: 1rem; line-height: 1.5; font-weight: var(--font-weight-heading); letter-spacing: 0.0px; }
+.print-title-s { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4286; font-weight: var(--font-weight-heading); letter-spacing: 0.56px; }
+.print-body-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.5; font-weight: var(--font-weight-body); letter-spacing: 0.15px; }
+.print-body-m { font-family: var(--font-flex); font-size: 0.875rem; line-height: 1.4286; font-weight: var(--font-weight-body); letter-spacing: 0.25px; }
+.print-body-s { font-family: var(--font-flex); font-size: 0.5625rem; line-height: 2; font-weight: var(--font-weight-body); letter-spacing: 0.3px; }
+.print-label-l { font-family: var(--font-flex); font-size: 1rem; line-height: 1.25; font-weight: var(--font-weight-body); letter-spacing: 0.1px; }
+.print-label-m { font-family: var(--font-flex); font-size: 1rem; line-height: 1.25; font-weight: var(--font-weight-body); letter-spacing: 0.571px; }
+.print-label-s { font-family: var(--font-flex); font-size: 0.6875rem; line-height: 1.4545; font-weight: var(--font-weight-body); letter-spacing: 0.5px; }

@@ -71,9 +71,9 @@ El campo usa los tokens de `TextInput` (`field-*`). El calendario:
 
 | Elemento | Tamaño de letra (px / rem) | Peso |
 |---|---|---|
-| Mes | 14 / 0,875 | Medium / 500 |
-| Días de la semana | 11 / 0,6875 | Regular / 400 |
-| Día | 14 / 0,875 | Regular / 400; Medium / 500 el elegido |
+| Mes | 14 / 0,875 | `font-weight-heading` |
+| Días de la semana | 11 / 0,6875 | `font-weight-body` |
+| Día | 14 / 0,875 | `font-weight-body`; `font-weight-emphasis` el elegido |
 
 ### Estructura
 

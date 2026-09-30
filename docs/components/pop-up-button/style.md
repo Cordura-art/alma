@@ -37,10 +37,10 @@ summary: Especificaciones visuales del botón con menú de opciones.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Etiqueta superior | 11 / 0,6875 | Regular / 400 | `web-label-s` |
-| Valor del botón | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Opción | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Nota al pie | 11 / 0,6875 | Regular / 400 | `web-label-s` |
+| Etiqueta superior | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
+| Valor del botón | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Opción | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Nota al pie | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
 
 ## Estructura
 

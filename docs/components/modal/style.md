@@ -27,9 +27,9 @@ summary: Especificaciones visuales del diálogo modal.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Antetítulo | 12 / 0,75 | Regular / 400 | — |
-| Título | 20 / 1,25 | Medium / 500 | 1,4 |
-| Cuerpo y descripción | 14 / 0,875 | Regular / 400 | 1,6 |
+| Antetítulo | 12 / 0,75 | `font-weight-body` | — |
+| Título | 20 / 1,25 | `font-weight-heading` | 1,4 |
+| Cuerpo y descripción | 14 / 0,875 | `font-weight-body` | 1,6 |
 
 ## Estructura
 

@@ -22,9 +22,9 @@ summary: Especificaciones visuales de la barra de pestañas.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Etiqueta (menos de 672 px) | 11 / 0,6875 | Regular / 400 | `web-label-s` |
-| Etiqueta (desde 672 px) | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Insignia | 11 / 0,6875 | Medium / 500 | — |
+| Etiqueta (menos de 672 px) | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
+| Etiqueta (desde 672 px) | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Insignia | 11 / 0,6875 | `font-weight-emphasis` | — |
 
 ## Estructura
 

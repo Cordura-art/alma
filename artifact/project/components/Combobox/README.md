@@ -133,9 +133,9 @@ Un campo para elegir una o varias opciones de una lista larga escribiendo para f
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Etiqueta del campo y texto | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Opción | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Etiqueta (`Tag` pequeña) | 11 / 0,6875 | Regular / 400 | `web-label-s` |
+| Etiqueta del campo y texto | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Opción | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Etiqueta (`Tag` pequeña) | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
 
 ### Estructura
 

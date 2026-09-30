@@ -24,7 +24,7 @@ Dentro de una `Toolbar` o un `Breadcrumb`, el botón no tiene borde y usa los co
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Etiqueta del botón y acciones | 14 / 0,875 | Regular / 400 | `web-label-m` |
+| Etiqueta del botón y acciones | 14 / 0,875 | `font-weight-body` | `web-label-m` |
 
 ## Estructura
 

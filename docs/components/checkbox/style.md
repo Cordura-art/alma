@@ -22,7 +22,7 @@ En tema claro, `control-on` es un oliva oscuro: el lima no llega a 3:1 sobre fon
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Etiqueta | 14 / 0,875 | Regular / 400 | `web-label-m` |
+| Etiqueta | 14 / 0,875 | `font-weight-body` | `web-label-m` |
 
 ## Estructura
 

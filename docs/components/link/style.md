@@ -18,7 +18,7 @@ summary: Especificaciones visuales del enlace.
 | Elemento | Tamaño | Peso | Subrayado |
 |---|---|---|---|
 | Dentro de un texto | el del texto | el del texto | 1 px, a 0,2 em; 2 px al pasar el cursor |
-| Suelto | el del texto | Medium / 500 | solo al pasar el cursor |
+| Suelto | el del texto | `font-weight-emphasis` | solo al pasar el cursor |
 
 ## Estructura
 

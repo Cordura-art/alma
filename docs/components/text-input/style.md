@@ -38,10 +38,10 @@ En tema oscuro el borde y la etiqueta son lima; en claro, tonos acero oscuros, p
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Etiqueta | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Etiqueta flotante | 11 / 0,6875 | Regular / 400 | `web-label-s` |
-| Texto escrito | 14 / 0,875 | Regular / 400 | `web-label-m` |
-| Ayuda y contador | 11 / 0,6875 | Regular / 400 | `web-label-s` |
+| Etiqueta | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Etiqueta flotante | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
+| Texto escrito | 14 / 0,875 | `font-weight-body` | `web-label-m` |
+| Ayuda y contador | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
 
 ## Estructura
 

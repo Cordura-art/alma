@@ -2086,6 +2086,12 @@ export const core = {
   "fontAxis": {
     "font-width": "130",
     "font-grade": "20"
+  },
+  "fontWeight": {
+    "font-weight-display": "220",
+    "font-weight-heading": "350",
+    "font-weight-body": "350",
+    "font-weight-emphasis": "500"
   }
 };
 export const fonts = {

@@ -1,7 +1,7 @@
 // Applies the changes exported by the ALMA tuning tool (Ajustes de ALMA) to the W3C tokens in tokens/.
 // Usage: npm run tokens:apply -- cambios.json   (then: npm run build && npm test)
 // Input: { themes: { <theme>: { <color token>: "#RRGGBB" } }, fontAxis: { "font-width": 150, "font-grade": 0 },
-//          weights: { display: 600, heading: 500, body: 400 }, radius: { "radius-panel": "24px" } }
+//          weights: { display: 600, heading: 500, body: 400, emphasis: 500 }, radius: { "radius-panel": "24px" } }
 import { readFile, writeFile } from 'node:fs/promises';
 
 const file = process.argv[2];
@@ -35,20 +35,14 @@ if (changes.fontAxis) {
 }
 
 if (changes.weights) {
-  // Roles: display (display-*), heading (h1–h6, headline, title, blockquote), body (body, label).
-  const role = (n) => (n.includes('display') ? 'display' : /-h[1-6]$|headline|title|blockquote/.test(n) ? 'heading' : 'body');
-  const p = 'tokens/type/styles.json', d = await load(p);
+  // One token per role in tokens/core/fontWeight.json; type styles and components reference them.
+  const p = 'tokens/core/fontWeight.json', d = await load(p);
   for (const [r, w] of Object.entries(changes.weights)) {
-    if (!['display', 'heading', 'body'].includes(r)) throw new Error(`Rol desconocido: "${r}"`);
+    const t = d.fontWeight[`font-weight-${r}`];
+    if (!t) throw new Error(`Rol desconocido: "${r}" (display, heading, body o emphasis)`);
     if (!Number.isInteger(w) || w < 100 || w > 1000) throw new Error(`${r}: el peso va de 100 a 1000`);
+    t.$value = w; done.push(`peso ${r} = ${w}`);
   }
-  for (const group of Object.values(d.type)) {
-    for (const [name, t] of Object.entries(group)) {
-      const w = changes.weights[role(name)];
-      if (w !== undefined) t.$value.fontWeight = w;
-    }
-  }
-  for (const [r, w] of Object.entries(changes.weights)) done.push(`peso ${r} = ${w}`);
   await save(p, d);
 }
 

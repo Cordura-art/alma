@@ -19,7 +19,7 @@ summary: Especificaciones visuales de la barra de herramientas.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Título | 20 / 1,25 | Medium / 500 | 1,4 |
+| Título | 20 / 1,25 | `font-weight-heading` | 1,4 |
 
 ## Estructura
 

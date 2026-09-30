@@ -64,8 +64,8 @@ Un consejo breve que enseña una función y se puede descartar.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Interlineado |
 |---|---|---|---|
-| Título | 14 / 0,875 | Medium / 500 | 1,4 |
-| Mensaje | 14 / 0,875 | Regular / 400 | 1,72 |
+| Título | 14 / 0,875 | `font-weight-heading` | 1,4 |
+| Mensaje | 14 / 0,875 | `font-weight-body` | 1,72 |
 
 ### Estructura
 

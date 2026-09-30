@@ -23,7 +23,7 @@ La opción elegida se distingue por el fondo, no solo por el color del texto.
 
 | Elemento | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| Opción | 11 / 0,6875 | Regular / 400 | `web-label-s` |
+| Opción | 11 / 0,6875 | `font-weight-body` | `web-label-s` |
 
 ## Estructura
 
