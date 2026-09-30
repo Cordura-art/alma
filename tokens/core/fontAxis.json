@@ -2,13 +2,13 @@
   "fontAxis": {
     "font-width": {
       "$type": "number",
-      "$value": 150,
-      "$description": "Ancho de Roboto Flex (eje wdth, de 25 a 151). ALMA usa 150: extendida, como en todos los estilos de Figma."
+      "$value": 151,
+      "$description": "Ancho de Roboto Flex (eje wdth, de 25 a 151). ALMA usa 151, el máximo: la versión más extendida. Antes 150."
     },
     "font-grade": {
       "$type": "number",
-      "$value": 0,
-      "$description": "Grado de Roboto Flex (eje GRAD, de −200 a 150): engrosa o aligera el trazo sin cambiar el ancho del texto. 0 por defecto."
+      "$value": -200,
+      "$description": "Grado de Roboto Flex (eje GRAD, de −200 a 150): engrosa o aligera el trazo sin cambiar el ancho del texto. ALMA usa −200, el más liviano. Antes 0."
     }
   }
 }

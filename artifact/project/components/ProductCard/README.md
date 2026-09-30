@@ -64,7 +64,7 @@ El fondo usa `tag-<tono>-bg`: `red` (por defecto), `yellow`, `magenta`, `purple`
 | Elemento | Propiedad | Valor |
 |---|---|---|
 | Tarjeta | ancho | 328 px (20,5 rem) |
-| Tarjeta | radio | 24 px (el valor de `radius-panel`) |
+| Tarjeta | radio | `radius-panel` |
 | Cabecera | relleno | 16 px |
 | Imagen | alto | 245 px, recortada |
 | Texto | relleno | 20 px arriba y abajo, 16 px a los lados |

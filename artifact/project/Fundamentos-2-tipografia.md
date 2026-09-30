@@ -17,20 +17,22 @@ Roboto Flex tiene varios ejes; ALMA fija dos para todo el texto, como tokens:
 
 | Token | Eje | Valor | Qué hace |
 |---|---|---|---|
-| `font-width` | `wdth` (25 a 151) | 150 | El ancho: 150 es la versión extendida de la marca. |
-| `font-grade` | `GRAD` (−200 a 150) | 0 | El grado: engrosa o aligera el trazo sin cambiar el ancho del texto, así nada se mueve de lugar. |
+| `font-width` | `wdth` (25 a 151) | 151 | El ancho: 151, el máximo de Roboto Flex, la versión más extendida. |
+| `font-grade` | `GRAD` (−200 a 150) | −200 | El grado, en su punto más liviano: engrosa o aligera el trazo sin cambiar el ancho del texto, así nada se mueve de lugar. |
 
 El peso (`wght`) va en cada estilo de texto. Para probar otros valores sobre componentes reales, usa la herramienta **Ajustes de ALMA** (`npm run tuner`).
 
 ### Pesos
 
-Los pesos vienen del theme de origen de Cordura. No hay otros.
+Un peso por rol, ajustado el 30 de septiembre de 2026 con **Ajustes de ALMA** (antes 600, 500 y 400, los del theme de origen).
 
 | Peso | Valor | Uso |
 |---|---|---|
-| SemiBold | 600 | *Display*: titulares grandes. |
-| Medium | 500 | Encabezados h1–h6, *headline*, *title* y citas. |
-| Regular | 400 | Cuerpo y etiquetas. |
+| Black | 1000 | *Display*: titulares grandes. |
+| Thin | 100 | Encabezados h1–h6, *headline*, *title* y citas. |
+| Thin | 100 | Cuerpo y etiquetas. |
+
+El contraste extremo entre el *display* y el resto es parte del estilo. Los pesos se aplican a los estilos de texto (`web-*`, `app-*`, `print-*`); el texto propio de los componentes conserva el peso de su CSS.
 
 ### Tres escalas
 
@@ -56,16 +58,16 @@ Los tamaños van en `rem` (16 px = 1 rem) y los interlineados sin unidad, así q
 
 | Estilo | Tamaño | Peso | Uso |
 |---|---|---|---|
-| `web-display-l` | 128 px (8 rem) | 600 | Titular de portada. |
-| `web-h1` | 40 px (2,5 rem) | 500 | Título de página. |
-| `web-h2` | 32 px (2 rem) | 500 | Sección. |
-| `web-h4` | 24 px (1,5 rem) | 500 | Subsección. |
-| `web-h6` | 16 px (1 rem) | 500 | Encabezado menor. |
-| `web-body-l` | 16 px (1 rem) | 400 | Texto de lectura larga. |
-| `web-body-m` | 14 px (0,875 rem) | 400 | **Cuerpo por defecto.** |
-| `web-body-s` | 12 px (0,75 rem) | 400 | Notas y descripciones. |
-| `web-label-m` | 14 px (0,875 rem) | 400 | Controles y menús. |
-| `web-label-s` | 11 px (0,6875 rem) | 400 | Botones pequeños, etiquetas de campo, ayudas. |
+| `web-display-l` | 128 px (8 rem) | 1000 | Titular de portada. |
+| `web-h1` | 40 px (2,5 rem) | 100 | Título de página. |
+| `web-h2` | 32 px (2 rem) | 100 | Sección. |
+| `web-h4` | 24 px (1,5 rem) | 100 | Subsección. |
+| `web-h6` | 16 px (1 rem) | 100 | Encabezado menor. |
+| `web-body-l` | 16 px (1 rem) | 100 | Texto de lectura larga. |
+| `web-body-m` | 14 px (0,875 rem) | 100 | **Cuerpo por defecto.** |
+| `web-body-s` | 12 px (0,75 rem) | 100 | Notas y descripciones. |
+| `web-label-m` | 14 px (0,875 rem) | 100 | Controles y menús. |
+| `web-label-s` | 11 px (0,6875 rem) | 100 | Botones pequeños, etiquetas de campo, ayudas. |
 
 La tabla completa, con los 48 estilos de las tres escalas, está en la pestaña **Tokens**.
 
@@ -89,7 +91,7 @@ La tabla completa, con los 48 estilos de las tres escalas, está en la pestaña 
 
 ### Números gigantes
 
-`web-display-xl` (640 px, 600) es el *display Xlarge* del theme de origen. Solo en portadas y carteles; nunca en una interfaz.
+`web-display-xl` (640 px, 1000) es el *display Xlarge* del theme de origen. Solo en portadas y carteles; nunca en una interfaz.
 
 ### Cifras
 

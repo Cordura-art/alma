@@ -79,19 +79,19 @@ Cada token cambiado lo dice en su nota. No uses los valores anteriores.
 ## Tipografía
 
 - Una sola familia: **Roboto Flex**, siempre extendida (`font-stretch: 150%`, `"wdth" 150`). Roboto Mono solo para código.
-- Pesos del theme de origen de Cordura: *display* a 600 (SemiBold); encabezados web h1–h6, headline, title y blockquote a 500 (Medium); cuerpo y etiquetas a 400 (Regular). No hay otros pesos.
+- Pesos, ajustados el 30 de septiembre de 2026 (antes 600, 500 y 400, del theme de origen de Cordura): *display* a 1000 (Black); encabezados web h1–h6, headline, title y blockquote a 100 (Thin); cuerpo y etiquetas a 100 (Thin). Los ejes de Roboto Flex: ancho `font-width` 151 y grado `font-grade` −200. No hay otros pesos.
 - Tres escalas, según el soporte:
   - **Web**: `web-display-l` 128 hasta `web-h6` 16, `web-body-m` 14 como cuerpo por defecto, `web-label-s` 11 para botones y ayudas.
   - **App**: `app-display-*`, `app-headline-*`, `app-title-*`, `app-body-*`, `app-label-*`.
   - **Print**: la misma escala que App, con dos diferencias de Figma: `print-body-s` a 9 px y `print-label-m` a 16/20.
-- **Mismo peso en todos los temas:** ALMA fija el suavizado `antialiased` (como IBM Carbon). Con el suavizado automático de macOS, el texto claro sobre fondo oscuro se dibujaba entre 11 % y 17 % más grueso que en el tema claro; medido en pantalla, ahora la diferencia en texto y títulos queda en ±6 %, igual que los íconos (4 %). El efecto óptico de lo claro sobre oscuro pesa más en titulares muy gruesos; por eso los *display* van a 600, como en el origen.
+- **Mismo peso en todos los temas:** ALMA fija el suavizado `antialiased` (como IBM Carbon). Con el suavizado automático de macOS, el texto claro sobre fondo oscuro se dibujaba entre 11 % y 17 % más grueso que en el tema claro; medido en pantalla, ahora la diferencia en texto y títulos queda en ±6 %, igual que los íconos (4 %). El efecto óptico de lo claro sobre oscuro pesa más en titulares muy gruesos; en el origen, por eso, los *display* iban a 600; desde el 30 de septiembre de 2026 van a 1000, una decisión de estilo.
 - **Texto escalable:** los tamaños de los estilos y de los componentes van en `rem` (16 px = 1 rem) y las interlíneas sin unidad, así que siguen el tamaño de texto que elija la persona. Los controles usan altura mínima, no fija, y los anchos de campos, avisos y tarjetas también van en `rem`. Probado al 200 %: nada se recorta. No fijes tamaños de texto en px.
 - Números gigantes para piezas de marca: `web-display-xl` (640/100 %, 600, −1,5 %), el *display Xlarge* del theme de origen. Solo en portadas y carteles, no en interfaz.
 
 ## Espaciado y grid
 
 - Escala: `space-8`, `space-16`, `space-24`, `space-32`, `space-40`, `space-48`, `space-56`, `space-64`, `space-72` y `space-80`.
-- Radios: `radius-pill` para botones, `radius-card` (32 px) para campos y marcos grandes, `radius-swatch` (21 px) para tarjetas de muestra, `radius-chip` (4 px) para etiquetas.
+- Radios: `radius-pill` para botones, `radius-card` (8 px) para campos y marcos grandes, `radius-swatch` (8 px) para tarjetas de muestra, `radius-chip` (4 px) para etiquetas.
 - Grid responsive, mobile first. Cada breakpoint aplica desde ese ancho:
 
 | Breakpoint | Desde | Columnas | Margen | Gutter |
@@ -180,7 +180,7 @@ Sale de las piezas de marca de Figma (Brand Key, Behance y mockups). La marca ju
 - Nunca pongas información importante solo dentro de una imagen: precios, fechas y avisos van en texto.
 - Texto sobre imagen: siempre con una veladura (`tint-dark-*` o `tint-white-*`) que asegure 4,5:1, medido en la zona más clara de la foto.
 - Proporciones: 16:9 para portadas y videos, 4:3 para tarjetas, 1:1 para avatares y miniaturas. Recorta con `object-fit: cover` y cuida que el foco quede dentro.
-- Esquinas: `radius-panel` (24 px) dentro de tarjetas; a sangre (sin radio) en portadas.
+- Esquinas: `radius-panel` (8 px) dentro de tarjetas; a sangre (sin radio) en portadas.
 - Carga diferida (`loading="lazy"`) para lo que está fuera de la primera pantalla, y siempre `width` y `height` para que la página no salte.
 - Video: sin sonido al empezar, con controles y subtítulos; si se reproduce solo, se detiene con movimiento reducido.
 

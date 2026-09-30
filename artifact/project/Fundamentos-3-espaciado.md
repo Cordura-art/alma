@@ -27,9 +27,9 @@ El espacio agrupa: con una separación normada no hacen falta divisores ni conte
 | Token | Valor | Uso |
 |---|---|---|
 | `radius-chip` | 4 px | Etiquetas, casillas, contornos de foco pequeños. |
-| `radius-swatch` | 21 px | Tarjetas de muestra de color. |
-| `radius-panel` | 24 px | Contenedores: tarjetas, menús, modales, tablas. |
-| `radius-card` | 32 px | Campos y marcos grandes. |
+| `radius-swatch` | 8 px | Tarjetas de muestra de color. |
+| `radius-panel` | 8 px | Contenedores: tarjetas, menús, modales, tablas. |
+| `radius-card` | 8 px | Campos y marcos grandes. |
 | `radius-pill` | 100 px | Botones, pestañas, destinos de navegación. |
 
 ### Tamaños de interacción

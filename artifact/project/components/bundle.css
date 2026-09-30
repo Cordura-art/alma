@@ -152,7 +152,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-step__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
 /* ---------- ProductCard: tag-toned card, radius 24, collapsible ---------- */
-.alma-pcard { width: 20.5rem; max-width: 100%; border-radius: 24px; overflow: hidden; background: var(--product-card-bg); color: var(--product-card-text); }
+.alma-pcard { width: 20.5rem; max-width: 100%; border-radius: var(--radius-panel); overflow: hidden; background: var(--product-card-bg); color: var(--product-card-text); }
 .alma-pcard__head { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 9px; padding: var(--space-16); }
 .alma-pcard__title { font-size: 1rem; line-height: 1.72; letter-spacing: 0.16px; }
 .alma-pcard__subtitle, .alma-pcard__img, .alma-pcard__body { animation: alma-disclosure var(--duration-moderate-02) var(--easing-entrance-productive) both; }

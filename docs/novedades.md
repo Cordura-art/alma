@@ -4,6 +4,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 30 de septiembre de 2026
 
+- **Nuevo estilo tipográfico y de forma**, hecho con Ajustes de ALMA: Roboto Flex a ancho 151 y grado −200; *display* en peso 1000; títulos, cuerpo y etiquetas en 100; radios `radius-panel`, `radius-card` y `radius-swatch` en 8 px. `ProductCard` ahora toma su radio de `radius-panel` (antes 24 px fijos).
 - **Ajustes de ALMA**, una herramienta para ajustar los colores de cada tema, los ejes de Roboto Flex (ancho y grado), los pesos y los radios sobre componentes en vivo. Revisa el contraste con los mismos pares del repositorio y exporta los cambios; `npm run tokens:apply -- cambios.json` los escribe en `tokens/`.
 - **Nuevos tokens de ejes:** `font-width` (150) y `font-grade` (0). El CSS, los componentes y Flutter los usan en vez del 150 fijo.
 - **Patrones completos.** Se sumaron Encabezado y navegación global, Inicio de sesión, Indicadores de estado, Barra de texto, Campos fluidos y Divulgación progresiva: 15 patrones que cubren los 18 de Carbon.
