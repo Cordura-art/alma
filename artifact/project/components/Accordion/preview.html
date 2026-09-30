@@ -5,7 +5,7 @@
   document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   function Demo() {
-    return h(A.Accordion, { defaultOpen: ['equipaje'], items: [
+    return h(A.Accordion, { headingLevel: 2, defaultOpen: ['equipaje'], items: [
       { id: 'equipaje', title: '¿Cuánto equipaje puedo llevar?', content: h('p', { style: { margin: 0 } }, 'Una maleta de hasta 20 kg en la bodega y un bolso de mano bajo el asiento.') },
       { id: 'cambio', title: '¿Puedo cambiar la fecha de mi pasaje?', content: h('p', { style: { margin: 0 } }, 'Sí, hasta 4 horas antes de la salida y sin costo una vez por pasaje.') },
       { id: 'mascotas', title: '¿Puedo viajar con mi mascota?', content: h('p', { style: { margin: 0 } }, 'Solo perros y gatos de hasta 8 kg, en su jaula y con el certificado de vacunas.') }] });

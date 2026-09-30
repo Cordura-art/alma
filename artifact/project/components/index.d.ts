@@ -393,6 +393,8 @@ export interface TableProps {
   emptyText?: string;
   /** Usually a Pagination, flush below the table (Carbon). */
   footer?: any;
+  /** Level of the title heading, to fit the page outline. Default 3. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
 }
 export declare function Table(props: TableProps): any;
 
@@ -552,7 +554,7 @@ export interface CardProps {
 export declare function Card(props: CardProps): any;
 
 export interface ListItem { id?: string; title: any; subtitle?: string; icon?: AlmaIconName; trailing?: any; href?: string; onClick?: (e: MouseEvent) => void; chevron?: boolean; }
-export interface ListProps { header?: string; footer?: string; items: ListItem[]; 'aria-label'?: string; id?: string; }
+export interface ListProps { header?: string; footer?: string; items: ListItem[]; headingLevel?: 2 | 3 | 4 | 5 | 6; 'aria-label'?: string; id?: string; }
 export declare function List(props: ListProps): any;
 
 export interface EmptyStateProps {

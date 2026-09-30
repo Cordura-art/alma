@@ -10,4 +10,5 @@ Barra superior con el título de la vista, la navegación (volver, buscar) y las
 
 ## Qué aporta quien lo usa
 - `title`, `onBack`, `search` (un `SearchField`), `actions` (`label`, `icon`) y `moreActions`.
+- Bajo 672 px, el `search` baja a su propia fila, debajo del título y las acciones, como en la barra de navegación de iOS.
 - `sticky`: queda fija arriba al hacer scroll.

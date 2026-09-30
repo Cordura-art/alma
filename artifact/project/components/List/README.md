@@ -4,6 +4,7 @@ Lista agrupada al estilo Apple: filas de 44 px sobre un fondo redondeado, con se
 
 ## Qué aporta quien lo usa
 - `header` (título del grupo) y `footer` (nota breve).
+- `headingLevel`: nivel del título del grupo, 3 por defecto; ajústalo a la jerarquía de la página.
 - `items`: `{ title, subtitle, icon, trailing, href, onClick, chevron }`.
   - `href` → la fila es un enlace y muestra la flecha `chevron--right`.
   - `onClick` → la fila es un botón (una acción).

@@ -635,7 +635,7 @@
     var all = ids.length > 0 && ids.every(function (i) { return selected.indexOf(i) >= 0; });
     var some = !all && ids.some(function (i) { return selected.indexOf(i) >= 0; });
     return h('div', { className: 'alma-table-wrap' + (props.dense ? ' is-dense' : '') },
-      props.title ? h('div', { className: 'alma-table__head' }, h('h3', { className: 'alma-table__title' }, props.title), props.description ? h('p', { className: 'alma-table__desc' }, props.description) : null) : null,
+      props.title ? h('div', { className: 'alma-table__head' }, h('h' + (props.headingLevel || 3), { className: 'alma-table__title' }, props.title), props.description ? h('p', { className: 'alma-table__desc' }, props.description) : null) : null,
       h('div', { className: 'alma-table-scroll', tabIndex: 0, role: 'region', 'aria-label': props.title || 'Tabla' },
         h('table', { className: 'alma-table', 'aria-busy': props.loading || undefined },
           props.caption ? h('caption', { className: 'alma-vh' }, props.caption) : null,
@@ -929,7 +929,7 @@
   function List(props) {
     var id = useId(props.id);
     return h('section', { className: 'alma-list', 'aria-labelledby': props.header ? id + '-h' : undefined },
-      props.header ? h('h3', { id: id + '-h', className: 'alma-list__header' }, props.header) : null,
+      props.header ? h('h' + (props.headingLevel || 3), { id: id + '-h', className: 'alma-list__header' }, props.header) : null,
       h('ul', { className: 'alma-list__rows', 'aria-label': props.header ? undefined : props['aria-label'] },
         (props.items || []).map(function (it, i) {
           var inner = [
@@ -1076,7 +1076,7 @@
       'aria-labelledby': id + '-t', 'aria-describedby': props.description ? id + '-d' : undefined,
       className: 'alma-modal alma-modal--' + (props.size || 'md') + (sheet ? ' alma-modal--sheet' : ''),
       onMouseDown: function (e) { e.stopPropagation(); } },
-      h('header', { className: 'alma-modal__head' },
+      h('div', { className: 'alma-modal__head' },
         h('div', null,
           props.eyebrow ? h('p', { className: 'alma-modal__eyebrow' }, props.eyebrow) : null,
           h('h2', { id: id + '-t', className: 'alma-modal__title' }, props.title)),
@@ -1084,7 +1084,7 @@
       h('div', { className: 'alma-modal__body' },
         props.description ? h('p', { id: id + '-d', className: 'alma-modal__desc' }, props.description) : null,
         props.children),
-      p || sec ? h('footer', { className: 'alma-modal__foot' },
+      p || sec ? h('div', { className: 'alma-modal__foot' },
         sec ? h(Button, { variant: 'gray', role: 'cancel', onClick: sec.onClick || dismiss }, sec.label) : null,
         p ? h(Button, { variant: 'filled', role: p.destructive ? 'destructive' : 'primary', type: 'button', disabled: p.disabled,
           loading: p.loading, loadingLabel: p.loadingLabel, onClick: p.onClick }, p.label) : null) : null);

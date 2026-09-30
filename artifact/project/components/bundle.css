@@ -301,6 +301,8 @@ html { font-family: var(--font-flex); font-stretch: 150%; font-variation-setting
 .alma-toolbar__lead { display: flex; align-items: center; gap: var(--space-4); min-width: 0; flex: 1; }
 .alma-toolbar__title { margin: 0 var(--space-8); font-size: 1.25rem; line-height: 1.4; font-weight: 500; letter-spacing: 0; color: var(--text-01); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .alma-toolbar__search { flex: 1 1 320px; max-width: 480px; }
+/* Narrow screens: the search field takes its own row under the title and actions (iOS navigation bar). */
+@media (max-width: 671px) { .alma-toolbar { flex-wrap: wrap; } .alma-toolbar__search { order: 3; flex-basis: 100%; max-width: none; padding: 0 var(--space-8) var(--space-8); } }
 .alma-toolbar__trail { display: flex; align-items: center; gap: var(--space-4); }
 .alma-toolbar .alma-popup__btn--pull, .alma-crumbs .alma-popup__btn--pull { min-width: var(--alma-control); padding: 0 10px; border-color: transparent; background: transparent; color: var(--button-plain-text); }
 .alma-toolbar .alma-popup__btn--pull .alma-ico, .alma-crumbs .alma-popup__btn--pull .alma-ico { color: inherit; }

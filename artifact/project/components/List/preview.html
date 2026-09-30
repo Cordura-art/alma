@@ -6,11 +6,11 @@
   var h = React.createElement, A = AlmaDS;
   function Demo() {
     return h(React.Fragment, null,
-      h(A.List, { header: 'Cuenta', items: [
+      h(A.List, { headingLevel: 2, header: 'Cuenta', items: [
         { icon: 'user', title: 'Datos personales', href: '#perfil' },
         { icon: 'wallet', title: 'Medios de pago', subtitle: '2 tarjetas', href: '#pagos' },
         { icon: 'notification', title: 'Notificaciones', trailing: 'Activadas', href: '#avisos' }] }),
-      h(A.List, { header: 'Resumen del viaje', footer: 'El precio incluye la tasa de embarque.', items: [
+      h(A.List, { headingLevel: 2, header: 'Resumen del viaje', footer: 'El precio incluye la tasa de embarque.', items: [
         { title: 'Pasaje', trailing: '$7.000' }, { title: 'Seguro de viaje', trailing: '$990' }, { title: 'Total', trailing: '$7.990' }] }));
   }
   ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));

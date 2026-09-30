@@ -9,6 +9,7 @@ Tabla de filas y columnas para leer, ordenar y seleccionar datos. Sigue la guía
 - Para colecciones con imágenes o elementos de tamaños muy distintos, usa una cuadrícula, no una tabla.
 
 ## Selección y navegación
+- `headingLevel`: nivel del título (`title`), 3 por defecto; ajústalo a la jerarquía de la página.
 - `selectable`: casillas en cada fila y en el encabezado (con estado mixto).
 - `onRowClick`: la fila lleva a su detalle. La primera celda es un botón para el teclado y la fila actual (`activeRow`) queda resaltada en `selected-ui` para mostrar el camino.
 
