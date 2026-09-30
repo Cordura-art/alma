@@ -19,7 +19,7 @@ Las superficies se separan con color, no con sombra (el modelo de capas de Carbo
 
 Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: `shadow-floating`.
 
-> **Imagen pendiente:** una pantalla con la página, una tarjeta y un menú abierto, con sus tokens rotulados.
+![Una pantalla en tema oscuro con sus tokens rotulados: la página en ui-02, una tarjeta en ui-01 con borde border-subtle y un menú abierto en ui-01 con la sombra shadow-floating.](assets/Fundamentos/color-pantalla-menu.png)
 
 ## Un acento
 
@@ -63,7 +63,7 @@ El color nunca es la única pista. Los avisos usan `notification-*-bg` de fondo 
 
 Cada color categórico llega a 3:1 sobre `ui-01` en su tema. Rotula las series o usa forma o trama: el color solo no basta.
 
-> **Imagen pendiente:** un gráfico de barras con 4 series y su leyenda rotulada, en tema oscuro y claro.
+![Un gráfico de barras de viajes por mes con cuatro series (interurbano, rural, aeropuerto y turismo) y su leyenda, en tema oscuro y claro, con los colores viz-cat-01 a viz-cat-04.](assets/Fundamentos/color-grafico.png)
 
 ## Contraste
 

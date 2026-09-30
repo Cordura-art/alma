@@ -19,12 +19,14 @@
     "check": "npm run build && npm test",
     "site": "node scripts/build-site.mjs",
     "tokens:apply": "node scripts/apply-changes.mjs",
-    "tuner": "node scripts/build-tuner.mjs"
+    "tuner": "node scripts/build-tuner.mjs",
+    "images": "node scripts/build-images.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
+    "playwright": "^1.63.0",
     "style-dictionary": "^5.5.5"
   }
 }

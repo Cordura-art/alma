@@ -20,7 +20,7 @@ El espacio agrupa: con una separación normada no hacen falta divisores ni conte
 
 **Cuanto más grande el objeto, más espacio alrededor.** Los controles se separan con `space-8` a `space-24`; los titulares *display*, con `space-56` a `space-80`.
 
-> **Imagen pendiente:** una tarjeta de viaje con las medidas de espacio rotuladas.
+![Una tarjeta de viaje con sus medidas de espacio rotuladas: el relleno de la tarjeta, la separación entre textos y la separación entre botones, con sus tokens space-*.](assets/Fundamentos/espaciado-tarjeta.png)
 
 ### Radios
 
@@ -57,7 +57,7 @@ Mobile first: cada punto de quiebre aplica desde ese ancho hacia arriba. En el t
 | `bp-xlg` | 1312 px | 16 | `grid-margin` 16 px | `grid-gutter` 32 px |
 | `bp-max` | 1584 px | 16 | `grid-margin-max` 24 px | `grid-gutter` 32 px |
 
-> **Imagen pendiente:** las columnas de la grilla sobre una pantalla en `bp-sm`, `bp-md` y `bp-lg`.
+![Las columnas de la grilla sobre tres pantallas: un teléfono de 360 px con 4 columnas, bp-md de 672 px con 8 columnas y bp-lg de 1056 px con 16 columnas.](assets/Fundamentos/espaciado-grilla.png)
 
 ### Cómo usarla
 
@@ -86,7 +86,7 @@ Mobile first: cada punto de quiebre aplica desde ese ancho hacia arriba. En el t
 - Úsala en herramientas de trabajo de escritorio con mucha información: tablas, paneles de administración, formularios largos. No en productos para el público ni en piezas de marca.
 - Solo cambian altos y rellenos; el texto, los colores y el contraste no cambian.
 
-> **Imagen pendiente:** la misma tabla en densidad normal y compacta.
+![La misma tabla de salidas en densidad normal, con filas de 56 px, y en densidad compacta, con filas de 40 px.](assets/Fundamentos/espaciado-densidad.png)
 
 ### Capas
 

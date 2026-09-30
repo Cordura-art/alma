@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T21:00:00Z",
+    "at": "2026-09-30T21:30:00Z",
     "via": "Claude Code",
-    "note": "Pendientes: imágenes por crear en magenta (tokens pending-*) y nueva sección Pendientes con todo lo que falta."
+    "note": "Imágenes de los fundamentos: 14 fotografiadas con los componentes y tokens reales (npm run images)."
   },
   "layout": "files",
   "libraries": [

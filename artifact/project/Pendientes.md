@@ -2,43 +2,9 @@
 
 Todo lo que falta crear en ALMA. Las imágenes y las pruebas con lectores de pantalla se listan solas desde los documentos del repositorio; esta página se actualiza en cada cambio. En el sitio, cada imagen pendiente se marca en magenta dentro de su página.
 
-**En resumen:** 131 imágenes por crear y 45 componentes por probar con lectores de pantalla.
+**En resumen:** 117 imágenes por crear y 45 componentes por probar con lectores de pantalla.
 
-## Imágenes por crear (131)
-
-### Fundamentos
-
-**[Color](#color)**
-
-- Resumen: la misma pantalla de compra en los cuatro temas, lado a lado.
-- Resumen: diagrama de las tres capas: `lime-400` → `interactive-01` → `button-filled-bg`.
-- Resumen: las cuatro capas anidadas en tema claro, de la página `ui-02` a los botones `interactive-01` e `interactive-02` sobre `ui-04`.
-- Uso: una pantalla con la página, una tarjeta y un menú abierto, con sus tokens rotulados.
-- Uso: un gráfico de barras con 4 series y su leyenda rotulada, en tema oscuro y claro.
-
-**[Espaciado y grilla](#espaciado)**
-
-- Resumen: una tarjeta de viaje con las medidas de espacio rotuladas.
-- Grilla: las columnas de la grilla sobre una pantalla en `bp-sm`, `bp-md` y `bp-lg`.
-- Densidad y capas: la misma tabla en densidad normal y compacta.
-
-**[Íconos](#iconos)**
-
-- Resumen: una muestra de 24 íconos frecuentes (flechas, cerrar, buscar, información, advertencia, bus, billetera, usuario) en la grilla de 32 px.
-
-**[Movimiento](#movimiento)**
-
-- Resumen: las seis curvas dibujadas, productivas y expresivas.
-- Coreografía: línea de tiempo de la entrada de una pantalla de resultados, con los cinco grupos.
-
-**[Temas](#temas)**
-
-- Resumen: la misma tarjeta de viaje en los cuatro temas.
-
-**[Tipografía](#tipografia)**
-
-- Resumen: el alfabeto de Roboto Flex a ancho 100 y al ancho de ALMA (`font-width`), con la diferencia marcada.
-- Estilos: una página tipo con `web-h1`, `web-h4`, `web-body-m` y `web-label-s`, con sus nombres rotulados.
+## Imágenes por crear (117)
 
 ### Patrones
 

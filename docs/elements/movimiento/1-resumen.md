@@ -24,7 +24,7 @@ Cordura es un estudio de lenguajes de movimiento, y ALMA usa el lenguaje de movi
 | `entrance` | Aparece: desacelera al llegar. |
 | `exit` | Se va: acelera al salir. |
 
-> **Imagen pendiente:** las seis curvas dibujadas, productivas y expresivas.
+![Las seis curvas de movimiento de ALMA dibujadas: estándar, entrada y salida, en sus versiones productiva y expresiva, con sus puntos de control.](assets/Movimiento/curvas.png)
 
 ## Duración según el tamaño y la distancia
 

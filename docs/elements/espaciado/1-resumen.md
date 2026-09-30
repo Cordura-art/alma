@@ -20,7 +20,7 @@ El espacio agrupa: con una separación normada no hacen falta divisores ni conte
 
 **Cuanto más grande el objeto, más espacio alrededor.** Los controles se separan con `space-8` a `space-24`; los titulares *display*, con `space-56` a `space-80`.
 
-> **Imagen pendiente:** una tarjeta de viaje con las medidas de espacio rotuladas.
+![Una tarjeta de viaje con sus medidas de espacio rotuladas: el relleno de la tarjeta, la separación entre textos y la separación entre botones, con sus tokens space-*.](assets/Fundamentos/espaciado-tarjeta.png)
 
 ## Radios
 

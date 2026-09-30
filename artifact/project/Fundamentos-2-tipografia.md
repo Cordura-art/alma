@@ -9,7 +9,7 @@ Una familia, Roboto Flex extendida, en tres escalas: web, app e impresión.
 
 ALMA usa una sola familia: **Roboto Flex**, siempre extendida. Es una fuente variable: un solo archivo tiene todos los anchos, grados y pesos, y ALMA los fija con tokens para que la marca se reconozca en cualquier tamaño. **Roboto Mono** se usa solo para código.
 
-> **Imagen pendiente:** el alfabeto de Roboto Flex a ancho 100 y al ancho de ALMA (`font-width`), con la diferencia marcada.
+![El alfabeto de Roboto Flex a ancho 100, el normal, y al ancho de ALMA (font-width), con la diferencia de largo marcada.](assets/Tipografia/alfabeto.png)
 
 ### Ejes de Roboto Flex
 
@@ -78,7 +78,7 @@ La tabla completa, con los 48 estilos de las tres escalas, está en la pestaña 
 - No saltes niveles de encabezado para lograr un tamaño: el nivel dice la estructura, el estilo dice el aspecto. Si un `h3` debe verse más chico, dale otro estilo, no uses un `h5`.
 - Cuanto más grande el texto, más espacio alrededor: un *display* respira con `space-56` a `space-80`.
 
-> **Imagen pendiente:** una página tipo con `web-h1`, `web-h4`, `web-body-m` y `web-label-s`, con sus nombres rotulados.
+![Una página tipo con los estilos web-h1, web-h4, web-body-m y web-label-s, cada uno con su nombre, tamaño y peso rotulados.](assets/Tipografia/pagina.png)
 
 ### Medida de línea
 

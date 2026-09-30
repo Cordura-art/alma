@@ -4,6 +4,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 30 de septiembre de 2026
 
+- **Imágenes de los fundamentos.** Las 14 imágenes pendientes de Color, Espaciado, Íconos, Movimiento, Temas y Tipografía ya existen. Se fotografían con los componentes y tokens reales (`npm run images`), así que se rehacen solas cuando cambia ALMA. De paso, el diagrama de capas de color nombraba un token que no existe (`lime-400`); el lima base es `brand-lime`.
 - **Pendientes a la vista.** Cada imagen por crear se marca en magenta, de la paleta secundaria, con los tokens nuevos `pending-bg`, `pending-border` y `pending-text`. Una página nueva, **Pendientes**, lista todo lo que falta: 131 imágenes, 45 componentes por probar con lectores de pantalla y el resto del plan. Se genera sola desde los documentos.
 - **Sidebar y los menús separan sus opciones** con 4 px, para que la opción elegida y la que está bajo el cursor no se vean como un solo bloque. Aplica a Sidebar, PopUpButton, PullDownButton, Combobox y las sugerencias de SearchField.
 - **Cuarto ajuste de radios**, hecho con Ajustes de ALMA: contenedores (`radius-panel`), marcos grandes (`radius-card`) y campos (`radius-field`) en 8 px; navegación (`radius-nav`) también en 8 px.

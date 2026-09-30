@@ -1,0 +1,260 @@
+// Builds the images of the ALMA docs (artifact/project/assets/<Section>/*.png) from the real components and tokens:
+// each scene is a page with alma.css, the component bundle and a small script, photographed by Playwright's Chromium.
+// Run after `npm run build`, and again whenever tokens or components change. Usage: node scripts/build-images.mjs [scene…]
+import { readFile, mkdir } from 'node:fs/promises';
+import { chromium } from 'playwright';
+
+const P = 'artifact/project';
+const read = (p) => readFile(p, 'utf8');
+const tok = JSON.parse(await read(`${P}/tokens.json`));
+const catalog = JSON.parse(await read(`${P}/assets/Icons/carbon-icons.json`)).icons;
+const CDN = 'https://cdnjs.cloudflare.com/ajax/libs';
+const FONTS = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght,GRAD,XTRA@8..144,25..151,100..1000,-200..150,323..603&family=Roboto+Mono:wght@400;500&display=swap';
+
+const ICONS = ['arrow--left', 'arrow--right', 'arrow--up', 'arrow--down', 'close', 'search', 'information', 'warning--alt',
+  'bus', 'wallet', 'user', 'checkmark', 'add', 'subtract', 'calendar', 'time', 'location', 'ticket', 'settings',
+  'notification', 'menu', 'filter', 'edit', 'trash-can'];
+const color = (name) => tok.color.tokens.find((t) => t.name === name);
+const family = (f) => Object.fromEntries(tok[f].tokens.map((t) => [t.name, t.value]));
+const DATA = {
+  themes: tok.color.themes, icons: Object.fromEntries(ICONS.map((n) => [n, catalog[n]])),
+  easing: family('easing'), duration: family('duration'), fontAxis: family('fontAxis'),
+  swatch: Object.fromEntries(['brand-lime', 'interactive-01', 'button-filled-bg'].map((n) => [n, color(n)]))
+};
+
+// Shared look of every scene: the ALMA page color, Roboto Flex with ALMA's axes, token names in mono.
+const BASE = `
+body { margin: 0; background: transparent; }
+#shot { display: inline-block; padding: var(--space-32); background: var(--ui-02); color: var(--text-01); }
+.row { display: flex; gap: var(--space-24); align-items: flex-start; }
+.col { display: grid; gap: var(--space-8); align-content: start; }
+.cap { margin: 0; color: var(--text-02); }
+.tok { font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; font-size: 0.75rem; color: var(--text-02); }
+.chip { position: absolute; z-index: 5; padding: 2px var(--space-8); border-radius: var(--radius-chip); background: var(--interactive-01); color: var(--text-on-interactive);
+  font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; font-size: 0.6875rem; white-space: nowrap; }
+.band { position: absolute; z-index: 4; background: color-mix(in srgb, var(--interactive-01) 38%, transparent); }
+*, *::before, *::after { animation: none !important; transition: none !important; }
+`;
+
+// Measuring helpers: a translucent band over a gap and a chip naming it (used by the spacing scene).
+const HELPERS = `
+var h = React.createElement, A = AlmaDS;
+function box(el) { var r = el.getBoundingClientRect(), s = document.getElementById('shot').getBoundingClientRect(); return { x: r.left - s.left, y: r.top - s.top, w: r.width, h: r.height }; }
+function add(cls, x, y, w, hh, text) { var d = document.createElement('div'); d.className = cls; d.style.left = x + 'px'; d.style.top = y + 'px';
+  if (w != null) d.style.width = w + 'px'; if (hh != null) d.style.height = hh + 'px'; if (text) d.textContent = text; document.getElementById('shot').appendChild(d); return d; }
+function band(x, y, w, hh, text, cx, cy) { add('band', x, y, w, hh); if (text) add('chip', cx != null ? cx : x + w + 4, cy != null ? cy : y + hh / 2 - 9, null, null, text); }
+function mount(el) { ReactDOM.createRoot(document.getElementById('app')).render(el); }
+`;
+
+export const scenes = [
+  { file: 'Fundamentos/color-cuatro-temas', alt: 'La misma pantalla de compra de un pasaje en los cuatro temas de ALMA, lado a lado: oscuro, claro, oscuro de alto contraste y claro de alto contraste.',
+    js: `mount(h('div', { className: 'row' }, D.themes.map(function (t) {
+      return h('div', { key: t.id, className: 'col' }, h('p', { className: 'cap web-label-m' }, t.name),
+        h('div', { 'data-theme': t.id, className: 'col scr' },
+          h('p', { className: 'web-label-s cap' }, 'Paso 2 de 3 · Pago'),
+          h('h2', { className: 'web-h5', style: { margin: 0 } }, 'Confirma tu pasaje'),
+          h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' }),
+          h(A.TextInput, { label: 'Correo', defaultValue: 'camila@correo.cl', helper: 'Te enviaremos el pasaje aquí' }),
+          h('div', null, h(A.Tag, { color: 'green' }, 'Asiento reservado')),
+          h(A.Button, { variant: 'filled', role: 'primary' }, 'Pagar $7.000')));
+    })));`,
+    css: `.scr { width: 17rem; padding: var(--space-24); gap: var(--space-16); border-radius: var(--radius-panel); background: var(--ui-02); color: var(--text-01); border: 1px solid var(--border-subtle); }` },
+
+  { file: 'Fundamentos/color-tres-capas', alt: 'Las tres capas de tokens de color: el color base brand-lime alimenta al rol semántico interactive-01, que alimenta al token de componente button-filled-bg, el fondo del botón principal.',
+    js: `var S = D.swatch, th = 'dark';
+    function node(layer, name, note, extra) {
+      var t = S[name], v = typeof t.value === 'string' ? t.value : t.value[th];
+      return h('div', { className: 'col node' }, h('p', { className: 'cap web-label-s' }, layer),
+        h('div', { className: 'sw', style: { background: 'var(--' + name + ')' } }),
+        h('span', { className: 'tok', style: { color: 'var(--text-01)' } }, name), h('span', { className: 'tok' }, v), h('p', { className: 'cap web-body-s' }, note), extra || null);
+    }
+    function arrow() { return h('div', { className: 'arr' }, h(A.Icon, { name: 'arrow--right', size: 32 })); }
+    mount(h('div', { className: 'row', style: { alignItems: 'center' } },
+      node('Base', 'brand-lime', 'El color disponible. Nunca directo en una interfaz.'), arrow(),
+      node('Semántica', 'interactive-01', 'El papel: la acción principal. Cambia con el tema.'), arrow(),
+      node('Componente', 'button-filled-bg', 'Una decisión de un componente.', h('div', null, h(A.Button, { variant: 'filled', role: 'primary' }, 'Pagar $7.000')))));`,
+    css: `.node { width: 14rem; } .sw { height: 5rem; border-radius: var(--radius-panel); box-shadow: inset 0 0 0 1px var(--border-subtle); } .arr { color: var(--text-02); padding-top: var(--space-8); }` },
+
+  { file: 'Fundamentos/color-capas-superficie', alt: 'Las cuatro capas de superficie anidadas en tema claro y oscuro: la página ui-02, un contenedor ui-01, un panel ui-03 y una zona ui-04 con los botones interactive-01 e interactive-02.',
+    js: `function layer(name, cls, child) { return h('div', { className: 'lay ' + cls, style: { background: 'var(--' + name + ')' } }, h('span', { className: 'tok' }, name), child); }
+    function act(name) { return h('div', { className: 'act', style: { background: 'var(--' + name + ')' } }, h('span', { className: 'tok', style: { color: 'var(--text-on-interactive)' } }, name)); }
+    mount(h('div', { className: 'row' }, ['light', 'dark'].map(function (id) {
+      var t = D.themes.filter(function (x) { return x.id === id; })[0];
+      return h('div', { key: id, className: 'col' }, h('p', { className: 'cap web-label-m' }, t.name),
+        h('div', { 'data-theme': id }, layer('ui-02', 'l2', layer('ui-01', 'l1', layer('ui-03', 'l3', layer('ui-04', 'l4', h('div', { className: 'col', style: { marginTop: 'var(--space-16)' } }, act('interactive-01'), act('interactive-02'))))))));
+    })));`,
+    css: `.lay { padding: var(--space-24); display: grid; gap: var(--space-16); } .l2 { width: 26rem; } .l1, .l3 { border-radius: var(--radius-panel); }
+    .act { height: 3rem; display: grid; place-items: center; border-radius: var(--radius-button); }` },
+
+  { file: 'Fundamentos/color-pantalla-menu', alt: 'Una pantalla en tema oscuro con sus tokens rotulados: la página en ui-02, una tarjeta en ui-01 con borde border-subtle y un menú abierto en ui-01 con la sombra shadow-floating.',
+    js: `mount(h('div', { className: 'row', style: { gap: 'var(--space-64)' } },
+      h('div', { className: 'col', style: { width: '16rem', gap: 'var(--space-24)' } },
+        h('h2', { className: 'web-h4', style: { margin: 0 } }, 'Mis viajes'),
+        h(A.PopUpButton, { label: 'Ordenar por', options: ['Más recientes', 'Precio más bajo', 'Menor duración'], defaultValue: 'Más recientes' })),
+      h('div', { className: 'col', style: { gap: 'var(--space-16)', paddingTop: 'var(--space-56)' } },
+        h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' }),
+        h(A.Card, { headingLevel: 3, eyebrow: '4 abr 2026 · 19:10', title: 'Viña del Mar → Santiago', subtitle: 'Salón cama · asiento 3' }))));`,
+    click: '.alma-popup__btn',
+    after: `var cards = document.querySelectorAll('.alma-card'), menu = document.querySelector('.alma-menu');
+      add('chip', 12, 12, null, null, 'ui-02 · página');
+      var c = box(cards[1]); add('chip', c.x, c.y + c.h + 8, null, null, 'ui-01 · tarjeta, border-subtle');
+      var m = box(menu); add('chip', m.x, m.y + m.h + 8, null, null, 'ui-01 · menú, shadow-floating');`,
+    css: `#shot { position: relative; padding-bottom: var(--space-64); } .alma-card { width: 20rem; }` },
+
+  { file: 'Fundamentos/color-grafico', alt: 'Un gráfico de barras de viajes por mes con cuatro series (interurbano, rural, aeropuerto y turismo) y su leyenda, en tema oscuro y claro, con los colores viz-cat-01 a viz-cat-04.',
+    js: `var months = ['Ene', 'Feb', 'Mar', 'Abr'], series = ['Interurbano', 'Rural', 'Aeropuerto', 'Turismo'], data = [[82, 40, 26, 58], [74, 44, 30, 64], [90, 38, 34, 46], [68, 50, 28, 40]];
+    function chart(id) {
+      var t = D.themes.filter(function (x) { return x.id === id; })[0];
+      return h('div', { key: id, className: 'col' }, h('p', { className: 'cap web-label-m' }, t.name),
+        h('div', { 'data-theme': id, className: 'panel col' },
+          h('h3', { className: 'web-h6', style: { margin: 0 } }, 'Viajes por mes, en miles'),
+          h('div', { className: 'plot' }, [0, 25, 50, 75, 100].map(function (g) { return h('div', { key: g, className: 'grid', style: { bottom: g * 1.6 + 'px' } }, h('span', { className: 'tok' }, g)); }),
+            h('div', { className: 'bars' }, months.map(function (m, i) {
+              return h('div', { key: m, className: 'grp' }, h('div', { className: 'set' }, data[i].map(function (v, k) { return h('div', { key: k, className: 'bar', style: { height: v * 1.6 + 'px', background: 'var(--viz-cat-0' + (k + 1) + ')' } }); })),
+                h('span', { className: 'tok' }, m));
+            }))),
+          h('div', { className: 'leg' }, series.map(function (s, k) { return h('span', { key: s, className: 'web-label-s' }, h('i', { style: { background: 'var(--viz-cat-0' + (k + 1) + ')' } }), s); }))));
+    }
+    mount(h('div', { className: 'row' }, chart('dark'), chart('light')));`,
+    css: `.panel { width: 24rem; padding: var(--space-24); gap: var(--space-16); background: var(--ui-01); color: var(--text-01); border-radius: var(--radius-panel); }
+    .plot { position: relative; height: 180px; margin: 0 0 20px 28px; } .grid { position: absolute; left: 0; right: 0; border-top: 1px solid var(--border-subtle); }
+    .grid .tok { position: absolute; left: -28px; top: -8px; } .bars { position: absolute; inset: 0 0 -20px 0; display: flex; justify-content: space-around; align-items: flex-end; }
+    .grp { display: grid; justify-items: center; gap: 4px; } .set { display: flex; gap: 2px; align-items: flex-end; } .bar { width: 12px; }
+    .leg { display: flex; flex-wrap: wrap; gap: var(--space-16); color: var(--text-02); } .leg i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; }` },
+
+  { file: 'Fundamentos/espaciado-tarjeta', alt: 'Una tarjeta de viaje con sus medidas de espacio rotuladas: el relleno de la tarjeta, la separación entre textos y la separación entre botones, con sus tokens space-*.',
+    js: `mount(h(A.Card, { headingLevel: 2, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14 · Terminal Alameda',
+      actions: [h(A.Button, { key: 'a', variant: 'tinted' }, 'Ver pasaje'), h(A.Button, { key: 'b', variant: 'plain' }, 'Cambiar fecha')] }));`,
+    after: `var card = document.querySelector('.alma-card'), body = card.querySelector('.alma-card__body') || card.firstElementChild;
+      var b = box(body), kids = [].slice.call(body.children).map(box);
+      var pl = parseFloat(getComputedStyle(body).paddingLeft), pt = parseFloat(getComputedStyle(body).paddingTop);
+      band(b.x, b.y, pl, b.h, pl + ' px · space-' + pl, b.x - 128, b.y + b.h / 2 - 9);
+      band(b.x, b.y, b.w, pt, pt + ' px · space-' + pt, b.x + b.w + 12, b.y + pt / 2 - 9);
+      for (var i = 1; i < kids.length; i++) { var g = kids[i].y - (kids[i - 1].y + kids[i - 1].h); if (g > 0) band(kids[i].x, kids[i - 1].y + kids[i - 1].h, kids[i].w, g, i === 1 ? Math.round(g) + ' px · space-' + Math.round(g) : null, b.x + b.w + 12); }
+      var btns = [].slice.call(card.querySelectorAll('.alma-btn')).map(box);
+      if (btns.length > 1) { var gx = Math.round(btns[1].x - (btns[0].x + btns[0].w)); band(btns[0].x + btns[0].w, btns[0].y, gx, btns[0].h, gx + ' px · space-' + gx, btns[0].x, btns[0].y + btns[0].h + 8); }`,
+    css: `#shot { position: relative; padding: var(--space-40) 12rem var(--space-64); } .alma-card { width: 22rem; }` },
+
+  { file: 'Fundamentos/espaciado-grilla', alt: 'Las columnas de la grilla sobre tres pantallas: un teléfono de 360 px con 4 columnas, bp-md de 672 px con 8 columnas y bp-lg de 1056 px con 16 columnas.',
+    js: `var F = [{ w: 360, n: 4, m: 16, g: 8, label: 'Teléfono (bp-sm) · 4 columnas' }, { w: 672, n: 8, m: 16, g: 32, label: 'bp-md · 672 px · 8 columnas' }, { w: 1056, n: 16, m: 16, g: 32, label: 'bp-lg · 1056 px · 16 columnas' }];
+    mount(h('div', { className: 'row', style: { alignItems: 'flex-end' } }, F.map(function (f) {
+      var cols = []; for (var i = 0; i < f.n; i++) cols.push(h('div', { key: i, className: 'gc' }));
+      return h('div', { key: f.w, className: 'col' },
+        h('div', { className: 'frame', style: { width: f.w + 'px' } },
+          h('div', { className: 'cols', style: { left: f.m + 'px', right: f.m + 'px', gridTemplateColumns: 'repeat(' + f.n + ', 1fr)', columnGap: f.g + 'px' } }, cols),
+          h('div', { className: 'content', style: { left: f.m + 'px', right: f.m + 'px', gridTemplateColumns: 'repeat(' + f.n + ', 1fr)', columnGap: f.g + 'px' } },
+            h('div', { className: 'blk', style: { gridColumn: '1 / -1', height: 40 } }),
+            h('div', { className: 'blk', style: { gridColumn: '1 / span ' + (f.n / 2), height: 140 } }),
+            h('div', { className: 'blk', style: { gridColumn: 'span ' + (f.n / 2), height: 140 } }),
+            h('div', { className: 'blk', style: { gridColumn: '1 / span ' + (f.n / 4 * 3), height: 60 } }))),
+        h('p', { className: 'cap web-label-s' }, f.label));
+    })));`,
+    css: `.frame { position: relative; height: 320px; box-sizing: border-box; background: var(--ui-01); border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); zoom: .55; }
+    .cols, .content { position: absolute; top: 24px; bottom: 24px; display: grid; } .cols { z-index: 2; } .content { z-index: 1; align-content: start; row-gap: 16px; }
+    .gc { background: color-mix(in srgb, var(--interactive-01) 20%, transparent); box-shadow: inset 1px 0 0 color-mix(in srgb, var(--interactive-01) 55%, transparent), inset -1px 0 0 color-mix(in srgb, var(--interactive-01) 55%, transparent); } .blk { background: var(--ui-03); border-radius: var(--radius-chip); }` },
+
+  { file: 'Fundamentos/espaciado-densidad', alt: 'La misma tabla de salidas en densidad normal, con filas de 56 px, y en densidad compacta, con filas de 40 px.',
+    js: `var cols = [{ key: 'hora', label: 'Salida' }, { key: 'dest', label: 'Destino' }, { key: 'asiento', label: 'Asiento' }, { key: 'precio', label: 'Precio', align: 'end' }];
+    var rows = [{ id: 1, hora: '08:30', dest: 'Viña del Mar', asiento: '14', precio: '$7.000' }, { id: 2, hora: '09:15', dest: 'Valparaíso', asiento: '22', precio: '$6.500' },
+      { id: 3, hora: '10:00', dest: 'Rancagua', asiento: '3', precio: '$5.200' }, { id: 4, hora: '11:45', dest: 'Talca', asiento: '9', precio: '$9.900' }];
+    function t(d, name) { return h('div', { key: d, className: 'col', 'data-density': d, style: { width: '24rem' } }, h('p', { className: 'cap web-label-m' }, name), h(A.Table, { title: 'Salidas de hoy', columns: cols, rows: rows, headingLevel: 3 })); }
+    mount(h('div', { className: 'row' }, t('normal', 'Normal · filas de 56 px'), t('compact', 'Compacta · filas de 40 px')));` },
+
+  { file: 'Iconos/muestra', alt: 'Veinticuatro íconos frecuentes de IBM Carbon en su grilla de 32 px: flechas, cerrar, buscar, información, advertencia, bus, billetera, usuario y otros, con su nombre.',
+    js: `A.registerIcons({ icons: D.icons });
+    mount(h('div', { className: 'ig' }, Object.keys(D.icons).map(function (n) { return h('div', { key: n, className: 'ic' }, h('div', { className: 'kl' }, h(A.Icon, { name: n, size: 32 })), h('span', { className: 'tok' }, n)); })));`,
+    css: `.ig { display: grid; grid-template-columns: repeat(6, 8.5rem); gap: var(--space-24) var(--space-16); } .ic { display: grid; justify-items: center; gap: var(--space-8); }
+    .kl { padding: 12px; color: var(--icon-01); border-radius: var(--radius-chip); background: var(--ui-01); }
+    .kl .alma-ico { outline: 1px dashed var(--border-control); outline-offset: 0; display: block; } .ic .tok { font-size: 0.6875rem; }` },
+
+  { file: 'Movimiento/curvas', alt: 'Las seis curvas de movimiento de ALMA dibujadas: estándar, entrada y salida, en sus versiones productiva y expresiva, con sus puntos de control.',
+    js: `var kinds = ['standard', 'entrance', 'exit'], names = { standard: 'Estándar', entrance: 'Entrada', exit: 'Salida' };
+    function curve(mode, k) {
+      var tokN = 'easing-' + k + '-' + mode, p = D.easing[tokN].match(/-?[\\d.]+/g).map(Number), S = 160, X = function (v) { return 12 + v * S; }, Y = function (v) { return 12 + (1 - v) * S; };
+      return h('div', { key: tokN, className: 'col' },
+        h('svg', { width: S + 24, height: S + 24, viewBox: '0 0 ' + (S + 24) + ' ' + (S + 24), className: 'cv' },
+          h('rect', { x: 12, y: 12, width: S, height: S, className: 'ax' }),
+          h('line', { x1: X(0), y1: Y(0), x2: X(p[0]), y2: Y(p[1]), className: 'hd' }), h('line', { x1: X(1), y1: Y(1), x2: X(p[2]), y2: Y(p[3]), className: 'hd' }),
+          h('circle', { cx: X(p[0]), cy: Y(p[1]), r: 4, className: 'pt' }), h('circle', { cx: X(p[2]), cy: Y(p[3]), r: 4, className: 'pt' }),
+          h('path', { d: 'M' + X(0) + ' ' + Y(0) + ' C' + X(p[0]) + ' ' + Y(p[1]) + ' ' + X(p[2]) + ' ' + Y(p[3]) + ' ' + X(1) + ' ' + Y(1), className: 'ln' })),
+        h('p', { className: 'web-label-m', style: { margin: 0 } }, names[k] + ' ' + (mode === 'productive' ? 'productiva' : 'expresiva')), h('span', { className: 'tok' }, tokN), h('span', { className: 'tok' }, p.join(', ')));
+    }
+    mount(h('div', { className: 'col', style: { gap: 'var(--space-32)' } }, ['productive', 'expressive'].map(function (m) { return h('div', { key: m, className: 'row', style: { gap: 'var(--space-40)' } }, kinds.map(function (k) { return curve(m, k); })); })));`,
+    css: `.cv .ax { fill: var(--ui-01); stroke: var(--border-subtle); } .cv .hd { stroke: var(--text-02); stroke-width: 1; stroke-dasharray: 3 3; } .cv .pt { fill: var(--text-02); }
+    .cv .ln { fill: none; stroke: var(--interactive-01); stroke-width: 3; stroke-linecap: round; }` },
+
+  { file: 'Movimiento/coreografia', alt: 'Línea de tiempo de la entrada de una pantalla de resultados: estructura, contenido estático, datos, acción principal y gráficos entran separados por 20 ms, y todo termina antes de 500 ms.',
+    js: `var G = [['Estructura', 'barras de navegación', 'duration-moderate-02'], ['Contenido estático', 'títulos, texto, imágenes', 'duration-moderate-02'], ['Contenido dinámico', 'resultados de la búsqueda', 'duration-moderate-02'],
+      ['Acción principal', 'botón «Comprar»', 'duration-moderate-01'], ['Gráficos', 'ocupación del bus', 'duration-slow-01']];
+    var PX = 1.5, L = 17 * 16, st = parseInt(D.duration['duration-stagger'], 10);
+    mount(h('div', { className: 'col', style: { gap: 'var(--space-16)' } },
+      h('div', { className: 'tl' }, [0, 100, 200, 300, 400].map(function (ms) { return h('div', { key: ms, className: 'tick', style: { left: L + ms * PX + 'px' } }, h('span', { className: 'tok' }, ms + ' ms')); }),
+        h('div', { className: 'lim', style: { left: L + 500 * PX + 'px' } }, h('span', { className: 'tok' }, '500 ms: límite')),
+        G.map(function (g, i) {
+          var d = parseInt(D.duration[g[2]], 10), start = i * st;
+          return h('div', { key: g[0], className: 'tr' }, h('div', { className: 'nm' }, h('span', { className: 'web-label-m' }, (i + 1) + '. ' + g[0]), h('span', { className: 'cap web-body-s' }, g[1] + ' · desde ' + start + ' ms')),
+            h('div', { className: 'bar', style: { left: L + start * PX + 'px', width: d * PX + 'px' } }, h('span', { className: 'tok' }, g[2] + ' · ' + d + ' ms')));
+        })),
+      h('p', { className: 'cap web-body-s' }, 'Cada grupo empieza duration-stagger (' + st + ' ms) después del anterior. Las duraciones son un ejemplo con los tokens de ALMA.')));`,
+    css: `.tl { position: relative; width: calc(17rem + 750px + 7rem); padding-top: var(--space-24); display: grid; gap: var(--space-8); }
+    .tick, .lim { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--border-subtle); } .tick .tok, .lim .tok { position: absolute; top: 0; left: 4px; white-space: nowrap; }
+    .lim { border-left: 2px dashed var(--border-control); } .lim .tok { color: var(--text-01); }
+    .tr { position: relative; height: 3rem; } .nm { width: 16rem; display: grid; } .nm .cap { margin: 0; }
+    .bar { position: absolute; top: 8px; height: 2rem; border-radius: var(--radius-chip); background: var(--interactive-01); display: flex; align-items: center; padding-left: var(--space-8); box-sizing: border-box; overflow: hidden; }
+    .bar .tok { color: var(--text-on-interactive); white-space: nowrap; } .at { position: absolute; top: 16px; white-space: nowrap; }` },
+
+  { file: 'Temas/tarjeta', alt: 'La misma tarjeta de viaje en los cuatro temas de ALMA: oscuro, claro, oscuro de alto contraste y claro de alto contraste.',
+    js: `mount(h('div', { className: 'row' }, D.themes.map(function (t) {
+      return h('div', { key: t.id, className: 'col' }, h('p', { className: 'cap web-label-m' }, t.name),
+        h('div', { 'data-theme': t.id, className: 'pg' }, h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14 · Terminal Alameda',
+          actions: [h(A.Button, { key: 'a', variant: 'tinted' }, 'Ver pasaje'), h(A.Button, { key: 'b', variant: 'plain' }, 'Cambiar')] })));
+    })));`,
+    css: `.pg { padding: var(--space-24); background: var(--ui-02); border-radius: var(--radius-panel); border: 1px solid var(--border-subtle); } .pg .alma-card { width: 15rem; }` },
+
+  { file: 'Tipografia/alfabeto', alt: 'El alfabeto de Roboto Flex a ancho 100, el normal, y al ancho de ALMA (font-width), con la diferencia de largo marcada.',
+    js: `var TXT = 'Santiago → Viña del Mar', AB = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñopqrstuvwxyz 0123456789', W = D.fontAxis['font-width'];
+    function line(w, label) { var st = { fontStretch: w + '%', fontVariationSettings: '"wdth" ' + w + ', "GRAD" var(--font-grade)' };
+      return h('div', { className: 'col ln' }, h('span', { className: 'tok' }, label), h('span', { className: 'web-h3 sample', style: st }, TXT),
+        h('div', { className: 'meas' }), h('span', { className: 'web-body-m ab', style: st }, AB)); }
+    mount(h('div', { className: 'col', style: { gap: 'var(--space-40)' } }, line(100, 'wdth 100 · el ancho normal de Roboto Flex'), line(W, 'wdth ' + W + ' · font-width, el ancho de ALMA')));`,
+    after: `var s = [].slice.call(document.querySelectorAll('.sample')), m = document.querySelectorAll('.meas'), w0 = s[0].getBoundingClientRect().width;
+      s.forEach(function (el, i) { var w = el.getBoundingClientRect().width; m[i].style.width = w + 'px'; m[i].textContent = Math.round(w) + ' px' + (i ? ' · ' + Math.round((w / w0 - 1) * 100) + ' % más ancho' : ''); });`,
+    css: `.ln { gap: var(--space-8); justify-items: start; } .sample { white-space: nowrap; } .ab { color: var(--text-02); max-width: 48rem; }
+    .meas { height: 1.25rem; border: 1px solid var(--interactive-01); border-top: 0; font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; font-size: 0.6875rem; color: var(--text-02); text-align: center; padding-top: 2px; }` },
+
+  { file: 'Tipografia/pagina', alt: 'Una página tipo con los estilos web-h1, web-h4, web-body-m y web-label-s, cada uno con su nombre, tamaño y peso rotulados.',
+    js: `var R = [['web-h1', 'h1', 'Mis viajes'], ['web-h4', 'h2', 'Próximo viaje'], ['web-body-m', 'p', 'Tu bus a Viña del Mar sale el martes 31 de marzo a las 08:30 desde el Terminal Alameda. Llega 15 minutos antes para subir con calma.'], ['web-label-s', 'p', 'Asiento 14 · Semicama']];
+    mount(h('div', { className: 'tp' }, R.map(function (r) { return h(React.Fragment, { key: r[0] }, h('div', { className: 'meta' }, h('span', { className: 'tok', style: { color: 'var(--text-01)' } }, r[0]), h('span', { className: 'tok' })),
+      h(r[1], { className: r[0] + ' tx' }, r[2])); })));`,
+    after: `document.querySelectorAll('.meta').forEach(function (m) { var cs = getComputedStyle(m.nextElementSibling); m.lastChild.textContent = parseFloat(cs.fontSize) + ' px · peso ' + cs.fontWeight; });`,
+    css: `.tp { display: grid; grid-template-columns: 10rem 36rem; gap: var(--space-24) var(--space-32); align-items: baseline; } .meta { display: grid; gap: 2px; } .tx { margin: 0; }` }
+];
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const only = process.argv.slice(2);
+  const bundle = await read(`${P}/components/bundle.js`);
+  const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), BASE].join('\n');
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1600, height: 1000 } });
+  let n = 0;
+  for (const s of scenes) {
+    if (only.length && !only.some((o) => s.file.includes(o))) continue;
+    const html = `<!doctype html><html lang="es" data-theme="dark"><head><meta charset="utf-8"><link rel="stylesheet" href="${FONTS}">
+<style>${css}\n${s.css || ''}</style></head><body><div id="shot"><div id="app"></div></div>
+<script src="${CDN}/react/18.3.1/umd/react.production.min.js"></script><script src="${CDN}/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>${bundle}</script><script>var D = ${JSON.stringify(DATA)};\n${HELPERS}\n${s.js}</script></body></html>`;
+    await page.setContent(html, { waitUntil: 'networkidle' });
+    await page.evaluate(() => document.fonts.ready);
+    await page.waitForTimeout(150);
+    if (s.click) { await page.click(s.click); await page.waitForTimeout(200); }
+    if (s.after) await page.evaluate(`(function(){ ${HELPERS}\n${s.after} })()`);
+    await page.waitForTimeout(100);
+    const out = `${P}/assets/${s.file}.png`;
+    await mkdir(out.replace(/\/[^/]+$/, ''), { recursive: true });
+    await page.locator('#shot').screenshot({ path: out, animations: 'disabled' });
+    n++;
+    console.log(`  ${out}`);
+  }
+  await browser.close();
+  console.log(`Imágenes: ${n} generadas`);
+}

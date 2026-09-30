@@ -17,7 +17,7 @@ summary: La escala de 8, la grilla responsive, la densidad y las capas.
 - Úsala en herramientas de trabajo de escritorio con mucha información: tablas, paneles de administración, formularios largos. No en productos para el público ni en piezas de marca.
 - Solo cambian altos y rellenos; el texto, los colores y el contraste no cambian.
 
-> **Imagen pendiente:** la misma tabla en densidad normal y compacta.
+![La misma tabla de salidas en densidad normal, con filas de 56 px, y en densidad compacta, con filas de 40 px.](assets/Fundamentos/espaciado-densidad.png)
 
 ## Capas
 

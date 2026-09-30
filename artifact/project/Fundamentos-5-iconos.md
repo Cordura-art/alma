@@ -13,7 +13,7 @@ ALMA usa los íconos de **IBM Carbon** (`@carbon/icons` 11.89, licencia Apache 2
 - El catálogo completo, con **2.775 íconos**, sus categorías y sinónimos, está en `assets/Icons/carbon-icons.json`. Se carga solo cuando hace falta.
 - Reemplazan a Material Symbols desde el 29 de septiembre de 2026: las tres fuentes de Material pesaban 12,6 MB por página y dejaban los íconos invisibles hasta cargar.
 
-> **Imagen pendiente:** una muestra de 24 íconos frecuentes (flechas, cerrar, buscar, información, advertencia, bus, billetera, usuario) en la grilla de 32 px.
+![Veinticuatro íconos frecuentes de IBM Carbon en su grilla de 32 px: flechas, cerrar, buscar, información, advertencia, bus, billetera, usuario y otros, con su nombre.](assets/Iconos/muestra.png)
 
 ### Tamaños
 

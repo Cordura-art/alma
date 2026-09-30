@@ -28,7 +28,7 @@ La tabla completa, con los 48 estilos de las tres escalas, está en la pestaña 
 - No saltes niveles de encabezado para lograr un tamaño: el nivel dice la estructura, el estilo dice el aspecto. Si un `h3` debe verse más chico, dale otro estilo, no uses un `h5`.
 - Cuanto más grande el texto, más espacio alrededor: un *display* respira con `space-56` a `space-80`.
 
-> **Imagen pendiente:** una página tipo con `web-h1`, `web-h4`, `web-body-m` y `web-label-s`, con sus nombres rotulados.
+![Una página tipo con los estilos web-h1, web-h4, web-body-m y web-label-s, cada uno con su nombre, tamaño y peso rotulados.](assets/Tipografia/pagina.png)
 
 ## Medida de línea
 

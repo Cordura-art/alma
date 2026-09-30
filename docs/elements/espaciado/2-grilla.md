@@ -17,7 +17,7 @@ Mobile first: cada punto de quiebre aplica desde ese ancho hacia arriba. En el t
 | `bp-xlg` | 1312 px | 16 | `grid-margin` 16 px | `grid-gutter` 32 px |
 | `bp-max` | 1584 px | 16 | `grid-margin-max` 24 px | `grid-gutter` 32 px |
 
-> **Imagen pendiente:** las columnas de la grilla sobre una pantalla en `bp-sm`, `bp-md` y `bp-lg`.
+![Las columnas de la grilla sobre tres pantallas: un teléfono de 360 px con 4 columnas, bp-md de 672 px con 8 columnas y bp-lg de 1056 px con 16 columnas.](assets/Fundamentos/espaciado-grilla.png)
 
 ## Cómo usarla
 

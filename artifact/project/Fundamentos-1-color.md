@@ -11,7 +11,7 @@ ALMA casi no usa color. La interfaz es un fondo oscuro, texto claro y un solo ac
 
 Nunca se escribe un color: se pide un **token** por su nombre. El tema decide el valor. Por eso la misma interfaz funciona en los cuatro temas sin cambiar una línea.
 
-> **Imagen pendiente:** la misma pantalla de compra en los cuatro temas, lado a lado.
+![La misma pantalla de compra de un pasaje en los cuatro temas de ALMA, lado a lado: oscuro, claro, oscuro de alto contraste y claro de alto contraste.](assets/Fundamentos/color-cuatro-temas.png)
 
 ### Tres capas
 
@@ -25,7 +25,7 @@ Como en IBM Carbon, los tokens de color van en tres capas. Cada capa apunta a la
 
 Para ajustar un componente, cambia su token de componente, nunca el semántico: el cambio queda en ese componente y el resto del sistema no se entera.
 
-> **Imagen pendiente:** diagrama de las tres capas: `lime-400` → `interactive-01` → `button-filled-bg`.
+![Las tres capas de tokens de color: el color base brand-lime alimenta al rol semántico interactive-01, que alimenta al token de componente button-filled-bg, el fondo del botón principal.](assets/Fundamentos/color-tres-capas.png)
 
 ### Los roles semánticos
 
@@ -62,7 +62,7 @@ No saltes capas hacia atrás: un contenedor dentro de otro `ui-01` pasa a `ui-03
 
 **Las capas no son bordes.** Para separar un contenedor usa `border-subtle`; para marcar un control, `border-control`. Nunca uses `ui-03` o `ui-04` como borde: en oscuro están demasiado cerca del fondo para verse.
 
-> **Imagen pendiente:** las cuatro capas anidadas en tema claro, de la página `ui-02` a los botones `interactive-01` e `interactive-02` sobre `ui-04`.
+![Las cuatro capas de superficie anidadas en tema claro y oscuro: la página ui-02, un contenedor ui-01, un panel ui-03 y una zona ui-04 con los botones interactive-01 e interactive-02.](assets/Fundamentos/color-capas-superficie.png)
 
 ### Cuántos hay
 
@@ -84,7 +84,7 @@ Las superficies se separan con color, no con sombra (el modelo de capas de Carbo
 
 Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: `shadow-floating`.
 
-> **Imagen pendiente:** una pantalla con la página, una tarjeta y un menú abierto, con sus tokens rotulados.
+![Una pantalla en tema oscuro con sus tokens rotulados: la página en ui-02, una tarjeta en ui-01 con borde border-subtle y un menú abierto en ui-01 con la sombra shadow-floating.](assets/Fundamentos/color-pantalla-menu.png)
 
 ### Un acento
 
@@ -128,7 +128,7 @@ El color nunca es la única pista. Los avisos usan `notification-*-bg` de fondo 
 
 Cada color categórico llega a 3:1 sobre `ui-01` en su tema. Rotula las series o usa forma o trama: el color solo no basta.
 
-> **Imagen pendiente:** un gráfico de barras con 4 series y su leyenda rotulada, en tema oscuro y claro.
+![Un gráfico de barras de viajes por mes con cuatro series (interurbano, rural, aeropuerto y turismo) y su leyenda, en tema oscuro y claro, con los colores viz-cat-01 a viz-cat-04.](assets/Fundamentos/color-grafico.png)
 
 ### Contraste
 

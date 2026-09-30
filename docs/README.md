@@ -35,6 +35,8 @@ Las imágenes que explican cada página se crearán después con el sistema de d
 
 El marcador describe la imagen con precisión suficiente para generarla sin volver a leer la página. En el sitio se ve en magenta (`pending-*`), y la página **Pendientes** los reúne todos.
 
+Las imágenes que muestran interfaz o diagramas de tokens se fotografían con los componentes reales: cada escena está en `scripts/build-images.mjs` y `npm run images` las vuelve a sacar cuando cambian los tokens. Quedan en `artifact/project/assets/<Sección>/` y el documento las enlaza como `![descripción](assets/<Sección>/<nombre>.png)`.
+
 ## Cómo se organiza
 
 Cada componente tiene cuatro pestañas, como en Carbon:

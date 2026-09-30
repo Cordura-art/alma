@@ -14,7 +14,7 @@ Cuatro temas: oscuro por defecto, claro y sus versiones de alto contraste.
 | **Oscuro · alto contraste** | `dark-hc` | Quien pide más contraste en su sistema. |
 | **Claro · alto contraste** | `light-hc` | Ídem, en claro. |
 
-> **Imagen pendiente:** la misma tarjeta de viaje en los cuatro temas.
+![La misma tarjeta de viaje en los cuatro temas de ALMA: oscuro, claro, oscuro de alto contraste y claro de alto contraste.](assets/Temas/tarjeta.png)
 
 ### Qué cambia entre temas
 
