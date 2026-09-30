@@ -1,5 +1,6 @@
 // Builds each component guide of the ALMA artifact from docs/components/<name>/{usage,style,code,accessibility}.md
 // (the four tabs, as in IBM Carbon). Components without docs keep their hand-written README.
+// Also builds the artifact's "Documentación" section from docs/novedades.md and docs/README.md.
 import { readdir, readFile, writeFile, stat } from 'node:fs/promises';
 
 const TABS = ['usage', 'style', 'code', 'accessibility'];
@@ -29,3 +30,9 @@ for (const dir of (await readdir(ROOT)).sort()) {
   built++;
 }
 console.log(`Guías de componentes: ${built} generadas desde docs/`);
+
+// Root-level .md files of the artifact show as sections of the brand book.
+const news = demote((await readFile('docs/novedades.md', 'utf8')).replace(/^# .*\n/, ''));
+const plan = demote((await readFile('docs/README.md', 'utf8')).replace(/^# .*\n/, ''));
+await writeFile('artifact/project/Documentacion.md', `# Documentación\n\n## Novedades\n${news}\n## Cómo se documenta ALMA\n${plan}`);
+console.log('Sección Documentación generada');

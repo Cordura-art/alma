@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T00:40:00Z",
+    "at": "2026-09-30T01:20:00Z",
     "via": "Claude Code",
-    "note": "Roles del theme de origen: la página va en ui-02 y los contenedores en ui-01 (el oscuro no cambia; en claro la página es blanca). Nuevo botón tertiary."
+    "note": "Nueva sección Documentación (novedades e inventario). Guías completas de TextInput, Textarea, Combobox, PopUpButton, Checkbox, RadioGroup y Switch. Tinted presionado con borde interior."
   },
   "layout": "files",
   "libraries": [
