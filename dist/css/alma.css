@@ -2040,11 +2040,11 @@
   --icon-size-xl: 32px;
   --radius-chip: 4px;
   --radius-swatch: 2px;
-  --radius-panel: 2px;
-  --radius-card: 4px;
+  --radius-panel: 8px;
+  --radius-card: 8px;
   --radius-button: 16px;
-  --radius-field: 0px;
-  --radius-nav: 100px;
+  --radius-field: 8px;
+  --radius-nav: 0px;
   --radius-tag: 8px;
   --radius-checkbox: 2px;
   --radius-pill: 100px;

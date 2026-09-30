@@ -12,12 +12,12 @@
     },
     "radius-panel": {
       "$type": "dimension",
-      "$value": "2px",
+      "$value": "8px",
       "$description": "Menús, alertas y tarjetas de lista (en Figma: ProductCard y tarjetas de viaje)."
     },
     "radius-card": {
       "$type": "dimension",
-      "$value": "4px",
+      "$value": "8px",
       "$description": "Marcos de documentación y tarjetas grandes."
     },
     "radius-button": {
@@ -27,12 +27,12 @@
     },
     "radius-field": {
       "$type": "dimension",
-      "$value": "0px",
+      "$value": "8px",
       "$description": "Campos: TextInput, Textarea, Search y el campo del Slider."
     },
     "radius-nav": {
       "$type": "dimension",
-      "$value": "100px",
+      "$value": "0px",
       "$description": "Destinos de navegación: Tabs, Sidebar, ítems de menú y Breadcrumb."
     },
     "radius-tag": {

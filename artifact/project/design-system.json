@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T19:30:00Z",
+    "at": "2026-09-30T20:00:00Z",
     "via": "Claude Code",
-    "note": "Capas del tema claro accesibles: text-02 #4C5D74; ui-03 y ui-04 claros en alto contraste; texto y controles verificados sobre las cuatro capas."
+    "note": "Radios con Ajustes de ALMA: panel, card y field en 8 px; navegación en 0 px."
   },
   "layout": "files",
   "libraries": [

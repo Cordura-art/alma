@@ -5060,15 +5060,15 @@ abstract final class AlmaRadius {
   /// Tarjetas de muestra de color.
   static const double radiusSwatch = 2.0;
   /// Menús, alertas y tarjetas de lista (en Figma: ProductCard y tarjetas de viaje).
-  static const double radiusPanel = 2.0;
+  static const double radiusPanel = 8.0;
   /// Marcos de documentación y tarjetas grandes.
-  static const double radiusCard = 4.0;
+  static const double radiusCard = 8.0;
   /// Botones: Button, IconButton, Stepper, PopUpButton y SegmentedControl. 100 px es la píldora.
   static const double radiusButton = 16.0;
   /// Campos: TextInput, Textarea, Search y el campo del Slider.
-  static const double radiusField = 0.0;
+  static const double radiusField = 8.0;
   /// Destinos de navegación: Tabs, Sidebar, ítems de menú y Breadcrumb.
-  static const double radiusNav = 100.0;
+  static const double radiusNav = 0.0;
   /// Tag, fichas del buscador, Badge y archivos del FileUploader.
   static const double radiusTag = 8.0;
   /// La casilla de Checkbox: siempre con esquinas, para no confundirla con Radio.

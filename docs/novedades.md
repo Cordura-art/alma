@@ -4,6 +4,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 30 de septiembre de 2026
 
+- **Cuarto ajuste de radios**, hecho con Ajustes de ALMA: contenedores (`radius-panel`), marcos grandes (`radius-card`) y campos (`radius-field`) en 8 px; navegación (`radius-nav`) recta, en 0 px.
 - **Capas del tema claro, accesibles.** `text-02` en claro pasa de `#566980` a `#4C5D74` para leerse sobre `ui-04` (4,8:1). En claro de alto contraste, `ui-03` y `ui-04` pasan a `#E8F0F4` y `#D5E5EB`, capas claras con texto sobre 7:1 (antes `ui-04` era un gris oscuro de borde). Los campos deshabilitados usan `disabled-03` en los cuatro temas. El verificador suma texto y controles sobre `ui-03` y `ui-04`.
 - **Elevación en el tema oscuro.** Las capas simulan altura: `ui-01`, `ui-03` y `ui-04` mezclan blanco al 4, 7 y 10 % sobre la página (6, 12 y 18 % en alto contraste), guardado como color sólido. Las tarjetas dejan el azul noche y pasan a un casi negro. **Nuevo token `border-subtle`** para los bordes de contenedores, que antes usaban `ui-03`; conserva el mismo color en los cuatro temas. Los campos deshabilitados en oscuro toman `disabled-03`, con el mismo color de antes.
 - **Capas del tema claro corregidas.** La página (`ui-02`) pasa a gris muy claro `#F8FBFC` y los contenedores (`ui-01`) a blanco `#FFFFFF`; estaban al revés y las tarjetas casi no se distinguían de la página. Lo mismo en claro de alto contraste. La guía de Color suma **Capas de superficie**: página, contenedor, panel y zona, con las acciones encima.
