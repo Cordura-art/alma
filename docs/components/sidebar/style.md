@@ -37,6 +37,7 @@ summary: Especificaciones visuales de la barra lateral.
 | Título de grupo | alto mínimo | 36 px |
 | Destino | relleno lateral | 16 px |
 | Destino | radio | `radius-nav` |
+| Destinos | separación | 4 px (`space-4`): el fondo del elegido y el de hover no se juntan |
 | Ícono y etiqueta | separación | 16 px |
 | Botón y panel | separación | 8 px |
 

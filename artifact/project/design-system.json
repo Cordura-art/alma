@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T20:15:00Z",
+    "at": "2026-09-30T20:30:00Z",
     "via": "Claude Code",
-    "note": "Radios con Ajustes de ALMA: navegación (radius-nav) en 8 px."
+    "note": "Sidebar: 4 px entre destinos, para que el elegido y el de hover no se junten."
   },
   "layout": "files",
   "libraries": [
