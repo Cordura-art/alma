@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T08:40:00Z",
+    "at": "2026-09-30T09:10:00Z",
     "via": "Claude Code",
-    "note": "Tokens de ejes de Roboto Flex (font-width, font-grade) y la herramienta Ajustes de ALMA para ajustar temas, ejes, pesos y radios."
+    "note": "Nuevo estilo con Ajustes de ALMA: Roboto Flex ancho 151 y grado −200; display 1000, títulos y cuerpo 100; radios de 8 px."
   },
   "layout": "files",
   "libraries": [
