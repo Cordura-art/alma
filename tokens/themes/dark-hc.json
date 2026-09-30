@@ -78,22 +78,22 @@
     "ui-01": {
       "$type": "color",
       "$value": "#141733",
-      "$description": "Uso (Cordura): Fondo de contenedor principal; fondo de página secundario. Contenedores: tarjetas, alertas, menús, tablas y paneles, sobre ui-02. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+      "$description": "Segunda capa: contenedores (tarjetas, alertas, menús, tablas y paneles) sobre la página ui-02. En claro es blanco y la página es gris muy claro; en oscuro, más claro que la página."
     },
     "ui-02": {
       "$type": "color",
       "$value": "#02010C",
-      "$description": "Uso (Cordura): Fondo de página principal; fondo de contenedor secundario. Fondo de la página. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+      "$description": "Primera capa: fondo de la página. En claro, gris muy claro bajo contenedores blancos (ui-01); en oscuro, el fondo más profundo."
     },
     "ui-03": {
       "$type": "color",
       "$value": "#566980",
-      "$description": "Uso (Cordura): Borde sutil; fondo terciario. Borde sutil; fondo terciario. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+      "$description": "Tercera capa: paneles anidados dentro de un contenedor ui-01. También borde sutil."
     },
     "ui-04": {
       "$type": "color",
       "$value": "#A0C3D2",
-      "$description": "Uso (Cordura): Borde de contraste medio. Borde de contraste medio (3:1 AA de elemento). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+      "$description": "Cuarta capa: zonas anidadas dentro de un panel ui-03, donde van las acciones (interactive-01 y interactive-02). También borde de contraste medio (3:1 AA de elemento)."
     },
     "ui-05": {
       "$type": "color",

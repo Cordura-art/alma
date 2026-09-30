@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T17:00:00Z",
+    "at": "2026-09-30T18:00:00Z",
     "via": "Claude Code",
-    "note": "Pesos en tokens: font-weight-display, -heading, -body y -emphasis, usados por los estilos de texto y todos los componentes."
+    "note": "Tema claro: página ui-02 en #F8FBFC y contenedores ui-01 en blanco (estaban invertidos). Capas de superficie documentadas."
   },
   "layout": "files",
   "libraries": [
