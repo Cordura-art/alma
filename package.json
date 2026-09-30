@@ -16,7 +16,8 @@
   "scripts": {
     "build": "node scripts/build-tokens.mjs && node scripts/build-docs.mjs",
     "test": "node scripts/check-roundtrip.mjs && node scripts/check-contrast.mjs",
-    "check": "npm run build && npm test"
+    "check": "npm run build && npm test",
+    "site": "node scripts/build-site.mjs"
   },
   "engines": {
     "node": ">=20"

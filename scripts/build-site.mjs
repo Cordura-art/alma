@@ -1,0 +1,95 @@
+// Builds the ALMA documentation site as ONE self-contained page (build/alma-site.html):
+// ALMA's CSS and component bundle, the repo's guides and tokens, the live previews, and site/{site.css,app.js}.
+// Run after `npm run build`. Usage: node scripts/build-site.mjs [output path]
+import { readdir, readFile, writeFile, mkdir, stat } from 'node:fs/promises';
+import { dirname } from 'node:path';
+
+const OUT = process.argv[2] || 'build/alma-site.html';
+const P = 'artifact/project';
+const CDN = 'https://cdnjs.cloudflare.com/ajax/libs';
+const LIBS = ['react/18.3.1/umd/react.production.min.js', 'react-dom/18.3.1/umd/react-dom.production.min.js',
+  'marked/12.0.2/marked.min.js', 'dompurify/3.1.6/purify.min.js'];
+
+const read = (p) => readFile(p, 'utf8');
+const exists = (p) => stat(p).then(() => true, () => false);
+
+// A preview document: line 1 is the @dsCard marker, then markup, then one <script>.
+function parsePreview(src) {
+  const marker = /^<!--\s*@dsCard([^]*?)-->\s*/.exec(src);
+  const attrs = {};
+  if (marker) for (const m of marker[1].matchAll(/(\w+)(?:=(?:"([^"]*)"|(\S+)))?/g)) attrs[m[1]] = m[2] ?? m[3] ?? true;
+  const rest = marker ? src.slice(marker[0].length) : src;
+  const i = rest.indexOf('<script>'), j = rest.lastIndexOf('</script>');
+  // The gallery-frame workarounds do not apply inside the site: drop them.
+  const code = (i < 0 ? '' : rest.slice(i + 8, j))
+    .split('\n').filter((l) => !/gallery frame makes html|documentElement\.style\.setProperty\('background'|document\.body\.style\.margin/.test(l)).join('\n')
+    // A dialog preview starts open to fill its gallery frame; on the site it would cover the page, so it starts closed.
+    .replace(/React\.useState\(true\), open = /g, 'React.useState(false), open = ');
+  return { attrs, pv: { markup: (i < 0 ? rest : rest.slice(0, i)).trim(), code } };
+}
+
+// A component guide: "# Name", summary paragraph, then "## Section" blocks (the four tabs when complete).
+function parseGuide(src) {
+  const body = src.replace(/^# .*\n+/, '');
+  const parts = body.split(/^## (.+)$/m);
+  const intro = parts[0].trim();
+  const summary = intro.split(/\n\s*\n/)[0].replace(/\s+/g, ' ').trim();
+  const sections = [];
+  for (let k = 1; k < parts.length; k += 2) sections.push({ title: parts[k].trim(), body: parts[k + 1].trim() });
+  return { summary, sections, body: intro.slice(intro.split(/\n\s*\n/)[0].length).trim() + (parts.length > 1 ? '\n\n' + body.slice(parts[0].length) : '') };
+}
+
+const bundle = await read(`${P}/components/bundle.js`);
+const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), await read('site/site.css')].join('\n');
+const app = await read('site/app.js');
+for (const [name, text, bad] of [['bundle.js', bundle, /<\/script|<!--/i], ['app.js', app, /<\/script|<!--/i], ['CSS', css, /<\/style/i]]) {
+  if (bad.test(text)) throw new Error(`${name} contiene una secuencia que cerraría la etiqueta en línea`);
+}
+
+// Component order: the bundle header's catalogue, then any other folder with a preview or guide.
+const header = JSON.parse(/@ds-bundle: (\{.*\}) \*\//.exec(bundle)[1]);
+const dirs = (await readdir(`${P}/components`)).filter((d) => !/\./.test(d) && d !== 'Cover' && d !== 'lib' && d !== 'src');
+const order = [...new Set([...header.components.map((c) => c.name), ...dirs.sort()])].filter((d) => dirs.includes(d));
+
+const components = [];
+for (const name of order) {
+  const dir = `${P}/components/${name}`;
+  const pv = (await exists(`${dir}/preview.html`)) ? parsePreview(await read(`${dir}/preview.html`)) : null;
+  const guide = (await exists(`${dir}/README.md`)) ? parseGuide(await read(`${dir}/README.md`)) : { summary: '', sections: [], body: '' };
+  components.push({ name, group: pv?.attrs.group || 'Otros', subtitle: pv?.attrs.subtitle || '', preview: pv?.pv || null, ...guide });
+}
+
+const tok = JSON.parse(await read(`${P}/tokens.json`));
+const families = {};
+for (const [k, v] of Object.entries(tok)) if (k !== 'color' && v && Array.isArray(v.tokens)) families[k] = { note: v.note || '', tokens: v.tokens };
+
+const content = {
+  readme: await read(`${P}/README.md`),
+  docs: (await read(`${P}/Documentacion.md`)).replace(/^# .*\n+/, ''),
+  cover: parsePreview(await read(`${P}/components/Cover/preview.html`)).pv,
+  tokens: { themes: tok.color.themes, color: tok.color.tokens, type: tok.type.groups, families },
+  components
+};
+const json = JSON.stringify(content).replace(/</g, '\\u003c');
+
+const html = `<title>Documentación ALMA</title>
+<meta name="description" content="Sistema de diseño de Cordura: guías, tokens y componentes en vivo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+${css}
+</style>
+<div id="app"></div>
+${LIBS.map((l) => `<script src="${CDN}/${l}"></script>`).join('\n')}
+<script>
+${bundle}
+</script>
+<script type="application/json" id="alma-content">${json}</script>
+<script>
+${app}
+</script>
+`;
+await mkdir(dirname(OUT), { recursive: true });
+await writeFile(OUT, html);
+console.log(`Sitio: ${OUT} (${(html.length / 1024).toFixed(0)} KB, ${components.length} componentes)`);
