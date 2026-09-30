@@ -708,7 +708,7 @@
     var det = props.value !== undefined && props.value !== null;
     var pct = det ? Math.round(Math.max(0, Math.min(1, props.value)) * 100) : null;
     return h('div', { className: 'alma-progressbar' + (det ? '' : ' is-indeterminate') + (props.status ? ' is-' + props.status : '') },
-      props.label ? h('div', { className: 'alma-progressbar__top' }, h('span', { className: 'alma-progressbar__label' }, props.label), det ? h('span', { className: 'alma-progressbar__pct' }, pct + ' %') : null) : null,
+      props.label ? h('div', { className: 'alma-progressbar__top' }, h('span', { className: 'alma-progressbar__label' }, props.label), det ? h('span', { className: 'alma-progressbar__pct' }, pct + '%') : null) : null,
       h('div', { className: 'alma-progressbar__track', role: 'progressbar', 'aria-label': props.label, 'aria-valuemin': det ? 0 : undefined, 'aria-valuemax': det ? 100 : undefined, 'aria-valuenow': det ? pct : undefined, 'aria-valuetext': props.description },
         h('div', { className: 'alma-progressbar__fill', style: det ? { width: pct + '%' } : undefined })),
       props.description ? h('p', { className: 'alma-progressbar__desc' }, props.description) : null

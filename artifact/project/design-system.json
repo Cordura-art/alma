@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T05:50:00Z",
+    "at": "2026-09-30T06:30:00Z",
     "via": "Claude Code",
-    "note": "Guías completas de Toolbar, SearchField, SegmentedControl, Tag, Link, PullDownButton y Card. SegmentedControl con teclado de grupo de radios."
+    "note": "Guías completas de estados y formularios (10 componentes). ProgressBar con el porcentaje en formato de Chile."
   },
   "layout": "files",
   "libraries": [

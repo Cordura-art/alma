@@ -66,22 +66,22 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Contained list | `List` | **Completo (4 pestañas, formato de la referencia)** |
 | Content switcher | `SegmentedControl` | **Completo (4 pestañas, formato de la referencia)** |
 | Data table | `Table` | **Completo (4 pestañas, formato de la referencia)** |
-| Date picker | `DatePicker`, `TimePicker` | Guía breve |
+| Date picker | `DatePicker`, `TimePicker` | **Completo (4 pestañas, formato de la referencia)** |
 | Dropdown · Select | `PopUpButton` | **Completo (4 pestañas, formato de la referencia)** |
-| File uploader | `FileUploader` | Guía breve |
-| Inline loading · Loading | `ActivityIndicator`, `Skeleton`, `ProgressLine` | Guía breve |
+| File uploader | `FileUploader` | **Completo (4 pestañas, formato de la referencia)** |
+| Inline loading · Loading | `ActivityIndicator`, `Skeleton`, `ProgressLine` | **Completo (4 pestañas, formato de la referencia)** |
 | Link | `Link` | **Completo (4 pestañas, formato de la referencia)** |
 | Menu · Menu buttons · Overflow menu | `PullDownButton` | **Completo (4 pestañas, formato de la referencia)** |
 | Modal | `Modal`, `Sheet`, `Alert` | **Completo (4 pestañas, formato de la referencia)** |
 | Notification | `InlineNotification`, `ToastRegion` | **Completo (4 pestañas, formato de la referencia)** |
-| Number input | `Stepper` | Guía breve |
+| Number input | `Stepper` | **Completo (4 pestañas, formato de la referencia)** |
 | Pagination | `Pagination` | **Completo (4 pestañas, formato de la referencia)** |
 | Popover · Toggletip | `Popover` | **Completo (4 pestañas, formato de la referencia)** |
-| Progress bar | `ProgressBar` | Guía breve |
-| Progress indicator | `ProgressIndicator` | Guía breve |
+| Progress bar | `ProgressBar` | **Completo (4 pestañas, formato de la referencia)** |
+| Progress indicator | `ProgressIndicator` | **Completo (4 pestañas, formato de la referencia)** |
 | Radio button | `RadioGroup` | **Completo (4 pestañas, formato de la referencia)** |
 | Search | `SearchField` | **Completo (4 pestañas, formato de la referencia)** |
-| Slider | `Slider` | Guía breve |
+| Slider | `Slider` | **Completo (4 pestañas, formato de la referencia)** |
 | Tabs | `Tabs` | **Completo (4 pestañas, formato de la referencia)** |
 | Tag | `Tag` | **Completo (4 pestañas, formato de la referencia)** |
 | Text input | `TextInput`, `Textarea` | **Completo (4 pestañas, formato de la referencia)** |
