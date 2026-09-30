@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T03:10:00Z",
+    "at": "2026-09-30T03:40:00Z",
     "via": "Claude Code",
-    "note": "Tanda 2: guías completas de Modal, Sheet, Alert, InlineNotification, ToastRegion, Tooltip y Popover."
+    "note": "Tanda 3: guías completas de Tabs, Sidebar, TabBar, Breadcrumb, Table, Pagination y List. Pagination con números en formato de Chile."
   },
   "layout": "files",
   "libraries": [

@@ -771,7 +771,7 @@
     var pages = Math.max(1, Math.ceil(total / size));
     function go(p) { p = Math.max(1, Math.min(pages, p)); pg[1](p); if (props.onChange) props.onChange({ page: p, pageSize: size }); }
     var from = total ? (page - 1) * size + 1 : 0, to = Math.min(total, page * size);
-    var nf = function (n) { return n.toLocaleString('es'); };
+    var nf = function (n) { return n.toLocaleString('es-CL'); };
     return h('nav', { className: 'alma-pagination', 'aria-label': props.label || 'Paginación' },
       h('div', { className: 'alma-pagination__size' },
         h(PopUpButton, { label: 'Elementos por página', options: sizes.map(String), value: String(size),

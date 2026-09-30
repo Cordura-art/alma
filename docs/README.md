@@ -58,12 +58,12 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 |---|---|---|
 | Button | `Button` | **Completo (4 pestañas, formato de la referencia)** |
 | Accordion | `Accordion` | Guía breve |
-| Breadcrumb | `Breadcrumb` | Guía breve |
+| Breadcrumb | `Breadcrumb` | **Completo (4 pestañas, formato de la referencia)** |
 | Checkbox | `Checkbox` | **Completo (4 pestañas, formato de la referencia)** |
 | Combo box · Multiselect | `Combobox` | **Completo (4 pestañas, formato de la referencia)** |
-| Contained list | `List` | Guía breve |
+| Contained list | `List` | **Completo (4 pestañas, formato de la referencia)** |
 | Content switcher | `SegmentedControl` | Guía breve |
-| Data table | `Table` | Guía breve |
+| Data table | `Table` | **Completo (4 pestañas, formato de la referencia)** |
 | Date picker | `DatePicker`, `TimePicker` | Guía breve |
 | Dropdown · Select | `PopUpButton` | **Completo (4 pestañas, formato de la referencia)** |
 | File uploader | `FileUploader` | Guía breve |
@@ -73,20 +73,20 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Modal | `Modal`, `Sheet`, `Alert` | **Completo (4 pestañas, formato de la referencia)** |
 | Notification | `InlineNotification`, `ToastRegion` | **Completo (4 pestañas, formato de la referencia)** |
 | Number input | `Stepper` | Guía breve |
-| Pagination | `Pagination` | Guía breve |
+| Pagination | `Pagination` | **Completo (4 pestañas, formato de la referencia)** |
 | Popover · Toggletip | `Popover` | **Completo (4 pestañas, formato de la referencia)** |
 | Progress bar | `ProgressBar` | Guía breve |
 | Progress indicator | `ProgressIndicator` | Guía breve |
 | Radio button | `RadioGroup` | **Completo (4 pestañas, formato de la referencia)** |
 | Search | `SearchField` | Guía breve |
 | Slider | `Slider` | Guía breve |
-| Tabs | `Tabs` | Guía breve |
+| Tabs | `Tabs` | **Completo (4 pestañas, formato de la referencia)** |
 | Tag | `Tag` | Guía breve |
 | Text input | `TextInput`, `Textarea` | **Completo (4 pestañas, formato de la referencia)** |
 | Tile | `Card` | Guía breve |
 | Toggle | `Switch` | **Completo (4 pestañas, formato de la referencia)** |
 | Tooltip | `Tooltip`, `Tip` | **Tooltip completo**; Tip: guía breve |
-| UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | Guía breve |
+| UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | **Sidebar y TabBar completos**; Toolbar: guía breve |
 | Code snippet | — | Falta en ALMA |
 | Structured list | — | Falta en ALMA |
 | Tree view | — | Falta en ALMA |

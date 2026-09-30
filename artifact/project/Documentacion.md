@@ -6,6 +6,8 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Guías completas de la tanda 3.** Tabs, Sidebar, TabBar, Breadcrumb, Table, Pagination y List tienen sus cuatro partes.
+- **Pagination** muestra los números con el formato de Chile («1.284 movimientos»); antes salía «1284».
 - **Guías completas de la tanda 2.** Modal, Sheet, Alert, InlineNotification, ToastRegion, Tooltip y Popover tienen sus cuatro partes. La de Tooltip deja escrito un pendiente de WCAG 1.4.13: el globo todavía no se puede recorrer con el cursor sin que desaparezca.
 - **Accesibilidad de componentes.** Table y List aceptan `headingLevel`, como Accordion, para encajar en la jerarquía de títulos de la página. Modal y Sheet ya no usan `header` ni `footer`, que los lectores de pantalla anunciaban como regiones de la página. En pantallas angostas, la Toolbar pone el buscador en su propia fila.
 - **Sitio de documentación con el estilo de ALMA.** Una página propia, hecha con los componentes de ALMA (Sidebar, Toolbar, SearchField, Tabs, Table), reúne la guía general, estas novedades, los fundamentos (color, tipografía, espaciado, movimiento) y cada componente con su vista previa en vivo y sus pestañas Uso, Estilo, Código y Accesibilidad. Tiene los cuatro temas. `npm run site` la genera desde el repositorio.
@@ -84,12 +86,12 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 |---|---|---|
 | Button | `Button` | **Completo (4 pestañas, formato de la referencia)** |
 | Accordion | `Accordion` | Guía breve |
-| Breadcrumb | `Breadcrumb` | Guía breve |
+| Breadcrumb | `Breadcrumb` | **Completo (4 pestañas, formato de la referencia)** |
 | Checkbox | `Checkbox` | **Completo (4 pestañas, formato de la referencia)** |
 | Combo box · Multiselect | `Combobox` | **Completo (4 pestañas, formato de la referencia)** |
-| Contained list | `List` | Guía breve |
+| Contained list | `List` | **Completo (4 pestañas, formato de la referencia)** |
 | Content switcher | `SegmentedControl` | Guía breve |
-| Data table | `Table` | Guía breve |
+| Data table | `Table` | **Completo (4 pestañas, formato de la referencia)** |
 | Date picker | `DatePicker`, `TimePicker` | Guía breve |
 | Dropdown · Select | `PopUpButton` | **Completo (4 pestañas, formato de la referencia)** |
 | File uploader | `FileUploader` | Guía breve |
@@ -99,20 +101,20 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Modal | `Modal`, `Sheet`, `Alert` | **Completo (4 pestañas, formato de la referencia)** |
 | Notification | `InlineNotification`, `ToastRegion` | **Completo (4 pestañas, formato de la referencia)** |
 | Number input | `Stepper` | Guía breve |
-| Pagination | `Pagination` | Guía breve |
+| Pagination | `Pagination` | **Completo (4 pestañas, formato de la referencia)** |
 | Popover · Toggletip | `Popover` | **Completo (4 pestañas, formato de la referencia)** |
 | Progress bar | `ProgressBar` | Guía breve |
 | Progress indicator | `ProgressIndicator` | Guía breve |
 | Radio button | `RadioGroup` | **Completo (4 pestañas, formato de la referencia)** |
 | Search | `SearchField` | Guía breve |
 | Slider | `Slider` | Guía breve |
-| Tabs | `Tabs` | Guía breve |
+| Tabs | `Tabs` | **Completo (4 pestañas, formato de la referencia)** |
 | Tag | `Tag` | Guía breve |
 | Text input | `TextInput`, `Textarea` | **Completo (4 pestañas, formato de la referencia)** |
 | Tile | `Card` | Guía breve |
 | Toggle | `Switch` | **Completo (4 pestañas, formato de la referencia)** |
 | Tooltip | `Tooltip`, `Tip` | **Tooltip completo**; Tip: guía breve |
-| UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | Guía breve |
+| UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | **Sidebar y TabBar completos**; Toolbar: guía breve |
 | Code snippet | — | Falta en ALMA |
 | Structured list | — | Falta en ALMA |
 | Tree view | — | Falta en ALMA |
