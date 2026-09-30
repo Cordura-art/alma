@@ -384,3 +384,248 @@ El texto de ALMA crece con la preferencia de la persona (probado al 200 %). Dise
 ### Relacionados
 
 `Table` · `Breadcrumb` · `Tabs` · `Pagination` · Tipografía.
+
+## Encabezado y navegación global
+
+La estructura fija de una app: barra superior y navegación principal.
+
+### Cuándo
+
+En toda app o sitio hecho con ALMA: es lo que queda fijo mientras cambia el contenido.
+
+### Las piezas
+
+| Pieza | Componente | Qué lleva |
+|---|---|---|
+| Barra superior | `Toolbar` con `sticky` | Título de la vista, Volver, buscador y 2 o 3 acciones; el resto en «Más». |
+| Navegación principal (teléfono) | `TabBar` con `fixed` | De 3 a 5 secciones. |
+| Navegación principal (desde 1056 px) | `Sidebar` | Las mismas secciones, agrupadas. |
+| Cuenta | `PullDownButton` de ícono `user--avatar` en la `Toolbar` | Perfil, Ajustes, Cerrar sesión. |
+
+> **Imagen pendiente:** la misma app en el teléfono (Toolbar arriba, TabBar abajo) y en escritorio (Toolbar arriba, Sidebar a la izquierda).
+
+### Reglas
+
+- **Los mismos destinos en todas las pantallas.** `TabBar` y `Sidebar` son la misma navegación en dos formas: cambia la forma, no los destinos.
+- **La barra superior dice dónde estás:** su título es el de la vista.
+- **La búsqueda global**, si existe, va en la `Toolbar`; bajo 672 px pasa a su propia fila.
+- **Cerrar sesión** va al final del menú de cuenta, con `role: 'destructive'` solo si borra datos locales.
+- **Primer enlace de la página:** «Saltar al contenido», que lleva al título de la vista.
+
+### Capas
+
+`Toolbar` y `TabBar` fijas usan `z-header`. Deja espacio bajo el contenido para que la `TabBar` no tape el último control.
+
+### Accesibilidad
+
+- La `Toolbar` es el `header` de la página y el contenido va en `main`.
+- `TabBar` y `Sidebar` son `nav`; si hay más de un `nav`, cada uno lleva su nombre.
+- Al cambiar de sección, el foco va al título de la vista nueva.
+
+### Relacionados
+
+`Toolbar` · `TabBar` · `Sidebar` · `PullDownButton` · Espaciado y grilla.
+
+## Inicio de sesión
+
+Cómo pedir las credenciales sin trabas y con los errores claros.
+
+### Cuándo
+
+Para entrar a una cuenta, y en cualquier pantalla que pida la contraseña de nuevo.
+
+### Estructura
+
+1. Título: «Ingresa a tu cuenta».
+2. Correo: `TextInput` con `type: 'email'` y `autoComplete: 'username'`.
+3. Contraseña: `TextInput` con `type: 'password'` y `autoComplete: 'current-password'`. Trae el ojo para mostrarla.
+4. Enlace «¿Olvidaste tu contraseña?», bajo la contraseña.
+5. Botón `filled`, `type: 'submit'`: «Ingresar».
+6. Debajo, un enlace para crear una cuenta.
+
+> **Imagen pendiente:** la pantalla de ingreso en el teléfono, en tema oscuro.
+
+### Reglas
+
+- **Deja pegar y deja usar el gestor de contraseñas.** No bloquees el pegado ni desactives el autocompletado (WCAG 3.3.8, autenticación accesible).
+- **Sin pruebas de memoria ni acertijos** para entrar. Si hace falta verificar a una persona, ofrece un método que no exija recordar ni transcribir.
+- **Al crear una cuenta**, usa `autoComplete: 'new-password'` y di la regla antes: «Mínimo 8 caracteres».
+- **Mientras ingresa**, el botón muestra `loading` con `loadingLabel: 'Ingresando'`.
+- **Enter en cualquier campo** envía.
+
+### Errores
+
+| Caso | Qué mostrar |
+|---|---|
+| Falta un dato | El error en el campo: «Escribe tu correo». |
+| Correo o contraseña no coinciden | Una `InlineNotification` de error sobre el formulario: «El correo o la contraseña no coinciden». No digas cuál de los dos, por seguridad. |
+| Demasiados intentos | La notificación dice cuánto esperar o cómo recuperar la cuenta. |
+| Sin conexión | «No se pudo conectar. Revisa tu conexión y vuelve a intentarlo.» |
+
+Al fallar, deja escrito el correo y lleva el foco a la notificación o al primer campo con error.
+
+### Cerrar sesión
+
+En el menú de cuenta. No pidas confirmación salvo que se pierdan datos sin guardar.
+
+### Relacionados
+
+`TextInput` · `Button` · `InlineNotification` · `Link` · Formularios.
+
+## Indicadores de estado
+
+Cómo mostrar el estado de algo sin depender del color.
+
+### Cuándo
+
+Para decir en qué estado está un elemento: un pago, un viaje, una tarjeta, un archivo.
+
+### Elegir la forma
+
+| Situación | Usa |
+|---|---|
+| El estado de un elemento en una lista o tabla | `Tag` con la palabra del estado («Pagado», «Pendiente»). |
+| Un estado del sistema que importa | Ícono relleno de estado + palabra. |
+| Un resultado que pide atención | `InlineNotification`. |
+| Algo nuevo o pendiente en la navegación | La insignia (`badge`) de `TabBar` o `Sidebar`. |
+| El avance de algo | `ProgressBar` o `ProgressIndicator`. |
+
+### Íconos de estado
+
+| Estado | Ícono (`variant: 'filled'`) | Token |
+|---|---|---|
+| Error | `error` | `status-icon-error` |
+| Advertencia | `warning` | `status-icon-warning` |
+| Éxito | `checkmark--outline` | `status-icon-success` |
+| Información | `information` | `status-icon-info` |
+
+> **Imagen pendiente:** los cuatro íconos de estado con su palabra, en tema oscuro y claro.
+
+### Reglas
+
+- **Tres pistas, no una:** forma (el ícono), palabra y color. Si falta el color, las otras dos bastan.
+- **La palabra informa:** «Pagado» dice más que un punto verde.
+- **Los cuatro íconos de estado tienen formas distintas**, así se distinguen sin color.
+- **Pocos estados:** si hay más de cinco, agrupa.
+- **El mismo estado se ve igual en toda la app:** mismo color de `Tag`, misma palabra.
+
+### Accesibilidad
+
+- El ícono de estado lleva `label` si no hay palabra al lado.
+- Los estados que cambian solos se anuncian en una región `role="status"`.
+
+### Relacionados
+
+`Tag` · `Icon` · `InlineNotification` · `ProgressBar` · Notificaciones.
+
+## Barra de texto
+
+Las acciones de formato sobre un texto editable.
+
+### Cuándo
+
+Cuando un texto largo necesita formato (negrita, listas, enlaces): una nota, una descripción, un mensaje.
+
+### Estado en ALMA
+
+ALMA **no tiene hoy un editor de texto con formato**. `Textarea` es texto sin formato. Si un producto necesita formato, se pide como un componente nuevo de ALMA; mientras tanto, este patrón fija cómo debe comportarse.
+
+### Cómo debe ser
+
+1. Una fila de botones de ícono sobre el texto, dentro del mismo contenedor.
+2. Cada formato es un botón que se prende y apaga (`Button` con `selected`), en grupos separados: estilo del texto, listas, enlace.
+3. Los íconos de Carbon: `text--bold`, `text--italic`, `text--underline`, `list--bulleted`, `list--numbered`, `link`. No vienen en el set incluido: se cargan con `AlmaDS.registerIcons` desde `carbon-icons.json`.
+4. Cada botón lleva su nombre y su atajo en un `Tooltip`: «Negrita (⌘B)».
+
+> **Imagen pendiente:** un campo de nota con la barra de formato arriba.
+
+### Reglas
+
+- **Pocos formatos.** Solo los que el contenido necesita; el resto, en «Más».
+- **El atajo de teclado siempre funciona**, esté o no la barra a la vista.
+- **El estado se ve:** el formato activo queda marcado con `selected`, no solo con color.
+
+### Accesibilidad
+
+- La fila es un `role="toolbar"` con nombre («Formato del texto»), con una sola parada de Tab y flechas para moverse entre botones.
+- Cada botón anuncia si está activo (`aria-pressed`).
+
+Esto último **no lo resuelve ALMA hoy**: forma parte del componente que habría que agregar.
+
+### Relacionados
+
+`Textarea` · `Button` · `Tooltip` · `Icon`.
+
+## Campos fluidos
+
+Cómo se comportan los campos de ALMA en formularios densos y en grillas.
+
+### Qué son
+
+En Carbon, los campos «fluidos» llevan la etiqueta dentro del campo y se pegan unos a otros para formularios densos. En ALMA, **todos los campos ya llevan la etiqueta dentro**: `TextInput`, `Textarea`, `DatePicker` y `TimePicker` son píldoras con la etiqueta flotante. No hay una variante aparte.
+
+### Cómo funciona la etiqueta
+
+| Estado | Etiqueta |
+|---|---|
+| Vacío y sin foco | Dentro del campo, en el lugar del texto. |
+| Con foco o con texto | Sube al borde superior, sobre un fondo propio (`field-label-float-bg`). |
+| Con error | Sube y cambia a `field-label-float-error`. |
+
+El texto de ejemplo solo se ve con el campo enfocado: nunca compite con la etiqueta.
+
+> **Imagen pendiente:** un campo vacío, enfocado y con texto, con la etiqueta en cada posición.
+
+### En grillas
+
+- **Una columna por defecto.** Pon campos en fila solo si forman un dato (fecha y hora de un viaje; día, mes y año).
+- **Separación:** `space-16` entre campos y `space-24` entre grupos, también en fila.
+- **Mismo alto:** todos los campos miden 56 px (40 px en densidad compacta), así las filas se alinean.
+- **Ancho según el dato:** el ancho sugiere el largo de lo que se escribe.
+
+### Formularios densos
+
+En herramientas de trabajo de escritorio, usa la densidad compacta (`data-density="compact"`): los campos bajan a 40 px y el resto no cambia. No existe una variante de campos pegados sin separación.
+
+### Relacionados
+
+`TextInput` · `DatePicker` · Formularios · Espaciado y grilla.
+
+## Divulgación progresiva
+
+Cómo mostrar primero lo esencial y el resto a pedido.
+
+### Cuándo
+
+Cuando hay más información de la que la mayoría necesita: detalles, condiciones, opciones avanzadas.
+
+### Elegir la forma
+
+| Lo que se esconde | Usa |
+|---|---|
+| Secciones de contenido largo | `Accordion` |
+| El detalle de una tarjeta | `ProductCard` (se despliega) o `Card` (lleva a otra página) |
+| Una explicación breve de un término | `Popover` |
+| Qué hace un control | `Tooltip` |
+| Opciones relacionadas con lo que se ve | `Sheet` |
+| Acciones secundarias | El menú «Más» (`PullDownButton`) |
+| Un texto largo | Un `Link` «Ver más» que lleva al texto completo |
+
+> **Imagen pendiente:** una pantalla de pasaje con el resumen a la vista y las condiciones en un Accordion.
+
+### Reglas
+
+- **Lo esencial, a la vista.** Lo que casi todos necesitan no se esconde.
+- **Nunca se esconden los errores** ni lo que hace falta para decidir.
+- **Un nivel.** No pongas un despliegue dentro de otro.
+- **El control dice qué muestra:** «Ver condiciones del pasaje», no «Más».
+- **Lo abierto se queda abierto** mientras la persona está en la pantalla.
+
+### Accesibilidad
+
+- El control que despliega anuncia si está abierto (`aria-expanded`); ALMA lo hace en `Accordion`, `ProductCard`, `Popover` y `PullDownButton`.
+- Lo escondido queda oculto también para el lector.
+
+### Relacionados
+
+`Accordion` · `ProductCard` · `Popover` · `Sheet` · Contenido que desborda.

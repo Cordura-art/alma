@@ -6,6 +6,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Patrones completos.** Se sumaron Encabezado y navegación global, Inicio de sesión, Indicadores de estado, Barra de texto, Campos fluidos y Divulgación progresiva: 15 patrones que cubren los 18 de Carbon.
 - **Nuevo: campos de solo lectura.** `TextInput` y `Textarea` aceptan `readOnly`: borde punteado con el token nuevo `field-border-readonly`, texto con contraste normal, foco y copia. El patrón **Desactivado y solo lectura** lo usa.
 - **Tooltip se puede recorrer con el cursor** (WCAG 1.4.13): el globo recibe el puntero y un puente cubre la separación con el control.
 - **PaymentCard escribe su estado** junto al chip («Activando»): ya no depende del color.
@@ -147,7 +148,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Movimiento (resumen, coreografía, código) | 4 | **Completo**: Resumen, Coreografía, Código y Tokens |
 | Íconos · Pictogramas | 4 | Íconos **completo** (Resumen, Uso, Código y Tokens); pictogramas: falta |
 | Temas | 2 | **Completo**: Resumen, Código y Tokens |
-| Patrones (18: acciones comunes, diálogos, estados desactivados y de solo lectura, divulgación, estados vacíos, filtros, formularios, encabezado global, carga, inicio de sesión, notificaciones, contenido que desborda, búsqueda, indicadores de estado, barra de texto, estilos fluidos) | 18 | **9 completos:** formularios, estados vacíos, notificaciones, carga, búsqueda y filtros, diálogos y capas, acciones, desactivado y solo lectura, contenido que desborda. Faltan: encabezado global, inicio de sesión, indicadores de estado, barra de texto, estilos fluidos y divulgación. |
+| Patrones (18: acciones comunes, diálogos, estados desactivados y de solo lectura, divulgación, estados vacíos, filtros, formularios, encabezado global, carga, inicio de sesión, notificaciones, contenido que desborda, búsqueda, indicadores de estado, barra de texto, estilos fluidos) | 18 | **Completo:** 15 páginas cubren los 18 (desactivado y solo lectura van juntos, igual que búsqueda y filtros). |
 | Visualización de datos | 11 | Solo la paleta de gráficos |
 | Accesibilidad (resumen, color, teclado, desarrollo) | 4 | **Completo**: Resumen, Color, Teclado, Desarrollo |
 | Contenido (resumen, estilo, etiquetas de acción) | 3 | **Completo**: Voz y tono, Estilo de escritura, Etiquetas de acción, Formatos |
