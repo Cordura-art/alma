@@ -4,6 +4,9 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 30 de septiembre de 2026
 
+- **Los 46 componentes tienen su guía completa.** Se sumaron Accordion, EmptyState, Icon, PageControl, PaymentCard, ProductCard y Tip.
+- **PaymentCard** dice su estado y los datos ocultos en texto para el lector de pantalla («Activando», «terminada en 4821»); antes el estado era solo color y el número se leía como una fila de puntos.
+- **Contraste:** el verificador suma los 22 pares de ProductCard (texto y dato destacado sobre los 11 tonos).
 - **Guías completas de estados y formularios:** ActivityIndicator, ProgressBar, ProgressIndicator, ProgressLine, Skeleton, DatePicker, TimePicker, FileUploader, Slider y Stepper. Ya son 39 componentes con sus cuatro partes.
 - **ProgressBar** muestra el porcentaje con el formato de Chile («60%», antes «60 %»).
 - **Guías completas de Toolbar, SearchField, SegmentedControl, Tag, Link, PullDownButton y Card.** Ya son 29 componentes con sus cuatro partes.

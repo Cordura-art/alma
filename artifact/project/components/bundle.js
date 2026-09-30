@@ -209,23 +209,27 @@
   }
 
   var CARD_STATUS = { pending: 'support-01', activating: 'support-03', enabled: 'support-02', active: 'support-02' };
+  // Status words for screen readers: the card shows its status only with color (Figma), so it is also said in text.
+  var CARD_WORD = { pending: 'Pendiente', activating: 'Activando', enabled: 'Habilitada', active: 'Activa' };
   function PaymentCard(props) {
     var status = props.status || 'pending';
     var last4 = (props.last4 || '0000').split('').join(' ');
     var number = status === 'active' && props.number ? props.number : '••••  ••••  ••••  ' + last4;
     return h('div', { className: 'alma-paycard alma-paycard--' + status },
       h('div', { className: 'alma-paycard__top' },
-        h('span', { className: 'alma-paycard__brand' }, props.brand || 'Cordura'),
-        h('span', { className: 'alma-paycard__chip', title: status })
+        h('span', { className: 'alma-paycard__brand' }, props.brand || 'Cordura', h('span', { className: 'alma-vh' }, ', ' + CARD_WORD[status])),
+        h('span', { className: 'alma-paycard__chip', title: CARD_WORD[status], 'aria-hidden': 'true' })
       ),
       h('div', { className: 'alma-paycard__label' }, 'Número de tarjeta'),
       h('div', { className: 'alma-paycard__row' },
-        h('span', { className: 'alma-paycard__number' }, number),
+        h('span', { className: 'alma-paycard__number' }, h('span', { 'aria-hidden': 'true' }, number),
+          h('span', { className: 'alma-vh' }, status === 'active' && props.number ? props.number : 'terminada en ' + (props.last4 || '0000'))),
         h('button', { type: 'button', className: 'alma-paycard__copy', 'aria-label': 'Copiar número', onClick: props.onCopy }, h(AlmaIcon, { name: 'copy', size: 16 }))
       ),
       h('div', { className: 'alma-paycard__meta' },
-        h('div', null, h('div', { className: 'alma-paycard__label' }, 'Fecha de expiración'), h('div', { className: 'alma-paycard__val' }, status === 'active' && props.expiry ? props.expiry : '••/••')),
-        h('div', null, h('div', { className: 'alma-paycard__label' }, 'CVV'), h('div', { className: 'alma-paycard__val' }, '•••'))
+        h('div', null, h('div', { className: 'alma-paycard__label' }, 'Fecha de expiración'), status === 'active' && props.expiry ? h('div', { className: 'alma-paycard__val' }, props.expiry)
+          : h('div', { className: 'alma-paycard__val' }, h('span', { 'aria-hidden': 'true' }, '••/••'), h('span', { className: 'alma-vh' }, 'oculta'))),
+        h('div', null, h('div', { className: 'alma-paycard__label' }, 'CVV'), h('div', { className: 'alma-paycard__val' }, h('span', { 'aria-hidden': 'true' }, '•••'), h('span', { className: 'alma-vh' }, 'oculto')))
       )
     );
   }

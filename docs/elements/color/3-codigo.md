@@ -46,4 +46,4 @@ Los tokens viven en `tokens/` del repositorio, en formato W3C. Se cambian ahí, 
 
 1. Edita el valor en `tokens/themes/<tema>.json` o en `tokens/core/`.
 2. `npm run build` genera CSS, JS, Dart y el `tokens.json` del artefacto.
-3. `npm test` comprueba la ida y vuelta y el contraste de los 492 pares.
+3. `npm test` comprueba la ida y vuelta y el contraste de los 580 pares.

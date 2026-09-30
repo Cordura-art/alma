@@ -1,29 +1,124 @@
 # Icon
 
-Ícono de IBM Carbon dibujado como SVG dentro de la página: no descarga fuentes, se ve desde el primer instante y hereda el color.
+Un ícono de IBM Carbon, dibujado como SVG dentro de la página.
 
-## Cuándo usarlo
-Siempre que una interfaz ALMA necesite un ícono. ALMA incluye 896 íconos de interfaz de Carbon (acciones, navegación, estados, personas, comercio y viajes). El catálogo completo, con 2.775 íconos, está en `assets/Icons/carbon-icons.json`.
 
-## Qué aporta quien lo usa
-- `name`: el nombre de Carbon, por ejemplo `arrow--right`, `checkmark--outline` o `trash-can`. Búscalo en `carbon-icons.json` (trae categorías y sinónimos) o en carbondesignsystem.com/elements/icons/library.
-- `variant`: `outlined` por defecto. `filled` usa la versión `--filled` del ícono cuando existe (`checkmark--outline` pasa a `checkmark--filled`); si no existe, queda el contorno. Úsalo para estados elegidos y avisos.
-- `size`: 24 px por defecto (1,5 rem, crece con el texto). También 16, 20 y 32 px, los tamaños de Carbon. 16 px solo dentro de datos densos.
-- `label` si el ícono comunica algo sin texto al lado; si es decorativo, omítelo y queda oculto para lectores de pantalla.
-- El color se hereda (`currentColor`): pon el ícono dentro de algo que ya use `icon-01`, `icon-02` o `text-on-interactive`.
+## Uso
 
-## Íconos fuera del set incluido
-Registra el catálogo una vez al cargar la página y usa cualquier nombre:
+### Resumen
+
+`Icon` dibuja un ícono de IBM Carbon como SVG: se ve desde el primer instante, no descarga fuentes y hereda el color del texto. El contexto completo (la biblioteca, los tamaños, el estilo) está en el fundamento **Íconos**.
+
+#### Cuándo usarlo
+- Siempre que una interfaz de ALMA necesite un ícono.
+
+#### Cuándo no usarlo
+- **Para decorar.**
+- **Junto a emoji u otros sets de íconos:** un solo set.
+
+### Variantes
+
+| Variante | Uso |
+|---|---|
+| `outlined` (por defecto) | La mayoría de los casos. |
+| `filled` | Lo elegido y los avisos. Usa la versión `--filled` de Carbon si existe; si no, queda el contorno. |
+
+### Tamaños
+
+| Tamaño | Uso |
+|---|---|
+| 16 px | Datos densos. |
+| 20 px | Dentro de controles. |
+| 24 px (por defecto) | Junto a texto. |
+| 32 px | Zonas vacías. |
+
+> **Imagen pendiente:** el mismo ícono en contorno y relleno, en los cuatro tamaños.
+
+### Contenido
+
+- Usa el nombre de Carbon: `arrow--right`, `checkmark--outline`, `trash-can`. Búscalo en `assets/Icons/carbon-icons.json`, que trae categorías y sinónimos.
+- Si el ícono comunica algo sin texto al lado, dale un nombre (`label`).
+
+### Relacionados
+
+Íconos (fundamento) · `Button` · `Tooltip`.
+
+## Estilo
+
+### Color
+
+El ícono hereda el color del texto (`currentColor`). Ponlo dentro de algo que ya use:
+
+| Token | Uso |
+|---|---|
+| `icon-01` | Íconos principales. |
+| `icon-02` | Íconos secundarios. |
+| `text-on-interactive` | Sobre lima o acero. |
+| `status-icon-*` | Avisos de estado. |
+
+### Tamaño
+
+| Tamaño | Token | En rem |
+|---|---|---|
+| 16 px | `icon-size-sm` | 1 |
+| 20 px | `icon-size-md` | 1,25 |
+| 24 px | `icon-size-lg` | 1,5 |
+| 32 px | `icon-size-xl` | 2 |
+
+Van en `rem`: crecen con el texto.
+
+### Estilo
+
+Un solo peso y un solo estilo: el de Carbon, dibujado en una grilla de 32 px y escalado.
+
+### Contraste
+
+Un ícono que informa necesita 3:1 contra su fondo.
+
+## Código
+
+### Uso
+
+```js
+const { Icon } = window.AlmaDS;
+h(Icon, { name: 'arrow--right' })
+h(Icon, { name: 'warning', variant: 'filled', size: 20, label: 'Advertencia' })
+```
+
+### Propiedades
+
+| Propiedad | Tipo | Por defecto | Uso |
+|---|---|---|---|
+| `name` | `string` | — | Nombre de Carbon. |
+| `variant` | `'outlined' \| 'filled'` | `'outlined'` | — |
+| `size` | `16 \| 20 \| 24 \| 32` | `24` | En px; se dibuja en rem. |
+| `color` | `string` | — | Mejor heredarlo; si lo pasas, usa un token (`var(--icon-02)`). |
+| `label` | `string` | — | Nombre para el lector. |
+| `className` | `string` | — | — |
+
+### Más íconos
+
+ALMA incluye 896. Para los 2.775 de Carbon:
 
 ```js
 fetch('assets/Icons/carbon-icons.json').then(r => r.json()).then(AlmaDS.registerIcons);
 ```
 
-`registerIcons` solo acepta formas SVG simples; rechaza cualquier otra cosa. `AlmaDS.iconNames()` lista lo disponible.
+`registerIcons` solo acepta formas SVG simples y rechaza cualquier otra cosa. `AlmaDS.iconNames()` lista los disponibles. Los nombres anteriores de Material Symbols siguen funcionando, con un aviso en la consola.
 
-## Nombres anteriores
-Los nombres de Material Symbols que usaban los componentes (`arrow_forward`, `content_copy`, `expand_more`…) siguen funcionando durante la transición, con un aviso en la consola que dice el nombre de Carbon. Cámbialos.
+## Accesibilidad
 
-## No
-- Un solo set: no mezcles Carbon con otros íconos ni con emoji.
-- Carbon tiene un solo peso y un solo estilo; no hay dos tonos, redondeado ni anguloso.
+### Qué ofrece ALMA
+
+- Sin `label`, el ícono es decorativo: queda oculto para el lector.
+- Con `label`, se anuncia con ese nombre (`role="img"`).
+- Crece con el texto: probado al 200 %.
+
+### Recomendaciones de diseño
+
+- Si el ícono está junto a un texto que dice lo mismo, déjalo decorativo.
+- Un botón de solo ícono lleva el nombre en el botón (`aria-label`), no en el ícono.
+
+### Verificación
+
+axe sin problemas en los cuatro temas.

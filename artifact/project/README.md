@@ -61,7 +61,7 @@ Contraste: todos los componentes pasan WCAG AA en los dos temas (texto 4.5:1, bo
 - `text-on-interactive` pasa a `brand-ink`; `text-on-pressed` sobre `active-primary`.
 - En Claro: `text-02`, `text-03` e `icon-02` pasan a `#566980`; `text-error` a `#AE2424`; `focus` a `#0043CC`.
 - En Oscuro: `text-error` pasa de `#FF003D` a `#EB6161` (el primero daba 4,4:1 sobre contenedores).
-- Verificado con axe (WCAG 2.2 AA) en los 31 componentes y en los cuatro temas: cero problemas. El verificador propio revisa 492 pares de color: cero fallos.
+- Verificado con axe (WCAG 2.2 AA) en los 46 componentes y en los cuatro temas: cero problemas. El verificador propio revisa 580 pares de color: cero fallos.
 - El campo usa `field-border`, `field-border-hover` y `field-label`. En Oscuro son lima; en Claro, tonos acero oscuros.
 - `border-control` marca el borde del selector y del contador sobre la página.
 Cada token cambiado lo dice en su nota. No uses los valores anteriores.

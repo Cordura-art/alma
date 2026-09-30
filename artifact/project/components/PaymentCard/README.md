@@ -1,19 +1,137 @@
 # PaymentCard
 
-Tarjeta de pago virtual sobre vidrio oscuro que muestra el avance de activación con color: rojo pendiente, amarillo activando y verde habilitada.
+Una tarjeta de pago virtual sobre vidrio oscuro, con su avance de activación.
 
-## Qué aporta quien lo usa
-- `status`: `pending`, `activating`, `enabled` o `active`. Solo `active` muestra el número completo y el vencimiento.
-- `brand`: nombre del producto (en Figma, «C.WalletPay»).
-- `last4`, `number`, `expiry`, `onCopy`.
 
-## Dónde
-Siempre sobre un fondo oscuro de marca (`brand-black` o `brand-ink`): el vidrio es `overlay-01` al 50 %.
+## Uso
 
-## Estados (de Figma)
-- Dígitos y chip en `danger-400` (pendiente).
-- Chip en `support-03` (activando).
-- Dígitos y chip en `success-400` (habilitada o activa).
+### Resumen
 
-## Contraste
-El nombre de la marca va en `brand-steel` (9:1 sobre el vidrio). En Figma era `#3A4660`, que daba 2:1. Los dígitos, etiquetas y chips pasan AA.
+`PaymentCard` muestra una tarjeta de pago virtual y su estado de activación. Es propia de ALMA, de la billetera de Cordura.
+
+#### Cuándo usarla
+- En la billetera, para mostrar la tarjeta y cómo va su activación.
+
+#### Cuándo no usarla
+- **Fuera de un fondo oscuro de marca:** el vidrio está pensado para `brand-black` o `brand-ink`.
+- **Para listar varias tarjetas:** una `List` con el nombre y los últimos 4 dígitos.
+
+### Estados
+
+| Estado | Dígitos | Chip | Muestra |
+|---|---|---|---|
+| `pending` | Rojo | Rojo | Últimos 4 dígitos. |
+| `activating` | Rojo | Amarillo | Últimos 4 dígitos. |
+| `enabled` | Verde | Verde | Últimos 4 dígitos. |
+| `active` | Verde | Verde | Número completo y vencimiento. |
+
+El estado se dice en texto para el lector de pantalla. En pantalla solo cambia el color: acompaña la tarjeta con el estado escrito al lado («Tu tarjeta se está activando»).
+
+> **Imagen pendiente:** la tarjeta en los cuatro estados sobre `brand-ink`.
+
+### Contenido
+
+- `brand`: el nombre del producto.
+- Solo el estado `active` muestra el número completo y el vencimiento; el CVV nunca.
+
+### Relacionados
+
+`ProductCard` · `List`.
+
+## Estilo
+
+### Color
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Marca | color del texto | `payment-card-brand` (`brand-steel`) |
+| Etiquetas y valores | color del texto | `payment-card-text` |
+| Dígitos, chip y Copiar (pendiente, activando) | color | `payment-card-pending` |
+| Chip (activando) | borde | `payment-card-chip-activating` |
+| Dígitos, chip y Copiar (habilitada, activa) | color | `payment-card-active` |
+| Copiar:focus | contorno | `focus` (2 px) |
+
+En alto contraste, `payment-card-text` y los colores de estado usan pasos más claros de sus rampas.
+
+### Valores fijos de Figma
+
+Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
+
+| Elemento | Valor |
+|---|---|
+| Vidrio | azul noche al 50 % de opacidad |
+| Borde | 0,5 px blanco al 42 % |
+| Radio | 14,4 px |
+| Chip | 34 × 24 px, radio 5 px |
+
+### Tipografía
+
+| Elemento | Tamaño de letra (px / rem) | Peso |
+|---|---|---|
+| Marca | 14 / 0,875 | Medium / 500 |
+| Etiquetas | 11 / 0,6875 | Regular / 400 |
+| Número | 16 / 1 | Medium / 500 |
+| Vencimiento y CVV | 16 / 1 | Regular / 400 |
+
+### Estructura
+
+| Elemento | Propiedad | Valor |
+|---|---|---|
+| Tarjeta | ancho, alto mínimo | 311 px (19,4375 rem), 190 px |
+| Tarjeta | relleno | 16 px arriba y abajo, 18 px a los lados |
+| Vencimiento y CVV | columnas, separación | 2, 16 px |
+
+> **Imagen pendiente:** anatomía acotada.
+
+### Contraste
+
+La marca llega a 9:1 sobre el vidrio (en Figma era `#3A4660`, que daba 2:1). Dígitos, etiquetas y chip pasan AA sobre `brand-black` y `brand-ink`.
+
+## Código
+
+### Uso
+
+```js
+const { PaymentCard } = window.AlmaDS;
+h(PaymentCard, { status: 'activating', brand: 'Cordura', last4: '4821', onCopy: copyNumber })
+h(PaymentCard, { status: 'active', brand: 'Cordura', last4: '4821', number: '4821 7730 1102 4821', expiry: '09/29', onCopy: copyNumber })
+```
+
+### Propiedades
+
+| Propiedad | Tipo | Por defecto | Uso |
+|---|---|---|---|
+| `status` | `'pending' \| 'activating' \| 'enabled' \| 'active'` | `'pending'` | Estado. |
+| `brand` | `string` | `'Cordura'` | Nombre del producto. |
+| `last4` | `string` | `'0000'` | Últimos 4 dígitos. |
+| `number` / `expiry` | `string` | — | Solo se muestran en `active`. |
+| `onCopy` | `() => void` | — | Copiar el número. |
+
+Al copiar, confirma con un `toast` («Número copiado»).
+
+## Accesibilidad
+
+### Qué ofrece ALMA
+
+- El estado se dice en texto para el lector: «Cordura, Activando».
+- El número enmascarado se lee «terminada en 4821», no como una fila de puntos; el vencimiento y el CVV ocultos, como «oculta» y «oculto».
+- Copiar se llama «Copiar número».
+
+### Pendiente
+
+En pantalla, el estado se ve solo por el color de los dígitos y del chip. Para quien no distingue esos colores, muestra el estado escrito junto a la tarjeta hasta que ALMA lo incluya.
+
+#### Interacciones de teclado
+
+| Tecla | Acción |
+|---|---|
+| Tab | Llega a Copiar. |
+| Enter o Espacio | Copia el número. |
+
+### Consideraciones de desarrollo
+
+- Confirma la copia con un `toast`: el botón no cambia de aspecto.
+
+### Verificación
+
+axe sin problemas sobre fondo de marca. Pendiente: el estado visible sin depender del color, y VoiceOver y NVDA.

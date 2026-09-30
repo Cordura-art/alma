@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T06:30:00Z",
+    "at": "2026-09-30T07:10:00Z",
     "via": "Claude Code",
-    "note": "Guías completas de estados y formularios (10 componentes). ProgressBar con el porcentaje en formato de Chile."
+    "note": "Los 46 componentes con guía completa. PaymentCard dice su estado y los datos ocultos en texto para el lector de pantalla."
   },
   "layout": "files",
   "libraries": [

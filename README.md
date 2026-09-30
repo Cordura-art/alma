@@ -27,7 +27,7 @@ tests/             pares de contraste que se verifican en cada cambio
 ```bash
 npm install     # una vez
 npm run build   # genera dist/ desde tokens/
-npm test        # ida y vuelta con el artefacto + contraste (492 pares, 4 temas)
+npm test        # ida y vuelta con el artefacto + contraste (580 pares, 4 temas)
 npm run site    # arma build/alma-site.html: la documentación con el estilo de ALMA
 ```
 

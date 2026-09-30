@@ -59,7 +59,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Carbon | ALMA | Estado |
 |---|---|---|
 | Button | `Button` | **Completo (4 pestañas, formato de la referencia)** |
-| Accordion | `Accordion` | Guía breve |
+| Accordion | `Accordion` | **Completo (4 pestañas, formato de la referencia)** |
 | Breadcrumb | `Breadcrumb` | **Completo (4 pestañas, formato de la referencia)** |
 | Checkbox | `Checkbox` | **Completo (4 pestañas, formato de la referencia)** |
 | Combo box · Multiselect | `Combobox` | **Completo (4 pestañas, formato de la referencia)** |
@@ -87,7 +87,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Text input | `TextInput`, `Textarea` | **Completo (4 pestañas, formato de la referencia)** |
 | Tile | `Card` | **Completo (4 pestañas, formato de la referencia)** |
 | Toggle | `Switch` | **Completo (4 pestañas, formato de la referencia)** |
-| Tooltip | `Tooltip`, `Tip` | **Tooltip completo**; Tip: guía breve |
+| Tooltip | `Tooltip`, `Tip` | **Completo (4 pestañas, formato de la referencia)** |
 | UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | **Completo (4 pestañas, formato de la referencia)** |
 | Code snippet | — | Falta en ALMA |
 | Structured list | — | Falta en ALMA |
@@ -95,7 +95,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | AI label | — | Falta en ALMA |
 | List (listas de texto) | — | Falta en ALMA |
 | Form | — | Falta (patrón) |
-| — | `ProductCard`, `PaymentCard`, `PageControl`, `EmptyState`, `Icon` | Propios de ALMA |
+| — | `ProductCard`, `PaymentCard`, `PageControl`, `EmptyState`, `Icon` | Propios de ALMA. **Completo (4 pestañas, formato de la referencia)** |
 
 ### Elementos, patrones y guías
 

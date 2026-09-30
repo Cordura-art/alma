@@ -29,7 +29,7 @@ Todo lo que se hace con ALMA cumple **WCAG 2.2 nivel AA** en los cuatro temas, y
 ### Cómo se verifica
 
 - **axe** en cada componente, en los cuatro temas, y en cada página del sitio de documentación.
-- **Contraste:** `npm test` revisa 492 pares de color en los cuatro temas.
+- **Contraste:** `npm test` revisa 580 pares de color en los cuatro temas.
 - **Teclado:** probado a mano en cada componente.
 - **Pendiente:** pruebas con VoiceOver, NVDA y TalkBack reales. Hasta entonces, cada guía dice solo lo que se verificó.
 

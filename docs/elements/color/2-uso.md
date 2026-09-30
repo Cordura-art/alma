@@ -71,7 +71,7 @@ Cada color categórico llega a 3:1 sobre `ui-01` en su tema. Rotula las series o
 | Texto grande (24 px, o 19 px en negrita) | 3:1 | 4,5:1 |
 | Bordes de controles, foco e íconos que informan | 3:1 | 3:1 |
 
-`npm test` revisa 492 pares de color en los cuatro temas antes de cada cambio.
+`npm test` revisa 580 pares de color en los cuatro temas antes de cada cambio.
 
 ## No
 

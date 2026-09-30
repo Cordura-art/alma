@@ -113,3 +113,25 @@ FileUploader|error|text-error|ui-02|4.5
 Texto|error en contenedor|text-error|ui-01|4.5
 Button|destructivo plain en contenedor|button-destructive-text|ui-01|4.5
 TextInput|chip etiqueta error|hover-danger|secondary-50|4.5
+ProductCard|texto (red)|text-on-interactive|tag-red-bg|4.5
+ProductCard|dato destacado (red)|product-card-subtitle|tag-red-bg|4.5
+ProductCard|texto (yellow)|text-on-interactive|tag-yellow-bg|4.5
+ProductCard|dato destacado (yellow)|product-card-subtitle|tag-yellow-bg|4.5
+ProductCard|texto (magenta)|text-on-interactive|tag-magenta-bg|4.5
+ProductCard|dato destacado (magenta)|product-card-subtitle|tag-magenta-bg|4.5
+ProductCard|texto (purple)|text-on-interactive|tag-purple-bg|4.5
+ProductCard|dato destacado (purple)|product-card-subtitle|tag-purple-bg|4.5
+ProductCard|texto (blue)|text-on-interactive|tag-blue-bg|4.5
+ProductCard|dato destacado (blue)|product-card-subtitle|tag-blue-bg|4.5
+ProductCard|texto (cyan)|text-on-interactive|tag-cyan-bg|4.5
+ProductCard|dato destacado (cyan)|product-card-subtitle|tag-cyan-bg|4.5
+ProductCard|texto (teal)|text-on-interactive|tag-teal-bg|4.5
+ProductCard|dato destacado (teal)|product-card-subtitle|tag-teal-bg|4.5
+ProductCard|texto (green)|text-on-interactive|tag-green-bg|4.5
+ProductCard|dato destacado (green)|product-card-subtitle|tag-green-bg|4.5
+ProductCard|texto (warmgray)|text-on-interactive|tag-warmgray-bg|4.5
+ProductCard|dato destacado (warmgray)|product-card-subtitle|tag-warmgray-bg|4.5
+ProductCard|texto (gray)|text-on-interactive|tag-gray-bg|4.5
+ProductCard|dato destacado (gray)|product-card-subtitle|tag-gray-bg|4.5
+ProductCard|texto (coolgray)|text-on-interactive|tag-coolgray-bg|4.5
+ProductCard|dato destacado (coolgray)|product-card-subtitle|tag-coolgray-bg|4.5

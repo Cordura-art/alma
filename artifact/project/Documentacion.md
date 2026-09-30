@@ -6,6 +6,9 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Los 46 componentes tienen su guía completa.** Se sumaron Accordion, EmptyState, Icon, PageControl, PaymentCard, ProductCard y Tip.
+- **PaymentCard** dice su estado y los datos ocultos en texto para el lector de pantalla («Activando», «terminada en 4821»); antes el estado era solo color y el número se leía como una fila de puntos.
+- **Contraste:** el verificador suma los 22 pares de ProductCard (texto y dato destacado sobre los 11 tonos).
 - **Guías completas de estados y formularios:** ActivityIndicator, ProgressBar, ProgressIndicator, ProgressLine, Skeleton, DatePicker, TimePicker, FileUploader, Slider y Stepper. Ya son 39 componentes con sus cuatro partes.
 - **ProgressBar** muestra el porcentaje con el formato de Chile («60%», antes «60 %»).
 - **Guías completas de Toolbar, SearchField, SegmentedControl, Tag, Link, PullDownButton y Card.** Ya son 29 componentes con sus cuatro partes.
@@ -93,7 +96,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Carbon | ALMA | Estado |
 |---|---|---|
 | Button | `Button` | **Completo (4 pestañas, formato de la referencia)** |
-| Accordion | `Accordion` | Guía breve |
+| Accordion | `Accordion` | **Completo (4 pestañas, formato de la referencia)** |
 | Breadcrumb | `Breadcrumb` | **Completo (4 pestañas, formato de la referencia)** |
 | Checkbox | `Checkbox` | **Completo (4 pestañas, formato de la referencia)** |
 | Combo box · Multiselect | `Combobox` | **Completo (4 pestañas, formato de la referencia)** |
@@ -121,7 +124,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Text input | `TextInput`, `Textarea` | **Completo (4 pestañas, formato de la referencia)** |
 | Tile | `Card` | **Completo (4 pestañas, formato de la referencia)** |
 | Toggle | `Switch` | **Completo (4 pestañas, formato de la referencia)** |
-| Tooltip | `Tooltip`, `Tip` | **Tooltip completo**; Tip: guía breve |
+| Tooltip | `Tooltip`, `Tip` | **Completo (4 pestañas, formato de la referencia)** |
 | UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | **Completo (4 pestañas, formato de la referencia)** |
 | Code snippet | — | Falta en ALMA |
 | Structured list | — | Falta en ALMA |
@@ -129,7 +132,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | AI label | — | Falta en ALMA |
 | List (listas de texto) | — | Falta en ALMA |
 | Form | — | Falta (patrón) |
-| — | `ProductCard`, `PaymentCard`, `PageControl`, `EmptyState`, `Icon` | Propios de ALMA |
+| — | `ProductCard`, `PaymentCard`, `PageControl`, `EmptyState`, `Icon` | Propios de ALMA. **Completo (4 pestañas, formato de la referencia)** |
 
 #### Elementos, patrones y guías
 
