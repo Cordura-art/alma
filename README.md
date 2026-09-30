@@ -29,6 +29,8 @@ npm install     # una vez
 npm run build   # genera dist/ desde tokens/
 npm test        # ida y vuelta con el artefacto + contraste (580 pares, 4 temas)
 npm run site    # arma build/alma-site.html: la documentación con el estilo de ALMA
+npm run tuner   # arma build/alma-ajustes.html: la herramienta para ajustar temas, ejes de Roboto Flex, pesos y radios
+npm run tokens:apply -- cambios.json   # aplica a tokens/ los cambios exportados por la herramienta
 ```
 
 ## Usar ALMA

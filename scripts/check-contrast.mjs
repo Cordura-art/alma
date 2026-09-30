@@ -5,8 +5,7 @@ import { readFile } from 'node:fs/promises';
 import { themes } from '../dist/js/tokens.mjs';
 
 // Components whose high-contrast color comes from a component token, not the semantic one listed.
-const HC_FOREGROUND = { 'ProductCard|subtítulo': 'tertiary-700', 'ProductCard|subtítulo (cyan)': 'tertiary-700', 'ProductCard|subtítulo (yellow)': 'tertiary-700',
-  'PaymentCard|etiquetas': 'secondary-400', 'PaymentCard|dígitos rojo': 'danger-300', 'SearchField|token': 'brand-black', 'TextInput|borde activo': 'field-border' };
+const HC_FOREGROUND = JSON.parse(await readFile('tests/contrast-hc-foreground.json', 'utf8'));
 
 function rgba(v) {
   let m = /^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*(?:,\s*([\d.]+))?\s*\)$/.exec(v);

@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght,XTRA@8..144,25..151,100..1000,323..603&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght,GRAD,XTRA@8..144,25..151,100..1000,-200..150,323..603&family=Roboto+Mono:wght@400;500&display=swap');
 
 /* ALMA sets Roboto Flex extended (wdth 150), as in every Figma text style. */
 /* Same rendered weight in every theme: macOS "auto" smoothing draws light-on-dark text 11–17 % heavier (IBM Carbon sets this too). */
-html { font-family: var(--font-flex); font-stretch: 150%; font-variation-settings: "wdth" 150; background: var(--ui-02); color: var(--text-01); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) * 1%); font-variation-settings: "wdth" var(--font-width, 150), "GRAD" var(--font-grade, 0); background: var(--ui-02); color: var(--text-01); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 .alma-icon { display: block; width: 24px; height: 24px; flex: none; }
 
 /* ---------- Button: pill, 32 / 56 / 72 ---------- */

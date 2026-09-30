@@ -11,6 +11,17 @@ ALMA usa una sola familia: **Roboto Flex**, siempre extendida (ancho 150). Es un
 
 > **Imagen pendiente:** el alfabeto de Roboto Flex a ancho 100 y a ancho 150, con la diferencia marcada.
 
+## Ejes de Roboto Flex
+
+Roboto Flex tiene varios ejes; ALMA fija dos para todo el texto, como tokens:
+
+| Token | Eje | Valor | Qué hace |
+|---|---|---|---|
+| `font-width` | `wdth` (25 a 151) | 150 | El ancho: 150 es la versión extendida de la marca. |
+| `font-grade` | `GRAD` (−200 a 150) | 0 | El grado: engrosa o aligera el trazo sin cambiar el ancho del texto, así nada se mueve de lugar. |
+
+El peso (`wght`) va en cada estilo de texto. Para probar otros valores sobre componentes reales, usa la herramienta **Ajustes de ALMA** (`npm run tuner`).
+
 ## Pesos
 
 Los pesos vienen del theme de origen de Cordura. No hay otros.

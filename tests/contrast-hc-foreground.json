@@ -1,0 +1,9 @@
+{
+  "ProductCard|subtítulo": "tertiary-700",
+  "ProductCard|subtítulo (cyan)": "tertiary-700",
+  "ProductCard|subtítulo (yellow)": "tertiary-700",
+  "PaymentCard|etiquetas": "secondary-400",
+  "PaymentCard|dígitos rojo": "danger-300",
+  "SearchField|token": "brand-black",
+  "TextInput|borde activo": "field-border"
+}

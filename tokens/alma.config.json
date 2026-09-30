@@ -33,7 +33,8 @@
     "shadow",
     "size",
     "icon",
-    "grid"
+    "grid",
+    "fontAxis"
   ],
   "familyNotes": {
     "spacing": "Base 8. 4, 2 y 0 solo dentro de componentes compactos como inputs.",
@@ -44,7 +45,8 @@
     "shadow": "IBM Carbon separa superficies con capas de color (ui-02 página → ui-01 contenedores → ui-03), no con sombras. La única sombra es para lo que flota sobre el contenido.",
     "size": "Tamaños de interacción y densidad. Normal por defecto; compacta con data-density=\"compact\", solo con puntero fino (mouse o trackpad). En pantallas táctiles siempre se usa la normal.",
     "icon": "Íconos IBM Carbon: un solo peso, dibujados a 32 px y escalados. Usa estos cuatro tamaños (los de Carbon).",
-    "grid": "Móvil: grid ALMA de Figma. Desde tablet: IBM 2x Grid."
+    "grid": "Móvil: grid ALMA de Figma. Desde tablet: IBM 2x Grid.",
+    "fontAxis": "Ejes de Roboto Flex que ALMA aplica a todo el texto. El peso (wght) va en cada estilo; el ancho y el grado, aquí."
   },
   "keyOrder": [
     "name",
@@ -61,7 +63,8 @@
     "shadow",
     "size",
     "icon",
-    "grid"
+    "grid",
+    "fontAxis"
   ],
   "type": {
     "fonts": [],

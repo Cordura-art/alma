@@ -164,6 +164,7 @@
   }
   function TypeTokens() {
     return h(React.Fragment, null,
+      familyTable('fontAxis', 'Ejes de Roboto Flex'),
       h('p', { className: 'doc__note web-body-s' }, 'Las muestras de más de 4 rem se ven reducidas.'),
       C.tokens.type.map(function (g) {
         return h(Tbl, { key: g.name, title: g.name, cols: ['Muestra', 'Estilo', 'Tamaño · interlineado · peso', 'Uso'], rows: g.styles.map(function (s) {

@@ -2077,6 +2077,10 @@ export const core = {
     "grid-gutter-condensed": "1px",
     "grid-margin": "16px",
     "grid-margin-max": "24px"
+  },
+  "fontAxis": {
+    "font-width": "150",
+    "font-grade": "0"
   }
 };
 export const fonts = {

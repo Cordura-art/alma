@@ -2,7 +2,7 @@
 html { background: var(--ui-02); scroll-padding-top: calc(56px + var(--space-16)); }
 body {
   margin: 0; background: var(--ui-02); color: var(--text-01);
-  font-family: var(--font-flex); font-stretch: 150%; font-variation-settings: "wdth" 150;
+  font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) * 1%); font-variation-settings: "wdth" var(--font-width, 150), "GRAD" var(--font-grade, 0);
   -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 }
 code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; }

@@ -111,7 +111,7 @@ for (const th of THEMES) dart += `  static const AlmaColors ${dartThemeId(th)} =
 dart += `  static AlmaColors of(AlmaTheme theme) {\n    switch (theme) {\n${THEMES.map((th) => `      case AlmaTheme.${dartThemeId(th)}:\n        return ${dartThemeId(th)};`).join('\n')}\n    }\n  }\n\n`;
 dart += `  @override\n  AlmaColors copyWith({\n${names.map((n) => `    Color? ${n},`).join('\n')}\n  }) {\n    return AlmaColors(\n${names.map((n) => `      ${n}: ${n} ?? this.${n},`).join('\n')}\n    );\n  }\n\n`;
 dart += `  @override\n  AlmaColors lerp(ThemeExtension<AlmaColors>? other, double t) {\n    if (other is! AlmaColors) return this;\n    return AlmaColors(\n${names.map((n) => `      ${n}: Color.lerp(${n}, other.${n}, t)!,`).join('\n')}\n    );\n  }\n}\n\n`;
-const famClass = { spacing: 'AlmaSpacing', radius: 'AlmaRadius', breakpoint: 'AlmaBreakpoint', size: 'AlmaSize', icon: 'AlmaIconSize', grid: 'AlmaGrid' };
+const famClass = { spacing: 'AlmaSpacing', radius: 'AlmaRadius', breakpoint: 'AlmaBreakpoint', size: 'AlmaSize', icon: 'AlmaIconSize', grid: 'AlmaGrid', fontAxis: 'AlmaFontAxis' };
 for (const [fam, cls] of Object.entries(famClass)) {
   const ts = coreTokens.filter((t) => t.path[0] === fam); if (!ts.length) continue;
   dart += `abstract final class ${cls} {\n${ts.map((t) => `${t.$description ? `  /// ${t.$description.replace(/\n/g, ' ')}\n` : ''}  static const double ${camel(t.name)} = ${num(px(t.$value))};`).join('\n')}\n}\n\n`;
@@ -124,9 +124,9 @@ dart += `abstract final class AlmaShadow {\n${shadows.map((t) => {
   if (!m) throw new Error('Sombra no soportada: ' + t.$value);
   return `  static const List<BoxShadow> ${camel(t.name.replace(/^shadow-/, ''))} = <BoxShadow>[\n    BoxShadow(offset: Offset(${num(+m[1])}, ${num(+m[2])}), blurRadius: ${num(+m[3])}, spreadRadius: ${num(+m[4])}, color: ${dartColor(m[5])}),\n  ];`;
 }).join('\n')}\n}\n\n`;
-dart += `/// ALMA text styles. Roboto Flex, always extended (wdth 150).\nabstract final class AlmaTypography {\n${styles.map((s) => {
+dart += `/// ALMA text styles. Roboto Flex with the axes of AlmaFontAxis (width and grade).\nabstract final class AlmaTypography {\n${styles.map((s) => {
   const v = s.$value, family = String(v.fontFamily).split(',')[0].replace(/["']/g, '').trim();
-  return `  static const TextStyle ${camel(s.name)} = TextStyle(fontFamily: '${family}', fontSize: ${num(px(v.fontSize))}, height: ${num(+v.lineHeight)}, fontWeight: FontWeight.w${v.fontWeight}, letterSpacing: ${num(px(v.letterSpacing))}, fontVariations: <FontVariation>[FontVariation('wdth', 150)]);`;
+  return `  static const TextStyle ${camel(s.name)} = TextStyle(fontFamily: '${family}', fontSize: ${num(px(v.fontSize))}, height: ${num(+v.lineHeight)}, fontWeight: FontWeight.w${v.fontWeight}, letterSpacing: ${num(px(v.letterSpacing))}, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);`;
 }).join('\n')}\n}\n`;
 
 await mkdir('dist/css', { recursive: true }); await mkdir('dist/js', { recursive: true });

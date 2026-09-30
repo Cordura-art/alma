@@ -2014,6 +2014,8 @@
   --easing-standard-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);
   --easing-entrance-expressive: cubic-bezier(0, 0, 0.3, 1);
   --easing-exit-expressive: cubic-bezier(0.4, 0.14, 1, 1);
+  --font-width: 150;
+  --font-grade: 0;
   --grid-columns-mobile: 4;
   --grid-column-mobile: 76px;
   --grid-gutter-mobile: 8px;
