@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T01:20:00Z",
+    "at": "2026-09-30T01:55:00Z",
     "via": "Claude Code",
-    "note": "Nueva sección Documentación (novedades e inventario). Guías completas de TextInput, Textarea, Combobox, PopUpButton, Checkbox, RadioGroup y Switch. Tinted presionado con borde interior."
+    "note": "Novedades: sitio de documentación con el estilo de ALMA, generado con npm run site."
   },
   "layout": "files",
   "libraries": [
