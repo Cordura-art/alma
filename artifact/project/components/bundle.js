@@ -496,7 +496,7 @@
             h('a', { href: it.href || '#', className: 'alma-tabbar__item' + (on ? ' is-on' : ''), 'aria-current': on ? 'page' : undefined,
               'aria-label': badgeLabel(it.label, it.badge),
               onClick: function (e) { if (!it.href) e.preventDefault(); s[1](it.value); if (props.onChange) props.onChange(it.value); } },
-              h('span', { className: 'alma-tabbar__icon' }, h(AlmaIcon, { name: it.icon, variant: on ? 'filled' : 'outlined' }), h(Badge, { count: it.badge })),
+              h('span', { className: 'alma-tabbar__icon' }, h(AlmaIcon, { name: it.icon, size: 16, variant: on ? 'filled' : 'outlined' }), h(Badge, { count: it.badge })),
               h('span', { className: 'alma-tabbar__label' }, it.label)));
         }))
     );

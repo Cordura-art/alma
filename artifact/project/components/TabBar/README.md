@@ -89,8 +89,10 @@ Una barra inferior para moverse entre las secciones principales de la app en el 
 | Ítem | ancho | repartido en partes iguales |
 | Ítem | alto mínimo | 56 px |
 | Ítem | radio | `radius-panel` |
-| Ícono y etiqueta | separación | 2 px (apilados) · 8 px (en fila) |
+| Ícono | tamaño | 16 px (`icon-size-sm`), como en `Sidebar` y los menús |
+| Ícono y etiqueta | separación | 2 px (apilados) · 16 px (en fila, igual al ícono) |
 | Insignia | alto, ancho mínimo | 18 px, 18 px; `radius-tag` |
+| Insignia | posición | sobre la esquina superior derecha del ícono (8 px arriba, 10 px desde su borde izquierdo) |
 
 ![Medidas de TabBar en el teléfono: alto de la barra, alto y ancho de cada ítem, separación entre ícono y etiqueta, e insignia de 18 px.](assets/Componentes/tab-bar-medidas.png)
 

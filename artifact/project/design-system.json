@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T17:55:53.940Z",
+    "at": "2026-09-30T18:01:26.524Z",
     "via": "Claude Code",
-    "note": "Íconos de los menús a 16 px, como el Sidebar"
+    "note": "Íconos de TabBar a 16 px"
   },
   "layout": "files",
   "libraries": [

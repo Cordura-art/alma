@@ -281,7 +281,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-tabs__panel:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius-chip); }
 
 /* ---------- Badge (Apple: red oval, critical info only) ---------- */
-.alma-badge { position: absolute; top: -6px; left: 14px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: var(--radius-tag); background: var(--badge-bg); color: var(--badge-text); font-size: 0.6875rem; line-height: 18px; font-weight: var(--font-weight-emphasis); text-align: center; }
+.alma-badge { position: absolute; top: -8px; left: 10px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: var(--radius-tag); background: var(--badge-bg); color: var(--badge-text); font-size: 0.6875rem; line-height: 18px; font-weight: var(--font-weight-emphasis); text-align: center; }
 
 /* ---------- TabBar (Apple tab bar) ---------- */
 .alma-tabbar { background: var(--tab-bar-bg); border-top: 1px solid var(--tab-bar-border); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -292,7 +292,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-tabbar__item.is-on { color: var(--tab-bar-text-selected); }
 .alma-tabbar__item:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .alma-tabbar__icon { position: relative; display: flex; }
-@media (min-width: 672px) { .alma-tabbar__item { flex-direction: row; gap: var(--space-8); font-size: 0.875rem; letter-spacing: 0.14px; } }
+@media (min-width: 672px) { .alma-tabbar__item { flex-direction: row; gap: var(--space-16); font-size: 0.875rem; letter-spacing: 0.14px; } }
 
 /* ---------- Sidebar (Apple sidebar) ---------- */
 .alma-side-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); }

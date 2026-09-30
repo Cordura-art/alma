@@ -352,13 +352,13 @@ export const componentScenes = [
   scene('tab-bar', 'usage', 'anatomía numerada con cuatro ítems', 'tab-bar-anatomia',
     'Anatomía de TabBar con cuatro ítems y una insignia, en el teléfono (ícono sobre la etiqueta) y en tablet (ícono y etiqueta en fila). Numerados: barra (1), ítem (2), ítem actual (3) e insignia (4).',
     { js: `var tb = "mount(h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 0 } }, h(A.TabBar, { label: 'Secciones', defaultValue: 'viajes', items: [{ value: 'inicio', label: 'Inicio', icon: 'home' }, { value: 'viajes', label: 'Viajes', icon: 'ticket' }, { value: 'billetera', label: 'Billetera', icon: 'wallet', badge: 3 }, { value: 'cuenta', label: 'Cuenta', icon: 'user' }] })));";
-      var marks = "var it = all('.alma-tabbar__item'); num($('.alma-tabbar'), 1, 'top', { at: 16, d: 30 }); num(it[0], 2, 'top'); num($('.alma-tabbar__item.is-on') || it[1], 3, 'top'); num($('.alma-badge'), 4, 'right', { d: 6 });";
+      var marks = "var it = all('.alma-tabbar__item'); num($('.alma-tabbar'), 1, 'top', { at: 16, d: 30 }); num(it[0], 2, 'top'); num($('.alma-tabbar__item.is-on') || it[1], 3, 'top'); num($('.alma-badge'), 4, 'top', { d: 10 });";
       mount(h('div', { className: 'row', style: { alignItems: 'flex-end', gap: 'var(--space-40)' } }, device({ label: 'Teléfono', w: 390, h: 200, js: tb, after: marks }), device({ label: 'Tablet', w: 820, h: 200, js: tb, after: marks })));` }),
 
   scene('tab-bar', 'style', 'anatomía acotada en el teléfono', 'tab-bar-medidas',
     'Medidas de TabBar en el teléfono: alto de la barra, alto y ancho de cada ítem, separación entre ícono y etiqueta, e insignia de 18 px.',
     { js: `var tb = "mount(h('div', { style: { position: 'absolute', left: 0, right: 0, bottom: 0 } }, h(A.TabBar, { label: 'Secciones', defaultValue: 'viajes', items: [{ value: 'inicio', label: 'Inicio', icon: 'home' }, { value: 'viajes', label: 'Viajes', icon: 'ticket' }, { value: 'billetera', label: 'Billetera', icon: 'wallet', badge: 3 }, { value: 'cuenta', label: 'Cuenta', icon: 'user' }] })));";
-      var dims = "var bar = $('.alma-tabbar'), it = all('.alma-tabbar__item'); dimH(bar, 'right', null, { d: -24 }); dimW(it[1], 'top'); dimH($('.alma-badge'), 'right', null, { d: 4 });";
+      var dims = "var bar = $('.alma-tabbar'), it = all('.alma-tabbar__item'); dimH(bar, 'right', null, { d: -24 }); var cs = all('.chip'), hc = cs[cs.length - 1]; hc.style.left = (box(bar).x + box(bar).w - 24 - hc.offsetWidth - 8) + 'px'; hc.style.top = (box(bar).y - 34) + 'px'; dimW(it[1], 'top'); dimH($('.alma-badge'), 'right', null, { d: 4 });";
       mount(device({ w: 420, h: 190, js: tb, after: dims, scale: 1.3 }));` }),
 
   // ---------- Toolbar ----------
