@@ -2,6 +2,39 @@
 
 La documentación toma como base la estructura y los temas de IBM Carbon (carbondesignsystem.com), con el contenido escrito para ALMA: sus tokens, sus componentes, las guías de Apple que sigue y el español de Chile. No es una traducción de Carbon: Carbon marca **qué** hay que documentar; ALMA dice **cómo** lo resuelve.
 
+## Arquitectura: dos sitios
+
+El referente es la página «Referente IBM» del archivo de Figma de Cordura, que reproduce los dos sitios de IBM. ALMA se documenta igual, en dos partes:
+
+**Sistema de diseño** (modelo: Carbon)
+- Sobre ALMA: qué es, quién lo usa, versiones.
+- Componentes: cada uno con Uso, Estilo, Código y Accesibilidad.
+- Elementos: color, tipografía, espaciado, grilla, movimiento, íconos, temas.
+- Patrones.
+- Guías: accesibilidad y contenido.
+- Recursos, novedades, soporte y preguntas frecuentes.
+
+**Lenguaje de diseño** (modelo: IBM Design Language)
+- Punto de vista y principios de Cordura.
+- Galería.
+- Tipografía: la familia (Roboto Flex) y conceptos básicos de tipo.
+- Grilla 2x.
+- Logo (en IBM, el 8-Bar).
+- Íconos de app e íconos de interfaz.
+- Pictogramas: biblioteca, diseño, uso y cómo contribuir.
+- Ilustración: resumen, técnicas y estilos (línea, plano, isométrico), personas, gráficos y diagramas técnicos.
+- Recursos.
+
+## Imágenes
+
+Las imágenes que explican cada página se crearán después con el sistema de diseño generativo y procedural de Cordura, del que saldrán patrones, texturas y el resto de los elementos visuales. Mientras tanto, cada lugar donde va una imagen lleva un marcador:
+
+```
+> **Imagen pendiente:** qué debe mostrar, con qué variantes, estados y temas.
+```
+
+El marcador describe la imagen con precisión suficiente para generarla sin volver a leer la página.
+
 ## Cómo se organiza
 
 Cada componente tiene cuatro pestañas, como en Carbon:
@@ -23,7 +56,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 
 | Carbon | ALMA | Estado |
 |---|---|---|
-| Button | `Button` | **Completo (4 pestañas)** |
+| Button | `Button` | **Completo (4 pestañas, formato de la referencia)** |
 | Accordion | `Accordion` | Guía breve |
 | Breadcrumb | `Breadcrumb` | Guía breve |
 | Checkbox | `Checkbox` | Guía breve |

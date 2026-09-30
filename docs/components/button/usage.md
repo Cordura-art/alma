@@ -54,6 +54,8 @@ El rol dice qué significa el botón, con independencia de su estilo.
 2. **Etiqueta.** Texto centrado en una línea.
 3. **Ícono (opcional).** Antes o después de la etiqueta. Un botón puede ser **solo ícono**: entonces es un círculo y necesita nombre accesible.
 
+> **Imagen pendiente:** anatomía numerada de un botón con etiqueta e ícono, de un `plain` y de un botón solo ícono.
+
 ## Tamaños
 
 | Tamaño | Alto | Cuándo |
@@ -64,12 +66,16 @@ El rol dice qué significa el botón, con independencia de su estilo.
 
 Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 px. No mezcles tamaños dentro de un mismo grupo de botones: usa el estilo, no el tamaño, para marcar la jerarquía.
 
+> **Imagen pendiente:** los tres tamaños lado a lado, con su alto y su contexto de uso (formulario, pantalla móvil, portada).
+
 ## Énfasis y jerarquía
 
 - **Una acción de alto énfasis por vista.** Una sola `filled` deja claro qué es lo principal. Si todo es lima, nada lo es.
 - **Baja el énfasis en lo repetido.** Donde hay muchas acciones (tablas, listas, paneles), usa `plain` o `tertiary`.
 - **Agrupa solo acciones relacionadas.** Un grupo es un conjunto de alternativas para el mismo momento, no una colección de botones sueltos.
 - **No toda vista necesita una acción `filled`.** Una vista de lectura o un listado puede no tener acción principal.
+
+> **Imagen pendiente:** una vista con una sola acción `filled` y dos de menor énfasis, frente a una vista con tres `filled` (incorrecto).
 
 ## Alineación y orden
 
@@ -82,12 +88,16 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 | Barras de herramientas | A la derecha del título. | Solo `plain`; el resto en «Más». |
 | Teléfono | Ancho completo cuando el botón es la acción principal de la pantalla. | Apilados si no caben lado a lado. |
 
+> **Imagen pendiente:** alineación en diálogo, formulario, flujo por pasos, tarjeta, barra de herramientas y teléfono.
+
 ## Grupos de botones
 
 - Como máximo tres botones por grupo; lo demás va a un `PullDownButton`.
 - Mismo tamaño dentro del grupo, 8 px entre botones (`space-8`).
 - Una sola acción `filled` por grupo. Combinaciones recomendadas: `filled` + `gray`, `filled` + `tinted`, `filled` + `tertiary`, `filled` + `plain`.
 - Evita dos `filled` juntas, `tinted` + `tertiary` sin una principal, y un botón destructivo como única opción visible sin «Cancelar».
+
+> **Imagen pendiente:** combinaciones recomendadas y combinaciones a evitar.
 
 ## Contenido
 
@@ -111,6 +121,8 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 | Foco de teclado | Anillo de 2 px en `focus`, separado 2 px. Solo con teclado (`:focus-visible`). |
 | Cargando | Un indicador reemplaza al ícono, el botón deja de responder y se anuncia como ocupado. |
 | Desactivado | Fondo `button-disabled-bg`, texto `button-disabled-text`. |
+
+> **Imagen pendiente:** los seis estados de un botón `filled`, en tema oscuro y claro.
 
 ### Interacción
 

@@ -4,7 +4,11 @@ tab: Accesibilidad
 summary: Qué resuelve ALMA, cómo se usa con teclado y qué debe cuidar quien diseña y quien programa.
 ---
 
-## Qué resuelve ALMA
+## Qué ofrece ALMA
+
+ALMA resuelve el teclado y la accesibilidad del botón estándar. Hace falta anotar el diseño solo en los casos de la sección siguiente: botones solo ícono, etiquetas repetidas y botones que desaparecen.
+
+### Comportamiento
 
 - Es un `<button>` nativo: se anuncia como botón, entra en el orden de Tab y responde a Enter y Espacio sin código extra.
 - Área táctil mínima de 44 × 44 px (32 px en densidad compacta con mouse, sobre los 24 px de WCAG 2.2).
@@ -16,7 +20,7 @@ summary: Qué resuelve ALMA, cómo se usa con teclado y qué debe cuidar quien d
 - Texto en rem: crece con el tamaño de letra del sistema; probado al 200 %.
 - Movimiento reducido: sin animaciones.
 
-## Teclado
+### Interacciones de teclado
 
 | Tecla | Acción |
 |---|---|
@@ -33,7 +37,7 @@ summary: Qué resuelve ALMA, cómo se usa con teclado y qué debe cuidar quien d
 - **El foco después de actuar** debe quedar en un lugar lógico: si el botón desaparece (eliminar una fila), mueve el foco al elemento siguiente.
 - **El orden visual es el orden de Tab.** No reordenes con CSS lo que el lector de pantalla leerá en otro orden.
 
-## Etiquetado
+### Etiquetado
 
 | Caso | Qué poner |
 |---|---|
@@ -43,12 +47,14 @@ summary: Qué resuelve ALMA, cómo se usa con teclado y qué debe cuidar quien d
 | Con ayuda adicional | `aria-describedby` apuntando al texto de ayuda. |
 | Abre un menú o diálogo | `aria-haspopup` y `aria-expanded` (lo hacen `PullDownButton` y `Popover`). |
 
-## Para quien programa
+## Consideraciones de desarrollo
 
 - No imites un botón con un `<div>` o un `<a>` sin `href`: pierdes teclado y lectores de pantalla.
 - Si navega, es un enlace (`Link`), no un botón.
 - `disabled` saca el botón del orden de Tab; durante una carga ALMA usa `aria-disabled` para mantener el foco.
 - Un formulario debe tener un solo botón con rol `primary`.
+- Un interruptor se anuncia con `aria-pressed` («true» o «false») o cambiando su nombre junto con el ícono (por ejemplo, «Reproducir» / «Pausar»); no con las dos cosas a la vez.
+- Consulta el patrón «Button» de las prácticas de autoría de WAI-ARIA para casos no cubiertos.
 
 ## Verificación
 

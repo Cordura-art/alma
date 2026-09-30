@@ -55,6 +55,8 @@ El rol dice qué significa el botón, con independencia de su estilo.
 2. **Etiqueta.** Texto centrado en una línea.
 3. **Ícono (opcional).** Antes o después de la etiqueta. Un botón puede ser **solo ícono**: entonces es un círculo y necesita nombre accesible.
 
+> **Imagen pendiente:** anatomía numerada de un botón con etiqueta e ícono, de un `plain` y de un botón solo ícono.
+
 ### Tamaños
 
 | Tamaño | Alto | Cuándo |
@@ -65,12 +67,16 @@ El rol dice qué significa el botón, con independencia de su estilo.
 
 Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 px. No mezcles tamaños dentro de un mismo grupo de botones: usa el estilo, no el tamaño, para marcar la jerarquía.
 
+> **Imagen pendiente:** los tres tamaños lado a lado, con su alto y su contexto de uso (formulario, pantalla móvil, portada).
+
 ### Énfasis y jerarquía
 
 - **Una acción de alto énfasis por vista.** Una sola `filled` deja claro qué es lo principal. Si todo es lima, nada lo es.
 - **Baja el énfasis en lo repetido.** Donde hay muchas acciones (tablas, listas, paneles), usa `plain` o `tertiary`.
 - **Agrupa solo acciones relacionadas.** Un grupo es un conjunto de alternativas para el mismo momento, no una colección de botones sueltos.
 - **No toda vista necesita una acción `filled`.** Una vista de lectura o un listado puede no tener acción principal.
+
+> **Imagen pendiente:** una vista con una sola acción `filled` y dos de menor énfasis, frente a una vista con tres `filled` (incorrecto).
 
 ### Alineación y orden
 
@@ -83,12 +89,16 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 | Barras de herramientas | A la derecha del título. | Solo `plain`; el resto en «Más». |
 | Teléfono | Ancho completo cuando el botón es la acción principal de la pantalla. | Apilados si no caben lado a lado. |
 
+> **Imagen pendiente:** alineación en diálogo, formulario, flujo por pasos, tarjeta, barra de herramientas y teléfono.
+
 ### Grupos de botones
 
 - Como máximo tres botones por grupo; lo demás va a un `PullDownButton`.
 - Mismo tamaño dentro del grupo, 8 px entre botones (`space-8`).
 - Una sola acción `filled` por grupo. Combinaciones recomendadas: `filled` + `gray`, `filled` + `tinted`, `filled` + `tertiary`, `filled` + `plain`.
 - Evita dos `filled` juntas, `tinted` + `tertiary` sin una principal, y un botón destructivo como única opción visible sin «Cancelar».
+
+> **Imagen pendiente:** combinaciones recomendadas y combinaciones a evitar.
 
 ### Contenido
 
@@ -112,6 +122,8 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 | Foco de teclado | Anillo de 2 px en `focus`, separado 2 px. Solo con teclado (`:focus-visible`). |
 | Cargando | Un indicador reemplaza al ícono, el botón deja de responder y se anuncia como ocupado. |
 | Desactivado | Fondo `button-disabled-bg`, texto `button-disabled-text`. |
+
+> **Imagen pendiente:** los seis estados de un botón `filled`, en tema oscuro y claro.
 
 #### Interacción
 
@@ -172,87 +184,240 @@ Para lo que borra o deshace: eliminar una tarjeta, cancelar un viaje. Se ve rojo
 
 ## Estilo
 
+Esta pestaña documenta las especificaciones visuales: color, tipografía, estructura y tamaño. Cada valor es un token de componente (`button-*`) que apunta a la capa semántica; para ajustar un botón, cambia su token de componente, nunca el semántico.
+
 ### Color
 
-Cada estilo usa sus tokens de componente (`button-*`), que apuntan a la capa semántica. Cambia el token de componente para ajustar un botón sin tocar el resto del sistema.
+El ícono siempre toma el color de la etiqueta (`currentColor`). El borde reservado de 2 px es transparente en todos los estilos.
 
-#### Estilos normales
+#### Filled
 
-| Estilo | Reposo | Puntero encima | Presionado |
-|---|---|---|---|
-| `filled` | Fondo `button-filled-bg` (`interactive-01`), texto `button-filled-text` | `button-filled-bg-hover` (`hover-primary`) | `button-filled-bg-active` (`active-primary`), texto `button-filled-text-active` |
-| `tinted` | Fondo `button-tinted-bg` (lima translúcido), texto `button-tinted-text` | `button-tinted-bg-hover` | Fondo de reposo al 80 % |
-| `gray` | Fondo `button-gray-bg` (`interactive-02`), texto `button-gray-text` | `button-gray-bg-hover` (`hover-secondary`) | `button-gray-bg-active` (`active-secondary`), texto `button-gray-text-active` |
-| `tertiary` | Sin fondo; texto y borde de 1 px `button-tertiary-text` (`interactive-03` en oscuro, `interactive-04` en claro) | Fondo `button-tertiary-bg-hover` (`hover-tertiary`), texto `inverse-01` | `button-tertiary-bg-active` (`active-tertiary`) + borde interior de 2 px |
-| `plain` | Sin fondo, texto `button-plain-text` | `button-plain-bg-hover` (`hover-ui` en oscuro, `tertiary-50` en claro) | Mismo fondo + borde interior de 2 px |
-| `ghost` | `button-ghost-bg`, texto `button-ghost-text` | `button-ghost-bg-hover` | `button-ghost-bg-active` |
-| `inverse` | `button-inverse-bg`, texto `button-inverse-text` | `button-inverse-bg-hover` | `button-inverse-bg-active`, texto `button-inverse-text-active` |
+La acción principal.
 
-#### Destructivos
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-filled-text` |
+| Ícono | relleno (`currentColor`) | `button-filled-text` |
+| Contenedor | fondo | `button-filled-bg` |
+| Contenedor:hover | fondo | `button-filled-bg-hover` |
+| Contenedor:active | fondo | `button-filled-bg-active` |
+| Etiqueta:active | color del texto | `button-filled-text-active` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+| Contenedor:disabled | fondo | `button-disabled-bg` |
+| Etiqueta:disabled | color del texto | `button-disabled-text` |
 
-Siempre en la familia roja de la paleta de peligro, nunca en lima.
+#### Tinted
 
-| Estilo | Reposo | Puntero encima | Presionado |
-|---|---|---|---|
-| `filled` | `button-destructive-fill` (danger 500; 400 en oscuro) | `button-destructive-bg-hover` (danger 600), texto blanco | `button-destructive-bg-active` (danger 700), texto blanco |
-| `tinted` | Rojo translúcido `button-destructive-tinted-bg`, texto `button-destructive-text` | `button-destructive-tinted-bg-hover` | El mismo + borde interior de 2 px |
-| `gray` | Fondo acero, texto `button-destructive-gray-text` | `button-destructive-gray-bg-hover` (`secondary-400`) | Acero oscuro, texto blanco |
-| `plain` | Texto `button-destructive-text` | `button-destructive-plain-bg-hover` | `button-destructive-plain-bg-active` + borde interior de 2 px |
-| `tertiary` | Borde y texto `button-destructive-text` | `hover-danger`, texto blanco | `active-danger`, texto blanco |
+Acción secundaria importante.
 
-#### Desactivado
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-tinted-text` |
+| Ícono | relleno | `button-tinted-text` |
+| Contenedor | fondo | `button-tinted-bg` |
+| Contenedor:hover | fondo | `button-tinted-bg-hover` |
+| Contenedor:active | fondo | `button-tinted-bg`, opacidad 80 % |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+| Contenedor:disabled | fondo | `button-disabled-bg` |
+| Etiqueta:disabled | color del texto | `button-disabled-text` |
 
-Fondo `button-disabled-bg` (`disabled-01`) y texto `button-disabled-text` (`disabled-03`). Está exento de contraste según WCAG, así que nunca lleva información necesaria.
+#### Gray
+
+Acciones neutras («Cancelar», «Volver»).
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-gray-text` |
+| Ícono | relleno | `button-gray-text` |
+| Contenedor | fondo | `button-gray-bg` |
+| Contenedor:hover | fondo | `button-gray-bg-hover` |
+| Contenedor:active | fondo | `button-gray-bg-active` |
+| Etiqueta:active | color del texto | `button-gray-text-active` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+| Contenedor:disabled | fondo | `button-disabled-bg` |
+| Etiqueta:disabled | color del texto | `button-disabled-text` |
+
+#### Tertiary
+
+Alternativa con contorno.
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-tertiary-text` |
+| Ícono | relleno | `button-tertiary-text` |
+| Contenedor | fondo | transparente |
+| Contenedor | borde (1 px, interior) | `button-tertiary-border` |
+| Etiqueta:hover | color del texto | `button-tertiary-text-hover` |
+| Contenedor:hover | fondo | `button-tertiary-bg-hover` |
+| Contenedor:hover | borde | ninguno |
+| Etiqueta:active | color del texto | `button-tertiary-text-active` |
+| Contenedor:active | fondo | `button-tertiary-bg-active` |
+| Contenedor:active | borde (2 px, interior) | `button-tertiary-text-active` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+| Contenedor:disabled | fondo | `button-disabled-bg` |
+| Etiqueta:disabled | color del texto | `button-disabled-text` |
+
+#### Plain
+
+Acciones de poco peso o repetidas.
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-plain-text` |
+| Ícono | relleno | `button-plain-text` |
+| Contenedor | fondo | transparente |
+| Contenedor:hover | fondo | `button-plain-bg-hover` |
+| Contenedor:active | fondo | `button-plain-bg-active` |
+| Contenedor:active | borde (2 px, interior) | `currentColor` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+| Contenedor:disabled | fondo | transparente |
+| Etiqueta:disabled | color del texto | `button-disabled-text` |
+
+#### Ghost
+
+Sobre imágenes y fondos claros de marca.
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-ghost-text` |
+| Contenedor | fondo | `button-ghost-bg` |
+| Contenedor:hover | fondo | `button-ghost-bg-hover` |
+| Contenedor:active | fondo | `button-ghost-bg-active` |
+| Etiqueta:active | color del texto | `button-ghost-text-active` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+| Contenedor:disabled | fondo | `button-ghost-bg` |
+| Etiqueta:disabled | color del texto | `button-ghost-text-disabled` |
+
+#### Inverse
+
+Sobre piezas de marca oscuras.
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-inverse-text` |
+| Contenedor | fondo | `button-inverse-bg` |
+| Contenedor:hover | fondo | `button-inverse-bg-hover` |
+| Contenedor:active | fondo | `button-inverse-bg-active` |
+| Etiqueta:active | color del texto | `button-inverse-text-active` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+
+#### Destructivo filled
+
+También se aplica a `ghost` e `inverse` con rol destructivo.
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-destructive-text-on-fill` |
+| Contenedor | fondo | `button-destructive-fill` |
+| Contenedor:hover | fondo | `button-destructive-bg-hover` |
+| Etiqueta:hover | color del texto | `button-destructive-text-pressed` |
+| Contenedor:active | fondo | `button-destructive-bg-active` |
+| Etiqueta:active | color del texto | `button-destructive-text-pressed` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+
+#### Destructivo tinted
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-destructive-text` |
+| Contenedor | fondo | `button-destructive-tinted-bg` |
+| Contenedor:hover | fondo | `button-destructive-tinted-bg-hover` |
+| Contenedor:active | fondo | `button-destructive-tinted-bg-hover` |
+| Contenedor:active | borde (2 px, interior) | `currentColor` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+
+#### Destructivo gray
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-destructive-gray-text` |
+| Contenedor | fondo | `button-gray-bg` |
+| Contenedor:hover | fondo | `button-destructive-gray-bg-hover` |
+| Contenedor:active | fondo | `button-gray-bg-active` |
+| Etiqueta:active | color del texto | `button-destructive-text-pressed` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+
+#### Destructivo plain
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-destructive-text` |
+| Contenedor | fondo | transparente |
+| Contenedor:hover | fondo | `button-destructive-plain-bg-hover` |
+| Contenedor:active | fondo | `button-destructive-plain-bg-active` |
+| Contenedor:active | borde (2 px, interior) | `currentColor` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+
+#### Destructivo tertiary
+
+| Elemento | Propiedad | Token |
+|---|---|---|
+| Etiqueta | color del texto | `button-destructive-text` |
+| Contenedor | borde (1 px, interior) | `button-destructive-text` |
+| Contenedor:hover | fondo | `button-destructive-bg-hover` |
+| Etiqueta:hover | color del texto | `button-destructive-text-pressed` |
+| Contenedor:active | fondo | `button-destructive-bg-active` |
+| Etiqueta:active | color del texto | `button-destructive-text-pressed` |
+| Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
+
+> **Imagen pendiente:** los siete estilos y los cinco destructivos, en reposo, puntero encima, presionado, foco y desactivado, en tema oscuro y claro.
+
+#### Valores por tema
+
+Los tokens resuelven un color distinto en cada tema (`dark`, `light`, `dark-hc`, `light-hc`). Los valores exactos están en `tokens/themes/` del repositorio y en la pestaña Colores del artefacto.
 
 ### Tipografía
 
-Roboto Flex, extendida (`wdth` 150), peso 400, en una línea.
+Roboto Flex extendida (`wdth` 150), peso Regular, en una línea. Las etiquetas usan mayúscula solo al inicio.
 
-| Tamaño | Tamaño de letra | Interlineado | Espaciado |
+| Tamaño | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|
-| `sm` | 0,6875 rem (11 px) | 1,4 | 0,165 px |
-| `md` | 0,875 rem (14 px) | 1,4 | 0,14 px |
-| `lg` | 1 rem (16 px) | 1,4 | 0,16 px |
+| `sm` | 11 / 0,6875 | Regular / 400 | `web-label-s` |
+| `md` | 14 / 0,875 | Regular / 400 | `web-label-m` |
+| `lg` | 16 / 1 | Regular / 400 | `web-label-l`, con interlineado 1,4 |
 
-Los tamaños van en rem: crecen con el tamaño de texto que elige la persona. Probado al 200 %.
+Los tamaños van en rem: crecen con el tamaño de texto que elige la persona (probado al 200 %).
 
 ### Estructura
 
-| Medida | `sm` | `md` | `lg` |
-|---|---|---|---|
-| Alto mínimo | 44 px (32 px compacto) | 56 px | 72 px |
-| Relleno lateral | 16 px | 24 px | 32 px |
-| Relleno del lado del ícono | 10 px | 16 px | 24 px |
-| Ícono | 24 px | 24 px | 24 px |
-| Separación ícono–etiqueta | 10 px | 10 px | 10 px |
+| Elemento | Propiedad | `sm` | `md` | `lg` |
+|---|---|---|---|---|
+| Contenedor | relleno lateral | 16 px (`space-16`) | 24 px (`space-24`) | 32 px (`space-32`) |
+| Contenedor con ícono | relleno del lado del ícono | 10 px | 16 px (`space-16`) | 24 px (`space-24`) |
+| Contenedor | radio | `radius-pill` | `radius-pill` | `radius-pill` |
+| Contenedor | borde reservado | 2 px transparente | 2 px transparente | 2 px transparente |
+| Ícono | tamaño | 24 px (`icon-size-lg`) | 24 px | 24 px |
+| Ícono y etiqueta | separación | 10 px | 10 px | 10 px |
+| Indicador de carga | tamaño | 20 px, trazo 2 px | 20 px | 20 px |
+| Grupo de botones | separación | 8 px (`space-8`) | 8 px | 8 px |
 
-- **Radio:** `radius-pill` en todos los tamaños.
-- **Borde:** 2 px transparente, reservado para que los estados con borde no muevan el contenido.
-- **Relleno del lado del ícono:** (alto − 24) / 2, para que el ícono quede centrado en un círculo, como en Figma.
-- **Solo ícono:** cuadrado (`aspect-ratio: 1`) sin relleno, así que es un círculo del alto del botón.
-- **Ancho:** lo define la etiqueta. En el teléfono, la acción principal de la pantalla puede ocupar el ancho completo.
-- **Grupos:** 8 px entre botones (`space-8`).
+- El relleno del lado del ícono es (alto − 24) / 2: el ícono queda centrado en un círculo, como en Figma.
+- El botón solo ícono es cuadrado (`aspect-ratio: 1`, sin relleno): un círculo del alto del botón.
+
+> **Imagen pendiente:** anatomía acotada de los tres tamaños, con etiqueta sola, ícono antes, ícono después y solo ícono.
+
+### Tamaño
+
+| Tamaño | Alto (px / rem) | Uso |
+|---|---|---|
+| `sm` | 44 / 2,75 | Por defecto. |
+| `sm` compacto | 32 / 2 | Con `data-density="compact"` y puntero fino. |
+| `md` | 56 / 3,5 | Acción principal de una pantalla móvil o de un paso. |
+| `lg` | 72 / 4,5 | Portadas y momentos de marca. |
+
+El alto es mínimo: si la persona agranda el texto, el botón crece.
 
 ### Foco
 
-Anillo de 2 px en `focus`, separado 2 px del botón, solo con teclado. En alto contraste el color del foco llega a 7:1.
+Contorno de 2 px en `focus`, separado 2 px del contenedor, solo con teclado (`:focus-visible`). En alto contraste llega a 7:1.
 
 ### Movimiento
 
-Color de fondo y texto con `duration-fast-01` (70 ms) y `easing-standard-productive`. El indicador de carga gira sin fin; con movimiento reducido se detiene y queda visible.
+Fondo y texto cambian en `duration-fast-01` (70 ms) con `easing-standard-productive`. El indicador de carga gira sin fin; con movimiento reducido se detiene y queda visible al 60 %.
 
-### Temas y contraste
+### Contraste
 
-Medido estado por estado (reposo, puntero encima, presionado) en los 14 casos (7 estilos × 2 roles) y los cuatro temas:
-
-| Tema | Mínimo exigido | Resultado |
-|---|---|---|
-| Oscuro | 4,5:1 | Todos cumplen |
-| Claro | 4,5:1 | Todos cumplen |
-| Oscuro alto contraste | 7:1 | Todos cumplen |
-| Claro alto contraste | 7:1 | Todos cumplen |
-
-El borde del `tertiary` supera 3:1 contra la página en los cuatro temas.
+Medido en reposo, puntero encima y presionado, en los 14 casos (7 estilos × 2 roles) y los cuatro temas: todos llegan a 4,5:1 en oscuro y claro, y a 7:1 en alto contraste. El borde del `tertiary` supera 3:1 contra la página.
 
 ## Código
 
@@ -347,7 +512,11 @@ Los tokens ya se generan en Dart (`dist/dart/alma_tokens.dart`): `AlmaColors.but
 
 ## Accesibilidad
 
-### Qué resuelve ALMA
+### Qué ofrece ALMA
+
+ALMA resuelve el teclado y la accesibilidad del botón estándar. Hace falta anotar el diseño solo en los casos de la sección siguiente: botones solo ícono, etiquetas repetidas y botones que desaparecen.
+
+#### Comportamiento
 
 - Es un `<button>` nativo: se anuncia como botón, entra en el orden de Tab y responde a Enter y Espacio sin código extra.
 - Área táctil mínima de 44 × 44 px (32 px en densidad compacta con mouse, sobre los 24 px de WCAG 2.2).
@@ -359,7 +528,7 @@ Los tokens ya se generan en Dart (`dist/dart/alma_tokens.dart`): `AlmaColors.but
 - Texto en rem: crece con el tamaño de letra del sistema; probado al 200 %.
 - Movimiento reducido: sin animaciones.
 
-### Teclado
+#### Interacciones de teclado
 
 | Tecla | Acción |
 |---|---|
@@ -376,7 +545,7 @@ Los tokens ya se generan en Dart (`dist/dart/alma_tokens.dart`): `AlmaColors.but
 - **El foco después de actuar** debe quedar en un lugar lógico: si el botón desaparece (eliminar una fila), mueve el foco al elemento siguiente.
 - **El orden visual es el orden de Tab.** No reordenes con CSS lo que el lector de pantalla leerá en otro orden.
 
-### Etiquetado
+#### Etiquetado
 
 | Caso | Qué poner |
 |---|---|
@@ -386,12 +555,14 @@ Los tokens ya se generan en Dart (`dist/dart/alma_tokens.dart`): `AlmaColors.but
 | Con ayuda adicional | `aria-describedby` apuntando al texto de ayuda. |
 | Abre un menú o diálogo | `aria-haspopup` y `aria-expanded` (lo hacen `PullDownButton` y `Popover`). |
 
-### Para quien programa
+### Consideraciones de desarrollo
 
 - No imites un botón con un `<div>` o un `<a>` sin `href`: pierdes teclado y lectores de pantalla.
 - Si navega, es un enlace (`Link`), no un botón.
 - `disabled` saca el botón del orden de Tab; durante una carga ALMA usa `aria-disabled` para mantener el foco.
 - Un formulario debe tener un solo botón con rol `primary`.
+- Un interruptor se anuncia con `aria-pressed` («true» o «false») o cambiando su nombre junto con el ícono (por ejemplo, «Reproducir» / «Pausar»); no con las dos cosas a la vez.
+- Consulta el patrón «Button» de las prácticas de autoría de WAI-ARIA para casos no cubiertos.
 
 ### Verificación
 
