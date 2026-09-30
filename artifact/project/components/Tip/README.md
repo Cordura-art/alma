@@ -74,6 +74,7 @@ Un consejo breve que enseña una función y se puede descartar.
 | Consejo | ancho máximo | 420 px (26,25 rem) |
 | Consejo | relleno | 16 px; 8 px a la derecha, junto a Cerrar |
 | Consejo | radio | `radius-panel` |
+| Ícono | tamaño | 16 px (`icon-size-sm`) |
 | Ícono y texto | separación | 16 px |
 | Título y mensaje | separación | 4 px |
 

@@ -4,17 +4,17 @@
     "icon-size-sm": {
       "$type": "dimension",
       "$value": "16px",
-      "$description": "Dentro de datos densos: tablas, etiquetas, contadores."
+      "$description": "El de los componentes: botones, menús, campos, navegación, avisos y datos. Va a 16 px de su texto."
     },
     "icon-size-md": {
       "$type": "dimension",
       "$value": "20px",
-      "$description": "Dentro de controles: menús, campos de búsqueda, selectores."
+      "$description": "Íconos sueltos fuera de un componente, junto a texto de lectura."
     },
     "icon-size-lg": {
       "$type": "dimension",
       "$value": "24px",
-      "$description": "Por defecto: botones, navegación, avisos."
+      "$description": "Íconos sueltos junto a títulos o en piezas destacadas."
     },
     "icon-size-xl": {
       "$type": "dimension",

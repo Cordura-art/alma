@@ -84,8 +84,8 @@ Los pasos de un flujo de varias pantallas.
 | Pasos | separación | 2 px |
 | Paso (horizontal) | ancho mínimo | 128 px (8 rem) |
 | Línea | grosor | 2 px |
-| Ícono | tamaño | 20 px |
-| Ícono y texto | separación | 8 px |
+| Ícono | tamaño | 16 px (`icon-size-sm`) |
+| Ícono y texto | separación | 16 px, igual al ícono |
 | Paso | alto mínimo | 44 px |
 
 ![Medidas de ProgressIndicator: tamaño del ícono de cada paso, separación entre ícono y texto, y línea entre pasos.](assets/Componentes/progress-indicator-medidas.png)

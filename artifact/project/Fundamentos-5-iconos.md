@@ -19,9 +19,9 @@ ALMA usa los íconos de **IBM Carbon** (`@carbon/icons` 11.89, licencia Apache 2
 
 | Token | Tamaño | Uso |
 |---|---|---|
-| `icon-size-sm` | 16 px | Dentro de datos densos: tablas, etiquetas, contadores. |
-| `icon-size-md` | 20 px | Dentro de controles: menús, campos de búsqueda, selectores. |
-| `icon-size-lg` | 24 px | Por defecto. |
+| `icon-size-sm` | 16 px | El de los componentes: botones, menús, campos, navegación, avisos y datos. Va a 16 px de su texto, para que el ícono no pese más que la palabra. |
+| `icon-size-md` | 20 px | Íconos sueltos fuera de un componente, junto a texto de lectura. |
+| `icon-size-lg` | 24 px | Íconos sueltos junto a títulos o en piezas destacadas. |
 | `icon-size-xl` | 32 px | En zonas vacías y estados vacíos. |
 
 Van en `rem`: crecen con el texto.

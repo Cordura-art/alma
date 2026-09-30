@@ -49,7 +49,7 @@ summary: Especificaciones visuales del botón con menú de opciones.
 | Botón | ancho mínimo | 200 px |
 | Botón | relleno | 16 px al inicio, 8 px al final |
 | Botón | radio | `radius-button` |
-| Ícono | tamaño | 20 px (`icon-size-md`) |
+| Ícono | tamaño | 16 px (`icon-size-sm`) |
 | Etiqueta superior | sangría | 16 px |
 | Menú | separación del botón | 8 px |
 | Menú | relleno, radio | 8 px, `radius-panel` |

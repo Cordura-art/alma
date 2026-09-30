@@ -5136,11 +5136,11 @@ abstract final class AlmaSize {
 }
 
 abstract final class AlmaIconSize {
-  /// Dentro de datos densos: tablas, etiquetas, contadores.
+  /// El de los componentes: botones, menús, campos, navegación, avisos y datos. Va a 16 px de su texto.
   static const double iconSizeSm = 16.0;
-  /// Dentro de controles: menús, campos de búsqueda, selectores.
+  /// Íconos sueltos fuera de un componente, junto a texto de lectura.
   static const double iconSizeMd = 20.0;
-  /// Por defecto: botones, navegación, avisos.
+  /// Íconos sueltos junto a títulos o en piezas destacadas.
   static const double iconSizeLg = 24.0;
   /// Zonas vacías o para soltar archivos, y piezas destacadas.
   static const double iconSizeXl = 32.0;

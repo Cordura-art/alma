@@ -52,7 +52,7 @@ En tema oscuro el borde y la etiqueta son lima; en claro, tonos acero oscuros, p
 | Contenedor | separación interna | 8 px (`space-8`) |
 | Etiqueta flotante | posición | sobre el borde superior, a 8 px del inicio |
 | Etiqueta flotante | relleno y radio | 4 px lateral, `radius-chip` |
-| Ícono del ojo | tamaño visible / área de toque | 24 px / 44 × 44 px |
+| Ícono del ojo | tamaño visible / área de toque | 16 px (`icon-size-sm`) / 44 × 44 px |
 | Pie (ayuda y contador) | relleno lateral | 16 px |
 | Campo y pie | separación | 4 px (`space-4`) |
 

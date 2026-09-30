@@ -69,7 +69,8 @@ Un contador de cantidad con botones para restar y sumar.
 | Botones y valor | radio | `radius-button` |
 | Botón | ancho mínimo | igual al alto |
 | Valor | ancho mínimo | 130 px |
-| Ícono y número | separación | 10 px |
+| Íconos (restar, sumar y el del valor) | tamaño | 16 px (`icon-size-sm`) |
+| Ícono y número | separación | 16 px, igual al ícono |
 
 ![Medidas de Stepper: alto de 44 px de botones y valor, ancho de cada parte y radio.](assets/Componentes/stepper-medidas.png)
 

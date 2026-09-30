@@ -39,11 +39,11 @@ El valor usa cifras tabulares.
 | Título del grupo | margen | 16 px a la izquierda, 8 px abajo |
 | Fila | relleno | 8 px arriba y abajo, 16 px a los lados |
 | Elementos de la fila | separación | 16 px |
-| Separador | sangría | 16 px, o 56 px con ícono |
-| Flecha | tamaño | 20 px |
+| Separador | sangría | 16 px, o 48 px con ícono |
+| Ícono y flecha | tamaño | 16 px (`icon-size-sm`) |
 | Nota al pie | margen | 8 px arriba, 16 px a los lados |
 
-![Medidas de List con ícono: alto de la fila, relleno lateral, ícono de 24 px, separación entre ícono y texto, y radio del grupo.](assets/Componentes/list-medidas.png)
+![Medidas de List con ícono: alto de la fila, relleno lateral, ícono de 16 px, separación entre ícono y texto, y radio del grupo.](assets/Componentes/list-medidas.png)
 
 ## Tamaño
 

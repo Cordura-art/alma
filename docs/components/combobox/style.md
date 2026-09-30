@@ -64,7 +64,7 @@ summary: Especificaciones visuales del campo con lista.
 |---|---|---|
 | Campo múltiple | relleno vertical | 8 px (`space-8`) |
 | Campo múltiple | separación entre filas de etiquetas | 4 px (`space-4`) |
-| Botón de la lista | ícono / área de toque | 20 px / 44 × 44 px |
+| Botón de la lista | ícono / área de toque | 16 px (`icon-size-sm`) / 44 × 44 px |
 | Lista | separación del campo | 8 px |
 | Lista | relleno y radio | 8 px, `radius-panel` |
 | Lista | alto máximo | 16 rem, con desplazamiento |

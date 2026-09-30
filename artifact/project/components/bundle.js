@@ -4,7 +4,7 @@
   var useState = window.React.useState;
 
   function Icon(props) {
-    return h(AlmaIcon, { name: props.name });
+    return h(AlmaIcon, { size: 16, name: props.name });
   }
 
   // Apple HIG: style = prominence (filled > tinted > gray > plain), role = meaning (normal, primary, cancel, destructive).
@@ -93,7 +93,7 @@
           disabled: props.disabled,
           'aria-label': show[0] ? 'Ocultar contraseña' : 'Mostrar contraseña',
           onClick: function () { show[1](!show[0]); }
-        }, h(Icon, { name: show[0] ? 'view--off' : 'view' })) : null
+        }, h(AlmaIcon, { size: 16, name: show[0] ? 'view--off' : 'view' })) : null
       ),
       (helper || props.maxLength) ? h('div', { className: 'alma-field__foot' },
         h('span', { id: id + '-help', className: 'alma-field__help' }, helper || ''),
@@ -182,9 +182,9 @@
     var value = controlled ? props.value : st[0];
     function set(n) { n = Math.max(min, Math.min(max, n)); if (!controlled) st[1](n); if (props.onChange) props.onChange(n); }
     return h('div', { className: 'alma-step', role: 'group', 'aria-label': props.label },
-      h('button', { type: 'button', className: 'alma-step__btn', 'aria-label': 'Restar', disabled: value <= min, onClick: function () { set(value - 1); } }, h(AlmaIcon, { name: 'subtract' })),
-      h('div', { className: 'alma-step__value', 'aria-live': 'polite' }, props.icon ? h(AlmaIcon, { name: props.icon }) : null, h('span', null, String(value))),
-      h('button', { type: 'button', className: 'alma-step__btn', 'aria-label': 'Sumar', disabled: value >= max, onClick: function () { set(value + 1); } }, h(AlmaIcon, { name: 'add' }))
+      h('button', { type: 'button', className: 'alma-step__btn', 'aria-label': 'Restar', disabled: value <= min, onClick: function () { set(value - 1); } }, h(AlmaIcon, { size: 16, name: 'subtract' })),
+      h('div', { className: 'alma-step__value', 'aria-live': 'polite' }, props.icon ? h(AlmaIcon, { size: 16, name: props.icon }) : null, h('span', null, String(value))),
+      h('button', { type: 'button', className: 'alma-step__btn', 'aria-label': 'Sumar', disabled: value >= max, onClick: function () { set(value + 1); } }, h(AlmaIcon, { size: 16, name: 'add' }))
     );
   }
 
@@ -200,7 +200,7 @@
           type: 'button', className: 'alma-pcard__toggle', 'aria-expanded': open,
           'aria-label': open ? 'Contraer' : 'Expandir',
           onClick: function () { if (!controlled) st[1](!open); if (props.onToggle) props.onToggle(!open); }
-        }, h(AlmaIcon, { name: open ? 'chevron--up' : 'chevron--down' })) : null
+        }, h(AlmaIcon, { size: 16, name: open ? 'chevron--up' : 'chevron--down' })) : null
       ),
       (open || props.collapsible === false) && hasBody ? h(window.React.Fragment, null,
         props.subtitle ? h('div', { className: 'alma-pcard__subtitle' }, props.subtitle) : null,
@@ -367,7 +367,7 @@
         onClick: function () { setOpen(!open); },
         onKeyDown: function (e) { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); setOpen(true); } } },
         h('span', { className: 'alma-popup__value' }, current.label),
-        h(AlmaIcon, { name: 'chevron--sort', size: 20 })),
+        h(AlmaIcon, { name: 'chevron--sort', size: 16 })),
       open ? h(MenuSurface, { kind: 'listbox', items: items, selected: value, labelledBy: props.label ? id + '-label' : id, footer: props.help,
         onClose: close,
         onPick: function (it) { s[1](it.value); if (props.onChange) props.onChange(it.value); close(true); } }) : null
@@ -388,7 +388,7 @@
         onKeyDown: function (e) { if (e.key === 'ArrowDown') { e.preventDefault(); setOpen(true); } } },
         props.icon ? h(AlmaIcon, { name: props.icon, size: 16 }) : null,
         props.label ? h('span', { className: 'alma-popup__value' }, props.label) : null,
-        props.label ? h(AlmaIcon, { name: 'chevron--down', size: 20 }) : null),
+        props.label ? h(AlmaIcon, { name: 'chevron--down', size: 16 }) : null),
       open ? h(MenuSurface, { kind: 'menu', items: items, labelledBy: id, onClose: close,
         onPick: function (it) { close(true); if (it.onSelect) it.onSelect(); if (props.onAction) props.onAction(it.value); } }) : null
     );
@@ -467,7 +467,7 @@
           return h('button', { key: String(t.value), ref: function (el) { refs.current[i] = el; }, type: 'button', role: 'tab',
             id: id + '-t-' + i, 'aria-selected': on, 'aria-controls': id + '-p', tabIndex: on ? 0 : -1,
             className: 'alma-tabs__tab' + (on ? ' is-on' : ''), onClick: function () { pick(t.value); }, onKeyDown: function (e) { onKey(e, i); } },
-            t.icon ? h(AlmaIcon, { name: t.icon, size: 20 }) : null, t.label);
+            t.icon ? h(AlmaIcon, { name: t.icon, size: 16 }) : null, t.label);
         })),
       h('div', { role: 'tabpanel', id: id + '-p', 'aria-labelledby': id + '-t-' + tabs.indexOf(current), tabIndex: 0, className: 'alma-tabs__panel' },
         current && current.content !== undefined ? current.content : props.children)
@@ -526,7 +526,7 @@
           return h('div', { key: key, className: 'alma-side__group' },
             g.title ? h('button', { type: 'button', className: 'alma-side__head', 'aria-expanded': !isClosed,
               onClick: function () { var n = Object.assign({}, c); n[key] = !isClosed; setC(n); } },
-              h('span', null, g.title), h(AlmaIcon, { name: isClosed ? 'chevron--right' : 'chevron--down', size: 20 })) : null,
+              h('span', null, g.title), h(AlmaIcon, { name: isClosed ? 'chevron--right' : 'chevron--down', size: 16 })) : null,
             isClosed ? null : h('ul', { className: 'alma-side__list' }, (g.items || []).map(item)));
         }))
     );
@@ -626,7 +626,7 @@
     var d = useState(false);
     if (d[0]) return null;
     return h('aside', { className: 'alma-tipcard', 'aria-label': props.title },
-      props.icon ? h(AlmaIcon, { name: props.icon, variant: 'filled', className: 'alma-tipcard__icon' }) : null,
+      props.icon ? h(AlmaIcon, { size: 16, name: props.icon, variant: 'filled', className: 'alma-tipcard__icon' }) : null,
       h('div', { className: 'alma-tipcard__body' },
         h('p', { className: 'alma-tipcard__title' }, props.title),
         props.message ? h('p', { className: 'alma-tipcard__msg' }, props.message) : null,
@@ -703,10 +703,10 @@
     return h('div', { className: 'alma-slider' + (props.disabled ? ' is-disabled' : '') },
       props.label ? h('div', { className: 'alma-slider__top' }, h('label', { htmlFor: id, className: 'alma-slider__label' }, props.label), !props.showField ? h('output', { htmlFor: id, className: 'alma-slider__value' }, fmt(v)) : null) : null,
       h('div', { className: 'alma-slider__row' },
-        props.minIcon ? h(AlmaIcon, { name: props.minIcon, size: 20, className: 'alma-slider__icon' }) : null,
+        props.minIcon ? h(AlmaIcon, { name: props.minIcon, size: 16, className: 'alma-slider__icon' }) : null,
         h('input', { id: id, type: 'range', min: min, max: max, step: step, value: v, disabled: props.disabled, className: 'alma-slider__input',
           style: { '--alma-fill': pct + '%' }, 'aria-valuetext': fmt(v), onChange: function (e) { set(e.target.value); } }),
-        props.maxIcon ? h(AlmaIcon, { name: props.maxIcon, size: 20, className: 'alma-slider__icon' }) : null,
+        props.maxIcon ? h(AlmaIcon, { name: props.maxIcon, size: 16, className: 'alma-slider__icon' }) : null,
         props.showField ? h('input', { type: 'number', className: 'alma-slider__field', min: min, max: max, step: step, value: v, disabled: props.disabled,
           'aria-label': (props.label || 'Valor') + ' exacto', onChange: function (e) { set(e.target.value); } }) : null)
     );
@@ -754,7 +754,7 @@
     var dismissible = props.dismissible !== undefined ? props.dismissible : props.kind !== 'callout';
     return h('div', { className: 'alma-notif alma-notif--' + st + (props.kind === 'toast' ? ' is-toast' : ''),
       role: st === 'error' || st === 'warning' ? 'alert' : 'status' },
-      h(AlmaIcon, { name: STATUS_ICON[st], variant: 'filled', className: 'alma-notif__icon', label: STATUS_WORD[st] }),
+      h(AlmaIcon, { size: 16, name: STATUS_ICON[st], variant: 'filled', className: 'alma-notif__icon', label: STATUS_WORD[st] }),
       h('div', { className: 'alma-notif__body' },
         h('p', { className: 'alma-notif__title' }, props.title),
         props.message ? h('p', { className: 'alma-notif__msg' }, props.message) : null,
@@ -835,8 +835,8 @@
             h('div', { className: 'alma-upload__row' },
               h('span', { className: 'alma-upload__name', title: f.name }, middleEllipsis(f.name, 40)),
               st === 'uploading' ? h(ActivityIndicator, { size: 20, label: 'Subiendo ' + f.name }) : null,
-              st === 'complete' ? h(AlmaIcon, { name: 'checkmark--outline', variant: 'filled', size: 20, className: 'alma-upload__ok', label: 'Subido' }) : null,
-              st === 'error' ? h(AlmaIcon, { name: 'error', variant: 'filled', size: 20, className: 'alma-upload__err', label: 'Error' }) : null,
+              st === 'complete' ? h(AlmaIcon, { name: 'checkmark--outline', variant: 'filled', size: 16, className: 'alma-upload__ok', label: 'Subido' }) : null,
+              st === 'error' ? h(AlmaIcon, { name: 'error', variant: 'filled', size: 16, className: 'alma-upload__err', label: 'Error' }) : null,
               st !== 'uploading' && props.onRemove ? h(Button, { variant: 'plain', icon: 'close', 'aria-label': 'Quitar ' + f.name, onClick: function () { props.onRemove(f); } }) : null),
             st === 'error' && f.error ? h('p', { className: 'alma-upload__errmsg' }, f.error) : null);
         })) : null
@@ -956,12 +956,12 @@
       h('ul', { className: 'alma-list__rows', 'aria-label': props.header ? undefined : props['aria-label'] },
         (props.items || []).map(function (it, i) {
           var inner = [
-            it.icon ? h(AlmaIcon, { key: 'i', name: it.icon, className: 'alma-list__icon' }) : null,
+            it.icon ? h(AlmaIcon, { size: 16, key: 'i', name: it.icon, className: 'alma-list__icon' }) : null,
             h('span', { key: 't', className: 'alma-list__text' },
               h('span', { className: 'alma-list__title' }, it.title),
               it.subtitle ? h('span', { className: 'alma-list__subtitle' }, it.subtitle) : null),
             it.trailing !== undefined ? h('span', { key: 'r', className: 'alma-list__trailing' }, it.trailing) : null,
-            it.href || it.chevron ? h(AlmaIcon, { key: 'c', name: 'chevron--right', size: 20, className: 'alma-list__chevron' }) : null];
+            it.href || it.chevron ? h(AlmaIcon, { key: 'c', name: 'chevron--right', size: 16, className: 'alma-list__chevron' }) : null];
           var cls = 'alma-list__row' + (it.icon ? ' has-icon' : '');
           var row = it.href ? h('a', { href: it.href, className: cls + ' is-nav' }, inner)
             : it.onClick ? h('button', { type: 'button', className: cls + ' is-nav', onClick: it.onClick }, inner)
@@ -1027,7 +1027,7 @@
             'aria-expanded': on, 'aria-controls': id + '-p' + i, disabled: it.disabled,
             onClick: function () { toggle(k); }, onKeyDown: function (e) { onKey(e, i); } },
             h('span', null, it.title),
-            h(AlmaIcon, { name: 'chevron--down', size: 20, className: 'alma-accordion__chev' }))),
+            h(AlmaIcon, { name: 'chevron--down', size: 16, className: 'alma-accordion__chev' }))),
         h('div', { id: id + '-p' + i, role: 'region', 'aria-labelledby': id + '-h' + i, className: 'alma-accordion__panel', hidden: !on }, it.content));
     }));
   }
@@ -1039,7 +1039,7 @@
     var steps = props.steps || [], cur = props.current || 0;
     return h('ol', { className: 'alma-steps' + (props.vertical ? ' is-vertical' : ''), 'aria-label': props.label || 'Progreso' }, steps.map(function (st, i) {
       var state = st.error ? 'error' : (i < cur ? 'complete' : (i === cur ? 'current' : 'incomplete'));
-      var body = [h(AlmaIcon, { key: 'i', name: STEP_ICON[state], size: 20, className: 'alma-steps__icon' }),
+      var body = [h(AlmaIcon, { key: 'i', name: STEP_ICON[state], size: 16, className: 'alma-steps__icon' }),
         h('span', { key: 't', className: 'alma-steps__text' },
           h('span', { className: 'alma-steps__label' }, st.label, h('span', { className: 'alma-vh' }, ', ' + STEP_WORD[state])),
           st.description ? h('span', { className: 'alma-steps__desc' }, st.description) : null)];
@@ -1172,7 +1172,7 @@
           'aria-label': open ? 'Ocultar opciones' : 'Mostrar opciones',
           onMouseDown: function (e) { e.preventDefault(); },
           onClick: function (e) { e.stopPropagation(); if (open) close(); else { setOpen(true); if (input.current) input.current.focus(); } } },
-          h(AlmaIcon, { name: open ? 'chevron--up' : 'chevron--down', size: 20 })),
+          h(AlmaIcon, { name: open ? 'chevron--up' : 'chevron--down', size: 16 })),
         open ? h('div', { className: 'alma-menu alma-combo__menu', onMouseDown: function (e) { e.preventDefault(); } },
           showList ? h('ul', { id: listId, role: 'listbox', 'aria-labelledby': id + '-l', 'aria-multiselectable': multi || undefined, className: 'alma-menu__list' },
             list.map(function (it, i) {
@@ -1257,7 +1257,7 @@
           onKeyDown: function (e) { if (e.key === 'ArrowDown' && e.altKey) { e.preventDefault(); openCal(); } } }),
         h('button', { type: 'button', className: 'alma-field__eye alma-date__btn', disabled: props.disabled, 'aria-haspopup': 'dialog', 'aria-expanded': open,
           'aria-label': value ? 'Cambiar fecha, ' + longDate(value) : 'Elegir fecha', onClick: function () { if (open) closeCal(); else openCal(); } },
-          h(AlmaIcon, { name: 'calendar' }))),
+          h(AlmaIcon, { size: 16, name: 'calendar' }))),
       h('div', { className: 'alma-field__foot' }, h('span', { id: id + '-help', className: 'alma-field__help' }, helper)),
       open ? h('div', { ref: box, role: 'dialog', 'aria-modal': true, 'aria-labelledby': id + '-m', className: 'alma-cal' },
         h('div', { className: 'alma-cal__head' },

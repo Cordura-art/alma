@@ -30,6 +30,7 @@ summary: Especificaciones visuales de las pestañas.
 | Elemento | Propiedad | Valor |
 |---|---|---|
 | Pestañas | separación | 8 px |
+| Ícono y etiqueta | tamaño / separación | 16 px (`icon-size-sm`) / 16 px |
 | Pestaña | relleno lateral | 16 px |
 | Pestaña | radio | `radius-nav` arriba |
 | Indicador | alto, radio | 2 px, 2 px |

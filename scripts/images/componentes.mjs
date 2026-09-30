@@ -491,7 +491,7 @@ export const componentScenes = [
         h('div', { style: { width: '22rem' } }, h(A.List, { header: 'Resumen de la compra', footer: 'Precios en pesos chilenos, con IVA.', headingLevel: 3, items: [{ title: 'Pasaje adulto', trailing: '$6.010' }, { title: 'Tasa de embarque', trailing: '$990' }, { title: 'Total', trailing: '$7.000' }] }))));` }),
 
   scene('list', 'style', 'anatomía acotada con ícono', 'list-medidas',
-    'Medidas de List con ícono: alto de la fila, relleno lateral, ícono de 24 px, separación entre ícono y texto, y radio del grupo.',
+    'Medidas de List con ícono: alto de la fila, relleno lateral, ícono de 16 px, separación entre ícono y texto, y radio del grupo.',
     { js: `mount(h('div', { style: { width: '22rem', padding: '56px 180px 56px 150px' } }, h(A.List, { 'aria-label': 'Cuenta', items: [{ icon: 'user', title: 'Perfil', subtitle: 'Camila Rojas', chevron: true, href: '#' }, { icon: 'wallet', title: 'Billetera', chevron: true, href: '#' }] })));`,
       after: `var r = all('.alma-list__row'), ic = $('.alma-list__icon'), t = $('.alma-list__text'); dimH(r[0], 'right'); padL(r[0]); if (ic && t) gapX(ic, t, null, box(r[0]).y - 30); rad($('.alma-list__rows') || $('.alma-list'), box(r[1]).x, box(r[1]).y + box(r[1]).h + 16);` }),
 
@@ -600,7 +600,7 @@ export const componentScenes = [
       mount(themes(['dark', 'light'], function () { return h('div', { className: 'col', style: { width: '26rem', gap: 'var(--space-16)' } }, N.map(function (n) { return h(A.InlineNotification, { key: n[0], status: n[0], title: n[1], message: n[2], actionLabel: n[3], dismissible: true }); })); }));` }),
 
   scene('inline-notification', 'style', 'anatomía acotada con acción', 'inline-notification-medidas',
-    'Medidas de InlineNotification con acción y botón Cerrar: relleno, ícono de 24 px, separación entre título y mensaje, y borde izquierdo.',
+    'Medidas de InlineNotification con acción y botón Cerrar: relleno, ícono de 16 px, separación entre título y mensaje, y borde izquierdo.',
     { js: `mount(h('div', { style: { width: '28rem', padding: '56px 170px 56px 150px' } }, h(A.InlineNotification, { status: 'warning', title: 'Queda poco saldo', message: 'Te alcanza para un pasaje más.', actionLabel: 'Recargar', dismissible: true })));`,
       after: `var n = $('.alma-notif'), ic = $('.alma-notif__icon'), t = $('.alma-notif__title'), m = $('.alma-notif__msg'); padL(n); padT(n); if (ic) dimW(ic, 'bottom', null, { d: box(n).y + box(n).h - box(ic).y - box(ic).h + 16 }); if (t && m) gapY(t, m, box(n).x + box(n).w + 16);` }),
 

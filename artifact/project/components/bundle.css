@@ -111,7 +111,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
   font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; color: var(--field-text);
 }
 .alma-field__input::placeholder { color: var(--field-placeholder); }
-.alma-field__box:has(.alma-field__eye):not(:focus-within) .alma-field__label { max-width: calc(100% - var(--space-16) * 2 - var(--space-8) - 1.5rem); }
+.alma-field__box:has(.alma-field__eye):not(:focus-within) .alma-field__label { max-width: calc(100% - var(--space-16) * 2 - var(--space-8) - 1rem); }
 .alma-field__box:not(:focus-within) .alma-field__input::placeholder { color: transparent; }
 .alma-field__eye { display: flex; border: 0; background: none; padding: 0; color: var(--field-icon); cursor: pointer; border-radius: var(--radius-pill); }
 .alma-field__eye:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
@@ -144,7 +144,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 
 /* ---------- Stepper: three 56px white pills ---------- */
 .alma-step { display: inline-flex; align-items: center; gap: var(--space-24); }
-.alma-step__btn, .alma-step__value { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: var(--alma-field); min-width: var(--alma-field); padding: 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--stepper-border); border-radius: var(--radius-button); background: var(--stepper-bg); color: var(--text-01); font: inherit; font-size: 1rem; letter-spacing: 0.16px; }
+.alma-step__btn, .alma-step__value { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-16); height: var(--alma-field); min-width: var(--alma-field); padding: 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--stepper-border); border-radius: var(--radius-button); background: var(--stepper-bg); color: var(--text-01); font: inherit; font-size: 1rem; letter-spacing: 0.16px; }
 .alma-step__value { min-width: 130px; color: var(--text-02); }
 .alma-step__btn { cursor: pointer; transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
 .alma-step__btn:hover:not(:disabled) { background: var(--stepper-bg-hover); }
@@ -268,7 +268,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 
 /* ---------- Tabs (Apple tab view) ---------- */
 .alma-tabs__list { display: flex; gap: var(--space-8); border-bottom: 1px solid var(--tabs-border); overflow-x: auto; scrollbar-width: none; }
-.alma-tabs__tab { position: relative; display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-16); border: 0; background: none; color: var(--tabs-text); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; white-space: nowrap; cursor: pointer; border-radius: var(--radius-nav) var(--radius-nav) 0 0; transition: color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-tabs__tab { position: relative; display: inline-flex; align-items: center; gap: var(--space-16); min-height: var(--alma-control); padding: 0 var(--space-16); border: 0; background: none; color: var(--tabs-text); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; white-space: nowrap; cursor: pointer; border-radius: var(--radius-nav) var(--radius-nav) 0 0; transition: color var(--duration-fast-01) var(--easing-standard-productive); }
 .alma-tabs__tab:hover { color: var(--text-01); }
 .alma-tabs__tab.is-on { color: var(--tabs-text-selected); }
 .alma-tabs__tab::after { content: ""; position: absolute; left: var(--space-16); right: var(--space-16); bottom: -1px; height: 2px; border-radius: 2px; background: var(--tabs-indicator); transform: scaleX(0); transition: transform var(--duration-moderate-01) var(--easing-standard-productive); }
@@ -546,7 +546,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-list__rows { margin: 0; padding: 0; list-style: none; overflow: hidden; border-radius: var(--radius-panel); background: var(--list-bg); }
 .alma-list__row { position: relative; display: flex; align-items: center; gap: var(--space-16); width: 100%; min-height: var(--alma-control); padding: var(--space-8) var(--space-16); box-sizing: border-box; border: 0; background: transparent; color: var(--text-01); font: inherit; font-size: 0.875rem; line-height: 1.4; text-align: left; text-decoration: none; }
 .alma-list__item + .alma-list__item > .alma-list__row::before { content: ""; position: absolute; top: 0; left: var(--space-16); right: 0; border-top: 1px solid var(--list-separator); }
-.alma-list__item + .alma-list__item > .alma-list__row.has-icon::before { left: 3.5rem; }
+.alma-list__item + .alma-list__item > .alma-list__row.has-icon::before { left: 3rem; }
 .alma-list__row.is-nav { cursor: pointer; transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
 .alma-list__row.is-nav:hover { background: var(--list-row-bg-hover); }
 .alma-list__row:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
@@ -591,7 +591,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-steps__step { flex: 1 1 0; min-width: 8rem; border-top: 2px solid var(--progress-indicator-line); }
 .alma-steps__step.is-complete { border-top-color: var(--progress-indicator-line-complete); }
 .alma-steps__step.is-current { border-top-color: var(--progress-indicator-current); }
-.alma-steps__btn { display: flex; align-items: flex-start; gap: var(--space-8); width: 100%; min-height: var(--alma-control); padding: var(--space-8) var(--space-16) var(--space-8) 0; box-sizing: border-box; border: 0; background: none; color: var(--text-01); font: inherit; font-size: 0.875rem; line-height: 1.4; text-align: left; }
+.alma-steps__btn { display: flex; align-items: flex-start; gap: var(--space-16); width: 100%; min-height: var(--alma-control); padding: var(--space-8) var(--space-16) var(--space-8) 0; box-sizing: border-box; border: 0; background: none; color: var(--text-01); font: inherit; font-size: 0.875rem; line-height: 1.4; text-align: left; }
 button.alma-steps__btn { cursor: pointer; }
 button.alma-steps__btn:hover .alma-steps__label { text-decoration: underline; text-underline-offset: 0.2em; }
 button.alma-steps__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }

@@ -39,11 +39,11 @@ Los tokens `notification-*-accent` apuntan a `status-icon-*`, que alcanzan 3:1 s
 | Ícono y texto | separación | 16 px |
 | Título y mensaje | separación | 4 px |
 | Mensaje y acción | separación | 16 px |
-| Ícono | tamaño | 24 px |
+| Ícono | tamaño | 16 px (`icon-size-sm`) |
 
 Sin barra lateral de color: el borde completo y el ícono marcan el estado.
 
-![Medidas de InlineNotification con acción y botón Cerrar: relleno, ícono de 24 px, separación entre título y mensaje, y borde izquierdo.](assets/Componentes/inline-notification-medidas.png)
+![Medidas de InlineNotification con acción y botón Cerrar: relleno, ícono de 16 px, separación entre título y mensaje, y borde izquierdo.](assets/Componentes/inline-notification-medidas.png)
 
 ## Contraste
 
