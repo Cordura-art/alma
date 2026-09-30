@@ -30,7 +30,7 @@ Un radio por familia de elementos. Se ajustan en **Ajustes de ALMA**, pestaña F
 |---|---|---|
 | `radius-button` | 16 px | Botones: `Button`, `IconButton`, `Stepper`, `PopUpButton`, `SegmentedControl`. |
 | `radius-field` | 8 px | Campos: `TextInput`, `Textarea`, `SearchField`, campo del `Slider`. |
-| `radius-nav` | 0 px | Navegación: `Tabs`, `Sidebar`, opciones de menú, `Breadcrumb`. |
+| `radius-nav` | 8 px | Navegación: `Tabs`, `Sidebar`, opciones de menú, `Breadcrumb`. |
 | `radius-tag` | 8 px | `Tag`, fichas del buscador, insignias, archivos de `FileUploader`. |
 | `radius-checkbox` | 2 px | La casilla de `Checkbox`. Siempre con esquinas, para no confundirla con `RadioGroup`. |
 | `radius-panel` | 8 px | Contenedores: tarjetas, menús, modales, tablas. |

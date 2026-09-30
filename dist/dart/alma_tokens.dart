@@ -5068,7 +5068,7 @@ abstract final class AlmaRadius {
   /// Campos: TextInput, Textarea, Search y el campo del Slider.
   static const double radiusField = 8.0;
   /// Destinos de navegación: Tabs, Sidebar, ítems de menú y Breadcrumb.
-  static const double radiusNav = 0.0;
+  static const double radiusNav = 8.0;
   /// Tag, fichas del buscador, Badge y archivos del FileUploader.
   static const double radiusTag = 8.0;
   /// La casilla de Checkbox: siempre con esquinas, para no confundirla con Radio.

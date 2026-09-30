@@ -2020,7 +2020,7 @@ export const core = {
     "radius-card": "8px",
     "radius-button": "16px",
     "radius-field": "8px",
-    "radius-nav": "0px",
+    "radius-nav": "8px",
     "radius-tag": "8px",
     "radius-checkbox": "2px",
     "radius-pill": "100px"
