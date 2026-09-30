@@ -139,6 +139,13 @@
   function Docs() {
     return h(React.Fragment, null, h(Head, { eyebrow: 'Sistema de diseño', title: 'Novedades y avance', summary: 'Qué cambió en ALMA y cómo va la documentación frente a IBM Carbon.' }), h(Md, { src: C.docs }));
   }
+  function Pending() {
+    var imgs = /Imágenes por crear \((\d+)\)/.exec(C.pending), reads = /lectores de pantalla \((\d+)\)/.exec(C.pending);
+    return h(React.Fragment, null,
+      h(Head, { eyebrow: 'Sistema de diseño', title: 'Pendientes', summary: 'Todo lo que falta crear en ALMA, generado desde los documentos del repositorio. Cada imagen pendiente también se marca en magenta dentro de su página.',
+        meta: [imgs ? h(A.Tag, { key: 'i', color: 'magenta' }, imgs[1] + ' imágenes') : null, reads ? h(A.Tag, { key: 'r', color: 'magenta' }, reads[1] + ' pruebas con lectores') : null] }),
+      h(Md, { src: C.pending.replace(/^[\s\S]*?(?=## )/, '') }));
+  }
   // ---- Foundations: the prose tabs from docs/elements plus a live "Tokens" tab.
   function ColorTokens(p) {
     var q = useState(''), query = q[0];
@@ -253,7 +260,8 @@
     'Contenido': 'grid', 'Datos': 'dashboard', 'Comunicación': 'chat', 'Estados': 'in-progress', 'Ayuda': 'help', 'Iconografía': 'image' };
   var pages = [
     { id: 'inicio', label: 'Inicio', icon: 'home', group: 'ALMA', render: function () { return h(Home); } },
-    { id: 'novedades', label: 'Novedades y avance', icon: 'notification', group: 'ALMA', render: function () { return h(Docs); } }
+    { id: 'novedades', label: 'Novedades y avance', icon: 'notification', group: 'ALMA', render: function () { return h(Docs); } },
+    { id: 'pendientes', label: 'Pendientes', icon: 'incomplete', group: 'ALMA', render: function () { return h(Pending); } }
   ];
   Object.keys(FUND).forEach(function (id) {
     var el = C.elements[FUND[id].slug]; if (!el) return;

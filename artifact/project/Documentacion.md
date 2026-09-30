@@ -6,6 +6,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Pendientes a la vista.** Cada imagen por crear se marca en magenta, de la paleta secundaria, con los tokens nuevos `pending-bg`, `pending-border` y `pending-text`. Una página nueva, **Pendientes**, lista todo lo que falta: 131 imágenes, 45 componentes por probar con lectores de pantalla y el resto del plan. Se genera sola desde los documentos.
 - **Sidebar y los menús separan sus opciones** con 4 px, para que la opción elegida y la que está bajo el cursor no se vean como un solo bloque. Aplica a Sidebar, PopUpButton, PullDownButton, Combobox y las sugerencias de SearchField.
 - **Cuarto ajuste de radios**, hecho con Ajustes de ALMA: contenedores (`radius-panel`), marcos grandes (`radius-card`) y campos (`radius-field`) en 8 px; navegación (`radius-nav`) también en 8 px.
 - **Capas del tema claro, accesibles.** `text-02` en claro pasa de `#566980` a `#4C5D74` para leerse sobre `ui-04` (4,8:1). En claro de alto contraste, `ui-03` y `ui-04` pasan a `#E8F0F4` y `#D5E5EB`, capas claras con texto sobre 7:1 (antes `ui-04` era un gris oscuro de borde). Los campos deshabilitados usan `disabled-03` en los cuatro temas. El verificador suma texto y controles sobre `ui-03` y `ui-04`.
@@ -86,7 +87,7 @@ Las imágenes que explican cada página se crearán después con el sistema de d
 > **Imagen pendiente:** qué debe mostrar, con qué variantes, estados y temas.
 ```
 
-El marcador describe la imagen con precisión suficiente para generarla sin volver a leer la página.
+El marcador describe la imagen con precisión suficiente para generarla sin volver a leer la página. En el sitio se ve en magenta (`pending-*`), y la página **Pendientes** los reúne todos.
 
 ### Cómo se organiza
 

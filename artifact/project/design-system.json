@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T20:45:00Z",
+    "at": "2026-09-30T21:00:00Z",
     "via": "Claude Code",
-    "note": "Menús: 4 px entre opciones (PopUpButton, PullDownButton, Combobox y sugerencias de SearchField), igual que Sidebar."
+    "note": "Pendientes: imágenes por crear en magenta (tokens pending-*) y nueva sección Pendientes con todo lo que falta."
   },
   "layout": "files",
   "libraries": [

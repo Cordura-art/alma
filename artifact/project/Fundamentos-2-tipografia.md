@@ -9,7 +9,7 @@ Una familia, Roboto Flex extendida, en tres escalas: web, app e impresión.
 
 ALMA usa una sola familia: **Roboto Flex**, siempre extendida. Es una fuente variable: un solo archivo tiene todos los anchos, grados y pesos, y ALMA los fija con tokens para que la marca se reconozca en cualquier tamaño. **Roboto Mono** se usa solo para código.
 
-> **Imagen pendiente:** el alfabeto de Roboto Flex a ancho 100 y a ancho 150, con la diferencia marcada.
+> **Imagen pendiente:** el alfabeto de Roboto Flex a ancho 100 y al ancho de ALMA (`font-width`), con la diferencia marcada.
 
 ### Ejes de Roboto Flex
 

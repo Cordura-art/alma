@@ -33,7 +33,7 @@ Las imágenes que explican cada página se crearán después con el sistema de d
 > **Imagen pendiente:** qué debe mostrar, con qué variantes, estados y temas.
 ```
 
-El marcador describe la imagen con precisión suficiente para generarla sin volver a leer la página.
+El marcador describe la imagen con precisión suficiente para generarla sin volver a leer la página. En el sitio se ve en magenta (`pending-*`), y la página **Pendientes** los reúne todos.
 
 ## Cómo se organiza
 

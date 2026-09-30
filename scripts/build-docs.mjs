@@ -1,6 +1,7 @@
 // Builds each component guide of the ALMA artifact from docs/components/<name>/{usage,style,code,accessibility}.md
 // (the four tabs, as in IBM Carbon). Components without docs keep their hand-written README.
-// Also builds the artifact's "Documentación" section from docs/novedades.md and docs/README.md.
+// Also builds the artifact's "Documentación" section from docs/novedades.md and docs/README.md,
+// and "Pendientes": every «Imagen pendiente» marker and pending screen-reader test, plus docs/pendientes.md.
 import { readdir, readFile, writeFile, stat } from 'node:fs/promises';
 
 const TABS = ['usage', 'style', 'code', 'accessibility'];
@@ -67,3 +68,52 @@ for (const f of patFiles) {
 }
 await writeFile('artifact/project/Patrones.md', pats);
 console.log(`Patrones: ${patFiles.length} en artifact/project/Patrones.md`);
+
+// Pending work: scan every doc for «> **Imagen pendiente:** …» markers and «Pendiente: VoiceOver…» test notes.
+// Links use the docs site's routes (#<id>); docs/README.md only shows the marker format, so it is left out.
+const MARK = /^> \*\*Imagen pendiente:\*\* (.+)$/gm;
+const groups = [];
+async function collect(title, root, nameKey, idOf) {
+  const items = [];
+  for (const dir of (await readdir(root)).sort()) {
+    const path = `${root}/${dir}`;
+    const files = (await stat(path)).isDirectory() ? (await readdir(path)).filter((f) => f.endsWith('.md')).sort().map((f) => `${path}/${f}`) : dir.endsWith('.md') ? [path] : [];
+    let name = null, id = null; const found = [];
+    for (const f of files) {
+      const { meta, body } = parse(await readFile(f, 'utf8'));
+      name = name || meta[nameKey]; id = id || idOf(dir, meta);
+      for (const m of body.matchAll(MARK)) found.push({ tab: meta.tab, text: m[1].trim() });
+    }
+    if (found.length) items.push({ name, id, found });
+  }
+  if (items.length) groups.push({ title, items });
+}
+await collect('Fundamentos', 'docs/elements', 'element', (dir) => dir);
+await collect('Guías', 'docs/guides', 'element', (dir) => dir);
+await collect('Patrones', 'docs/patterns', 'pattern', (f) => f.replace(/^\d+-|\.md$/g, ''));
+await collect('Componentes', ROOT, 'component', (dir, meta) => (meta.component || dir).toLowerCase());
+const total = groups.reduce((n, g) => n + g.items.reduce((k, i) => k + i.found.length, 0), 0);
+
+const readers = [];
+for (const dir of (await readdir(ROOT)).sort()) {
+  let src; try { src = await readFile(`${ROOT}/${dir}/accessibility.md`, 'utf8'); } catch { continue; }
+  const { meta, body } = parse(src);
+  const m = /Pendiente: (?:prueba con )?([^.\n]+)/.exec(body);
+  if (m) readers.push({ name: meta.component, id: meta.component.toLowerCase(), what: m[1].trim() });
+}
+
+const own = parse(await readFile('docs/pendientes.md', 'utf8')).body;
+const [intro, rest] = own.replace(/^# .*\n+/, '').split(/\n(?=## )/);
+let pend = `# Pendientes\n\n${intro.trim()}\n\n**En resumen:** ${total} imágenes por crear y ${readers.length} componentes por probar con lectores de pantalla.\n\n## Imágenes por crear (${total})\n`;
+for (const g of groups) {
+  pend += `\n### ${g.title}\n`;
+  for (const it of g.items) {
+    pend += `\n**[${it.name}](#${it.id})**\n\n`;
+    for (const f of it.found) pend += `- ${f.tab ? `${f.tab}: ` : ''}${f.text}\n`;
+  }
+}
+pend += `\n## Pruebas con lectores de pantalla (${readers.length})\n\naxe ya pasa en todos. Falta escuchar cada componente con un lector de pantalla real.\n\n| Componente | Falta |\n|---|---|\n`;
+for (const r of readers) pend += `| [${r.name}](#${r.id}) | ${r.what} |\n`;
+pend += `\n${(rest || '').trim()}\n`;
+await writeFile('artifact/project/Pendientes.md', pend);
+console.log(`Pendientes: ${total} imágenes y ${readers.length} pruebas con lectores en artifact/project/Pendientes.md`);

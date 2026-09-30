@@ -21,6 +21,9 @@
   --ui-04: #1B1A24;
   --ui-05: #7A94A7;
   --border-subtle: #3A4660;
+  --pending-bg: var(--magenta-900);
+  --pending-border: var(--magenta-400);
+  --pending-text: var(--magenta-200);
   --text-01: #F8FBFC;
   --text-02: #A0C3D2;
   --text-03: #7A94A7;
@@ -521,6 +524,9 @@
   --ui-04: #CBDEE6;
   --ui-05: #7A94A7;
   --border-subtle: #EDF4F6;
+  --pending-bg: var(--magenta-50);
+  --pending-border: var(--magenta-500);
+  --pending-text: var(--magenta-700);
   --text-01: #3A4660;
   --text-02: #4C5D74;
   --text-03: #566980;
@@ -1021,6 +1027,9 @@
   --ui-04: #302F38;
   --ui-05: #CBDEE6;
   --border-subtle: #566980;
+  --pending-bg: var(--magenta-900);
+  --pending-border: var(--magenta-300);
+  --pending-text: var(--magenta-100);
   --text-01: #F8FBFC;
   --text-02: #DDE9EF;
   --text-03: #B7D1DD;
@@ -1521,6 +1530,9 @@
   --ui-04: #D5E5EB;
   --ui-05: #3A4660;
   --border-subtle: #B7D1DD;
+  --pending-bg: var(--magenta-50);
+  --pending-border: var(--magenta-700);
+  --pending-text: var(--magenta-800);
   --text-01: #141733;
   --text-02: #3A4660;
   --text-03: #3A4660;

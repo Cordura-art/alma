@@ -40,6 +40,7 @@ Para ajustar un componente, cambia su token de componente, nunca el semántico: 
 | Estados del sistema | `support-01` a `support-04` | Error, éxito, advertencia, información. |
 | Inversos | `inverse-01`, `inverse-02`, `inverse-support-*` | Superficies que invierten el tema, como el tooltip. |
 | Velos | `overlay-01`, `tint-white-*`, `tint-dark-*` | Detrás de modales y sobre imágenes. |
+| Pendiente | `pending-bg`, `pending-border`, `pending-text` | Solo en la documentación: marca en magenta lo que falta crear, como una imagen. |
 
 ## Capas de superficie
 

@@ -105,6 +105,21 @@
       "$value": "#566980",
       "$description": "Borde sutil: separa tarjetas, tablas, menús, modales y listas de lo que las rodea, y dibuja pistas y líneas. Antes era ui-03, que ahora es solo una capa de superficie."
     },
+    "pending-bg": {
+      "$type": "color",
+      "$value": "{color.magenta-900}",
+      "$description": "Fondo de una marca de contenido pendiente en la documentación (una imagen por crear). Magenta, de la paleta secundaria, para encontrar lo que falta de un vistazo."
+    },
+    "pending-border": {
+      "$type": "color",
+      "$value": "{color.magenta-300}",
+      "$description": "Borde punteado de una marca de contenido pendiente."
+    },
+    "pending-text": {
+      "$type": "color",
+      "$value": "{color.magenta-100}",
+      "$description": "Texto de una marca de contenido pendiente, sobre pending-bg."
+    },
     "text-01": {
       "$type": "color",
       "$value": "#F8FBFC",

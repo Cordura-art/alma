@@ -87,6 +87,7 @@ for (const [k, v] of Object.entries(tok)) if (k !== 'color' && v && Array.isArra
 const content = {
   readme: await read(`${P}/README.md`),
   docs: (await read(`${P}/Documentacion.md`)).replace(/^# .*\n+/, ''),
+  pending: (await read(`${P}/Pendientes.md`)).replace(/^# .*\n+/, ''),
   cover: parsePreview(await read(`${P}/components/Cover/preview.html`)).pv,
   tokens: { themes: tok.color.themes, color: tok.color.tokens, type: tok.type.groups, families },
   components,

@@ -33,6 +33,9 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     required this.ui04,
     required this.ui05,
     required this.borderSubtle,
+    required this.pendingBg,
+    required this.pendingBorder,
+    required this.pendingText,
     required this.text01,
     required this.text02,
     required this.text03,
@@ -553,6 +556,12 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   final Color ui05;
   /// Borde sutil: separa tarjetas, tablas, menús, modales y listas de lo que las rodea, y dibuja pistas y líneas. Antes era ui-03, que ahora es solo una capa de superficie.
   final Color borderSubtle;
+  /// Fondo de una marca de contenido pendiente en la documentación (una imagen por crear). Magenta, de la paleta secundaria, para encontrar lo que falta de un vistazo.
+  final Color pendingBg;
+  /// Borde punteado de una marca de contenido pendiente.
+  final Color pendingBorder;
+  /// Texto de una marca de contenido pendiente, sobre pending-bg.
+  final Color pendingText;
   /// Uso (Cordura): Texto principal: cuerpo y encabezados; hover del texto text-02. Texto principal, cuerpo y titulares sobre ui-02 y ui-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29.
   final Color text01;
   /// Uso (Cordura): Texto secundario; etiquetas de campos. Texto secundario y etiquetas de input, sobre ui-02 y ui-01. Accesible: en claro se oscureció de #7A94A7 (Figma, 3:1) a #566980 (5.4:1). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29.
@@ -1528,6 +1537,9 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     ui04: Color(0xFF1B1A24),
     ui05: Color(0xFF7A94A7),
     borderSubtle: Color(0xFF3A4660),
+    pendingBg: Color(0xFF2C1023),
+    pendingBorder: Color(0xFFD883A8),
+    pendingText: Color(0xFFF9C1D9),
     text01: Color(0xFFF8FBFC),
     text02: Color(0xFFA0C3D2),
     text03: Color(0xFF7A94A7),
@@ -2028,6 +2040,9 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     ui04: Color(0xFFCBDEE6),
     ui05: Color(0xFF7A94A7),
     borderSubtle: Color(0xFFEDF4F6),
+    pendingBg: Color(0xFFFDEAF2),
+    pendingBorder: Color(0xFFBB668B),
+    pendingText: Color(0xFF802D51),
     text01: Color(0xFF3A4660),
     text02: Color(0xFF4C5D74),
     text03: Color(0xFF566980),
@@ -2528,6 +2543,9 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     ui04: Color(0xFF302F38),
     ui05: Color(0xFFCBDEE6),
     borderSubtle: Color(0xFF566980),
+    pendingBg: Color(0xFF2C1023),
+    pendingBorder: Color(0xFFF6A0C5),
+    pendingText: Color(0xFFFBD6E6),
     text01: Color(0xFFF8FBFC),
     text02: Color(0xFFDDE9EF),
     text03: Color(0xFFB7D1DD),
@@ -3028,6 +3046,9 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     ui04: Color(0xFFD5E5EB),
     ui05: Color(0xFF3A4660),
     borderSubtle: Color(0xFFB7D1DD),
+    pendingBg: Color(0xFFFDEAF2),
+    pendingBorder: Color(0xFF802D51),
+    pendingText: Color(0xFF561E3A),
     text01: Color(0xFF141733),
     text02: Color(0xFF3A4660),
     text03: Color(0xFF3A4660),
@@ -3542,6 +3563,9 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     Color? ui04,
     Color? ui05,
     Color? borderSubtle,
+    Color? pendingBg,
+    Color? pendingBorder,
+    Color? pendingText,
     Color? text01,
     Color? text02,
     Color? text03,
@@ -4041,6 +4065,9 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
       ui04: ui04 ?? this.ui04,
       ui05: ui05 ?? this.ui05,
       borderSubtle: borderSubtle ?? this.borderSubtle,
+      pendingBg: pendingBg ?? this.pendingBg,
+      pendingBorder: pendingBorder ?? this.pendingBorder,
+      pendingText: pendingText ?? this.pendingText,
       text01: text01 ?? this.text01,
       text02: text02 ?? this.text02,
       text03: text03 ?? this.text03,
@@ -4545,6 +4572,9 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
       ui04: Color.lerp(ui04, other.ui04, t)!,
       ui05: Color.lerp(ui05, other.ui05, t)!,
       borderSubtle: Color.lerp(borderSubtle, other.borderSubtle, t)!,
+      pendingBg: Color.lerp(pendingBg, other.pendingBg, t)!,
+      pendingBorder: Color.lerp(pendingBorder, other.pendingBorder, t)!,
+      pendingText: Color.lerp(pendingText, other.pendingText, t)!,
       text01: Color.lerp(text01, other.text01, t)!,
       text02: Color.lerp(text02, other.text02, t)!,
       text03: Color.lerp(text03, other.text03, t)!,
