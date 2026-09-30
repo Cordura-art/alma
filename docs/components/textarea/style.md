@@ -43,7 +43,7 @@ El texto de ejemplo se ve también en reposo (`field-placeholder`).
 
 | Elemento | Propiedad | Valor |
 |---|---|---|
-| Contenedor | radio | `radius-panel` (8 px) |
+| Contenedor | radio | `radius-panel` (0 px) |
 | Contenedor | relleno | 16 px (`space-16`); 15 px con el borde de 2 px del foco |
 | Área de texto | alto mínimo | 6 rem (96 px), 4 líneas por defecto |
 | Área de texto | cambio de tamaño | solo vertical |

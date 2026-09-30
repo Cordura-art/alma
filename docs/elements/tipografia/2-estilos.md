@@ -9,16 +9,16 @@ summary: Una familia, Roboto Flex extendida, en tres escalas: web, app e impresi
 
 | Estilo | Tamaño | Peso | Uso |
 |---|---|---|---|
-| `web-display-l` | 128 px (8 rem) | 1000 | Titular de portada. |
-| `web-h1` | 40 px (2,5 rem) | 100 | Título de página. |
-| `web-h2` | 32 px (2 rem) | 100 | Sección. |
-| `web-h4` | 24 px (1,5 rem) | 100 | Subsección. |
-| `web-h6` | 16 px (1 rem) | 100 | Encabezado menor. |
-| `web-body-l` | 16 px (1 rem) | 100 | Texto de lectura larga. |
-| `web-body-m` | 14 px (0,875 rem) | 100 | **Cuerpo por defecto.** |
-| `web-body-s` | 12 px (0,75 rem) | 100 | Notas y descripciones. |
-| `web-label-m` | 14 px (0,875 rem) | 100 | Controles y menús. |
-| `web-label-s` | 11 px (0,6875 rem) | 100 | Botones pequeños, etiquetas de campo, ayudas. |
+| `web-display-l` | 128 px (8 rem) | 500 | Titular de portada. |
+| `web-h1` | 40 px (2,5 rem) | 350 | Título de página. |
+| `web-h2` | 32 px (2 rem) | 350 | Sección. |
+| `web-h4` | 24 px (1,5 rem) | 350 | Subsección. |
+| `web-h6` | 16 px (1 rem) | 350 | Encabezado menor. |
+| `web-body-l` | 16 px (1 rem) | 350 | Texto de lectura larga. |
+| `web-body-m` | 14 px (0,875 rem) | 350 | **Cuerpo por defecto.** |
+| `web-body-s` | 12 px (0,75 rem) | 350 | Notas y descripciones. |
+| `web-label-m` | 14 px (0,875 rem) | 350 | Controles y menús. |
+| `web-label-s` | 11 px (0,6875 rem) | 350 | Botones pequeños, etiquetas de campo, ayudas. |
 
 La tabla completa, con los 48 estilos de las tres escalas, está en la pestaña **Tokens**.
 
@@ -42,7 +42,7 @@ La tabla completa, con los 48 estilos de las tres escalas, está en la pestaña 
 
 ## Números gigantes
 
-`web-display-xl` (640 px, 1000) es el *display Xlarge* del theme de origen. Solo en portadas y carteles; nunca en una interfaz.
+`web-display-xl` (640 px, 500) es el *display Xlarge* del theme de origen. Solo en portadas y carteles; nunca en una interfaz.
 
 ## Cifras
 

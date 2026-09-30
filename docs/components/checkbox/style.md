@@ -29,7 +29,7 @@ En tema claro, `control-on` es un oliva oscuro: el lima no llega a 3:1 sobre fon
 | Elemento | Propiedad | Valor |
 |---|---|---|
 | Casilla | tamaño | 20 × 20 px |
-| Casilla | radio | `radius-chip` (4 px) |
+| Casilla | radio | `radius-chip` (48 px) |
 | Marca | tamaño | 16 px |
 | Casilla y etiqueta | separación | 8 px (`space-8`) |
 | Fila | alto mínimo | 44 px (`size-touch-min`) |

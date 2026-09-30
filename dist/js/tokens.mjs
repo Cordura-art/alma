@@ -2010,10 +2010,10 @@ export const core = {
     "space-80": "80px"
   },
   "radius": {
-    "radius-chip": "4px",
-    "radius-swatch": "8px",
-    "radius-panel": "8px",
-    "radius-card": "8px",
+    "radius-chip": "48px",
+    "radius-swatch": "0px",
+    "radius-panel": "0px",
+    "radius-card": "0px",
     "radius-pill": "100px"
   },
   "duration": {
@@ -2079,8 +2079,8 @@ export const core = {
     "grid-margin-max": "24px"
   },
   "fontAxis": {
-    "font-width": "151",
-    "font-grade": "-200"
+    "font-width": "125",
+    "font-grade": "0"
   }
 };
 export const fonts = {
@@ -2091,336 +2091,336 @@ export const typography = {
   "web-display-xl": {
     "fontSize": "40rem",
     "lineHeight": 1,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "-9.6px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-display-l": {
     "fontSize": "8rem",
     "lineHeight": 0.8,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-display-m": {
     "fontSize": "5.5rem",
     "lineHeight": 1,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-display-s": {
     "fontSize": "3.5rem",
     "lineHeight": 1.1,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "0.56px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-h1": {
     "fontSize": "2.5rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.4px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-h2": {
     "fontSize": "2rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-h3": {
     "fontSize": "1.75rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-h4": {
     "fontSize": "1.5rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-h5": {
     "fontSize": "1.25rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.2px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-h6": {
     "fontSize": "1rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.16px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-blockquote": {
     "fontSize": "1.25rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.2px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-body-l": {
     "fontSize": "1rem",
     "lineHeight": 2,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.32px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-body-m": {
     "fontSize": "0.875rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.07px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-body-s": {
     "fontSize": "0.75rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.18px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-label-xl": {
     "fontSize": "1.25rem",
     "lineHeight": 1.4,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.2px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-label-l": {
     "fontSize": "1rem",
     "lineHeight": 1.72,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.16px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-label-m": {
     "fontSize": "0.875rem",
     "lineHeight": 1.4,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.14px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-label-s": {
     "fontSize": "0.6875rem",
     "lineHeight": 1.4,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.165px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-display-l": {
     "fontSize": "3.5625rem",
     "lineHeight": 1.1228,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-display-m": {
     "fontSize": "2.8125rem",
     "lineHeight": 1.1556,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-display-s": {
     "fontSize": "2.25rem",
     "lineHeight": 1.2222,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-headline-l": {
     "fontSize": "2rem",
     "lineHeight": 1.25,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-headline-m": {
     "fontSize": "1.75rem",
     "lineHeight": 1.2857,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-headline-s": {
     "fontSize": "1.5rem",
     "lineHeight": 1.3333,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-title-l": {
     "fontSize": "1.375rem",
     "lineHeight": 1.2727,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-title-m": {
     "fontSize": "1rem",
     "lineHeight": 1.5,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-title-s": {
     "fontSize": "0.875rem",
     "lineHeight": 1.4286,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.56px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-body-l": {
     "fontSize": "1rem",
     "lineHeight": 1.5,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.15px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-body-m": {
     "fontSize": "0.875rem",
     "lineHeight": 1.4286,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.25px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-body-s": {
     "fontSize": "0.75rem",
     "lineHeight": 1.3333,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.4px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-label-l": {
     "fontSize": "1rem",
     "lineHeight": 1.25,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.1px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-label-m": {
     "fontSize": "0.875rem",
     "lineHeight": 1.1429,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.5px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-label-s": {
     "fontSize": "0.6875rem",
     "lineHeight": 1.4545,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.5px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-display-l": {
     "fontSize": "3.5625rem",
     "lineHeight": 1.1228,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-display-m": {
     "fontSize": "2.8125rem",
     "lineHeight": 1.1556,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-display-s": {
     "fontSize": "2.25rem",
     "lineHeight": 1.2222,
-    "fontWeight": 1000,
+    "fontWeight": 500,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-headline-l": {
     "fontSize": "2rem",
     "lineHeight": 1.25,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-headline-m": {
     "fontSize": "1.75rem",
     "lineHeight": 1.2857,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-headline-s": {
     "fontSize": "1.5rem",
     "lineHeight": 1.3333,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-title-l": {
     "fontSize": "1.375rem",
     "lineHeight": 1.2727,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-title-m": {
     "fontSize": "1rem",
     "lineHeight": 1.5,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-title-s": {
     "fontSize": "0.875rem",
     "lineHeight": 1.4286,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.56px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-body-l": {
     "fontSize": "1rem",
     "lineHeight": 1.5,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.15px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-body-m": {
     "fontSize": "0.875rem",
     "lineHeight": 1.4286,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.25px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-body-s": {
     "fontSize": "0.5625rem",
     "lineHeight": 2,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.3px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-label-l": {
     "fontSize": "1rem",
     "lineHeight": 1.25,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.1px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-label-m": {
     "fontSize": "1rem",
     "lineHeight": 1.25,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.571px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-label-s": {
     "fontSize": "0.6875rem",
     "lineHeight": 1.4545,
-    "fontWeight": 100,
+    "fontWeight": 350,
     "letterSpacing": "0.5px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   }
