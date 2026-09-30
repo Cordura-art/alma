@@ -87,12 +87,12 @@
     },
     "ui-03": {
       "$type": "color",
-      "$value": "#B7D1DD",
+      "$value": "#E8F0F4",
       "$description": "Tercera capa: paneles anidados dentro de un contenedor ui-01. Para bordes usa border-subtle."
     },
     "ui-04": {
       "$type": "color",
-      "$value": "#3A4660",
+      "$value": "#D5E5EB",
       "$description": "Cuarta capa: zonas anidadas dentro de un panel ui-03, donde van las acciones (interactive-01 y interactive-02). Para bordes usa border-subtle o border-control."
     },
     "ui-05": {
@@ -1862,7 +1862,7 @@
     },
     "field-border-disabled": {
       "$type": "color",
-      "$value": "{color.ui-04}",
+      "$value": "{color.disabled-03}",
       "$description": "TextInput desactivado: borde. Token de componente: alias de ui-04."
     },
     "field-border-readonly": {
@@ -1882,7 +1882,7 @@
     },
     "field-text-disabled": {
       "$type": "color",
-      "$value": "{color.ui-04}",
+      "$value": "{color.disabled-03}",
       "$description": "TextInput desactivado: etiqueta, texto e ícono. Token de componente: alias de ui-04."
     },
     "field-placeholder": {

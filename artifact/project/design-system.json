@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T19:00:00Z",
+    "at": "2026-09-30T19:30:00Z",
     "via": "Claude Code",
-    "note": "Elevación en oscuro: ui-01, ui-03 y ui-04 con blanco al 4, 7 y 10 % sobre la página. Nuevo token border-subtle para los bordes."
+    "note": "Capas del tema claro accesibles: text-02 #4C5D74; ui-03 y ui-04 claros en alto contraste; texto y controles verificados sobre las cuatro capas."
   },
   "layout": "files",
   "libraries": [

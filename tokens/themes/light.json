@@ -112,8 +112,8 @@
     },
     "text-02": {
       "$type": "color",
-      "$value": "#566980",
-      "$description": "Uso (Cordura): Texto secundario; etiquetas de campos. Texto secundario y etiquetas de input, sobre ui-02 y ui-01. Accesible: en claro se oscureció de #7A94A7 (Figma, 3:1) a #566980 (5.4:1). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+      "$value": "#4C5D74",
+      "$description": "Uso (Cordura): Texto secundario; etiquetas de campos. Texto secundario y etiquetas de input, sobre todas las capas (ui-02, ui-01, ui-03 y ui-04). Accesible: en claro #4C5D74, 4,8:1 sobre ui-04, la capa más oscura (Figma: #7A94A7, 3:1; antes #566980, que daba 4,1:1 sobre ui-04). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "text-03": {
       "$type": "color",
@@ -1862,7 +1862,7 @@
     },
     "field-border-disabled": {
       "$type": "color",
-      "$value": "{color.ui-04}",
+      "$value": "{color.disabled-03}",
       "$description": "TextInput desactivado: borde. Token de componente: alias de ui-04."
     },
     "field-border-readonly": {
@@ -1882,7 +1882,7 @@
     },
     "field-text-disabled": {
       "$type": "color",
-      "$value": "{color.ui-04}",
+      "$value": "{color.disabled-03}",
       "$description": "TextInput desactivado: etiqueta, texto e ícono. Token de componente: alias de ui-04."
     },
     "field-placeholder": {

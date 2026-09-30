@@ -57,6 +57,8 @@ No saltes capas hacia atrás: un contenedor dentro de otro `ui-01` pasa a `ui-03
 
 **Elevación en oscuro.** En el tema oscuro, subir una capa es acercarse a la luz: cada capa mezcla un poco más de blanco sobre la página `#02010C` (4, 7 y 10 %; 6, 12 y 18 % en alto contraste). La mezcla se guarda como un color sólido, no como transparencia. Así las capas anidadas no se suman entre sí, el contraste se puede verificar y el color es el mismo en CSS y en Flutter.
 
+**Texto sobre cualquier capa.** `text-01`, `text-02` y `border-control` cumplen sobre las cuatro capas en los cuatro temas: 4,5:1 para texto y 3:1 para bordes de control, 7:1 para texto en alto contraste. El verificador del repositorio lo prueba en cada cambio.
+
 **Las capas no son bordes.** Para separar un contenedor usa `border-subtle`; para marcar un control, `border-control`. Nunca uses `ui-03` o `ui-04` como borde: en oscuro están demasiado cerca del fondo para verse.
 
 > **Imagen pendiente:** las cuatro capas anidadas en tema claro, de la página `ui-02` a los botones `interactive-01` e `interactive-02` sobre `ui-04`.
