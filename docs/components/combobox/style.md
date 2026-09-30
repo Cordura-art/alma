@@ -69,6 +69,7 @@ summary: Especificaciones visuales del campo con lista.
 | Lista | relleno y radio | 8 px, `radius-panel` |
 | Lista | alto máximo | 16 rem, con desplazamiento |
 | Opción | alto mínimo, radio | 44 px (`size-touch-min`), `radius-nav` |
+| Opciones | separación | 4 px (`space-4`) |
 | Etiqueta | alto | 24 px |
 
 > **Imagen pendiente:** anatomía acotada del campo múltiple con la lista abierta.

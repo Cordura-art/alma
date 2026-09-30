@@ -115,6 +115,7 @@ Un botón que abre una lista corta de opciones excluyentes y muestra la elegida.
 | Menú | relleno, radio | 8 px, `radius-panel` |
 | Menú | ancho | el del botón como mínimo, 320 px como máximo |
 | Opción | alto mínimo, radio | 44 px, `radius-nav` |
+| Opciones | separación | 4 px (`space-4`) |
 | Opción | columna de la marca | 24 px |
 
 > **Imagen pendiente:** anatomía acotada del botón y del menú abierto.
