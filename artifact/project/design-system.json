@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T14:00:00Z",
+    "at": "2026-09-30T15:00:00Z",
     "via": "Claude Code",
-    "note": "Segundo ajuste con Ajustes de ALMA: Roboto Flex ancho 125 y grado 0; display 500, títulos y cuerpo 350; radios rectos (0 px) y radius-chip 48 px."
+    "note": "Radios por familia: radius-button, radius-field, radius-nav, radius-tag y radius-checkbox (4 px), ajustables en Ajustes de ALMA."
   },
   "layout": "files",
   "libraries": [
