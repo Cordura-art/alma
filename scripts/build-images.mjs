@@ -230,7 +230,7 @@ export const scenes = [
 
   { file: 'Iconos/muestra', alt: 'Veinticuatro íconos frecuentes de IBM Carbon en su grilla de 32 px: flechas, cerrar, buscar, información, advertencia, bus, billetera, usuario y otros, con su nombre.',
     js: `A.registerIcons({ icons: D.icons });
-    mount(h('div', { className: 'ig' }, Object.keys(D.icons).map(function (n) { return h('div', { key: n, className: 'ic' }, h('div', { className: 'kl' }, h(A.Icon, { name: n, size: 32 })), h('span', { className: 'tok' }, n)); })));`,
+    mount(h('div', { className: 'ig' }, Object.keys(D.icons).slice(0, 24).map(function (n) { return h('div', { key: n, className: 'ic' }, h('div', { className: 'kl' }, h(A.Icon, { name: n, size: 32 })), h('span', { className: 'tok' }, n)); })));`,
     css: `.ig { display: grid; grid-template-columns: repeat(6, 8.5rem); gap: var(--space-24) var(--space-16); } .ic { display: grid; justify-items: center; gap: var(--space-8); }
     .kl { padding: 12px; color: var(--icon-01); border-radius: var(--radius-chip); background: var(--ui-01); }
     .kl .alma-ico { outline: 1px dashed var(--border-control); outline-offset: 0; display: block; } .ic .tok { font-size: 0.6875rem; }` },
