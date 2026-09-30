@@ -38,7 +38,7 @@ npm run carta -- --fecha 1911-06-16 --hora 12:00 --zona America/New_York --nombr
 
 ## Entidades
 
-Una entidad es una marca tratada como persona: nace en una fecha, y su carta de diseño humano es la receta de su arquetipo. El motor (`entidades/carta.mjs`) calcula la carta completa con posiciones planetarias reales (`astronomy-engine`): las 26 activaciones de personalidad y diseño, las puertas y líneas, los canales, los centros definidos, el tipo, la autoridad, el perfil, la definición y la cruz. La fecha funciona como semilla: la misma fecha siempre da la misma entidad. Sin hora, se usa el mediodía y la carta avisa que la Luna y las líneas pueden cambiar.
+Una entidad es una marca tratada como persona: nace en una fecha, y su carta de diseño humano es la receta de su arquetipo. El motor (`entidades/carta.mjs`) calcula la carta completa con posiciones planetarias reales (`astronomy-engine`): las 26 activaciones de personalidad y diseño, las puertas y líneas, los canales, los centros definidos, el tipo, la autoridad, el perfil, la definición y la cruz. La fecha funciona como semilla: la misma fecha siempre da la misma entidad. Desde la carta, `entidades/voz.mjs` escribe la voz y los principios de la entidad: cada puerta parte de su hexagrama del I Ching y se lee como tema, voz y principio (`entidades/arquetipos.mjs`); los canales definidos son sus principios, la cruz es su propósito, y la Garganta, el perfil, la autoridad y el tipo dan su forma de hablar. Sin hora, se usa el mediodía y la carta avisa que la Luna y las líneas pueden cambiar.
 
 ## Usar ALMA
 
