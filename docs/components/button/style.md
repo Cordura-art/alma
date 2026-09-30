@@ -36,7 +36,8 @@ Acción secundaria importante.
 | Ícono | relleno | `button-tinted-text` |
 | Contenedor | fondo | `button-tinted-bg` |
 | Contenedor:hover | fondo | `button-tinted-bg-hover` |
-| Contenedor:active | fondo | `button-tinted-bg`, opacidad 80 % |
+| Contenedor:active | fondo | `button-tinted-bg-hover` |
+| Contenedor:active | borde (2 px, interior) | `currentColor` |
 | Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
 | Contenedor:disabled | fondo | `button-disabled-bg` |
 | Etiqueta:disabled | color del texto | `button-disabled-text` |

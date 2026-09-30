@@ -59,12 +59,13 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Button | `Button` | **Completo (4 pestañas, formato de la referencia)** |
 | Accordion | `Accordion` | Guía breve |
 | Breadcrumb | `Breadcrumb` | Guía breve |
-| Checkbox | `Checkbox` | Guía breve |
+| Checkbox | `Checkbox` | **Completo (4 pestañas, formato de la referencia)** |
+| Combo box · Multiselect | `Combobox` | **Completo (4 pestañas, formato de la referencia)** |
 | Contained list | `List` | Guía breve |
 | Content switcher | `SegmentedControl` | Guía breve |
 | Data table | `Table` | Guía breve |
 | Date picker | `DatePicker`, `TimePicker` | Guía breve |
-| Dropdown · Select | `PopUpButton` | Guía breve |
+| Dropdown · Select | `PopUpButton` | **Completo (4 pestañas, formato de la referencia)** |
 | File uploader | `FileUploader` | Guía breve |
 | Inline loading · Loading | `ActivityIndicator`, `Skeleton`, `ProgressLine` | Guía breve |
 | Link | `Link` | Guía breve |
@@ -76,14 +77,14 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Popover · Toggletip | `Popover` | Guía breve |
 | Progress bar | `ProgressBar` | Guía breve |
 | Progress indicator | `ProgressIndicator` | Guía breve |
-| Radio button | `RadioGroup` | Guía breve |
+| Radio button | `RadioGroup` | **Completo (4 pestañas, formato de la referencia)** |
 | Search | `SearchField` | Guía breve |
 | Slider | `Slider` | Guía breve |
 | Tabs | `Tabs` | Guía breve |
 | Tag | `Tag` | Guía breve |
-| Text input | `TextInput`, `Textarea` | Guía breve |
+| Text input | `TextInput`, `Textarea` | **Completo (4 pestañas, formato de la referencia)** |
 | Tile | `Card` | Guía breve |
-| Toggle | `Switch` | Guía breve |
+| Toggle | `Switch` | **Completo (4 pestañas, formato de la referencia)** |
 | Tooltip | `Tooltip`, `Tip` | Guía breve |
 | UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | Guía breve |
 | Code snippet | — | Falta en ALMA |

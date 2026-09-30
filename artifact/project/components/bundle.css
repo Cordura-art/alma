@@ -33,7 +33,7 @@ html { font-family: var(--font-flex); font-stretch: 150%; font-variation-setting
 
 .alma-btn--tinted { background: var(--button-tinted-bg); color: var(--button-tinted-text); }
 .alma-btn--tinted:hover:not(:disabled) { background: var(--button-tinted-bg-hover); }
-.alma-btn--tinted:active:not(:disabled) { background: var(--button-tinted-bg); opacity: .8; }
+.alma-btn--tinted:active:not(:disabled) { background: var(--button-tinted-bg-hover); box-shadow: inset 0 0 0 2px currentColor; }
 
 .alma-btn--gray { background: var(--button-gray-bg); color: var(--button-gray-text); }
 .alma-btn--gray:hover:not(:disabled) { background: var(--button-gray-bg-hover); }

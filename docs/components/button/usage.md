@@ -117,7 +117,7 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 |---|---|
 | Reposo | Colores del estilo. |
 | Puntero encima | El fondo se oscurece o se aclara un paso (`*-bg-hover`). |
-| Presionado | Fondo del paso siguiente; en `plain`, `tinted` destructivo y `tertiary`, además un borde interior de 2 px. |
+| Presionado | Fondo del paso siguiente; en `tinted`, `plain` y `tertiary` (normales y destructivos), además un borde interior de 2 px. |
 | Foco de teclado | Anillo de 2 px en `focus`, separado 2 px. Solo con teclado (`:focus-visible`). |
 | Cargando | Un indicador reemplaza al ícono, el botón deja de responder y se anuncia como ocupado. |
 | Desactivado | Fondo `button-disabled-bg`, texto `button-disabled-text`. |
