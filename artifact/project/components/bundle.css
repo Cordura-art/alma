@@ -16,12 +16,9 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-btn--sm { min-height: var(--alma-control); padding: 0 var(--space-16); }
 .alma-btn--md { min-height: 56px; padding: 0 var(--space-24); font-size: 0.875rem; letter-spacing: 0.14px; }
 .alma-btn--lg { min-height: 72px; padding: 0 var(--space-32); font-size: 1rem; letter-spacing: 0.16px; }
-.alma-btn--lead { gap: 10px; }
-.alma-btn--trail { gap: 10px; }
+.alma-btn--lead { gap: var(--space-16); } /* icon-size-sm + 16 px to the label, like Sidebar and menus */
+.alma-btn--trail { gap: var(--space-16); }
 /* Icon side inset = (height - 24) / 2, so the 24px icon sits in a circle, as in Figma */
-.alma-btn--sm.alma-btn--lead { padding-left: 10px; } .alma-btn--sm.alma-btn--trail { padding-right: 10px; }
-.alma-btn--md.alma-btn--lead { padding-left: var(--space-16); } .alma-btn--md.alma-btn--trail { padding-right: var(--space-16); }
-.alma-btn--lg.alma-btn--lead { padding-left: var(--space-24); } .alma-btn--lg.alma-btn--trail { padding-right: var(--space-24); }
 .alma-btn--lead.alma-btn--trail { gap: var(--space-2); }
 .alma-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .alma-btn:disabled { cursor: not-allowed; background: var(--button-disabled-bg); color: var(--button-disabled-text); }
@@ -84,7 +81,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 
 /* Activity indicator (Apple: show progress inside the button for actions that don't complete instantly) */
 .alma-btn--loading { cursor: progress; }
-.alma-btn__spinner { width: 20px; height: 20px; margin: 2px; box-sizing: border-box; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: alma-spin calc(var(--duration-slow-02) + var(--duration-moderate-01)) linear infinite; flex: none; }
+.alma-btn__spinner { width: var(--icon-size-sm, 16px); height: var(--icon-size-sm, 16px); margin: 0; box-sizing: border-box; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: alma-spin calc(var(--duration-slow-02) + var(--duration-moderate-01)) linear infinite; flex: none; }
 @keyframes alma-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .alma-btn__spinner { animation: none; border-right-color: currentColor; opacity: .6; } }
 
@@ -323,8 +320,6 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-toolbar .alma-popup__btn--pull .alma-ico, .alma-crumbs .alma-popup__btn--pull .alma-ico { color: inherit; }
 .alma-toolbar .alma-popup__btn--pull:hover:not(:disabled), .alma-crumbs .alma-popup__btn--pull:hover:not(:disabled) { background: var(--button-plain-bg-hover); border-color: transparent; }
 .alma-toolbar .alma-menu { left: auto; right: 0; }
-/* Toolbar icons: icon-size-sm, like Sidebar, menus and TabBar. !important beats the inline size AlmaIcon sets; the 44 px touch area stays. */
-.alma-toolbar > .alma-toolbar__lead > .alma-btn .alma-ico, .alma-toolbar__trail > .alma-btn .alma-ico, .alma-toolbar__trail .alma-popup__btn .alma-ico { width: var(--icon-size-sm, 16px) !important; height: var(--icon-size-sm, 16px) !important; }
 
 /* ---------- SearchField (Apple search field) ---------- */
 .alma-search { position: relative; display: flex; flex-direction: column; gap: var(--space-8); width: 100%; max-width: 480px; }

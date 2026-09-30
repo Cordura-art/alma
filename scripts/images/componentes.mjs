@@ -81,7 +81,7 @@ export const componentScenes = [
       after: `all('[data-st]').forEach(function (c) { var s = c.getAttribute('data-st'); if (s) st(c.querySelector('.alma-btn'), s); });` }),
 
   scene('button', 'style', 'anatomía acotada de los tres tamaños', 'button-medidas',
-    'Medidas de Button en sus tres tamaños (44, 56 y 72 px de alto), con etiqueta sola, ícono antes, ícono después y solo ícono: relleno lateral, relleno del lado del ícono y separación entre ícono y etiqueta.',
+    'Medidas de Button en sus tres tamaños (44, 56 y 72 px de alto), con etiqueta sola, ícono antes, ícono después y solo ícono: relleno lateral, ícono de 16 px y separación de 16 px entre ícono y etiqueta.',
     { js: `var SZ = ['sm', 'md', 'lg'];
       mount(h('div', { style: { display: 'grid', gridTemplateColumns: '3rem repeat(4, auto)', gap: '64px 56px', alignItems: 'center', padding: '40px 120px 40px 8px' } },
         SZ.map(function (s) { return h(React.Fragment, { key: s }, h('span', { className: 'tok', style: { color: 'var(--text-01)' } }, s),

@@ -4,6 +4,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 30 de septiembre de 2026
 
+- **Íconos de los botones a 16 px.** `Button` y `PullDownButton` usan `icon-size-sm`, a 16 px de la etiqueta (antes 24 px y 10 px). El relleno del lado del ícono pasa a ser el mismo del otro lado (16, 24 o 32 px, según el tamaño), y el indicador de carga mide 16 px para que el botón no cambie de ancho.
 - **Íconos de SearchField a 16 px.** La lupa y el botón de borrar usan `icon-size-sm`; la lupa queda a 16 px del texto y el campo tiene 16 px de relleno a cada lado. Borrar mantiene su área de toque de 44 × 44 px.
 - **Íconos de Toolbar a 16 px.** Volver, las acciones y «Más» usan `icon-size-sm`, como Sidebar, los menús y TabBar. El área de toque sigue en 44 × 44 px. La lupa del buscador no cambia: es parte de `SearchField`.
 - **Íconos de TabBar a 16 px.** Pasan de 24 px a `icon-size-sm`, como en Sidebar y los menús. En fila (desde 672 px) el ícono queda a 16 px de la etiqueta; apilados, en el teléfono, siguen a 2 px.

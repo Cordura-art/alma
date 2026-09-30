@@ -41,10 +41,10 @@
       'aria-expanded': props['aria-expanded'], 'aria-controls': props['aria-controls'], 'aria-haspopup': props['aria-haspopup'],
       title: iconOnly && !props['aria-describedby'] ? props['aria-label'] : undefined
     },
-      loading ? h('span', { className: 'alma-btn__spinner', 'aria-hidden': 'true' }) : (props.iconBefore ? h(Icon, { name: props.iconBefore }) : null),
-      iconOnly && props.icon ? h(Icon, { name: props.icon }) : null,
+      loading ? h('span', { className: 'alma-btn__spinner', 'aria-hidden': 'true' }) : (props.iconBefore ? h(AlmaIcon, { name: props.iconBefore, size: 16 }) : null),
+      iconOnly && props.icon ? h(AlmaIcon, { name: props.icon, size: 16 }) : null,
       label ? h('span', { className: 'alma-btn__label' }, label) : null,
-      !loading && props.iconAfter ? h(Icon, { name: props.iconAfter }) : null
+      !loading && props.iconAfter ? h(AlmaIcon, { name: props.iconAfter, size: 16 }) : null
     );
   }
 
@@ -386,7 +386,7 @@
         'aria-haspopup': 'menu', 'aria-expanded': open, 'aria-label': props.icon && !props.label ? props['aria-label'] : undefined,
         onClick: function () { setOpen(!open); },
         onKeyDown: function (e) { if (e.key === 'ArrowDown') { e.preventDefault(); setOpen(true); } } },
-        props.icon ? h(AlmaIcon, { name: props.icon, size: 20 }) : null,
+        props.icon ? h(AlmaIcon, { name: props.icon, size: 16 }) : null,
         props.label ? h('span', { className: 'alma-popup__value' }, props.label) : null,
         props.label ? h(AlmaIcon, { name: 'chevron--down', size: 20 }) : null),
       open ? h(MenuSurface, { kind: 'menu', items: items, labelledBy: id, onClose: close,

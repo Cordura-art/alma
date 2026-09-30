@@ -383,19 +383,18 @@ Los tamaños van en rem: crecen con el tamaño de texto que elige la persona (pr
 
 | Elemento | Propiedad | `sm` | `md` | `lg` |
 |---|---|---|---|---|
-| Contenedor | relleno lateral | 16 px (`space-16`) | 24 px (`space-24`) | 32 px (`space-32`) |
-| Contenedor con ícono | relleno del lado del ícono | 10 px | 16 px (`space-16`) | 24 px (`space-24`) |
+| Contenedor | relleno lateral, también del lado del ícono | 16 px (`space-16`) | 24 px (`space-24`) | 32 px (`space-32`) |
 | Contenedor | radio | `radius-button` | `radius-button` | `radius-button` |
 | Contenedor | borde reservado | 2 px transparente | 2 px transparente | 2 px transparente |
-| Ícono | tamaño | 24 px (`icon-size-lg`) | 24 px | 24 px |
-| Ícono y etiqueta | separación | 10 px | 10 px | 10 px |
-| Indicador de carga | tamaño | 20 px, trazo 2 px | 20 px | 20 px |
+| Ícono | tamaño | 16 px (`icon-size-sm`) | 16 px | 16 px |
+| Ícono y etiqueta | separación | 16 px (`space-16`) | 16 px | 16 px |
+| Indicador de carga | tamaño | 16 px, trazo 2 px | 16 px | 16 px |
 | Grupo de botones | separación | 8 px (`space-8`) | 8 px | 8 px |
 
-- El relleno del lado del ícono es (alto − 24) / 2: el ícono queda centrado en un círculo, como en Figma.
+- El ícono mide lo mismo que su separación de la etiqueta (16 px), la misma regla de `Sidebar`, los menús, `TabBar`, `Toolbar` y `SearchField`. El indicador de carga ocupa el lugar del ícono con su mismo tamaño, así el botón no cambia de ancho.
 - El botón solo ícono es cuadrado (`aspect-ratio: 1`, sin relleno): un círculo del alto del botón.
 
-![Medidas de Button en sus tres tamaños (44, 56 y 72 px de alto), con etiqueta sola, ícono antes, ícono después y solo ícono: relleno lateral, relleno del lado del ícono y separación entre ícono y etiqueta.](assets/Componentes/button-medidas.png)
+![Medidas de Button en sus tres tamaños (44, 56 y 72 px de alto), con etiqueta sola, ícono antes, ícono después y solo ícono: relleno lateral, ícono de 16 px y separación de 16 px entre ícono y etiqueta.](assets/Componentes/button-medidas.png)
 
 ### Tamaño
 
