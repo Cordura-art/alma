@@ -6,6 +6,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Guías completas de la tanda 2.** Modal, Sheet, Alert, InlineNotification, ToastRegion, Tooltip y Popover tienen sus cuatro partes. La de Tooltip deja escrito un pendiente de WCAG 1.4.13: el globo todavía no se puede recorrer con el cursor sin que desaparezca.
 - **Accesibilidad de componentes.** Table y List aceptan `headingLevel`, como Accordion, para encajar en la jerarquía de títulos de la página. Modal y Sheet ya no usan `header` ni `footer`, que los lectores de pantalla anunciaban como regiones de la página. En pantallas angostas, la Toolbar pone el buscador en su propia fila.
 - **Sitio de documentación con el estilo de ALMA.** Una página propia, hecha con los componentes de ALMA (Sidebar, Toolbar, SearchField, Tabs, Table), reúne la guía general, estas novedades, los fundamentos (color, tipografía, espaciado, movimiento) y cada componente con su vista previa en vivo y sus pestañas Uso, Estilo, Código y Accesibilidad. Tiene los cuatro temas. `npm run site` la genera desde el repositorio.
 - **Guías completas de la tanda 1.** TextInput, Textarea, Combobox, PopUpButton, Checkbox, RadioGroup y Switch tienen ahora sus cuatro partes (Uso, Estilo, Código y Accesibilidad), con tablas de Elemento · Propiedad · Token por estado, tipografía, medidas, teclado y marcadores de imagen pendiente. Búscalas en la ficha de cada componente.
@@ -95,11 +96,11 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Inline loading · Loading | `ActivityIndicator`, `Skeleton`, `ProgressLine` | Guía breve |
 | Link | `Link` | Guía breve |
 | Menu · Menu buttons · Overflow menu | `PullDownButton` | Guía breve |
-| Modal | `Modal`, `Sheet`, `Alert` | Guía breve |
-| Notification | `InlineNotification`, `ToastRegion` | Guía breve |
+| Modal | `Modal`, `Sheet`, `Alert` | **Completo (4 pestañas, formato de la referencia)** |
+| Notification | `InlineNotification`, `ToastRegion` | **Completo (4 pestañas, formato de la referencia)** |
 | Number input | `Stepper` | Guía breve |
 | Pagination | `Pagination` | Guía breve |
-| Popover · Toggletip | `Popover` | Guía breve |
+| Popover · Toggletip | `Popover` | **Completo (4 pestañas, formato de la referencia)** |
 | Progress bar | `ProgressBar` | Guía breve |
 | Progress indicator | `ProgressIndicator` | Guía breve |
 | Radio button | `RadioGroup` | **Completo (4 pestañas, formato de la referencia)** |
@@ -110,7 +111,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Text input | `TextInput`, `Textarea` | **Completo (4 pestañas, formato de la referencia)** |
 | Tile | `Card` | Guía breve |
 | Toggle | `Switch` | **Completo (4 pestañas, formato de la referencia)** |
-| Tooltip | `Tooltip`, `Tip` | Guía breve |
+| Tooltip | `Tooltip`, `Tip` | **Tooltip completo**; Tip: guía breve |
 | UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | Guía breve |
 | Code snippet | — | Falta en ALMA |
 | Structured list | — | Falta en ALMA |

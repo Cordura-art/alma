@@ -52,6 +52,8 @@
       tb.className = 'alma-table';
       tb.parentNode.insertBefore(wrap, tb); sc.appendChild(tb); wrap.appendChild(sc);
     });
+    // Wide code scrolls sideways: make each block reachable and named, so the keyboard can scroll it (WCAG 2.1.1).
+    f.querySelectorAll('pre').forEach(function (pre, i) { pre.tabIndex = 0; pre.setAttribute('role', 'region'); pre.setAttribute('aria-label', 'Ejemplo de código ' + (i + 1)); });
     f.querySelectorAll('blockquote').forEach(function (q) { if (/^\s*Imagen pendiente/.test(q.textContent)) q.className = 'is-pending'; });
     var div = document.createElement('div'); div.appendChild(f);
     return (mdCache[key] = div.innerHTML);

@@ -49,6 +49,7 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .md hr { border: 0; border-top: 1px solid var(--ui-03); margin: var(--space-40) 0; }
 .md code { padding: 0 var(--space-4); border-radius: var(--radius-chip); background: var(--ui-01); font-size: 0.9em; }
 .md pre { max-width: 100%; margin: 0 0 var(--space-24); padding: var(--space-16); border-radius: var(--radius-panel); background: var(--ui-01); overflow-x: auto; }
+.md pre:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .md pre code { padding: 0; background: none; font-size: 0.75rem; line-height: 1.72; }
 .md blockquote { max-width: 48rem; margin: 0 0 var(--space-24); padding: var(--space-16) var(--space-24); border-radius: var(--radius-panel); background: var(--ui-01); color: var(--text-02); }
 .md blockquote.is-pending { background: none; border: 1px dashed var(--ui-04); }

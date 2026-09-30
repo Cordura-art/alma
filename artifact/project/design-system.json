@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T02:20:00Z",
+    "at": "2026-09-30T03:10:00Z",
     "via": "Claude Code",
-    "note": "Table y List con headingLevel; Modal y Sheet sin regiones de página; Toolbar con el buscador en su propia fila en pantallas angostas."
+    "note": "Tanda 2: guías completas de Modal, Sheet, Alert, InlineNotification, ToastRegion, Tooltip y Popover."
   },
   "layout": "files",
   "libraries": [

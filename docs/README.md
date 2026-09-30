@@ -70,11 +70,11 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Inline loading · Loading | `ActivityIndicator`, `Skeleton`, `ProgressLine` | Guía breve |
 | Link | `Link` | Guía breve |
 | Menu · Menu buttons · Overflow menu | `PullDownButton` | Guía breve |
-| Modal | `Modal`, `Sheet`, `Alert` | Guía breve |
-| Notification | `InlineNotification`, `ToastRegion` | Guía breve |
+| Modal | `Modal`, `Sheet`, `Alert` | **Completo (4 pestañas, formato de la referencia)** |
+| Notification | `InlineNotification`, `ToastRegion` | **Completo (4 pestañas, formato de la referencia)** |
 | Number input | `Stepper` | Guía breve |
 | Pagination | `Pagination` | Guía breve |
-| Popover · Toggletip | `Popover` | Guía breve |
+| Popover · Toggletip | `Popover` | **Completo (4 pestañas, formato de la referencia)** |
 | Progress bar | `ProgressBar` | Guía breve |
 | Progress indicator | `ProgressIndicator` | Guía breve |
 | Radio button | `RadioGroup` | **Completo (4 pestañas, formato de la referencia)** |
@@ -85,7 +85,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Text input | `TextInput`, `Textarea` | **Completo (4 pestañas, formato de la referencia)** |
 | Tile | `Card` | Guía breve |
 | Toggle | `Switch` | **Completo (4 pestañas, formato de la referencia)** |
-| Tooltip | `Tooltip`, `Tip` | Guía breve |
+| Tooltip | `Tooltip`, `Tip` | **Tooltip completo**; Tip: guía breve |
 | UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | Guía breve |
 | Code snippet | — | Falta en ALMA |
 | Structured list | — | Falta en ALMA |
