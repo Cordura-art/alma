@@ -6,6 +6,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Patrones y guías.** Nueve patrones (formularios, estados vacíos, notificaciones, carga, búsqueda y filtros, diálogos y capas, acciones, desactivado y solo lectura, contenido que desborda) y dos guías con pestañas: Accesibilidad y Contenido.
 - **Fundamentos con la profundidad de Carbon.** Color, Tipografía, Espaciado y grilla, Movimiento, Íconos y Temas tienen su página con pestañas (Resumen, Uso o Estilos, Código) y, en el sitio, una pestaña **Tokens** con las tablas en vivo. La de Temas pinta cada tema en su fila.
 - **Guías completas de la tanda 3.** Tabs, Sidebar, TabBar, Breadcrumb, Table, Pagination y List tienen sus cuatro partes.
 - **Pagination** muestra los números con el formato de Chile («1.284 movimientos»); antes salía «1284».
@@ -136,7 +137,7 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Movimiento (resumen, coreografía, código) | 4 | **Completo**: Resumen, Coreografía, Código y Tokens |
 | Íconos · Pictogramas | 4 | Íconos **completo** (Resumen, Uso, Código y Tokens); pictogramas: falta |
 | Temas | 2 | **Completo**: Resumen, Código y Tokens |
-| Patrones (18: acciones comunes, diálogos, estados desactivados y de solo lectura, divulgación, estados vacíos, filtros, formularios, encabezado global, carga, inicio de sesión, notificaciones, contenido que desborda, búsqueda, indicadores de estado, barra de texto, estilos fluidos) | 18 | Estados vacíos y notificaciones en la guía de contenido; el resto falta |
+| Patrones (18: acciones comunes, diálogos, estados desactivados y de solo lectura, divulgación, estados vacíos, filtros, formularios, encabezado global, carga, inicio de sesión, notificaciones, contenido que desborda, búsqueda, indicadores de estado, barra de texto, estilos fluidos) | 18 | **9 completos:** formularios, estados vacíos, notificaciones, carga, búsqueda y filtros, diálogos y capas, acciones, desactivado y solo lectura, contenido que desborda. Faltan: encabezado global, inicio de sesión, indicadores de estado, barra de texto, estilos fluidos y divulgación. |
 | Visualización de datos | 11 | Solo la paleta de gráficos |
-| Accesibilidad (resumen, color, teclado, desarrollo) | 4 | Reglas en la guía general |
-| Contenido (resumen, estilo, etiquetas de acción) | 3 | Guía de contenido |
+| Accesibilidad (resumen, color, teclado, desarrollo) | 4 | **Completo**: Resumen, Color, Teclado, Desarrollo |
+| Contenido (resumen, estilo, etiquetas de acción) | 3 | **Completo**: Voz y tono, Estilo de escritura, Etiquetas de acción, Formatos |

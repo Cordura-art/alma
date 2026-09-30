@@ -221,6 +221,17 @@
       mo ? h(Preview, { pv: mo.preview }) : null,
       h('div', { className: 'tabs-wrap' }, h(A.Tabs, { label: el.name, value: tab[0], onChange: tab[1], tabs: tabs })));
   }
+  // ---- Patterns (single pages) and guides (tabbed pages without tokens).
+  function Pattern(p) {
+    return h(React.Fragment, null, h(Head, { eyebrow: 'Patrones', title: p.pt.name, summary: p.pt.summary }), h(Md, { src: p.pt.body }));
+  }
+  function Guide(p) {
+    var g = p.g, tab = useState(g.sections[0].title);
+    return h(React.Fragment, null,
+      h(Head, { eyebrow: 'Guías', title: g.name, summary: g.summary }),
+      h('div', { className: 'tabs-wrap' }, h(A.Tabs, { label: g.name, value: tab[0], onChange: tab[1],
+        tabs: g.sections.map(function (s) { return { value: s.title, label: s.title, content: h(Md, { src: s.body, shift: true }) }; }) })));
+  }
   var TABS = ['Uso', 'Estilo', 'Código', 'Accesibilidad'];
   function Component(p) {
     var c = p.c, full = c.sections.length === 4 && c.sections.every(function (s, i) { return s.title === TABS[i]; });
@@ -246,6 +257,16 @@
   Object.keys(FUND).forEach(function (id) {
     var el = C.elements[FUND[id].slug]; if (!el) return;
     pages.push({ id: id, label: el.name, icon: FUND[id].icon, group: 'Fundamentos', render: function (s) { return h(Foundation, { id: id, theme: s.theme, key: id }); } });
+  });
+  var PATTERN_ICON = { 'formularios': 'list', 'estados-vacios': 'view', 'notificaciones': 'notification', 'carga': 'in-progress',
+    'busqueda-y-filtros': 'search', 'dialogos': 'layers', 'acciones': 'flash', 'desactivado-y-solo-lectura': 'view', 'contenido-que-desborda': 'overflow-menu--horizontal' };
+  (C.patterns || []).forEach(function (pt) {
+    pages.push({ id: pt.slug, label: pt.name, icon: PATTERN_ICON[pt.slug] || 'grid', group: 'Patrones', render: function () { return h(Pattern, { pt: pt, key: pt.slug }); } });
+  });
+  var GUIDE_ICON = { accesibilidad: 'user', contenido: 'chat' };
+  Object.keys(C.guides || {}).forEach(function (id) {
+    var g = C.guides[id];
+    pages.push({ id: id, label: g.name, icon: GUIDE_ICON[id] || 'help', group: 'Guías', render: function () { return h(Guide, { g: g, key: id }); } });
   });
   C.components.forEach(function (c) {
     if (c.name === 'Motion') return;

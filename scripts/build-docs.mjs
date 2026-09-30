@@ -37,20 +37,33 @@ const plan = demote((await readFile('docs/README.md', 'utf8')).replace(/^# .*\n/
 await writeFile('artifact/project/Documentacion.md', `# Documentación\n\n## Novedades\n${news}\n## Cómo se documenta ALMA\n${plan}`);
 console.log('Sección Documentación generada');
 
-// Foundations (color, type, spacing, motion, icons, themes): docs/elements/<dir>/<n>-<tab>.md → one section each,
-// artifact/project/Fundamentos-<order>-<dir>.md, with the tabs as "## <tab>" (as IBM Design Language pages).
-const EL = 'docs/elements';
-let els = 0;
-for (const dir of (await readdir(EL)).sort()) {
-  if (!(await stat(`${EL}/${dir}`)).isDirectory()) continue;
-  const tabs = [];
-  for (const f of (await readdir(`${EL}/${dir}`)).filter((f) => f.endsWith('.md')).sort()) tabs.push(parse(await readFile(`${EL}/${dir}/${f}`, 'utf8')));
-  if (!tabs.length) continue;
-  const { element, order, summary } = tabs[0].meta;
-  if (!element || !order) throw new Error(`${dir}: faltan "element" u "order" en el encabezado`);
-  let out = `# ${element}\n\n${summary || ''}\n\n`;
-  for (const t of tabs) out += `\n## ${t.meta.tab}\n\n${demote(t.body)}\n`;
-  await writeFile(`artifact/project/Fundamentos-${order}-${dir}.md`, out);
-  els++;
+// Foundations and guides: docs/<elements|guides>/<dir>/<n>-<tab>.md → one artifact section each,
+// artifact/project/<Fundamentos|Guias>-<order>-<dir>.md, with the tabs as "## <tab>" (as IBM Design Language pages).
+async function tabbedPages(root, prefix) {
+  let n = 0;
+  for (const dir of (await readdir(root)).sort()) {
+    if (!(await stat(`${root}/${dir}`)).isDirectory()) continue;
+    const tabs = [];
+    for (const f of (await readdir(`${root}/${dir}`)).filter((f) => f.endsWith('.md')).sort()) tabs.push(parse(await readFile(`${root}/${dir}/${f}`, 'utf8')));
+    if (!tabs.length) continue;
+    const { element, order, summary } = tabs[0].meta;
+    if (!element || !order) throw new Error(`${root}/${dir}: faltan "element" u "order" en el encabezado`);
+    let out = `# ${element}\n\n${summary || ''}\n\n`;
+    for (const t of tabs) out += `\n## ${t.meta.tab}\n\n${demote(t.body)}\n`;
+    await writeFile(`artifact/project/${prefix}-${order}-${dir}.md`, out);
+    n++;
+  }
+  return n;
 }
-console.log(`Fundamentos: ${els} páginas generadas desde docs/elements/`);
+console.log(`Fundamentos: ${await tabbedPages('docs/elements', 'Fundamentos')} páginas generadas desde docs/elements/`);
+console.log(`Guías: ${await tabbedPages('docs/guides', 'Guias')} páginas generadas desde docs/guides/`);
+
+// Patterns: docs/patterns/<n>-<slug>.md, single pages (as Carbon) → one artifact section, Patrones.md.
+let pats = '# Patrones\n\nSoluciones repetibles para problemas comunes, hechas con los componentes de ALMA.\n';
+const patFiles = (await readdir('docs/patterns')).filter((f) => f.endsWith('.md')).sort((a, b) => parseInt(a) - parseInt(b));
+for (const f of patFiles) {
+  const { meta, body } = parse(await readFile(`docs/patterns/${f}`, 'utf8'));
+  pats += `\n## ${meta.pattern}\n\n${meta.summary || ''}\n\n${demote(body)}\n`;
+}
+await writeFile('artifact/project/Patrones.md', pats);
+console.log(`Patrones: ${patFiles.length} en artifact/project/Patrones.md`);
