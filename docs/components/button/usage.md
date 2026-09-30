@@ -50,7 +50,7 @@ El rol dice qué significa el botón, con independencia de su estilo.
 
 ## Anatomía
 
-1. **Contenedor.** Esquinas `radius-button` (hoy en píldora) con el color del estilo. `plain` no tiene contenedor visible y `tertiary` solo tiene contorno.
+1. **Contenedor.** Esquinas `radius-button` con el color del estilo. `plain` no tiene contenedor visible y `tertiary` solo tiene contorno.
 2. **Etiqueta.** Texto centrado en una línea.
 3. **Ícono (opcional).** Antes o después de la etiqueta. Un botón puede ser **solo ícono**: entonces es un círculo y necesita nombre accesible.
 

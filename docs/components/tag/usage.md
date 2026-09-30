@@ -29,7 +29,7 @@ summary: Una etiqueta corta que clasifica, filtra o muestra un estado.
 
 ## Anatomía
 
-1. **Contenedor** con esquinas `radius-tag` (hoy en píldora), con el color de la etiqueta.
+1. **Contenedor** con esquinas `radius-tag`, con el color de la etiqueta.
 2. **Ícono** (opcional).
 3. **Texto.**
 4. **Quitar** (opcional).

@@ -2010,15 +2010,15 @@ export const core = {
     "space-80": "80px"
   },
   "radius": {
-    "radius-chip": "48px",
-    "radius-swatch": "0px",
-    "radius-panel": "0px",
-    "radius-card": "0px",
-    "radius-button": "100px",
+    "radius-chip": "4px",
+    "radius-swatch": "2px",
+    "radius-panel": "2px",
+    "radius-card": "4px",
+    "radius-button": "16px",
     "radius-field": "0px",
     "radius-nav": "100px",
-    "radius-tag": "100px",
-    "radius-checkbox": "4px",
+    "radius-tag": "8px",
+    "radius-checkbox": "2px",
     "radius-pill": "100px"
   },
   "duration": {
@@ -2084,8 +2084,8 @@ export const core = {
     "grid-margin-max": "24px"
   },
   "fontAxis": {
-    "font-width": "125",
-    "font-grade": "0"
+    "font-width": "130",
+    "font-grade": "20"
   }
 };
 export const fonts = {
@@ -2096,28 +2096,28 @@ export const typography = {
   "web-display-xl": {
     "fontSize": "40rem",
     "lineHeight": 1,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "-9.6px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-display-l": {
     "fontSize": "8rem",
     "lineHeight": 0.8,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-display-m": {
     "fontSize": "5.5rem",
     "lineHeight": 1,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "web-display-s": {
     "fontSize": "3.5rem",
     "lineHeight": 1.1,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "0.56px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
@@ -2222,21 +2222,21 @@ export const typography = {
   "app-display-l": {
     "fontSize": "3.5625rem",
     "lineHeight": 1.1228,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-display-m": {
     "fontSize": "2.8125rem",
     "lineHeight": 1.1556,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "app-display-s": {
     "fontSize": "2.25rem",
     "lineHeight": 1.2222,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
@@ -2327,21 +2327,21 @@ export const typography = {
   "print-display-l": {
     "fontSize": "3.5625rem",
     "lineHeight": 1.1228,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-display-m": {
     "fontSize": "2.8125rem",
     "lineHeight": 1.1556,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },
   "print-display-s": {
     "fontSize": "2.25rem",
     "lineHeight": 1.2222,
-    "fontWeight": 500,
+    "fontWeight": 220,
     "letterSpacing": "0.0px",
     "fontFamily": "\"Roboto Flex\", system-ui, sans-serif"
   },

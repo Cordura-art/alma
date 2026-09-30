@@ -2,27 +2,27 @@
   "radius": {
     "radius-chip": {
       "$type": "dimension",
-      "$value": "48px",
+      "$value": "4px",
       "$description": "Etiquetas flotantes de campo, globos de ayuda y contornos de foco pequeños."
     },
     "radius-swatch": {
       "$type": "dimension",
-      "$value": "0px",
+      "$value": "2px",
       "$description": "Tarjetas de muestra de color."
     },
     "radius-panel": {
       "$type": "dimension",
-      "$value": "0px",
+      "$value": "2px",
       "$description": "Menús, alertas y tarjetas de lista (en Figma: ProductCard y tarjetas de viaje)."
     },
     "radius-card": {
       "$type": "dimension",
-      "$value": "0px",
+      "$value": "4px",
       "$description": "Marcos de documentación y tarjetas grandes."
     },
     "radius-button": {
       "$type": "dimension",
-      "$value": "100px",
+      "$value": "16px",
       "$description": "Botones: Button, IconButton, Stepper, PopUpButton y SegmentedControl. 100 px es la píldora."
     },
     "radius-field": {
@@ -37,12 +37,12 @@
     },
     "radius-tag": {
       "$type": "dimension",
-      "$value": "100px",
+      "$value": "8px",
       "$description": "Tag, fichas del buscador, Badge y archivos del FileUploader."
     },
     "radius-checkbox": {
       "$type": "dimension",
-      "$value": "4px",
+      "$value": "2px",
       "$description": "La casilla de Checkbox: siempre con esquinas, para no confundirla con Radio."
     },
     "radius-pill": {

@@ -20,7 +20,7 @@ summary: Una casilla para marcar una o varias opciones independientes, o aceptar
 
 ## Anatomía
 
-1. **Casilla:** cuadrado de 20 px con esquinas `radius-checkbox` (4 px). Siempre con esquinas, para no confundirla con `RadioGroup`.
+1. **Casilla:** cuadrado de 20 px con esquinas `radius-checkbox` (2 px). Siempre con esquinas, para no confundirla con `RadioGroup`.
 2. **Marca:** check o guion.
 3. **Etiqueta:** a la derecha de la casilla.
 4. **Título del grupo** (en grupos): lo que tienen en común.

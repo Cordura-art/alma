@@ -2,12 +2,12 @@
   "fontAxis": {
     "font-width": {
       "$type": "number",
-      "$value": 125,
+      "$value": 130,
       "$description": "Ancho de Roboto Flex (eje wdth, de 25 a 151). ALMA usa 151, el máximo: la versión más extendida. Antes 150."
     },
     "font-grade": {
       "$type": "number",
-      "$value": 0,
+      "$value": 20,
       "$description": "Grado de Roboto Flex (eje GRAD, de −200 a 150): engrosa o aligera el trazo sin cambiar el ancho del texto. ALMA usa −200, el más liviano. Antes 0."
     }
   }

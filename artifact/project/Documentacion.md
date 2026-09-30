@@ -6,6 +6,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Tercer ajuste de estilo**, hecho con Ajustes de ALMA: Roboto Flex a ancho 130 y grado 20; *display* en peso 220; títulos, cuerpo y etiquetas en 350. Radios: botones 16 px, etiquetas 8 px, casilla 2 px, paneles y muestras 2 px, marcos grandes y detalles 4 px; campos rectos y navegación en píldora, sin cambios.
 - **Radios por familia.** Cinco tokens nuevos que se ajustan en Ajustes de ALMA: `radius-button`, `radius-field`, `radius-nav`, `radius-tag` y `radius-checkbox`. Parten con el valor que ya tenía cada elemento, salvo `SearchField` y el campo del `Slider`, que ahora siguen a los demás campos (0 px). La casilla de `Checkbox` tiene su propio radio de 4 px, así no se confunde con `RadioGroup`. Las opciones de `SegmentedControl` dejan de tener 48 px fijos.
 - **Segundo ajuste de estilo**, hecho con Ajustes de ALMA: Roboto Flex a ancho 125 y grado 0; *display* en peso 500; títulos, cuerpo y etiquetas en 350; esquinas rectas (`radius-panel`, `radius-card` y `radius-swatch` en 0 px) y `radius-chip` en 48 px, redondeado completo. Reemplaza al ajuste anterior del mismo día.
 - **Nuevo estilo tipográfico y de forma**, hecho con Ajustes de ALMA: Roboto Flex a ancho 151 y grado −200; *display* en peso 1000; títulos, cuerpo y etiquetas en 100; radios `radius-panel`, `radius-card` y `radius-swatch` en 8 px. `ProductCard` ahora toma su radio de `radius-panel` (antes 24 px fijos).

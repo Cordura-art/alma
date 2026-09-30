@@ -28,15 +28,15 @@ Un radio por familia de elementos. Se ajustan en **Ajustes de ALMA**, pestaña F
 
 | Token | Valor | Uso |
 |---|---|---|
-| `radius-button` | 100 px | Botones: `Button`, `IconButton`, `Stepper`, `PopUpButton`, `SegmentedControl`. |
+| `radius-button` | 16 px | Botones: `Button`, `IconButton`, `Stepper`, `PopUpButton`, `SegmentedControl`. |
 | `radius-field` | 0 px | Campos: `TextInput`, `Textarea`, `SearchField`, campo del `Slider`. |
 | `radius-nav` | 100 px | Navegación: `Tabs`, `Sidebar`, opciones de menú, `Breadcrumb`. |
-| `radius-tag` | 100 px | `Tag`, fichas del buscador, insignias, archivos de `FileUploader`. |
-| `radius-checkbox` | 4 px | La casilla de `Checkbox`. Siempre con esquinas, para no confundirla con `RadioGroup`. |
-| `radius-panel` | 0 px | Contenedores: tarjetas, menús, modales, tablas. |
-| `radius-card` | 0 px | Marcos de documentación y tarjetas grandes. |
-| `radius-swatch` | 0 px | Tarjetas de muestra de color. |
-| `radius-chip` | 48 px | Etiquetas flotantes de campo, globos de ayuda, contornos de foco pequeños. |
+| `radius-tag` | 8 px | `Tag`, fichas del buscador, insignias, archivos de `FileUploader`. |
+| `radius-checkbox` | 2 px | La casilla de `Checkbox`. Siempre con esquinas, para no confundirla con `RadioGroup`. |
+| `radius-panel` | 2 px | Contenedores: tarjetas, menús, modales, tablas. |
+| `radius-card` | 4 px | Marcos de documentación y tarjetas grandes. |
+| `radius-swatch` | 2 px | Tarjetas de muestra de color. |
+| `radius-chip` | 4 px | Etiquetas flotantes de campo, globos de ayuda, contornos de foco pequeños. |
 | `radius-pill` | 100 px | Formas siempre redondas: `Switch`, barra de progreso, días del calendario. No se ajusta. |
 
 ### Tamaños de interacción

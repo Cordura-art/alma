@@ -79,7 +79,7 @@ Cada token cambiado lo dice en su nota. No uses los valores anteriores.
 ## Tipografía
 
 - Una sola familia: **Roboto Flex**, siempre extendida (`font-stretch: 150%`, `"wdth" 150`). Roboto Mono solo para código.
-- Pesos, ajustados el 30 de septiembre de 2026 (antes 600, 500 y 400, del theme de origen de Cordura): *display* a 500 (Medium); encabezados web h1–h6, headline, title y blockquote a 350; cuerpo y etiquetas a 350 (entre Light y Regular). Los ejes de Roboto Flex: ancho `font-width` 125 y grado `font-grade` 0. No hay otros pesos.
+- Pesos, ajustados el 30 de septiembre de 2026 (antes 600, 500 y 400, del theme de origen de Cordura): *display* a 220 (entre ExtraLight y Light); encabezados web h1–h6, headline, title y blockquote a 350; cuerpo y etiquetas a 350 (entre Light y Regular). Los ejes de Roboto Flex: ancho `font-width` 130 y grado `font-grade` 20. No hay otros pesos.
 - Tres escalas, según el soporte:
   - **Web**: `web-display-l` 128 hasta `web-h6` 16, `web-body-m` 14 como cuerpo por defecto, `web-label-s` 11 para botones y ayudas.
   - **App**: `app-display-*`, `app-headline-*`, `app-title-*`, `app-body-*`, `app-label-*`.
@@ -91,7 +91,7 @@ Cada token cambiado lo dice en su nota. No uses los valores anteriores.
 ## Espaciado y grid
 
 - Escala: `space-8`, `space-16`, `space-24`, `space-32`, `space-40`, `space-48`, `space-56`, `space-64`, `space-72` y `space-80`.
-- Radios, uno por familia: `radius-button` (100 px, píldora) para botones, `radius-field` (0 px, esquinas rectas) para campos, `radius-nav` (100 px) para navegación, `radius-tag` (100 px) para etiquetas, `radius-checkbox` (4 px) para la casilla; `radius-panel` y `radius-card` (0 px) para contenedores y marcos, `radius-swatch` (0 px) para tarjetas de muestra, `radius-chip` (48 px) para detalles pequeños. `radius-pill` queda para las formas siempre redondas.
+- Radios, uno por familia: `radius-button` (16 px) para botones, `radius-field` (0 px, esquinas rectas) para campos, `radius-nav` (100 px, píldora) para navegación, `radius-tag` (8 px) para etiquetas, `radius-checkbox` (2 px) para la casilla; `radius-panel` (2 px) para contenedores, `radius-card` (4 px) para marcos grandes, `radius-swatch` (2 px) para tarjetas de muestra, `radius-chip` (4 px) para detalles pequeños. `radius-pill` queda para las formas siempre redondas.
 - Grid responsive, mobile first. Cada breakpoint aplica desde ese ancho:
 
 | Breakpoint | Desde | Columnas | Margen | Gutter |
@@ -180,7 +180,7 @@ Sale de las piezas de marca de Figma (Brand Key, Behance y mockups). La marca ju
 - Nunca pongas información importante solo dentro de una imagen: precios, fechas y avisos van en texto.
 - Texto sobre imagen: siempre con una veladura (`tint-dark-*` o `tint-white-*`) que asegure 4,5:1, medido en la zona más clara de la foto.
 - Proporciones: 16:9 para portadas y videos, 4:3 para tarjetas, 1:1 para avatares y miniaturas. Recorta con `object-fit: cover` y cuida que el foco quede dentro.
-- Esquinas: `radius-panel` (0 px, rectas) dentro de tarjetas; a sangre (sin radio) en portadas.
+- Esquinas: `radius-panel` (2 px) dentro de tarjetas; a sangre (sin radio) en portadas.
 - Carga diferida (`loading="lazy"`) para lo que está fuera de la primera pantalla, y siempre `width` y `height` para que la página no salte.
 - Video: sin sonido al empezar, con controles y subtítulos; si se reproduce solo, se detiene con movimiento reducido.
 

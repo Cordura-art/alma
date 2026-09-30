@@ -17,8 +17,8 @@ Roboto Flex tiene varios ejes; ALMA fija dos para todo el texto, como tokens:
 
 | Token | Eje | Valor | Qué hace |
 |---|---|---|---|
-| `font-width` | `wdth` (25 a 151) | 125 | El ancho: 125, extendido sin llegar al máximo de Roboto Flex (151). |
-| `font-grade` | `GRAD` (−200 a 150) | 0 | El grado, en su punto neutro: engrosa o aligera el trazo sin cambiar el ancho del texto, así nada se mueve de lugar. |
+| `font-width` | `wdth` (25 a 151) | 130 | El ancho: 130, extendido sin llegar al máximo de Roboto Flex (151). |
+| `font-grade` | `GRAD` (−200 a 150) | 20 | El grado, un poco sobre el neutro (0): engrosa o aligera el trazo sin cambiar el ancho del texto, así nada se mueve de lugar. |
 
 El peso (`wght`) va en cada estilo de texto. Para probar otros valores sobre componentes reales, usa la herramienta **Ajustes de ALMA** (`npm run tuner`).
 
@@ -28,11 +28,11 @@ Un peso por rol, ajustado el 30 de septiembre de 2026 con **Ajustes de ALMA** (l
 
 | Peso | Valor | Uso |
 |---|---|---|
-| Medium | 500 | *Display*: titulares grandes. |
+| Entre ExtraLight y Light | 220 | *Display*: titulares grandes. |
 | Entre Light y Regular | 350 | Encabezados h1–h6, *headline*, *title* y citas. |
 | Entre Light y Regular | 350 | Cuerpo y etiquetas. |
 
-El *display* se distingue por peso; títulos y cuerpo comparten peso y se distinguen por tamaño. Los pesos se aplican a los estilos de texto (`web-*`, `app-*`, `print-*`); el texto propio de los componentes conserva el peso de su CSS.
+El *display* es más liviano que el resto: a su tamaño, un trazo fino se lee bien y se ve elegante. Títulos y cuerpo comparten peso y se distinguen por tamaño. Los pesos se aplican a los estilos de texto (`web-*`, `app-*`, `print-*`); el texto propio de los componentes conserva el peso de su CSS.
 
 ## Tres escalas
 

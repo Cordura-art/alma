@@ -6,7 +6,7 @@
         "$value": {
           "fontSize": "40rem",
           "lineHeight": 1,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "-9.6px",
           "fontFamily": "{font.flex}"
         },
@@ -17,7 +17,7 @@
         "$value": {
           "fontSize": "8rem",
           "lineHeight": 0.8,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "0.0px",
           "fontFamily": "{font.flex}"
         },
@@ -28,7 +28,7 @@
         "$value": {
           "fontSize": "5.5rem",
           "lineHeight": 1,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "0.0px",
           "fontFamily": "{font.flex}"
         },
@@ -39,7 +39,7 @@
         "$value": {
           "fontSize": "3.5rem",
           "lineHeight": 1.1,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "0.56px",
           "fontFamily": "{font.flex}"
         },
@@ -206,7 +206,7 @@
         "$value": {
           "fontSize": "3.5625rem",
           "lineHeight": 1.1228,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "0.0px",
           "fontFamily": "{font.flex}"
         },
@@ -217,7 +217,7 @@
         "$value": {
           "fontSize": "2.8125rem",
           "lineHeight": 1.1556,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "0.0px",
           "fontFamily": "{font.flex}"
         },
@@ -228,7 +228,7 @@
         "$value": {
           "fontSize": "2.25rem",
           "lineHeight": 1.2222,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "0.0px",
           "fontFamily": "{font.flex}"
         },
@@ -373,7 +373,7 @@
         "$value": {
           "fontSize": "3.5625rem",
           "lineHeight": 1.1228,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "0.0px",
           "fontFamily": "{font.flex}"
         },
@@ -384,7 +384,7 @@
         "$value": {
           "fontSize": "2.8125rem",
           "lineHeight": 1.1556,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "0.0px",
           "fontFamily": "{font.flex}"
         },
@@ -395,7 +395,7 @@
         "$value": {
           "fontSize": "2.25rem",
           "lineHeight": 1.2222,
-          "fontWeight": 500,
+          "fontWeight": 220,
           "letterSpacing": "0.0px",
           "fontFamily": "{font.flex}"
         },

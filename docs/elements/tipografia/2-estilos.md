@@ -9,7 +9,7 @@ summary: Una familia, Roboto Flex extendida, en tres escalas: web, app e impresi
 
 | Estilo | Tamaño | Peso | Uso |
 |---|---|---|---|
-| `web-display-l` | 128 px (8 rem) | 500 | Titular de portada. |
+| `web-display-l` | 128 px (8 rem) | 220 | Titular de portada. |
 | `web-h1` | 40 px (2,5 rem) | 350 | Título de página. |
 | `web-h2` | 32 px (2 rem) | 350 | Sección. |
 | `web-h4` | 24 px (1,5 rem) | 350 | Subsección. |
@@ -42,7 +42,7 @@ La tabla completa, con los 48 estilos de las tres escalas, está en la pestaña 
 
 ## Números gigantes
 
-`web-display-xl` (640 px, 500) es el *display Xlarge* del theme de origen. Solo en portadas y carteles; nunca en una interfaz.
+`web-display-xl` (640 px, 220) es el *display Xlarge* del theme de origen. Solo en portadas y carteles; nunca en una interfaz.
 
 ## Cifras
 

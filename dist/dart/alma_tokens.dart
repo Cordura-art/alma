@@ -5046,23 +5046,23 @@ abstract final class AlmaSpacing {
 
 abstract final class AlmaRadius {
   /// Etiquetas flotantes de campo, globos de ayuda y contornos de foco pequeños.
-  static const double radiusChip = 48.0;
+  static const double radiusChip = 4.0;
   /// Tarjetas de muestra de color.
-  static const double radiusSwatch = 0.0;
+  static const double radiusSwatch = 2.0;
   /// Menús, alertas y tarjetas de lista (en Figma: ProductCard y tarjetas de viaje).
-  static const double radiusPanel = 0.0;
+  static const double radiusPanel = 2.0;
   /// Marcos de documentación y tarjetas grandes.
-  static const double radiusCard = 0.0;
+  static const double radiusCard = 4.0;
   /// Botones: Button, IconButton, Stepper, PopUpButton y SegmentedControl. 100 px es la píldora.
-  static const double radiusButton = 100.0;
+  static const double radiusButton = 16.0;
   /// Campos: TextInput, Textarea, Search y el campo del Slider.
   static const double radiusField = 0.0;
   /// Destinos de navegación: Tabs, Sidebar, ítems de menú y Breadcrumb.
   static const double radiusNav = 100.0;
   /// Tag, fichas del buscador, Badge y archivos del FileUploader.
-  static const double radiusTag = 100.0;
+  static const double radiusTag = 8.0;
   /// La casilla de Checkbox: siempre con esquinas, para no confundirla con Radio.
-  static const double radiusCheckbox = 4.0;
+  static const double radiusCheckbox = 2.0;
   /// Formas siempre redondas: Switch, barra de progreso, días del calendario, íconos dentro de campos.
   static const double radiusPill = 100.0;
 }
@@ -5131,9 +5131,9 @@ abstract final class AlmaGrid {
 
 abstract final class AlmaFontAxis {
   /// Ancho de Roboto Flex (eje wdth, de 25 a 151). ALMA usa 151, el máximo: la versión más extendida. Antes 150.
-  static const double fontWidth = 125.0;
+  static const double fontWidth = 130.0;
   /// Grado de Roboto Flex (eje GRAD, de −200 a 150): engrosa o aligera el trazo sin cambiar el ancho del texto. ALMA usa −200, el más liviano. Antes 0.
-  static const double fontGrade = 0.0;
+  static const double fontGrade = 20.0;
 }
 
 abstract final class AlmaDuration {
@@ -5163,10 +5163,10 @@ abstract final class AlmaShadow {
 
 /// ALMA text styles. Roboto Flex with the axes of AlmaFontAxis (width and grade).
 abstract final class AlmaTypography {
-  static const TextStyle webDisplayXl = TextStyle(fontFamily: 'Roboto Flex', fontSize: 640.0, height: 1.0, fontWeight: FontWeight.w500, letterSpacing: -9.6, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
-  static const TextStyle webDisplayL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 128.0, height: 0.8, fontWeight: FontWeight.w500, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
-  static const TextStyle webDisplayM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 88.0, height: 1.0, fontWeight: FontWeight.w500, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
-  static const TextStyle webDisplayS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 56.0, height: 1.1, fontWeight: FontWeight.w500, letterSpacing: 0.56, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle webDisplayXl = TextStyle(fontFamily: 'Roboto Flex', fontSize: 640.0, height: 1.0, fontWeight: FontWeight.w220, letterSpacing: -9.6, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle webDisplayL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 128.0, height: 0.8, fontWeight: FontWeight.w220, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle webDisplayM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 88.0, height: 1.0, fontWeight: FontWeight.w220, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle webDisplayS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 56.0, height: 1.1, fontWeight: FontWeight.w220, letterSpacing: 0.56, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle webH1 = TextStyle(fontFamily: 'Roboto Flex', fontSize: 40.0, height: 1.72, fontWeight: FontWeight.w350, letterSpacing: 0.4, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle webH2 = TextStyle(fontFamily: 'Roboto Flex', fontSize: 32.0, height: 1.72, fontWeight: FontWeight.w350, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle webH3 = TextStyle(fontFamily: 'Roboto Flex', fontSize: 28.0, height: 1.72, fontWeight: FontWeight.w350, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
@@ -5181,9 +5181,9 @@ abstract final class AlmaTypography {
   static const TextStyle webLabelL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 16.0, height: 1.72, fontWeight: FontWeight.w350, letterSpacing: 0.16, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle webLabelM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 14.0, height: 1.4, fontWeight: FontWeight.w350, letterSpacing: 0.14, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle webLabelS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 11.0, height: 1.4, fontWeight: FontWeight.w350, letterSpacing: 0.165, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
-  static const TextStyle appDisplayL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 57.0, height: 1.1228, fontWeight: FontWeight.w500, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
-  static const TextStyle appDisplayM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 45.0, height: 1.1556, fontWeight: FontWeight.w500, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
-  static const TextStyle appDisplayS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 36.0, height: 1.2222, fontWeight: FontWeight.w500, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle appDisplayL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 57.0, height: 1.1228, fontWeight: FontWeight.w220, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle appDisplayM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 45.0, height: 1.1556, fontWeight: FontWeight.w220, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle appDisplayS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 36.0, height: 1.2222, fontWeight: FontWeight.w220, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle appHeadlineL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 32.0, height: 1.25, fontWeight: FontWeight.w350, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle appHeadlineM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 28.0, height: 1.2857, fontWeight: FontWeight.w350, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle appHeadlineS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 24.0, height: 1.3333, fontWeight: FontWeight.w350, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
@@ -5196,9 +5196,9 @@ abstract final class AlmaTypography {
   static const TextStyle appLabelL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 16.0, height: 1.25, fontWeight: FontWeight.w350, letterSpacing: 0.1, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle appLabelM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 14.0, height: 1.1429, fontWeight: FontWeight.w350, letterSpacing: 0.5, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle appLabelS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 11.0, height: 1.4545, fontWeight: FontWeight.w350, letterSpacing: 0.5, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
-  static const TextStyle printDisplayL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 57.0, height: 1.1228, fontWeight: FontWeight.w500, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
-  static const TextStyle printDisplayM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 45.0, height: 1.1556, fontWeight: FontWeight.w500, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
-  static const TextStyle printDisplayS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 36.0, height: 1.2222, fontWeight: FontWeight.w500, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle printDisplayL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 57.0, height: 1.1228, fontWeight: FontWeight.w220, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle printDisplayM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 45.0, height: 1.1556, fontWeight: FontWeight.w220, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
+  static const TextStyle printDisplayS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 36.0, height: 1.2222, fontWeight: FontWeight.w220, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle printHeadlineL = TextStyle(fontFamily: 'Roboto Flex', fontSize: 32.0, height: 1.25, fontWeight: FontWeight.w350, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle printHeadlineM = TextStyle(fontFamily: 'Roboto Flex', fontSize: 28.0, height: 1.2857, fontWeight: FontWeight.w350, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
   static const TextStyle printHeadlineS = TextStyle(fontFamily: 'Roboto Flex', fontSize: 24.0, height: 1.3333, fontWeight: FontWeight.w350, letterSpacing: 0.0, fontVariations: <FontVariation>[FontVariation('wdth', AlmaFontAxis.fontWidth), FontVariation('GRAD', AlmaFontAxis.fontGrade)]);
