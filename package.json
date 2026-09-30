@@ -15,12 +15,13 @@
   },
   "scripts": {
     "build": "node scripts/build-tokens.mjs && node scripts/build-docs.mjs",
-    "test": "node scripts/check-roundtrip.mjs && node scripts/check-contrast.mjs",
+    "test": "node scripts/check-roundtrip.mjs && node scripts/check-contrast.mjs && node --test tests/*.test.mjs",
     "check": "npm run build && npm test",
     "site": "node scripts/build-site.mjs",
     "tokens:apply": "node scripts/apply-changes.mjs",
     "tuner": "node scripts/build-tuner.mjs",
-    "images": "node scripts/build-images.mjs"
+    "images": "node scripts/build-images.mjs",
+    "carta": "node scripts/carta.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -28,5 +29,8 @@
   "devDependencies": {
     "playwright": "^1.63.0",
     "style-dictionary": "^5.5.5"
+  },
+  "dependencies": {
+    "astronomy-engine": "^2.1.19"
   }
 }

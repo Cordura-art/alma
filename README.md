@@ -19,7 +19,8 @@ dist/              GENERADO: no se edita a mano
   json/tokens.json     el formato del artefacto ALMA
   dart/alma_tokens.dart  Flutter: AlmaColors (ThemeExtension), espaciado, movimiento, tipografía
 artifact/project/  la guía, los 48 componentes y sus vistas previas, tal como se publican en el artefacto
-tests/             pares de contraste que se verifican en cada cambio
+entidades/         motor de carta: fecha de nacimiento → carta de diseño humano, la semilla de una entidad
+tests/             pares de contraste y pruebas del motor de carta
 ```
 
 ## Comandos
@@ -27,12 +28,17 @@ tests/             pares de contraste que se verifican en cada cambio
 ```bash
 npm install     # una vez
 npm run build   # genera dist/ desde tokens/
-npm test        # ida y vuelta con el artefacto + contraste (580 pares, 4 temas)
+npm test        # ida y vuelta con el artefacto + contraste (628 pares, 4 temas) + motor de carta
 npm run site    # arma build/alma-site.html: la documentación con el estilo de ALMA
 npm run tuner   # arma build/alma-ajustes.html: la herramienta para ajustar temas, ejes de Roboto Flex, pesos y radios
 npm run tokens:apply -- cambios.json   # aplica a tokens/ los cambios exportados por la herramienta
 npm run images  # fotografía las imágenes de la documentación con los componentes reales (Playwright)
+npm run carta -- --fecha 1911-06-16 --hora 12:00 --zona America/New_York --nombre IBM   # carta de una entidad (--json para el objeto completo)
 ```
+
+## Entidades
+
+Una entidad es una marca tratada como persona: nace en una fecha, y su carta de diseño humano es la receta de su arquetipo. El motor (`entidades/carta.mjs`) calcula la carta completa con posiciones planetarias reales (`astronomy-engine`): las 26 activaciones de personalidad y diseño, las puertas y líneas, los canales, los centros definidos, el tipo, la autoridad, el perfil, la definición y la cruz. La fecha funciona como semilla: la misma fecha siempre da la misma entidad. Sin hora, se usa el mediodía y la carta avisa que la Luna y las líneas pueden cambiar.
 
 ## Usar ALMA
 
