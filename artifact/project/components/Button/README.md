@@ -55,7 +55,7 @@ El rol dice qué significa el botón, con independencia de su estilo.
 2. **Etiqueta.** Texto centrado en una línea.
 3. **Ícono (opcional).** Antes o después de la etiqueta. Un botón puede ser **solo ícono**: entonces es un círculo y necesita nombre accesible.
 
-> **Imagen pendiente:** anatomía numerada de un botón con etiqueta e ícono, de un `plain` y de un botón solo ícono.
+![Anatomía de Button: un botón filled con etiqueta e ícono de flecha, un botón plain y un botón solo ícono, con su contenedor (1), su etiqueta (2) y su ícono (3) numerados.](assets/Componentes/button-anatomia.png)
 
 ### Tamaños
 
@@ -67,7 +67,7 @@ El rol dice qué significa el botón, con independencia de su estilo.
 
 Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 px. No mezcles tamaños dentro de un mismo grupo de botones: usa el estilo, no el tamaño, para marcar la jerarquía.
 
-> **Imagen pendiente:** los tres tamaños lado a lado, con su alto y su contexto de uso (formulario, pantalla móvil, portada).
+![Los tres tamaños de Button lado a lado, con su alto: sm de 44 px en un formulario, md de 56 px como acción principal de una pantalla móvil y lg de 72 px en una portada.](assets/Componentes/button-tamanos.png)
 
 ### Énfasis y jerarquía
 
@@ -76,7 +76,7 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 - **Agrupa solo acciones relacionadas.** Un grupo es un conjunto de alternativas para el mismo momento, no una colección de botones sueltos.
 - **No toda vista necesita una acción `filled`.** Una vista de lectura o un listado puede no tener acción principal.
 
-> **Imagen pendiente:** una vista con una sola acción `filled` y dos de menor énfasis, frente a una vista con tres `filled` (incorrecto).
+![A la izquierda, la forma correcta: una vista con una sola acción filled y dos de menor énfasis. A la derecha, la incorrecta: tres acciones filled compiten entre sí.](assets/Componentes/button-enfasis.png)
 
 ### Alineación y orden
 
@@ -89,7 +89,7 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 | Barras de herramientas | A la derecha del título. | Solo `plain`; el resto en «Más». |
 | Teléfono | Ancho completo cuando el botón es la acción principal de la pantalla. | Apilados si no caben lado a lado. |
 
-> **Imagen pendiente:** alineación en diálogo, formulario, flujo por pasos, tarjeta, barra de herramientas y teléfono.
+![Alineación de los botones en seis contextos: en un diálogo a la derecha con Cancelar primero; en un formulario a la izquierda; en un flujo por pasos abajo a la derecha con Volver antes de Continuar; en una tarjeta abajo; en una barra de herramientas a la derecha del título; y en el teléfono a todo el ancho.](assets/Componentes/button-alineacion.png)
 
 ### Grupos de botones
 
@@ -98,7 +98,7 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 - Una sola acción `filled` por grupo. Combinaciones recomendadas: `filled` + `gray`, `filled` + `tinted`, `filled` + `tertiary`, `filled` + `plain`.
 - Evita dos `filled` juntas, `tinted` + `tertiary` sin una principal, y un botón destructivo como única opción visible sin «Cancelar».
 
-> **Imagen pendiente:** combinaciones recomendadas y combinaciones a evitar.
+![Combinaciones de botones. Recomendadas: filled con gray, con tinted, con tertiary y con plain. A evitar: dos filled juntas, tinted con tertiary sin una principal, y un botón destructivo solo, sin Cancelar.](assets/Componentes/button-combinaciones.png)
 
 ### Contenido
 
@@ -123,7 +123,7 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 | Cargando | Un indicador reemplaza al ícono, el botón deja de responder y se anuncia como ocupado. |
 | Desactivado | Fondo `button-disabled-bg`, texto `button-disabled-text`. |
 
-> **Imagen pendiente:** los seis estados de un botón `filled`, en tema oscuro y claro.
+![Los seis estados de un botón filled en tema oscuro y claro: reposo, puntero encima, presionado, foco de teclado, cargando y desactivado.](assets/Componentes/button-estados.png)
 
 #### Interacción
 
@@ -361,7 +361,7 @@ También se aplica a `ghost` e `inverse` con rol destructivo.
 | Etiqueta:active | color del texto | `button-destructive-text-pressed` |
 | Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
 
-> **Imagen pendiente:** los siete estilos y los cinco destructivos, en reposo, puntero encima, presionado, foco y desactivado, en tema oscuro y claro.
+![Los siete estilos de Button (filled, tinted, gray, tertiary, plain, ghost e inverse) y los cinco destructivos, en reposo, puntero encima, presionado, foco y desactivado, en tema oscuro y claro.](assets/Componentes/button-estilos.png)
 
 #### Valores por tema
 
@@ -395,7 +395,7 @@ Los tamaños van en rem: crecen con el tamaño de texto que elige la persona (pr
 - El relleno del lado del ícono es (alto − 24) / 2: el ícono queda centrado en un círculo, como en Figma.
 - El botón solo ícono es cuadrado (`aspect-ratio: 1`, sin relleno): un círculo del alto del botón.
 
-> **Imagen pendiente:** anatomía acotada de los tres tamaños, con etiqueta sola, ícono antes, ícono después y solo ícono.
+![Medidas de Button en sus tres tamaños (44, 56 y 72 px de alto), con etiqueta sola, ícono antes, ícono después y solo ícono: relleno lateral, relleno del lado del ícono y separación entre ícono y etiqueta.](assets/Componentes/button-medidas.png)
 
 ### Tamaño
 

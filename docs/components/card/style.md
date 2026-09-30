@@ -37,7 +37,7 @@ summary: Especificaciones visuales de la tarjeta.
 | Acciones | separación | 8 px |
 | Imagen | proporción | 16:9 por defecto |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Card: relleno del cuerpo, separación entre textos, relleno de las acciones y radio.](assets/Componentes/card-medidas.png)
 
 ## Movimiento
 

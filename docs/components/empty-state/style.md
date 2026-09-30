@@ -31,7 +31,7 @@ summary: Especificaciones visuales del estado vacío.
 | Ícono | tamaño | 32 px (`icon-size-xl`) |
 | Acciones | separación del texto | 16 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de EmptyState: ícono, separación entre ícono, título, mensaje y acción, y ancho máximo del texto.](assets/Componentes/empty-state-medidas.png)
 
 ## Contraste
 

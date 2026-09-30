@@ -24,7 +24,7 @@ summary: Una barra inferior para moverse entre las secciones principales de la a
 3. **Ítem actual**: ícono relleno y color `nav-selected`.
 4. **Insignia** (opcional): un número o «!» sobre el ícono.
 
-> **Imagen pendiente:** anatomía numerada con cuatro ítems y una insignia, en el teléfono y en tablet.
+![Anatomía de TabBar con cuatro ítems y una insignia, en el teléfono (ícono sobre la etiqueta) y en tablet (ícono y etiqueta en fila). Numerados: barra (1), ítem (2), ítem actual (3) e insignia (4).](assets/Componentes/tab-bar-anatomia.png)
 
 ## Reglas
 

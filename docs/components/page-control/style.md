@@ -21,7 +21,7 @@ summary: Especificaciones visuales del control de páginas.
 | Página actual | tamaño | 24 × 8 px, `radius-pill` |
 | Área de toque del punto | tamaño | 24 × 44 px (32 × 44 en el actual) |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de PageControl: puntos de 8 px, área táctil de 44 px por punto y separación entre puntos.](assets/Componentes/page-control-medidas.png)
 
 ## Movimiento
 

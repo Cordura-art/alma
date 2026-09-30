@@ -33,7 +33,7 @@ summary: Un campo de hora en formato de 24 horas.
 - Valida al salir del campo; el error dice cómo escribirla.
 - La ayuda por defecto es «Formato de 24 horas, por ejemplo 14:30».
 
-> **Imagen pendiente:** el campo con una hora válida y con error.
+![TimePicker con una hora válida (08:30) y con un error que explica el formato esperado.](assets/Componentes/time-picker-estados.png)
 
 ## Relacionados
 

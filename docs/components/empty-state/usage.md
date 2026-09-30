@@ -23,7 +23,7 @@ summary: Lo que se ve cuando una lista, una búsqueda o una sección no tiene co
 3. **Mensaje:** por qué, o qué se verá aquí.
 4. **Acción principal** y, si hace falta, una **secundaria**.
 
-> **Imagen pendiente:** «Aún no tienes viajes» con su acción «Buscar pasajes».
+![EmptyState «Aún no tienes viajes», con su mensaje y la acción «Buscar pasajes».](assets/Componentes/empty-state-viajes.png)
 
 ## Contenido
 

@@ -26,7 +26,7 @@ summary: La ruta desde el inicio hasta la página actual.
 3. **Página actual**: texto, no enlace.
 4. **Menú «…»** con los niveles plegados, si la ruta es larga.
 
-> **Imagen pendiente:** una ruta de 3 niveles y otra de 6 con el menú «…» abierto.
+![Dos rutas de Breadcrumb: una de tres niveles y otra de seis, abreviada con «…», con el menú de los niveles ocultos abierto.](assets/Componentes/breadcrumb-rutas.png)
 
 ## Rutas largas
 

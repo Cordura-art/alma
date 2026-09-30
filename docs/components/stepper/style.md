@@ -32,7 +32,7 @@ summary: Especificaciones visuales del contador.
 | Valor | ancho mínimo | 130 px |
 | Ícono y número | separación | 10 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Stepper: alto de 44 px de botones y valor, ancho de cada parte y radio.](assets/Componentes/stepper-medidas.png)
 
 ## Tamaño
 

@@ -39,7 +39,7 @@ summary: Especificaciones visuales de la barra de pestañas.
 | Ícono y etiqueta | separación | 2 px (apilados) · 8 px (en fila) |
 | Insignia | alto, ancho mínimo | 18 px, 18 px; `radius-tag` |
 
-> **Imagen pendiente:** anatomía acotada en el teléfono.
+![Medidas de TabBar en el teléfono: alto de la barra, alto y ancho de cada ítem, separación entre ícono y etiqueta, e insignia de 18 px.](assets/Componentes/tab-bar-medidas.png)
 
 ## Capas y movimiento
 

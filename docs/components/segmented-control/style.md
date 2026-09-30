@@ -35,7 +35,7 @@ La opción elegida se distingue por el fondo, no solo por el color del texto.
 | Opción | relleno lateral | 16 px |
 | Opción | radio | `radius-button` |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de SegmentedControl: relleno del contenedor, alto de cada opción, separación entre opciones y radio.](assets/Componentes/segmented-control-medidas.png)
 
 ## Tamaño
 

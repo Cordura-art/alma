@@ -26,7 +26,7 @@ Una casilla para marcar una o varias opciones independientes, o aceptar algo.
 3. **Etiqueta:** a la derecha de la casilla.
 4. **Título del grupo** (en grupos): lo que tienen en común.
 
-> **Imagen pendiente:** anatomía numerada de una casilla sola y de un grupo con padre e hijas.
+![Anatomía de Checkbox: una casilla sola y un grupo con una casilla madre en estado mixto y dos hijas. Numerados: casilla (1), marca (2), etiqueta (3) y título del grupo (4).](assets/Componentes/checkbox-anatomia.png)
 
 ### Estados
 
@@ -40,7 +40,7 @@ Una casilla para marcar una o varias opciones independientes, o aceptar algo.
 
 Los tres estados se distinguen por la forma, no solo por el color.
 
-> **Imagen pendiente:** los cinco estados en tema oscuro y claro.
+![Los cinco estados de Checkbox en tema oscuro y claro: sin marcar, marcada, mixta, foco y desactivada.](assets/Componentes/checkbox-estados.png)
 
 ### Grupos y jerarquías
 
@@ -101,7 +101,7 @@ En tema claro, `control-on` es un oliva oscuro: el lima no llega a 3:1 sobre fon
 | Fila | alto mínimo | 44 px (`size-touch-min`) |
 | Área de toque de la casilla | tamaño | 44 × 44 px |
 
-> **Imagen pendiente:** anatomía acotada con las medidas.
+![Medidas de Checkbox: casilla de 20 px con radio de 2 px, separación entre casilla y etiqueta, y el alto de la fila, que llega al área táctil de 44 px.](assets/Componentes/checkbox-medidas.png)
 
 ### Tamaño
 

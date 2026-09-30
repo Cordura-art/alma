@@ -32,7 +32,7 @@ Un ícono de IBM Carbon, dibujado como SVG dentro de la página.
 | 24 px (por defecto) | Junto a texto. |
 | 32 px | Zonas vacías. |
 
-> **Imagen pendiente:** el mismo ícono en contorno y relleno, en los cuatro tamaños.
+![El ícono de información en contorno y en relleno, en los cuatro tamaños de ALMA: 16, 20, 24 y 32 px.](assets/Componentes/icon-tamanos.png)
 
 ### Contenido
 

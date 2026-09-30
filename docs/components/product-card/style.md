@@ -34,7 +34,7 @@ summary: Especificaciones visuales de la tarjeta de producto.
 | Texto | relleno | 20 px arriba y abajo, 16 px a los lados |
 | Botón | relleno, radio | 4 px, `radius-pill`; área de toque de 44 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de ProductCard: relleno, botón para abrir y cerrar, separación entre encabezado y cuerpo, y radio.](assets/Componentes/product-card-medidas.png)
 
 ## Movimiento
 

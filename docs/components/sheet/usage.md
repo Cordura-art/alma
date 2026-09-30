@@ -27,7 +27,7 @@ summary: Una hoja que sube desde abajo en el teléfono y se centra desde tablet.
 5. **Cuerpo**, que hace scroll.
 6. **Pie** con las acciones, si las hay.
 
-> **Imagen pendiente:** la misma hoja en el teléfono (abajo) y en tablet (centrada), lado a lado.
+![La misma hoja «Compartir viaje» en el teléfono, pegada abajo, y en tablet, centrada.](assets/Componentes/sheet-dispositivos.png)
 
 ## Comportamiento
 

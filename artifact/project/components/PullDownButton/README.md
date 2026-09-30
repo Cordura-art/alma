@@ -24,7 +24,7 @@ Un botón que abre una lista de acciones relacionadas con algo.
 2. **Menú** con las acciones.
 3. **Acción destructiva** (opcional), en rojo, al final.
 
-> **Imagen pendiente:** el menú de una tarjeta de pago con «Copiar número», «Congelar tarjeta» y «Eliminar tarjeta».
+![PullDownButton abierto en una tarjeta de pago, con las acciones «Copiar número», «Congelar tarjeta» y, separada en rojo, «Eliminar tarjeta».](assets/Componentes/pull-down-button-menu.png)
 
 ### Contenido
 
@@ -74,7 +74,7 @@ Dentro de una `Toolbar` o un `Breadcrumb`, el botón no tiene borde y usa los co
 
 Igual al menú de `PopUpButton`: separado 8 px del botón, relleno de 8 px, radio `radius-panel`, acciones de 44 px de alto con `radius-nav` y separadas 4 px, columna de 24 px para el ícono.
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de PullDownButton: botón de 44 px, separación de 8 px con el menú, relleno del menú y alto de las acciones.](assets/Componentes/pull-down-button-medidas.png)
 
 ### Movimiento
 

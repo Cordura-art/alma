@@ -38,7 +38,7 @@ summary: Especificaciones visuales del indicador de pasos.
 | Ícono y texto | separación | 8 px |
 | Paso | alto mínimo | 44 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de ProgressIndicator: tamaño del ícono de cada paso, separación entre ícono y texto, y línea entre pasos.](assets/Componentes/progress-indicator-medidas.png)
 
 ## Contraste
 

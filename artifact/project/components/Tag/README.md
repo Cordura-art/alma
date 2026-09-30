@@ -34,7 +34,7 @@ Una etiqueta corta que clasifica, filtra o muestra un estado.
 3. **Texto.**
 4. **Quitar** (opcional).
 
-> **Imagen pendiente:** los tres tipos, y la paleta de 11 colores.
+![Los tres tipos de Tag (de lectura, que se quita y que se elige) y la paleta de once colores, de rojo a gris frío.](assets/Componentes/tag-tipos.png)
 
 ### Colores
 
@@ -101,7 +101,7 @@ Once colores de la paleta secundaria: `red`, `yellow`, `magenta`, `purple`, `blu
 | Quitar | tamaño / área de toque | 20 px / 32 px |
 | Seleccionable | área de toque | 44 px de alto |
 
-> **Imagen pendiente:** anatomía acotada de los tres tipos.
+![Medidas de Tag en sus tres tipos: alto, relleno, radio, separación con el botón para quitar y borde de la opción elegida.](assets/Componentes/tag-medidas.png)
 
 ### Movimiento
 

@@ -34,7 +34,7 @@ Una lista agrupada de filas para navegar, actuar o mostrar datos.
 3. **Separador**, con sangría hasta el texto.
 4. **Nota al pie** (opcional).
 
-> **Imagen pendiente:** dos grupos: uno de navegación con íconos y un resumen de precios.
+![Dos grupos de List: uno de navegación, con íconos y flecha, y un resumen de precios con los montos a la derecha.](assets/Componentes/list-grupos.png)
 
 ### Contenido
 
@@ -98,7 +98,7 @@ El valor usa cifras tabulares.
 | Flecha | tamaño | 20 px |
 | Nota al pie | margen | 8 px arriba, 16 px a los lados |
 
-> **Imagen pendiente:** anatomía acotada con ícono.
+![Medidas de List con ícono: alto de la fila, relleno lateral, ícono de 24 px, separación entre ícono y texto, y radio del grupo.](assets/Componentes/list-medidas.png)
 
 ### Tamaño
 

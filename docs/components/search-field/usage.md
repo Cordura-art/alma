@@ -26,7 +26,7 @@ summary: Un campo de búsqueda con sugerencias, alcance y filtros.
 5. **Sugerencias**, con título opcional.
 6. **Alcance** (opcional): un `SegmentedControl` debajo.
 
-> **Imagen pendiente:** anatomía numerada con dos tokens, sugerencias abiertas y el alcance.
+![Anatomía de SearchField con dos tokens, las sugerencias abiertas y el alcance. Numerados: lupa (1), campo (2), tokens (3), borrar (4), sugerencias (5) y alcance (6).](assets/Componentes/search-field-anatomia.png)
 
 ## Contenido
 

@@ -40,7 +40,7 @@ summary: Especificaciones visuales del campo de búsqueda.
 | Borrar y quitar token | área de toque | 44 × 44 px |
 | Sugerencias | separación del campo | 8 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de SearchField: alto del campo, relleno, radio, ícono de 24 px y alto de los tokens.](assets/Componentes/search-field-medidas.png)
 
 ## Tamaño
 

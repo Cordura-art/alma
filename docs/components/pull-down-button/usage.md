@@ -24,7 +24,7 @@ summary: Un botón que abre una lista de acciones relacionadas con algo.
 2. **Menú** con las acciones.
 3. **Acción destructiva** (opcional), en rojo, al final.
 
-> **Imagen pendiente:** el menú de una tarjeta de pago con «Copiar número», «Congelar tarjeta» y «Eliminar tarjeta».
+![PullDownButton abierto en una tarjeta de pago, con las acciones «Copiar número», «Congelar tarjeta» y, separada en rojo, «Eliminar tarjeta».](assets/Componentes/pull-down-button-menu.png)
 
 ## Contenido
 

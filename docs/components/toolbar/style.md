@@ -33,7 +33,7 @@ summary: Especificaciones visuales de la barra de herramientas.
 | Acciones | separación | 4 px |
 | Buscador (menos de 672 px) | relleno | 8 px a los lados y abajo |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Toolbar: alto de la barra, relleno lateral, separación entre grupos y botones de acción de 44 px.](assets/Componentes/toolbar-medidas.png)
 
 ## Capas
 

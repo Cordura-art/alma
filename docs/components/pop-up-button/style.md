@@ -58,7 +58,7 @@ summary: Especificaciones visuales del botón con menú de opciones.
 | Opciones | separación | 4 px (`space-4`) |
 | Opción | columna de la marca | 24 px |
 
-> **Imagen pendiente:** anatomía acotada del botón y del menú abierto.
+![Medidas de PopUpButton: alto del botón, relleno, separación entre botón y menú, relleno del menú, alto de las opciones y columna de 24 px para la marca.](assets/Componentes/pop-up-button-medidas.png)
 
 ## Tamaño
 

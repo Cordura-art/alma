@@ -32,7 +32,7 @@ summary: Especificaciones visuales del consejo.
 | Ícono y texto | separación | 16 px |
 | Título y mensaje | separación | 4 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Tip: relleno, ícono, separación entre ícono y texto, botón Cerrar y radio.](assets/Componentes/tip-medidas.png)
 
 ## Contraste
 

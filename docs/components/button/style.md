@@ -181,7 +181,7 @@ También se aplica a `ghost` e `inverse` con rol destructivo.
 | Etiqueta:active | color del texto | `button-destructive-text-pressed` |
 | Contenedor:focus | contorno | `focus` (2 px, separado 2 px) |
 
-> **Imagen pendiente:** los siete estilos y los cinco destructivos, en reposo, puntero encima, presionado, foco y desactivado, en tema oscuro y claro.
+![Los siete estilos de Button (filled, tinted, gray, tertiary, plain, ghost e inverse) y los cinco destructivos, en reposo, puntero encima, presionado, foco y desactivado, en tema oscuro y claro.](assets/Componentes/button-estilos.png)
 
 ### Valores por tema
 
@@ -215,7 +215,7 @@ Los tamaños van en rem: crecen con el tamaño de texto que elige la persona (pr
 - El relleno del lado del ícono es (alto − 24) / 2: el ícono queda centrado en un círculo, como en Figma.
 - El botón solo ícono es cuadrado (`aspect-ratio: 1`, sin relleno): un círculo del alto del botón.
 
-> **Imagen pendiente:** anatomía acotada de los tres tamaños, con etiqueta sola, ícono antes, ícono después y solo ícono.
+![Medidas de Button en sus tres tamaños (44, 56 y 72 px de alto), con etiqueta sola, ícono antes, ícono después y solo ícono: relleno lateral, relleno del lado del ícono y separación entre ícono y etiqueta.](assets/Componentes/button-medidas.png)
 
 ## Tamaño
 

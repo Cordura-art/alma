@@ -27,7 +27,7 @@ summary: Un contenedor de un tema: un viaje, una noticia, una configuración.
 5. **Contenido** (opcional).
 6. **Acciones** (opcionales), abajo.
 
-> **Imagen pendiente:** una tarjeta de viaje con imagen, título, subtítulo y una acción.
+![Una tarjeta de viaje con imagen, antetítulo con la fecha, título con la ruta, subtítulo con el asiento y la acción «Ver pasaje».](assets/Componentes/card-viaje.png)
 
 ## Tipos
 

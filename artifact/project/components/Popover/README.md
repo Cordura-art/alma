@@ -27,7 +27,7 @@ Un diálogo pequeño y no modal junto al botón que lo abre.
 4. **Contenido.**
 5. **Botón Cerrar.**
 
-> **Imagen pendiente:** un popover abierto bajo un botón de información, en tema oscuro y claro.
+![Un Popover abierto bajo un botón de información que explica la tasa de embarque, en tema oscuro y claro.](assets/Componentes/popover-abierto.png)
 
 ### Ubicación
 
@@ -89,7 +89,7 @@ Un diálogo pequeño y no modal junto al botón que lo abre.
 | Título y contenido | separación | 4 px |
 | Botón Cerrar | posición | esquina superior derecha |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Popover: separación con el botón, relleno, ancho máximo, botón Cerrar y radio.](assets/Componentes/popover-medidas.png)
 
 ### Capas y movimiento
 

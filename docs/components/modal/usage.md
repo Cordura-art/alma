@@ -38,7 +38,7 @@ summary: Un diálogo que bloquea la página para una tarea breve y enfocada.
 6. **Cuerpo:** descripción y contenido; es lo único que hace scroll.
 7. **Pie:** «Cancelar» a la izquierda y la acción principal a la derecha, separados por un borde.
 
-> **Imagen pendiente:** anatomía numerada de un modal transaccional con un campo, en tema oscuro.
+![Anatomía de un Modal transaccional con un campo, en tema oscuro. Numerados: velo (1), contenedor (2), antetítulo (3), título (4), botón Cerrar (5), cuerpo (6) y pie (7).](assets/Componentes/modal-anatomia.png)
 
 ## Tamaños
 
@@ -50,7 +50,7 @@ summary: Un diálogo que bloquea la página para una tarea breve y enfocada.
 
 El alto se ajusta al contenido hasta la altura de la pantalla menos 32 px; si no cabe, el cuerpo hace scroll y el título y el pie quedan fijos.
 
-> **Imagen pendiente:** los tres tamaños sobre la misma página, con sus medidas.
+![Los tres tamaños de Modal (sm, md y lg) sobre la misma página, con su ancho.](assets/Componentes/modal-tamanos.png)
 
 ## Contenido
 
@@ -68,7 +68,7 @@ El alto se ajusta al contenido hasta la altura de la pantalla menos 32 px; si no
 - `dismissible: false` quita «Cerrar» y Esc; úsalo solo si la tarea no se puede abandonar.
 - En pantallas angostas, los botones del pie se reparten el ancho.
 
-> **Imagen pendiente:** secuencia abrir → escribir → guardar, con la ruta del foco marcada.
+![La ruta del foco en un Modal: al abrir, el foco va al campo; al escribir, sigue en el campo; al guardar, el modal se cierra y el foco vuelve al botón que lo abrió.](assets/Componentes/modal-foco.png)
 
 ## Relacionados
 

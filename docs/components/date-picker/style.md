@@ -39,7 +39,7 @@ El campo usa los tokens de `TextInput` (`field-*`). El calendario:
 | Calendario | separación del campo | 8 px |
 | Día | alto, radio | 44 px, `radius-pill` |
 
-> **Imagen pendiente:** anatomía acotada del calendario.
+![Medidas del calendario de DatePicker: ancho del panel, relleno, alto de cada día y radio.](assets/Componentes/date-picker-medidas.png)
 
 ## Capas
 

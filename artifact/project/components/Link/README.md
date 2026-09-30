@@ -26,7 +26,7 @@ Un enlace de texto que lleva a otra página o sección.
 | Externo | `external` | Abre en otra pestaña y muestra el ícono `launch`. |
 | Página actual | `current` | Marca la página actual. |
 
-> **Imagen pendiente:** los cuatro tipos, en reposo, con cursor encima, visitado y con foco.
+![Los cuatro tipos de Link (dentro de un texto, suelto, externo y página actual) en reposo, con el cursor encima, visitado y con foco.](assets/Componentes/link-tipos.png)
 
 ### Contenido
 

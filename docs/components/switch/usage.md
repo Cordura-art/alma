@@ -24,7 +24,7 @@ summary: Un interruptor para encender o apagar un ajuste que se aplica al instan
 3. **Pista:** 52 × 32 px.
 4. **Perilla:** círculo de 24 px que se desplaza; encendida, muestra un check.
 
-> **Imagen pendiente:** anatomía numerada de una fila con descripción, encendida y apagada.
+![Anatomía de Switch: una fila con descripción, encendida y apagada. Numerados: etiqueta (1), descripción (2), pista (3) y perilla (4).](assets/Componentes/switch-anatomia.png)
 
 ## Estados
 
@@ -37,7 +37,7 @@ summary: Un interruptor para encender o apagar un ajuste que se aplica al instan
 
 La diferencia está en la posición, el relleno y el check, no solo en el color.
 
-> **Imagen pendiente:** encendido, apagado, foco y desactivado en tema oscuro y claro.
+![Los estados de Switch en tema oscuro y claro: encendido, apagado, con foco y desactivado.](assets/Componentes/switch-estados.png)
 
 ## Contenido
 

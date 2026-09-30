@@ -26,7 +26,7 @@ Un selector de una opción entre pocas alternativas, en una píldora.
 2. **Opción.**
 3. **Opción elegida**: fondo blanco.
 
-> **Imagen pendiente:** la píldora de pasajes con la opción «Ida» elegida, en tema oscuro y claro.
+![SegmentedControl de tipo de pasaje con la opción «Ida» elegida, en tema oscuro y claro.](assets/Componentes/segmented-control-ida.png)
 
 ### Contenido
 
@@ -80,7 +80,7 @@ La opción elegida se distingue por el fondo, no solo por el color del texto.
 | Opción | relleno lateral | 16 px |
 | Opción | radio | `radius-button` |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de SegmentedControl: relleno del contenedor, alto de cada opción, separación entre opciones y radio.](assets/Componentes/segmented-control-medidas.png)
 
 ### Tamaño
 

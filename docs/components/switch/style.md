@@ -41,7 +41,7 @@ En tema claro, `control-on` es un oliva oscuro, porque el lima no se ve sobre fo
 | Etiqueta e interruptor | separación | 16 px (`space-16`) |
 | Área de toque del interruptor | tamaño | 44 × 44 px |
 
-> **Imagen pendiente:** anatomía acotada con las medidas.
+![Medidas de Switch: pista de 52 × 32 px con borde, perilla de 24 px y separación con la etiqueta.](assets/Componentes/switch-medidas.png)
 
 ## Movimiento
 

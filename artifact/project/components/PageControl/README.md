@@ -22,7 +22,7 @@ Una fila de puntos, uno por página, para moverse en un carrusel.
 1. **Punto** por página.
 2. **Página actual**: una píldora más ancha.
 
-> **Imagen pendiente:** 5 puntos con el tercero como página actual.
+![PageControl con cinco puntos y el tercero como página actual, bajo un carrusel de destinos.](assets/Componentes/page-control-puntos.png)
 
 ### Comportamiento
 
@@ -56,7 +56,7 @@ Una fila de puntos, uno por página, para moverse en un carrusel.
 | Página actual | tamaño | 24 × 8 px, `radius-pill` |
 | Área de toque del punto | tamaño | 24 × 44 px (32 × 44 en el actual) |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de PageControl: puntos de 8 px, área táctil de 44 px por punto y separación entre puntos.](assets/Componentes/page-control-medidas.png)
 
 ### Movimiento
 

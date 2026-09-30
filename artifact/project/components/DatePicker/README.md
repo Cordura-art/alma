@@ -25,7 +25,7 @@ Un campo de fecha con calendario, en formato de Chile.
 4. **Calendario**: mes y año, flechas de mes, grilla de días, botón «Hoy».
 5. **Ayuda** o **error**.
 
-> **Imagen pendiente:** el campo con el calendario abierto, con hoy marcado, un día elegido y días fuera de rango tachados.
+![DatePicker con el calendario abierto en marzo de 2026: hoy (18) marcado, el 25 elegido y los días anteriores a hoy fuera de rango.](assets/Componentes/date-picker-abierto.png)
 
 ### Contenido
 
@@ -84,7 +84,7 @@ El campo usa los tokens de `TextInput` (`field-*`). El calendario:
 | Calendario | separación del campo | 8 px |
 | Día | alto, radio | 44 px, `radius-pill` |
 
-> **Imagen pendiente:** anatomía acotada del calendario.
+![Medidas del calendario de DatePicker: ancho del panel, relleno, alto de cada día y radio.](assets/Componentes/date-picker-medidas.png)
 
 ### Capas
 

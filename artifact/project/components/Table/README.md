@@ -26,7 +26,7 @@ Una tabla de filas y columnas para leer, ordenar y seleccionar datos.
 4. **Celda.**
 5. **Pie**: normalmente una `Pagination`, pegada debajo.
 
-> **Imagen pendiente:** anatomía numerada con selección, orden y paginación.
+![Anatomía de Table con selección, orden y paginación. Numerados: título y descripción (1), encabezado (2), fila con casilla (3), celda (4) y pie con Pagination (5).](assets/Componentes/table-anatomia.png)
 
 ### Funciones
 
@@ -104,7 +104,7 @@ Los números usan cifras tabulares (`tabular-nums`).
 | Tabla vacía | relleno | 32 px arriba y abajo |
 | Última fila | borde | sin borde inferior |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Table: alto de fila de 56 px, relleno de las celdas, alto del encabezado y radio del contenedor.](assets/Componentes/table-medidas.png)
 
 ### Tamaño
 

@@ -23,7 +23,7 @@ Lo que se ve cuando una lista, una búsqueda o una sección no tiene contenido.
 3. **Mensaje:** por qué, o qué se verá aquí.
 4. **Acción principal** y, si hace falta, una **secundaria**.
 
-> **Imagen pendiente:** «Aún no tienes viajes» con su acción «Buscar pasajes».
+![EmptyState «Aún no tienes viajes», con su mensaje y la acción «Buscar pasajes».](assets/Componentes/empty-state-viajes.png)
 
 ### Contenido
 
@@ -64,7 +64,7 @@ Lo que se ve cuando una lista, una búsqueda o una sección no tiene contenido.
 | Ícono | tamaño | 32 px (`icon-size-xl`) |
 | Acciones | separación del texto | 16 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de EmptyState: ícono, separación entre ícono, título, mensaje y acción, y ancho máximo del texto.](assets/Componentes/empty-state-medidas.png)
 
 ### Contraste
 

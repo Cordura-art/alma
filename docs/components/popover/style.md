@@ -35,7 +35,7 @@ summary: Especificaciones visuales del popover.
 | Título y contenido | separación | 4 px |
 | Botón Cerrar | posición | esquina superior derecha |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Popover: separación con el botón, relleno, ancho máximo, botón Cerrar y radio.](assets/Componentes/popover-medidas.png)
 
 ## Capas y movimiento
 

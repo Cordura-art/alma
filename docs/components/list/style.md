@@ -43,7 +43,7 @@ El valor usa cifras tabulares.
 | Flecha | tamaño | 20 px |
 | Nota al pie | margen | 8 px arriba, 16 px a los lados |
 
-> **Imagen pendiente:** anatomía acotada con ícono.
+![Medidas de List con ícono: alto de la fila, relleno lateral, ícono de 24 px, separación entre ícono y texto, y radio del grupo.](assets/Componentes/list-medidas.png)
 
 ## Tamaño
 

@@ -25,7 +25,7 @@ Una versión simplificada del contenido mientras carga.
 | Bloque | `shape: 'block'` | Imágenes, tarjetas, gráficos. |
 | Círculo | `shape: 'circle'` | Avatares e íconos. |
 
-> **Imagen pendiente:** una lista de viajes con Skeleton y la misma lista cargada.
+![Una lista de viajes mientras carga, dibujada con Skeleton, y la misma lista ya cargada.](assets/Componentes/skeleton-lista.png)
 
 ### Reglas
 

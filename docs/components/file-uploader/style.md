@@ -40,7 +40,7 @@ summary: Especificaciones visuales del cargador de archivos.
 | Archivo | alto mínimo, radio | 44 px, `radius-tag` |
 | Archivos | separación | 8 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de FileUploader: alto de la zona, borde punteado y radio, alto de cada archivo y separación entre archivos.](assets/Componentes/file-uploader-medidas.png)
 
 ## Movimiento
 

@@ -23,7 +23,7 @@ Un *toast* cuenta el resultado de una acción sin interrumpir: aparece arriba a 
 
 Es una `InlineNotification` de tipo `toast`: ícono, título, mensaje, hora, acción y «Cerrar», sobre `ui-01` con sombra.
 
-> **Imagen pendiente:** dos toasts apilados arriba a la derecha sobre una pantalla de la app.
+![Dos toasts apilados arriba a la derecha sobre la pantalla de Mis viajes: «Pago aprobado» y «Pasaje enviado a tu correo».](assets/Componentes/toast-region-pantalla.png)
 
 ## Duración
 

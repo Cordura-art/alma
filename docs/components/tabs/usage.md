@@ -27,7 +27,7 @@ summary: Pestañas para alternar entre paneles de contenido relacionado en la mi
 3. **Indicador**: barra de 2 px bajo la pestaña activa.
 4. **Panel** con el contenido.
 
-> **Imagen pendiente:** anatomía numerada con tres pestañas, una activa.
+![Anatomía de Tabs con tres pestañas y la primera activa. Numerados: lista de pestañas (1), pestaña (2), indicador de la pestaña activa (3) y panel (4).](assets/Componentes/tabs-anatomia.png)
 
 ## Contenido
 

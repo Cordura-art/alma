@@ -32,7 +32,7 @@ summary: Especificaciones visuales del acordeón.
 | Título y flecha | separación | 16 px |
 | Contenido | relleno | 16 px a los lados, 24 px abajo |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Accordion: alto del título de 44 px, relleno del título y del contenido, y borde entre secciones.](assets/Componentes/accordion-medidas.png)
 
 ## Tamaño
 

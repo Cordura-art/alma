@@ -34,7 +34,7 @@ summary: Una etiqueta corta que clasifica, filtra o muestra un estado.
 3. **Texto.**
 4. **Quitar** (opcional).
 
-> **Imagen pendiente:** los tres tipos, y la paleta de 11 colores.
+![Los tres tipos de Tag (de lectura, que se quita y que se elige) y la paleta de once colores, de rojo a gris frío.](assets/Componentes/tag-tipos.png)
 
 ## Colores
 

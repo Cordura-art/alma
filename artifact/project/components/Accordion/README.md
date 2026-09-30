@@ -26,7 +26,7 @@ Secciones que se abren y se cierran para mostrar contenido largo por partes.
 3. **Contenido.**
 4. **Separadores** entre secciones.
 
-> **Imagen pendiente:** preguntas frecuentes con una sección abierta.
+![Accordion de preguntas frecuentes con la sección «¿Puedo cambiar la fecha de mi pasaje?» abierta.](assets/Componentes/accordion-preguntas.png)
 
 ### Contenido
 
@@ -77,7 +77,7 @@ Secciones que se abren y se cierran para mostrar contenido largo por partes.
 | Título y flecha | separación | 16 px |
 | Contenido | relleno | 16 px a los lados, 24 px abajo |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Accordion: alto del título de 44 px, relleno del título y del contenido, y borde entre secciones.](assets/Componentes/accordion-medidas.png)
 
 ### Tamaño
 

@@ -33,7 +33,7 @@ summary: Una barra que muestra el avance de una tarea larga.
 3. **Relleno.**
 4. **Descripción** (opcional), abajo.
 
-> **Imagen pendiente:** una barra determinada al 60%, una indeterminada y una con error.
+![Tres ProgressBar: una determinada al 60 %, una indeterminada y una con error.](assets/Componentes/progress-bar-estados.png)
 
 ## Contenido
 

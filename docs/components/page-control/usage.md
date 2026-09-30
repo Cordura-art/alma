@@ -22,7 +22,7 @@ summary: Una fila de puntos, uno por página, para moverse en un carrusel.
 1. **Punto** por página.
 2. **Página actual**: una píldora más ancha.
 
-> **Imagen pendiente:** 5 puntos con el tercero como página actual.
+![PageControl con cinco puntos y el tercero como página actual, bajo un carrusel de destinos.](assets/Componentes/page-control-puntos.png)
 
 ## Comportamiento
 

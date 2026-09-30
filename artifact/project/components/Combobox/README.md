@@ -36,7 +36,7 @@ Un campo para elegir una o varias opciones de una lista larga escribiendo para f
 6. **Sin resultados:** mensaje cuando nada coincide.
 7. **Ayuda** o error bajo el campo.
 
-> **Imagen pendiente:** anatomía numerada del modo simple con la lista abierta y del modo múltiple con tres etiquetas.
+![Anatomía de Combobox: el modo simple con la lista abierta y el modo múltiple con tres etiquetas. Numerados: campo (1), etiquetas (2), texto de búsqueda (3), botón de la lista (4), lista (5), sin resultados (6) y ayuda (7).](assets/Componentes/combobox-anatomia.png)
 
 ### Tamaño
 
@@ -69,7 +69,7 @@ Un campo para elegir una o varias opciones de una lista larga escribiendo para f
 | Opción activa | Fondo y borde de foco, sin mover el foco del campo. |
 | Sin resultados | Mensaje en lugar de la lista. |
 
-> **Imagen pendiente:** los estados de la lista (abierta, filtrada, opción activa, sin resultados) en tema oscuro y claro.
+![Estados de la lista de Combobox en tema oscuro y claro: abierta, filtrada, con una opción activa por teclado y sin resultados.](assets/Componentes/combobox-lista.png)
 
 ### Relacionados
 
@@ -151,7 +151,7 @@ Un campo para elegir una o varias opciones de una lista larga escribiendo para f
 | Opciones | separación | 4 px (`space-4`) |
 | Etiqueta | alto | 24 px |
 
-> **Imagen pendiente:** anatomía acotada del campo múltiple con la lista abierta.
+![Medidas del Combobox múltiple con la lista abierta: alto del campo, separación entre etiquetas, separación entre campo y lista, relleno y alto de las opciones.](assets/Componentes/combobox-medidas.png)
 
 ### Tamaño y capas
 

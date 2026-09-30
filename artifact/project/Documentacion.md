@@ -6,6 +6,9 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Imágenes de los componentes.** Las 101 imágenes pendientes de las guías de componentes ya existen: anatomías numeradas, medidas tomadas del componente dibujado, estados y ejemplos en contexto. Se fotografían con los componentes reales (`npm run images`); las pantallas de modales, hojas, avisos y barras usan un marco de dispositivo. Solo quedan pendientes las 16 de los patrones.
+- **Arreglo: botones destructivos desactivados.** Se veían igual que activos, porque el estilo destructivo le ganaba al desactivado. Ahora un «Eliminar» desactivado usa `button-disabled-bg` y `button-disabled-text`, como el resto.
+- **Arreglo: ancho de los menús.** El menú de un botón angosto (un `PullDownButton` de solo ícono, «Más» en `Toolbar`) partía sus opciones en varias líneas. Ahora toma el ancho de su contenido, con el del botón como mínimo y 320 px como máximo.
 - **Imágenes de los fundamentos.** Las 14 imágenes pendientes de Color, Espaciado, Íconos, Movimiento, Temas y Tipografía ya existen. Se fotografían con los componentes y tokens reales (`npm run images`), así que se rehacen solas cuando cambia ALMA. De paso, el diagrama de capas de color nombraba un token que no existe (`lime-400`); el lima base es `brand-lime`.
 - **Pendientes a la vista.** Cada imagen por crear se marca en magenta, de la paleta secundaria, con los tokens nuevos `pending-bg`, `pending-border` y `pending-text`. Una página nueva, **Pendientes**, lista todo lo que falta: 131 imágenes, 45 componentes por probar con lectores de pantalla y el resto del plan. Se genera sola desde los documentos.
 - **Sidebar y los menús separan sus opciones** con 4 px, para que la opción elegida y la que está bajo el cursor no se vean como un solo bloque. Aplica a Sidebar, PopUpButton, PullDownButton, Combobox y las sugerencias de SearchField.

@@ -26,7 +26,7 @@ summary: Un consejo breve que enseña una función y se puede descartar.
 4. **Acción** (opcional): lleva directo al ajuste o al flujo.
 5. **Cerrar.**
 
-> **Imagen pendiente:** un consejo sobre la recarga automática, junto a la billetera.
+![Un Tip sobre la recarga automática, junto a la tarjeta de saldo de la billetera.](assets/Componentes/tip-recarga.png)
 
 ## Contenido
 

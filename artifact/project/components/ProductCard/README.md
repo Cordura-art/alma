@@ -24,7 +24,7 @@ Una tarjeta desplegable con fondo del color de una familia de etiquetas.
 4. **Imagen** (al abrir), 328 × 245.
 5. **Texto** (al abrir).
 
-> **Imagen pendiente:** la tarjeta cerrada y abierta, en el tono rojo.
+![ProductCard en el tono rojo, cerrada y abierta.](assets/Componentes/product-card-tono.png)
 
 ### Tonos
 
@@ -70,7 +70,7 @@ El fondo usa `tag-<tono>-bg`: `red` (por defecto), `yellow`, `magenta`, `purple`
 | Texto | relleno | 20 px arriba y abajo, 16 px a los lados |
 | Botón | relleno, radio | 4 px, `radius-pill`; área de toque de 44 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de ProductCard: relleno, botón para abrir y cerrar, separación entre encabezado y cuerpo, y radio.](assets/Componentes/product-card-medidas.png)
 
 ### Movimiento
 

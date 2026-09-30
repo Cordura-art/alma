@@ -47,7 +47,7 @@ Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
 | Estado y chip | separación | 8 px |
 | Vencimiento y CVV | columnas, separación | 2, 16 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de PaymentCard: ancho de 311 px, alto mínimo de 190 px, relleno, radio y chip de 34 × 24 px.](assets/Componentes/payment-card-medidas.png)
 
 ## Contraste
 

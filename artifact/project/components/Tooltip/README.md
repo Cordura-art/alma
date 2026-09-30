@@ -24,7 +24,7 @@ Una etiqueta breve que explica qué hace un control, al pasar el cursor o al enf
 1. **Control** que lo abre.
 2. **Globo** con el texto, sobre el control (o debajo con `placement: 'bottom'`).
 
-> **Imagen pendiente:** un botón de ícono con su tooltip arriba y otro abajo.
+![Dos botones de ícono con su Tooltip abierto: uno arriba («Compartir viaje») y otro abajo («Descargar pasaje»).](assets/Componentes/tooltip-posiciones.png)
 
 ### Contenido
 
@@ -76,7 +76,7 @@ El globo invierte los colores del tema para separarse del contenido: claro en te
 | Globo | relleno | 4 px arriba y abajo, 8 px a los lados |
 | Globo | radio | `radius-chip` |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Tooltip: separación de 8 px con el control, relleno del globo y radio.](assets/Componentes/tooltip-medidas.png)
 
 ### Capas y movimiento
 

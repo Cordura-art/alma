@@ -39,7 +39,7 @@ summary: Un campo de texto de una línea para escribir un dato corto: nombre, co
 5. **Ayuda:** una línea bajo el campo; en error, la reemplaza el mensaje de error.
 6. **Contador** (`maxLength`): `n/máximo`, a la derecha de la ayuda.
 
-> **Imagen pendiente:** anatomía numerada de un campo vacío, uno con texto y la etiqueta flotante, y uno de contraseña con ayuda y contador.
+![Anatomía de TextInput: un campo vacío, uno con texto y la etiqueta flotante, y uno de contraseña con ayuda y contador. Numerados: contenedor (1), etiqueta (2), texto escrito (3), botón del ojo (4), ayuda (5) y contador (6).](assets/Componentes/text-input-anatomia.png)
 
 ## Tamaño y ancho
 
@@ -66,7 +66,7 @@ summary: Un campo de texto de una línea para escribir un dato corto: nombre, co
 - Di qué falta y cómo arreglarlo: «Escribe un correo con @», no «Correo inválido».
 - Muéstralo al salir del campo o al enviar, no mientras la persona escribe.
 
-> **Imagen pendiente:** un campo con ayuda, el mismo con error y mensaje, y un campo con contador cerca del límite.
+![Tres campos: uno con su ayuda, el mismo con un error que reemplaza la ayuda por el mensaje, y uno con contador cerca del límite (19/20).](assets/Componentes/text-input-ayuda-error.png)
 
 ## Comportamiento
 
@@ -82,7 +82,7 @@ summary: Un campo de texto de una línea para escribir un dato corto: nombre, co
 | Desactivado | Borde, etiqueta y texto apagados; no recibe foco. |
 | Solo lectura (`readOnly`) | Borde punteado; etiqueta y texto con contraste normal. Recibe foco y el texto se puede seleccionar y copiar, pero no cambiar. |
 
-> **Imagen pendiente:** los seis estados en tema oscuro y claro.
+![Los seis estados de TextInput en tema oscuro y claro: reposo, puntero encima, foco, con texto, error y desactivado.](assets/Componentes/text-input-estados.png)
 
 ### Validación
 - Valida al salir del campo (`onBlur`) y al enviar el formulario.

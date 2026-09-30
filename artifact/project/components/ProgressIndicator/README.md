@@ -33,7 +33,7 @@ Los pasos de un flujo de varias pantallas.
 3. **Nombre** del paso.
 4. **Descripción** (opcional).
 
-> **Imagen pendiente:** la compra de un pasaje en 4 pasos, en horizontal y en vertical.
+![ProgressIndicator de la compra de un pasaje en cuatro pasos (viaje, asientos, pasajeros y pago), con el tercero en curso, en horizontal y en vertical.](assets/Componentes/progress-indicator-compra.png)
 
 ### Contenido
 
@@ -88,7 +88,7 @@ Los pasos de un flujo de varias pantallas.
 | Ícono y texto | separación | 8 px |
 | Paso | alto mínimo | 44 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de ProgressIndicator: tamaño del ícono de cada paso, separación entre ícono y texto, y línea entre pasos.](assets/Componentes/progress-indicator-medidas.png)
 
 ### Contraste
 

@@ -3,6 +3,7 @@
 // Run after `npm run build`, and again whenever tokens or components change. Usage: node scripts/build-images.mjs [scene…]
 import { readFile, mkdir } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { componentScenes } from './images/componentes.mjs';
 
 const P = 'artifact/project';
 const read = (p) => readFile(p, 'utf8');
@@ -13,11 +14,14 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wg
 
 const ICONS = ['arrow--left', 'arrow--right', 'arrow--up', 'arrow--down', 'close', 'search', 'information', 'warning--alt',
   'bus', 'wallet', 'user', 'checkmark', 'add', 'subtract', 'calendar', 'time', 'location', 'ticket', 'settings',
-  'notification', 'menu', 'filter', 'edit', 'trash-can'];
+  'notification', 'menu', 'filter', 'edit', 'trash-can',
+  'home', 'launch', 'recently-viewed', 'side-panel--close', 'side-panel--open', 'overflow-menu--horizontal', 'overflow-menu--vertical', 'chevron--down', 'chevron--right',
+  'chevron--left', 'share', 'copy', 'money', 'star', 'help', 'information--filled', 'checkmark--filled', 'error--filled', 'warning--filled', 'dashboard', 'map', 'email', 'phone',
+  'upload', 'document', 'image', 'favorite', 'receipt', 'purchase', 'locked', 'view', 'download', 'renew', 'task', 'list', 'list--checked', 'shopping--cart', 'idea', 'save'];
 const color = (name) => tok.color.tokens.find((t) => t.name === name);
 const family = (f) => Object.fromEntries(tok[f].tokens.map((t) => [t.name, t.value]));
 const DATA = {
-  themes: tok.color.themes, icons: Object.fromEntries(ICONS.map((n) => [n, catalog[n]])),
+  themes: tok.color.themes, icons: Object.fromEntries(ICONS.filter((n) => catalog[n]).map((n) => [n, catalog[n]])),
   easing: family('easing'), duration: family('duration'), fontAxis: family('fontAxis'),
   swatch: Object.fromEntries(['brand-lime', 'interactive-01', 'button-filled-bg'].map((n) => [n, color(n)]))
 };
@@ -30,10 +34,20 @@ body { margin: 0; background: transparent; }
 .col { display: grid; gap: var(--space-8); align-content: start; }
 .cap { margin: 0; color: var(--text-02); }
 .tok { font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; font-size: 0.75rem; color: var(--text-02); }
-.chip { position: absolute; z-index: 5; padding: 2px var(--space-8); border-radius: var(--radius-chip); background: var(--interactive-01); color: var(--text-on-interactive);
+.chip { position: absolute; z-index: 2147483001; padding: 2px var(--space-8); border-radius: var(--radius-chip); background: var(--interactive-01); color: var(--text-on-interactive);
   font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; font-size: 0.6875rem; white-space: nowrap; }
-.band { position: absolute; z-index: 4; background: color-mix(in srgb, var(--interactive-01) 38%, transparent); }
+.band { position: absolute; z-index: 2147483000; background: color-mix(in srgb, var(--interactive-01) 38%, transparent); }
 *, *::before, *::after { animation: none !important; transition: none !important; }
+.pane { padding: var(--space-24); background: var(--ui-02); color: var(--text-01); border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); }
+.num { position: absolute; z-index: 2147483002; width: 22px; height: 22px; border-radius: 50%; background: var(--interactive-01); color: var(--text-on-interactive);
+  font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; font-size: 12px; font-weight: 500; line-height: 22px; text-align: center; }
+.out { position: absolute; z-index: 2147483000; border: 1px dashed var(--interactive-01); border-radius: 4px; pointer-events: none; }
+.dim { position: absolute; z-index: 2147483000; border: 0 solid var(--interactive-01); }
+.dim.v { border-left-width: 1px; } .dim.hz { border-top-width: 1px; }
+.dim::before, .dim::after { content: ""; position: absolute; background: var(--interactive-01); }
+.dim.v::before { top: 0; left: -5px; width: 9px; height: 1px; } .dim.v::after { bottom: 0; left: -5px; width: 9px; height: 1px; }
+.dim.hz::before { left: 0; top: -5px; width: 1px; height: 9px; } .dim.hz::after { right: 0; top: -5px; width: 1px; height: 9px; }
+.device { display: block; border: 1px solid var(--border-subtle); border-radius: 16px; background: var(--ui-02); }
 `;
 
 // Measuring helpers: a translucent band over a gap and a chip naming it (used by the spacing scene).
@@ -44,6 +58,58 @@ function add(cls, x, y, w, hh, text) { var d = document.createElement('div'); d.
   if (w != null) d.style.width = w + 'px'; if (hh != null) d.style.height = hh + 'px'; if (text) d.textContent = text; document.getElementById('shot').appendChild(d); return d; }
 function band(x, y, w, hh, text, cx, cy) { add('band', x, y, w, hh); if (text) add('chip', cx != null ? cx : x + w + 4, cy != null ? cy : y + hh / 2 - 9, null, null, text); }
 function mount(el) { ReactDOM.createRoot(document.getElementById('app')).render(el); }
+function $(s, i) { return document.querySelectorAll(s)[i || 0]; }
+function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+var SPACE = { 2: 'space-2', 4: 'space-4', 8: 'space-8', 16: 'space-16', 24: 'space-24', 32: 'space-32', 40: 'space-40', 48: 'space-48', 56: 'space-56', 64: 'space-64', 80: 'space-80' };
+function px(v) { return Math.round(v) + ' px'; }
+function sp(v) { v = Math.round(v); return v + ' px' + (SPACE[v] ? ' · ' + SPACE[v] : ''); }
+// A numbered marker next to an element, with a dashed outline, matching the numbered anatomy list of the guide.
+function num(el, n, side, o) {
+  o = o || {}; var b = box(el), x, y, d = o.d || 10;
+  if (o.outline !== false) add('out', b.x - 3, b.y - 3, b.w + 6, b.h + 6);
+  side = side || 'left';
+  if (side === 'left') { x = b.x - 22 - d - 3; y = b.y + b.h / 2 - 11; }
+  else if (side === 'right') { x = b.x + b.w + d + 3; y = b.y + b.h / 2 - 11; }
+  else if (side === 'top') { x = b.x + (o.at != null ? o.at : b.w / 2 - 11); y = b.y - 22 - d - 3; }
+  else { x = b.x + (o.at != null ? o.at : b.w / 2 - 11); y = b.y + b.h + d + 3; }
+  add('num', x + (o.dx || 0), y + (o.dy || 0), null, null, String(n));
+}
+// Dimension lines, measured from the rendered element.
+function dimH(el, side, label, o) { o = o || {}; var b = box(el), x = side === 'left' ? b.x - (o.d || 14) : b.x + b.w + (o.d || 14);
+  add('dim v', x, b.y, 0, b.h); var c = add('chip', 0, b.y + b.h / 2 - 9, null, null, label || px(b.h)); c.style.left = (side === 'left' ? x - c.offsetWidth - 8 : x + 8) + 'px'; }
+function dimW(el, side, label, o) { o = o || {}; var b = box(el), y = side === 'top' ? b.y - (o.d || 14) : b.y + b.h + (o.d || 14);
+  add('dim hz', b.x, y, b.w, 0); var c = add('chip', 0, 0, null, null, label || px(b.w)); c.style.left = (b.x + b.w / 2 - c.offsetWidth / 2) + 'px'; c.style.top = (side === 'top' ? y - 26 : y + 6) + 'px'; }
+function padL(el, cx, cy) { var b = box(el), p = parseFloat(getComputedStyle(el).paddingLeft); band(b.x, b.y, p, b.h, sp(p), cx != null ? cx : b.x - 8 - 120, cy); }
+function padT(el, cx, cy) { var b = box(el), p = parseFloat(getComputedStyle(el).paddingTop); band(b.x, b.y, b.w, p, sp(p), cx != null ? cx : b.x + b.w + 12, cy); }
+function gapX(a, b2, cx, cy) { var A1 = box(a), B = box(b2), g = B.x - (A1.x + A1.w); band(A1.x + A1.w, Math.min(A1.y, B.y), g, Math.max(A1.h, B.h), sp(g), cx != null ? cx : A1.x + A1.w + g / 2 - 40, cy != null ? cy : Math.max(A1.y + A1.h, B.y + B.h) + 8); }
+function gapY(a, b2, cx, cy) { var A1 = box(a), B = box(b2), g = B.y - (A1.y + A1.h); band(Math.min(A1.x, B.x), A1.y + A1.h, Math.max(A1.w, B.w), g, sp(g), cx, cy); }
+function rad(el, cx, cy) { var b = box(el), r = parseFloat(getComputedStyle(el).borderTopLeftRadius); add('chip', cx != null ? cx : b.x, cy != null ? cy : b.y - 26, null, null, 'radio ' + px(r)); }
+// States without interaction: every :hover / :focus-visible / :active / :focus-within rule is copied to a .st-* class.
+function stateCss() {
+  var out = [];
+  function walk(rules) { for (var i = 0; i < rules.length; i++) { var r = rules[i];
+    if (r.cssRules && !r.selectorText) { walk(r.cssRules); continue; }
+    if (!r.selectorText || !/:(hover|focus-visible|focus-within|active|visited|focus)\\b/.test(r.selectorText)) continue;
+    out.push(r.cssText.replace(r.selectorText, r.selectorText.replace(/:focus-visible/g, '.st-focus').replace(/:focus-within/g, '.st-focus-within').replace(/:hover/g, '.st-hover').replace(/:active/g, '.st-active').replace(/:visited/g, '.st-visited').replace(/:focus\\b/g, '.st-focus'))); } }
+  for (var s = 0; s < document.styleSheets.length; s++) { try { walk(document.styleSheets[s].cssRules); } catch (e) {} }
+  var st = document.createElement('style'); st.textContent = out.join('\\n'); document.head.appendChild(st);
+}
+function st(el, state) { el.classList.add('st-' + state); return el; }
+// The box of an element's own text (a button label, a link), for markers that point at the words.
+function textOf(el) { var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n; while ((n = w.nextNode())) if (n.textContent.trim()) break;
+  return { getBoundingClientRect: function () { var r = document.createRange(); r.selectNodeContents(n); return r.getBoundingClientRect(); } }; }
+function all(s) { return [].slice.call(document.querySelectorAll(s)); }
+// A brand illustration for media slots (cards): pills in the brand colors, read from the tokens at run time.
+function brandArt() { var cs = getComputedStyle(document.documentElement), c = function (n) { return cs.getPropertyValue('--' + n).trim(); };
+  var pills = [[40, 60, 220, c('brand-lime')], [290, 60, 140, c('brand-steel')], [40, 130, 120, c('brand-steel')], [190, 130, 260, c('brand-lime')], [40, 200, 300, c('brand-steel')]];
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270"><rect width="480" height="270" fill="' + c('brand-ink') + '"/>' + pills.map(function (p) { return '<rect x="' + p[0] + '" y="' + p[1] + '" width="' + p[2] + '" height="44" rx="22" fill="' + p[3] + '"/>'; }).join('') + '</svg>';
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); }
+function themes(ids, render, o) { o = o || {};
+  return h('div', { className: 'row', style: o.style }, ids.map(function (id) { var t = D.themes.filter(function (x) { return x.id === id; })[0];
+    return h('div', { key: id, className: 'col' }, o.noLabel ? null : h('p', { className: 'cap web-label-m' }, t.name), h('div', { 'data-theme': id, className: 'pane ' + (o.cls || ''), style: o.paneStyle }, render(id))); })); }
+// A device frame: an iframe with its own viewport, for screens with fixed layers (modals, sheets, toasts, tab bars).
+function device(o) { return h('div', { className: 'col', key: o.key || o.label }, o.label ? h('p', { className: 'cap web-label-m' }, o.label) : null,
+  h('iframe', { className: 'device', width: o.w, height: o.h, style: { width: o.w + 'px', height: o.h + 'px', zoom: o.scale || 1 }, srcDoc: window.__DOC(o.theme || 'dark', o.js, o.after || '') })); }
 `;
 
 export const scenes = [
@@ -230,31 +296,53 @@ export const scenes = [
     css: `.tp { display: grid; grid-template-columns: 10rem 36rem; gap: var(--space-24) var(--space-32); align-items: baseline; } .meta { display: grid; gap: 2px; } .tx { margin: 0; }` }
 ];
 
+const ALL = scenes.concat(componentScenes);
+export { ALL as allScenes };
+
 if (import.meta.url === `file://${process.argv[1]}`) {
   const only = process.argv.slice(2);
   const bundle = await read(`${P}/components/bundle.js`);
   const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), BASE].join('\n');
+  const head = `<link rel="stylesheet" href="${FONTS}"><style>${css}</style>`;
+  const libs = `<script src="${CDN}/react/18.3.1/umd/react.production.min.js"></script><script src="${CDN}/react-dom/18.3.1/umd/react-dom.production.min.js"></script>`;
+  // The iframe document of device(): same CSS, bundle and helpers; it flags __ready once rendered and its "after" ran.
+  const docFn = `window.__DOC = function (theme, js, after) {
+    return '<!doctype html><html lang="es" data-theme="' + theme + '"><head><meta charset="utf-8">' + document.getElementById('src-head').textContent +
+      '<style>body{margin:0;background:var(--ui-02);color:var(--text-01);min-height:100vh}#shot{position:relative;display:block;box-sizing:border-box;width:100%;min-height:100vh}</style></head><body><div id="shot"><div id="app"></div></div>' +
+      window.__LIBS + '<scr' + 'ipt>' + document.getElementById('src-bundle').textContent + '</scr' + 'ipt><scr' + 'ipt>var D = window.parent.D;' +
+      document.getElementById('src-helpers').textContent + 'stateCss(); A.registerIcons({ icons: D.icons });' + js + ';(async function(){ await sleep(400); ' + after + '; await sleep(150); window.__ready = true; })();</scr' + 'ipt></body></html>';
+  };`;
   const browser = await chromium.launch();
-  const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1600, height: 1000 } });
+  const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1800, height: 1200 } });
   let n = 0;
-  for (const s of scenes) {
+  const failed = [], errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  for (const s of ALL) {
     if (only.length && !only.some((o) => s.file.includes(o))) continue;
-    const html = `<!doctype html><html lang="es" data-theme="dark"><head><meta charset="utf-8"><link rel="stylesheet" href="${FONTS}">
-<style>${css}\n${s.css || ''}</style></head><body><div id="shot"><div id="app"></div></div>
-<script src="${CDN}/react/18.3.1/umd/react.production.min.js"></script><script src="${CDN}/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
-<script>${bundle}</script><script>var D = ${JSON.stringify(DATA)};\n${HELPERS}\n${s.js}</script></body></html>`;
+    for (let attempt = 1; attempt <= 2; attempt++) {
+    errors.length = 0;
+    try {
+    const html = `<!doctype html><html lang="es" data-theme="dark"><head><meta charset="utf-8">${head}<style>${s.css || ''}</style>
+<script type="text/plain" id="src-head">${head.replace(/<\/(script)/gi, '<\\/$1')}</script><script type="text/plain" id="src-bundle">${bundle}</script><script type="text/plain" id="src-helpers">${HELPERS}</script></head>
+<body><div id="shot"><div id="app"></div></div>${libs}<script>${bundle}</script>
+<script>var D = ${JSON.stringify(DATA)};\nwindow.__LIBS = ${JSON.stringify(libs).replace(/<\//g, '<\\/')};\n${docFn}\n${HELPERS}\nstateCss(); A.registerIcons({ icons: D.icons });\n${s.js}</script></body></html>`;
     await page.setContent(html, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
-    await page.waitForTimeout(150);
+    await page.waitForTimeout(250);
+    await page.waitForFunction(() => [...document.querySelectorAll('iframe')].every((f) => f.contentWindow && f.contentWindow.__ready), null, { timeout: 30000 });
     if (s.click) { await page.click(s.click); await page.waitForTimeout(200); }
-    if (s.after) await page.evaluate(`(function(){ ${HELPERS}\n${s.after} })()`);
-    await page.waitForTimeout(100);
+    if (s.after) await page.evaluate(`(async function(){ ${HELPERS}\n${s.after} })()`);
+    await page.waitForTimeout(120);
     const out = `${P}/assets/${s.file}.png`;
     await mkdir(out.replace(/\/[^/]+$/, ''), { recursive: true });
     await page.locator('#shot').screenshot({ path: out, animations: 'disabled' });
     n++;
     console.log(`  ${out}`);
+    break;
+    } catch (e) { if (attempt === 2) { failed.push(s.file); console.log(`  ✗ ${s.file}: ${e.message.split('\n')[0]} ${errors.join(' | ')}`); } }
+    }
   }
+  if (failed.length) console.log(`Fallaron ${failed.length}: ${failed.join(', ')}`);
   await browser.close();
   console.log(`Imágenes: ${n} generadas`);
 }

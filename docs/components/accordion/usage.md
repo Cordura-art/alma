@@ -26,7 +26,7 @@ summary: Secciones que se abren y se cierran para mostrar contenido largo por pa
 3. **Contenido.**
 4. **Separadores** entre secciones.
 
-> **Imagen pendiente:** preguntas frecuentes con una sección abierta.
+![Accordion de preguntas frecuentes con la sección «¿Puedo cambiar la fecha de mi pasaje?» abierta.](assets/Componentes/accordion-preguntas.png)
 
 ## Contenido
 

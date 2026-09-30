@@ -28,7 +28,7 @@ Un botón que abre una lista corta de opciones excluyentes y muestra la elegida.
 4. **Opción elegida:** marcada con un check.
 5. **Nota al pie** (opcional): explica algo de las opciones.
 
-> **Imagen pendiente:** anatomía numerada con el menú abierto y la nota al pie.
+![Anatomía de PopUpButton con el menú abierto. Numerados: etiqueta (1), botón (2), menú (3), opción elegida (4) y nota al pie (5).](assets/Componentes/pop-up-button-anatomia.png)
 
 ### Contenido
 
@@ -51,7 +51,7 @@ Un botón que abre una lista corta de opciones excluyentes y muestra la elegida.
 - Un clic fuera o Esc cierran sin cambiar nada.
 - Las opciones desactivadas se ven pero no se pueden elegir ni recorrer.
 
-> **Imagen pendiente:** reposo, abierto con opción elegida, puntero sobre una opción y desactivado, en tema oscuro y claro.
+![Los estados de PopUpButton en tema oscuro y claro: en reposo, abierto con la opción elegida marcada, con el puntero sobre una opción, y desactivado.](assets/Componentes/pop-up-button-estados.png)
 
 ### Relacionados
 
@@ -118,7 +118,7 @@ Un botón que abre una lista corta de opciones excluyentes y muestra la elegida.
 | Opciones | separación | 4 px (`space-4`) |
 | Opción | columna de la marca | 24 px |
 
-> **Imagen pendiente:** anatomía acotada del botón y del menú abierto.
+![Medidas de PopUpButton: alto del botón, relleno, separación entre botón y menú, relleno del menú, alto de las opciones y columna de 24 px para la marca.](assets/Componentes/pop-up-button-medidas.png)
 
 ### Tamaño
 

@@ -33,7 +33,7 @@ summary: Los pasos de un flujo de varias pantallas.
 3. **Nombre** del paso.
 4. **Descripción** (opcional).
 
-> **Imagen pendiente:** la compra de un pasaje en 4 pasos, en horizontal y en vertical.
+![ProgressIndicator de la compra de un pasaje en cuatro pasos (viaje, asientos, pasajeros y pago), con el tercero en curso, en horizontal y en vertical.](assets/Componentes/progress-indicator-compra.png)
 
 ## Contenido
 

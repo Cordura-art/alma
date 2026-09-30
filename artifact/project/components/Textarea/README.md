@@ -23,7 +23,7 @@ Un campo de varias líneas para texto largo: comentarios, descripciones, reclamo
 3. **Área de texto:** 4 líneas por defecto; se agranda hacia abajo.
 4. **Ayuda** y **contador**, como en `TextInput`.
 
-> **Imagen pendiente:** anatomía numerada de un campo vacío con texto de ejemplo y uno con texto, ayuda y contador.
+![Anatomía de Textarea: un campo vacío con texto de ejemplo y otro con texto, ayuda y contador. Numerados: contenedor (1), etiqueta flotante (2), área de texto (3) y ayuda con contador (4).](assets/Componentes/textarea-anatomia.png)
 
 ### Tamaño
 
@@ -51,7 +51,7 @@ Un campo de varias líneas para texto largo: comentarios, descripciones, reclamo
 - Enter crea una línea nueva; nunca envía el formulario.
 - El contador cuenta caracteres, no palabras.
 
-> **Imagen pendiente:** los estados en tema oscuro y claro.
+![Los estados de Textarea en tema oscuro y claro: reposo, foco, con texto, error, desactivado y solo lectura.](assets/Componentes/textarea-estados.png)
 
 ### Relacionados
 

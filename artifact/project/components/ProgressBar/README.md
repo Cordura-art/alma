@@ -33,7 +33,7 @@ Una barra que muestra el avance de una tarea larga.
 3. **Relleno.**
 4. **Descripción** (opcional), abajo.
 
-> **Imagen pendiente:** una barra determinada al 60%, una indeterminada y una con error.
+![Tres ProgressBar: una determinada al 60 %, una indeterminada y una con error.](assets/Componentes/progress-bar-estados.png)
 
 ### Contenido
 
@@ -88,7 +88,7 @@ El porcentaje usa cifras tabulares.
 | Tramo indeterminado | ancho | 35 % de la pista |
 | Elementos | separación | 8 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de ProgressBar: pista de 8 px con radio completo, separación entre etiqueta y pista, y entre pista y descripción.](assets/Componentes/progress-bar-medidas.png)
 
 ### Movimiento
 

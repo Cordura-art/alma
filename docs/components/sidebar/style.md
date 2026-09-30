@@ -43,7 +43,7 @@ summary: Especificaciones visuales de la barra lateral.
 
 Una etiqueta que no cabe se corta con puntos suspensivos.
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Sidebar: ancho de 280 px, relleno del panel, alto de los destinos, separación entre grupos y entre destinos, y radio.](assets/Componentes/sidebar-medidas.png)
 
 ## Tamaño
 

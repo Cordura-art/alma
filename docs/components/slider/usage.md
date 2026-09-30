@@ -26,7 +26,7 @@ summary: Una pista con una perilla para elegir un valor en un rango.
 5. **Ícono del máximo** (opcional).
 6. **Campo** del valor exacto (opcional).
 
-> **Imagen pendiente:** un slider de precio máximo con su campo, en tema oscuro y claro.
+![Un Slider de precio máximo con su campo numérico, en tema oscuro y claro.](assets/Componentes/slider-precio.png)
 
 ## Reglas de Apple
 

@@ -25,7 +25,7 @@ Divide un conjunto grande de datos en páginas.
 3. **Página actual de total**: «Página 2 de 65».
 4. **Anterior** y **siguiente**, desactivados en los extremos.
 
-> **Imagen pendiente:** anatomía numerada, pegada bajo una tabla.
+![Anatomía de Pagination pegada bajo una tabla de movimientos. Numerados: elementos por página (1), rango (2), página actual de total (3) y anterior y siguiente (4).](assets/Componentes/pagination-anatomia.png)
 
 ### Contenido
 
@@ -83,7 +83,7 @@ Cifras tabulares, para que el texto no salte al cambiar de página.
 | Anterior y siguiente | separación | 8 px |
 | Botones | tamaño | 44 px (`size-touch-min`) |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Pagination: relleno de la barra, separación entre grupos y botones anterior y siguiente de 44 px.](assets/Componentes/pagination-medidas.png)
 
 ### Contraste
 

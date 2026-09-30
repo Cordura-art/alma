@@ -36,7 +36,7 @@ summary: Especificaciones visuales de la etiqueta.
 | Quitar | tamaño / área de toque | 20 px / 32 px |
 | Seleccionable | área de toque | 44 px de alto |
 
-> **Imagen pendiente:** anatomía acotada de los tres tipos.
+![Medidas de Tag en sus tres tipos: alto, relleno, radio, separación con el botón para quitar y borde de la opción elegida.](assets/Componentes/tag-medidas.png)
 
 ## Movimiento
 

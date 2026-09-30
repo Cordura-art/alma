@@ -24,7 +24,7 @@ summary: Una etiqueta breve que explica qué hace un control, al pasar el cursor
 1. **Control** que lo abre.
 2. **Globo** con el texto, sobre el control (o debajo con `placement: 'bottom'`).
 
-> **Imagen pendiente:** un botón de ícono con su tooltip arriba y otro abajo.
+![Dos botones de ícono con su Tooltip abierto: uno arriba («Compartir viaje») y otro abajo («Descargar pasaje»).](assets/Componentes/tooltip-posiciones.png)
 
 ## Contenido
 

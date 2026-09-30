@@ -24,7 +24,7 @@ summary: Una tarjeta desplegable con fondo del color de una familia de etiquetas
 4. **Imagen** (al abrir), 328 × 245.
 5. **Texto** (al abrir).
 
-> **Imagen pendiente:** la tarjeta cerrada y abierta, en el tono rojo.
+![ProductCard en el tono rojo, cerrada y abierta.](assets/Componentes/product-card-tono.png)
 
 ## Tonos
 

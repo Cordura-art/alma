@@ -34,7 +34,7 @@ summary: Una lista agrupada de filas para navegar, actuar o mostrar datos.
 3. **Separador**, con sangría hasta el texto.
 4. **Nota al pie** (opcional).
 
-> **Imagen pendiente:** dos grupos: uno de navegación con íconos y un resumen de precios.
+![Dos grupos de List: uno de navegación, con íconos y flecha, y un resumen de precios con los montos a la derecha.](assets/Componentes/list-grupos.png)
 
 ## Contenido
 

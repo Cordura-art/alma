@@ -39,7 +39,7 @@ El valor usa cifras tabulares.
 | Elementos de la fila | separación | 16 px |
 | Campo | ancho | 104 px (6,5 rem) |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Slider: pista de 4 px, perilla de 24 px, alto de la fila y separación con el campo.](assets/Componentes/slider-medidas.png)
 
 ## Movimiento
 

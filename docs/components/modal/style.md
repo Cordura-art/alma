@@ -43,7 +43,7 @@ summary: Especificaciones visuales del diálogo modal.
 | Pie | relleno | 16 px arriba, 24 px a los lados y abajo |
 | Botones del pie | separación | 8 px |
 
-> **Imagen pendiente:** anatomía acotada del modal `md`.
+![Medidas del Modal md: ancho, relleno del encabezado, del cuerpo y del pie, y radio.](assets/Componentes/modal-medidas.png)
 
 ## Tamaño
 

@@ -44,7 +44,7 @@ Los números usan cifras tabulares (`tabular-nums`).
 | Tabla vacía | relleno | 32 px arriba y abajo |
 | Última fila | borde | sin borde inferior |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Table: alto de fila de 56 px, relleno de las celdas, alto del encabezado y radio del contenedor.](assets/Componentes/table-medidas.png)
 
 ## Tamaño
 

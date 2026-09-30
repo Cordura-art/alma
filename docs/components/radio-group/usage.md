@@ -25,7 +25,7 @@ summary: Un grupo de opciones excluyentes, todas visibles: solo se puede elegir 
 3. **Etiqueta** de cada opción.
 4. **Ayuda** (opcional) bajo el grupo.
 
-> **Imagen pendiente:** anatomía numerada de un grupo de 3 opciones con ayuda.
+![Anatomía de RadioGroup con tres opciones y ayuda. Numerados: título del grupo (1), botón de opción (2), etiqueta (3) y ayuda (4).](assets/Componentes/radio-group-anatomia.png)
 
 ## Estados
 
@@ -36,7 +36,7 @@ summary: Un grupo de opciones excluyentes, todas visibles: solo se puede elegir 
 | Foco | Anillo de foco alrededor del círculo. |
 | Desactivado | Todo al 45 % de opacidad. |
 
-> **Imagen pendiente:** los estados en tema oscuro y claro.
+![Los estados de RadioGroup en tema oscuro y claro: sin elegir, elegida, con foco y un grupo desactivado.](assets/Componentes/radio-group-estados.png)
 
 ## Contenido
 

@@ -72,7 +72,7 @@ summary: Especificaciones visuales del campo con lista.
 | Opciones | separación | 4 px (`space-4`) |
 | Etiqueta | alto | 24 px |
 
-> **Imagen pendiente:** anatomía acotada del campo múltiple con la lista abierta.
+![Medidas del Combobox múltiple con la lista abierta: alto del campo, separación entre etiquetas, separación entre campo y lista, relleno y alto de las opciones.](assets/Componentes/combobox-medidas.png)
 
 ## Tamaño y capas
 

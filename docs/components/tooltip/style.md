@@ -30,7 +30,7 @@ El globo invierte los colores del tema para separarse del contenido: claro en te
 | Globo | relleno | 4 px arriba y abajo, 8 px a los lados |
 | Globo | radio | `radius-chip` |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Tooltip: separación de 8 px con el control, relleno del globo y radio.](assets/Componentes/tooltip-medidas.png)
 
 ## Capas y movimiento
 

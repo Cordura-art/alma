@@ -24,7 +24,7 @@ Una barra inferior para moverse entre las secciones principales de la app en el 
 3. **Ítem actual**: ícono relleno y color `nav-selected`.
 4. **Insignia** (opcional): un número o «!» sobre el ícono.
 
-> **Imagen pendiente:** anatomía numerada con cuatro ítems y una insignia, en el teléfono y en tablet.
+![Anatomía de TabBar con cuatro ítems y una insignia, en el teléfono (ícono sobre la etiqueta) y en tablet (ícono y etiqueta en fila). Numerados: barra (1), ítem (2), ítem actual (3) e insignia (4).](assets/Componentes/tab-bar-anatomia.png)
 
 ### Reglas
 
@@ -92,7 +92,7 @@ Una barra inferior para moverse entre las secciones principales de la app en el 
 | Ícono y etiqueta | separación | 2 px (apilados) · 8 px (en fila) |
 | Insignia | alto, ancho mínimo | 18 px, 18 px; `radius-tag` |
 
-> **Imagen pendiente:** anatomía acotada en el teléfono.
+![Medidas de TabBar en el teléfono: alto de la barra, alto y ancho de cada ítem, separación entre ícono y etiqueta, e insignia de 18 px.](assets/Componentes/tab-bar-medidas.png)
 
 ### Capas y movimiento
 

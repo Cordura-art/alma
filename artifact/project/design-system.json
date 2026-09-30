@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T21:30:00Z",
+    "at": "2026-09-30T22:30:00Z",
     "via": "Claude Code",
-    "note": "Imágenes de los fundamentos: 14 fotografiadas con los componentes y tokens reales (npm run images)."
+    "note": "Imágenes de los 46 componentes (101), fotografiadas con los componentes reales. Arreglos: destructivos desactivados y ancho de los menús."
   },
   "layout": "files",
   "libraries": [

@@ -27,7 +27,7 @@ Pestañas para alternar entre paneles de contenido relacionado en la misma área
 3. **Indicador**: barra de 2 px bajo la pestaña activa.
 4. **Panel** con el contenido.
 
-> **Imagen pendiente:** anatomía numerada con tres pestañas, una activa.
+![Anatomía de Tabs con tres pestañas y la primera activa. Numerados: lista de pestañas (1), pestaña (2), indicador de la pestaña activa (3) y panel (4).](assets/Componentes/tabs-anatomia.png)
 
 ### Contenido
 
@@ -85,7 +85,7 @@ Pestañas para alternar entre paneles de contenido relacionado en la misma área
 | Indicador | margen lateral | 16 px (mide lo mismo que la etiqueta) |
 | Panel | relleno | 24 px arriba y abajo |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Tabs: alto de la pestaña, relleno lateral, separación entre pestañas, indicador de 2 px y separación con el panel.](assets/Componentes/tabs-medidas.png)
 
 ### Tamaño
 

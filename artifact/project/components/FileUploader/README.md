@@ -29,7 +29,7 @@ Subir uno o varios archivos, con un botón o una zona para arrastrar.
 3. **Botón** o **zona**.
 4. **Lista de archivos**, cada uno con su estado y Quitar.
 
-> **Imagen pendiente:** la zona, y una lista con un archivo subiendo, uno subido y uno con error.
+![FileUploader con su zona para arrastrar y una lista con un archivo subido, uno subiendo y uno con error.](assets/Componentes/file-uploader-lista.png)
 
 ### Estados de cada archivo
 
@@ -92,7 +92,7 @@ Subir uno o varios archivos, con un botón o una zona para arrastrar.
 | Archivo | alto mínimo, radio | 44 px, `radius-tag` |
 | Archivos | separación | 8 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de FileUploader: alto de la zona, borde punteado y radio, alto de cada archivo y separación entre archivos.](assets/Componentes/file-uploader-medidas.png)
 
 ### Movimiento
 

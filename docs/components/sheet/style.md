@@ -36,7 +36,7 @@ Igual que `Modal`: título 20 px Medium, cuerpo 14 px Regular.
 
 `size` no cambia el ancho de la hoja: desde 672 px mide siempre 560 px.
 
-> **Imagen pendiente:** anatomía acotada en el teléfono.
+![Medidas de Sheet en el teléfono: asa de 36 × 5 px, radio superior, relleno y alto de las opciones.](assets/Componentes/sheet-medidas.png)
 
 ## Movimiento
 

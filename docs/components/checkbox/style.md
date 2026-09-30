@@ -35,7 +35,7 @@ En tema claro, `control-on` es un oliva oscuro: el lima no llega a 3:1 sobre fon
 | Fila | alto mínimo | 44 px (`size-touch-min`) |
 | Área de toque de la casilla | tamaño | 44 × 44 px |
 
-> **Imagen pendiente:** anatomía acotada con las medidas.
+![Medidas de Checkbox: casilla de 20 px con radio de 2 px, separación entre casilla y etiqueta, y el alto de la fila, que llega al área táctil de 44 px.](assets/Componentes/checkbox-medidas.png)
 
 ## Tamaño
 

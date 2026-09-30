@@ -23,7 +23,7 @@ Un indicador giratorio para una espera cuya duración no se conoce.
 
 Un círculo que gira, del color `control-on`, y un texto que solo oye el lector de pantalla.
 
-> **Imagen pendiente:** el indicador a 20, 24 y 40 px, en tema oscuro y claro.
+![ActivityIndicator a 20, 24 y 40 px, en tema oscuro y claro.](assets/Componentes/activity-indicator-tamanos.png)
 
 ### Tamaños
 

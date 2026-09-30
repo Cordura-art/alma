@@ -32,7 +32,7 @@ summary: Especificaciones visuales del campo de texto: color, tipografía, estru
 
 En tema oscuro el borde y la etiqueta son lima; en claro, tonos acero oscuros, porque el lima sobre fondo claro no llega a 3:1.
 
-> **Imagen pendiente:** el campo en reposo, foco, con texto, error y desactivado, en los cuatro temas.
+![TextInput en los cuatro temas de ALMA, en reposo, con foco, con texto, con error y desactivado.](assets/Componentes/text-input-temas.png)
 
 ## Tipografía
 
@@ -56,7 +56,7 @@ En tema oscuro el borde y la etiqueta son lima; en claro, tonos acero oscuros, p
 | Pie (ayuda y contador) | relleno lateral | 16 px |
 | Campo y pie | separación | 4 px (`space-4`) |
 
-> **Imagen pendiente:** anatomía acotada con las medidas de esta tabla.
+![Medidas de TextInput: alto del campo, relleno lateral, radio, borde, la etiqueta flotante sobre el borde y la separación con la ayuda y el contador.](assets/Componentes/text-input-medidas.png)
 
 ## Tamaño
 

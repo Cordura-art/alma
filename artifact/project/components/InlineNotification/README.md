@@ -48,7 +48,7 @@ El estado se distingue por el ícono y por la palabra que oye el lector, no solo
 6. **Acción** (opcional): un solo botón.
 7. **Botón Cerrar.**
 
-> **Imagen pendiente:** los cuatro estados en línea, con y sin acción, en tema oscuro y claro.
+![Los cuatro estados de InlineNotification en línea (error, advertencia, éxito e información), dos con acción y dos sin acción, en tema oscuro y claro.](assets/Componentes/inline-notification-estados.png)
 
 ### Contenido
 
@@ -111,7 +111,7 @@ Los tokens `notification-*-accent` apuntan a `status-icon-*`, que alcanzan 3:1 s
 
 Sin barra lateral de color: el borde completo y el ícono marcan el estado.
 
-> **Imagen pendiente:** anatomía acotada con acción y botón Cerrar.
+![Medidas de InlineNotification con acción y botón Cerrar: relleno, ícono de 24 px, separación entre título y mensaje, y borde izquierdo.](assets/Componentes/inline-notification-medidas.png)
 
 ### Contraste
 

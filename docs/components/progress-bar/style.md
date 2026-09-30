@@ -34,7 +34,7 @@ El porcentaje usa cifras tabulares.
 | Tramo indeterminado | ancho | 35 % de la pista |
 | Elementos | separación | 8 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de ProgressBar: pista de 8 px con radio completo, separación entre etiqueta y pista, y entre pista y descripción.](assets/Componentes/progress-bar-medidas.png)
 
 ## Movimiento
 

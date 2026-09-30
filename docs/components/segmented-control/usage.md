@@ -26,7 +26,7 @@ summary: Un selector de una opción entre pocas alternativas, en una píldora.
 2. **Opción.**
 3. **Opción elegida**: fondo blanco.
 
-> **Imagen pendiente:** la píldora de pasajes con la opción «Ida» elegida, en tema oscuro y claro.
+![SegmentedControl de tipo de pasaje con la opción «Ida» elegida, en tema oscuro y claro.](assets/Componentes/segmented-control-ida.png)
 
 ## Contenido
 

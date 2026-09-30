@@ -25,7 +25,7 @@ summary: Una casilla para marcar una o varias opciones independientes, o aceptar
 3. **Etiqueta:** a la derecha de la casilla.
 4. **Título del grupo** (en grupos): lo que tienen en común.
 
-> **Imagen pendiente:** anatomía numerada de una casilla sola y de un grupo con padre e hijas.
+![Anatomía de Checkbox: una casilla sola y un grupo con una casilla madre en estado mixto y dos hijas. Numerados: casilla (1), marca (2), etiqueta (3) y título del grupo (4).](assets/Componentes/checkbox-anatomia.png)
 
 ## Estados
 
@@ -39,7 +39,7 @@ summary: Una casilla para marcar una o varias opciones independientes, o aceptar
 
 Los tres estados se distinguen por la forma, no solo por el color.
 
-> **Imagen pendiente:** los cinco estados en tema oscuro y claro.
+![Los cinco estados de Checkbox en tema oscuro y claro: sin marcar, marcada, mixta, foco y desactivada.](assets/Componentes/checkbox-estados.png)
 
 ## Grupos y jerarquías
 

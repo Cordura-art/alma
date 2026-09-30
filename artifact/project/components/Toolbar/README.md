@@ -25,7 +25,7 @@ La barra superior con el título de la vista, la navegación y las acciones frec
 4. **Acciones**: botones `plain`, normalmente de ícono.
 5. **Más** (opcional): un menú con las acciones menos usadas.
 
-> **Imagen pendiente:** anatomía numerada en escritorio y en el teléfono, con el buscador en su propia fila.
+![Anatomía de Toolbar en escritorio y en el teléfono, donde el buscador baja a su propia fila. Numerados: volver (1), título (2), buscador (3), acciones (4) y más (5).](assets/Componentes/toolbar-anatomia.png)
 
 ### Reglas
 
@@ -83,7 +83,7 @@ La barra superior con el título de la vista, la navegación y las acciones frec
 | Acciones | separación | 4 px |
 | Buscador (menos de 672 px) | relleno | 8 px a los lados y abajo |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Toolbar: alto de la barra, relleno lateral, separación entre grupos y botones de acción de 44 px.](assets/Componentes/toolbar-medidas.png)
 
 ### Capas
 

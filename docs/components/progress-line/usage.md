@@ -24,7 +24,7 @@ summary: Una línea lima que indica una espera de marca y termina en verde.
 | `loading` | Un brillo lima recorre la línea. |
 | `success` | Verde fijo. |
 
-> **Imagen pendiente:** la pantalla de pago velada, con la línea cargando y luego en verde.
+![La pantalla de pago velada mientras se procesa: la línea de ProgressLine cargando y, al terminar, en verde.](assets/Componentes/progress-line-pago.png)
 
 ## Contenido
 

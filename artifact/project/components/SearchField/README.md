@@ -26,7 +26,7 @@ Un campo de búsqueda con sugerencias, alcance y filtros.
 5. **Sugerencias**, con título opcional.
 6. **Alcance** (opcional): un `SegmentedControl` debajo.
 
-> **Imagen pendiente:** anatomía numerada con dos tokens, sugerencias abiertas y el alcance.
+![Anatomía de SearchField con dos tokens, las sugerencias abiertas y el alcance. Numerados: lupa (1), campo (2), tokens (3), borrar (4), sugerencias (5) y alcance (6).](assets/Componentes/search-field-anatomia.png)
 
 ### Contenido
 
@@ -88,7 +88,7 @@ Un campo de búsqueda con sugerencias, alcance y filtros.
 | Borrar y quitar token | área de toque | 44 × 44 px |
 | Sugerencias | separación del campo | 8 px |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de SearchField: alto del campo, relleno, radio, ícono de 24 px y alto de los tokens.](assets/Componentes/search-field-medidas.png)
 
 ### Tamaño
 

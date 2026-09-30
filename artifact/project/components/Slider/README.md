@@ -26,7 +26,7 @@ Una pista con una perilla para elegir un valor en un rango.
 5. **Ícono del máximo** (opcional).
 6. **Campo** del valor exacto (opcional).
 
-> **Imagen pendiente:** un slider de precio máximo con su campo, en tema oscuro y claro.
+![Un Slider de precio máximo con su campo numérico, en tema oscuro y claro.](assets/Componentes/slider-precio.png)
 
 ### Reglas de Apple
 
@@ -83,7 +83,7 @@ El valor usa cifras tabulares.
 | Elementos de la fila | separación | 16 px |
 | Campo | ancho | 104 px (6,5 rem) |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Slider: pista de 4 px, perilla de 24 px, alto de la fila y separación con el campo.](assets/Componentes/slider-medidas.png)
 
 ### Movimiento
 

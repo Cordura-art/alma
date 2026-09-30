@@ -39,7 +39,7 @@ summary: Especificaciones visuales de la alerta.
 | Botones en fila | ancho | repartido en partes iguales |
 | Botones apilados | ancho | 100 % |
 
-> **Imagen pendiente:** anatomía acotada, en fila y apilada.
+![Medidas de Alert en fila y apilada: ancho, relleno, separación entre título y mensaje, entre texto y botones, y entre botones.](assets/Componentes/alert-medidas.png)
 
 ## Capas y movimiento
 

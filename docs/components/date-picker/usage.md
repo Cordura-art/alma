@@ -25,7 +25,7 @@ summary: Un campo de fecha con calendario, en formato de Chile.
 4. **Calendario**: mes y año, flechas de mes, grilla de días, botón «Hoy».
 5. **Ayuda** o **error**.
 
-> **Imagen pendiente:** el campo con el calendario abierto, con hoy marcado, un día elegido y días fuera de rango tachados.
+![DatePicker con el calendario abierto en marzo de 2026: hoy (18) marcado, el 25 elegido y los días anteriores a hoy fuera de rango.](assets/Componentes/date-picker-abierto.png)
 
 ## Contenido
 

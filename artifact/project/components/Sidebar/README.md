@@ -27,7 +27,7 @@ Una barra lateral para moverse entre las áreas de la app en tablet y escritorio
 5. **Destino actual**: fondo `selected-ui`, color `nav-selected` e ícono relleno.
 6. **Contador** (opcional).
 
-> **Imagen pendiente:** anatomía numerada con tres grupos, uno plegado.
+![Anatomía de Sidebar con tres grupos, uno plegado. Numerados: botón mostrar u ocultar (1), panel (2), título de grupo (3), destino (4), destino actual (5) y contador (6).](assets/Componentes/sidebar-anatomia.png)
 
 ### Estructura
 
@@ -97,7 +97,7 @@ Una barra lateral para moverse entre las áreas de la app en tablet y escritorio
 
 Una etiqueta que no cabe se corta con puntos suspensivos.
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Sidebar: ancho de 280 px, relleno del panel, alto de los destinos, separación entre grupos y entre destinos, y radio.](assets/Componentes/sidebar-medidas.png)
 
 ### Tamaño
 

@@ -36,7 +36,7 @@ summary: Especificaciones visuales de las pestañas.
 | Indicador | margen lateral | 16 px (mide lo mismo que la etiqueta) |
 | Panel | relleno | 24 px arriba y abajo |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Tabs: alto de la pestaña, relleno lateral, separación entre pestañas, indicador de 2 px y separación con el panel.](assets/Componentes/tabs-medidas.png)
 
 ## Tamaño
 

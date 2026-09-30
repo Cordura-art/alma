@@ -29,7 +29,7 @@ Un diálogo que interrumpe para comunicar algo importante y pedir una decisión.
 4. **Campo** (opcional): solo si hace falta un dato.
 5. **Botones:** hasta 3.
 
-> **Imagen pendiente:** anatomía numerada de una alerta con dos botones y de otra con tres botones apilados.
+![Anatomía de Alert: una alerta con dos botones y otra con tres botones apilados. Numerados: velo (1), título (2), mensaje (3), campo (4) y botones (5).](assets/Componentes/alert-anatomia.png)
 
 ### Botones
 
@@ -45,7 +45,7 @@ Un diálogo que interrumpe para comunicar algo importante y pedir una decisión.
 - Si hay una acción destructiva, incluye siempre «Cancelar».
 - Si quieres que la persona lea antes de actuar, no marques ninguna opción por defecto: el foco va a «Cancelar».
 
-> **Imagen pendiente:** el orden de los botones en fila y apilados.
+![El orden de los botones de Alert: en fila, «Cancelar» a la izquierda y la acción a la derecha; apilados, la acción por defecto arriba y «Cancelar» abajo.](assets/Componentes/alert-orden.png)
 
 ### Contenido
 
@@ -111,7 +111,7 @@ Un diálogo que interrumpe para comunicar algo importante y pedir una decisión.
 | Botones en fila | ancho | repartido en partes iguales |
 | Botones apilados | ancho | 100 % |
 
-> **Imagen pendiente:** anatomía acotada, en fila y apilada.
+![Medidas de Alert en fila y apilada: ancho, relleno, separación entre título y mensaje, entre texto y botones, y entre botones.](assets/Componentes/alert-medidas.png)
 
 ### Capas y movimiento
 

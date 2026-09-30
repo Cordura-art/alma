@@ -34,7 +34,7 @@ Cifras tabulares, para que el texto no salte al cambiar de página.
 | Anterior y siguiente | separación | 8 px |
 | Botones | tamaño | 44 px (`size-touch-min`) |
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Pagination: relleno de la barra, separación entre grupos y botones anterior y siguiente de 44 px.](assets/Componentes/pagination-medidas.png)
 
 ## Contraste
 

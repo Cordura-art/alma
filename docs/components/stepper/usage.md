@@ -22,7 +22,7 @@ summary: Un contador de cantidad con botones para restar y sumar.
 2. **Valor**, con un ícono opcional que dice qué se cuenta.
 3. **Sumar** (+).
 
-> **Imagen pendiente:** el contador de pasajeros con el ícono `ticket`, en 1 (restar desactivado) y en 3.
+![Stepper para contar pasajeros, con el ícono ticket: en 1, con el botón de restar desactivado, y en 3.](assets/Componentes/stepper-pasajeros.png)
 
 ## Contenido
 

@@ -34,7 +34,7 @@ El subrayado aparece al pasar el cursor, 0,2 em bajo el texto.
 
 Si la ruta no cabe a lo ancho, pasa a la línea siguiente.
 
-> **Imagen pendiente:** anatomía acotada.
+![Medidas de Breadcrumb: alto del área táctil de cada enlace, separación con el separador y tamaño del separador.](assets/Componentes/breadcrumb-medidas.png)
 
 ## Contraste
 
