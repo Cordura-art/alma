@@ -29,7 +29,7 @@ El subrayado aparece al pasar el cursor, 0,2 em bajo el texto.
 |---|---|---|
 | Separador | relleno lateral | 8 px |
 | Enlace | alto mínimo (área de toque) | 44 px |
-| Enlace | radio del contorno de foco | `radius-chip` |
+| Enlace | radio del contorno de foco | `radius-nav` |
 | Menú «…» | estilo | `PullDownButton` de ícono sin borde |
 
 Si la ruta no cabe a lo ancho, pasa a la línea siguiente.

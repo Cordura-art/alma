@@ -205,7 +205,7 @@ Los tamaños van en rem: crecen con el tamaño de texto que elige la persona (pr
 |---|---|---|---|---|
 | Contenedor | relleno lateral | 16 px (`space-16`) | 24 px (`space-24`) | 32 px (`space-32`) |
 | Contenedor con ícono | relleno del lado del ícono | 10 px | 16 px (`space-16`) | 24 px (`space-24`) |
-| Contenedor | radio | `radius-pill` | `radius-pill` | `radius-pill` |
+| Contenedor | radio | `radius-button` | `radius-button` | `radius-button` |
 | Contenedor | borde reservado | 2 px transparente | 2 px transparente | 2 px transparente |
 | Ícono | tamaño | 24 px (`icon-size-lg`) | 24 px | 24 px |
 | Ícono y etiqueta | separación | 10 px | 10 px | 10 px |

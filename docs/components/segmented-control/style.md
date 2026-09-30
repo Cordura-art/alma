@@ -30,10 +30,10 @@ La opción elegida se distingue por el fondo, no solo por el color del texto.
 | Elemento | Propiedad | Valor |
 |---|---|---|
 | Contenedor | relleno | 8 px |
-| Contenedor | radio | `radius-pill` |
+| Contenedor | radio | `radius-button` |
 | Opciones | separación | 4 px |
 | Opción | relleno lateral | 16 px |
-| Opción | radio | 48 px |
+| Opción | radio | `radius-button` |
 
 > **Imagen pendiente:** anatomía acotada.
 

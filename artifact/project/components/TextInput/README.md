@@ -7,7 +7,7 @@ Un campo de texto de una línea para escribir un dato corto: nombre, correo, con
 
 ### Resumen
 
-`TextInput` recibe un dato corto escrito por la persona. Es una píldora con borde; la etiqueta vive dentro del campo y, al escribir o enfocar, sube a un chip sobre el borde. Debajo van la ayuda y, si hay límite, el contador.
+`TextInput` recibe un dato corto escrito por la persona. Es un campo con borde y esquinas `radius-field`; la etiqueta vive dentro del campo y, al escribir o enfocar, sube a un chip sobre el borde. Debajo van la ayuda y, si hay límite, el contador.
 
 #### Cuándo usarlo
 
@@ -33,7 +33,7 @@ Un campo de texto de una línea para escribir un dato corto: nombre, correo, con
 
 ### Anatomía
 
-1. **Contenedor:** píldora de radio `radius-card` con borde de 1 px.
+1. **Contenedor:** esquinas `radius-field`, borde de 1 px.
 2. **Etiqueta:** dentro del campo en reposo; flota a un chip sobre el borde con foco o con texto.
 3. **Texto escrito.**
 4. **Botón del ojo** (solo contraseña).
@@ -146,7 +146,7 @@ En tema oscuro el borde y la etiqueta son lima; en claro, tonos acero oscuros, p
 
 | Elemento | Propiedad | Valor |
 |---|---|---|
-| Contenedor | radio | `radius-card` (0 px) |
+| Contenedor | radio | `radius-field` (0 px) |
 | Contenedor | relleno lateral | 16 px (`space-16`); 15 px con el borde de 2 px del foco |
 | Contenedor | separación interna | 8 px (`space-8`) |
 | Etiqueta flotante | posición | sobre el borde superior, a 8 px del inicio |

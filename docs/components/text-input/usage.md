@@ -6,7 +6,7 @@ summary: Un campo de texto de una línea para escribir un dato corto: nombre, co
 
 ## Resumen
 
-`TextInput` recibe un dato corto escrito por la persona. Es una píldora con borde; la etiqueta vive dentro del campo y, al escribir o enfocar, sube a un chip sobre el borde. Debajo van la ayuda y, si hay límite, el contador.
+`TextInput` recibe un dato corto escrito por la persona. Es un campo con borde y esquinas `radius-field`; la etiqueta vive dentro del campo y, al escribir o enfocar, sube a un chip sobre el borde. Debajo van la ayuda y, si hay límite, el contador.
 
 ### Cuándo usarlo
 
@@ -32,7 +32,7 @@ summary: Un campo de texto de una línea para escribir un dato corto: nombre, co
 
 ## Anatomía
 
-1. **Contenedor:** píldora de radio `radius-card` con borde de 1 px.
+1. **Contenedor:** esquinas `radius-field`, borde de 1 px.
 2. **Etiqueta:** dentro del campo en reposo; flota a un chip sobre el borde con foco o con texto.
 3. **Texto escrito.**
 4. **Botón del ojo** (solo contraseña).

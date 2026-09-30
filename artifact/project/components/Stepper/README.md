@@ -66,7 +66,7 @@ Un contador de cantidad con botones para restar y sumar.
 | Elemento | Propiedad | Valor |
 |---|---|---|
 | Elementos | separación | 24 px |
-| Botones y valor | radio | `radius-pill` |
+| Botones y valor | radio | `radius-button` |
 | Botón | ancho mínimo | igual al alto |
 | Valor | ancho mínimo | 130 px |
 | Ícono y número | separación | 10 px |

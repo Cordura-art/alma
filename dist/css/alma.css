@@ -2034,6 +2034,11 @@
   --radius-swatch: 0px;
   --radius-panel: 0px;
   --radius-card: 0px;
+  --radius-button: 100px;
+  --radius-field: 0px;
+  --radius-nav: 100px;
+  --radius-tag: 100px;
+  --radius-checkbox: 4px;
   --radius-pill: 100px;
   --shadow-floating: 0 2px 6px 0 rgba(0,0,0,0.3);
   --size-touch-min: 44px;

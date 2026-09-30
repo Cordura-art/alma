@@ -36,7 +36,7 @@ summary: Especificaciones visuales de la barra lateral.
 | Grupos | separación | 16 px |
 | Título de grupo | alto mínimo | 36 px |
 | Destino | relleno lateral | 16 px |
-| Destino | radio | `radius-pill` |
+| Destino | radio | `radius-nav` |
 | Ícono y etiqueta | separación | 16 px |
 | Botón y panel | separación | 8 px |
 

@@ -80,7 +80,7 @@ Pestañas para alternar entre paneles de contenido relacionado en la misma área
 |---|---|---|
 | Pestañas | separación | 8 px |
 | Pestaña | relleno lateral | 16 px |
-| Pestaña | radio | `radius-pill` arriba |
+| Pestaña | radio | `radius-nav` arriba |
 | Indicador | alto, radio | 2 px, 2 px |
 | Indicador | margen lateral | 16 px (mide lo mismo que la etiqueta) |
 | Panel | relleno | 24 px arriba y abajo |

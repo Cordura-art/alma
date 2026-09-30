@@ -17,7 +17,7 @@ summary: Un campo de varias líneas para texto largo: comentarios, descripciones
 
 ## Anatomía
 
-1. **Contenedor:** esquinas `radius-panel`, borde de 1 px.
+1. **Contenedor:** esquinas `radius-field`, borde de 1 px.
 2. **Etiqueta:** siempre flotando en el chip sobre el borde.
 3. **Área de texto:** 4 líneas por defecto; se agranda hacia abajo.
 4. **Ayuda** y **contador**, como en `TextInput`.

@@ -33,10 +33,10 @@ summary: Especificaciones visuales del campo de búsqueda.
 |---|---|---|
 | Buscador | ancho máximo | 480 px |
 | Campo | relleno | 16 px al inicio, 8 px al final |
-| Campo | radio | `radius-pill` |
+| Campo | radio | `radius-field` |
 | Elementos | separación | 8 px |
 | Texto | ancho mínimo | 120 px |
-| Token | alto, radio | 28 px, `radius-pill` |
+| Token | alto, radio | 28 px, `radius-tag` |
 | Borrar y quitar token | área de toque | 44 × 44 px |
 | Sugerencias | separación del campo | 8 px |
 

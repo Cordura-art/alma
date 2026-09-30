@@ -91,7 +91,7 @@ Cada token cambiado lo dice en su nota. No uses los valores anteriores.
 ## Espaciado y grid
 
 - Escala: `space-8`, `space-16`, `space-24`, `space-32`, `space-40`, `space-48`, `space-56`, `space-64`, `space-72` y `space-80`.
-- Radios: `radius-pill` para botones, `radius-card` (0 px, esquinas rectas) para campos y marcos grandes, `radius-swatch` (0 px) para tarjetas de muestra, `radius-chip` (48 px, redondeado completo) para etiquetas.
+- Radios, uno por familia: `radius-button` (100 px, píldora) para botones, `radius-field` (0 px, esquinas rectas) para campos, `radius-nav` (100 px) para navegación, `radius-tag` (100 px) para etiquetas, `radius-checkbox` (4 px) para la casilla; `radius-panel` y `radius-card` (0 px) para contenedores y marcos, `radius-swatch` (0 px) para tarjetas de muestra, `radius-chip` (48 px) para detalles pequeños. `radius-pill` queda para las formas siempre redondas.
 - Grid responsive, mobile first. Cada breakpoint aplica desde ese ancho:
 
 | Breakpoint | Desde | Columnas | Margen | Gutter |

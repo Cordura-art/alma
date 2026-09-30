@@ -90,7 +90,7 @@ Una barra lateral para moverse entre las áreas de la app en tablet y escritorio
 | Grupos | separación | 16 px |
 | Título de grupo | alto mínimo | 36 px |
 | Destino | relleno lateral | 16 px |
-| Destino | radio | `radius-pill` |
+| Destino | radio | `radius-nav` |
 | Ícono y etiqueta | separación | 16 px |
 | Botón y panel | separación | 8 px |
 

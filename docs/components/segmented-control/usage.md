@@ -22,7 +22,7 @@ summary: Un selector de una opción entre pocas alternativas, en una píldora.
 
 ## Anatomía
 
-1. **Contenedor** en píldora, con borde.
+1. **Contenedor** con esquinas `radius-button` (hoy en píldora), con borde.
 2. **Opción.**
 3. **Opción elegida**: fondo blanco.
 

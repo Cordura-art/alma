@@ -5,10 +5,10 @@
 html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) * 1%); font-variation-settings: "wdth" var(--font-width, 150), "GRAD" var(--font-grade, 0); background: var(--ui-02); color: var(--text-01); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 .alma-icon { display: block; width: 24px; height: 24px; flex: none; }
 
-/* ---------- Button: pill, 32 / 56 / 72 ---------- */
+/* ---------- Button: radius-button, 32 / 56 / 72 ---------- */
 .alma-btn {
   display: inline-flex; text-align: center; align-items: center; justify-content: center; gap: var(--space-2);
-  border: 2px solid transparent; border-radius: var(--radius-pill);
+  border: 2px solid transparent; border-radius: var(--radius-button);
   font: inherit; font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; font-weight: 400;
   cursor: pointer; white-space: nowrap; box-sizing: border-box;
   transition: background-color var(--duration-fast-01) var(--easing-standard-productive), color var(--duration-fast-01) var(--easing-standard-productive);
@@ -90,7 +90,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-field__box {
   position: relative; display: flex; align-items: center; gap: var(--space-8);
   min-height: var(--alma-field); padding: 0 var(--space-16); box-sizing: border-box;
-  border: 1px solid var(--field-border); border-radius: var(--radius-card); background: transparent;
+  border: 1px solid var(--field-border); border-radius: var(--radius-field); background: transparent;
   transition: border-color var(--duration-fast-02) var(--easing-standard-productive);
 }
 .alma-field__box:hover { border-color: var(--field-border-hover); }
@@ -136,15 +136,15 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-ico { display: inline-block; flex: none; fill: currentColor; vertical-align: middle; }
 
 /* ---------- SegmentedControl: pill track, white selected pill ---------- */
-.alma-seg { display: inline-flex; gap: var(--space-4); padding: var(--space-8); border-radius: var(--radius-pill); background: var(--segmented-bg); border: 1px solid var(--segmented-border); }
-.alma-seg__opt { min-height: var(--alma-control); padding: 0 var(--space-16); border: 0; border-radius: 48px; background: transparent; color: var(--segmented-text); font: inherit; font-size: 0.6875rem; letter-spacing: 0.055px; cursor: pointer; transition: background-color var(--duration-fast-01) var(--easing-standard-productive), color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-seg { display: inline-flex; gap: var(--space-4); padding: var(--space-8); border-radius: var(--radius-button); background: var(--segmented-bg); border: 1px solid var(--segmented-border); }
+.alma-seg__opt { min-height: var(--alma-control); padding: 0 var(--space-16); border: 0; border-radius: var(--radius-button); background: transparent; color: var(--segmented-text); font: inherit; font-size: 0.6875rem; letter-spacing: 0.055px; cursor: pointer; transition: background-color var(--duration-fast-01) var(--easing-standard-productive), color var(--duration-fast-01) var(--easing-standard-productive); }
 .alma-seg__opt:hover { color: var(--text-01); }
 .alma-seg__opt--on { background: var(--segmented-selected-bg); color: var(--segmented-selected-text); }
 .alma-seg__opt:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
 /* ---------- Stepper: three 56px white pills ---------- */
 .alma-step { display: inline-flex; align-items: center; gap: var(--space-24); }
-.alma-step__btn, .alma-step__value { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: var(--alma-field); min-width: var(--alma-field); padding: 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--stepper-border); border-radius: var(--radius-pill); background: var(--stepper-bg); color: var(--text-01); font: inherit; font-size: 1rem; letter-spacing: 0.16px; }
+.alma-step__btn, .alma-step__value { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: var(--alma-field); min-width: var(--alma-field); padding: 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--stepper-border); border-radius: var(--radius-button); background: var(--stepper-bg); color: var(--text-01); font: inherit; font-size: 1rem; letter-spacing: 0.16px; }
 .alma-step__value { min-width: 130px; color: var(--text-02); }
 .alma-step__btn { cursor: pointer; transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
 .alma-step__btn:hover:not(:disabled) { background: var(--stepper-bg-hover); }
@@ -157,7 +157,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-pcard__title { font-size: 1rem; line-height: 1.72; letter-spacing: 0.16px; }
 .alma-pcard__subtitle, .alma-pcard__img, .alma-pcard__body { animation: alma-disclosure var(--duration-moderate-02) var(--easing-entrance-productive) both; }
 @keyframes alma-disclosure { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
-.alma-pcard__toggle { display: flex; padding: var(--space-4); border: 0; border-radius: var(--radius-pill); background: var(--product-card-toggle-bg); color: var(--product-card-text); cursor: pointer; }
+.alma-pcard__toggle { display: flex; padding: var(--space-4); border: 0; border-radius: var(--radius-button); background: var(--product-card-toggle-bg); color: var(--product-card-text); cursor: pointer; }
 .alma-pcard__toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .alma-pcard__subtitle { padding: 0 var(--space-16) var(--space-16); font-size: 1.25rem; line-height: 1.4; letter-spacing: 0.2px; color: var(--product-card-subtitle); }
 .alma-pcard__img { display: block; width: 100%; height: 245px; object-fit: cover; }
@@ -219,7 +219,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-check { position: relative; display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); cursor: pointer; font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; color: var(--text-01); }
 .alma-check__input { position: absolute; opacity: 0; width: var(--alma-control); height: var(--alma-control); left: -12px; margin: 0; cursor: pointer; }
 .alma-check__box, .alma-radio__dot { flex: none; width: 20px; height: 20px; box-sizing: border-box; border: 2px solid var(--control-off-border); display: flex; align-items: center; justify-content: center; color: var(--control-on-mark); transition: background-color var(--duration-fast-01) var(--easing-standard-productive), border-color var(--duration-fast-01) var(--easing-standard-productive); }
-.alma-check__box { border-radius: var(--radius-chip); }
+.alma-check__box { border-radius: var(--radius-checkbox); }
 .alma-check__box.is-on { background: var(--control-on); border-color: var(--control-on); }
 .alma-radio__dot { border-radius: 50%; }
 .alma-radio__dot.is-on { border-color: var(--control-on); }
@@ -233,7 +233,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 /* ---------- PopUpButton / PullDownButton ---------- */
 .alma-popup { position: relative; display: inline-flex; flex-direction: column; gap: var(--space-4); }
 .alma-popup__label { font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); padding-left: var(--space-16); }
-.alma-popup__btn { display: inline-flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-width: 200px; min-height: var(--alma-control); padding: 0 var(--space-8) 0 var(--space-16); border: 1px solid var(--popup-border); border-radius: var(--radius-pill); background: var(--popup-bg); color: var(--text-01); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; cursor: pointer; transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-popup__btn { display: inline-flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-width: 200px; min-height: var(--alma-control); padding: 0 var(--space-8) 0 var(--space-16); border: 1px solid var(--popup-border); border-radius: var(--radius-button); background: var(--popup-bg); color: var(--text-01); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; cursor: pointer; transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
 .alma-popup__btn--pull { min-width: 0; }
 .alma-popup__btn:hover:not(:disabled) { border-color: var(--popup-border-hover); }
 .alma-popup__btn[aria-expanded="true"] { border-color: var(--popup-border-open); }
@@ -243,7 +243,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-menu { position: absolute; top: calc(100% + var(--space-8)); left: 0; z-index: var(--z-dropdown); min-width: 100%; max-width: 320px; padding: var(--space-8); box-sizing: border-box; border-radius: var(--radius-panel); background: var(--menu-bg); border: 1px solid var(--menu-border); box-shadow: var(--shadow-floating); animation: alma-menu-in var(--duration-fast-02) var(--easing-entrance-expressive) both; }
 @keyframes alma-menu-in { from { opacity: 0; transform: translateY(-4px) scale(.98); } to { opacity: 1; transform: none; } }
 .alma-menu__list { list-style: none; margin: 0; padding: 0; outline: none; }
-.alma-menu__item { display: flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-16) 0 var(--space-8); border-radius: var(--radius-pill); font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-01); cursor: pointer; outline: none; }
+.alma-menu__item { display: flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-16) 0 var(--space-8); border-radius: var(--radius-nav); font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-01); cursor: pointer; outline: none; }
 .alma-menu__item:hover, .alma-menu__item:focus { background: var(--menu-item-bg-hover); }
 .alma-menu__item:focus-visible { box-shadow: inset 0 0 0 2px var(--focus); }
 .alma-menu__item.is-destructive { color: var(--menu-item-destructive-text); }
@@ -268,7 +268,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 
 /* ---------- Tabs (Apple tab view) ---------- */
 .alma-tabs__list { display: flex; gap: var(--space-8); border-bottom: 1px solid var(--tabs-border); overflow-x: auto; scrollbar-width: none; }
-.alma-tabs__tab { position: relative; display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-16); border: 0; background: none; color: var(--tabs-text); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; white-space: nowrap; cursor: pointer; border-radius: var(--radius-pill) var(--radius-pill) 0 0; transition: color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-tabs__tab { position: relative; display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-16); border: 0; background: none; color: var(--tabs-text); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; white-space: nowrap; cursor: pointer; border-radius: var(--radius-nav) var(--radius-nav) 0 0; transition: color var(--duration-fast-01) var(--easing-standard-productive); }
 .alma-tabs__tab:hover { color: var(--text-01); }
 .alma-tabs__tab.is-on { color: var(--tabs-text-selected); }
 .alma-tabs__tab::after { content: ""; position: absolute; left: var(--space-16); right: var(--space-16); bottom: -1px; height: 2px; border-radius: 2px; background: var(--tabs-indicator); transform: scaleX(0); transition: transform var(--duration-moderate-01) var(--easing-standard-productive); }
@@ -278,7 +278,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-tabs__panel:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius-chip); }
 
 /* ---------- Badge (Apple: red oval, critical info only) ---------- */
-.alma-badge { position: absolute; top: -6px; left: 14px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: var(--radius-pill); background: var(--badge-bg); color: var(--badge-text); font-size: 0.6875rem; line-height: 18px; font-weight: 500; text-align: center; }
+.alma-badge { position: absolute; top: -6px; left: 14px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: var(--radius-tag); background: var(--badge-bg); color: var(--badge-text); font-size: 0.6875rem; line-height: 18px; font-weight: 500; text-align: center; }
 
 /* ---------- TabBar (Apple tab bar) ---------- */
 .alma-tabbar { background: var(--tab-bar-bg); border-top: 1px solid var(--tab-bar-border); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -295,10 +295,10 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-side-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); }
 .alma-side { width: 17.5rem; max-width: 100%; box-sizing: border-box; padding: var(--space-8); border-radius: var(--radius-panel); background: var(--sidebar-bg); animation: alma-disclosure var(--duration-moderate-01) var(--easing-entrance-productive) both; }
 .alma-side__group + .alma-side__group { margin-top: var(--space-16); }
-.alma-side__head { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 36px; padding: 0 var(--space-8) 0 var(--space-16); border: 0; background: none; color: var(--text-02); font: inherit; font-size: 0.6875rem; letter-spacing: 0.165px; text-transform: uppercase; cursor: pointer; border-radius: var(--radius-pill); }
+.alma-side__head { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 36px; padding: 0 var(--space-8) 0 var(--space-16); border: 0; background: none; color: var(--text-02); font: inherit; font-size: 0.6875rem; letter-spacing: 0.165px; text-transform: uppercase; cursor: pointer; border-radius: var(--radius-nav); }
 .alma-side__head:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .alma-side__list { list-style: none; margin: 0; padding: 0; }
-.alma-side__item { display: flex; align-items: center; gap: var(--space-16); min-height: var(--alma-control); padding: 0 var(--space-16); border-radius: var(--radius-pill); color: var(--text-01); text-decoration: none; font-size: 0.875rem; letter-spacing: 0.14px; transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
+.alma-side__item { display: flex; align-items: center; gap: var(--space-16); min-height: var(--alma-control); padding: 0 var(--space-16); border-radius: var(--radius-nav); color: var(--text-01); text-decoration: none; font-size: 0.875rem; letter-spacing: 0.14px; transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
 .alma-side__item .alma-ico { color: var(--icon-02); }
 .alma-side__item:hover { background: var(--sidebar-item-bg-hover); }
 .alma-side__item.is-on { background: var(--sidebar-item-bg-selected); color: var(--sidebar-item-text-selected); }
@@ -323,7 +323,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 
 /* ---------- SearchField (Apple search field) ---------- */
 .alma-search { position: relative; display: flex; flex-direction: column; gap: var(--space-8); width: 100%; max-width: 480px; }
-.alma-search__box { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-8) 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--search-border); border-radius: var(--radius-pill); background: var(--search-bg); transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-search__box { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-8) 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--search-border); border-radius: var(--radius-field); background: var(--search-bg); transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
 .alma-search__box:focus-within { border-color: var(--search-border-focus); box-shadow: 0 0 0 1px var(--search-border-focus); }
 .alma-search__icon { color: var(--icon-02); }
 .alma-search__input { flex: 1; min-width: 120px; height: calc(var(--alma-control) - 2px); border: 0; outline: 0; background: transparent; color: var(--text-01); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; }
@@ -332,7 +332,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-search__clear { display: flex; border: 0; background: none; padding: 0; color: var(--icon-02); cursor: pointer; position: relative; border-radius: 50%; }
 .alma-search__clear::after { content: ""; position: absolute; left: 50%; top: 50%; width: var(--alma-control); height: var(--alma-control); transform: translate(-50%, -50%); }
 .alma-search__clear:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.alma-search__token { display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 0 var(--space-4) 0 var(--space-8); border-radius: var(--radius-pill); background: var(--search-token-bg); color: var(--search-token-text); font-size: 0.75rem; letter-spacing: 0.18px; }
+.alma-search__token { display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 0 var(--space-4) 0 var(--space-8); border-radius: var(--radius-tag); background: var(--search-token-bg); color: var(--search-token-text); font-size: 0.75rem; letter-spacing: 0.18px; }
 .alma-search__untoken { position: relative; display: flex; border: 0; background: none; padding: 2px; color: inherit; cursor: pointer; border-radius: 50%; }
 .alma-search__untoken::after { content: ""; position: absolute; left: 50%; top: 50%; width: var(--alma-control); height: var(--alma-control); transform: translate(-50%, -50%); }
 .alma-search__untoken:focus-visible { outline: 2px solid var(--focus); }
@@ -401,7 +401,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-slider__input::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--slider-thumb); border: 3px solid var(--slider-thumb-ring); box-shadow: 0 0 0 1px var(--slider-thumb); }
 .alma-slider__input:active::-webkit-slider-thumb { transform: scale(1.15); }
 .alma-slider__input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius-pill); }
-.alma-slider__field { width: 6.5rem; min-height: var(--alma-control); padding: 0 var(--space-8); box-sizing: border-box; border: 1px solid var(--slider-field-border); border-radius: var(--radius-pill); background: var(--slider-field-bg); color: var(--text-01); font: inherit; font-size: 0.875rem; text-align: center; font-variant-numeric: tabular-nums; }
+.alma-slider__field { width: 6.5rem; min-height: var(--alma-control); padding: 0 var(--space-8); box-sizing: border-box; border: 1px solid var(--slider-field-border); border-radius: var(--radius-field); background: var(--slider-field-bg); color: var(--text-01); font: inherit; font-size: 0.875rem; text-align: center; font-variant-numeric: tabular-nums; }
 .alma-slider__field:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .alma-slider.is-disabled { opacity: .45; }
 
@@ -463,7 +463,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-upload__zone:hover, .alma-upload__zone.is-over { border-color: var(--file-uploader-border-hover); border-style: solid; background: var(--file-uploader-bg-hover); color: var(--text-01); }
 .alma-upload__zone:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .alma-upload__list { list-style: none; margin: var(--space-8) 0 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: var(--space-8); }
-.alma-upload__file { border-radius: var(--radius-pill); background: var(--file-uploader-file-bg); }
+.alma-upload__file { border-radius: var(--radius-tag); background: var(--file-uploader-file-bg); }
 .alma-upload__file.is-error { border-radius: var(--radius-panel); border: 1px solid var(--file-uploader-file-border-error); }
 .alma-upload__row { display: flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding-left: var(--space-16); }
 .alma-upload__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-01); }
@@ -492,7 +492,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-link__icon { margin-left: 0.25em; vertical-align: -0.125em; }
 
 /* ---------- Tag (Carbon) ---------- */
-.alma-tag { position: relative; display: inline-flex; align-items: center; gap: var(--space-4); max-width: 100%; min-height: 2rem; padding: 0 var(--space-8); box-sizing: border-box; border: 0; border-radius: var(--radius-pill); font: inherit; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; vertical-align: middle; }
+.alma-tag { position: relative; display: inline-flex; align-items: center; gap: var(--space-4); max-width: 100%; min-height: 2rem; padding: 0 var(--space-8); box-sizing: border-box; border: 0; border-radius: var(--radius-tag); font: inherit; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; vertical-align: middle; }
 .alma-tag--sm { min-height: 1.5rem; font-size: 0.6875rem; letter-spacing: 0.165px; }
 .alma-tag__text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .alma-tag--red { background: var(--tag-red-bg); color: var(--tag-red-text); }
@@ -519,7 +519,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 
 /* ---------- Textarea ---------- */
 .alma-field--area { width: 100%; max-width: 30rem; }
-.alma-field--area .alma-field__box { align-items: stretch; padding: var(--space-16); border-radius: var(--radius-panel); }
+.alma-field--area .alma-field__box { align-items: stretch; padding: var(--space-16); border-radius: var(--radius-field); }
 .alma-field--area .alma-field__box:focus-within { padding: 15px; }
 .alma-field__textarea { min-height: 6rem; resize: vertical; line-height: 1.5; }
 .alma-field--area .alma-field__box .alma-field__input::placeholder { color: var(--field-placeholder); }
@@ -569,7 +569,7 @@ html { font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) 
 .alma-crumbs__list { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; font-size: 0.875rem; }
 .alma-crumbs__item { display: inline-flex; align-items: center; min-width: 0; }
 .alma-crumbs__sep { padding: 0 var(--space-8); color: var(--breadcrumb-separator); }
-.alma-crumbs__link { display: inline-flex; align-items: center; min-height: var(--alma-control); color: var(--link-text); text-decoration: none; border-radius: var(--radius-chip); }
+.alma-crumbs__link { display: inline-flex; align-items: center; min-height: var(--alma-control); color: var(--link-text); text-decoration: none; border-radius: var(--radius-nav); }
 .alma-crumbs__link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 .alma-crumbs__link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .alma-crumbs__current { color: var(--breadcrumb-current); font-weight: 500; }

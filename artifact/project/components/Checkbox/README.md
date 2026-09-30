@@ -21,7 +21,7 @@ Una casilla para marcar una o varias opciones independientes, o aceptar algo.
 
 ### Anatomía
 
-1. **Casilla:** cuadrado de 20 px con esquinas `radius-chip`.
+1. **Casilla:** cuadrado de 20 px con esquinas `radius-checkbox` (4 px). Siempre con esquinas, para no confundirla con `RadioGroup`.
 2. **Marca:** check o guion.
 3. **Etiqueta:** a la derecha de la casilla.
 4. **Título del grupo** (en grupos): lo que tienen en común.
@@ -95,7 +95,7 @@ En tema claro, `control-on` es un oliva oscuro: el lima no llega a 3:1 sobre fon
 | Elemento | Propiedad | Valor |
 |---|---|---|
 | Casilla | tamaño | 20 × 20 px |
-| Casilla | radio | `radius-chip` (48 px) |
+| Casilla | radio | `radius-checkbox` (4 px) |
 | Marca | tamaño | 16 px |
 | Casilla y etiqueta | separación | 8 px (`space-8`) |
 | Fila | alto mínimo | 44 px (`size-touch-min`) |

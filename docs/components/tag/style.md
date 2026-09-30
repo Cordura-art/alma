@@ -31,7 +31,7 @@ summary: Especificaciones visuales de la etiqueta.
 |---|---|---|
 | Etiqueta | alto mínimo | 32 px (24 px en `sm`) |
 | Etiqueta | relleno lateral | 8 px |
-| Etiqueta | radio | `radius-pill` |
+| Etiqueta | radio | `radius-tag` |
 | Ícono y texto | separación | 4 px |
 | Quitar | tamaño / área de toque | 20 px / 32 px |
 | Seleccionable | área de toque | 44 px de alto |

@@ -22,7 +22,7 @@ summary: Un botón que abre una lista corta de opciones excluyentes y muestra la
 ## Anatomía
 
 1. **Etiqueta** (opcional, recomendada): anticipa las opciones sin abrir el menú.
-2. **Botón:** píldora con la opción actual y el ícono `chevron--sort`.
+2. **Botón:** esquinas `radius-button`, con la opción actual y el ícono `chevron--sort`.
 3. **Menú:** panel flotante con la lista.
 4. **Opción elegida:** marcada con un check.
 5. **Nota al pie** (opcional): explica algo de las opciones.

@@ -48,13 +48,13 @@ summary: Especificaciones visuales del botón con menú de opciones.
 |---|---|---|
 | Botón | ancho mínimo | 200 px |
 | Botón | relleno | 16 px al inicio, 8 px al final |
-| Botón | radio | `radius-pill` |
+| Botón | radio | `radius-button` |
 | Ícono | tamaño | 20 px (`icon-size-md`) |
 | Etiqueta superior | sangría | 16 px |
 | Menú | separación del botón | 8 px |
 | Menú | relleno, radio | 8 px, `radius-panel` |
 | Menú | ancho | el del botón como mínimo, 320 px como máximo |
-| Opción | alto mínimo, radio | 44 px, `radius-pill` |
+| Opción | alto mínimo, radio | 44 px, `radius-nav` |
 | Opción | columna de la marca | 24 px |
 
 > **Imagen pendiente:** anatomía acotada del botón y del menú abierto.

@@ -5045,15 +5045,25 @@ abstract final class AlmaSpacing {
 }
 
 abstract final class AlmaRadius {
-  /// Etiquetas y chips de token.
+  /// Etiquetas flotantes de campo, globos de ayuda y contornos de foco pequeños.
   static const double radiusChip = 48.0;
   /// Tarjetas de muestra de color.
   static const double radiusSwatch = 0.0;
   /// Menús, alertas y tarjetas de lista (en Figma: ProductCard y tarjetas de viaje).
   static const double radiusPanel = 0.0;
-  /// Marcos de documentación y tarjetas grandes; campo de texto.
+  /// Marcos de documentación y tarjetas grandes.
   static const double radiusCard = 0.0;
-  /// Botones: siempre en píldora.
+  /// Botones: Button, IconButton, Stepper, PopUpButton y SegmentedControl. 100 px es la píldora.
+  static const double radiusButton = 100.0;
+  /// Campos: TextInput, Textarea, Search y el campo del Slider.
+  static const double radiusField = 0.0;
+  /// Destinos de navegación: Tabs, Sidebar, ítems de menú y Breadcrumb.
+  static const double radiusNav = 100.0;
+  /// Tag, fichas del buscador, Badge y archivos del FileUploader.
+  static const double radiusTag = 100.0;
+  /// La casilla de Checkbox: siempre con esquinas, para no confundirla con Radio.
+  static const double radiusCheckbox = 4.0;
+  /// Formas siempre redondas: Switch, barra de progreso, días del calendario, íconos dentro de campos.
   static const double radiusPill = 100.0;
 }
 

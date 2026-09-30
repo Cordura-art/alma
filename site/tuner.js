@@ -99,12 +99,16 @@
         slider('Peso de títulos', 100, 1000, 10, w('heading'), function (v) { p.set('weights', 'heading', v, C.weights.heading); }),
         slider('Peso de cuerpo y etiquetas', 100, 1000, 10, w('body'), function (v) { p.set('weights', 'body', v, C.weights.body); })));
   }
+  var RADIUS_LABEL = { 'radius-button': 'Botones', 'radius-field': 'Campos', 'radius-nav': 'Navegación', 'radius-tag': 'Etiquetas',
+    'radius-checkbox': 'Casilla', 'radius-panel': 'Paneles y tarjetas', 'radius-card': 'Tarjetas grandes', 'radius-swatch': 'Muestras de color',
+    'radius-chip': 'Detalles pequeños' };
+  var RADIUS_ORDER = Object.keys(RADIUS_LABEL);
   function ShapePanel(p) {
     return h('div', null,
-      h('p', { className: 'tnote web-body-s' }, 'Los radios de ALMA. radius-pill queda fijo: es la píldora de los botones.'),
-      h('div', { className: 'tsliders' }, C.radius.map(function (r) {
+      h('p', { className: 'tnote web-body-s' }, 'Los radios de ALMA, por familia de elementos. Desde la mitad del alto de un elemento, el radio ya lo redondea por completo: 100 px es la píldora. radius-pill queda fijo para las formas siempre redondas, como Switch.'),
+      h('div', { className: 'tsliders' }, C.radius.slice().sort(function (a, b) { return RADIUS_ORDER.indexOf(a.name) - RADIUS_ORDER.indexOf(b.name); }).map(function (r) {
         var v = p.ch.radius[r.name] !== undefined ? parseInt(p.ch.radius[r.name], 10) : parseInt(r.value, 10);
-        return slider(r.name, 0, 48, 1, v, function (x) { p.set('radius', r.name, x + 'px', r.value); }, function (x) { return x + ' px'; });
+        return slider((RADIUS_LABEL[r.name] || r.name) + ' · ' + r.name, 0, 100, 1, v, function (x) { p.set('radius', r.name, x + 'px', r.value); }, function (x) { return x + ' px'; });
       })));
   }
 
@@ -129,8 +133,11 @@
         h(B, { variant: 'gray' }, 'Cancelar'),
         h(B, { variant: 'plain' }, 'Ver detalle'),
         h(B, { variant: 'tinted', role: 'destructive' }, 'Eliminar')),
+      h(A.Tabs, { label: 'Secciones del viaje', tabs: ['Pasajes', 'Equipaje', 'Pagos'], defaultValue: 'Pasajes' },
+        h('p', { className: 'web-body-s tprev__muted' }, 'Un pasaje de ida, asiento 14.')),
       h('div', { className: 'tprev__grid' },
         h('div', { style: { display: 'grid', gap: 'var(--space-16)' } },
+          h(A.SearchField, { label: 'Buscar destino', placeholder: 'Buscar ciudades o terminales' }),
           h(A.TextInput, { label: 'Correo', defaultValue: 'camila@correo.cl', helper: 'Te enviaremos el pasaje aquí' }),
           h(A.TextInput, { label: 'RUT', defaultValue: '12.345.678', error: 'Agrega el dígito verificador' }),
           h(A.SegmentedControl, { label: 'Tipo de viaje', options: ['Ida', 'Ida y regreso'], defaultValue: 'Ida' }),

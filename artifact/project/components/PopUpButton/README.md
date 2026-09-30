@@ -23,7 +23,7 @@ Un botón que abre una lista corta de opciones excluyentes y muestra la elegida.
 ### Anatomía
 
 1. **Etiqueta** (opcional, recomendada): anticipa las opciones sin abrir el menú.
-2. **Botón:** píldora con la opción actual y el ícono `chevron--sort`.
+2. **Botón:** esquinas `radius-button`, con la opción actual y el ícono `chevron--sort`.
 3. **Menú:** panel flotante con la lista.
 4. **Opción elegida:** marcada con un check.
 5. **Nota al pie** (opcional): explica algo de las opciones.
@@ -108,13 +108,13 @@ Un botón que abre una lista corta de opciones excluyentes y muestra la elegida.
 |---|---|---|
 | Botón | ancho mínimo | 200 px |
 | Botón | relleno | 16 px al inicio, 8 px al final |
-| Botón | radio | `radius-pill` |
+| Botón | radio | `radius-button` |
 | Ícono | tamaño | 20 px (`icon-size-md`) |
 | Etiqueta superior | sangría | 16 px |
 | Menú | separación del botón | 8 px |
 | Menú | relleno, radio | 8 px, `radius-panel` |
 | Menú | ancho | el del botón como mínimo, 320 px como máximo |
-| Opción | alto mínimo, radio | 44 px, `radius-pill` |
+| Opción | alto mínimo, radio | 44 px, `radius-nav` |
 | Opción | columna de la marca | 24 px |
 
 > **Imagen pendiente:** anatomía acotada del botón y del menú abierto.

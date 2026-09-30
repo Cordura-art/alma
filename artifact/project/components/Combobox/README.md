@@ -28,7 +28,7 @@ Un campo para elegir una o varias opciones de una lista larga escribiendo para f
 
 ### Anatomía
 
-1. **Campo:** la píldora de `TextInput`, con su etiqueta flotante.
+1. **Campo:** el de `TextInput`, con su etiqueta flotante.
 2. **Etiquetas** (múltiple): una por opción elegida, con su botón para quitar.
 3. **Texto de búsqueda.**
 4. **Botón de la lista:** chevron para abrir o cerrar.
@@ -147,7 +147,7 @@ Un campo para elegir una o varias opciones de una lista larga escribiendo para f
 | Lista | separación del campo | 8 px |
 | Lista | relleno y radio | 8 px, `radius-panel` |
 | Lista | alto máximo | 16 rem, con desplazamiento |
-| Opción | alto mínimo, radio | 44 px (`size-touch-min`), `radius-pill` |
+| Opción | alto mínimo, radio | 44 px (`size-touch-min`), `radius-nav` |
 | Etiqueta | alto | 24 px |
 
 > **Imagen pendiente:** anatomía acotada del campo múltiple con la lista abierta.

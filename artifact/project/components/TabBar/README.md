@@ -90,7 +90,7 @@ Una barra inferior para moverse entre las secciones principales de la app en el 
 | Ítem | alto mínimo | 56 px |
 | Ítem | radio | `radius-panel` |
 | Ícono y etiqueta | separación | 2 px (apilados) · 8 px (en fila) |
-| Insignia | alto, ancho mínimo | 18 px, 18 px; `radius-pill` |
+| Insignia | alto, ancho mínimo | 18 px, 18 px; `radius-tag` |
 
 > **Imagen pendiente:** anatomía acotada en el teléfono.
 

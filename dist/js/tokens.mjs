@@ -2014,6 +2014,11 @@ export const core = {
     "radius-swatch": "0px",
     "radius-panel": "0px",
     "radius-card": "0px",
+    "radius-button": "100px",
+    "radius-field": "0px",
+    "radius-nav": "100px",
+    "radius-tag": "100px",
+    "radius-checkbox": "4px",
     "radius-pill": "100px"
   },
   "duration": {

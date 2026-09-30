@@ -37,7 +37,7 @@ summary: Especificaciones visuales del cargador de archivos.
 | Zona | alto mínimo, relleno | 128 px, 24 px |
 | Zona | radio | `radius-panel` |
 | Ícono de la zona | tamaño | 32 px (`upload`) |
-| Archivo | alto mínimo, radio | 44 px, `radius-pill` |
+| Archivo | alto mínimo, radio | 44 px, `radius-tag` |
 | Archivos | separación | 8 px |
 
 > **Imagen pendiente:** anatomía acotada.

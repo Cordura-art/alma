@@ -29,7 +29,7 @@ Una etiqueta corta que clasifica, filtra o muestra un estado.
 
 ### Anatomía
 
-1. **Contenedor** en píldora, con el color de la etiqueta.
+1. **Contenedor** con esquinas `radius-tag` (hoy en píldora), con el color de la etiqueta.
 2. **Ícono** (opcional).
 3. **Texto.**
 4. **Quitar** (opcional).
@@ -96,7 +96,7 @@ Once colores de la paleta secundaria: `red`, `yellow`, `magenta`, `purple`, `blu
 |---|---|---|
 | Etiqueta | alto mínimo | 32 px (24 px en `sm`) |
 | Etiqueta | relleno lateral | 8 px |
-| Etiqueta | radio | `radius-pill` |
+| Etiqueta | radio | `radius-tag` |
 | Ícono y texto | separación | 4 px |
 | Quitar | tamaño / área de toque | 20 px / 32 px |
 | Seleccionable | área de toque | 44 px de alto |

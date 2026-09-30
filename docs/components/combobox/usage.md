@@ -27,7 +27,7 @@ summary: Un campo para elegir una o varias opciones de una lista larga escribien
 
 ## Anatomía
 
-1. **Campo:** la píldora de `TextInput`, con su etiqueta flotante.
+1. **Campo:** el de `TextInput`, con su etiqueta flotante.
 2. **Etiquetas** (múltiple): una por opción elegida, con su botón para quitar.
 3. **Texto de búsqueda.**
 4. **Botón de la lista:** chevron para abrir o cerrar.

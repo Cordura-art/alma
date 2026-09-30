@@ -72,7 +72,7 @@ Dentro de una `Toolbar` o un `Breadcrumb`, el botón no tiene borde y usa los co
 
 ### Estructura
 
-Igual al menú de `PopUpButton`: separado 8 px del botón, relleno de 8 px, radio `radius-panel`, acciones de 44 px de alto con `radius-pill`, columna de 24 px para el ícono.
+Igual al menú de `PopUpButton`: separado 8 px del botón, relleno de 8 px, radio `radius-panel`, acciones de 44 px de alto con `radius-nav`, columna de 24 px para el ícono.
 
 > **Imagen pendiente:** anatomía acotada.
 
