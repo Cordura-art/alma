@@ -323,6 +323,8 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-toolbar .alma-popup__btn--pull .alma-ico, .alma-crumbs .alma-popup__btn--pull .alma-ico { color: inherit; }
 .alma-toolbar .alma-popup__btn--pull:hover:not(:disabled), .alma-crumbs .alma-popup__btn--pull:hover:not(:disabled) { background: var(--button-plain-bg-hover); border-color: transparent; }
 .alma-toolbar .alma-menu { left: auto; right: 0; }
+/* Toolbar icons: icon-size-sm, like Sidebar, menus and TabBar. !important beats the inline size AlmaIcon sets; the 44 px touch area stays. */
+.alma-toolbar > .alma-toolbar__lead > .alma-btn .alma-ico, .alma-toolbar__trail > .alma-btn .alma-ico, .alma-toolbar__trail .alma-popup__btn .alma-ico { width: var(--icon-size-sm, 16px) !important; height: var(--icon-size-sm, 16px) !important; }
 
 /* ---------- SearchField (Apple search field) ---------- */
 .alma-search { position: relative; display: flex; flex-direction: column; gap: var(--space-8); width: 100%; max-width: 480px; }

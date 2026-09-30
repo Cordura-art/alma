@@ -31,6 +31,7 @@ summary: Especificaciones visuales de la barra de herramientas.
 | Título | margen lateral | 8 px |
 | Buscador | ancho | crece desde 320 px, hasta 480 px |
 | Acciones | separación | 4 px |
+| Íconos de Volver, acciones y Más | tamaño / área de toque | 16 px (`icon-size-sm`), como en `Sidebar`, los menús y `TabBar` / 44 × 44 px |
 | Buscador (menos de 672 px) | relleno | 8 px a los lados y abajo |
 
 ![Medidas de Toolbar: alto de la barra, relleno lateral, separación entre grupos y botones de acción de 44 px.](assets/Componentes/toolbar-medidas.png)
