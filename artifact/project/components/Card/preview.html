@@ -6,8 +6,8 @@
   var h = React.createElement, A = AlmaDS;
   function Demo() {
     return h(React.Fragment, null,
-      h(A.Card, { eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14 · Terminal Alameda', href: '#viaje-1' }),
-      h(A.Card, { eyebrow: 'Billetera', title: 'Recarga automática', subtitle: 'Cuando tu saldo baje de $5.000, cargamos $20.000 con tu tarjeta terminada en 7637.',
+      h(A.Card, { headingLevel: 2, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14 · Terminal Alameda', href: '#viaje-1' }),
+      h(A.Card, { headingLevel: 2, eyebrow: 'Billetera', title: 'Recarga automática', subtitle: 'Cuando tu saldo baje de $5.000, cargamos $20.000 con tu tarjeta terminada en 7637.',
         actions: [h(A.Button, { key: 'a', variant: 'tinted' }, 'Cambiar monto'), h(A.Button, { key: 'b', variant: 'plain' }, 'Desactivar')] }));
   }
   ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));

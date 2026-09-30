@@ -6,6 +6,8 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Guías completas de Toolbar, SearchField, SegmentedControl, Tag, Link, PullDownButton y Card.** Ya son 29 componentes con sus cuatro partes.
+- **SegmentedControl con teclado de grupo de radios:** una sola parada de Tab en la opción elegida; las flechas, Inicio y Fin eligen y mueven el foco. Antes cada opción era una parada de Tab y las flechas no hacían nada.
 - **Patrones y guías.** Nueve patrones (formularios, estados vacíos, notificaciones, carga, búsqueda y filtros, diálogos y capas, acciones, desactivado y solo lectura, contenido que desborda) y dos guías con pestañas: Accesibilidad y Contenido.
 - **Fundamentos con la profundidad de Carbon.** Color, Tipografía, Espaciado y grilla, Movimiento, Íconos y Temas tienen su página con pestañas (Resumen, Uso o Estilos, Código) y, en el sitio, una pestaña **Tokens** con las tablas en vivo. La de Temas pinta cada tema en su fila.
 - **Guías completas de la tanda 3.** Tabs, Sidebar, TabBar, Breadcrumb, Table, Pagination y List tienen sus cuatro partes.
@@ -94,14 +96,14 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Checkbox | `Checkbox` | **Completo (4 pestañas, formato de la referencia)** |
 | Combo box · Multiselect | `Combobox` | **Completo (4 pestañas, formato de la referencia)** |
 | Contained list | `List` | **Completo (4 pestañas, formato de la referencia)** |
-| Content switcher | `SegmentedControl` | Guía breve |
+| Content switcher | `SegmentedControl` | **Completo (4 pestañas, formato de la referencia)** |
 | Data table | `Table` | **Completo (4 pestañas, formato de la referencia)** |
 | Date picker | `DatePicker`, `TimePicker` | Guía breve |
 | Dropdown · Select | `PopUpButton` | **Completo (4 pestañas, formato de la referencia)** |
 | File uploader | `FileUploader` | Guía breve |
 | Inline loading · Loading | `ActivityIndicator`, `Skeleton`, `ProgressLine` | Guía breve |
-| Link | `Link` | Guía breve |
-| Menu · Menu buttons · Overflow menu | `PullDownButton` | Guía breve |
+| Link | `Link` | **Completo (4 pestañas, formato de la referencia)** |
+| Menu · Menu buttons · Overflow menu | `PullDownButton` | **Completo (4 pestañas, formato de la referencia)** |
 | Modal | `Modal`, `Sheet`, `Alert` | **Completo (4 pestañas, formato de la referencia)** |
 | Notification | `InlineNotification`, `ToastRegion` | **Completo (4 pestañas, formato de la referencia)** |
 | Number input | `Stepper` | Guía breve |
@@ -110,15 +112,15 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 | Progress bar | `ProgressBar` | Guía breve |
 | Progress indicator | `ProgressIndicator` | Guía breve |
 | Radio button | `RadioGroup` | **Completo (4 pestañas, formato de la referencia)** |
-| Search | `SearchField` | Guía breve |
+| Search | `SearchField` | **Completo (4 pestañas, formato de la referencia)** |
 | Slider | `Slider` | Guía breve |
 | Tabs | `Tabs` | **Completo (4 pestañas, formato de la referencia)** |
-| Tag | `Tag` | Guía breve |
+| Tag | `Tag` | **Completo (4 pestañas, formato de la referencia)** |
 | Text input | `TextInput`, `Textarea` | **Completo (4 pestañas, formato de la referencia)** |
-| Tile | `Card` | Guía breve |
+| Tile | `Card` | **Completo (4 pestañas, formato de la referencia)** |
 | Toggle | `Switch` | **Completo (4 pestañas, formato de la referencia)** |
 | Tooltip | `Tooltip`, `Tip` | **Tooltip completo**; Tip: guía breve |
-| UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | **Sidebar y TabBar completos**; Toolbar: guía breve |
+| UI shell (header, paneles) | `Toolbar`, `Sidebar`, `TabBar` | **Completo (4 pestañas, formato de la referencia)** |
 | Code snippet | — | Falta en ALMA |
 | Structured list | — | Falta en ALMA |
 | Tree view | — | Falta en ALMA |

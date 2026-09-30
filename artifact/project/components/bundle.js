@@ -148,13 +148,27 @@
     var controlled = props.value !== undefined;
     var st = useState(props.defaultValue !== undefined ? props.defaultValue : (opts[0] && (opts[0].value !== undefined ? opts[0].value : opts[0])));
     var value = controlled ? props.value : st[0];
+    var refs = window.React.useRef([]);
+    var vals = opts.map(function (o) { return o.value !== undefined ? o.value : o; });
+    function pick(v) { if (!controlled) st[1](v); if (props.onChange) props.onChange(v); }
+    // WAI-ARIA radio group: one Tab stop (the chosen option); arrows, Home and End move and choose.
+    function onKey(e, i) {
+      var n = null, len = vals.length;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (i + 1) % len;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = (i - 1 + len) % len;
+      else if (e.key === 'Home') n = 0; else if (e.key === 'End') n = len - 1;
+      if (n === null) return;
+      e.preventDefault(); pick(vals[n]); if (refs.current[n]) refs.current[n].focus();
+    }
+    var chosen = Math.max(0, vals.indexOf(value));
     return h('div', { className: 'alma-seg', role: 'radiogroup', 'aria-label': props.label },
-      opts.map(function (o) {
-        var v = o.value !== undefined ? o.value : o, l = o.label !== undefined ? o.label : o, on = v === value;
+      opts.map(function (o, i) {
+        var v = vals[i], l = o.label !== undefined ? o.label : o, on = v === value;
         return h('button', {
-          key: String(v), type: 'button', role: 'radio', 'aria-checked': on,
+          key: String(v), ref: function (el) { refs.current[i] = el; }, type: 'button', role: 'radio', 'aria-checked': on,
+          tabIndex: i === chosen ? 0 : -1,
           className: 'alma-seg__opt' + (on ? ' alma-seg__opt--on' : ''),
-          onClick: function () { if (!controlled) st[1](v); if (props.onChange) props.onChange(v); }
+          onClick: function () { pick(v); }, onKeyDown: function (e) { onKey(e, i); }
         }, l);
       }));
   }
