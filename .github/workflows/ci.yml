@@ -15,5 +15,5 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: Los archivos generados están al día
-        run: git diff --exit-code -- dist || (echo "::error::Corre npm run build y sube dist/." && exit 1)
+        run: git diff --exit-code -- dist artifact/project/components || (echo "::error::Corre npm run build y sube dist/." && exit 1)
       - run: npm test

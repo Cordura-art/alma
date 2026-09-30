@@ -8,3 +8,7 @@ artifact/project/components/bundle.js.
 
 La tipografía Roboto Flex (SIL Open Font License 1.1) se carga desde Google Fonts;
 no se redistribuye aquí.
+
+La estructura de la documentación (docs/) sigue la de IBM Carbon Design System
+(carbondesignsystem.com, repositorio carbon-website, licencia Apache 2.0). El texto
+de ALMA es propio; no reproduce el de Carbon.
