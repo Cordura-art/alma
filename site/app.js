@@ -195,7 +195,7 @@
   function IconTokens() { return familyTable('icon', 'Tamaños', function (t) { return h(A.Icon, { name: 'star', size: parseInt(t.value, 10) }); }); }
   function ThemeTokens() {
     // Each row is painted in its own theme: data-theme applies to everything inside.
-    var roles = ['ui-02', 'ui-01', 'ui-03', 'text-01', 'text-02', 'interactive-01', 'interactive-02', 'focus', 'support-01'];
+    var roles = ['ui-02', 'ui-01', 'ui-03', 'ui-04', 'text-01', 'text-02', 'interactive-01', 'interactive-02', 'focus', 'support-01'];
     return h(Tbl, { title: 'Los cuatro temas', note: 'Cada fila se pinta en su tema. Las muestras son los roles principales, en este orden: ' + roles.join(', ') + '.',
       cols: ['Tema', 'Id', 'Muestra'], rows: THEMES.map(function (t) {
         return [t.name, code(t.id), h('span', { 'data-theme': t.id, className: 'theme-strip', 'aria-hidden': 'true' },

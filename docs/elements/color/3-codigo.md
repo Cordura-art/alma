@@ -10,7 +10,7 @@ summary: El color de ALMA: tres capas de tokens, cuatro temas y un solo acento.
 Carga `alma.css` (en `dist/css/`). Define cada token como variable CSS y los cuatro temas:
 
 ```css
-.aviso { background: var(--ui-01); color: var(--text-01); border: 1px solid var(--ui-03); }
+.aviso { background: var(--ui-01); color: var(--text-01); border: 1px solid var(--border-subtle); }
 .aviso:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 ```
 

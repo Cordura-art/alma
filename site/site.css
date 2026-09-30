@@ -33,7 +33,7 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .cover__scale { width: 960px; transform-origin: 0 0; }
 
 /* Live preview */
-.pv { margin-bottom: var(--space-32); border: 1px solid var(--ui-03); border-radius: var(--radius-panel); background: var(--ui-02); overflow: auto; }
+.pv { margin-bottom: var(--space-32); border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); background: var(--ui-02); overflow: auto; }
 .pv__label { margin: 0 0 var(--space-8); color: var(--text-02); }
 
 /* Prose rendered from the repo's Markdown */
@@ -46,13 +46,13 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .md h3 { margin: var(--space-40) 0 var(--space-8); color: var(--text-01); text-wrap: balance; }
 .md h4, .md h5 { margin: var(--space-32) 0 var(--space-8); color: var(--text-01); }
 .md strong { font-weight: var(--font-weight-emphasis); }
-.md hr { border: 0; border-top: 1px solid var(--ui-03); margin: var(--space-40) 0; }
+.md hr { border: 0; border-top: 1px solid var(--border-subtle); margin: var(--space-40) 0; }
 .md code { padding: 0 var(--space-4); border-radius: var(--radius-chip); background: var(--ui-01); font-size: 0.9em; }
 .md pre { max-width: 100%; margin: 0 0 var(--space-24); padding: var(--space-16); border-radius: var(--radius-panel); background: var(--ui-01); overflow-x: auto; }
 .md pre:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .md pre code { padding: 0; background: none; font-size: 0.75rem; line-height: 1.72; }
 .md blockquote { max-width: 48rem; margin: 0 0 var(--space-24); padding: var(--space-16) var(--space-24); border-radius: var(--radius-panel); background: var(--ui-01); color: var(--text-02); }
-.md blockquote.is-pending { background: none; border: 1px dashed var(--ui-04); }
+.md blockquote.is-pending { background: none; border: 1px dashed var(--border-control); }
 .md blockquote > :last-child { margin-bottom: 0; }
 .md .alma-table-wrap { margin: 0 0 var(--space-24); }
 .md img { max-width: 100%; }
@@ -67,14 +67,14 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .tabs-wrap { margin-top: var(--space-8); }
 
 /* Token samples */
-.swatch { display: block; width: var(--space-32); height: var(--space-32); border-radius: var(--radius-chip); box-shadow: inset 0 0 0 1px var(--ui-04); }
+.swatch { display: block; width: var(--space-32); height: var(--space-32); border-radius: var(--radius-chip); box-shadow: inset 0 0 0 1px var(--border-control); }
 .theme-strip { display: flex; gap: var(--space-4); padding: var(--space-8); border-radius: var(--radius-chip); background: var(--ui-02); }
 .bar { display: block; height: var(--space-16); border-radius: var(--radius-chip); background: var(--interactive-01); }
-.corner { display: block; width: var(--space-48); height: var(--space-48); background: var(--ui-01); border: 1px solid var(--ui-04); }
+.corner { display: block; width: var(--space-48); height: var(--space-48); background: var(--ui-01); border: 1px solid var(--border-control); }
 .lift { display: block; width: var(--space-64); height: var(--space-40); border-radius: var(--radius-chip); background: var(--ui-01); }
 .type-sample { display: block; max-width: 32rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-01); }
 .mono { font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; }
 .muted { color: var(--text-02); }
 .filter { max-width: 30rem; margin-bottom: var(--space-24); }
 
-.foot { margin-top: var(--space-64); padding-top: var(--space-24); border-top: 1px solid var(--ui-03); color: var(--text-02); }
+.foot { margin-top: var(--space-64); padding-top: var(--space-24); border-top: 1px solid var(--border-subtle); color: var(--text-02); }

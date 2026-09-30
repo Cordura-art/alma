@@ -78,7 +78,7 @@
     "ui-01": {
       "$type": "color",
       "$value": "#FFFFFF",
-      "$description": "Segunda capa: contenedores (tarjetas, alertas, menús, tablas y paneles) sobre la página ui-02. En claro es blanco y la página es gris muy claro; en oscuro, más claro que la página."
+      "$description": "Segunda capa: contenedores (tarjetas, alertas, menús, tablas y paneles) sobre la página ui-02. En claro es blanco sobre una página gris muy clara. En oscuro simula elevación: blanco al 4 % sobre la página (6 % en alto contraste), guardado como color sólido."
     },
     "ui-02": {
       "$type": "color",
@@ -88,17 +88,22 @@
     "ui-03": {
       "$type": "color",
       "$value": "#EDF4F6",
-      "$description": "Tercera capa: paneles anidados dentro de un contenedor ui-01. También borde sutil."
+      "$description": "Tercera capa: paneles anidados dentro de un contenedor ui-01. Para bordes usa border-subtle."
     },
     "ui-04": {
       "$type": "color",
       "$value": "#CBDEE6",
-      "$description": "Cuarta capa: zonas anidadas dentro de un panel ui-03, donde van las acciones (interactive-01 y interactive-02). También borde de contraste medio (3:1 AA de elemento)."
+      "$description": "Cuarta capa: zonas anidadas dentro de un panel ui-03, donde van las acciones (interactive-01 y interactive-02). Para bordes usa border-subtle o border-control."
     },
     "ui-05": {
       "$type": "color",
       "$value": "#7A94A7",
       "$description": "Uso (Cordura): Borde de alto contraste (4.5:1); elementos de énfasis. Borde de alto contraste; elementos de énfasis."
+    },
+    "border-subtle": {
+      "$type": "color",
+      "$value": "#EDF4F6",
+      "$description": "Borde sutil: separa tarjetas, tablas, menús, modales y listas de lo que las rodea, y dibuja pistas y líneas. Antes era ui-03, que ahora es solo una capa de superficie."
     },
     "text-01": {
       "$type": "color",
@@ -2007,7 +2012,7 @@
     },
     "progress-bar-track": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "ProgressBar: riel. Token de componente: alias de ui-03."
     },
     "progress-bar-fill": {
@@ -2087,7 +2092,7 @@
     },
     "menu-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Menú desplegable: borde y separadores. Token de componente: alias de ui-03."
     },
     "menu-item-bg-hover": {
@@ -2107,7 +2112,7 @@
     },
     "alert-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Alert: borde. Token de componente: alias de ui-03."
     },
     "tooltip-bg": {
@@ -2127,7 +2132,7 @@
     },
     "tip-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Tip: borde. Token de componente: alias de ui-03."
     },
     "tip-icon": {
@@ -2147,7 +2152,7 @@
     },
     "tabs-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Tabs: línea base. Token de componente: alias de ui-03."
     },
     "tabs-text": {
@@ -2172,7 +2177,7 @@
     },
     "tab-bar-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "TabBar: borde superior. Token de componente: alias de ui-03."
     },
     "tab-bar-text": {
@@ -2212,7 +2217,7 @@
     },
     "toolbar-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Toolbar: borde inferior. Token de componente: alias de ui-03."
     },
     "page-control-dot": {
@@ -2262,7 +2267,7 @@
     },
     "table-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Table: separadores de fila. Token de componente: alias de ui-03."
     },
     "table-header-text": {
@@ -2357,7 +2362,7 @@
     },
     "card-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Card: borde. Token de componente: alias de ui-03."
     },
     "card-bg-hover": {
@@ -2372,7 +2377,7 @@
     },
     "list-separator": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "List: separador entre filas. Token de componente: alias de ui-03."
     },
     "list-row-bg-hover": {
@@ -2397,7 +2402,7 @@
     },
     "accordion-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Accordion: líneas entre secciones. Token de componente: alias de ui-03."
     },
     "accordion-header-bg-hover": {
@@ -2427,7 +2432,7 @@
     },
     "progress-indicator-line": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "ProgressIndicator: línea de paso pendiente. Token de componente: alias de ui-03."
     },
     "progress-indicator-line-complete": {
@@ -2442,7 +2447,7 @@
     },
     "popover-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Popover y calendario del DatePicker: borde. Token de componente: alias de ui-03."
     },
     "modal-bg": {
@@ -2452,7 +2457,7 @@
     },
     "modal-border": {
       "$type": "color",
-      "$value": "{color.ui-03}",
+      "$value": "{color.border-subtle}",
       "$description": "Modal y Sheet: borde y separador del pie. Token de componente: alias de ui-03."
     },
     "date-picker-day-bg-hover": {

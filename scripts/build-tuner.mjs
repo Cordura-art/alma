@@ -12,11 +12,11 @@ const cfg = JSON.parse(await read('tokens/alma.config.json'));
 
 // The semantic colors worth tuning; every other color token follows them through aliases.
 const colorGroups = [
-  { title: 'Superficies', tokens: ['ui-02', 'ui-01', 'ui-03'] },
+  { title: 'Superficies', tokens: ['ui-02', 'ui-01', 'ui-03', 'ui-04'] },
   { title: 'Texto', tokens: ['text-01', 'text-02', 'text-03'] },
   { title: 'Acción', tokens: ['interactive-01', 'interactive-02', 'text-on-interactive', 'link-01'] },
   { title: 'Foco y navegación', tokens: ['focus', 'nav-selected', 'hover-ui', 'selected-ui'] },
-  { title: 'Controles', tokens: ['control-on', 'border-control', 'field-border'] },
+  { title: 'Bordes y controles', tokens: ['border-subtle', 'border-control', 'control-on', 'field-border'] },
   { title: 'Estados', tokens: ['support-01', 'support-02', 'support-03', 'support-04'] }
 ];
 const values = {};

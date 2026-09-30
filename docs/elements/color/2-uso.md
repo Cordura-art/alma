@@ -13,7 +13,9 @@ Las superficies se separan con color, no con sombra (el modelo de capas de Carbo
 |---|---|---|
 | Página | `ui-02` | El fondo de toda la pantalla. |
 | Primera capa | `ui-01` | Tarjetas, menús, tablas, modales. |
-| Segunda capa y bordes | `ui-03` | Separadores, bordes de contenedores. |
+| Segunda capa | `ui-03` | Un panel dentro de una tarjeta. |
+| Tercera capa | `ui-04` | Una zona dentro de ese panel. |
+| Borde | `border-subtle` | Separadores y bordes de contenedores. |
 
 Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: `shadow-floating`.
 

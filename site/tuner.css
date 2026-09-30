@@ -22,12 +22,12 @@
 .tfails { margin: var(--space-8) 0 0; padding-left: var(--space-24); color: var(--text-01); }
 .tfails li + li { margin-top: var(--space-4); }
 /* The preview: its own theme, the overrides as inline custom properties, and the Roboto Flex axes. */
-.tuner-preview { display: grid; gap: var(--space-24); padding: var(--space-24); border: 1px solid var(--ui-03); border-radius: var(--radius-panel); background: var(--ui-02); color: var(--text-01); font-weight: var(--font-weight-body);
+.tuner-preview { display: grid; gap: var(--space-24); padding: var(--space-24); border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); background: var(--ui-02); color: var(--text-01); font-weight: var(--font-weight-body);
   font-stretch: calc(var(--font-width, 150) * 1%); font-variation-settings: "wdth" var(--font-width, 150), "GRAD" var(--font-grade, 0); }
 .tuner-preview h2, .tuner-preview h3, .tuner-preview p { margin: 0; }
 .tprev__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); }
 .tprev__grid { display: grid; gap: var(--space-24); grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); align-items: start; }
 .tprev__muted { color: var(--text-02); }
 .tbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-header); display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-8);
-  padding: var(--space-8) var(--space-16) calc(var(--space-8) + env(safe-area-inset-bottom, 0px)); background: var(--ui-01); border-top: 1px solid var(--ui-03); }
+  padding: var(--space-8) var(--space-16) calc(var(--space-8) + env(safe-area-inset-bottom, 0px)); background: var(--ui-01); border-top: 1px solid var(--border-subtle); }
 .tbar__count { margin: 0 auto 0 0; color: var(--text-02); }

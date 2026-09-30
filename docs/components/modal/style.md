@@ -21,7 +21,7 @@ summary: Especificaciones visuales del diálogo modal.
 | Botón principal | estilo | `Button` filled, rol primary o destructive |
 | Botón Cerrar | estilo | `Button` plain de ícono |
 
-`modal-bg` apunta a `ui-01` y `modal-border` a `ui-03`: el diálogo es un contenedor sobre la página, como en el resto de ALMA.
+`modal-bg` apunta a `ui-01` y `modal-border` a `border-subtle`: el diálogo es un contenedor sobre la página, como en el resto de ALMA.
 
 ## Tipografía
 
