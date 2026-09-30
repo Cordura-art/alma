@@ -17,7 +17,7 @@ Usa `EmptyState`:
 4. **Acción principal:** el siguiente paso. «Buscar pasajes».
 5. **Acción secundaria** (opcional).
 
-> **Imagen pendiente:** los cuatro casos de abajo, uno junto al otro.
+![Los cuatro estados vacíos lado a lado: primera vez («Aún no tienes viajes», con «Buscar pasajes»), sin resultados («No encontramos viajes a Talca el 31 de marzo», con «Quitar filtros»), sin permiso (sin acción) y sin conexión (con «Reintentar»).](assets/Patrones/estados-vacios-casos.png)
 
 ## Los casos
 

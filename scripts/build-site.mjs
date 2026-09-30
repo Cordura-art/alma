@@ -12,7 +12,7 @@ const LIBS = ['react/18.3.1/umd/react.production.min.js', 'react-dom/18.3.1/umd/
 
 const read = (p) => readFile(p, 'utf8');
 // Images the docs link as assets/<Section>/<name>.png are copied next to the page, and load from there.
-const IMAGE_DIRS = ['Componentes', 'Fundamentos', 'Iconos', 'Movimiento', 'Temas', 'Tipografia'];
+const IMAGE_DIRS = ['Componentes', 'Fundamentos', 'Patrones', 'Iconos', 'Movimiento', 'Temas', 'Tipografia'];
 const exists = (p) => stat(p).then(() => true, () => false);
 
 // A preview document: line 1 is the @dsCard marker, then markup, then one <script>.

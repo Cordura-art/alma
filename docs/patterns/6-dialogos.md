@@ -14,7 +14,7 @@ summary: Cómo elegir entre Modal, Sheet, Alert y Popover.
 | Decir qué hace un control | `Tooltip` | No |
 | Una tarea larga o con varios pasos | Una página | — |
 
-> **Imagen pendiente:** las cuatro capas sobre la misma pantalla.
+![Las cuatro capas sobre la misma pantalla de Mis viajes: un Modal para cambiar el nombre del pasajero, un Sheet para compartir el viaje, una Alert que pregunta si anular el pasaje y un Popover que explica la tasa de embarque sin bloquear la página.](assets/Patrones/dialogos-capas.png)
 
 ## Reglas
 

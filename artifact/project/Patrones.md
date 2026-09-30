@@ -18,7 +18,7 @@ Siempre que la persona tenga que darnos datos: crear una cuenta, pagar, comprar 
 - **Formularios largos:** pártelos en pasos con `ProgressIndicator`, uno por tema. Nunca más de 5 pasos.
 - El ancho del campo sugiere el largo del dato: un código postal no ocupa todo el ancho.
 
-> **Imagen pendiente:** formulario de datos del pasajero en una columna, con dos grupos y el botón al final.
+![Formulario de datos del pasajero en una columna: el grupo Pasajero (nombre y RUT) y el grupo Contacto (correo y teléfono opcional), con 16 px entre campos, 24 px entre grupos y el botón «Continuar al pago» al final.](assets/Patrones/formularios-estructura.png)
 
 ### Elegir el control
 
@@ -55,7 +55,7 @@ Siempre que la persona tenga que darnos datos: crear una cuenta, pagar, comprar 
 - El error va bajo el campo, en `text-error` y con `field-border-error`: nunca solo color.
 - Dice cómo arreglarlo: «Escribe un correo con @», no «Correo inválido».
 
-> **Imagen pendiente:** un campo en reposo, con ayuda, con error y corregido.
+![El mismo campo de correo en cuatro momentos: en reposo, con su ayuda, con el error «Escribe un correo con @» en rojo y con ícono, y corregido.](assets/Patrones/formularios-validacion.png)
 
 ### Envío
 
@@ -87,7 +87,7 @@ Usa `EmptyState`:
 4. **Acción principal:** el siguiente paso. «Buscar pasajes».
 5. **Acción secundaria** (opcional).
 
-> **Imagen pendiente:** los cuatro casos de abajo, uno junto al otro.
+![Los cuatro estados vacíos lado a lado: primera vez («Aún no tienes viajes», con «Buscar pasajes»), sin resultados («No encontramos viajes a Talca el 31 de marzo», con «Quitar filtros»), sin permiso (sin acción) y sin conexión (con «Reintentar»).](assets/Patrones/estados-vacios-casos.png)
 
 ### Los casos
 
@@ -124,7 +124,7 @@ Cómo elegir el componente según el peso del mensaje.
 | Algo que exige una decisión | `Alert` | Al responder |
 | Un consejo sobre una función | `Tip` | Al descartarlo |
 
-> **Imagen pendiente:** la escala de peso, del error de campo a la alerta, con un ejemplo de cada uno.
+![La escala de peso de las notificaciones, de menos a más: el error de un campo, una InlineNotification, un callout, un Tip, un toast y una Alert que exige respuesta.](assets/Patrones/notificaciones-peso.png)
 
 ### Estados
 
@@ -163,7 +163,7 @@ Qué mostrar mientras algo tarda.
 | Una acción de un botón | `loading` del `Button` | La espera queda donde se hizo clic. |
 | Una pantalla de marca que se prepara | `ProgressLine` | La línea lima que termina en verde. |
 
-> **Imagen pendiente:** una lista de viajes cargando con `Skeleton` y luego con los datos.
+![La vista Mis viajes mientras carga, con Skeleton en el lugar de cada tarjeta, y la misma vista con los datos.](assets/Patrones/carga-skeleton.png)
 
 ### Tiempos
 
@@ -200,7 +200,7 @@ Usa `SearchField`:
 - **Alcance** (`scopes`): si se puede buscar en distintas áreas, empieza por la más amplia.
 - Los resultados muestran la palabra buscada y cuántos hay: «12 viajes a Talca».
 
-> **Imagen pendiente:** búsqueda con sugerencias abiertas y el alcance debajo.
+![Un SearchField con el texto de ejemplo «Buscar viajes, ciudades o terminales», en dos momentos: mientras se escribe «Ta», con las sugerencias recientes abiertas, y antes de escribir, con el alcance Todo, Viajes y Pagos debajo del campo.](assets/Patrones/busqueda-sugerencias.png)
 
 ### Filtrar
 
@@ -242,7 +242,7 @@ Cómo elegir entre Modal, Sheet, Alert y Popover.
 | Decir qué hace un control | `Tooltip` | No |
 | Una tarea larga o con varios pasos | Una página | — |
 
-> **Imagen pendiente:** las cuatro capas sobre la misma pantalla.
+![Las cuatro capas sobre la misma pantalla de Mis viajes: un Modal para cambiar el nombre del pasajero, un Sheet para compartir el viaje, una Alert que pregunta si anular el pasaje y un Popover que explica la tasa de embarque sin bloquear la página.](assets/Patrones/dialogos-capas.png)
 
 ### Reglas
 
@@ -278,7 +278,7 @@ Cómo ordenar los botones: prominencia, cantidad y posición.
 
 El rol cambia el significado, no la prominencia: `destructive` pinta de rojo cualquier estilo.
 
-> **Imagen pendiente:** una vista con una acción `filled`, dos `gray` y un menú «Más».
+![Una vista de pasaje con una acción filled «Pagar $7.000», dos gray «Cambiar asiento» y «Compartir», y el menú «Más» abierto con «Anular pasaje» al final, separada y en rojo.](assets/Patrones/acciones-prominencia.png)
 
 ### Cantidad
 
@@ -324,7 +324,7 @@ Un control desactivado se ve, pero no responde (al 45 % de opacidad en ALMA).
 
 Si desactivas algo que no es obvio, di por qué cerca del control («Disponible desde el 1 de abril»).
 
-> **Imagen pendiente:** un botón desactivado con su explicación al lado.
+![El botón «Cambiar fecha» desactivado y, junto a él, la explicación «Disponible desde el 1 de abril» con un ícono de información.](assets/Patrones/desactivado-explicacion.png)
 
 ### Solo lectura
 
@@ -362,7 +362,7 @@ Qué hacer cuando el texto o los datos no caben.
 
 Truncar esconde información: úsalo solo donde el texto completo está a un paso (el detalle, el tooltip).
 
-> **Imagen pendiente:** una celda recortada en el medio con su texto completo al pasar el cursor.
+![Una tabla de pasajes cuya columna Ruta recorta en el medio los nombres largos, conservando el principio y el final; al pasar el cursor por la celda se ve el texto completo.](assets/Patrones/desborda-celda.png)
 
 ### Muchos elementos
 
@@ -402,7 +402,7 @@ En toda app o sitio hecho con ALMA: es lo que queda fijo mientras cambia el cont
 | Navegación principal (desde 1056 px) | `Sidebar` | Las mismas secciones, agrupadas. |
 | Cuenta | `PullDownButton` de ícono `user--avatar` en la `Toolbar` | Perfil, Ajustes, Cerrar sesión. |
 
-> **Imagen pendiente:** la misma app en el teléfono (Toolbar arriba, TabBar abajo) y en escritorio (Toolbar arriba, Sidebar a la izquierda).
+![La misma app en dos pantallas. En el teléfono: Toolbar arriba con el título Mis viajes y TabBar abajo. En escritorio: Toolbar arriba con el buscador y Sidebar a la izquierda con los mismos destinos.](assets/Patrones/encabezado-global.png)
 
 ### Reglas
 
@@ -443,7 +443,7 @@ Para entrar a una cuenta, y en cualquier pantalla que pida la contraseña de nue
 5. Botón `filled`, `type: 'submit'`: «Ingresar».
 6. Debajo, un enlace para crear una cuenta.
 
-> **Imagen pendiente:** la pantalla de ingreso en el teléfono, en tema oscuro.
+![La pantalla de ingreso en el teléfono, en tema oscuro: título «Ingresa a tu cuenta», campos de correo y contraseña con su ojo, el enlace «¿Olvidaste tu contraseña?», el botón «Ingresar» y, abajo, el enlace para crear una cuenta.](assets/Patrones/inicio-de-sesion.png)
 
 ### Reglas
 
@@ -499,7 +499,7 @@ Para decir en qué estado está un elemento: un pago, un viaje, una tarjeta, un 
 | Éxito | `checkmark--outline` | `status-icon-success` |
 | Información | `information` | `status-icon-info` |
 
-> **Imagen pendiente:** los cuatro íconos de estado con su palabra, en tema oscuro y claro.
+![Los cuatro íconos de estado rellenos con su palabra, en tema oscuro y claro: error, advertencia, éxito e información. Cada uno tiene una forma distinta, así se distinguen sin color.](assets/Patrones/indicadores-estado.png)
 
 ### Reglas
 
@@ -537,7 +537,7 @@ ALMA **no tiene hoy un editor de texto con formato**. `Textarea` es texto sin fo
 3. Los íconos de Carbon: `text--bold`, `text--italic`, `text--underline`, `list--bulleted`, `list--numbered`, `link`. No vienen en el set incluido: se cargan con `AlmaDS.registerIcons` desde `carbon-icons.json`.
 4. Cada botón lleva su nombre y su atajo en un `Tooltip`: «Negrita (⌘B)».
 
-> **Imagen pendiente:** un campo de nota con la barra de formato arriba.
+![Un campo de nota con la barra de formato arriba, en el mismo contenedor: negrita (activa), cursiva y subrayado; lista con viñetas y numerada; y enlace. El tooltip de la negrita dice «Negrita (⌘B)».](assets/Patrones/barra-de-texto.png)
 
 ### Reglas
 
@@ -574,7 +574,7 @@ En Carbon, los campos «fluidos» llevan la etiqueta dentro del campo y se pegan
 
 El texto de ejemplo solo se ve con el campo enfocado: nunca compite con la etiqueta.
 
-> **Imagen pendiente:** un campo vacío, enfocado y con texto, con la etiqueta en cada posición.
+![La etiqueta del campo Correo en cada estado: vacío, dentro del campo; enfocado, arriba y con el texto de ejemplo visible; con texto, arriba; y con error, arriba en rojo.](assets/Patrones/estilos-fluidos-etiqueta.png)
 
 ### En grillas
 
@@ -611,7 +611,7 @@ Cuando hay más información de la que la mayoría necesita: detalles, condicion
 | Acciones secundarias | El menú «Más» (`PullDownButton`) |
 | Un texto largo | Un `Link` «Ver más» que lleva al texto completo |
 
-> **Imagen pendiente:** una pantalla de pasaje con el resumen a la vista y las condiciones en un Accordion.
+![Una pantalla de pasaje en el teléfono: el resumen a la vista (ruta, fecha, asiento y total) y, debajo, las condiciones del pasaje en un Accordion con la sección Cambios abierta.](assets/Patrones/divulgacion.png)
 
 ### Reglas
 

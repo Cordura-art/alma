@@ -2,72 +2,9 @@
 
 Todo lo que falta crear en ALMA. Las imágenes y las pruebas con lectores de pantalla se listan solas desde los documentos del repositorio; esta página se actualiza en cada cambio. En el sitio, cada imagen pendiente se marca en magenta dentro de su página.
 
-**En resumen:** 16 imágenes por crear y 45 componentes por probar con lectores de pantalla.
+**En resumen:** 0 imágenes por crear y 45 componentes por probar con lectores de pantalla.
 
-## Imágenes por crear (16)
-
-### Patrones
-
-**[Formularios](#formularios)**
-
-- formulario de datos del pasajero en una columna, con dos grupos y el botón al final.
-- un campo en reposo, con ayuda, con error y corregido.
-
-**[Encabezado y navegación global](#encabezado-global)**
-
-- la misma app en el teléfono (Toolbar arriba, TabBar abajo) y en escritorio (Toolbar arriba, Sidebar a la izquierda).
-
-**[Inicio de sesión](#inicio-de-sesion)**
-
-- la pantalla de ingreso en el teléfono, en tema oscuro.
-
-**[Indicadores de estado](#indicadores-de-estado)**
-
-- los cuatro íconos de estado con su palabra, en tema oscuro y claro.
-
-**[Barra de texto](#barra-de-texto)**
-
-- un campo de nota con la barra de formato arriba.
-
-**[Campos fluidos](#estilos-fluidos)**
-
-- un campo vacío, enfocado y con texto, con la etiqueta en cada posición.
-
-**[Divulgación progresiva](#divulgacion)**
-
-- una pantalla de pasaje con el resumen a la vista y las condiciones en un Accordion.
-
-**[Estados vacíos](#estados-vacios)**
-
-- los cuatro casos de abajo, uno junto al otro.
-
-**[Notificaciones](#notificaciones)**
-
-- la escala de peso, del error de campo a la alerta, con un ejemplo de cada uno.
-
-**[Carga](#carga)**
-
-- una lista de viajes cargando con `Skeleton` y luego con los datos.
-
-**[Búsqueda y filtros](#busqueda-y-filtros)**
-
-- búsqueda con sugerencias abiertas y el alcance debajo.
-
-**[Diálogos y capas](#dialogos)**
-
-- las cuatro capas sobre la misma pantalla.
-
-**[Acciones](#acciones)**
-
-- una vista con una acción `filled`, dos `gray` y un menú «Más».
-
-**[Desactivado y solo lectura](#desactivado-y-solo-lectura)**
-
-- un botón desactivado con su explicación al lado.
-
-**[Contenido que desborda](#contenido-que-desborda)**
-
-- una celda recortada en el medio con su texto completo al pasar el cursor.
+## Imágenes por crear (0)
 
 ## Pruebas con lectores de pantalla (45)
 

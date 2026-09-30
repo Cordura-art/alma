@@ -13,7 +13,7 @@ Usa `SearchField`:
 - **Alcance** (`scopes`): si se puede buscar en distintas áreas, empieza por la más amplia.
 - Los resultados muestran la palabra buscada y cuántos hay: «12 viajes a Talca».
 
-> **Imagen pendiente:** búsqueda con sugerencias abiertas y el alcance debajo.
+![Un SearchField con el texto de ejemplo «Buscar viajes, ciudades o terminales», en dos momentos: mientras se escribe «Ta», con las sugerencias recientes abiertas, y antes de escribir, con el alcance Todo, Viajes y Pagos debajo del campo.](assets/Patrones/busqueda-sugerencias.png)
 
 ## Filtrar
 

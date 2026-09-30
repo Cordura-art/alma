@@ -18,7 +18,7 @@ ALMA **no tiene hoy un editor de texto con formato**. `Textarea` es texto sin fo
 3. Los íconos de Carbon: `text--bold`, `text--italic`, `text--underline`, `list--bulleted`, `list--numbered`, `link`. No vienen en el set incluido: se cargan con `AlmaDS.registerIcons` desde `carbon-icons.json`.
 4. Cada botón lleva su nombre y su atajo en un `Tooltip`: «Negrita (⌘B)».
 
-> **Imagen pendiente:** un campo de nota con la barra de formato arriba.
+![Un campo de nota con la barra de formato arriba, en el mismo contenedor: negrita (activa), cursiva y subrayado; lista con viñetas y numerada; y enlace. El tooltip de la negrita dice «Negrita (⌘B)».](assets/Patrones/barra-de-texto.png)
 
 ## Reglas
 

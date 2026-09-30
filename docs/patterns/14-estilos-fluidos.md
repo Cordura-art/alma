@@ -17,7 +17,7 @@ En Carbon, los campos «fluidos» llevan la etiqueta dentro del campo y se pegan
 
 El texto de ejemplo solo se ve con el campo enfocado: nunca compite con la etiqueta.
 
-> **Imagen pendiente:** un campo vacío, enfocado y con texto, con la etiqueta en cada posición.
+![La etiqueta del campo Correo en cada estado: vacío, dentro del campo; enfocado, arriba y con el texto de ejemplo visible; con texto, arriba; y con error, arriba en rojo.](assets/Patrones/estilos-fluidos-etiqueta.png)
 
 ## En grillas
 

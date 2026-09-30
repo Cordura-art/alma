@@ -4,6 +4,8 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 30 de septiembre de 2026
 
+- **Imágenes de los patrones.** Las 16 imágenes pendientes de los patrones ya existen, hechas con los componentes reales: formularios, estados vacíos, la escala de las notificaciones, carga, búsqueda, las cuatro capas de diálogo, acciones, desactivado, contenido que desborda, encabezado global, inicio de sesión, indicadores de estado, barra de texto, etiquetas de los campos y divulgación. Ya no quedan imágenes pendientes.
+- **Íconos del Sidebar a 16 px.** Pasan de 24 px a `icon-size-sm` (16 px), el mismo valor que su separación de la etiqueta, para que se perciban equilibrados y no pesen más que el texto.
 - **Imágenes de los componentes.** Las 101 imágenes pendientes de las guías de componentes ya existen: anatomías numeradas, medidas tomadas del componente dibujado, estados y ejemplos en contexto. Se fotografían con los componentes reales (`npm run images`); las pantallas de modales, hojas, avisos y barras usan un marco de dispositivo. Solo quedan pendientes las 16 de los patrones.
 - **Arreglo: botones destructivos desactivados.** Se veían igual que activos, porque el estilo destructivo le ganaba al desactivado. Ahora un «Eliminar» desactivado usa `button-disabled-bg` y `button-disabled-text`, como el resto.
 - **Arreglo: ancho de los menús.** El menú de un botón angosto (un `PullDownButton` de solo ícono, «Más» en `Toolbar`) partía sus opciones en varias líneas. Ahora toma el ancho de su contenido, con el del botón como mínimo y 320 px como máximo.

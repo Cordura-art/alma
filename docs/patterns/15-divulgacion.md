@@ -19,7 +19,7 @@ Cuando hay más información de la que la mayoría necesita: detalles, condicion
 | Acciones secundarias | El menú «Más» (`PullDownButton`) |
 | Un texto largo | Un `Link` «Ver más» que lleva al texto completo |
 
-> **Imagen pendiente:** una pantalla de pasaje con el resumen a la vista y las condiciones en un Accordion.
+![Una pantalla de pasaje en el teléfono: el resumen a la vista (ruta, fecha, asiento y total) y, debajo, las condiciones del pasaje en un Accordion con la sección Cambios abierta.](assets/Patrones/divulgacion.png)
 
 ## Reglas
 

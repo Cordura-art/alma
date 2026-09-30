@@ -514,7 +514,7 @@
         h('a', { href: it.href || '#', className: 'alma-side__item' + (on ? ' is-on' : ''), 'aria-current': on ? 'page' : undefined,
           'aria-label': it.badge !== undefined ? badgeLabel(it.label, it.badge) : undefined,
           onClick: function (e) { if (!it.href) e.preventDefault(); s[1](it.value); if (props.onChange) props.onChange(it.value); } },
-          it.icon ? h(AlmaIcon, { name: it.icon, variant: on ? 'filled' : 'outlined' }) : null,
+          it.icon ? h(AlmaIcon, { name: it.icon, size: 16, variant: on ? 'filled' : 'outlined' }) : null,
           h('span', { className: 'alma-side__text' }, it.label),
           it.badge !== undefined ? h('span', { className: 'alma-side__count' }, it.badge === true ? '!' : String(it.badge)) : null));
     }

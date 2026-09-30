@@ -26,7 +26,7 @@ Para decir en qué estado está un elemento: un pago, un viaje, una tarjeta, un 
 | Éxito | `checkmark--outline` | `status-icon-success` |
 | Información | `information` | `status-icon-info` |
 
-> **Imagen pendiente:** los cuatro íconos de estado con su palabra, en tema oscuro y claro.
+![Los cuatro íconos de estado rellenos con su palabra, en tema oscuro y claro: error, advertencia, éxito e información. Cada uno tiene una forma distinta, así se distinguen sin color.](assets/Patrones/indicadores-estado.png)
 
 ## Reglas
 

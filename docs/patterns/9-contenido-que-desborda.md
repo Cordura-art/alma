@@ -15,7 +15,7 @@ summary: Qué hacer cuando el texto o los datos no caben.
 
 Truncar esconde información: úsalo solo donde el texto completo está a un paso (el detalle, el tooltip).
 
-> **Imagen pendiente:** una celda recortada en el medio con su texto completo al pasar el cursor.
+![Una tabla de pasajes cuya columna Ruta recorta en el medio los nombres largos, conservando el principio y el final; al pasar el cursor por la celda se ve el texto completo.](assets/Patrones/desborda-celda.png)
 
 ## Muchos elementos
 

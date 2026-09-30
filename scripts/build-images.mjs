@@ -4,6 +4,7 @@
 import { readFile, mkdir } from 'node:fs/promises';
 import { chromium } from 'playwright';
 import { componentScenes } from './images/componentes.mjs';
+import { patternScenes } from './images/patrones.mjs';
 
 const P = 'artifact/project';
 const read = (p) => readFile(p, 'utf8');
@@ -17,7 +18,8 @@ const ICONS = ['arrow--left', 'arrow--right', 'arrow--up', 'arrow--down', 'close
   'notification', 'menu', 'filter', 'edit', 'trash-can',
   'home', 'launch', 'recently-viewed', 'side-panel--close', 'side-panel--open', 'overflow-menu--horizontal', 'overflow-menu--vertical', 'chevron--down', 'chevron--right',
   'chevron--left', 'share', 'copy', 'money', 'star', 'help', 'information--filled', 'checkmark--filled', 'error--filled', 'warning--filled', 'dashboard', 'map', 'email', 'phone',
-  'upload', 'document', 'image', 'favorite', 'receipt', 'purchase', 'locked', 'view', 'download', 'renew', 'task', 'list', 'list--checked', 'shopping--cart', 'idea', 'save'];
+  'upload', 'document', 'image', 'favorite', 'receipt', 'purchase', 'locked', 'view', 'download', 'renew', 'task', 'list', 'list--checked', 'shopping--cart', 'idea', 'save',
+  'wifi--off', 'user--avatar', 'error', 'warning', 'checkmark--outline', 'text--bold', 'text--italic', 'text--underline', 'list--bulleted', 'list--numbered', 'link'];
 const color = (name) => tok.color.tokens.find((t) => t.name === name);
 const family = (f) => Object.fromEntries(tok[f].tokens.map((t) => [t.name, t.value]));
 const DATA = {
@@ -296,7 +298,7 @@ export const scenes = [
     css: `.tp { display: grid; grid-template-columns: 10rem 36rem; gap: var(--space-24) var(--space-32); align-items: baseline; } .meta { display: grid; gap: 2px; } .tx { margin: 0; }` }
 ];
 
-const ALL = scenes.concat(componentScenes);
+const ALL = scenes.concat(componentScenes, patternScenes);
 export { ALL as allScenes };
 
 if (import.meta.url === `file://${process.argv[1]}`) {

@@ -15,7 +15,7 @@ Un control desactivado se ve, pero no responde (al 45 % de opacidad en ALMA).
 
 Si desactivas algo que no es obvio, di por qué cerca del control («Disponible desde el 1 de abril»).
 
-> **Imagen pendiente:** un botón desactivado con su explicación al lado.
+![El botón «Cambiar fecha» desactivado y, junto a él, la explicación «Disponible desde el 1 de abril» con un ícono de información.](assets/Patrones/desactivado-explicacion.png)
 
 ## Solo lectura
 

@@ -15,7 +15,7 @@ summary: Cómo ordenar los botones: prominencia, cantidad y posición.
 
 El rol cambia el significado, no la prominencia: `destructive` pinta de rojo cualquier estilo.
 
-> **Imagen pendiente:** una vista con una acción `filled`, dos `gray` y un menú «Más».
+![Una vista de pasaje con una acción filled «Pagar $7.000», dos gray «Cambiar asiento» y «Compartir», y el menú «Más» abierto con «Anular pasaje» al final, separada y en rojo.](assets/Patrones/acciones-prominencia.png)
 
 ## Cantidad
 

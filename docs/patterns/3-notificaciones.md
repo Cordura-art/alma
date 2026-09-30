@@ -14,7 +14,7 @@ summary: Cómo elegir el componente según el peso del mensaje.
 | Algo que exige una decisión | `Alert` | Al responder |
 | Un consejo sobre una función | `Tip` | Al descartarlo |
 
-> **Imagen pendiente:** la escala de peso, del error de campo a la alerta, con un ejemplo de cada uno.
+![La escala de peso de las notificaciones, de menos a más: el error de un campo, una InlineNotification, un callout, un Tip, un toast y una Alert que exige respuesta.](assets/Patrones/notificaciones-peso.png)
 
 ## Estados
 

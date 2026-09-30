@@ -13,7 +13,7 @@ summary: Qué mostrar mientras algo tarda.
 | Una acción de un botón | `loading` del `Button` | La espera queda donde se hizo clic. |
 | Una pantalla de marca que se prepara | `ProgressLine` | La línea lima que termina en verde. |
 
-> **Imagen pendiente:** una lista de viajes cargando con `Skeleton` y luego con los datos.
+![La vista Mis viajes mientras carga, con Skeleton en el lugar de cada tarjeta, y la misma vista con los datos.](assets/Patrones/carga-skeleton.png)
 
 ## Tiempos
 

@@ -16,7 +16,7 @@ En toda app o sitio hecho con ALMA: es lo que queda fijo mientras cambia el cont
 | Navegación principal (desde 1056 px) | `Sidebar` | Las mismas secciones, agrupadas. |
 | Cuenta | `PullDownButton` de ícono `user--avatar` en la `Toolbar` | Perfil, Ajustes, Cerrar sesión. |
 
-> **Imagen pendiente:** la misma app en el teléfono (Toolbar arriba, TabBar abajo) y en escritorio (Toolbar arriba, Sidebar a la izquierda).
+![La misma app en dos pantallas. En el teléfono: Toolbar arriba con el título Mis viajes y TabBar abajo. En escritorio: Toolbar arriba con el buscador y Sidebar a la izquierda con los mismos destinos.](assets/Patrones/encabezado-global.png)
 
 ## Reglas
 

@@ -16,7 +16,7 @@ Para entrar a una cuenta, y en cualquier pantalla que pida la contraseña de nue
 5. Botón `filled`, `type: 'submit'`: «Ingresar».
 6. Debajo, un enlace para crear una cuenta.
 
-> **Imagen pendiente:** la pantalla de ingreso en el teléfono, en tema oscuro.
+![La pantalla de ingreso en el teléfono, en tema oscuro: título «Ingresa a tu cuenta», campos de correo y contraseña con su ojo, el enlace «¿Olvidaste tu contraseña?», el botón «Ingresar» y, abajo, el enlace para crear una cuenta.](assets/Patrones/inicio-de-sesion.png)
 
 ## Reglas
 

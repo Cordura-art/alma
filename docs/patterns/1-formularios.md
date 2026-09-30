@@ -15,7 +15,7 @@ Siempre que la persona tenga que darnos datos: crear una cuenta, pagar, comprar 
 - **Formularios largos:** pártelos en pasos con `ProgressIndicator`, uno por tema. Nunca más de 5 pasos.
 - El ancho del campo sugiere el largo del dato: un código postal no ocupa todo el ancho.
 
-> **Imagen pendiente:** formulario de datos del pasajero en una columna, con dos grupos y el botón al final.
+![Formulario de datos del pasajero en una columna: el grupo Pasajero (nombre y RUT) y el grupo Contacto (correo y teléfono opcional), con 16 px entre campos, 24 px entre grupos y el botón «Continuar al pago» al final.](assets/Patrones/formularios-estructura.png)
 
 ## Elegir el control
 
@@ -52,7 +52,7 @@ Siempre que la persona tenga que darnos datos: crear una cuenta, pagar, comprar 
 - El error va bajo el campo, en `text-error` y con `field-border-error`: nunca solo color.
 - Dice cómo arreglarlo: «Escribe un correo con @», no «Correo inválido».
 
-> **Imagen pendiente:** un campo en reposo, con ayuda, con error y corregido.
+![El mismo campo de correo en cuatro momentos: en reposo, con su ayuda, con el error «Escribe un correo con @» en rojo y con ícono, y corregido.](assets/Patrones/formularios-validacion.png)
 
 ## Envío
 
