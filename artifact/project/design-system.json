@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-09-30T18:29:13.115Z",
+    "at": "2026-09-30T18:32:20.303Z",
     "via": "Claude Code",
-    "note": "Títulos de grupo del Sidebar sin mayúsculas"
+    "note": "Títulos de grupo del Sidebar a 12 px"
   },
   "layout": "files",
   "libraries": [
