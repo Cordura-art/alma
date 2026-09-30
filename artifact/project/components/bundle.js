@@ -63,6 +63,7 @@
     if (value) cls.push('alma-field--filled');
     if (invalid) cls.push('alma-field--error');
     if (props.disabled) cls.push('alma-field--disabled');
+    if (props.readOnly) cls.push('alma-field--readonly');
     var helper = typeof props.error === 'string' ? props.error : props.helper;
     var label = props.label + (props.required ? '*' : '');
     return h('div', { className: cls.join(' ') },
@@ -76,6 +77,7 @@
           placeholder: props.placeholder,
           maxLength: props.maxLength,
           disabled: props.disabled,
+          readOnly: props.readOnly,
           required: props.required,
           name: props.name, inputMode: props.inputMode, autoComplete: props.autoComplete, onBlur: props.onBlur, onFocus: props.onFocus,
           'aria-invalid': invalid || undefined,
@@ -209,7 +211,7 @@
   }
 
   var CARD_STATUS = { pending: 'support-01', activating: 'support-03', enabled: 'support-02', active: 'support-02' };
-  // Status words for screen readers: the card shows its status only with color (Figma), so it is also said in text.
+  // Status words, written on the card next to the chip.
   var CARD_WORD = { pending: 'Pendiente', activating: 'Activando', enabled: 'Habilitada', active: 'Activa' };
   function PaymentCard(props) {
     var status = props.status || 'pending';
@@ -217,8 +219,11 @@
     var number = status === 'active' && props.number ? props.number : '••••  ••••  ••••  ' + last4;
     return h('div', { className: 'alma-paycard alma-paycard--' + status },
       h('div', { className: 'alma-paycard__top' },
-        h('span', { className: 'alma-paycard__brand' }, props.brand || 'Cordura', h('span', { className: 'alma-vh' }, ', ' + CARD_WORD[status])),
-        h('span', { className: 'alma-paycard__chip', title: CARD_WORD[status], 'aria-hidden': 'true' })
+        h('span', { className: 'alma-paycard__brand' }, props.brand || 'Cordura'),
+        // The status is written next to the chip, so it never depends on color alone (WCAG 1.4.1).
+        h('span', { className: 'alma-paycard__state' },
+          h('span', { className: 'alma-paycard__status' }, CARD_WORD[status]),
+          h('span', { className: 'alma-paycard__chip', 'aria-hidden': 'true' }))
       ),
       h('div', { className: 'alma-paycard__label' }, 'Número de tarjeta'),
       h('div', { className: 'alma-paycard__row' },
@@ -914,11 +919,11 @@
     var s = useControlled(props.value, props.defaultValue || ''), value = s[0];
     var invalid = !!props.error, helper = typeof props.error === 'string' ? props.error : props.helper;
     var foot = helper || props.maxLength;
-    return h('div', { className: 'alma-field alma-field--area alma-field--filled' + (invalid ? ' alma-field--error' : '') + (props.disabled ? ' alma-field--disabled' : '') },
+    return h('div', { className: 'alma-field alma-field--area alma-field--filled' + (invalid ? ' alma-field--error' : '') + (props.disabled ? ' alma-field--disabled' : '') + (props.readOnly ? ' alma-field--readonly' : '') },
       h('div', { className: 'alma-field__box' },
         h('label', { htmlFor: id, className: 'alma-field__label' }, props.label + (props.required ? '*' : '')),
         h('textarea', { id: id, className: 'alma-field__input alma-field__textarea', value: value, rows: props.rows || 4,
-          placeholder: props.placeholder, maxLength: props.maxLength, disabled: props.disabled, required: props.required, name: props.name,
+          placeholder: props.placeholder, maxLength: props.maxLength, disabled: props.disabled, readOnly: props.readOnly, required: props.required, name: props.name,
           'aria-invalid': invalid || undefined, 'aria-describedby': helper ? id + '-help' : undefined,
           onChange: function (e) { s[1](e.target.value); if (props.onChange) props.onChange(e.target.value, e); } })),
       foot ? h('div', { className: 'alma-field__foot' },

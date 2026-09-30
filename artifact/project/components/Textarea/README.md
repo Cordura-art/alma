@@ -46,6 +46,7 @@ Un campo de varias líneas para texto largo: comentarios, descripciones, reclamo
 | Foco | Borde de 2 px. |
 | Error | Borde y etiqueta en rojo; mensaje en el pie. |
 | Desactivado | Todo apagado; no recibe foco. |
+| Solo lectura (`readOnly`) | Borde punteado; el texto se lee con contraste normal y se puede copiar, pero no cambiar. |
 
 - Enter crea una línea nueva; nunca envía el formulario.
 - El contador cuenta caracteres, no palabras.
@@ -76,6 +77,7 @@ Usa los mismos tokens que `TextInput`:
 | Contenedor:active | borde | `field-border-active` |
 | Contenedor:error | borde | `field-border-error` |
 | Contenedor:disabled | borde | `field-border-disabled` |
+| Contenedor de solo lectura | borde (1 px, punteado) | `field-border-readonly` |
 | Etiqueta | color del texto | `field-label` |
 | Etiqueta flotante | fondo | `field-label-float-bg` |
 | Etiqueta flotante | color del texto | `field-label-float-text` |
@@ -140,6 +142,7 @@ h(Textarea, { label: 'Comentario para el conductor', placeholder: 'Por ejemplo: 
 | `error` | `boolean \| string` | — | Error; el texto reemplaza la ayuda. |
 | `maxLength` | `number` | — | Límite y contador. |
 | `required`, `disabled` | `boolean` | `false` | — |
+| `readOnly` | `boolean` | `false` | Solo lectura. |
 | `name`, `id` | `string` | `id` automático | — |
 
 ### HTML y CSS

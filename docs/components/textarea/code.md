@@ -24,6 +24,7 @@ h(Textarea, { label: 'Comentario para el conductor', placeholder: 'Por ejemplo: 
 | `error` | `boolean \| string` | — | Error; el texto reemplaza la ayuda. |
 | `maxLength` | `number` | — | Límite y contador. |
 | `required`, `disabled` | `boolean` | `false` | — |
+| `readOnly` | `boolean` | `false` | Solo lectura. |
 | `name`, `id` | `string` | `id` automático | — |
 
 ## HTML y CSS

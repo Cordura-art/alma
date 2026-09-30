@@ -121,6 +121,16 @@ html { font-family: var(--font-flex); font-stretch: 150%; font-variation-setting
 .alma-field--error.alma-field--filled .alma-field__label, .alma-field--error .alma-field__box:focus-within .alma-field__label { color: var(--field-label-float-error); } /* chip is always light: dark red, 6.6:1 */
 .alma-field--disabled .alma-field__box { border-color: var(--field-border-disabled); }
 .alma-field--disabled .alma-field__label, .alma-field--disabled .alma-field__input, .alma-field--disabled .alma-field__eye { color: var(--field-text-disabled); cursor: not-allowed; }
+/* Read-only: visible and copyable at full contrast, but not editable. Dashed border, no hover or pressed change; focus still shows. */
+.alma-field--readonly .alma-field__box, .alma-field--readonly .alma-field__box:hover, .alma-field--readonly .alma-field__box:active { border-style: dashed; border-color: var(--field-border-readonly); }
+.alma-field--readonly .alma-field__box:focus-within { border-width: 1px; padding: 0 var(--space-16); outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-field--readonly.alma-field--area .alma-field__box:focus-within { padding: var(--space-16); }
+.alma-field--readonly .alma-field__input { cursor: text; }
+/* Read-only: visible and copyable at full contrast, but not editable. Dashed border, no hover or pressed change; focus still shows. */
+.alma-field--readonly .alma-field__box, .alma-field--readonly .alma-field__box:hover, .alma-field--readonly .alma-field__box:active { border-style: dashed; border-color: var(--field-border-readonly); }
+.alma-field--readonly .alma-field__box:focus-within { border-width: 1px; padding: 0 var(--space-16); outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-field--readonly.alma-field--area .alma-field__box:focus-within { padding: var(--space-16); }
+.alma-field--readonly .alma-field__input { cursor: text; }
 
 /* ---------- Icon: IBM Carbon, inline SVG (32 px artwork, currentColor) ---------- */
 .alma-ico { display: inline-block; flex: none; fill: currentColor; vertical-align: middle; }
@@ -157,6 +167,8 @@ html { font-family: var(--font-flex); font-stretch: 150%; font-variation-setting
 .alma-paycard { position: relative; width: 19.4375rem; min-height: 190px; max-width: 100%; box-sizing: border-box; padding: var(--space-16) 18px; border-radius: 14.4px; border: 0.5px solid rgba(255,255,255,0.42); background: rgba(19,23,53,0.5); box-shadow: inset 0 -1px 0 rgba(0,0,0,0.18); color: var(--secondary-600); display: flex; flex-direction: column; }
 .alma-paycard__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-16); }
 .alma-paycard__brand { font-size: 0.875rem; line-height: 1.43; font-weight: 500; letter-spacing: 0.56px; color: var(--payment-card-brand); }
+.alma-paycard__state { display: flex; align-items: center; gap: var(--space-8); }
+.alma-paycard__status { font-size: 0.6875rem; line-height: 1.45; letter-spacing: 0.055px; color: var(--payment-card-text); }
 .alma-paycard__chip { width: 34px; height: 24px; border-radius: 5px; border: 1px solid var(--st); box-shadow: 0 1px 0 rgba(255,255,255,0.2); }
 .alma-paycard__label { font-size: 0.6875rem; line-height: 1.45; letter-spacing: 0.055px; color: var(--payment-card-text); }
 .alma-paycard__row { display: flex; align-items: center; justify-content: space-between; margin: 2px 0 auto; }
@@ -332,7 +344,11 @@ html { font-family: var(--font-flex); font-stretch: 150%; font-variation-setting
 .alma-tip-anchor { position: relative; display: inline-flex; }
 .alma-tooltip { position: absolute; z-index: var(--z-floating); left: 50%; bottom: calc(100% + var(--space-8)); transform: translateX(-50%) translateY(4px); width: max-content; max-width: 15rem; padding: var(--space-4) var(--space-8); border-radius: var(--radius-chip); background: var(--tooltip-bg); color: var(--tooltip-text); box-shadow: var(--shadow-floating); font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity var(--duration-fast-02) var(--easing-entrance-expressive), transform var(--duration-fast-02) var(--easing-entrance-expressive), visibility 0s linear var(--duration-fast-02); }
 .alma-tooltip--bottom { bottom: auto; top: calc(100% + var(--space-8)); transform: translateX(-50%) translateY(-4px); }
-.alma-tooltip.is-open { opacity: 1; visibility: visible; transform: translateX(calc(-50% + var(--alma-tip-shift, 0px))); transition-delay: 0s; }
+.alma-tooltip.is-open { opacity: 1; visibility: visible; transform: translateX(calc(-50% + var(--alma-tip-shift, 0px))); transition-delay: 0s; pointer-events: auto; }
+/* WCAG 1.4.13 (hoverable): the open bubble takes the pointer, and a bridge covers the 8px gap to the control,
+   so moving from the control onto the bubble keeps it open (both sit inside .alma-tip-anchor). */
+.alma-tooltip::before { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: var(--space-8); }
+.alma-tooltip--bottom::before { top: auto; bottom: 100%; }
 
 /* ---------- Tip (Apple TipKit) ---------- */
 .alma-tipcard { display: flex; align-items: flex-start; gap: var(--space-16); max-width: 26.25rem; padding: var(--space-16) var(--space-8) var(--space-16) var(--space-16); border-radius: var(--radius-panel); background: var(--tip-bg); border: 1px solid var(--tip-border); }

@@ -36,7 +36,7 @@ summary: Una etiqueta breve que explica qué hace un control, al pasar el cursor
 ## Comportamiento
 
 - Con el cursor aparece a los 500 ms (`delay`); con el foco del teclado, al instante.
-- Se oculta al sacar el cursor, al perder el foco o con Esc.
+- Se oculta al sacar el cursor del control y del globo, al perder el foco o con Esc. El cursor puede pasar al globo sin que se cierre.
 - Si choca con el borde de la pantalla, se corre hacia adentro.
 - Un tooltip por control, y uno a la vez.
 

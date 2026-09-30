@@ -13,6 +13,7 @@ ALMA resuelve la relación entre etiqueta, campo, ayuda y error. Hay que anotar 
 - La ayuda y el error están unidos con `aria-describedby`: se leen después de la etiqueta.
 - El error marca `aria-invalid`.
 - `required` agrega el asterisco visible y el `required` nativo.
+- `readOnly` usa el `readonly` nativo: el lector anuncia «solo lectura», el campo recibe foco y el texto se puede seleccionar y copiar. A diferencia del desactivado, conserva el contraste normal (4,5:1).
 - El ojo de la contraseña es un botón con nombre que cambia con el estado, con área de toque de 44 × 44.
 - Texto en rem; probado con texto al 200 %: la etiqueta se recorta con puntos suspensivos en vez de montarse sobre el ícono.
 

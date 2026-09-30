@@ -4,6 +4,9 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 30 de septiembre de 2026
 
+- **Nuevo: campos de solo lectura.** `TextInput` y `Textarea` aceptan `readOnly`: borde punteado con el token nuevo `field-border-readonly`, texto con contraste normal, foco y copia. El patrón **Desactivado y solo lectura** lo usa.
+- **Tooltip se puede recorrer con el cursor** (WCAG 1.4.13): el globo recibe el puntero y un puente cubre la separación con el control.
+- **PaymentCard escribe su estado** junto al chip («Activando»): ya no depende del color.
 - **Los 46 componentes tienen su guía completa.** Se sumaron Accordion, EmptyState, Icon, PageControl, PaymentCard, ProductCard y Tip.
 - **PaymentCard** dice su estado y los datos ocultos en texto para el lector de pantalla («Activando», «terminada en 4821»); antes el estado era solo color y el número se leía como una fila de puntos.
 - **Contraste:** el verificador suma los 22 pares de ProductCard (texto y dato destacado sobre los 11 tonos).

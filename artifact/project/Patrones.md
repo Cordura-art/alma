@@ -330,15 +330,17 @@ Si desactivas algo que no es obvio, di por qué cerca del control («Disponible 
 
 Un dato que la persona puede ver pero no cambiar (el RUT de la cuenta, el número de un pasaje).
 
-- **Muéstralo como texto, no como un campo.** En ALMA, una fila informativa de `List` (título y `trailing`) o un par etiqueta y valor.
-- `TextInput` no tiene estado de solo lectura. Un campo desactivado no sirve para esto: baja el contraste, no se puede copiar y parece un error.
+- **Dentro de un formulario**, usa `TextInput` o `Textarea` con `readOnly`: borde punteado, texto con contraste normal, se puede enfocar y copiar, pero no cambiar. Así el dato queda alineado con los demás campos.
+- **Fuera de un formulario**, muéstralo como texto: una fila informativa de `List` (título y `trailing`) o un par etiqueta y valor.
+- Nunca uses un campo desactivado para esto: baja el contraste, no se puede copiar y parece un error.
 - Si el dato se puede copiar, ofrece un botón «Copiar» junto a él.
 - Si se puede cambiar en otro lugar, ofrece el camino: «Cambiar en Ajustes».
 
 ### Accesibilidad
 
 - Un control desactivado no recibe foco: quien usa teclado o lector puede no saber que existe. Por eso, explicar en texto es más importante que desactivar.
-- El texto de solo lectura debe cumplir el contraste normal (4,5:1); el desactivado está exento, y por eso no sirve para mostrar datos.
+- El texto de solo lectura cumple el contraste normal (4,5:1); el desactivado está exento, y por eso no sirve para mostrar datos.
+- Un campo `readOnly` se anuncia como «solo lectura» y recibe foco; uno desactivado no.
 
 ### Relacionados
 

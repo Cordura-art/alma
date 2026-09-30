@@ -36,7 +36,7 @@ Una etiqueta breve que explica qué hace un control, al pasar el cursor o al enf
 ### Comportamiento
 
 - Con el cursor aparece a los 500 ms (`delay`); con el foco del teclado, al instante.
-- Se oculta al sacar el cursor, al perder el foco o con Esc.
+- Se oculta al sacar el cursor del control y del globo, al perder el foco o con Esc. El cursor puede pasar al globo sin que se cierre.
 - Si choca con el borde de la pantalla, se corre hacia adentro.
 - Un tooltip por control, y uno a la vez.
 
@@ -117,6 +117,7 @@ El control recibe `aria-describedby` apuntando al tooltip: su nombre sigue siend
 - Aparece al enfocar con el teclado, no solo con el cursor.
 - Esc lo oculta sin mover el foco (WCAG 1.4.13, descartable).
 - Permanece visible mientras el control tiene el cursor o el foco (WCAG 1.4.13, persistente).
+- Se puede pasar el cursor del control al globo sin que desaparezca: el globo recibe el puntero y un puente invisible cubre los 8 px de separación (WCAG 1.4.13, se puede recorrer). Así, quien usa ampliación de pantalla puede leerlo con el cursor encima.
 
 #### Interacciones de teclado
 
@@ -124,10 +125,6 @@ El control recibe `aria-describedby` apuntando al tooltip: su nombre sigue siend
 |---|---|
 | Tab | Enfoca el control y muestra el tooltip. |
 | Esc | Oculta el tooltip. |
-
-### Pendiente
-
-WCAG 1.4.13 también pide que se pueda **pasar el cursor sobre el globo** sin que desaparezca. Hoy el globo no recibe el puntero y se oculta al salir del control, así que no cumple ese punto. Mientras se corrige, no pongas en un tooltip texto que alguien con ampliación de pantalla necesite leer con el cursor encima.
 
 ### Recomendaciones de diseño
 
@@ -141,4 +138,4 @@ WCAG 1.4.13 también pide que se pueda **pasar el cursor sobre el globo** sin qu
 
 ### Verificación
 
-axe sin problemas en los cuatro temas; teclado y Esc probados. Pendientes: el punto «se puede pasar el cursor encima» de WCAG 1.4.13, y VoiceOver y NVDA.
+axe sin problemas en los cuatro temas; teclado, Esc y paso del cursor al globo probados. Pendiente: VoiceOver y NVDA.

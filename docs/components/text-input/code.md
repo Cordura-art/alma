@@ -27,6 +27,7 @@ h(TextInput, { label: 'Correo', type: 'email', autoComplete: 'email', helper: 'T
 | `maxLength` | `number` | — | Límite y contador. |
 | `required` | `boolean` | `false` | Asterisco y `required` nativo. |
 | `disabled` | `boolean` | `false` | Desactiva el campo. |
+| `readOnly` | `boolean` | `false` | Solo lectura: se ve y se copia, pero no se cambia. |
 | `name`, `id` | `string` | `id` automático | Para formularios. |
 | `onBlur`, `onFocus` | `(event) => void` | — | Validar al salir. |
 
@@ -63,7 +64,7 @@ h(TextInput, { label: 'Código de verificación', inputMode: 'numeric', autoComp
 </div>
 ```
 
-Modificadores: `alma-field--filled` (etiqueta flotante), `--error`, `--disabled`.
+Modificadores: `alma-field--filled` (etiqueta flotante), `--error`, `--disabled`, `--readonly`.
 
 ## Ajustar con tokens
 

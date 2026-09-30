@@ -372,6 +372,7 @@
   --field-border-active: var(--active-primary);
   --field-border-error: var(--danger-400);
   --field-border-disabled: var(--ui-04);
+  --field-border-readonly: var(--border-control);
   --field-text: var(--text-01);
   --field-text-error: var(--text-error);
   --field-text-disabled: var(--ui-04);
@@ -870,6 +871,7 @@
   --field-border-active: var(--active-primary);
   --field-border-error: var(--danger-400);
   --field-border-disabled: var(--ui-04);
+  --field-border-readonly: var(--border-control);
   --field-text: var(--text-01);
   --field-text-error: var(--text-error);
   --field-text-disabled: var(--ui-04);
@@ -1368,6 +1370,7 @@
   --field-border-active: var(--field-border);
   --field-border-error: var(--danger-400);
   --field-border-disabled: var(--ui-04);
+  --field-border-readonly: var(--border-control);
   --field-text: var(--text-01);
   --field-text-error: var(--text-error);
   --field-text-disabled: var(--ui-04);
@@ -1866,6 +1869,7 @@
   --field-border-active: var(--field-border);
   --field-border-error: var(--danger-400);
   --field-border-disabled: var(--ui-04);
+  --field-border-readonly: var(--border-control);
   --field-text: var(--text-01);
   --field-text-error: var(--text-error);
   --field-text-disabled: var(--ui-04);

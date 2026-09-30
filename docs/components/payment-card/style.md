@@ -10,7 +10,7 @@ summary: Especificaciones visuales de la tarjeta de pago.
 | Elemento | Propiedad | Token |
 |---|---|---|
 | Marca | color del texto | `payment-card-brand` (`brand-steel`) |
-| Etiquetas y valores | color del texto | `payment-card-text` |
+| Estado, etiquetas y valores | color del texto | `payment-card-text` |
 | Dígitos, chip y Copiar (pendiente, activando) | color | `payment-card-pending` |
 | Chip (activando) | borde | `payment-card-chip-activating` |
 | Dígitos, chip y Copiar (habilitada, activa) | color | `payment-card-active` |
@@ -34,7 +34,7 @@ Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
 | Elemento | Tamaño de letra (px / rem) | Peso |
 |---|---|---|
 | Marca | 14 / 0,875 | Medium / 500 |
-| Etiquetas | 11 / 0,6875 | Regular / 400 |
+| Estado y etiquetas | 11 / 0,6875 | Regular / 400 |
 | Número | 16 / 1 | Medium / 500 |
 | Vencimiento y CVV | 16 / 1 | Regular / 400 |
 
@@ -44,6 +44,7 @@ Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
 |---|---|---|
 | Tarjeta | ancho, alto mínimo | 311 px (19,4375 rem), 190 px |
 | Tarjeta | relleno | 16 px arriba y abajo, 18 px a los lados |
+| Estado y chip | separación | 8 px |
 | Vencimiento y CVV | columnas, separación | 2, 16 px |
 
 > **Imagen pendiente:** anatomía acotada.

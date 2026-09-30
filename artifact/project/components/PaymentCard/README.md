@@ -18,14 +18,14 @@ Una tarjeta de pago virtual sobre vidrio oscuro, con su avance de activación.
 
 ### Estados
 
-| Estado | Dígitos | Chip | Muestra |
-|---|---|---|---|
-| `pending` | Rojo | Rojo | Últimos 4 dígitos. |
-| `activating` | Rojo | Amarillo | Últimos 4 dígitos. |
-| `enabled` | Verde | Verde | Últimos 4 dígitos. |
-| `active` | Verde | Verde | Número completo y vencimiento. |
+| Estado | Texto | Dígitos | Chip | Muestra |
+|---|---|---|---|---|
+| `pending` | Pendiente | Rojo | Rojo | Últimos 4 dígitos. |
+| `activating` | Activando | Rojo | Amarillo | Últimos 4 dígitos. |
+| `enabled` | Habilitada | Verde | Verde | Últimos 4 dígitos. |
+| `active` | Activa | Verde | Verde | Número completo y vencimiento. |
 
-El estado se dice en texto para el lector de pantalla. En pantalla solo cambia el color: acompaña la tarjeta con el estado escrito al lado («Tu tarjeta se está activando»).
+El estado se escribe junto al chip («Pendiente», «Activando», «Habilitada», «Activa»), así no depende del color.
 
 > **Imagen pendiente:** la tarjeta en los cuatro estados sobre `brand-ink`.
 
@@ -45,7 +45,7 @@ El estado se dice en texto para el lector de pantalla. En pantalla solo cambia e
 | Elemento | Propiedad | Token |
 |---|---|---|
 | Marca | color del texto | `payment-card-brand` (`brand-steel`) |
-| Etiquetas y valores | color del texto | `payment-card-text` |
+| Estado, etiquetas y valores | color del texto | `payment-card-text` |
 | Dígitos, chip y Copiar (pendiente, activando) | color | `payment-card-pending` |
 | Chip (activando) | borde | `payment-card-chip-activating` |
 | Dígitos, chip y Copiar (habilitada, activa) | color | `payment-card-active` |
@@ -69,7 +69,7 @@ Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
 | Elemento | Tamaño de letra (px / rem) | Peso |
 |---|---|---|
 | Marca | 14 / 0,875 | Medium / 500 |
-| Etiquetas | 11 / 0,6875 | Regular / 400 |
+| Estado y etiquetas | 11 / 0,6875 | Regular / 400 |
 | Número | 16 / 1 | Medium / 500 |
 | Vencimiento y CVV | 16 / 1 | Regular / 400 |
 
@@ -79,6 +79,7 @@ Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
 |---|---|---|
 | Tarjeta | ancho, alto mínimo | 311 px (19,4375 rem), 190 px |
 | Tarjeta | relleno | 16 px arriba y abajo, 18 px a los lados |
+| Estado y chip | separación | 8 px |
 | Vencimiento y CVV | columnas, separación | 2, 16 px |
 
 > **Imagen pendiente:** anatomía acotada.
@@ -113,13 +114,9 @@ Al copiar, confirma con un `toast` («Número copiado»).
 
 ### Qué ofrece ALMA
 
-- El estado se dice en texto para el lector: «Cordura, Activando».
+- El estado está escrito en la tarjeta, junto al chip («Activando»): no depende del color (WCAG 1.4.1) y el lector lo lee.
 - El número enmascarado se lee «terminada en 4821», no como una fila de puntos; el vencimiento y el CVV ocultos, como «oculta» y «oculto».
 - Copiar se llama «Copiar número».
-
-### Pendiente
-
-En pantalla, el estado se ve solo por el color de los dígitos y del chip. Para quien no distingue esos colores, muestra el estado escrito junto a la tarjeta hasta que ALMA lo incluya.
 
 #### Interacciones de teclado
 
@@ -134,4 +131,4 @@ En pantalla, el estado se ve solo por el color de los dígitos y del chip. Para 
 
 ### Verificación
 
-axe sin problemas sobre fondo de marca. Pendiente: el estado visible sin depender del color, y VoiceOver y NVDA.
+axe sin problemas sobre fondo de marca. Pendiente: VoiceOver y NVDA.

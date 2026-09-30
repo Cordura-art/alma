@@ -80,6 +80,7 @@ summary: Un campo de texto de una línea para escribir un dato corto: nombre, co
 | Con texto | La etiqueta queda flotando. |
 | Error | Borde y etiqueta en rojo; el mensaje reemplaza la ayuda; `aria-invalid`. |
 | Desactivado | Borde, etiqueta y texto apagados; no recibe foco. |
+| Solo lectura (`readOnly`) | Borde punteado; etiqueta y texto con contraste normal. Recibe foco y el texto se puede seleccionar y copiar, pero no cambiar. |
 
 > **Imagen pendiente:** los seis estados en tema oscuro y claro.
 

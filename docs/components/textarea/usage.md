@@ -45,6 +45,7 @@ summary: Un campo de varias líneas para texto largo: comentarios, descripciones
 | Foco | Borde de 2 px. |
 | Error | Borde y etiqueta en rojo; mensaje en el pie. |
 | Desactivado | Todo apagado; no recibe foco. |
+| Solo lectura (`readOnly`) | Borde punteado; el texto se lee con contraste normal y se puede copiar, pero no cambiar. |
 
 - Enter crea una línea nueva; nunca envía el formulario.
 - El contador cuenta caracteres, no palabras.

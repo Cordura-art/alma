@@ -1860,6 +1860,11 @@
       "$value": "{color.ui-04}",
       "$description": "TextInput desactivado: borde. Token de componente: alias de ui-04."
     },
+    "field-border-readonly": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "TextInput y Textarea de solo lectura: borde punteado. Token de componente: alias de border-control."
+    },
     "field-text": {
       "$type": "color",
       "$value": "{color.text-01}",

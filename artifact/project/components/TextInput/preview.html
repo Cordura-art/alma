@@ -1,4 +1,4 @@
-<!-- @dsCard group="Formularios" height=300 subtitle="Campo en píldora · etiqueta flotante · contador" -->
+<!-- @dsCard group="Formularios" height=300 subtitle="Campo en píldora · etiqueta flotante · contador · solo lectura" -->
 <div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;"></div>
 <script>
   // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
@@ -8,6 +8,7 @@
     h(T, { label: 'Nombre', helper: 'Mínimo 4 caracteres', maxLength: 60 }),
     h(T, { label: 'Contraseña', type: 'password', defaultValue: 'alma2026', helper: 'Mínimo 4 caracteres', maxLength: 60, required: true }),
     h(T, { label: 'Correo', defaultValue: 'hola@', error: 'Escribe un correo válido', maxLength: 60, required: true }),
-    h(T, { label: 'Deshabilitado', type: 'password', helper: 'Mínimo 4 caracteres', maxLength: 60, disabled: true })
+    h(T, { label: 'Deshabilitado', type: 'password', helper: 'Mínimo 4 caracteres', maxLength: 60, disabled: true }),
+    h(T, { label: 'RUT', defaultValue: '12.345.678-5', helper: 'Se cambia en Ajustes', readOnly: true })
   ));
 </script>

@@ -198,7 +198,7 @@ Sale de las piezas de marca de Figma (Brand Key, Behance y mockups). La marca ju
   - Indicador de actividad, modo de solo ícono y tamaños 44, 56 y 72.
   - Como máximo 1 o 2 botones `filled` por vista.
 - **Formularios:**
-  - `TextInput`: campo en píldora con borde lima.
+  - `TextInput`: campo en píldora con borde lima; también de solo lectura (`readOnly`, borde punteado).
   - `SegmentedControl`: selección única entre 2 o 3 opciones.
   - `Stepper`: cantidad con − y +.
 - **Toggles** (según Apple):

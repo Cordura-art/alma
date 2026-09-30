@@ -384,6 +384,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     required this.fieldBorderActive,
     required this.fieldBorderError,
     required this.fieldBorderDisabled,
+    required this.fieldBorderReadonly,
     required this.fieldText,
     required this.fieldTextError,
     required this.fieldTextDisabled,
@@ -1253,6 +1254,8 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   final Color fieldBorderError;
   /// TextInput desactivado: borde. Token de componente: alias de ui-04.
   final Color fieldBorderDisabled;
+  /// TextInput y Textarea de solo lectura: borde punteado. Token de componente: alias de border-control.
+  final Color fieldBorderReadonly;
   /// TextInput: texto escrito. Token de componente: alias de text-01.
   final Color fieldText;
   /// TextInput con error: etiqueta y texto. Token de componente: alias de text-error.
@@ -1873,6 +1876,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     fieldBorderActive: Color(0xFF6F8445),
     fieldBorderError: Color(0xFFEB6161),
     fieldBorderDisabled: Color(0xFF566980),
+    fieldBorderReadonly: Color(0xFF566980),
     fieldText: Color(0xFFF8FBFC),
     fieldTextError: Color(0xFFEB6161),
     fieldTextDisabled: Color(0xFF566980),
@@ -2371,6 +2375,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     fieldBorderActive: Color(0xFF6F8445),
     fieldBorderError: Color(0xFFEB6161),
     fieldBorderDisabled: Color(0xFFCBDEE6),
+    fieldBorderReadonly: Color(0xFF566980),
     fieldText: Color(0xFF3A4660),
     fieldTextError: Color(0xFFAE2424),
     fieldTextDisabled: Color(0xFFCBDEE6),
@@ -2869,6 +2874,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     fieldBorderActive: Color(0xFFE1F564),
     fieldBorderError: Color(0xFFEB6161),
     fieldBorderDisabled: Color(0xFFA0C3D2),
+    fieldBorderReadonly: Color(0xFFA0C3D2),
     fieldText: Color(0xFFF8FBFC),
     fieldTextError: Color(0xFFF5A9A9),
     fieldTextDisabled: Color(0xFFA0C3D2),
@@ -3367,6 +3373,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     fieldBorderActive: Color(0xFF3A4660),
     fieldBorderError: Color(0xFFEB6161),
     fieldBorderDisabled: Color(0xFF3A4660),
+    fieldBorderReadonly: Color(0xFF3A4660),
     fieldText: Color(0xFF141733),
     fieldTextError: Color(0xFF7C1919),
     fieldTextDisabled: Color(0xFF3A4660),
@@ -3879,6 +3886,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     Color? fieldBorderActive,
     Color? fieldBorderError,
     Color? fieldBorderDisabled,
+    Color? fieldBorderReadonly,
     Color? fieldText,
     Color? fieldTextError,
     Color? fieldTextDisabled,
@@ -4376,6 +4384,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
       fieldBorderActive: fieldBorderActive ?? this.fieldBorderActive,
       fieldBorderError: fieldBorderError ?? this.fieldBorderError,
       fieldBorderDisabled: fieldBorderDisabled ?? this.fieldBorderDisabled,
+      fieldBorderReadonly: fieldBorderReadonly ?? this.fieldBorderReadonly,
       fieldText: fieldText ?? this.fieldText,
       fieldTextError: fieldTextError ?? this.fieldTextError,
       fieldTextDisabled: fieldTextDisabled ?? this.fieldTextDisabled,
@@ -4878,6 +4887,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
       fieldBorderActive: Color.lerp(fieldBorderActive, other.fieldBorderActive, t)!,
       fieldBorderError: Color.lerp(fieldBorderError, other.fieldBorderError, t)!,
       fieldBorderDisabled: Color.lerp(fieldBorderDisabled, other.fieldBorderDisabled, t)!,
+      fieldBorderReadonly: Color.lerp(fieldBorderReadonly, other.fieldBorderReadonly, t)!,
       fieldText: Color.lerp(fieldText, other.fieldText, t)!,
       fieldTextError: Color.lerp(fieldTextError, other.fieldTextError, t)!,
       fieldTextDisabled: Color.lerp(fieldTextDisabled, other.fieldTextDisabled, t)!,

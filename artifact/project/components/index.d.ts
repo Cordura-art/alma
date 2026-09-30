@@ -67,6 +67,8 @@ export interface TextInputProps {
   error?: boolean | string;
   required?: boolean;
   disabled?: boolean;
+  /** Visible and copyable but not editable: dashed border, full contrast, still focusable. */
+  readOnly?: boolean;
   /** "password" adds the eye toggle. */
   type?: 'text' | 'password' | 'email' | 'search' | 'tel' | 'url';
   id?: string;
@@ -532,7 +534,7 @@ export interface TagProps {
 }
 export declare function Tag(props: TagProps): any;
 
-export interface TextareaProps { label: string; value?: string; defaultValue?: string; onChange?: (value: string, e: Event) => void; placeholder?: string; helper?: string; error?: string | boolean; maxLength?: number; rows?: number; required?: boolean; disabled?: boolean; name?: string; id?: string; }
+export interface TextareaProps { label: string; value?: string; defaultValue?: string; onChange?: (value: string, e: Event) => void; placeholder?: string; helper?: string; error?: string | boolean; maxLength?: number; rows?: number; required?: boolean; disabled?: boolean; readOnly?: boolean; name?: string; id?: string; }
 export declare function Textarea(props: TextareaProps): any;
 
 export interface CardProps {

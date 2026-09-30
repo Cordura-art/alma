@@ -18,14 +18,14 @@ summary: Una tarjeta de pago virtual sobre vidrio oscuro, con su avance de activ
 
 ## Estados
 
-| Estado | Dígitos | Chip | Muestra |
-|---|---|---|---|
-| `pending` | Rojo | Rojo | Últimos 4 dígitos. |
-| `activating` | Rojo | Amarillo | Últimos 4 dígitos. |
-| `enabled` | Verde | Verde | Últimos 4 dígitos. |
-| `active` | Verde | Verde | Número completo y vencimiento. |
+| Estado | Texto | Dígitos | Chip | Muestra |
+|---|---|---|---|---|
+| `pending` | Pendiente | Rojo | Rojo | Últimos 4 dígitos. |
+| `activating` | Activando | Rojo | Amarillo | Últimos 4 dígitos. |
+| `enabled` | Habilitada | Verde | Verde | Últimos 4 dígitos. |
+| `active` | Activa | Verde | Verde | Número completo y vencimiento. |
 
-El estado se dice en texto para el lector de pantalla. En pantalla solo cambia el color: acompaña la tarjeta con el estado escrito al lado («Tu tarjeta se está activando»).
+El estado se escribe junto al chip («Pendiente», «Activando», «Habilitada», «Activa»), así no depende del color.
 
 > **Imagen pendiente:** la tarjeta en los cuatro estados sobre `brand-ink`.
 

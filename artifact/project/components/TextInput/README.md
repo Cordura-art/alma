@@ -81,6 +81,7 @@ Un campo de texto de una línea para escribir un dato corto: nombre, correo, con
 | Con texto | La etiqueta queda flotando. |
 | Error | Borde y etiqueta en rojo; el mensaje reemplaza la ayuda; `aria-invalid`. |
 | Desactivado | Borde, etiqueta y texto apagados; no recibe foco. |
+| Solo lectura (`readOnly`) | Borde punteado; etiqueta y texto con contraste normal. Recibe foco y el texto se puede seleccionar y copiar, pero no cambiar. |
 
 > **Imagen pendiente:** los seis estados en tema oscuro y claro.
 
@@ -113,6 +114,8 @@ El ojo alterna entre mostrar y ocultar. Su nombre cambia con el estado («Mostra
 | Contenedor:active | borde | `field-border-active` |
 | Contenedor:error | borde | `field-border-error` |
 | Contenedor:disabled | borde | `field-border-disabled` |
+| Contenedor de solo lectura | borde (1 px, punteado; sin cambio con hover) | `field-border-readonly` |
+| Contenedor de solo lectura:focus | contorno | `focus` (2 px, separado 2 px) |
 | Etiqueta | color del texto | `field-label` |
 | Etiqueta flotante | fondo | `field-label-float-bg` |
 | Etiqueta flotante | color del texto | `field-label-float-text` |
@@ -196,6 +199,7 @@ h(TextInput, { label: 'Correo', type: 'email', autoComplete: 'email', helper: 'T
 | `maxLength` | `number` | — | Límite y contador. |
 | `required` | `boolean` | `false` | Asterisco y `required` nativo. |
 | `disabled` | `boolean` | `false` | Desactiva el campo. |
+| `readOnly` | `boolean` | `false` | Solo lectura: se ve y se copia, pero no se cambia. |
 | `name`, `id` | `string` | `id` automático | Para formularios. |
 | `onBlur`, `onFocus` | `(event) => void` | — | Validar al salir. |
 
@@ -232,7 +236,7 @@ h(TextInput, { label: 'Código de verificación', inputMode: 'numeric', autoComp
 </div>
 ```
 
-Modificadores: `alma-field--filled` (etiqueta flotante), `--error`, `--disabled`.
+Modificadores: `alma-field--filled` (etiqueta flotante), `--error`, `--disabled`, `--readonly`.
 
 ### Ajustar con tokens
 
@@ -255,6 +259,7 @@ ALMA resuelve la relación entre etiqueta, campo, ayuda y error. Hay que anotar 
 - La ayuda y el error están unidos con `aria-describedby`: se leen después de la etiqueta.
 - El error marca `aria-invalid`.
 - `required` agrega el asterisco visible y el `required` nativo.
+- `readOnly` usa el `readonly` nativo: el lector anuncia «solo lectura», el campo recibe foco y el texto se puede seleccionar y copiar. A diferencia del desactivado, conserva el contraste normal (4,5:1).
 - El ojo de la contraseña es un botón con nombre que cambia con el estado, con área de toque de 44 × 44.
 - Texto en rem; probado con texto al 200 %: la etiqueta se recorta con puntos suspensivos en vez de montarse sobre el ícono.
 

@@ -15,6 +15,8 @@ summary: Especificaciones visuales del campo de texto: color, tipografía, estru
 | Contenedor:active | borde | `field-border-active` |
 | Contenedor:error | borde | `field-border-error` |
 | Contenedor:disabled | borde | `field-border-disabled` |
+| Contenedor de solo lectura | borde (1 px, punteado; sin cambio con hover) | `field-border-readonly` |
+| Contenedor de solo lectura:focus | contorno | `focus` (2 px, separado 2 px) |
 | Etiqueta | color del texto | `field-label` |
 | Etiqueta flotante | fondo | `field-label-float-bg` |
 | Etiqueta flotante | color del texto | `field-label-float-text` |

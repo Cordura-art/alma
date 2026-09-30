@@ -17,6 +17,7 @@ Usa los mismos tokens que `TextInput`:
 | Contenedor:active | borde | `field-border-active` |
 | Contenedor:error | borde | `field-border-error` |
 | Contenedor:disabled | borde | `field-border-disabled` |
+| Contenedor de solo lectura | borde (1 px, punteado) | `field-border-readonly` |
 | Etiqueta | color del texto | `field-label` |
 | Etiqueta flotante | fondo | `field-label-float-bg` |
 | Etiqueta flotante | color del texto | `field-label-float-text` |
