@@ -36,3 +36,21 @@ const news = demote((await readFile('docs/novedades.md', 'utf8')).replace(/^# .*
 const plan = demote((await readFile('docs/README.md', 'utf8')).replace(/^# .*\n/, ''));
 await writeFile('artifact/project/Documentacion.md', `# Documentación\n\n## Novedades\n${news}\n## Cómo se documenta ALMA\n${plan}`);
 console.log('Sección Documentación generada');
+
+// Foundations (color, type, spacing, motion, icons, themes): docs/elements/<dir>/<n>-<tab>.md → one section each,
+// artifact/project/Fundamentos-<order>-<dir>.md, with the tabs as "## <tab>" (as IBM Design Language pages).
+const EL = 'docs/elements';
+let els = 0;
+for (const dir of (await readdir(EL)).sort()) {
+  if (!(await stat(`${EL}/${dir}`)).isDirectory()) continue;
+  const tabs = [];
+  for (const f of (await readdir(`${EL}/${dir}`)).filter((f) => f.endsWith('.md')).sort()) tabs.push(parse(await readFile(`${EL}/${dir}/${f}`, 'utf8')));
+  if (!tabs.length) continue;
+  const { element, order, summary } = tabs[0].meta;
+  if (!element || !order) throw new Error(`${dir}: faltan "element" u "order" en el encabezado`);
+  let out = `# ${element}\n\n${summary || ''}\n\n`;
+  for (const t of tabs) out += `\n## ${t.meta.tab}\n\n${demote(t.body)}\n`;
+  await writeFile(`artifact/project/Fundamentos-${order}-${dir}.md`, out);
+  els++;
+}
+console.log(`Fundamentos: ${els} páginas generadas desde docs/elements/`);

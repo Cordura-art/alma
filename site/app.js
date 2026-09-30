@@ -139,7 +139,8 @@
   function Docs() {
     return h(React.Fragment, null, h(Head, { eyebrow: 'Sistema de diseño', title: 'Novedades y avance', summary: 'Qué cambió en ALMA y cómo va la documentación frente a IBM Carbon.' }), h(Md, { src: C.docs }));
   }
-  function Color(p) {
+  // ---- Foundations: the prose tabs from docs/elements plus a live "Tokens" tab.
+  function ColorTokens(p) {
     var q = useState(''), query = q[0];
     var groups = useMemo(function () {
       var out = [], idx = {};
@@ -153,7 +154,7 @@
     }, [query]);
     var themeName = (THEMES.filter(function (t) { return t.id === p.theme; })[0] || THEMES[0]).name;
     return h(React.Fragment, null,
-      h(Head, { eyebrow: 'Fundamentos', title: 'Color', summary: C.tokens.color.length + ' tokens en tres capas: núcleo, semántica y componentes. Las muestras y los valores son los del tema ' + themeName.toLowerCase() + '; cámbialo arriba para comparar.' }),
+      h('p', { className: 'doc__note web-body-s' }, C.tokens.color.length + ' tokens. Las muestras y los valores son los del tema ' + themeName.toLowerCase() + '; cámbialo arriba para comparar.'),
       h(Named, { className: 'filter', name: 'Filtrar tokens de color' }, h(A.SearchField, { label: 'Buscar token de color', placeholder: 'Buscar por nombre o uso', value: query, onChange: q[1] })),
       groups.length ? groups.map(function (g) {
         return h(Tbl, { key: g.stem, title: g.stem, cols: ['Muestra', 'Token', 'Valor', 'Uso'], rows: g.items.map(function (t) {
@@ -161,9 +162,9 @@
         }) });
       }) : h('p', { className: 'muted web-body-m' }, 'Ningún token coincide con «' + query + '».'));
   }
-  function Type() {
+  function TypeTokens() {
     return h(React.Fragment, null,
-      h(Head, { eyebrow: 'Fundamentos', title: 'Tipografía', summary: 'Roboto Flex extendida (ancho 150). Usa los estilos por nombre; las muestras de más de 4 rem se ven reducidas.' }),
+      h('p', { className: 'doc__note web-body-s' }, 'Las muestras de más de 4 rem se ven reducidas.'),
       C.tokens.type.map(function (g) {
         return h(Tbl, { key: g.name, title: g.name, cols: ['Muestra', 'Estilo', 'Tamaño · interlineado · peso', 'Uso'], rows: g.styles.map(function (s) {
           var rem = parseFloat(s.fontSize), big = /rem$/.test(s.fontSize) && rem > 4;
@@ -172,36 +173,53 @@
         }) });
       }));
   }
-  function Measures() {
-    var fam = C.tokens.families;
-    function simple(key, title, sample) {
-      var f = fam[key]; if (!f) return null;
-      return h(Tbl, { key: key, title: title, note: f.note, cols: sample ? ['Muestra', 'Token', 'Valor', 'Uso'] : ['Token', 'Valor', 'Uso'], rows: f.tokens.map(function (t) {
-        var row = [code(t.name), code(t.value), t.usage || ''];
-        return sample ? [sample(t)].concat(row) : row;
-      }) });
-    }
-    return h(React.Fragment, null,
-      h(Head, { eyebrow: 'Fundamentos', title: 'Espaciado, tamaños y capas', summary: 'Todo en múltiplos de 8. Las medidas vienen del IBM 2x Grid y de las áreas de toque de Apple.' }),
-      simple('spacing', 'Espaciado', function (t) { return h('span', { className: 'bar', style: { width: 'var(--' + t.name + ')' } }); }),
-      simple('radius', 'Radios', function (t) { return h('span', { className: 'corner', style: { borderRadius: 'var(--' + t.name + ')' } }); }),
-      simple('size', 'Tamaños de control'),
-      simple('icon', 'Íconos', function (t) { return h(A.Icon, { name: 'star', size: parseInt(t.value, 10) }); }),
-      simple('grid', 'Grilla'),
-      simple('breakpoint', 'Puntos de quiebre'),
-      simple('zIndex', 'Capas'),
-      simple('shadow', 'Sombra', function (t) { return h('span', { className: 'lift', style: { boxShadow: 'var(--' + t.name + ')' } }); }));
+  function familyTable(key, title, sample) {
+    var f = C.tokens.families[key]; if (!f) return null;
+    return h(Tbl, { key: key, title: title, note: f.note, cols: sample ? ['Muestra', 'Token', 'Valor', 'Uso'] : ['Token', 'Valor', 'Uso'], rows: f.tokens.map(function (t) {
+      var row = [code(t.name), code(t.value), t.usage || ''];
+      return sample ? [sample(t)].concat(row) : row;
+    }) });
   }
-  function Motion() {
-    var fam = C.tokens.families, mo = C.components.filter(function (c) { return c.name === 'Motion'; })[0];
-    function rows(k) { return fam[k].tokens.map(function (t) { return [code(t.name), code(t.value), t.usage || '']; }); }
+  function SpaceTokens() {
     return h(React.Fragment, null,
-      h(Head, { eyebrow: 'Fundamentos', title: 'Movimiento', summary: 'IBM Design Language: productivo para la interfaz de trabajo, expresivo para los momentos de marca. Con movimiento reducido, los cambios son instantáneos.' }),
-      mo ? h('p', { className: 'pv__label web-label-s' }, 'Pasa el cursor o enfoca una fila') : null,
+      familyTable('spacing', 'Espaciado', function (t) { return h('span', { className: 'bar', style: { width: 'var(--' + t.name + ')' } }); }),
+      familyTable('radius', 'Radios', function (t) { return h('span', { className: 'corner', style: { borderRadius: 'var(--' + t.name + ')' } }); }),
+      familyTable('size', 'Tamaños de control'),
+      familyTable('grid', 'Grilla'),
+      familyTable('breakpoint', 'Puntos de quiebre'),
+      familyTable('zIndex', 'Capas'),
+      familyTable('shadow', 'Sombra', function (t) { return h('span', { className: 'lift', style: { boxShadow: 'var(--' + t.name + ')' } }); }));
+  }
+  function MotionTokens() { return h(React.Fragment, null, familyTable('duration', 'Duraciones'), familyTable('easing', 'Curvas')); }
+  function IconTokens() { return familyTable('icon', 'Tamaños', function (t) { return h(A.Icon, { name: 'star', size: parseInt(t.value, 10) }); }); }
+  function ThemeTokens() {
+    // Each row is painted in its own theme: data-theme applies to everything inside.
+    var roles = ['ui-02', 'ui-01', 'ui-03', 'text-01', 'text-02', 'interactive-01', 'interactive-02', 'focus', 'support-01'];
+    return h(Tbl, { title: 'Los cuatro temas', note: 'Cada fila se pinta en su tema. Las muestras son los roles principales, en este orden: ' + roles.join(', ') + '.',
+      cols: ['Tema', 'Id', 'Muestra'], rows: THEMES.map(function (t) {
+        return [t.name, code(t.id), h('span', { 'data-theme': t.id, className: 'theme-strip', 'aria-hidden': 'true' },
+          roles.map(function (r) { return h('span', { key: r, className: 'swatch', style: { background: 'var(--' + r + ')' } }); }))];
+      }) });
+  }
+  var FUND = {
+    color: { slug: 'color', icon: 'light', tokens: function (s) { return h(ColorTokens, { theme: s.theme }); } },
+    tipografia: { slug: 'tipografia', icon: 'view', tokens: function () { return h(TypeTokens); } },
+    espaciado: { slug: 'espaciado', icon: 'layers', tokens: function () { return h(SpaceTokens); } },
+    movimiento: { slug: 'movimiento', icon: 'renew', preview: 'Motion', hint: 'Pasa el cursor o enfoca una fila', tokens: function () { return h(MotionTokens); } },
+    iconos: { slug: 'iconos', icon: 'image', preview: 'Icon', tokens: function () { return h(IconTokens); } },
+    temas: { slug: 'temas', icon: 'asleep', tokens: function () { return h(ThemeTokens); } }
+  };
+  function Foundation(p) {
+    var f = FUND[p.id], el = C.elements[f.slug];
+    var mo = f.preview ? C.components.filter(function (c) { return c.name === f.preview; })[0] : null;
+    var tab = useState(el.sections[0].title);
+    var tabs = el.sections.map(function (s) { return { value: s.title, label: s.title, content: h(Md, { src: s.body, shift: true }) }; })
+      .concat([{ value: 'Tokens', label: 'Tokens', content: f.tokens(p) }]);
+    return h(React.Fragment, null,
+      h(Head, { eyebrow: 'Fundamentos', title: el.name, summary: el.summary }),
+      mo ? h('p', { className: 'pv__label web-label-s' }, f.hint || mo.subtitle || 'Vista previa') : null,
       mo ? h(Preview, { pv: mo.preview }) : null,
-      mo ? h(Md, { src: mo.body }) : null,
-      h(Tbl, { title: 'Duraciones', note: fam.duration.note, cols: ['Token', 'Valor', 'Uso'], rows: rows('duration') }),
-      h(Tbl, { title: 'Curvas', note: fam.easing.note, cols: ['Token', 'Valor', 'Uso'], rows: rows('easing') }));
+      h('div', { className: 'tabs-wrap' }, h(A.Tabs, { label: el.name, value: tab[0], onChange: tab[1], tabs: tabs })));
   }
   var TABS = ['Uso', 'Estilo', 'Código', 'Accesibilidad'];
   function Component(p) {
@@ -223,12 +241,12 @@
     'Contenido': 'grid', 'Datos': 'dashboard', 'Comunicación': 'chat', 'Estados': 'in-progress', 'Ayuda': 'help', 'Iconografía': 'image' };
   var pages = [
     { id: 'inicio', label: 'Inicio', icon: 'home', group: 'ALMA', render: function () { return h(Home); } },
-    { id: 'novedades', label: 'Novedades y avance', icon: 'notification', group: 'ALMA', render: function () { return h(Docs); } },
-    { id: 'color', label: 'Color', icon: 'light', group: 'Fundamentos', render: function (s) { return h(Color, { theme: s.theme }); } },
-    { id: 'tipografia', label: 'Tipografía', icon: 'view', group: 'Fundamentos', render: function () { return h(Type); } },
-    { id: 'medidas', label: 'Espaciado y capas', icon: 'layers', group: 'Fundamentos', render: function () { return h(Measures); } },
-    { id: 'movimiento', label: 'Movimiento', icon: 'renew', group: 'Fundamentos', render: function () { return h(Motion); } }
+    { id: 'novedades', label: 'Novedades y avance', icon: 'notification', group: 'ALMA', render: function () { return h(Docs); } }
   ];
+  Object.keys(FUND).forEach(function (id) {
+    var el = C.elements[FUND[id].slug]; if (!el) return;
+    pages.push({ id: id, label: el.name, icon: FUND[id].icon, group: 'Fundamentos', render: function (s) { return h(Foundation, { id: id, theme: s.theme, key: id }); } });
+  });
   C.components.forEach(function (c) {
     if (c.name === 'Motion') return;
     pages.push({ id: c.name.toLowerCase(), label: c.name, icon: GROUP_ICON[c.group] || 'grid', group: c.group || 'Otros', title: c.name,

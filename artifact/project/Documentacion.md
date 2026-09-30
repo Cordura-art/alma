@@ -6,6 +6,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 30 de septiembre de 2026
 
+- **Fundamentos con la profundidad de Carbon.** Color, Tipografía, Espaciado y grilla, Movimiento, Íconos y Temas tienen su página con pestañas (Resumen, Uso o Estilos, Código) y, en el sitio, una pestaña **Tokens** con las tablas en vivo. La de Temas pinta cada tema en su fila.
 - **Guías completas de la tanda 3.** Tabs, Sidebar, TabBar, Breadcrumb, Table, Pagination y List tienen sus cuatro partes.
 - **Pagination** muestra los números con el formato de Chile («1.284 movimientos»); antes salía «1284».
 - **Guías completas de la tanda 2.** Modal, Sheet, Alert, InlineNotification, ToastRegion, Tooltip y Popover tienen sus cuatro partes. La de Tooltip deja escrito un pendiente de WCAG 1.4.13: el globo todavía no se puede recorrer con el cursor sin que desaparezca.
@@ -76,6 +77,8 @@ Cada componente tiene cuatro pestañas, como en Carbon:
 
 `npm run build` arma con las cuatro la guía del componente en el artefacto (`artifact/project/components/<Nombre>/README.md`). Esa guía no se edita a mano: se edita aquí.
 
+Los fundamentos siguen el mismo camino: `docs/elements/<nombre>/<n>-<pestaña>.md` genera `artifact/project/Fundamentos-<orden>-<nombre>.md`, una sección del artefacto por fundamento. En el sitio, cada uno suma una pestaña **Tokens** con las tablas en vivo.
+
 ### Avance
 
 Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11 de visualización de datos y 8 de guías.
@@ -127,12 +130,12 @@ Carbon: 44 componentes × 4 pestañas, 23 páginas de elementos, 18 patrones, 11
 
 | Carbon | Páginas | ALMA hoy |
 |---|---|---|
-| Color (resumen, uso, tokens, código) | 4 | Sección en la guía general |
-| Tipografía (resumen, estrategias, conjuntos, código) | 4 | Sección en la guía general |
-| Espaciado · 2x Grid | 5 | Sección en la guía general |
-| Movimiento (resumen, coreografía, código) | 4 | Sección en la guía general |
-| Íconos · Pictogramas | 4 | Íconos: sección; pictogramas: falta |
-| Temas | 2 | Sección en la guía general |
+| Color (resumen, uso, tokens, código) | 4 | **Completo**: Resumen, Uso, Código y Tokens |
+| Tipografía (resumen, estrategias, conjuntos, código) | 4 | **Completo**: Resumen, Estilos, Código y Tokens |
+| Espaciado · 2x Grid | 5 | **Completo**: Resumen, Grilla, Densidad y capas, Código y Tokens |
+| Movimiento (resumen, coreografía, código) | 4 | **Completo**: Resumen, Coreografía, Código y Tokens |
+| Íconos · Pictogramas | 4 | Íconos **completo** (Resumen, Uso, Código y Tokens); pictogramas: falta |
+| Temas | 2 | **Completo**: Resumen, Código y Tokens |
 | Patrones (18: acciones comunes, diálogos, estados desactivados y de solo lectura, divulgación, estados vacíos, filtros, formularios, encabezado global, carga, inicio de sesión, notificaciones, contenido que desborda, búsqueda, indicadores de estado, barra de texto, estilos fluidos) | 18 | Estados vacíos y notificaciones en la guía de contenido; el resto falta |
 | Visualización de datos | 11 | Solo la paleta de gráficos |
 | Accesibilidad (resumen, color, teclado, desarrollo) | 4 | Reglas en la guía general |

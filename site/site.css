@@ -60,12 +60,15 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 /* Tables: ALMA Table, with wrapping cells for documentation text. */
 .doc .alma-table td, .md .alma-table td { white-space: normal; height: auto; min-height: var(--alma-row); padding-block: var(--space-8); vertical-align: top; }
 .doc .alma-table th, .md .alma-table th { white-space: nowrap; }
+/* A token name is one word: never split it across lines inside a cell. */
+.alma-table td code { white-space: nowrap; }
 .doc { margin: 0 0 var(--space-32); }
 .doc__note { margin: 0 0 var(--space-16); max-width: 48rem; color: var(--text-02); }
 .tabs-wrap { margin-top: var(--space-8); }
 
 /* Token samples */
 .swatch { display: block; width: var(--space-32); height: var(--space-32); border-radius: var(--radius-chip); box-shadow: inset 0 0 0 1px var(--ui-04); }
+.theme-strip { display: flex; gap: var(--space-4); padding: var(--space-8); border-radius: var(--radius-chip); background: var(--ui-02); }
 .bar { display: block; height: var(--space-16); border-radius: var(--radius-chip); background: var(--interactive-01); }
 .corner { display: block; width: var(--space-48); height: var(--space-48); background: var(--ui-01); border: 1px solid var(--ui-04); }
 .lift { display: block; width: var(--space-64); height: var(--space-40); border-radius: var(--radius-chip); background: var(--ui-01); }
