@@ -342,7 +342,7 @@
             onMouseEnter: function () { setActive(i); },
             onClick: function () { if (!it.disabled) props.onPick(it); }
           },
-            h('span', { className: 'alma-menu__check' }, sel ? h(AlmaIcon, { name: 'checkmark', size: 20 }) : (it.icon ? h(AlmaIcon, { name: it.icon, size: 20 }) : null)),
+            h('span', { className: 'alma-menu__check' }, sel ? h(AlmaIcon, { name: 'checkmark', size: 16 }) : (it.icon ? h(AlmaIcon, { name: it.icon, size: 16 }) : null)),
             h('span', { className: 'alma-menu__text' }, it.label));
         })),
       props.footer ? h('p', { className: 'alma-menu__footer' }, props.footer) : null
@@ -585,7 +585,7 @@
             return h('li', { key: label, id: id + '-o-' + i, role: 'option', 'aria-selected': i === active,
               className: 'alma-menu__item' + (i === active ? ' is-active' : ''),
               onMouseDown: function (e) { e.preventDefault(); }, onClick: function () { set(label); submit(label); } },
-              h('span', { className: 'alma-menu__check' }, h(AlmaIcon, { name: x.icon || 'search', size: 20 })),
+              h('span', { className: 'alma-menu__check' }, h(AlmaIcon, { name: x.icon || 'search', size: 16 })),
               h('span', { className: 'alma-menu__text' }, label));
           }))) : null,
       props.scopes ? h('div', { className: 'alma-search__scopes' }, h(SegmentedControl, { label: 'Buscar en', options: props.scopes, value: props.scope, defaultValue: props.defaultScope, onChange: props.onScopeChange })) : null
@@ -1180,8 +1180,8 @@
               return h('li', { key: String(it.value), id: id + '-o-' + i, role: 'option', 'aria-selected': sel, 'aria-disabled': it.disabled || undefined,
                 className: 'alma-menu__item' + (i === active ? ' is-active' : '') + (it.disabled ? ' is-disabled' : ''),
                 onMouseEnter: function () { setActive(i); }, onClick: function (e) { e.stopPropagation(); pick(it); } },
-                h('span', { className: 'alma-menu__check' }, multi ? h(AlmaIcon, { name: sel ? 'checkbox--checked--filled' : 'checkbox', size: 20 })
-                  : (sel ? h(AlmaIcon, { name: 'checkmark', size: 20 }) : null)),
+                h('span', { className: 'alma-menu__check' }, multi ? h(AlmaIcon, { name: sel ? 'checkbox--checked--filled' : 'checkbox', size: 16 })
+                  : (sel ? h(AlmaIcon, { name: 'checkmark', size: 16 }) : null)),
                 h('span', { className: 'alma-menu__text' }, it.label));
             }))
             : h('p', { className: 'alma-combo__empty', role: 'status' }, props.emptyText || 'Sin resultados para «' + q + '»')) : null),

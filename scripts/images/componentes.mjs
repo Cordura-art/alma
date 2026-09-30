@@ -418,10 +418,10 @@ export const componentScenes = [
         all('[data-o="2"]').forEach(function (c) { var it = c.querySelectorAll('.alma-menu__item'); if (it[2]) st(it[2], 'hover'); });` }),
 
   scene('pop-up-button', 'style', 'anatomía acotada del botón y del menú abierto', 'pop-up-button-medidas',
-    'Medidas de PopUpButton: alto del botón, relleno, separación entre botón y menú, relleno del menú, alto de las opciones y columna de 24 px para la marca.',
+    'Medidas de PopUpButton: alto del botón, relleno, separación entre botón y menú, relleno del menú, alto de las opciones, marca de 16 px y su separación de 16 px con el texto.',
     { js: `mount(h('div', { style: { width: '18rem', height: '22rem', padding: '40px 170px 0 150px' } }, h(A.PopUpButton, { label: 'Ordenar por', options: ['Más recientes', 'Precio más bajo', 'Menor duración'], defaultValue: 'Más recientes' })));`,
       after: `var b = $('.alma-popup__btn'); b.click(); await sleep(250); var m = $('.alma-menu'), it = all('.alma-menu__item');
-        dimH(b, 'right'); padL(b); gapY(b, m, box(m).x + box(m).w + 16); padT(m, box(m).x + box(m).w + 16, box(m).y + 10); dimH(it[1], 'right', null, { d: box(m).x + box(m).w - box(it[1]).x - box(it[1]).w + 16 }); var ck = $('.alma-menu__check'); if (ck) dimW(ck, 'bottom', null, { d: box(it[2]).y + box(it[2]).h - box(ck).y - box(ck).h + 24 });` }),
+        dimH(b, 'right'); padL(b); gapY(b, m, box(m).x + box(m).w + 16); padT(m, box(m).x + box(m).w + 16, box(m).y + 10); dimH(it[1], 'right', null, { d: box(m).x + box(m).w - box(it[1]).x - box(it[1]).w + 16 }); var ck = $('.alma-menu__check'); if (ck) { dimW(ck, 'bottom', null, { d: box(it[2]).y + box(it[2]).h - box(ck).y - box(ck).h + 24 }); gapX(ck, it[0].querySelector('.alma-menu__text'), box(m).x - 130, box(it[0]).y + 10); }` }),
 
   // ---------- PullDownButton ----------
   scene('pull-down-button', 'usage', 'el menú de una tarjeta de pago', 'pull-down-button-menu',

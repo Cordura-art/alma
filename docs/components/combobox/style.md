@@ -70,6 +70,7 @@ summary: Especificaciones visuales del campo con lista.
 | Lista | alto máximo | 16 rem, con desplazamiento |
 | Opción | alto mínimo, radio | 44 px (`size-touch-min`), `radius-nav` |
 | Opciones | separación | 4 px (`space-4`) |
+| Opción | marca o casilla, y su separación del texto | 16 px (`icon-size-sm`) y 16 px |
 | Etiqueta | alto | 24 px |
 
 ![Medidas del Combobox múltiple con la lista abierta: alto del campo, separación entre etiquetas, separación entre campo y lista, relleno y alto de las opciones.](assets/Componentes/combobox-medidas.png)

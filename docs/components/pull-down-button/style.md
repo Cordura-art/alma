@@ -28,7 +28,7 @@ Dentro de una `Toolbar` o un `Breadcrumb`, el botón no tiene borde y usa los co
 
 ## Estructura
 
-Igual al menú de `PopUpButton`: separado 8 px del botón, relleno de 8 px, radio `radius-panel`, acciones de 44 px de alto con `radius-nav` y separadas 4 px, columna de 24 px para el ícono.
+Igual al menú de `PopUpButton`: separado 8 px del botón, relleno de 8 px, radio `radius-panel`, acciones de 44 px de alto con `radius-nav` y separadas 4 px, ícono de 16 px (`icon-size-sm`) separado 16 px del texto y relleno lateral de 16 px, como en `Sidebar`.
 
 ![Medidas de PullDownButton: botón de 44 px, separación de 8 px con el menú, relleno del menú y alto de las acciones.](assets/Componentes/pull-down-button-medidas.png)
 

@@ -56,9 +56,11 @@ summary: Especificaciones visuales del botón con menú de opciones.
 | Menú | ancho | el del botón como mínimo, 320 px como máximo |
 | Opción | alto mínimo, radio | 44 px, `radius-nav` |
 | Opciones | separación | 4 px (`space-4`) |
-| Opción | columna de la marca | 24 px |
+| Opción | relleno lateral | 16 px |
+| Opción | ícono o marca | 16 px (`icon-size-sm`), en su propia columna |
+| Ícono y texto | separación | 16 px: igual al ícono, como en `Sidebar` |
 
-![Medidas de PopUpButton: alto del botón, relleno, separación entre botón y menú, relleno del menú, alto de las opciones y columna de 24 px para la marca.](assets/Componentes/pop-up-button-medidas.png)
+![Medidas de PopUpButton: alto del botón, relleno, separación entre botón y menú, relleno del menú, alto de las opciones marca de 16 px y su separación de 16 px con el texto.](assets/Componentes/pop-up-button-medidas.png)
 
 ## Tamaño
 
