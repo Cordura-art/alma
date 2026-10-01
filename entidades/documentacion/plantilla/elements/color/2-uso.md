@@ -23,7 +23,7 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 
 ## Un acento
 
-- `interactive-01` ({v:acento}) es la acción principal de la vista. **Una por pantalla.** Si una pantalla se siente {v:acento}, tiene demasiado {v:acento}.
+- `interactive-01` ({v:acento}) es la acción principal de la vista. **Una por pantalla.** Si el {v:acento} está por toda la pantalla, hay demasiado.
 - `interactive-02` ({v:acento} muy oscuro y apagado) es la acción secundaria, con texto blanco.
 - El texto sobre el {v:acento} es siempre `text-on-interactive`, {v:sobre}.
 - Los enlaces, el foco y el contorno del botón terciario usan el color de acción: `link-01`{si accionMarca}{sino}, un azul{fin}.

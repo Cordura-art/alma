@@ -1,0 +1,385 @@
+{
+ "id": "ensayo",
+ "nombre": "Ensayo",
+ "nacimiento": { "fecha": "2026-10-01", "hora": "12:00", "zona": "America/Santiago" },
+ "fechaLarga": "1 de octubre de 2026, 12:00, Santiago de Chile",
+ "aviso": "Entidad de prueba. Ensayo es una marca ficticia, un taller de edición de textos, creada el 1 de octubre de 2026 para probar el flujo de entidades de ALMA. No representa a ninguna empresa real, y sus textos son un primer borrador escrito desde su carta.",
+ "muestra": {
+  "eyebrow": "Borradores",
+  "titulo": "Capítulo 3, segunda versión",
+  "texto": "Tiene 4 observaciones. Léelas antes de reescribir.",
+  "primaria": "Revisar borrador",
+  "secundaria": "Ver la versión anterior",
+  "parrafo": "Marcamos lo que no funciona y decimos por qué. Tú decides qué cambia: cada observación se puede aceptar, discutir o dejar para después.",
+  "enfasis": ["El párrafo 2 repite la idea del ", "párrafo 1", "."]
+ },
+ "inicio": {
+  "titulo": "Leer → Dudar → Corregir",
+  "lede": "Este es el ethos detrás de nuestra filosofía y de cada uno de nuestros principios. Creemos que casi todo se puede mejorar, y que mejorar empieza por decir con precisión qué no funciona."
+ },
+ "puntoDeVista": {
+  "lede": "Lo que creemos define lo que hacemos. Esta es la base de todo lo que diseñamos, desde un botón hasta una marca entera.",
+  "bloques": [
+   { "p": "Creemos que un primer borrador nunca es el texto: es el material. Lo que vale aparece al corregir, y corregir es un oficio que se aprende mirando con atención." },
+   { "p": "Por eso no celebramos por cumplir. Leemos de verdad, y cuando algo no funciona lo decimos: qué es, dónde está y por qué." },
+   { "s": "Corregir es\nuna forma de cuidar." },
+   { "p": "Hay mucha herramienta que aplaude todo, y mucha otra que corrige sin explicar. Las dos dejan a la persona igual que antes: una sin saber qué cambiar, la otra sin saber por qué cambió." },
+   { "p": "Nosotros elegimos otro camino. Una observación nuestra nombra el problema con exactitud y da su razón. Después se hace a un lado: el texto es de quien lo escribe." },
+   { "s": "Dudar = Empezar" },
+   { "p": "A veces provocamos. Hacemos la pregunta que el texto esquiva: ¿para quién es esto?, ¿qué pasa si quitas este párrafo? Una buena pregunta abre más que diez correcciones." },
+   { "p": "Y creemos en el deseo. Nadie termina un libro por obligación: lo termina porque imagina cómo va a quedar. Cuidamos ese comienzo tanto como la última coma." },
+   { "s": "Borrador → Obra" },
+   { "p": "Todo lo que hacemos es esto. Todo lo que diseñamos también." },
+   { "q": "Toda experiencia con nosotros debería dejarte un texto mejor, y sabiendo por qué es mejor." }
+  ],
+  "origen": "La cruz {cruz}: corregir lo que no funciona (18), formar opinión (17), provocar (39) y luchar por lo que vale (38). Autoridad emocional: la claridad llega con el tiempo."
+ },
+ "principios": {
+  "lede": "Nuestros principios son criterios para crear y para evaluar. Los usa quien diseña, quien escribe y quien aprueba: cualquier persona que decida algo en nuestro nombre.",
+  "items": [
+   {
+    "t": "Corregir lo que no funciona",
+    "p": "Nuestro propósito es mejorar lo que ya existe. No partimos de cero ni adornamos: buscamos lo que falla y lo arreglamos. En la interfaz, un error nunca es un callejón: dice qué pasó, por qué y cómo se arregla.",
+    "q": [
+     "¿Dijimos qué no funciona, o solo que algo anda mal?",
+     "¿La persona sabe cómo arreglarlo desde aquí?",
+     "¿Corregimos el problema o solo lo señalamos?",
+     "¿Lo que quedó es mejor que lo que había?"
+    ]
+   },
+   {
+    "t": "Opinión precisa",
+    "p": "Tenemos opinión y la damos, siempre con su razón y con las palabras exactas. Una observación vaga no ayuda a nadie: «mejorar el ritmo» no dice nada; «tres frases seguidas empiezan igual» sí.",
+    "q": [
+     "¿Cada recomendación dice por qué?",
+     "¿Nombramos el lugar exacto: la frase, el párrafo, la cifra?",
+     "¿Alguna etiqueta o verbo se puede malinterpretar?",
+     "¿La persona podría discutir nuestra opinión con lo que le dimos?"
+    ]
+   },
+   {
+    "t": "Emoción que provoca",
+    "p": "Provocamos para mover, nunca para herir. Una pregunta incómoda, hecha a tiempo y con generosidad, puede cambiar un texto entero. Damos más de lo que nos piden: el porqué, un ejemplo y una salida.",
+    "q": [
+     "¿Esta pregunta abre el texto o solo incomoda?",
+     "¿Dimos algo más que la crítica: un ejemplo, una alternativa?",
+     "¿El tono respeta a quien escribió?",
+     "¿La persona sale con ganas de seguir?"
+    ]
+   },
+   {
+    "t": "Deseo que imagina",
+    "p": "Antes de corregir, hay que querer escribir. Cuidamos el comienzo: la página en blanco, el primer borrador, la primera lectura. Mostramos a dónde puede llegar el texto antes de pedir trabajo.",
+    "q": [
+     "¿El primer paso ilusiona o intimida?",
+     "¿Mostramos el resultado posible antes del esfuerzo?",
+     "¿El estado vacío invita a empezar?",
+     "¿Celebramos lo que avanza, sin exagerar?"
+    ]
+   }
+  ],
+  "cierre": "Una prueba final: después de leernos, ¿la persona sabe qué cambiar y por qué?"
+ },
+ "prisma": {
+  "lede": "Nuestras seis caras, ordenadas en el prisma de identidad: lo que mostramos y lo que llevamos dentro, lo que emitimos y lo que provocamos en quien nos recibe.",
+  "caras": [
+   { "k": "Físico", "q": "Lo que se ve", "t": "Un rojo de corrector sobre negro tinta, letra ancha y liviana, esquinas suaves de 12 px y una firma en dos grupos que no se tocan.", "o": "Garganta definida · línea 5 · línea 2 · definición partida" },
+   { "k": "Personalidad", "q": "Cómo somos", "t": "Críticos, provocadores y precisos. Miramos con atención, decimos lo que vemos y lo decimos con las palabras justas.", "o": "Puertas 18, 39 y 62" },
+   { "k": "Relación", "q": "Cómo nos vinculamos", "t": "Guiamos por invitación y ofrecemos soluciones que le sirven a cualquiera. Entre una lectura y otra nos retiramos: el texto es de quien lo escribe.", "o": "Proyector · línea 5 · línea 2" },
+   { "k": "Cultura", "q": "Lo que valoramos", "t": "El oficio de corregir, la opinión con fundamento y el deseo de escribir, que es lo primero que hay que cuidar.", "o": "Canales 17-62 y 30-41" },
+   { "k": "Reflejo", "q": "A quién le hablamos", "t": "A alguien que escribe y quiere que su texto mejore de verdad. No busca aplausos: busca una lectura honesta.", "o": "Sol en la 18" },
+   { "k": "Autoimagen", "q": "Cómo se siente quien nos usa", "t": "Mejor escritor que ayer. Sabe qué cambió en su texto y podría explicar por qué.", "o": "Tierra en la 17" }
+  ],
+  "lectura": "La columna izquierda es lo que cualquiera puede ver: nuestra forma, cómo nos vinculamos y a quién le hablamos. La derecha es lo que llevamos dentro: el carácter, los valores y lo que dejamos en las personas. Cuando las dos columnas dicen lo mismo, la marca es creíble. Cuando no, algo en el diseño está mintiendo."
+ },
+ "voz": {
+  "lede": "Nuestra voz es una sola, hablemos donde hablemos. Es crítica sin ser dura, provocadora sin ser hiriente y precisa sin ser fría: la voz de un buen editor.",
+  "atributos": [
+   ["Críticos", "no duros", "Decimos lo que no funciona, y siempre lo que sí. Una crítica nuestra deja a la persona con algo que hacer.", "Puerta 18"],
+   ["Provocadores", "no hirientes", "Hacemos la pregunta que mueve el texto. La hacemos sobre el texto, nunca sobre quien lo escribió.", "Puerta 39"],
+   ["Precisos", "no fríos", "Nombramos la frase, el párrafo y la razón. La exactitud es nuestra forma de respeto.", "Puerta 62"]
+  ],
+  "como": [
+   { "t": "Sin apuro", "p": "Leer bien toma tiempo, y corregir también. Nunca escribimos para que alguien decida en caliente." },
+   { "t": "Con la razón", "p": "Toda observación lleva su porqué. Lo que afirmamos se puede discutir." },
+   { "t": "Con el lugar exacto", "p": "Decimos dónde: «párrafo 2», «línea 14». Una observación sin lugar no se puede usar." },
+   { "t": "Por invitación", "p": "Sugerimos y orientamos; no ordenamos. La última palabra siempre es de quien escribe." }
+  ],
+  "comoOrigen": "Autoridad emocional · línea consciente 5 · canal 17-62 · Proyector. La Garganta definida nombra los hechos con precisión.",
+  "quien": "Hablamos en plural, como el equipo que está detrás de cada pantalla, y tratamos de tú. Nunca hablamos de nosotros en tercera persona, y criticamos el texto, nunca a la persona.",
+  "ex": {
+   "si": { "title": "No pudimos guardar el borrador", "message": "Se perdió la conexión. Vuelve a intentarlo cuando quieras: tus cambios siguen aquí.", "cap": "Qué pasó, por qué y qué hacer." },
+   "no": { "title": "¡Ups! Algo salió mal.", "message": "Inténtalo de nuevo.", "cap": "Nunca dejes un error sin causa ni salida." }
+  }
+ },
+ "tono": {
+  "lede": "La voz no cambia; el tono sí. Leemos en qué momento está la persona con su texto y nos ajustamos: más ánimo al empezar, más exactitud al corregir.",
+  "filas": [
+   ["Bienvenida", "Animado", "Lo mínimo", "Bienvenido. Sube tu primer borrador: lo leemos contigo."],
+   ["Observación", "Preciso", "El lugar y la razón", "El párrafo 2 repite la idea del párrafo 1. Prueba quitarlo y lee de nuevo."],
+   ["Error", "Calmo", "Qué pasó y qué hacer", "{error}"],
+   ["Acción irreversible", "Firme", "Todo, sin presión", "Se eliminará el borrador y sus 12 observaciones. No se podrá recuperar. Tómate el tiempo que necesites."],
+   ["Éxito", "Sobrio", "Una línea", "Listo. La versión 3 quedó guardada."],
+   ["Desacuerdo", "Fundado", "La razón de fondo", "Creemos que este final no cierra lo que el comienzo abre. Te mostramos dónde; tú decides."],
+   ["Anuncio", "Provocador", "La pregunta y la respuesta", "¿Y si el problema no es el final, sino el primer párrafo? Conoce la nueva lectura por capas."]
+  ],
+  "cuanto": "Mientras más está en juego, más exactos somos. En un éxito basta una línea; en un error decimos qué pasó y cómo se arregla; antes de algo irreversible decimos exactamente qué se pierde y dejamos que la persona lo piense. Nunca usamos el tono para presionar.",
+  "ex": {
+   "si": { "eyebrow": "Acción irreversible", "title": "Eliminar el borrador", "body": "Se eliminarán el borrador y sus 12 observaciones. No se podrán recuperar.", "primary": "Eliminar borrador", "secondary": "Pensarlo", "cap": "Firme y exacto: qué se pierde, y una salida para pensarlo." },
+   "no": { "eyebrow": "¡Atención!", "title": "¿Seguro que quieres hacer esto?", "primary": "Sí", "secondary": "No", "cap": "Evita las confirmaciones vagas: no dicen qué se pierde." }
+  },
+  "nunca": [
+   "Nunca critiques a la persona: critica el texto.",
+   "Nunca des una observación sin su razón.",
+   "Nunca inventes urgencia: contadores, «últimas horas».",
+   "Evita exclamaciones y emojis en una corrección."
+  ]
+ },
+ "escritura": {
+  "lede": "Reglas para que cualquier persona escriba como nosotros. Escribimos como corregimos: con el lugar exacto y con la razón.",
+  "reglas": [
+   ["Botones con verbo y objeto", "Revisar borrador · Aceptar observación", "La acción se entiende sin leer nada más."],
+   ["El lugar exacto", "Párrafo 2, línea 14", "Una observación sin lugar no se puede usar."],
+   ["Siempre el porqué", "…porque repite la idea anterior", "Lo que afirmamos se puede discutir."],
+   ["La causa, no el síntoma", "No se guardó porque se perdió la conexión", "Un error que se explica se puede arreglar."],
+   ["Primero lo que funciona", "El comienzo atrapa. El final no cierra.", "La crítica se escucha mejor después de un acierto."],
+   ["Preguntas que abren", "¿Qué pasa si quitas este párrafo?", "Una pregunta mueve más que una orden."],
+   ["Sugerir, no ordenar", "Prueba… · Te sugerimos…", "El texto es de quien lo escribe."],
+   ["Tuteo, sin exclamaciones", "Vuelve a intentarlo cuando quieras.", "La calma también se escribe."],
+   ["Mayúscula solo al inicio", "Capítulo 3 · Ver la versión anterior", "Leemos más rápido en tipo oración."]
+  ],
+  "ex": {
+   "si": { "title": "4 observaciones en el capítulo 3", "body": "Dos son de estructura y dos de estilo. Puedes revisarlas en cualquier orden.", "primary": "Revisar 4 observaciones", "cap": "Cifra exacta, de qué son y el control en manos de la persona." },
+   "no": { "title": "¡Tu texto necesita trabajo!", "body": "Encontramos varios problemas.", "primary": "Arreglar todo", "cap": "Evita el juicio vago, la exclamación y el botón que decide por la persona." }
+  },
+  "palabras": [
+   ["Prueba, te sugerimos", "Debes, tienes que"],
+   ["Porque, la razón es", "Algo salió mal"],
+   ["Párrafo 2, línea 14", "Por ahí, en general"],
+   ["Funciona, no funciona", "Está bien, está mal"]
+  ],
+  "formatos": [
+   ["Fechas.", "«1 oct 2026» en tablas y etiquetas; «1 de octubre de 2026» en texto corrido."],
+   ["Horas.", "Formato de 24 horas: 12:00, 18:30."],
+   ["Versiones.", "Con número: «versión 3», nunca «la última»."],
+   ["Unidades.", "Con espacio: 18 %, 12 px, 320 palabras."],
+   ["Números grandes.", "Con punto de miles: 2.026 palabras."]
+  ]
+ },
+ "firma": {
+  "lede": "Nuestra firma es un retrato de cómo funcionamos: cuatro filas de barras, una por cada centro que nos define, en dos grupos que no se tocan. Acompaña al nombre; no lo reemplaza.",
+  "construccion": "La firma usa la gramática de las entidades de ALMA: barras escalonadas y destellos de cuatro puntas. Tenemos dos circuitos: uno une la mente con la voz, el otro une la presión de la raíz con la emoción. Por eso la firma se arma en dos grupos, y el espacio entre ellos es parte del dibujo.",
+  "rasgos": [
+   ["Cuatro centros definidos", "Cuatro filas de barras."],
+   ["Definición partida", "Dos grupos separados por aire."],
+   ["Natural y retirada (línea 2)", "Barras de esquinas suaves."],
+   ["Guiar sin apuro", "Entrada productiva, pausada y serena."],
+   ["Mirar alrededor", "Rojo, magenta y ámbar; el rojo como acento."]
+  ],
+  "color": "La firma vive sobre negro tinta, donde el rojo se ve pleno. Sobre fondos claros se usa la misma paleta. Nunca sobre fotografías ni sobre otro color de la paleta.",
+  "movimiento": "Las barras entran escalonadas, como quien subraya una frase tras otra, con la curva productiva y un 25 % más lento que la base. Si la persona pidió menos movimiento, la firma aparece quieta en su estado final.",
+  "ex": { "texto": "Corregir es cuidar" }
+ },
+ "tipografia": {
+  "lede": "La tipografía es nuestra voz hecha forma. Escribimos en Roboto Flex, ancha y liviana: una letra que se lee de lejos y no levanta la voz.",
+  "letra": "Roboto Flex es una tipografía variable: su ancho, su peso y su grado se ajustan por eje. Nosotros la usamos extendida ({ancho}), con pesos livianos y un grado levemente más liviano. La letra ancha da aire a cada palabra; la corrección la pone el énfasis.",
+  "pesos": [
+   "Titulares grandes. Muy livianos: no levantamos la voz.",
+   "Títulos de sección. Livianos y claros.",
+   "Lectura larga e interfaz.",
+   "La observación: una palabra o frase clave por párrafo."
+  ],
+  "escala": [
+   "Leer → Corregir",
+   "Corregir es una forma de cuidar",
+   "Corregir lo que no funciona",
+   "Opinión precisa",
+   "Emoción que provoca",
+   "Deseo que imagina",
+   "Escribimos como corregimos: con el lugar exacto y con la razón. Nuestra letra es ancha y liviana: da aire a cada palabra.",
+   "Texto de interfaz, descripciones y tablas.",
+   "Etiquetas y controles",
+   "Notas, fuentes y leyendas."
+  ],
+  "origen": "Línea consciente 5 (letra extendida) · autoridad emocional (pesos {pesos}) · línea 2 (grado más liviano)."
+ },
+ "fundamentos": {
+  "lede": "La buena tipografía pasa inadvertida porque simplemente funciona. Estas son las prácticas que hacen que un texto nuestro se lea bien, en cualquier tamaño y en español."
+ },
+ "color": {
+  "lede": "Nuestra paleta parte de un rojo pleno, el del lápiz de quien corrige, y se extiende hacia sus vecinos. Sobre negro tinta, el rojo aparece donde se puede actuar, y por eso se reconoce.",
+  "centro": "El rojo salió de nuestra carta: el tono viene de la autoridad emocional, y la saturación, de cuatro centros definidos y de la Garganta. No lo usamos para alarmar: es el color de mirar con atención.",
+  "neutros": "El negro tinta y los neutros de ALMA dominan toda experiencia. Sobre ellos, el rojo marca una sola cosa por pantalla. Si una pantalla se siente roja, tiene demasiado rojo.",
+  "interfaz": "Los neutros ordenan; el rojo marca la acción principal en todos los productos, con texto blanco. Los errores también son rojos: por eso un error siempre lleva su ícono y su palabra, y nunca se parece a un botón.",
+  "daltonismo": "Nunca usamos solo el color para comunicar: un estado lleva icono y texto, una serie lleva etiqueta, un enlace se distingue también por su forma. El rojo y el magenta se confunden con facilidad, y el rojo y el verde también en algunos tipos de daltonismo: nunca los usamos solos para separar dos cosas.",
+  "accion": "Trazos de rojo sobre negro tinta: así se ve la paleta en la galería de producto y comunicación.",
+  "origen": "Autoridad emocional (tono). Armonía análoga del Proyector, saturación por cuatro centros definidos, acento profundo por la Garganta definida."
+ },
+ "grilla": {
+  "lede": "La grilla es la estructura de todo lo que mostramos. Da el orden que necesita una página para leerse: cuando todo tiene su lugar, la atención puede ir al texto.",
+  "espacio": "Mientras más larga la lectura, más margen alrededor. Lo que va junto se ve junto, y una observación siempre queda al lado de lo que observa.",
+  "forma": "Nuestras esquinas son suaves, de 12 px. Suavizan sin llamar la atención: lo que importa es el texto, no su caja. La casilla de verificación conserva sus esquinas, para seguir leyéndose como control.",
+  "ex": {
+   "siCap": "Esquinas suaves de 12 px, separación con espacio y todo alineado.",
+   "noCap": "Evita las esquinas rectas, las sombras decorativas y los elementos fuera de la grilla."
+  },
+  "avoid": [
+   "No mezcles esquinas rectas y suaves en una misma pantalla.",
+   "No uses sombras para separar: usa espacio o una línea de 1 px.",
+   "No separes una observación del texto que observa."
+  ],
+  "origen": "Línea inconsciente 2: natural y retirada."
+ },
+ "iconografia": {
+  "lede": "Un icono es una señal exacta. Representa una idea o una acción de un vistazo, sin dejar dudas.",
+  "principios": [
+   { "t": "Claros", "p": "Un icono, un significado. Siempre el mismo icono para la misma idea en todos los productos." },
+   { "t": "Exactos", "p": "El icono de error solo acompaña a un error. Como nuestro acento también es rojo, el icono es lo que distingue un problema de una acción." },
+   { "t": "Acompañados", "p": "Un icono acompaña al texto; no lo reemplaza. Solo va solo en barras de herramientas, y entonces lleva una etiqueta accesible." }
+  ],
+  "ex": { "boton": "Descargar borrador", "texto": "Última versión: 1 oct" }
+ },
+ "ilustracion": {
+  "lede": "Ilustramos para mostrar cómo cambia un texto. Un dibujo nuestro explica una estructura, una corrección o un proceso que no se ve a simple vista.",
+  "puntoDeVista": "Si la fotografía muestra a quien escribe, la ilustración muestra lo que le pasa al texto: lo que se quita, lo que se mueve, lo que queda. Cada ilustración explica una sola idea y deja espacio alrededor.",
+  "estilos": [
+   { "t": "Línea", "p": "El estilo principal. Trazos de grosor uniforme con esquinas suaves, sobre la grilla de 8 px. Ideal para estructuras y procesos." },
+   { "t": "Marca", "p": "Texto con marcas de corrección: subrayados, tachados y llamadas, con el rojo como único color. Para explicar una observación." },
+   { "t": "Interfaz", "p": "Fragmentos de nuestra propia interfaz, simplificados, para explicar una función. Siempre con componentes de ALMA." }
+  ],
+  "personas": "Cuando dibujamos personas, las mostramos leyendo o escribiendo, concentradas. Siluetas simples y diversas, sin caricatura.",
+  "color": "Rojo para lo que se observa, negro tinta y neutros para el resto, magenta y ámbar solo como apoyo. Una ilustración nunca usa más de tres colores de la paleta.",
+  "avoid": [
+   "Evita las metáforas gastadas: bombillas, cohetes, plumas de ave.",
+   "Evita las escenas de castigo o de examen.",
+   "Evita los personajes y las mascotas.",
+   "Evita ilustrar lo que una frase ya explica."
+  ]
+ },
+ "fotografia": {
+  "lede": "Nuestras imágenes muestran el oficio de escribir: manos, páginas, mesas de trabajo y la concentración de quien lee.",
+  "puntoDeVista": "Fotografiamos el trabajo, no el resultado. Una buena imagen nuestra muestra un texto a medio corregir, una mesa con borradores, a alguien que relee una frase por tercera vez.",
+  "tipos": [
+   { "t": "Oficio: el texto en proceso", "p": "La mayor parte de nuestras imágenes. Páginas con marcas, pantallas con borradores, cuadernos abiertos." },
+   { "t": "Lectura: la atención", "p": "Personas leyendo o escribiendo, fotografiadas sin interrumpir. La concentración es el tema." },
+   { "t": "Detalle: la marca exacta", "p": "Una corrección de cerca: un tachado, una nota al margen, una palabra subrayada. Con foco exacto." }
+  ],
+  "tecnica": [
+   ["Encuadre.", "Con margen alrededor del sujeto, espacio libre para texto y líneas que siguen la grilla."],
+   ["Luz.", "Natural y lateral, de mesa de trabajo. Sin flashes ni luces de colores."],
+   ["Color.", "Fiel a la realidad, con negros profundos. El rojo aparece en la composición, no en un filtro."],
+   ["Tiempo.", "Momentos de concentración, nunca de apuro."]
+  ],
+  "avoid": [
+   "Evita las fotos de banco con sonrisas a cámara.",
+   "Evita las imágenes de estrés o de fecha límite.",
+   "Evita los montajes y los fondos inventados."
+  ]
+ },
+ "datos": {
+  "lede": "Mostramos los datos de un texto para que quien escribe vea lo que no se ve leyendo: dónde se repite, dónde se alarga, cómo cambió entre versiones.",
+  "criterios": [
+   { "t": "Exactas", "p": "Cada marca corresponde a su valor. Los ejes empiezan en cero cuando se comparan cantidades, y las proporciones nunca se exageran." },
+   { "t": "Con el lugar", "p": "Toda cifra lleva al lugar del texto de donde sale: el capítulo, el párrafo, la frase." },
+   { "t": "Entre versiones", "p": "Comparamos con la versión anterior. Un dato sin su antes no dice si el texto mejoró." },
+   { "t": "Sin alarma", "p": "Nuestro acento es rojo, así que en un gráfico el rojo es una serie más. Un problema se marca con su ícono y su palabra." },
+   { "t": "En tus manos", "p": "Qué medir y qué comparar lo elige quien escribe. Le damos el control de lo que quiere mirar." }
+  ],
+  "ejemplo": {
+   "titulo": "Observaciones por capítulo",
+   "barras": [["Cap. 1", 12], ["Cap. 2", 7], ["Cap. 3", 4], ["Cap. 4", 9, true]],
+   "fuente": "Fuente: segunda lectura del manuscrito. Cap. 4: lectura en curso."
+  },
+  "avoid": [
+   "No cortes un eje para exagerar una diferencia.",
+   "No uses el color solo para decir que algo está mal.",
+   "No muestres una cifra sin el lugar del texto de donde sale."
+  ],
+  "origen": "Canal 17-62 (opinión precisa), puerta 18 (corregir), puerta 62 (nombrar con precisión)."
+ },
+ "movimiento": {
+  "lede": "Nuestro movimiento es el de quien subraya una frase: breve, exacto y sin adorno. Muestra qué cambió entre una versión y otra, y después se queda quieto.",
+  "enfoque": [
+   { "t": "Pausado", "p": "Nos movemos un 25 % más lento que la base de ALMA. Leer bien toma tiempo." },
+   { "t": "Exacto", "p": "El movimiento apunta al lugar: la frase que cambió, la observación que se abre. Nada se mueve lejos de lo que explica." },
+   { "t": "Explicativo", "p": "Cada movimiento responde una pregunta: qué cambió, de dónde viene, qué sigue. Si no explica nada, no se mueve." },
+   { "t": "Respetuoso", "p": "Nunca usamos el movimiento para llamar la atención con urgencia: nada parpadea, nada tiembla." }
+  ],
+  "curvas": "ALMA tiene dos curvas: productiva, eficiente y precisa, y expresiva, con más carácter. La productiva es la nuestra en toda la interfaz. La expresiva queda para la firma y las portadas, donde un momento de carácter ayuda a contar algo.",
+  "aplicaciones": [
+   ["Comparar.", "Al cambiar de versión, lo que se quitó se va y lo nuevo llega, para que el cambio se vea."],
+   ["Orientar.", "Una observación que se abre muestra de qué frase viene."],
+   ["Presentar.", "La firma entra barra por barra en portadas y aperturas."]
+  ],
+  "avoid": [
+   "No uses parpadeos ni temblores para llamar la atención.",
+   "No uses rebotes ni escalas exageradas.",
+   "No muevas el texto que la persona está leyendo."
+  ],
+  "origen": "Proyector · autoridad emocional: la claridad llega con el tiempo."
+ },
+ "producto": {
+  "lede": "Una pantalla de borradores con nuestro lenguaje. Solo componentes de ALMA: lo que cambia son los tokens y las palabras.",
+  "pantalla": {
+   "titulo": "Borradores",
+   "secundaria": "Ahora no",
+   "primaria": "Revisar 4 observaciones",
+   "aviso": { "status": "info", "title": "El capítulo 3 tiene 4 observaciones", "message": "Dos son de estructura y dos de estilo. Puedes revisarlas en cualquier orden." },
+   "tabla": "Borradores",
+   "columnas": [
+    { "key": "p", "label": "Borrador" },
+    { "key": "e", "label": "Estado" },
+    { "key": "v", "label": "Versión" },
+    { "key": "f", "label": "Observaciones" }
+   ],
+   "filas": [
+    { "p": "Capítulo 1", "e": "Corregido", "v": "4", "f": "0" },
+    { "p": "Capítulo 2", "e": "Corregido", "v": "3", "f": "0" },
+    { "p": "Capítulo 3", "e": "Con observaciones", "v": "2", "f": "4" },
+    { "p": "Capítulo 4", "e": "En lectura", "v": "1", "f": "—" }
+   ],
+   "pie": "Entre la versión 1 y la 2 del capítulo 3 se resolvieron 8 de 12 observaciones."
+  },
+  "mapa": [
+   ["El número exacto de observaciones", "Opinión precisa: la cifra y de qué son."],
+   ["«Con observaciones», no «con errores»", "Corregir lo que no funciona, sin castigar."],
+   ["«Ahora no» junto a la acción principal", "Proyector: guiar, no empujar."],
+   ["La nota sobre lo resuelto entre versiones", "Deseo que imagina: mostrar el avance."],
+   ["Una sola acción principal", "Un rojo por pantalla."]
+  ]
+ },
+ "comunicacion": {
+  "lede": "Cuando anunciamos algo: la firma más la voz, en tres formatos.",
+  "portada": { "eyebrow": "Lo nuevo de octubre", "titulo": "Corregir es cuidar", "texto": "La nueva lectura por capas separa las observaciones de estructura de las de estilo, para que corrijas en orden.", "boton": "Conocer la lectura por capas" },
+  "cuadrado": { "titulo": "Un borrador no es el texto.", "texto": "Es el material." },
+  "historia": { "titulo": "Lee de nuevo.", "texto": "Leer, dudar, corregir." }
+ },
+ "carta": {
+  "tipo": "Guía cuando la invitan; no persigue.",
+  "perfil": "Consciente: ofrece soluciones prácticas que le sirven a cualquiera. Inconsciente: tiene un talento natural y necesita retirarse para cuidarlo.",
+  "autoridad": "Decide con tiempo: espera que la emoción se asiente antes de actuar.",
+  "definicion": "Dos circuitos: mente y voz (Ajna y Garganta), presión y emoción (Raíz y Plexo solar).",
+  "centros": "Mente, voz, emoción y presión: una entidad que opina, nombra y siente."
+ },
+ "fecha": {
+  "lede": "Nacimos el {fechaLarga}. Es nuestra fecha real: el momento en que se creó esta entidad de prueba. Para una marca nueva, la fecha manda.",
+  "secciones": [
+   {
+    "titulo": "Lo que decide la hora",
+    "bullets": [
+     ["12:00.", "Al mediodía nuestro perfil es {perfil}. Tres horas antes sería 5/1, con esquinas casi rectas; seis horas después, 6/2, con la letra todavía más ancha."],
+     ["Lo que no depende de la hora.", "A cualquier hora de ese día somos Proyector, con autoridad emocional y los centros Ajna, Garganta, Plexo solar y Raíz definidos."],
+     ["Lo que sí depende.", "El perfil ({perfil}), y con él las esquinas ({radio}) y el ancho de la letra ({ancho})."]
+    ]
+   },
+   {
+    "titulo": "Un rojo que también es el de los errores",
+    "parrafos": [
+     "Nuestra carta da un acento rojo, y en ALMA el rojo ya tiene un papel: los errores y las acciones destructivas. No cambiamos el color para evitar el cruce. Lo resolvemos con las reglas de siempre: un error lleva su ícono y su palabra, y una acción destructiva dice exactamente qué destruye.",
+     "ALMA, el sistema base, queda neutro. Cada entidad lo viste con su propia paleta: la nuestra es la del rojo."
+    ]
+   }
+  ],
+  "aviso": { "title": "La fecha manda", "message": "Para una marca nueva, manda su fecha real. La misma fecha siempre da la misma entidad." }
+ }
+}

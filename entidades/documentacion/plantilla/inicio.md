@@ -28,7 +28,7 @@ Cinco rasgos nos distinguen de ALMA. Todo lo demás es igual.
 
 ## Principios de interfaz
 
-- **Un acento, bien usado.** `interactive-01` marca la acción principal de la vista. Si una pantalla se siente {v:acento}, tiene demasiado {v:acento}.
+- **Un acento, bien usado.** `interactive-01` marca la acción principal de la vista. Si el {v:acento} está por toda la pantalla, hay demasiado.
 - **Los neutros ordenan.** Las zonas se separan con cambios sutiles de valor: página en `ui-02`, contenedores en `ui-01`. El color queda para lo que se puede hacer.
 - **El espacio agrupa.** {L:grilla.espacio}
 - **Todo en múltiplos de 8.** `space-2` y `space-4` solo dentro de componentes compactos, como los campos.
