@@ -128,6 +128,14 @@
     var rgb; for (var c = C; c >= 0; c -= 0.004) { rgb = oklch(L, c, H); if (rgb.every(function (v) { return v >= -0.0005 && v <= 1.0005; })) break; }
     return '#' + rgb.map(function (v) { v = Math.max(0, Math.min(1, v)); v = v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055; return Math.round(v * 255).toString(16).padStart(2, '0'); }).join('').toUpperCase();
   }
+  // #RRGGBB → [L, C, H] in OKLCH: used when an entity inherits a brand color it already had.
+  function fromHex(hex) {
+    var f = function (c) { c = parseInt(c, 16) / 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
+    var r = f(hex.substr(1, 2)), g = f(hex.substr(3, 2)), b = f(hex.substr(5, 2));
+    var l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b), m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b), s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+    var L = 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, A = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, B = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s;
+    return [L, Math.hypot(A, B), (Math.atan2(B, A) * 180 / Math.PI + 360) % 360];
+  }
   var STEPS = [[100, 0.95], [200, 0.89], [300, 0.82], [400, 0.74], [500, 0.65], [600, 0.56], [700, 0.47], [800, 0.38], [900, 0.29]];
   function makeRamp(H, C) { var o = {}; STEPS.forEach(function (s) { o[s[0]] = toHex(s[1], C * (s[1] > 0.9 ? 0.45 : s[1] < 0.35 ? 0.75 : 1), H); }); return o; }
   // Where each center sits on the color wheel (OKLCH hue); the entity's seed moves it, so no two entities match.
@@ -147,6 +155,8 @@
     var c0 = e.type === 'reflector' ? 0.035 + r() * 0.02 : Math.min(0.2, 0.08 + n * 0.02 + r() * 0.03);
     // A defined Throat is a steady voice: a deep, full accent.
     if (e.centers.indexOf('garganta') >= 0 && e.type !== 'reflector') c0 = Math.min(0.26, c0 * 1.5);
+    // An inherited brand color replaces the chart's hue and chroma; the harmony around it still comes from the chart.
+    if (e.color) { var o = fromHex(e.color); h0 = o[2]; c0 = Math.min(0.26, o[1]); }
     var hm = HARMONY[e.type];
     var h1 = (h0 + hm[0] + (r() - 0.5) * 20 + 360) % 360, h2 = (h0 + hm[1] + (r() - 0.5) * 20 + 360) % 360;
     var c1 = e.type === 'reflector' ? c0 * 0.6 : c0 * (0.7 + r() * 0.3), c2 = e.type === 'reflector' ? c0 * 1.6 : c0 * (0.55 + r() * 0.35);
@@ -155,10 +165,11 @@
       { role: 'Terciario', use: 'Acentos de la firma', h: h2, c: c2, ramp: makeRamp(h2, c2) }].map(function (p) { p.name = hueName(p.h, p.c); return p; });
   }
   function pickText(rmp, bgs, from) { var order = from === 'light' ? [300, 200, 400, 100] : [700, 800, 900]; for (var i = 0; i < order.length; i++) { var c = rmp[order[i]]; if (bgs.every(function (b) { return contrast(c, b); }) && bgs.every(function (b) { return contrast(c, b) >= 4.5; })) return c; } return from === 'light' ? rmp[100] : rmp[900]; }
-  function accentFor(pal, deep) {
+  function accentFor(pal, deep, inherited) {
     var P0 = pal[0].ramp, P1 = pal[1].ramp, B = D.base.accent;
     if (deep) return deepAccent(pal);
-    var i = [300, 200, 400].map(function (s) { return P0[s]; }).filter(function (c) { return contrast(INK, c) >= 4.5; })[0] || P0[200];
+    // The inherited color is the accent as is, when ink text on it passes AA; otherwise the nearest ramp step that does.
+    var i = inherited && contrast(INK, inherited) >= 4.5 ? inherited : [300, 200, 400].map(function (s) { return P0[s]; }).filter(function (c) { return contrast(INK, c) >= 4.5; })[0] || P0[200];
     var navLight = pickText(P0, [WHITE, UI02_LIGHT, B.ui01Light], 'dark');
     var linkDark = pickText(P1, [D.brand['brand-black'], B.ui01Dark], 'light'), linkLight = pickText(P1, [WHITE, UI02_LIGHT, B.ui01Light], 'dark');
     var rgba = function (hex, a) { return 'rgba(' + [1, 3, 5].map(function (k) { return parseInt(hex.substr(k, 2), 16); }).join(',') + ',' + a + ')'; };
@@ -206,7 +217,7 @@
       weights: auth.weights,
       radius: { 'radius-button': base + 'px', 'radius-tag': cap(100), 'radius-chip': cap(8), 'radius-field': cap(24), 'radius-nav': cap(24), 'radius-card': cap(24), 'radius-panel': cap(16), 'radius-swatch': cap(8), 'radius-checkbox': [0, 1, 3, 2, 4, 4, 4][d] + 'px' },
       palette: pal,
-      accent: accentFor(pal, e.centers.indexOf('garganta') >= 0 && e.type !== 'reflector'),
+      accent: accentFor(pal, e.centers.indexOf('garganta') >= 0 && e.type !== 'reflector' && !e.color, e.color),
       motion: TYPES[e.type],
       shape: SHAPE[d]
     };

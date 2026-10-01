@@ -32,3 +32,14 @@ test('la fecha de fundación da otra entidad: un Generador ámbar y redondeado',
   assert.ok(deltaE(P.accent.dark['interactive-01'], '#0F62FE') > 0.2);
   assert.notEqual(P.radius['radius-button'], '0px');
 });
+
+test('Cordura (31 mar 1987, 10:45, Santiago) es un Proyector 1/4 emocional que hereda su lima', () => {
+  const nac = { fecha: '1987-03-31', hora: '10:45', zona: 'America/Santiago' }, c = calcularCarta(nac);
+  assert.deepEqual([c.tipo, c.autoridad, c.perfil, c.definicion], ['proyector', 'emocional', '1/4', 'partida']);
+  assert.deepEqual(c.canales.map((k) => k.id), ['26-44', '39-55']);
+  const e = { ...entidad(nac), name: 'Cordura', color: '#E1F564' }, P = En.params(e);
+  assert.equal(P.accent.dark['interactive-01'], '#E1F564');
+  assert.equal(P.accent.dark['text-on-interactive'], '#141733');
+  delete e.color;
+  assert.notEqual(En.params(e).accent.dark['interactive-01'], '#E1F564', 'sin heredar, la carta no da lima');
+});
