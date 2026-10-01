@@ -26,7 +26,8 @@ test('la Entidad IBM cambia valores de tokens, nunca nombres', async () => {
   assert.equal(valor(tok, 'radius-pill'), '100 px', 'las formas siempre redondas no cambian');
   assert.equal(valor(tok, 'duration-moderate-01'), '188 ms', '150 ms × 1,25');
   assert.equal(tok.type.groups[0].styles.find((s) => s.name === 'web-h1').fontWeight, 400);
-  assert.equal(valor(tok, 'viz-cat-01'), tokens().color.tokens.find((t) => t.name === 'viz-cat-01').value.dark, 'los gráficos son los de ALMA');
+  assert.equal(valor(tok, 'viz-cat-01', 'light'), valor(tok, 'purple-700'), 'los gráficos siguen la secuencia de IBM sobre las rampas de ALMA');
+  assert.equal(valor(tok, 'viz-seq-3', 'light'), '#1D62FF', 'la rampa de un solo tono es la de la marca');
 });
 
 test('cada tema declara los mismos tokens, para que el oscuro no se filtre en los demás', async () => {
@@ -51,6 +52,34 @@ test('el acento de la Entidad IBM pasa el contraste en los cuatro temas', async 
       assert.ok(contraste(v('control-on'), v(fondo)) >= 3, `${th}: control encendido sobre ${fondo}`);
       assert.ok(contraste(v('field-border'), v(fondo)) >= 3, `${th}: borde de campo sobre ${fondo}`);
     }
+  }
+});
+
+test('los botones de la Entidad IBM siguen la lógica de IBM: marca, neutro oscuro y blanco', async () => {
+  const S = await sistema('ibm'), tok = tokens();
+  aplicar(tok, S);
+  const v = (n, th) => valor(tok, n, th);
+  // Primary: the same brand step in every theme; secondary: the dark neutral, lighter on dark themes; tertiary: brand or white.
+  for (const th of THEMES) assert.equal(v('button-filled-bg', th), '#1D62FF', th);
+  assert.equal(v('button-gray-bg', 'light'), v('gray-800'));
+  assert.equal(v('button-gray-bg', 'dark'), v('gray-600'));
+  assert.equal(v('button-tertiary-border', 'light'), '#1D62FF');
+  assert.equal(v('button-tertiary-border', 'dark'), '#FFFFFF');
+  assert.equal(v('focus', 'light'), '#1D62FF');
+  assert.equal(v('focus', 'dark'), '#FFFFFF');
+  for (const th of THEMES) {
+    for (const [texto, fondo] of [['button-gray-text', 'button-gray-bg'], ['button-gray-text', 'button-gray-bg-hover'], ['button-gray-text-active', 'button-gray-bg-active'],
+      ['button-destructive-gray-text', 'button-gray-bg'], ['button-destructive-gray-text', 'button-destructive-gray-bg-hover'], ['button-destructive-text-pressed', 'button-gray-bg-active'],
+      ['button-tertiary-text', 'ui-02'], ['button-tertiary-text-hover', 'button-tertiary-bg-hover'], ['button-tertiary-text-active', 'button-tertiary-bg-active'],
+      ['button-inverse-text', 'button-inverse-bg'], ['button-inverse-text', 'button-inverse-bg-hover'], ['button-inverse-text-active', 'button-inverse-bg-active'],
+      ['button-ghost-text', 'button-ghost-bg-hover'], ['button-ghost-text-active', 'button-ghost-bg-active']]) {
+      assert.ok(contraste(v(texto, th), v(fondo, th)) >= 4.5, `${th}: ${texto} sobre ${fondo} (${contraste(v(texto, th), v(fondo, th)).toFixed(1)})`);
+    }
+    for (const fondo of ['ui-02', 'ui-01']) {
+      assert.ok(contraste(v('focus', th), v(fondo, th)) >= 3, `${th}: foco sobre ${fondo}`);
+      assert.ok(contraste(v('button-gray-bg', th), v(fondo, th)) >= 3, `${th}: botón secundario sobre ${fondo}`);
+    }
+    for (let n = 1; n <= 8; n++) assert.ok(contraste(v(`viz-cat-0${n}`, th), v('ui-01', th)) >= 3, `${th}: viz-cat-0${n} sobre ui-01`);
   }
 });
 

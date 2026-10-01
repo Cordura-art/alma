@@ -10,7 +10,7 @@ export function datos() {
   const col = (n) => { const t = tok.color.tokens.find((x) => x.name === n); return t && (typeof t.value === 'string' ? t.value : t.value.dark); };
   const colT = (n, th) => { const t = tok.color.tokens.find((x) => x.name === n); return t && (typeof t.value === 'string' ? t.value : t.value[th]); };
   const ramps = {};
-  for (const r of ['red', 'yellow', 'magenta', 'purple', 'blue', 'cyan', 'teal', 'green', 'coolgray']) { ramps[r] = {}; for (const s of [100, 200, 300, 400, 500, 600, 700, 800]) ramps[r][s] = col(`${r}-${s}`); }
+  for (const r of ['red', 'yellow', 'magenta', 'purple', 'blue', 'cyan', 'teal', 'green', 'coolgray', 'gray', 'danger']) { ramps[r] = {}; for (const s of [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]) ramps[r][s] = col(`${r}-${s}`); }
   const brand = Object.fromEntries(['brand-lime', 'brand-ink', 'brand-black', 'brand-white', 'brand-steel', 'secondary-500', 'secondary-600', 'secondary-700'].map((n) => [n, col(n)]));
   const fam = (f) => Object.fromEntries(tok[f].tokens.map((t) => [t.name, t.value]));
   const fw = fam('fontWeight');
@@ -25,7 +25,7 @@ export function datos() {
 
 // Aliases that point at the accent tokens are resolved where they are declared (:root), so re-declare them on the entity scope.
 export function rebind(alma) {
-  const ACC = /var\(--(interactive-01|hover-primary|active-primary|brand-lime|text-on-interactive|nav-selected|link-01|field-border|field-border-hover|field-label|button-tinted-text|button-tinted-bg|button-tinted-bg-hover|button-plain-text|control-on)\)/;
+  const ACC = /var\(--(interactive-01|interactive-02|interactive-04|hover-primary|active-primary|hover-secondary|active-secondary|hover-tertiary|active-tertiary|brand-lime|text-on-interactive|nav-selected|link-01|field-border|field-border-hover|field-label|button-tinted-text|button-tinted-bg|button-tinted-bg-hover|button-plain-text|control-on)\)/;
   let css = '';
   for (const [, sel, body] of alma.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     const th = /data-theme="([a-z-]+)"/.exec(sel); const theme = th ? th[1] : (/:root/.test(sel) ? 'dark' : null);

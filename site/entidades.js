@@ -187,23 +187,54 @@
   }
 
   // Deep accent (defined Throat): a saturated primary with white text, and its light steps for text on dark surfaces.
+  // Deep accent (defined Throat): a saturated primary with white text. Its roles follow the logic IBM uses in its
+  // buttons, read from three colors: the brand color, a very dark neutral and white.
+  //   primary   = the brand step that carries white text, the same in every theme; hover half a step darker, pressed two steps.
+  //   secondary = the dark neutral: step 800 on light themes, 600 on dark ones (it must stand off the page).
+  //   tertiary  = an outline: the brand color on light themes, white on dark ones; it fills on hover.
+  //   text, links and selection on dark themes use lighter steps of the brand ramp (400 for text, 500 for 3:1 marks).
   function deepAccent(pal) {
-    var P0 = pal[0].ramp, P1 = pal[1].ramp, B = D.base.accent, BLACK = D.brand['brand-black'];
-    var steps = [600, 500, 700, 800], k = steps.filter(function (s) { return contrast(WHITE, P0[s]) >= 4.5; })[0] || 800, i = P0[k], hv = P0[Math.min(900, k + 100)], pr = P0[Math.min(900, k + 200)];
-    var navDark = pickText(P0, [BLACK, B.ui01Dark], 'light');
-    var ctlDark = [400, 300, 200].map(function (s) { return P0[s]; }).filter(function (c) { return contrast(c, BLACK) >= 3 && contrast(c, B.ui01Dark) >= 3; })[0] || P0[200];
+    var P0 = pal[0].ramp, B = D.base.accent, BLACK = D.brand['brand-black'], G = D.ramps.gray, R = D.ramps;
+    var half = function (a, b) { return mix(a, b, 0.5).toUpperCase(); };
+    var steps = [600, 500, 700, 800], k = steps.filter(function (s) { return contrast(WHITE, P0[s]) >= 4.5; })[0] || 800, i = P0[k], hv = half(i, P0[Math.min(900, k + 100)]), pr = P0[Math.min(900, k + 200)];
+    var first = function (order, min, bgs) { return order.map(function (s) { return P0[s]; }).filter(function (c) { return bgs.every(function (b) { return contrast(c, b) >= min; }); })[0]; };
+    var navDark = first([400, 300, 200, 100], 4.5, [BLACK, B.ui01Dark]) || P0[100];
+    var ctlDark = first([500, 400, 300, 200], 3, [BLACK, B.ui01Dark]) || P0[200];
     var navLight = contrast(i, WHITE) >= 4.5 && contrast(i, UI02_LIGHT) >= 4.5 && contrast(i, B.ui01Light) >= 4.5 ? i : pickText(P0, [WHITE, UI02_LIGHT, B.ui01Light], 'dark');
     // A deep accent already reads as text, so links use the primary (as IBM does); luminous accents keep links on the secondary.
     var linkDark = navDark, linkLight = navLight;
     var rgba = function (hex, a) { return 'rgba(' + [1, 3, 5].map(function (n) { return parseInt(hex.substr(n, 2), 16); }).join(',') + ',' + a + ')'; };
-    // text-on-interactive also colors things that sit on light fills (gray button, floating label, cards): those stay ink.
+    // Chart series: IBM's categorical sequence (neighbors chosen to differ most), on ALMA's ramps. Each series takes the
+    // nearest step that reaches 3:1 on the containers of its theme.
+    var viz = function (seq, bg, dir) {
+      var o = {};
+      seq.forEach(function (x, n) {
+        var st = x[1];
+        while (contrast(R[x[0]][st], bg) < 3 && R[x[0]][st + dir]) st += dir;
+        o['viz-cat-0' + (n + 1)] = R[x[0]][st];
+      });
+      return o;
+    };
+    var vizLight = viz([['purple', 700], ['cyan', 500], ['teal', 700], ['magenta', 700], ['red', 500], ['red', 900], ['green', 600], ['blue', 800]], B.ui01Light, 100);
+    var vizDark = viz([['purple', 600], ['cyan', 400], ['teal', 600], ['magenta', 400], ['red', 500], ['red', 100], ['green', 300], ['blue', 500]], B.ui01Dark, -100);
+    // One-hue series: the brand ramp. The largest value is the darkest step on light themes and the lightest on dark ones.
+    [200, 400, 600, 700, 900].forEach(function (st, n) { vizLight['viz-seq-' + (n + 1)] = P0[st]; });
+    [800, 700, 500, 300, 100].forEach(function (st, n) { vizDark['viz-seq-' + (n + 1)] = P0[st]; });
+    // A destructive action on the dark neutral reads in a light red; ALMA's dark red was made for a light fill.
+    // The white fills (inverse button, tertiary on hover) keep ink text; everything on the brand or the dark neutral is white.
+    var shared = { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'text-on-interactive': WHITE,
+      'field-label-float-text': INK, 'product-card-text': INK, 'button-inverse-text': INK, 'button-inverse-text-active': INK, 'button-inverse-bg-hover': G[100], 'button-inverse-bg-active': G[300], 'button-ghost-text-active': WHITE };
     return {
       ramp: pal[0].name, deep: true,
-      dark: { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'field-border-active': navDark, 'text-on-interactive': WHITE, 'nav-selected': navDark, 'link-01': linkDark,
-        'field-border': ctlDark, 'field-border-hover': navDark, 'field-label': navDark, 'button-tinted-text': navDark, 'button-tinted-bg': rgba(navDark, 0.16), 'button-tinted-bg-hover': rgba(navDark, 0.24), 'button-plain-text': navDark, 'control-on': ctlDark, 'button-gray-text': INK, 'field-label-float-text': INK, 'product-card-text': INK, 'button-inverse-text': INK, 'button-ghost-text-active': INK },
-      light: { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'text-on-interactive': WHITE, 'nav-selected': navLight, 'link-01': linkLight,
-        'button-tinted-bg': rgba(i, 0.12), 'button-tinted-bg-hover': rgba(i, 0.2), 'button-plain-text': navLight, 'control-on': i, 'button-gray-text': INK, 'field-label-float-text': INK, 'product-card-text': INK, 'button-inverse-text': INK, 'button-ghost-text-active': INK },
-      lightHc: { 'nav-selected': P0[900], 'link-01': P0[900] }, darkHc: { 'link-01': P0[100] }
+      dark: Object.assign({}, shared, vizDark, { 'nav-selected': navDark, 'link-01': linkDark, 'field-border-active': navDark,
+        'interactive-02': G[600], 'hover-secondary': half(G[600], G[700]), 'active-secondary': G[800], 'button-destructive-gray-text': R.danger[50], 'button-destructive-gray-bg-hover': half(G[600], G[700]),
+        'interactive-04': ctlDark, 'hover-tertiary': G[100], 'active-tertiary': G[300], 'focus': WHITE,
+        'field-border': ctlDark, 'field-border-hover': navDark, 'field-label': navDark, 'button-tinted-text': navDark, 'button-tinted-bg': rgba(navDark, 0.16), 'button-tinted-bg-hover': rgba(navDark, 0.24), 'button-plain-text': navDark, 'control-on': ctlDark }),
+      light: Object.assign({}, shared, vizLight, { 'nav-selected': navLight, 'link-01': linkLight,
+        'interactive-02': G[800], 'hover-secondary': half(G[800], G[700]), 'active-secondary': G[600], 'button-destructive-gray-text': R.danger[200], 'button-destructive-gray-bg-hover': half(G[800], G[700]),
+        'interactive-04': i, 'hover-tertiary': hv, 'active-tertiary': pr, 'focus': i,
+        'button-tinted-bg': rgba(i, 0.12), 'button-tinted-bg-hover': rgba(i, 0.2), 'button-plain-text': navLight, 'control-on': i }),
+      lightHc: { 'nav-selected': P0[900], 'link-01': P0[900], 'interactive-04': P0[900], 'focus': P0[900] }, darkHc: { 'link-01': P0[100] }
     };
   }
 

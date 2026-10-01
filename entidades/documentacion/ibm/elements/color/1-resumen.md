@@ -20,8 +20,8 @@ El azul sale de nuestra carta: el tono viene de la autoridad mental; la saturaci
 | Paso | Valor | Papel |
 |---|---|---|
 | `primary-100` | `{token:primary-100}` | Enlaces en oscuro de alto contraste. |
-| `primary-300` | `{token:primary-300}` | Texto, enlaces y navegación en tema oscuro. |
-| `primary-400` | `{token:primary-400}` | Bordes de campo y controles encendidos en tema oscuro. |
+| `primary-400` | `{token:primary-400}` | Texto, enlaces y navegación en tema oscuro (4,5:1). |
+| `primary-500` | `{token:primary-500}` | Bordes de campo, controles encendidos y lo elegido en tema oscuro (3:1). |
 | `primary-600` | `{token:primary-600}` | El acento: `interactive-01`. |
 | `primary-700` | `{token:primary-700}` | Encima: `hover-primary`. |
 | `primary-800` | `{token:primary-800}` | Presionado: `active-primary`. |
@@ -53,11 +53,27 @@ Para ajustar un componente, cambia su token de componente, nunca el semántico: 
 | Bordes | `border-subtle`, `border-control` | El borde sutil separa contenedores; el de control marca campos y selectores (3:1). |
 | Texto | `text-01` a `text-05`, `text-error`, `text-on-interactive` | Principal, secundario, desactivado, sobre colores. |
 | Íconos | `icon-01` a `icon-03` | Principal, secundario, sobre colores. |
-| Acción | `interactive-01` a `interactive-04` | Azul para la acción principal, acero para la secundaria. |
+| Acción | `interactive-01` a `interactive-04` | Azul para la acción principal, gris oscuro para la secundaria, blanco o azul para el contorno de la terciaria, azul para lo elegido. |
 | Estados de interacción | `hover-*`, `active-*`, `selected-ui`, `focus` | Encima, presionado, elegido y foco. |
 | Estados del sistema | `support-01` a `support-04` | Error, éxito, advertencia, información. |
 | Inversos | `inverse-01`, `inverse-02`, `inverse-support-*` | Superficies que invierten el tema, como el tooltip. |
 | Velos | `overlay-01`, `tint-white-*`, `tint-dark-*` | Detrás de modales y sobre imágenes. |
+
+## Tres colores
+
+Casi todo lo que se puede accionar usa tres colores: el azul de marca, un neutro muy oscuro y el blanco. Los botones lo muestran.
+
+| Botón | Tema claro | Tema oscuro | Texto encima |
+|---|---|---|---|
+| Principal (`filled`) | Azul, `{token:interactive-01:light}` | El mismo azul, `{token:interactive-01}` | Blanco |
+| Secundario (`gray`) | Gris muy oscuro, `{token:interactive-02:light}` | Gris medio, `{token:interactive-02}`, para despegarse del fondo | Blanco |
+| Terciario (`tertiary`) | Contorno azul, `{token:interactive-04:light}` | Contorno blanco, `{token:interactive-03}` | Al pasar el cursor se rellena y el texto se invierte |
+
+Tres reglas ordenan los estados:
+
+- **Encima** es medio paso de la rampa: `{token:hover-primary}` para el azul.
+- **Presionado** son dos pasos: `{token:active-primary}`.
+- Los colores oscuros se aclaran al interactuar y los claros se oscurecen.
 
 ## El acento en cada tema
 
@@ -73,6 +89,8 @@ Nuestro azul es un acento profundo: lleva texto blanco encima. Como texto sobre 
 | Destino actual | `nav-selected` | `{token:nav-selected}` | `{token:nav-selected:light}` |
 | Borde de campo | `field-border` | `{token:field-border}` | `{token:field-border:light}` |
 | Control encendido | `control-on` | `{token:control-on}` | `{token:control-on:light}` |
+| Elegido | `interactive-04` | `{token:interactive-04}` | `{token:interactive-04:light}` |
+| Foco | `focus` | `{token:focus}` | `{token:focus:light}` |
 
 ## Capas de superficie
 
@@ -84,7 +102,7 @@ Las superficies son las de ALMA y se apilan en un orden fijo. Cada capa se disti
 | 2 | `ui-01` | Blanco | Blanco al 4 % sobre la página | Contenedores: tarjetas, menús, tablas, alertas. |
 | 3 | `ui-03` | Gris azulado claro | Blanco al 7 % | Un panel dentro de un contenedor. |
 | 4 | `ui-04` | Azul acero claro | Blanco al 10 % | Una zona dentro de ese panel. |
-| Acción | `interactive-01`, `interactive-02` | Azul y acero | Azul y acero | Los botones, sobre cualquier capa. |
+| Acción | `interactive-01`, `interactive-02` | Azul y gris oscuro | Azul y gris medio | Los botones, sobre cualquier capa. |
 
 No saltes capas hacia atrás: un contenedor dentro de otro `ui-01` pasa a `ui-03`, no vuelve a `ui-02`.
 

@@ -460,7 +460,8 @@
 
   function Calibracion() {
     var X = L.calibracion, d = P.accent.dark, l = P.accent.light;
-    var GEN = { acento: d['interactive-01'], hover: d['hover-primary'], texto: d['text-on-interactive'], linkDark: d['link-01'], linkLight: l['link-01'], radio: P.radius['radius-button'].replace('px', ' px'), ancho: String(P.fontWidth), pesos: VALS.pesos, apoyo: P.palette[1].name + ', ' + P.palette[2].name, grilla: '8 px (ALMA)' };
+    var GEN = { acento: d['interactive-01'], hover: d['hover-primary'], texto: d['text-on-interactive'], linkDark: d['link-01'], linkLight: l['link-01'], radio: P.radius['radius-button'].replace('px', ' px'), ancho: String(P.fontWidth), pesos: VALS.pesos, apoyo: P.palette[1].name + ', ' + P.palette[2].name, grilla: '8 px (ALMA)',
+      secundario: l['interactive-02'] + ' en claro · ' + d['interactive-02'] + ' en oscuro', terciario: l['interactive-04'] + ' en claro · ' + (d['interactive-03'] || '#FFFFFF') + ' en oscuro', foco: l['focus'] + ' en claro · ' + d['focus'] + ' en oscuro' };
     return h('div', { className: 'page' }, h(Head, { id: 'calibracion', lede: X.lede }),
       h(Tbl, { title: X.titulo, columns: [{ key: 'e', label: 'Elemento' }, { key: 'g', label: 'Genera la entidad' }, { key: 'i', label: X.columnaReferencia }, { key: 'ok', label: 'Resultado' }, { key: 'r', label: X.columnaReal }], rows: X.filas.map(function (f, i) { return { id: i, e: f.e, g: GEN[f.k], i: f.ref, ok: f.ok, r: f.real }; }) }),
       h(Sec, { title: 'Lo que la calibración corrigió en las reglas' }, h(Bullets, { items: X.corrigio })),

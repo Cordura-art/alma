@@ -24,9 +24,10 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 ## Un acento
 
 - `interactive-01` (azul) es la acción principal de la vista. **Una por pantalla.** Si una pantalla se siente azul, tiene demasiado azul.
-- `interactive-02` (acero) es la acción secundaria.
-- El texto sobre la acción principal es siempre `text-on-interactive`.
-- En tema oscuro, el texto y los controles en azul usan pasos claros de la rampa (`primary-300` y `primary-400`). En tema claro usan el azul pleno.
+- `interactive-02` (gris oscuro) es la acción secundaria.
+- El texto sobre ambas es siempre `text-on-interactive`, blanco.
+- En tema oscuro, el texto y los controles en azul usan pasos claros de la rampa (`primary-400` y `primary-500`). En tema claro usan el azul pleno.
+- El foco es azul en los temas claros y blanco en los oscuros.
 
 ## Texto
 
@@ -56,15 +57,34 @@ El color nunca es la única pista. Los avisos usan `notification-*-bg` de fondo 
 
 ## Gráficos
 
-Las paletas de gráficos son las de ALMA, sin cambios: un conjunto probado, serie por serie.
-
 | Paleta | Tokens | Uso |
 |---|---|---|
-| Categórica | `viz-cat-01` a `viz-cat-08` | Series distintas, en el orden de ALMA: lima, azul, magenta, turquesa, amarillo, violeta, cian, rojo. Con más de 8, agrupa. |
-| Secuencial | `viz-seq-1` a `viz-seq-5` | Valores de menos a más. |
+| Categórica | `viz-cat-01` a `viz-cat-08` | Series distintas, sin relación entre sí. Con más de 8, agrupa. |
+| Secuencial | `viz-seq-1` a `viz-seq-5` | Valores de menos a más, en un solo tono: nuestra rampa azul. |
 | Divergente | `viz-div-1` a `viz-div-5` | Desvíos alrededor de un centro neutro (`viz-div-3`). |
 
-Cada color categórico llega a 3:1 sobre `ui-01` en su tema. Rotula las series o usa forma o trama: el color solo no basta. El azul y el púrpura se confunden con facilidad: nunca los uses solos para separar dos cosas.
+### Categórica
+
+Aplica las series estrictamente en este orden. La secuencia está pensada para que dos series vecinas se distingan lo más posible. No empieza por el azul de marca: en un gráfico, el azul es una serie más.
+
+| Serie | Token | Tema claro | Tema oscuro |
+|---|---|---|---|
+| 1 | `viz-cat-01` | Púrpura, `{token:viz-cat-01:light}` | Púrpura, `{token:viz-cat-01}` |
+| 2 | `viz-cat-02` | Cian, `{token:viz-cat-02:light}` | Cian, `{token:viz-cat-02}` |
+| 3 | `viz-cat-03` | Turquesa, `{token:viz-cat-03:light}` | Turquesa, `{token:viz-cat-03}` |
+| 4 | `viz-cat-04` | Magenta, `{token:viz-cat-04:light}` | Magenta, `{token:viz-cat-04}` |
+| 5 | `viz-cat-05` | Rojo, `{token:viz-cat-05:light}` | Rojo, `{token:viz-cat-05}` |
+| 6 | `viz-cat-06` | Rojo muy oscuro, `{token:viz-cat-06:light}` | Rojo muy claro, `{token:viz-cat-06}` |
+| 7 | `viz-cat-07` | Verde, `{token:viz-cat-07:light}` | Verde, `{token:viz-cat-07}` |
+| 8 | `viz-cat-08` | Azul oscuro, `{token:viz-cat-08:light}` | Azul, `{token:viz-cat-08}` |
+
+Cada color sale de las rampas de ALMA y llega a 3:1 sobre `ui-01` en su tema. Con una sola serie, usa `viz-cat-01`.
+
+### Secuencial
+
+En los temas claros, el valor más alto es el paso más oscuro (`viz-seq-5`, `{token:viz-seq-5:light}`). En los temas oscuros es el más claro (`{token:viz-seq-5}`).
+
+Rotula las series o usa forma o trama: el color solo no basta. El azul y el púrpura se confunden con facilidad: nunca los uses solos para separar dos cosas.
 
 ![Un gráfico de barras de viajes por mes con cuatro series (interurbano, rural, aeropuerto y turismo) y su leyenda, en tema oscuro y claro, con los colores viz-cat-01 a viz-cat-04.](assets/Fundamentos/color-grafico.png)
 

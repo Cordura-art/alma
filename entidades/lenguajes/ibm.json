@@ -852,7 +852,7 @@
    {
     "e": "Acento al pasar el cursor",
     "k": "hover",
-    "ref": "Blue 70",
+    "ref": "#0050E6 · medio paso",
     "ok": "Coincide",
     "real": "—"
    },
@@ -866,7 +866,7 @@
    {
     "e": "Enlaces en oscuro",
     "k": "linkDark",
-    "ref": "#A6C8FF · Blue 30",
+    "ref": "#78A9FF · Blue 40",
     "ok": "Coincide",
     "real": "—"
    },
@@ -874,6 +874,27 @@
     "e": "Enlaces en claro",
     "k": "linkLight",
     "ref": "#0F62FE · Blue 60",
+    "ok": "Coincide",
+    "real": "—"
+   },
+   {
+    "e": "Botón secundario",
+    "k": "secundario",
+    "ref": "Gray 80 en claro · Gray 60 en oscuro",
+    "ok": "Coincide",
+    "real": "—"
+   },
+   {
+    "e": "Botón terciario (contorno)",
+    "k": "terciario",
+    "ref": "Blue 60 en claro · blanco en oscuro",
+    "ok": "Coincide",
+    "real": "—"
+   },
+   {
+    "e": "Foco",
+    "k": "foco",
+    "ref": "Blue 60 en claro · blanco en oscuro",
     "ok": "Coincide",
     "real": "—"
    },
@@ -933,6 +954,18 @@
    [
     "Enlaces.",
     "Con un acento profundo, los enlaces usan el primario."
+   ],
+   [
+    "Tres colores.",
+    "Los botones usan la marca, un neutro muy oscuro y el blanco: el secundario es gris oscuro con texto blanco, y el terciario es un contorno azul en claro y blanco en oscuro."
+   ],
+   [
+    "Estados.",
+    "Encima es medio paso de la rampa; presionado, dos pasos. En oscuro, el texto usa el paso 400 y las marcas de 3:1, el 500."
+   ],
+   [
+    "Gráficos.",
+    "La secuencia categórica es la de IBM, sobre las rampas de ALMA; la rampa de un solo tono es la de la marca."
    ]
   ],
   "noCambia": [
