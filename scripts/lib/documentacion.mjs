@@ -1,7 +1,7 @@
 // The documentation of one entity: ALMA's documentation site with the entity's tokens, words and images.
 // An entity changes token values, never token names: `sistema()` computes them from the chart, `aplicar()` writes them
-// into the artifact's tokens.json shape, `css()` into custom properties, and `palabras()` loads the entity's own pages
-// (entidades/documentacion/<id>/) and the replacements for the sentences of ALMA's guides that only hold for Cordura.
+// into the artifact's tokens.json shape, `css()` into custom properties, and `palabras()` fills the shared templates
+// (entidades/documentacion/plantilla/) and the replacements for the sentences of ALMA's guides that only hold for Cordura.
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { cargarMotor } from './entidades.mjs';
 
@@ -102,38 +102,102 @@ const meta = (src) => {
 // Tabs sit under the page's "## <tab>", so their own headings go one level down (outside code fences), as build-docs does.
 const demote = (md) => md.split(/(^```[\s\S]*?^```)/m).map((part, i) => (i % 2 ? part : part.replace(/^(#{1,5}) /gm, '#$1 '))).join('');
 
-// The entity's own words: its home page, the foundation tabs it rewrites, and the replacements for ALMA's guides.
-export function palabras(S, tok) {
-  const dir = `entidades/documentacion/${S.id}`;
-  if (!existsSync(dir)) throw new Error(`Falta ${dir}: la entidad todavía no tiene documentación escrita`);
-  const fill = (s) => s.replace(/\{token:([a-z0-9-]+)(?::([a-z-]+))?\}/g, (_, n, th) => valor(tok, n, th)).replace(/\{nombre\}/g, S.L.nombre).replace(/\{aviso\}/g, S.L.aviso || '');
-  const tabs = {};
-  for (const root of ['elements', 'guides']) {
-    if (!existsSync(`${dir}/${root}`)) continue;
-    for (const d of readdirSync(`${dir}/${root}`).filter((d) => statSync(`${dir}/${root}/${d}`).isDirectory())) {
-      for (const f of readdirSync(`${dir}/${root}/${d}`).filter((f) => f.endsWith('.md')).sort()) {
-        const p = meta(read(`${dir}/${root}/${d}/${f}`));
-        if (!p.meta.tab) throw new Error(`${dir}/${root}/${d}/${f}: falta "tab" en el encabezado`);
-        (tabs[d] = tabs[d] || {})[p.meta.tab] = { body: demote(fill(p.body)), summary: p.meta.summary ? fill(p.meta.summary) : '' };
-      }
+// What the chart decided, as the conditions ({si profundo}…{sino}…{fin}) and the words ({v:acento}) of the templates.
+export function rasgos(S) {
+  const { P, L, E, En } = S, T = En.TYPES[E.type], w = P.weights, base = P.shape.base, fw = P.fontWidth, g = P.fontGrade;
+  const nombre = (x) => x.name.split(' ')[0].toLowerCase(), acento = nombre(P.palette[0]), profundo = !!P.accent.deep, heredado = !!L.colorHeredado;
+  const radios = new Set(Object.entries(P.radius).filter(([k]) => k !== 'radius-checkbox').map(([, v]) => v));
+  const pct = Math.round(Math.abs(T.speed - 1) * 100);
+  return {
+    si: { profundo, heredado, lima: acento === 'lima', cordura: S.id === 'cordura', accionMarca: P.accent.action[600] === P.palette[0].ramp[600], pesosIguales: w.heading === w.body,
+      recta: base === 0, suave: base > 0 && base < 100, pildora: base >= 100, radioUnico: radios.size === 1, productivo: T.motion === 'productivo' },
+    v: {
+      acento, marca: heredado ? `el ${acento} heredado` : `un ${acento} ${profundo ? 'pleno' : 'luminoso'}`, sobre: profundo ? 'blanco' : 'tinta',
+      vecinos: `${nombre(P.palette[1])} y ${nombre(P.palette[2])}`,
+      ancho: fw === 100 ? 'en su ancho natural' : fw > 100 ? 'extendida' : 'condensada',
+      anchoNota: fw === 100 ? 'El ancho natural de la letra, sin extender ni condensar.' : fw > 100 ? 'La letra extendida: más ancha que su dibujo natural.' : 'La letra condensada: más angosta que su dibujo natural.',
+      grado: g === 0 ? 'con grado neutro' : `con un grado levemente más ${g > 0 ? 'firme' : 'liviano'}`,
+      gradoNota: g === 0 ? 'El grado neutro: el trazo tal como fue dibujado.' : `Un grado levemente más ${g > 0 ? 'firme: engrosa' : 'liviano: afina'} el trazo sin cambiar el ancho del texto.`,
+      forma: base === 0 ? 'ángulos rectos' : base <= 2 ? 'esquinas casi rectas' : base < 24 ? 'esquinas suaves' : base < 100 ? 'esquinas amplias' : 'píldoras',
+      estilo: T.motion, ritmo: T.speed === 1 ? 'a la misma velocidad' : `un ${pct} % más ${T.speed > 1 ? 'lento' : 'rápido'}`
     }
+  };
+}
+
+// The steps of the entity's ramp that the interface uses, and which token uses each one in which theme.
+const PAPEL = ['interactive-01', 'hover-primary', 'active-primary', 'link-01', 'nav-selected', 'control-on', 'field-border', 'interactive-04', 'focus'];
+const TEMA = { dark: 'oscuro', light: 'claro', 'dark-hc': 'oscuro de alto contraste', 'light-hc': 'claro de alto contraste' };
+const lista = (xs) => (xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1]);
+function tablaRampa(tok) {
+  const donde = (ths) => { const k = ths.join(); return k === THEMES.join() ? 'en los cuatro temas' : k === 'dark,dark-hc' ? 'en los temas oscuros' : k === 'light,light-hc' ? 'en los temas claros' : 'en ' + lista(ths.map((th) => TEMA[th])); };
+  const rows = [];
+  for (const paso of [100, 200, 300, 400, 500, 600, 700, 800, 900]) {
+    const hex = valor(tok, `primary-${paso}`), grupos = {};
+    for (const n of PAPEL) { const ths = THEMES.filter((th) => valor(tok, n, th).toUpperCase() === hex.toUpperCase()); if (ths.length) (grupos[donde(ths)] = grupos[donde(ths)] || []).push('`' + n + '`'); }
+    if (Object.keys(grupos).length) rows.push(`| \`primary-${paso}\` | \`${hex}\` | ${Object.entries(grupos).map(([d, ns]) => `${lista(ns)} ${d}`).join('; ')}. |`);
   }
-  // reemplazos.json: { reemplazos: [[texto de ALMA, texto de la entidad]…], vigentes: [frases que siguen siendo ciertas],
-  //                    aspecto: [palabras que delatan una frase sin revisar; por defecto, las del aspecto de Cordura] }
-  const R = JSON.parse(read(`${dir}/reemplazos.json`)), pares = R.reemplazos.map(([de, a]) => ({ de, a: fill(a), n: 0 }));
+  return `| Paso | Valor | Quién lo usa |\n|---|---|---|\n${rows.join('\n')}`;
+}
+
+// A template of the entity's pages. Conditions and words come from rasgos(); {L:color.lede} is a sentence of the entity's
+// design language ({L:grilla.forma:2-2}: only its second sentence); {token:link-01:light} is a token's value.
+export function plantilla(src, S, tok, R = rasgos(S)) {
+  const si = (c) => { const k = c.replace(/^!/, ''); if (!(k in R.si)) throw new Error(`Condición desconocida en una plantilla: ${c}`); return c[0] === '!' ? !R.si[k] : R.si[k]; };
+  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+  const palabra = (k) => { if (R.v[k] === undefined) throw new Error(`Palabra desconocida en una plantilla: ${k}`); return String(R.v[k]); };
+  const frase = (ruta, desde, hasta) => {
+    const x = ruta.split('.').reduce((o, k) => (o == null ? o : o[k]), S.L);
+    if (typeof x !== 'string') throw new Error(`${S.id}: al lenguaje de diseño le falta "${ruta}"`);
+    if (!desde) return x;
+    const fs = x.split(/(?<=[.!?])\s+/), a = hasta ? Number(desde) : 1, b = Number(hasta || desde);
+    return fs.slice(a - 1, b).join(' ');
+  };
+  // A line that holds only markers leaves no empty line behind.
+  return src.replace(/^((?:\{(?:si !?\w+|sino|fin)\})+)\n/gm, '$1')
+    .replace(/\{si (!?\w+)\}([\s\S]*?)(?:\{sino\}([\s\S]*?))?\{fin\}/g, (_, c, a, b) => (si(c) ? a : b || ''))
+    .replace(/\{tabla:rampa\}/g, () => tablaRampa(tok))
+    .replace(/\{L:([\w.]+)(?::(\d+)(?:-(\d+))?)?\}/g, (_, r, a, b) => frase(r, a, b))
+    .replace(/\{v:(\w+)\}/g, (_, k) => palabra(k)).replace(/\{V:(\w+)\}/g, (_, k) => cap(palabra(k)))
+    .replace(/\{token:([a-z0-9-]+)(?::([a-z-]+))?\}/g, (_, n, th) => valor(tok, n, th))
+    .replace(/\{nombre\}/g, S.L.nombre).replace(/\{id\}/g, S.id).replace(/\{aviso\}/g, S.L.aviso || '');
+}
+
+// Every .md under a folder, by its path inside it.
+const archivos = (dir, sub = '') => (!existsSync(`${dir}/${sub}`) ? [] : readdirSync(`${dir}/${sub}`).flatMap((f) => (statSync(`${dir}/${sub}${f}`).isDirectory() ? archivos(dir, `${sub}${f}/`) : f.endsWith('.md') ? [`${sub}${f}`] : [])));
+
+// The entity's words: the shared templates (entidades/documentacion/plantilla/) filled with what its chart decided and
+// with sentences of its design language. A file with the same path under entidades/documentacion/<id>/ replaces the
+// template, and its reemplazos.json adds to (or replaces, by ALMA sentence) the shared replacements.
+export function palabras(S, tok) {
+  const base = 'entidades/documentacion/plantilla', propia = `entidades/documentacion/${S.id}`, R = rasgos(S);
+  const leer = (f) => { const p = existsSync(`${propia}/${f}`) ? `${propia}/${f}` : `${base}/${f}`; const out = plantilla(read(p), S, tok, R), resto = /\{(?:si |sino|fin|[vVL]:|tabla:)[^}]*\}?/.exec(out); if (resto) throw new Error(`${p}: queda sin resolver "${resto[0]}"`); return out; };
+  const tabs = {};
+  for (const f of [...new Set([...archivos(base), ...archivos(propia)])].sort()) {
+    const m = /^(?:elements|guides)\/([^/]+)\/[^/]+\.md$/.exec(f);
+    if (!m) continue;
+    const p = meta(leer(f));
+    if (!p.meta.tab) throw new Error(`${f}: falta "tab" en el encabezado`);
+    (tabs[m[1]] = tabs[m[1]] || {})[p.meta.tab] = { body: demote(p.body), summary: p.meta.summary || '' };
+  }
+  // reemplazos.json: { reemplazos: [[texto de ALMA, texto de la entidad, condición opcional]…], vigentes: [frases que
+  //                    siguen siendo ciertas], aspecto: [palabras que delatan una frase sin revisar] }
+  const json = (p) => (existsSync(p) ? JSON.parse(read(p)) : {}), B = json(`${base}/reemplazos.json`), O = json(`${propia}/reemplazos.json`);
+  const propios = new Set((O.reemplazos || []).map(([de]) => de));
+  const pares = [...(B.reemplazos || []).filter(([de]) => !propios.has(de)), ...(O.reemplazos || [])]
+    .filter(([, , c]) => !c || (c[0] === '!' ? !R.si[c.slice(1)] : R.si[c])).map(([de, a]) => ({ de, a: plantilla(a, S, tok, R), n: 0 }));
   const adaptar = (text) => {
     for (const p of pares) if (text.includes(p.de)) { p.n++; text = text.split(p.de).join(p.a); }
     // A value written beside its token, as in "`radius-field` (8 px)", follows the entity's token.
     return text.replace(/`((?:duration|radius)-[a-z0-9-]+)` \((\d+) (ms|px)\)/g, (_, n) => '`' + n + '` (' + valor(tok, n) + ')');
   };
-  return { inicio: fill(read(`${dir}/inicio.md`)), tabs, adaptar, vigentes: R.vigentes || [], aspecto: R.aspecto || ASPECTO, sinUso: () => pares.filter((p) => !p.n).map((p) => p.de) };
+  // Words that describe a look the entity does not have. If one survives, a sentence is still describing ALMA.
+  const aspecto = O.aspecto || [...(R.si.lima ? [] : ['\\blima\\b', '\\boliva\\b']), ...(R.si.pildora ? [] : ['píldora']), ...(R.si.recta ? ['redondead'] : [])];
+  return { inicio: leer('inicio.md'), tabs, adaptar, vigentes: [...(B.vigentes || []), ...(O.vigentes || [])], aspecto, sinUso: () => pares.filter((p) => !p.n).map((p) => p.de) };
 }
 
-// Words that describe Cordura's look. If one survives in an entity's documentation, a sentence is still describing ALMA.
-// Chart series keep ALMA's names, and `vigentes` are the sentences the entity checked and still holds. An entity that
-// shares part of that look (Cordura keeps its lime) lists its own words in `aspecto`.
-const ASPECTO = ['\\blima\\b', '\\boliva\\b', 'píldora', 'redondead'];
-export function restos(textos, vigentes = [], aspecto = ASPECTO) {
+// Chart series keep ALMA's names, and `vigentes` are the sentences that were checked and still hold.
+export function restos(textos, vigentes = [], aspecto = []) {
+  if (!aspecto.length) return [];
   const R = new RegExp(aspecto.join('|'), 'i'), out = [];
   for (const [donde, text] of textos) for (const line of String(text || '').split('\n')) {
     if (R.test(line) && !/viz-cat/.test(line) && !vigentes.some((v) => line.includes(v))) out.push(`${donde}: ${line.trim().slice(0, 140)}`);

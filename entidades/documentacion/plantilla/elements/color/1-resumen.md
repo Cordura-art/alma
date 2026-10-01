@@ -2,12 +2,14 @@
 element: Color
 order: 1
 tab: Resumen
-summary: Nuestro color: un azul pleno sobre los neutros de ALMA, en tres capas de tokens y cuatro temas.
+summary: Nuestro color: {v:marca} sobre los neutros de ALMA, en tres capas de tokens y cuatro temas.
 ---
 
 ## Cómo usamos el color
 
-Usamos poco color, y por eso se reconoce. La interfaz es un fondo neutro, texto claro y un solo acento: un azul pleno, `interactive-01` (`{token:interactive-01}`), que marca dónde se puede actuar. Los estados, las etiquetas y los gráficos usan color solo cuando comunican algo, y siempre con una palabra o un ícono al lado.
+{L:color.lede}
+
+La interfaz es un fondo neutro, texto claro y un solo acento: `interactive-01` (`{token:interactive-01}`), que marca dónde se puede actuar. Los estados, las etiquetas y los gráficos usan color solo cuando comunican algo, y siempre con una palabra o un ícono al lado.
 
 Nunca escribimos un color: pedimos un **token** por su nombre. El tema decide el valor. Por eso la misma interfaz funciona en los cuatro temas sin cambiar una línea.
 
@@ -15,19 +17,13 @@ Nunca escribimos un color: pedimos un **token** por su nombre. El tema decide el
 
 ## Nuestra rampa
 
-El azul sale de nuestra carta: el tono viene de la autoridad mental; la saturación, de tres centros definidos y de la Garganta. De ahí nace una rampa de nueve pasos, `primary-100` a `primary-900`. Cada paso tiene un papel.
+{L:color.centro}
 
-| Paso | Valor | Papel |
-|---|---|---|
-| `primary-100` | `{token:primary-100}` | Enlaces en oscuro de alto contraste. |
-| `primary-400` | `{token:primary-400}` | Texto, enlaces y navegación en tema oscuro (4,5:1). |
-| `primary-500` | `{token:primary-500}` | Bordes de campo, controles encendidos y lo elegido en tema oscuro (3:1). |
-| `primary-600` | `{token:primary-600}` | El acento: `interactive-01`. |
-| `primary-700` | `{token:primary-700}` | Encima: `hover-primary`. |
-| `primary-800` | `{token:primary-800}` | Presionado: `active-primary`. |
-| `primary-900` | `{token:primary-900}` | Enlaces y navegación en claro de alto contraste. |
+Del {v:acento} nace una rampa de nueve pasos, `primary-100` a `primary-900`. {si heredado}El color de marca es el heredado, `{token:brand-lime}`: no es un paso de la rampa. {fin}Estos son los pasos que usa la interfaz:
 
-Nuestra paleta tiene dos rampas más, cian y púrpura. Son de la firma: no se usan en la interfaz y no tienen tokens.
+{tabla:rampa}
+
+Nuestra paleta tiene dos rampas más, {v:vecinos}. Son de la firma: no se usan en la interfaz y no tienen tokens.
 
 ## Tres capas
 
@@ -35,12 +31,14 @@ Como en ALMA, los tokens de color van en tres capas. Cada capa apunta a la anter
 
 | Capa | Qué nombra | Ejemplos | Se usa en |
 |---|---|---|---|
-| **Base** | Los colores disponibles: marca y rampas. | `brand-lime`, `primary-600`, `secondary-700`, `blue-60` | Solo dentro de las otras capas. Nunca directo en una interfaz. |
+| **Base** | Los colores disponibles: marca y rampas. | `brand-lime`, `primary-500`, `secondary-700`, `blue-60` | Solo dentro de las otras capas. Nunca directo en una interfaz. |
 | **Semántica** | El papel en la interfaz. Cambia con el tema. | `ui-01`, `text-01`, `interactive-01`, `focus`, `support-01` | Pantallas, maquetas y componentes nuevos. |
 | **Componente** | Una decisión de un componente, en un estado. | `button-filled-bg-hover`, `field-border-error`, `table-row-bg-selected` | Dentro de cada componente. |
 
+{si lima}{sino}
 `brand-lime` conserva el nombre que tiene en ALMA. Aquí guarda nuestro color de marca: `{token:brand-lime}`.
 
+{fin}
 Para ajustar un componente, cambia su token de componente, nunca el semántico: el cambio queda en ese componente y el resto del sistema no se entera.
 
 ![Las tres capas de tokens de color: el color base brand-lime alimenta al rol semántico interactive-01, que alimenta al token de componente button-filled-bg, el fondo del botón principal.](assets/Fundamentos/color-tres-capas.png)
@@ -53,33 +51,45 @@ Para ajustar un componente, cambia su token de componente, nunca el semántico: 
 | Bordes | `border-subtle`, `border-control` | El borde sutil separa contenedores; el de control marca campos y selectores (3:1). |
 | Texto | `text-01` a `text-05`, `text-error`, `text-on-interactive` | Principal, secundario, desactivado, sobre colores. |
 | Íconos | `icon-01` a `icon-03` | Principal, secundario, sobre colores. |
-| Acción | `interactive-01` a `interactive-04` | Azul pleno para la acción principal, azul muy oscuro y apagado para la secundaria y el color de acción para el contorno de la terciaria y lo elegido. |
+| Acción | `interactive-01` a `interactive-04` | {V:acento} para la acción principal, {v:acento} muy oscuro y apagado para la secundaria, y el color de acción para el contorno de la terciaria y lo elegido. |
 | Estados de interacción | `hover-*`, `active-*`, `selected-ui`, `focus` | Encima, presionado, elegido y foco. |
 | Estados del sistema | `support-01` a `support-04` | Error, éxito, advertencia, información. |
 | Inversos | `inverse-01`, `inverse-02`, `inverse-support-*` | Superficies que invierten el tema, como el tooltip. |
 | Velos | `overlay-01`, `tint-white-*`, `tint-dark-*` | Detrás de modales y sobre imágenes. |
 
-## Tres papeles, un solo azul
+## Tres papeles{si accionMarca}, un solo {v:acento}{fin}
 
-Casi todo lo que se puede accionar usa tres papeles de color. En nuestro caso los tres salen del mismo tono, y por eso nada rompe la armonía.
+Casi todo lo que se puede accionar usa tres papeles de color. {si accionMarca}En nuestro caso los tres salen del mismo tono, y por eso nada rompe la armonía.{sino}Dos salen del tono del {v:acento}; el tercero es el azul que todos reconocemos.{fin}
 
 | Papel | Qué es | Tema claro | Tema oscuro |
 |---|---|---|---|
-| **Marca** | El azul pleno. Botón principal (`filled`), con texto blanco. | `{token:interactive-01:light}` | `{token:interactive-01}`, el mismo |
-| **Marca muy oscura** | El tono de nuestro azul, muy oscuro y con poca saturación. Botón secundario (`gray`), con texto blanco. | `{token:interactive-02:light}` | `{token:interactive-02}`, un paso más claro para no perderse en el fondo |
+| **Marca** | {V:marca}. Botón principal (`filled`), con texto {v:sobre}. | `{token:interactive-01:light}` | `{token:interactive-01}`, el mismo |
+| **Marca muy oscura** | El tono del {v:acento}, muy oscuro y con poca saturación. Botón secundario (`gray`), con texto blanco. | `{token:interactive-02:light}` | `{token:interactive-02}`, un paso más claro para no perderse en el fondo |
 | **Acción** | El color que se lee como «esto se puede seguir»: enlaces, foco, lo elegido y el contorno del botón terciario. | `{token:link-01:light}` | `{token:link-01}` |
 
+{si accionMarca}
 El color de acción es siempre un azul, porque así lo aprendimos todos: un enlace azul se reconoce sin explicación. Cada marca lo acerca a su propio tono. La nuestra ya es azul, así que el color de acción es la marca misma.
+{sino}
+El color de acción es un azul clásico de enlace, porque así lo aprendimos todos: se reconoce sin explicación. No es un azul cualquiera: toma la saturación de nuestro {v:acento} y queda en el borde de los azules más cercano a él, para que los dos convivan.
+{fin}
 
+{si profundo}
 Tres reglas ordenan los estados:
 
-- **Encima** es medio paso de la rampa: `{token:hover-primary}` para el azul.
+- **Encima** es medio paso de la rampa: `{token:hover-primary}` para el {v:acento}.
 - **Presionado** son dos pasos: `{token:active-primary}`.
 - Los colores oscuros se aclaran al interactuar y los claros se oscurecen.
+{sino}
+Los colores oscuros se aclaran al interactuar y los claros se oscurecen: el {v:acento} pasa a `{token:hover-primary}` encima y a `{token:active-primary}` presionado.
+{fin}
 
 ## El acento en cada tema
 
-Nuestro azul es un acento profundo: lleva texto blanco encima. Como texto sobre fondo oscuro no llega a 4,5:1, así que en los temas oscuros el texto y los controles usan pasos claros de la misma rampa.
+{si profundo}
+Nuestro {v:acento} es un acento profundo: lleva texto blanco encima. Como texto sobre fondo oscuro no llega a 4,5:1, así que en los temas oscuros el texto y los controles usan pasos claros de la misma rampa.
+{sino}
+El {v:acento} es un acento luminoso: lleva texto tinta encima y brilla sobre el fondo oscuro. Sobre fondo claro no llega a 3:1, así que en los temas claros la navegación y los controles usan pasos oscuros de su rampa.
+{fin}
 
 | Papel | Token | Oscuro | Claro |
 |---|---|---|---|
@@ -87,10 +97,10 @@ Nuestro azul es un acento profundo: lleva texto blanco encima. Como texto sobre 
 | Texto sobre la acción | `text-on-interactive` | `{token:text-on-interactive}` | `{token:text-on-interactive:light}` |
 | Encima | `hover-primary` | `{token:hover-primary}` | `{token:hover-primary:light}` |
 | Presionado | `active-primary` | `{token:active-primary}` | `{token:active-primary:light}` |
-| Enlaces | `link-01` | `{token:link-01}` | `{token:link-01:light}` |
 | Destino actual | `nav-selected` | `{token:nav-selected}` | `{token:nav-selected:light}` |
 | Borde de campo | `field-border` | `{token:field-border}` | `{token:field-border:light}` |
 | Control encendido | `control-on` | `{token:control-on}` | `{token:control-on:light}` |
+| Enlaces | `link-01` | `{token:link-01}` | `{token:link-01:light}` |
 | Elegido | `interactive-04` | `{token:interactive-04}` | `{token:interactive-04:light}` |
 | Foco | `focus` | `{token:focus}` | `{token:focus:light}` |
 
@@ -103,8 +113,8 @@ Las superficies son las de ALMA y se apilan en un orden fijo. Cada capa se disti
 | 1 | `ui-02` | Gris muy claro | El fondo más profundo | La página. |
 | 2 | `ui-01` | Blanco | Blanco al 4 % sobre la página | Contenedores: tarjetas, menús, tablas, alertas. |
 | 3 | `ui-03` | Gris azulado claro | Blanco al 7 % | Un panel dentro de un contenedor. |
-| 4 | `ui-04` | Azul acero claro | Blanco al 10 % | Una zona dentro de ese panel. |
-| Acción | `interactive-01`, `interactive-02` | Azul pleno y azul muy oscuro | Azul pleno y azul oscuro | Los botones, sobre cualquier capa. |
+| 4 | `ui-04` | Azul gris claro | Blanco al 10 % | Una zona dentro de ese panel. |
+| Acción | `interactive-01`, `interactive-02` | {V:acento} y {v:acento} muy oscuro | {V:acento} y {v:acento} oscuro | Los botones, sobre cualquier capa. |
 
 No saltes capas hacia atrás: un contenedor dentro de otro `ui-01` pasa a `ui-03`, no vuelve a `ui-02`.
 

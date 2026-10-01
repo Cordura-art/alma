@@ -2,7 +2,7 @@
 element: Color
 order: 1
 tab: Uso
-summary: Nuestro color: un azul pleno sobre los neutros de ALMA, en tres capas de tokens y cuatro temas.
+summary: Nuestro color: {v:marca} sobre los neutros de ALMA, en tres capas de tokens y cuatro temas.
 ---
 
 ## Superficies
@@ -23,11 +23,15 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 
 ## Un acento
 
-- `interactive-01` (azul) es la acción principal de la vista. **Una por pantalla.** Si una pantalla se siente azul, tiene demasiado azul.
-- `interactive-02` (azul muy oscuro) es la acción secundaria.
-- El texto sobre ambas es siempre `text-on-interactive`, blanco.
-- En tema oscuro, el texto y los controles en azul usan pasos claros de la rampa (`primary-400` y `primary-500`). En tema claro usan el azul pleno.
-- Los enlaces, el foco y el contorno del botón terciario usan el color de acción: `link-01`.
+- `interactive-01` ({v:acento}) es la acción principal de la vista. **Una por pantalla.** Si una pantalla se siente {v:acento}, tiene demasiado {v:acento}.
+- `interactive-02` ({v:acento} muy oscuro y apagado) es la acción secundaria, con texto blanco.
+- El texto sobre el {v:acento} es siempre `text-on-interactive`, {v:sobre}.
+- Los enlaces, el foco y el contorno del botón terciario usan el color de acción: `link-01`{si accionMarca}{sino}, un azul{fin}.
+{si profundo}
+- En tema oscuro, el texto y los controles en {v:acento} usan pasos claros de la rampa. En tema claro usan el {v:acento} pleno.
+{sino}
+- En tema claro, lo que en oscuro es {v:acento} pasa a pasos oscuros de su rampa: el {v:acento} no llega a 3:1 sobre fondo claro.
+{fin}
 
 ## Texto
 
@@ -37,7 +41,7 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 | `text-02` | Texto secundario: ayudas, descripciones, metadatos. |
 | `text-03` | Texto desactivado y marcadores de posición. |
 | `text-error` | Mensajes de error. |
-| `text-on-interactive` | Texto sobre el acento. |
+| `text-on-interactive` | Texto sobre el {v:acento}. |
 | `link-01` | Enlaces. |
 
 ## Estados del sistema
@@ -57,15 +61,20 @@ El color nunca es la única pista. Los avisos usan `notification-*-bg` de fondo 
 
 ## Gráficos
 
+{si profundo}{sino}
+Las paletas de gráficos son las de ALMA, sin cambios.
+
+{fin}
 | Paleta | Tokens | Uso |
 |---|---|---|
 | Categórica | `viz-cat-01` a `viz-cat-08` | Series distintas, sin relación entre sí. Con más de 8, agrupa. |
-| Secuencial | `viz-seq-1` a `viz-seq-5` | Valores de menos a más, en un solo tono: nuestra rampa azul. |
+| Secuencial | `viz-seq-1` a `viz-seq-5` | Valores de menos a más{si profundo}, en un solo tono, el {v:acento}{fin}. |
 | Divergente | `viz-div-1` a `viz-div-5` | Desvíos alrededor de un centro neutro (`viz-div-3`). |
 
+{si profundo}
 ### Categórica
 
-Aplica las series estrictamente en este orden. La secuencia está pensada para que dos series vecinas se distingan lo más posible. No empieza por el azul de marca: en un gráfico, el azul es una serie más.
+Aplica las series estrictamente en este orden. La secuencia está pensada para que dos series vecinas se distingan lo más posible. No empieza por el color de marca: en un gráfico, el {v:acento} es una serie más.
 
 | Serie | Token | Tema claro | Tema oscuro |
 |---|---|---|---|
@@ -84,7 +93,10 @@ Cada color sale de las rampas de ALMA y llega a 3:1 sobre `ui-01` en su tema. Co
 
 En los temas claros, el valor más alto es el paso más oscuro (`viz-seq-5`, `{token:viz-seq-5:light}`). En los temas oscuros es el más claro (`{token:viz-seq-5}`).
 
-Rotula las series o usa forma o trama: el color solo no basta. El azul y el púrpura se confunden con facilidad: nunca los uses solos para separar dos cosas.
+Rotula las series o usa forma o trama: el color solo no basta. Dos tonos vecinos, como el azul y el púrpura, se confunden con facilidad: nunca los uses solos para separar dos cosas.
+{sino}
+Cada color categórico llega a 3:1 sobre `ui-01` en su tema. Rotula las series o usa forma o trama: el color solo no basta. Dos tonos vecinos, como el lima y el amarillo, se confunden con facilidad: nunca los uses solos para separar dos cosas.
+{fin}
 
 ![Un gráfico de barras de viajes por mes con cuatro series (interurbano, rural, aeropuerto y turismo) y su leyenda, en tema oscuro y claro, con los colores viz-cat-01 a viz-cat-04.](assets/Fundamentos/color-grafico.png)
 
@@ -99,6 +111,7 @@ Rotula las series o usa forma o trama: el color solo no basta. El azul y el púr
 ## Evita
 
 - No escribas un valor de color en una interfaz: pide el token.
-- No uses una rampa base (`primary-600`) donde hay un rol semántico (`interactive-01`).
-- No uses el azul para decorar.
+- No uses una rampa base (`primary-500`) donde hay un rol semántico (`interactive-01`).
+- No uses el {v:acento} para decorar.{si profundo}{sino}
+- No pongas texto blanco sobre el {v:acento}: no se lee.{fin}
 - Nunca diferencies dos estados solo por el color.

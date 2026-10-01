@@ -2,21 +2,23 @@
 element: Movimiento
 order: 4
 tab: Resumen
-summary: El movimiento explica qué cambió. Productivo en toda la interfaz, y sereno.
+summary: El movimiento explica qué cambió. {V:estilo} en toda la interfaz, {v:ritmo} que ALMA.
 ---
 
 ## Por qué se mueve algo
 
-El movimiento es una forma de explicar. Lo usamos para mostrar qué cambió, de dónde viene algo y hacia dónde va. Si no explica nada, no se mueve.
+{L:movimiento.lede}
 
-Partimos de los tokens de movimiento de ALMA y vamos un 25 % más lento: con la calma de quien no necesita llamar la atención.
+Si un movimiento no explica nada, sobra.
+
+Partimos de los tokens de movimiento de ALMA y vamos {v:ritmo}.
 
 ## Dos estilos
 
 | Estilo | Tokens | Cuándo |
 |---|---|---|
-| **Productivo** | `easing-*-productive` | Toda la interfaz. Eficiente y preciso. Es el de los componentes. |
-| **Expresivo** | `easing-*-expressive` | La firma, las portadas y las aperturas, donde un momento de carácter ayuda a contar algo. Con moderación. |
+| **Productivo** | `easing-*-productive` | {si productivo}Toda la interfaz. Eficiente y preciso. Es el de los componentes.{sino}Lo que se repite muchas veces al día. Eficiente y preciso. Es el de los componentes.{fin} |
+| **Expresivo** | `easing-*-expressive` | {si productivo}La firma, las portadas y las aperturas, donde un momento de carácter ayuda a contar algo. Con moderación.{sino}Nuestro estilo: entradas, aperturas y todo momento que cuenta algo.{fin} |
 
 ## Curva según la intención
 

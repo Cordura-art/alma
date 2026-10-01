@@ -20,9 +20,9 @@ summary: Cuatro temas: oscuro por defecto, claro y sus versiones de alto contras
 
 Solo los valores de los tokens semánticos y de componente. Los nombres, las medidas, la tipografía y el comportamiento son los mismos: una interfaz hecha con tokens funciona en los cuatro sin cambiar nada.
 
-## Nuestro azul en cada tema
+## Nuestro {v:acento} en cada tema
 
-El acento es el mismo en los cuatro temas. Lo que cambia es el paso de la rampa que usan los enlaces y el destino actual, para que siempre se lean.
+El {v:acento} del botón principal es el mismo en los cuatro temas. Lo que cambia es el paso que usan el destino actual y los enlaces, para que siempre se lean.
 
 | Tema | `interactive-01` | `link-01` | `nav-selected` |
 |---|---|---|---|

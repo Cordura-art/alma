@@ -2,7 +2,7 @@
 element: Tipografía
 order: 2
 tab: Estilos
-summary: Una familia, Roboto Flex en su ancho natural y con pesos livianos, en tres escalas: web, app e impresión.
+summary: Una familia, Roboto Flex {v:ancho}, en tres escalas: web, app e impresión.
 ---
 
 ## Estilos web más usados
@@ -37,7 +37,7 @@ La tabla completa, con los estilos de las tres escalas, está en la pestaña **T
 
 ## Mayúsculas
 
-- Mayúscula solo al inicio, en títulos, botones y etiquetas: «Revisar la propuesta».
+- Mayúscula solo al inicio, en títulos, botones y etiquetas: «{L:muestra.primaria}».
 - Mayúsculas completas solo en los títulos de grupo de `Sidebar`, con espaciado.
 
 ## Números gigantes

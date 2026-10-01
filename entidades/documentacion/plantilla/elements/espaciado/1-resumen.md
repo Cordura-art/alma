@@ -2,12 +2,12 @@
 element: Espaciado y grilla
 order: 3
 tab: Resumen
-summary: La escala de 8, la grilla responsive, la densidad y nuestras esquinas suaves.
+summary: La escala de 8, la grilla responsive, la densidad y nuestra forma: {v:forma}.
 ---
 
 ## Todo en múltiplos de 8
 
-Damos aire. El espacio agrupa: con una separación consistente no hacen falta divisores ni cajas, porque lo que va junto se ve junto, y lo que necesita pensarse tiene espacio para respirar.
+{L:grilla.espacio}
 
 | Token | Valor | Uso típico |
 |---|---|---|
@@ -18,13 +18,15 @@ Damos aire. El espacio agrupa: con una separación consistente no hacen falta di
 | `space-32` a `space-48` | 32 a 48 px | Entre secciones. |
 | `space-56` a `space-80` | 56 a 80 px | Alrededor de titulares grandes. |
 
-**Mientras más importante la decisión, más espacio alrededor.** Los controles se separan con `space-8` a `space-24`; los titulares *display*, con `space-56` a `space-80`.
+**Cuanto más grande el objeto, más espacio alrededor.** Los controles se separan con `space-8` a `space-24`; los titulares *display*, con `space-56` a `space-80`.
 
 ![Una tarjeta de viaje con sus medidas de espacio rotuladas: el relleno de la tarjeta, la separación entre textos y la separación entre botones, con sus tokens space-*.](assets/Fundamentos/espaciado-tarjeta.png)
 
 ## Radios
 
-Nuestras esquinas son suaves. No suavizamos para decorar: suavizamos para acercar. Hay un token de radio por familia de elementos.
+{L:grilla.forma}
+
+Hay un token de radio por familia de elementos{si radioUnico}, y todos valen lo mismo salvo dos{fin}.
 
 | Token | Valor | Uso |
 |---|---|---|
@@ -39,7 +41,7 @@ Nuestras esquinas son suaves. No suavizamos para decorar: suavizamos para acerca
 | `radius-checkbox` | {token:radius-checkbox} | La casilla de `Checkbox`. Conserva sus esquinas para seguir leyéndose como control. |
 | `radius-pill` | {token:radius-pill} | Formas siempre redondas: `Switch`, barra de progreso, días del calendario. Es el valor de ALMA: no cambia con la entidad. |
 
-Evita mezclar esquinas rectas y suaves en una misma pantalla. Nunca uses una sombra para separar: usa espacio o una línea de 1 px.
+{si recta}Evita suavizar una esquina «para que se vea amable».{sino}Evita mezclar esquinas rectas y suaves en una misma pantalla.{fin} Nunca uses una sombra para separar: usa espacio o una línea de 1 px.
 
 ## Tamaños de interacción
 

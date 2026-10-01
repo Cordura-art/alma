@@ -1,0 +1,41 @@
+{
+ "reemplazos": [
+  ["Fondo lima (`interactive-01`)", "Fondo {v:acento} (`interactive-01`)"],
+  ["Viene del theme de origen de Cordura (`interactive-03`).", "Viene de ALMA (`interactive-03`).", "!cordura"],
+  ["Rojo de sistema en cualquier estilo; nunca lima.", "Rojo de sistema en cualquier estilo; nunca {v:acento}."],
+  ["Si todo es lima, nada lo es.", "Si todo es {v:acento}, nada lo es."],
+  ["y nunca usa el lima.", "y nunca usa el {v:acento}."],
+  ["Roboto Flex extendida (`wdth` 150), peso Regular", "Roboto Flex {v:ancho} (`wdth` {token:font-width}), peso {token:font-weight-body}"],
+  ["En tema claro, `control-on` es un oliva oscuro: el lima no llega a 3:1 sobre fondo claro.", "{si profundo}En tema oscuro, `control-on` es un paso claro de la rampa (`{token:control-on}`) que se despega del fondo; en tema claro es el {v:acento} pleno.{sino}En tema claro, `control-on` es un paso oscuro de la rampa (`{token:control-on:light}`): el {v:acento} no llega a 3:1 sobre fondo claro.{fin}"],
+  ["En tema claro, `control-on` es un oliva oscuro, porque el lima no se ve sobre fondo claro.", "{si profundo}En tema oscuro, `control-on` es un paso claro de la rampa (`{token:control-on}`) que se despega del fondo; en tema claro es el {v:acento} pleno.{sino}En tema claro, `control-on` es un paso oscuro de la rampa (`{token:control-on:light}`), porque el {v:acento} no se ve sobre fondo claro.{fin}"],
+  ["obre lima o acero.", "obre el {v:acento}."],
+  ["`List` agrupa filas sobre un fondo redondeado,", "`List` agrupa filas sobre un fondo propio,", "recta"],
+  ["Una línea lima que indica una espera de marca", "Una línea {v:acento} que indica una espera de marca"],
+  ["un brillo lima la recorre", "un brillo {v:acento} la recorre"],
+  ["Un brillo lima recorre la línea.", "Un brillo {v:acento} recorre la línea."],
+  ["Sobre `overlay-01`, el lima llega a 3:1.", "Sobre `overlay-01`, el {v:acento} llega a 3:1."],
+  ["Un selector de una opción entre pocas alternativas, en una píldora.", "Un selector de una opción entre pocas alternativas, en una sola barra{si recta}{sino} de {v:forma}{fin}.", "!pildora"],
+  ["con las esquinas superiores redondeadas. Respeta", "con las esquinas rectas. Respeta", "recta"],
+  ["Centrada, 560 px de ancho, esquinas redondeadas.", "Centrada, 560 px de ancho, esquinas rectas.", "recta"],
+  ["2. **Panel** `ui-01` con esquinas redondeadas.", "2. **Panel** `ui-01` con esquinas rectas.", "recta"],
+  ["En tema oscuro el borde y la etiqueta son lima; en claro, tonos acero oscuros, porque el lima sobre fondo claro no llega a 3:1.", "{si profundo}En tema oscuro el borde y la etiqueta usan pasos claros de la rampa (`{token:field-border}` y `{token:field-label}`); en claro, tonos acero oscuros.{sino}En tema oscuro el borde y la etiqueta son {v:acento}; en claro, tonos acero oscuros, porque el {v:acento} sobre fondo claro no llega a 3:1.{fin}"],
+  ["La perilla se desliza en 150 ms.", "La perilla se desliza en {token:duration-moderate-01}."],
+  ["| Suelto | `standalone` | Medium, subrayado al pasar el cursor. |", "| Suelto | `standalone` | Peso de énfasis (`font-weight-emphasis`), subrayado al pasar el cursor. |"],
+  ["`text-01` (Medium en el actual)", "`text-01` (peso de énfasis en el actual)"],
+  ["título 20 px Medium, cuerpo 14 px Regular.", "título de 20 px y cuerpo de 14 px."],
+  ["título 14 px Medium, mensaje 14 px Regular, hora 11 px.", "título y mensaje de 14 px, hora de 11 px."],
+  ["un borde de 2 px y el texto en Medium.", "un borde de 2 px y el texto en peso de énfasis."],
+  ["themes.dark['interactive-01'];   // '#E1F564'", "themes.dark['interactive-01'];   // '{token:interactive-01}'"],
+  ["Las propias de Cordura se iterarán desde aquí, sobre la misma base de tokens.", "Las propias de la entidad se iterarán desde aquí, sobre la misma base de tokens.", "!cordura"],
+  ["entran separados por 20 ms", "entran separados por {token:duration-stagger}"],
+  ["La línea lima que termina en verde.", "La línea {v:acento} que termina en verde."],
+  ["son píldoras con la etiqueta flotante.", "llevan la etiqueta flotante.", "!pildora"],
+  ["Campo en píldora · etiqueta flotante", "Campo de {v:forma} · etiqueta flotante", "!pildora"],
+  ["Selección única en píldora", "Selección única en una barra", "!pildora"],
+  ["Fondo acero (`interactive-02`).", "Fondo {v:acento} muy oscuro y apagado (`interactive-02`), con texto blanco."]
+ ],
+ "vigentes": [
+  "una píldora más ancha",
+  "La píldora cambia de ancho"
+ ]
+}

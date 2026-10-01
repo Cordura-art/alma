@@ -1,10 +1,23 @@
 // ALMA documentation site: the repo's guides, tokens and live previews, drawn with ALMA's own components.
+// In the build with a selector (scripts/build-selector.mjs) the page holds several systems, ALMA and its entities:
+// window.__SISTEMAS lists them, each with its content, its token values and its images, and the site starts again on a switch.
 (function () {
   'use strict';
+  var SIS = window.__SISTEMAS || null, mounted = null;
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage blocked */ } }
+  };
+  function isSystem(v) { return SIS.some(function (s) { return s.id === v; }); }
+  function start(sisId) {
   var h = React.createElement, useState = React.useState, useEffect = React.useEffect, useRef = React.useRef, useMemo = React.useMemo;
   var A = window.AlmaDS;
-  var C = JSON.parse(document.getElementById('alma-content').textContent);
+  var C = JSON.parse(document.getElementById(SIS ? 'alma-content-' + sisId : 'alma-content').textContent);
   var root = document.documentElement;
+  // Each system's images sit in their own folder, and its token values in a style sheet that only applies while it is chosen.
+  var ASSETS = SIS ? SIS.filter(function (s) { return s.id === sisId; })[0].assets : '';
+  if (SIS) [].forEach.call(document.querySelectorAll('style[data-sistema]'), function (el) { el.media = el.getAttribute('data-sistema') === sisId ? 'all' : 'not all'; });
+  function change(v) { if (!isSystem(v) || v === sisId) return; store.set('alma-sistema', v); start(v); }
   root.lang = 'es';
   // The site's own names: ALMA's, or an entity's when the page documents one (scripts/build-site.mjs --entidad).
   var SITE = Object.assign({ nombre: 'ALMA', titulo: 'Documentación ALMA', h1: 'ALMA, sistema de diseño de Cordura', grupo: 'ALMA', pie: '',
@@ -12,10 +25,6 @@
 
   // ---- Themes: dark by default (ALMA), the viewer's choice is remembered on this device.
   var THEMES = C.tokens.themes; // [{id, name}]
-  var store = {
-    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage blocked */ } }
-  };
   function isTheme(v) { return THEMES.some(function (t) { return t.id === v; }); }
   function firstTheme() {
     var saved = store.get('alma-theme');
@@ -37,6 +46,7 @@
     var t = document.createElement('template');
     t.innerHTML = DOMPurify.sanitize(marked.parse(shift ? lift(src) : src, { gfm: true }));
     var f = t.content;
+    if (ASSETS) f.querySelectorAll('img[src^="assets/"]').forEach(function (el) { el.setAttribute('src', ASSETS + el.getAttribute('src')); });
     f.querySelectorAll('h2,h3,h4,h5').forEach(function (el) { el.className = HEAD[el.tagName]; el.id = 'm-' + slug(el.textContent); });
     f.querySelectorAll('a[href]').forEach(function (a) {
       a.className = 'alma-link';
@@ -339,11 +349,17 @@
         onMoreAction: function (v) { if (isTheme(v)) th[1](v); } }),
       h('div', { className: 'shell' },
         h('div', { className: 'nav' },
+          SIS && !hidden ? h('div', { className: 'nav__system' }, h(A.PopUpButton, { label: 'Sistema', value: sisId, onChange: change,
+            options: SIS.map(function (s) { return { value: s.id, label: s.nombre }; }) })) : null,
           h(A.Sidebar, { label: 'Secciones de ' + SITE.nombre, groups: groups, value: route, onChange: go, hidden: hidden, onHiddenChange: hid[1] }),
           !hidden && !groups.length ? h('p', { className: 'nav__empty web-body-s' }, 'Nada coincide con «' + query + '».') : null),
         h('main', { className: 'main', id: 'main' }, byId[route].render({ theme: theme }))));
   }
 
   paint(firstTheme());
-  ReactDOM.createRoot(document.getElementById('app')).render(h(App));
+  if (mounted) mounted.unmount();
+  mounted = ReactDOM.createRoot(document.getElementById('app'));
+  mounted.render(h(App));
+  }
+  start(SIS ? (isSystem(store.get('alma-sistema')) ? store.get('alma-sistema') : SIS[0].id) : null);
 })();

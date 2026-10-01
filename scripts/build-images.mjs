@@ -2,7 +2,11 @@
 // each scene is a page with alma.css, the component bundle and a small script, photographed by Playwright's Chromium.
 // Run after `npm run build`, and again whenever tokens or components change. Usage: node scripts/build-images.mjs [scene…]
 // With --entidad <id> the same scenes are drawn with that entity's tokens, into build/documentacion-<id>/assets/.
-import { readFile, mkdir } from 'node:fs/promises';
+// Only the scenes that changed are drawn again (see "The cache" below); --forzar draws them all, --paralelo N sets how
+// many are drawn at once (4 by default).
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { chromium } from 'playwright';
 import { componentScenes } from './images/componentes.mjs';
 import { patternScenes } from './images/patrones.mjs';
@@ -308,10 +312,33 @@ export const scenes = [
 const ALL = scenes.concat(componentScenes, patternScenes);
 export { ALL as allScenes };
 
+// What a scene's picture depends on: every custom property that a CSS rule matching one of its elements reads, or that
+// its markup names. Pseudo-classes are dropped before matching, so the set errs on the side of too many.
+const DEPS = `window.__deps = function () {
+  var used = {}, grab = function (t) { var re = /var\\(\\s*--([\\w-]+)/g, m; while ((m = re.exec(t))) used[m[1]] = 1; };
+  var scan = function (doc) {
+    var walk = function (rules) { for (var i = 0; i < rules.length; i++) { var r = rules[i];
+      if (r.type !== 1) { if (r.cssRules) walk(r.cssRules); continue; }
+      // The theme blocks declare the tokens: one token naming another is followed by value, not counted as a use.
+      if (/^\\s*(:root|\\[data-theme)/.test(r.selectorText)) { grab(r.cssText.replace(/--[\\w-]+\\s*:[^;]*;?/g, '')); continue; }
+      var sel = r.selectorText.split(',').map(function (p) { return p.replace(/:{1,2}[\\w-]+(\\((?:[^()]|\\([^()]*\\))*\\))?/g, '').trim() || '*'; }).join(','), hit = true;
+      try { hit = !!doc.querySelector(sel); } catch (e) {}
+      if (hit) grab(r.cssText); } };
+    for (var i = 0; i < doc.styleSheets.length; i++) { try { walk(doc.styleSheets[i].cssRules); } catch (e) {} }
+    var shot = doc.getElementById('shot'); if (shot) grab(shot.outerHTML);
+    [].forEach.call(doc.querySelectorAll('iframe'), function (f) { if (f.contentDocument) scan(f.contentDocument); });
+  };
+  scan(document); return Object.keys(used).sort();
+};`;
+
 if (import.meta.url === `file://${process.argv[1]}`) {
+  const flag = (name) => { const i = argv.indexOf(name); if (i < 0) return null; return argv.splice(i, 2)[1]; };
+  const FORCE = argv.includes('--forzar') ? argv.splice(argv.indexOf('--forzar'), 1).length > 0 : false;
+  const PAR = Math.max(1, Number(flag('--paralelo') || 4));
   const only = argv;
   const bundle = await read(`${P}/components/bundle.js`);
-  const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), S ? cssEntidad(S) : '', BASE].join('\n');
+  const sheets = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), S ? cssEntidad(S) : '', BASE];
+  const css = sheets.join('\n');
   const head = `<link rel="stylesheet" href="${FONTS}"><style>${css}</style>`;
   const libs = `<script src="${CDN}/react/18.3.1/umd/react.production.min.js"></script><script src="${CDN}/react-dom/18.3.1/umd/react-dom.production.min.js"></script>`;
   // The iframe document of device(): same CSS, bundle and helpers; it flags __ready once rendered and its "after" ran.
@@ -321,37 +348,81 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       window.__LIBS + '<scr' + 'ipt>' + document.getElementById('src-bundle').textContent + '</scr' + 'ipt><scr' + 'ipt>var D = window.parent.D;' +
       document.getElementById('src-helpers').textContent + 'stateCss(); A.registerIcons({ icons: D.icons });' + js + ';(async function(){ await sleep(400); ' + after + '; await sleep(150); window.__ready = true; })();</scr' + 'ipt></body></html>';
   };`;
-  const browser = await chromium.launch();
-  const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1800, height: 1200 } });
-  let n = 0;
-  const failed = [], errors = [];
-  page.on('pageerror', (e) => errors.push(e.message));
+
+  // The cache. A picture is kept while its scene, the code it runs on and the value of every token it depends on are
+  // the same: a change of one token redraws only the scenes that read it. The manifest lives in build/, out of the repo.
+  const sha = (t) => createHash('sha1').update(t).digest('hex');
+  const MANIFEST = `build/cache/imagenes-${ENT || 'alma'}.json`;
+  const manifest = !FORCE && existsSync(MANIFEST) ? JSON.parse(await read(MANIFEST)) : {};
+  // Token values by theme, read from the style sheets (the theme blocks of alma.css, then the entity's), aliases followed.
+  const THEMES = ['dark', 'light', 'dark-hc', 'light-hc'], raw = Object.fromEntries(THEMES.map((th) => [th, {}]));
+  for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const sel = m[1], to = THEMES.filter((th) => /:root/.test(sel) || sel.includes(`[data-theme="${th}"]`));
+    if (!/^\s*(?:\/\*[\s\S]*?\*\/\s*)*(:root|\[data-theme)/.test(sel)) continue;
+    for (const d of m[2].matchAll(/(?:^|;)\s*--([\w-]+)\s*:\s*([^;]+)/g)) for (const th of to) raw[th][d[1]] = d[2].trim();
+  }
+  const resolve = (n, th, depth = 0) => (raw[th][n] === undefined || depth > 12 ? '' : raw[th][n].replace(/var\(\s*--([\w-]+)\s*(?:,[^)]*)?\)/g, (_, x) => resolve(x, th, depth + 1)));
+  // Everything a scene runs on except token values: those count only for the scenes that read them.
+  const sinValores = sheets.map((c) => c.replace(/--[\w-]+\s*:[^;{}]*;?/g, '')).join('\n');
+  const comun = sha([bundle, sinValores, HELPERS, DEPS, docFn, FONTS, libs, JSON.stringify(DATA.icons), JSON.stringify(DATA.themes)].join('\u0000'));
+  const fuente = (s) => { const code = [s.js, s.after, s.css, s.click].join('\u0000'); return sha([comun, s.file, code, ...['easing', 'duration', 'fontAxis', 'swatch'].filter((k) => code.includes(k)).map((k) => JSON.stringify(DATA[k]))].join('\u0000')); };
+  const llave = (src, deps) => sha(src + deps.map((n) => THEMES.map((th) => resolve(n, th)).join('|')).join('\n'));
+
+  const queue = [];
+  let kept = 0;
   for (const s of ALL) {
     if (only.length && !only.some((o) => s.file.includes(o))) continue;
-    for (let attempt = 1; attempt <= 2; attempt++) {
-    errors.length = 0;
-    try {
-    const html = `<!doctype html><html lang="es" data-theme="dark"><head><meta charset="utf-8">${head}<style>${s.css || ''}</style>
+    const src = fuente(s), e = manifest[s.file];
+    if (e && e.src === src && existsSync(`${DEST}/${s.file}.png`) && llave(src, e.deps) === e.key) { kept++; continue; }
+    queue.push({ s, src });
+  }
+  let n = 0;
+  const failed = [];
+  if (queue.length) {
+    const browser = await chromium.launch(), context = await browser.newContext({ deviceScaleFactor: 2, viewport: { width: 1800, height: 1200 } });
+    const worker = async () => {
+      for (let job = queue.shift(); job; job = queue.shift()) {
+        const { s, src } = job;
+        for (let attempt = 1; attempt <= 2; attempt++) {
+          // A page of its own for every scene: where the pointer was left and whether the last input was the keyboard
+          // (which decides if focus shows its ring) would otherwise leak from one scene into the next.
+          const page = await context.newPage(), errors = [];
+          page.on('pageerror', (e) => errors.push(e.message));
+          try {
+            // A button clicked with the pointer before the scene loads: what a scene opens with focus (a menu, a popover)
+            // is then drawn as after a click, without the focus ring the keyboard would show. The pointer ends off the picture.
+            await page.setContent('<button style="position:fixed;left:0;top:0;width:40px;height:40px"></button>');
+            await page.mouse.click(20, 20);
+            await page.mouse.move(0, 0);
+            const html = `<!doctype html><html lang="es" data-theme="dark"><head><meta charset="utf-8">${head}<style>${s.css || ''}</style>
 <script type="text/plain" id="src-head">${head.replace(/<\/(script)/gi, '<\\/$1')}</script><script type="text/plain" id="src-bundle">${bundle}</script><script type="text/plain" id="src-helpers">${HELPERS}</script></head>
 <body><div id="shot"><div id="app"></div></div>${libs}<script>${bundle}</script>
-<script>var D = ${JSON.stringify(DATA)};\nwindow.__LIBS = ${JSON.stringify(libs).replace(/<\//g, '<\\/')};\n${docFn}\n${HELPERS}\nstateCss(); A.registerIcons({ icons: D.icons });\n${s.js}</script></body></html>`;
-    await page.setContent(html, { waitUntil: 'networkidle' });
-    await page.evaluate(() => document.fonts.ready);
-    await page.waitForTimeout(250);
-    await page.waitForFunction(() => [...document.querySelectorAll('iframe')].every((f) => f.contentWindow && f.contentWindow.__ready), null, { timeout: 30000 });
-    if (s.click) { await page.click(s.click); await page.waitForTimeout(200); }
-    if (s.after) await page.evaluate(`(async function(){ ${HELPERS}\n${s.after} })()`);
-    await page.waitForTimeout(120);
-    const out = `${DEST}/${s.file}.png`;
-    await mkdir(out.replace(/\/[^/]+$/, ''), { recursive: true });
-    await page.locator('#shot').screenshot({ path: out, animations: 'disabled' });
-    n++;
-    console.log(`  ${out}`);
-    break;
-    } catch (e) { if (attempt === 2) { failed.push(s.file); console.log(`  ✗ ${s.file}: ${e.message.split('\n')[0]} ${errors.join(' | ')}`); } }
-    }
+<script>var D = ${JSON.stringify(DATA)};\nwindow.__LIBS = ${JSON.stringify(libs).replace(/<\//g, '<\\/')};\n${docFn}\n${DEPS}\n${HELPERS}\nstateCss(); A.registerIcons({ icons: D.icons });\n${s.js}</script></body></html>`;
+            await page.setContent(html, { waitUntil: 'networkidle' });
+            await page.evaluate(() => document.fonts.ready);
+            await page.waitForTimeout(250);
+            await page.waitForFunction(() => [...document.querySelectorAll('iframe')].every((f) => f.contentWindow && f.contentWindow.__ready), null, { timeout: 30000 });
+            if (s.click) { await page.click(s.click); await page.waitForTimeout(200); }
+            if (s.after) await page.evaluate(`(async function(){ ${HELPERS}\n${s.after} })()`);
+            await page.waitForTimeout(120);
+            const out = `${DEST}/${s.file}.png`;
+            await mkdir(out.replace(/\/[^/]+$/, ''), { recursive: true });
+            const deps = await page.evaluate(() => window.__deps());
+            await page.locator('#shot').screenshot({ path: out, animations: 'disabled' });
+            manifest[s.file] = { src, deps, key: llave(src, deps) };
+            n++;
+            console.log(`  ${out}`);
+            attempt = 2;
+          } catch (e) { if (attempt === 2) { failed.push(s.file); delete manifest[s.file]; console.log(`  ✗ ${s.file}: ${e.message.split('\n')[0]} ${errors.join(' | ')}`); } }
+          await page.close();
+        }
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(PAR, queue.length) }, worker));
+    await browser.close();
+    await mkdir('build/cache', { recursive: true });
+    await writeFile(MANIFEST, JSON.stringify(manifest));
   }
-  if (failed.length) console.log(`Fallaron ${failed.length}: ${failed.join(', ')}`);
-  await browser.close();
-  console.log(`Imágenes: ${n} generadas`);
+  if (failed.length) { console.log(`Fallaron ${failed.length}: ${failed.join(', ')}`); process.exitCode = 1; }
+  console.log(`Imágenes: ${n} generadas, ${kept} sin cambios`);
 }

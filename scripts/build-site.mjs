@@ -2,7 +2,7 @@
 // ALMA's CSS and component bundle, the repo's guides and tokens, the live previews, and site/{site.css,app.js}.
 // Run after `npm run build`. Usage: node scripts/build-site.mjs [output path]
 // With --entidad <id> it builds that entity's documentation instead (build/documentacion-<id>/index.html): the same
-// site with the entity's token values, its own pages (entidades/documentacion/<id>/) and its images
+// site with the entity's token values, its pages (the templates in entidades/documentacion/plantilla/) and its images
 // (node scripts/build-images.mjs --entidad <id>).
 import { readdir, readFile, writeFile, mkdir, stat, copyFile } from 'node:fs/promises';
 import { dirname } from 'node:path';

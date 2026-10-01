@@ -1,4 +1,4 @@
-// Tests for an entity's documentation (scripts/lib/documentacion.mjs, entidades/documentacion/<id>/): the entity's
+// Tests for an entity's documentation (scripts/lib/documentacion.mjs, entidades/documentacion/plantilla/): the entity's
 // token values, their contrast in the four themes, and a site that builds with every sentence checked.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -6,7 +6,7 @@ import { readFileSync, readdirSync, mkdtempSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { sistema, aplicar, css, valor, THEMES } from '../scripts/lib/documentacion.mjs';
+import { sistema, aplicar, css, valor, rasgos, plantilla, THEMES } from '../scripts/lib/documentacion.mjs';
 
 const tokens = () => JSON.parse(readFileSync('dist/json/tokens.json', 'utf8'));
 const lum = (hex) => { const f = (i) => { const c = parseInt(hex.substr(i, 2), 16) / 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }; return 0.2126 * f(1) + 0.7152 * f(3) + 0.0722 * f(5); };
@@ -102,13 +102,32 @@ for (const id of readdirSync('entidades/lenguajes').map((f) => f.replace(/\.json
   });
 }
 
-for (const id of readdirSync('entidades/documentacion')) {
-  test(`${id}: el sitio se construye, con cada reemplazo vigente y sin frases del aspecto de Cordura`, () => {
+for (const id of readdirSync('entidades/lenguajes').map((f) => f.replace(/\.json$/, ''))) {
+  test(`${id}: el sitio se construye solo con la plantilla, con cada reemplazo vigente y sin frases de un aspecto ajeno`, () => {
     const out = join(mkdtempSync(join(tmpdir(), 'alma-doc-')), 'index.html');
     execFileSync(process.execPath, ['scripts/build-site.mjs', '--entidad', id, out], { stdio: 'pipe' });
     const html = readFileSync(out, 'utf8');
     assert.match(html, /<title>Documentación [^<]+<\/title>/);
     assert.doesNotMatch(html, /\{token:[a-z0-9-]+/, 'queda un valor sin resolver');
+    assert.doesNotMatch(html, /\{(?:si |sino\}|fin\}|[vVL]:|tabla:)/, 'queda una marca de plantilla sin resolver');
     assert.ok(readFileSync(join(out, '..', `entidad-${id}.css`), 'utf8').includes('--interactive-01'));
   });
 }
+
+test('la plantilla escribe lo que la carta decidió, y falla ante una marca que no conoce', async () => {
+  const ibm = await sistema('ibm'), cordura = await sistema('cordura'), ti = tokens(), tc = tokens();
+  aplicar(ti, ibm); aplicar(tc, cordura);
+  const R = rasgos(ibm), C = rasgos(cordura);
+  assert.deepEqual([R.si.profundo, R.si.recta, R.si.accionMarca, R.si.heredado], [true, true, true, false]);
+  assert.deepEqual([C.si.profundo, C.si.suave, C.si.accionMarca, C.si.heredado, C.si.lima], [false, true, false, true, true]);
+  const src = 'Texto {v:sobre} sobre {v:marca}.{si profundo} Profundo.{sino} Luminoso.{fin} {V:forma}: {token:radius-button}.';
+  assert.equal(plantilla(src, ibm, ti), 'Texto blanco sobre un azul pleno. Profundo. Ángulos rectos: 0 px.');
+  assert.equal(plantilla(src, cordura, tc), 'Texto tinta sobre el lima heredado. Luminoso. Esquinas suaves: 16 px.');
+  // A line that only opens or closes a condition leaves no empty line behind.
+  assert.equal(plantilla('a\n{si heredado}\nb\n{fin}\nc', ibm, ti), 'a\nc');
+  assert.equal(plantilla('{L:grilla.forma:1}', ibm, ti), 'Nuestros ángulos son rectos.');
+  assert.match(plantilla('{tabla:rampa}', ibm, ti), /\| `primary-600` \| `#1D62FF` \| `interactive-01` en los cuatro temas/);
+  assert.throws(() => plantilla('{si inventada}x{fin}', ibm, ti), /Condición desconocida/);
+  assert.throws(() => plantilla('{v:inventada}', ibm, ti), /Palabra desconocida/);
+  assert.throws(() => plantilla('{L:no.existe}', ibm, ti), /le falta "no.existe"/);
+});
