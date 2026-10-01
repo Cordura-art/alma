@@ -24,8 +24,8 @@ El azul sale de nuestra carta: el tono viene de la autoridad mental; la saturaci
 | `primary-500` | `{token:primary-500}` | Bordes de campo, controles encendidos y lo elegido en tema oscuro (3:1). |
 | `primary-600` | `{token:primary-600}` | El acento: `interactive-01`. |
 | `primary-700` | `{token:primary-700}` | Encima: `hover-primary`. |
-| `primary-800` | `{token:primary-800}` | Presionado: `active-primary`. |
-| `primary-900` | `{token:primary-900}` | Enlaces y navegación en claro de alto contraste. |
+| `primary-800` | `{token:primary-800}` | Presionado: `active-primary`. Botón secundario en tema oscuro. |
+| `primary-900` | `{token:primary-900}` | Botón secundario en tema claro. Enlaces y navegación en claro de alto contraste. |
 
 Nuestra paleta tiene dos rampas más, cian y púrpura. Son de la firma: no se usan en la interfaz y no tienen tokens.
 
@@ -53,21 +53,23 @@ Para ajustar un componente, cambia su token de componente, nunca el semántico: 
 | Bordes | `border-subtle`, `border-control` | El borde sutil separa contenedores; el de control marca campos y selectores (3:1). |
 | Texto | `text-01` a `text-05`, `text-error`, `text-on-interactive` | Principal, secundario, desactivado, sobre colores. |
 | Íconos | `icon-01` a `icon-03` | Principal, secundario, sobre colores. |
-| Acción | `interactive-01` a `interactive-04` | Azul para la acción principal, gris oscuro para la secundaria, blanco o azul para el contorno de la terciaria, azul para lo elegido. |
+| Acción | `interactive-01` a `interactive-04` | Azul pleno para la acción principal, azul muy oscuro para la secundaria y el color de acción para el contorno de la terciaria y lo elegido. |
 | Estados de interacción | `hover-*`, `active-*`, `selected-ui`, `focus` | Encima, presionado, elegido y foco. |
 | Estados del sistema | `support-01` a `support-04` | Error, éxito, advertencia, información. |
 | Inversos | `inverse-01`, `inverse-02`, `inverse-support-*` | Superficies que invierten el tema, como el tooltip. |
 | Velos | `overlay-01`, `tint-white-*`, `tint-dark-*` | Detrás de modales y sobre imágenes. |
 
-## Tres colores
+## Tres papeles, un solo azul
 
-Casi todo lo que se puede accionar usa tres colores: el azul de marca, un neutro muy oscuro y el blanco. Los botones lo muestran.
+Casi todo lo que se puede accionar usa tres papeles de color. En nuestro caso los tres salen de la misma rampa, y por eso nada rompe la armonía.
 
-| Botón | Tema claro | Tema oscuro | Texto encima |
+| Papel | Qué es | Tema claro | Tema oscuro |
 |---|---|---|---|
-| Principal (`filled`) | Azul, `{token:interactive-01:light}` | El mismo azul, `{token:interactive-01}` | Blanco |
-| Secundario (`gray`) | Gris muy oscuro, `{token:interactive-02:light}` | Gris medio, `{token:interactive-02}`, para despegarse del fondo | Blanco |
-| Terciario (`tertiary`) | Contorno azul, `{token:interactive-04:light}` | Contorno blanco, `{token:interactive-03}` | Al pasar el cursor se rellena y el texto se invierte |
+| **Marca** | El azul pleno. Botón principal (`filled`), con texto blanco. | `{token:interactive-01:light}` | `{token:interactive-01}`, el mismo |
+| **Marca muy oscura** | El mismo azul en su paso más oscuro. Botón secundario (`gray`), con texto blanco. | `{token:interactive-02:light}` (`primary-900`) | `{token:interactive-02}` (`primary-800`): el 900 se perdería en el fondo |
+| **Acción** | El color que se lee como «esto se puede seguir»: enlaces, foco, lo elegido y el contorno del botón terciario. | `{token:link-01:light}` | `{token:link-01}` |
+
+El color de acción es siempre un azul, porque así lo aprendimos todos: un enlace azul se reconoce sin explicación. Cada marca lo acerca a su propio tono. La nuestra ya es azul, así que el color de acción es la marca misma.
 
 Tres reglas ordenan los estados:
 
@@ -102,7 +104,7 @@ Las superficies son las de ALMA y se apilan en un orden fijo. Cada capa se disti
 | 2 | `ui-01` | Blanco | Blanco al 4 % sobre la página | Contenedores: tarjetas, menús, tablas, alertas. |
 | 3 | `ui-03` | Gris azulado claro | Blanco al 7 % | Un panel dentro de un contenedor. |
 | 4 | `ui-04` | Azul acero claro | Blanco al 10 % | Una zona dentro de ese panel. |
-| Acción | `interactive-01`, `interactive-02` | Azul y gris oscuro | Azul y gris medio | Los botones, sobre cualquier capa. |
+| Acción | `interactive-01`, `interactive-02` | Azul pleno y azul muy oscuro | Azul pleno y azul oscuro | Los botones, sobre cualquier capa. |
 
 No saltes capas hacia atrás: un contenedor dentro de otro `ui-01` pasa a `ui-03`, no vuelve a `ui-02`.
 

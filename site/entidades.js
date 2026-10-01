@@ -165,44 +165,72 @@
       { role: 'Terciario', use: 'Acentos de la firma', h: h2, c: c2, ramp: makeRamp(h2, c2) }].map(function (p) { p.name = hueName(p.h, p.c); return p; });
   }
   function pickText(rmp, bgs, from) { var order = from === 'light' ? [300, 200, 400, 100] : [700, 800, 900]; for (var i = 0; i < order.length; i++) { var c = rmp[order[i]]; if (bgs.every(function (b) { return contrast(c, b); }) && bgs.every(function (b) { return contrast(c, b) >= 4.5; })) return c; } return from === 'light' ? rmp[100] : rmp[900]; }
+  // ---------- Three colors do almost everything, as in IBM's buttons: the brand, a very dark tone and the color of action.
+  // The action color is what people already read as "this can be followed": a blue. It stays in the blue zone, at the edge
+  // nearest to the brand's hue and with the brand's chroma, so it belongs to the entity. A blue brand is its own action color.
+  var BLUE = [245, 275];
+  function actionRamp(pal) {
+    var h = pal[0].h, d = function (a, b) { var x = Math.abs(a - b) % 360; return x > 180 ? 360 - x : x; };
+    if (h >= BLUE[0] && h <= BLUE[1]) return pal[0].ramp;
+    return makeRamp(d(h, BLUE[0]) <= d(h, BLUE[1]) ? BLUE[0] : BLUE[1], Math.max(0.12, Math.min(0.2, pal[0].c)));
+  }
+  //   secondary = the brand at its darkest, with white text, so it never breaks the brand's harmony: step 900 on light
+  //               themes, 800 on dark ones (900 would sink into the page). Dark values get lighter on interaction.
+  //   tertiary  = the action color: links, focus, what is selected, and the outline button, which fills on hover.
+  //               On dark themes text takes the first light step at 4.5:1 and marks the first at 3:1.
+  function roles(P0, ACT) {
+    var B = D.base.accent, BLACK = D.brand['brand-black'], G = D.ramps.gray, R = D.ramps;
+    var half = function (a, b) { return mix(a, b, 0.5).toUpperCase(); };
+    var first = function (rmp, order, min, bgs) { return order.filter(function (st) { return bgs.every(function (b) { return contrast(rmp[st], b) >= min; }); })[0]; };
+    var onDark = [BLACK, B.ui01Dark], onLight = [WHITE, UI02_LIGHT, B.ui01Light];
+    var t = first(ACT, [400, 300, 200, 100], 4.5, onDark) || 100, m = first(ACT, [500, 400, 300, 200], 3, onDark) || 200, tl = first(ACT, [600, 700, 800, 900], 4.5, onLight) || 900;
+    var sec = function (rest, hover, active) {
+      // A destructive action on the dark fill reads in the first light red that reaches 4.5:1 on it and on its hover.
+      var red = [200, 100, 50].filter(function (st) { return contrast(R.danger[st], rest) >= 4.5 && contrast(R.danger[st], hover) >= 4.5; })[0] || 50;
+      return { 'interactive-02': rest, 'hover-secondary': hover, 'active-secondary': active, 'button-gray-text': WHITE, 'button-destructive-gray-text': R.danger[red], 'button-destructive-gray-bg-hover': hover,
+        // The white fills (inverse button) keep ink text and gray states; text on the pressed ghost button sits on the dark tone.
+        'button-inverse-text': INK, 'button-inverse-text-active': INK, 'button-inverse-bg-hover': G[100], 'button-inverse-bg-active': G[300], 'button-ghost-text-active': WHITE };
+    };
+    return {
+      action: ACT,
+      dark: Object.assign(sec(P0[800], half(P0[800], P0[700]), P0[700]),
+        { 'link-01': ACT[t], 'interactive-03': ACT[t], 'interactive-04': ACT[m], 'hover-tertiary': ACT[t], 'active-tertiary': ACT[Math.max(100, t - 100)], 'focus': ACT[t] }),
+      light: Object.assign(sec(P0[900], half(P0[900], P0[800]), P0[700]),
+        { 'link-01': ACT[tl], 'interactive-04': ACT[tl], 'hover-tertiary': half(ACT[tl], ACT[Math.min(900, tl + 100)]), 'active-tertiary': ACT[Math.min(900, tl + 200)], 'focus': ACT[tl] }),
+      lightHc: { 'link-01': ACT[900], 'interactive-04': ACT[900], 'focus': ACT[900] }, darkHc: { 'link-01': ACT[100], 'interactive-03': ACT[100], 'focus': WHITE }
+    };
+  }
+
   function accentFor(pal, deep, inherited) {
-    var P0 = pal[0].ramp, P1 = pal[1].ramp, B = D.base.accent;
+    var P0 = pal[0].ramp, B = D.base.accent, RO = roles(P0, actionRamp(pal));
     if (deep) return deepAccent(pal);
     // The pressed state and the brand color follow the accent too. Chart series stay ALMA's: a designed set.
     // The inherited color is the accent as is, when ink text on it passes AA; otherwise the nearest ramp step that does.
     var i = inherited && contrast(INK, inherited) >= 4.5 ? inherited : [300, 200, 400].map(function (s) { return P0[s]; }).filter(function (c) { return contrast(INK, c) >= 4.5; })[0] || P0[200];
     var navLight = pickText(P0, [WHITE, UI02_LIGHT, B.ui01Light], 'dark');
-    var linkDark = pickText(P1, [D.brand['brand-black'], B.ui01Dark], 'light'), linkLight = pickText(P1, [WHITE, UI02_LIGHT, B.ui01Light], 'dark');
     var rgba = function (hex, a) { return 'rgba(' + [1, 3, 5].map(function (k) { return parseInt(hex.substr(k, 2), 16); }).join(',') + ',' + a + ')'; };
     // Controls on light backgrounds need 3:1 (WCAG 1.4.11): the first primary step that reaches it.
     var onLight = [600, 700, 800].map(function (k) { return P0[k]; }).filter(function (c) { return contrast(c, WHITE) >= 3 && contrast(c, UI02_LIGHT) >= 3; })[0] || P0[800];
     return {
-      ramp: pal[0].name,
-      dark: { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': i, 'link-01': linkDark,
-        'field-border': i, 'field-border-hover': P0[400], 'field-label': i, 'button-tinted-text': i, 'button-tinted-bg': rgba(i, 0.16), 'button-tinted-bg-hover': rgba(i, 0.24), 'button-plain-text': i, 'control-on': i },
-      light: { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': navLight, 'link-01': linkLight,
-        'button-tinted-bg': rgba(i, 0.45), 'button-tinted-bg-hover': rgba(i, 0.65), 'button-plain-text': navLight, 'control-on': onLight },
-      lightHc: { 'nav-selected': P0[900], 'link-01': P1[900] }, darkHc: { 'link-01': P1[100] }
+      ramp: pal[0].name, action: RO.action,
+      dark: Object.assign({}, RO.dark, { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': i,
+        'field-border': i, 'field-border-hover': P0[400], 'field-label': i, 'button-tinted-text': i, 'button-tinted-bg': rgba(i, 0.16), 'button-tinted-bg-hover': rgba(i, 0.24), 'button-plain-text': i, 'control-on': i }),
+      light: Object.assign({}, RO.light, { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': navLight,
+        'button-tinted-bg': rgba(i, 0.45), 'button-tinted-bg-hover': rgba(i, 0.65), 'button-plain-text': navLight, 'control-on': onLight }),
+      lightHc: Object.assign({}, RO.lightHc, { 'nav-selected': P0[900] }), darkHc: RO.darkHc
     };
   }
 
-  // Deep accent (defined Throat): a saturated primary with white text, and its light steps for text on dark surfaces.
-  // Deep accent (defined Throat): a saturated primary with white text. Its roles follow the logic IBM uses in its
-  // buttons, read from three colors: the brand color, a very dark neutral and white.
-  //   primary   = the brand step that carries white text, the same in every theme; hover half a step darker, pressed two steps.
-  //   secondary = the dark neutral: step 800 on light themes, 600 on dark ones (it must stand off the page).
-  //   tertiary  = an outline: the brand color on light themes, white on dark ones; it fills on hover.
-  //   text, links and selection on dark themes use lighter steps of the brand ramp (400 for text, 500 for 3:1 marks).
+  // Deep accent (defined Throat): a saturated primary with white text, the same step in every theme; hover is half a step
+  // darker and pressed two steps, as in IBM. On dark themes its text and marks use lighter steps of the same ramp.
   function deepAccent(pal) {
-    var P0 = pal[0].ramp, B = D.base.accent, BLACK = D.brand['brand-black'], G = D.ramps.gray, R = D.ramps;
+    var P0 = pal[0].ramp, B = D.base.accent, BLACK = D.brand['brand-black'], R = D.ramps, RO = roles(P0, actionRamp(pal));
     var half = function (a, b) { return mix(a, b, 0.5).toUpperCase(); };
     var steps = [600, 500, 700, 800], k = steps.filter(function (s) { return contrast(WHITE, P0[s]) >= 4.5; })[0] || 800, i = P0[k], hv = half(i, P0[Math.min(900, k + 100)]), pr = P0[Math.min(900, k + 200)];
     var first = function (order, min, bgs) { return order.map(function (s) { return P0[s]; }).filter(function (c) { return bgs.every(function (b) { return contrast(c, b) >= min; }); })[0]; };
     var navDark = first([400, 300, 200, 100], 4.5, [BLACK, B.ui01Dark]) || P0[100];
     var ctlDark = first([500, 400, 300, 200], 3, [BLACK, B.ui01Dark]) || P0[200];
     var navLight = contrast(i, WHITE) >= 4.5 && contrast(i, UI02_LIGHT) >= 4.5 && contrast(i, B.ui01Light) >= 4.5 ? i : pickText(P0, [WHITE, UI02_LIGHT, B.ui01Light], 'dark');
-    // A deep accent already reads as text, so links use the primary (as IBM does); luminous accents keep links on the secondary.
-    var linkDark = navDark, linkLight = navLight;
     var rgba = function (hex, a) { return 'rgba(' + [1, 3, 5].map(function (n) { return parseInt(hex.substr(n, 2), 16); }).join(',') + ',' + a + ')'; };
     // Chart series: IBM's categorical sequence (neighbors chosen to differ most), on ALMA's ramps. Each series takes the
     // nearest step that reaches 3:1 on the containers of its theme.
@@ -220,21 +248,14 @@
     // One-hue series: the brand ramp. The largest value is the darkest step on light themes and the lightest on dark ones.
     [200, 400, 600, 700, 900].forEach(function (st, n) { vizLight['viz-seq-' + (n + 1)] = P0[st]; });
     [800, 700, 500, 300, 100].forEach(function (st, n) { vizDark['viz-seq-' + (n + 1)] = P0[st]; });
-    // A destructive action on the dark neutral reads in a light red; ALMA's dark red was made for a light fill.
-    // The white fills (inverse button, tertiary on hover) keep ink text; everything on the brand or the dark neutral is white.
-    var shared = { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'text-on-interactive': WHITE,
-      'field-label-float-text': INK, 'product-card-text': INK, 'button-inverse-text': INK, 'button-inverse-text-active': INK, 'button-inverse-bg-hover': G[100], 'button-inverse-bg-active': G[300], 'button-ghost-text-active': WHITE };
+    var shared = { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'text-on-interactive': WHITE, 'field-label-float-text': INK, 'product-card-text': INK };
     return {
-      ramp: pal[0].name, deep: true,
-      dark: Object.assign({}, shared, vizDark, { 'nav-selected': navDark, 'link-01': linkDark, 'field-border-active': navDark,
-        'interactive-02': G[600], 'hover-secondary': half(G[600], G[700]), 'active-secondary': G[800], 'button-destructive-gray-text': R.danger[50], 'button-destructive-gray-bg-hover': half(G[600], G[700]),
-        'interactive-04': ctlDark, 'hover-tertiary': G[100], 'active-tertiary': G[300], 'focus': WHITE,
+      ramp: pal[0].name, deep: true, action: RO.action,
+      dark: Object.assign({}, RO.dark, shared, vizDark, { 'nav-selected': navDark, 'field-border-active': navDark,
         'field-border': ctlDark, 'field-border-hover': navDark, 'field-label': navDark, 'button-tinted-text': navDark, 'button-tinted-bg': rgba(navDark, 0.16), 'button-tinted-bg-hover': rgba(navDark, 0.24), 'button-plain-text': navDark, 'control-on': ctlDark }),
-      light: Object.assign({}, shared, vizLight, { 'nav-selected': navLight, 'link-01': linkLight,
-        'interactive-02': G[800], 'hover-secondary': half(G[800], G[700]), 'active-secondary': G[600], 'button-destructive-gray-text': R.danger[200], 'button-destructive-gray-bg-hover': half(G[800], G[700]),
-        'interactive-04': i, 'hover-tertiary': hv, 'active-tertiary': pr, 'focus': i,
+      light: Object.assign({}, RO.light, shared, vizLight, { 'nav-selected': navLight,
         'button-tinted-bg': rgba(i, 0.12), 'button-tinted-bg-hover': rgba(i, 0.2), 'button-plain-text': navLight, 'control-on': i }),
-      lightHc: { 'nav-selected': P0[900], 'link-01': P0[900], 'interactive-04': P0[900], 'focus': P0[900] }, darkHc: { 'link-01': P0[100] }
+      lightHc: Object.assign({}, RO.lightHc, { 'nav-selected': P0[900] }), darkHc: RO.darkHc
     };
   }
 
@@ -553,7 +574,7 @@
     var e = ent[0], P = useMemo(function () { return params(e); }, [e]);
     useEffect(function () { paint(th[0]); }, [th[0]]);
     // The whole tool takes the entity's palette, not only the preview.
-    useEffect(function () { var a = P.accent[th[0]]; Object.keys(a).forEach(function (k) { root.style.setProperty('--' + k, a[k]); }); }, [P, th[0]]);
+    useEffect(function () { var a = P.accent[th[0]], keys = Object.keys(a); keys.forEach(function (k) { root.style.setProperty('--' + k, a[k]); }); return function () { keys.forEach(function (k) { root.style.removeProperty('--' + k); }); }; }, [P, th[0]]);
     useEffect(function () { var mo = new MutationObserver(function () { var v = root.getAttribute('data-theme'); if ((v === 'light' || v === 'dark') && v !== th[0]) th[1](v); }); mo.observe(root, { attributes: true, attributeFilter: ['data-theme'] }); return function () { mo.disconnect(); }; }, [th[0]]);
     function save() { var list = saved[0].filter(function (x) { return x.id !== e.id; }).concat([e]); saved[1](list); storeSaved(list); }
     function remove(id) { var list = saved[0].filter(function (x) { return x.id !== id; }); saved[1](list); storeSaved(list); }
@@ -599,7 +620,7 @@
           h(A.Tabs, { label: 'Vistas de la entidad', tabs: tabs, value: tab[0], onChange: tab[1] }))));
   }
 
-  window.__ENGINE = { params: params, palette: palette, layout: layout, contrast: contrast, derive: derive, exportJson: exportJson, scopeStyle: scopeStyle, baseStyle: baseStyle, Signature: Signature, Palette: Palette, Preview: Preview, BodyGraph: BodyGraph, withCarta: withCarta, TYPES: TYPES, AUTH: AUTH, CENTERS: CENTERS, DEFS: DEFS, LINES: LINES, SHAPE: SHAPE, hueName: hueName };
+  window.__ENGINE = { fromHex: fromHex, params: params, palette: palette, layout: layout, contrast: contrast, derive: derive, exportJson: exportJson, scopeStyle: scopeStyle, baseStyle: baseStyle, Signature: Signature, Palette: Palette, Preview: Preview, BodyGraph: BodyGraph, withCarta: withCarta, TYPES: TYPES, AUTH: AUTH, CENTERS: CENTERS, DEFS: DEFS, LINES: LINES, SHAPE: SHAPE, hueName: hueName };
   if (window.__ENGINE_ONLY) return;
   paint(hostTheme());
   ReactDOM.createRoot(document.getElementById('root')).render(h(App));

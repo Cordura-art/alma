@@ -55,33 +55,46 @@ test('el acento de la Entidad IBM pasa el contraste en los cuatro temas', async 
   }
 });
 
-test('los botones de la Entidad IBM siguen la lógica de IBM: marca, neutro oscuro y blanco', async () => {
+test('tres colores en la Entidad IBM: marca, marca muy oscura y el color de acción', async () => {
   const S = await sistema('ibm'), tok = tokens();
   aplicar(tok, S);
   const v = (n, th) => valor(tok, n, th);
-  // Primary: the same brand step in every theme; secondary: the dark neutral, lighter on dark themes; tertiary: brand or white.
+  // Primary: the same brand step in every theme. Secondary: the brand at its darkest. Tertiary: the action color, here the brand itself.
   for (const th of THEMES) assert.equal(v('button-filled-bg', th), '#1D62FF', th);
-  assert.equal(v('button-gray-bg', 'light'), v('gray-800'));
-  assert.equal(v('button-gray-bg', 'dark'), v('gray-600'));
+  assert.equal(v('button-gray-bg', 'light'), v('primary-900', 'light'));
+  assert.equal(v('button-gray-bg', 'dark'), v('primary-800'));
   assert.equal(v('button-tertiary-border', 'light'), '#1D62FF');
-  assert.equal(v('button-tertiary-border', 'dark'), '#FFFFFF');
+  assert.equal(v('button-tertiary-border', 'dark'), v('link-01'), 'en oscuro, el contorno es el color de los enlaces');
   assert.equal(v('focus', 'light'), '#1D62FF');
-  assert.equal(v('focus', 'dark'), '#FFFFFF');
-  for (const th of THEMES) {
-    for (const [texto, fondo] of [['button-gray-text', 'button-gray-bg'], ['button-gray-text', 'button-gray-bg-hover'], ['button-gray-text-active', 'button-gray-bg-active'],
-      ['button-destructive-gray-text', 'button-gray-bg'], ['button-destructive-gray-text', 'button-destructive-gray-bg-hover'], ['button-destructive-text-pressed', 'button-gray-bg-active'],
-      ['button-tertiary-text', 'ui-02'], ['button-tertiary-text-hover', 'button-tertiary-bg-hover'], ['button-tertiary-text-active', 'button-tertiary-bg-active'],
-      ['button-inverse-text', 'button-inverse-bg'], ['button-inverse-text', 'button-inverse-bg-hover'], ['button-inverse-text-active', 'button-inverse-bg-active'],
-      ['button-ghost-text', 'button-ghost-bg-hover'], ['button-ghost-text-active', 'button-ghost-bg-active']]) {
-      assert.ok(contraste(v(texto, th), v(fondo, th)) >= 4.5, `${th}: ${texto} sobre ${fondo} (${contraste(v(texto, th), v(fondo, th)).toFixed(1)})`);
-    }
-    for (const fondo of ['ui-02', 'ui-01']) {
-      assert.ok(contraste(v('focus', th), v(fondo, th)) >= 3, `${th}: foco sobre ${fondo}`);
-      assert.ok(contraste(v('button-gray-bg', th), v(fondo, th)) >= 3, `${th}: botón secundario sobre ${fondo}`);
-    }
-    for (let n = 1; n <= 8; n++) assert.ok(contraste(v(`viz-cat-0${n}`, th), v('ui-01', th)) >= 3, `${th}: viz-cat-0${n} sobre ui-01`);
-  }
+  assert.deepEqual(S.P.accent.action, S.P.palette[0].ramp, 'una marca azul es su propio color de acción');
 });
+
+test('el color de acción de una marca que no es azul queda en la zona del azul, con su saturación', async () => {
+  const S = await sistema('cordura'), [, c, h] = S.En.fromHex(S.P.accent.action[500]);
+  assert.ok(h >= 240 && h <= 280, `tono ${h.toFixed(0)}`);
+  assert.ok(c > 0.1, `saturación ${c.toFixed(2)}`);
+  assert.equal(S.P.accent.dark['interactive-01'], '#E1F564', 'la marca no cambia');
+  assert.equal(S.P.accent.dark['link-01'], S.P.accent.action[400]);
+});
+
+for (const id of readdirSync('entidades/lenguajes').map((f) => f.replace(/\.json$/, ''))) {
+  test(`${id}: el secundario, el terciario, el foco y los gráficos pasan el contraste en los cuatro temas`, async () => {
+    const S = await sistema(id), tok = tokens();
+    aplicar(tok, S);
+    const v = (n, th) => valor(tok, n, th);
+    for (const th of THEMES) {
+      for (const [texto, fondo] of [['button-gray-text', 'button-gray-bg'], ['button-gray-text', 'button-gray-bg-hover'], ['button-gray-text-active', 'button-gray-bg-active'],
+        ['button-destructive-gray-text', 'button-gray-bg'], ['button-destructive-gray-text', 'button-destructive-gray-bg-hover'], ['button-destructive-text-pressed', 'button-gray-bg-active'],
+        ['button-tertiary-text', 'ui-02'], ['button-tertiary-text', 'ui-01'], ['button-tertiary-text-hover', 'button-tertiary-bg-hover'], ['button-tertiary-text-active', 'button-tertiary-bg-active'],
+        ['button-inverse-text', 'button-inverse-bg'], ['button-inverse-text', 'button-inverse-bg-hover'], ['button-inverse-text-active', 'button-inverse-bg-active'],
+        ['button-ghost-text', 'button-ghost-bg-hover'], ['button-ghost-text-active', 'button-ghost-bg-active'], ['link-01', 'ui-02'], ['link-01', 'ui-01']]) {
+        assert.ok(contraste(v(texto, th), v(fondo, th)) >= 4.5, `${th}: ${texto} sobre ${fondo} (${contraste(v(texto, th), v(fondo, th)).toFixed(1)})`);
+      }
+      for (const fondo of ['ui-02', 'ui-01']) assert.ok(contraste(v('focus', th), v(fondo, th)) >= 3, `${th}: foco sobre ${fondo}`);
+      for (let n = 1; n <= 8; n++) assert.ok(contraste(v(`viz-cat-0${n}`, th), v('ui-01', th)) >= 3, `${th}: viz-cat-0${n} sobre ui-01`);
+    }
+  });
+}
 
 for (const id of readdirSync('entidades/documentacion')) {
   test(`${id}: el sitio se construye, con cada reemplazo vigente y sin frases del aspecto de Cordura`, () => {

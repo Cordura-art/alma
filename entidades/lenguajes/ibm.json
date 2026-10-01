@@ -881,21 +881,21 @@
     "e": "Botón secundario",
     "k": "secundario",
     "ref": "Gray 80 en claro · Gray 60 en oscuro",
-    "ok": "Coincide",
+    "ok": "Distinto, a propósito: el azul en su paso más oscuro",
     "real": "—"
    },
    {
     "e": "Botón terciario (contorno)",
     "k": "terciario",
     "ref": "Blue 60 en claro · blanco en oscuro",
-    "ok": "Coincide",
+    "ok": "Igual en claro; en oscuro, el color de los enlaces",
     "real": "—"
    },
    {
     "e": "Foco",
     "k": "foco",
     "ref": "Blue 60 en claro · blanco en oscuro",
-    "ok": "Coincide",
+    "ok": "Igual en claro; en oscuro, el color de los enlaces",
     "real": "—"
    },
    {
@@ -956,8 +956,8 @@
     "Con un acento profundo, los enlaces usan el primario."
    ],
    [
-    "Tres colores.",
-    "Los botones usan la marca, un neutro muy oscuro y el blanco: el secundario es gris oscuro con texto blanco, y el terciario es un contorno azul en claro y blanco en oscuro."
+    "Tres papeles.",
+    "La marca, la marca en su paso más oscuro (botón secundario, con texto blanco) y el color de acción (enlaces, foco, lo elegido y el contorno del terciario). El color de acción es siempre un azul, cercano al tono de la marca; aquí es la marca misma."
    ],
    [
     "Estados.",

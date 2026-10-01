@@ -37,7 +37,7 @@ Cinco rasgos nos distinguen de ALMA. Todo lo demás es igual.
 ## Color
 
 - La página va en `ui-02` y los contenedores en `ui-01`. Los neutros son los de ALMA.
-- Tres colores hacen casi todo: el azul de marca, un gris muy oscuro y el blanco. La acción principal es `interactive-01` (azul), con `text-on-interactive` (blanco) encima. La secundaria es `interactive-02`, el gris oscuro.
+- Tres papeles hacen casi todo, y los tres salen del mismo azul. La acción principal es `interactive-01`, el azul pleno, con `text-on-interactive` (blanco) encima. La secundaria es `interactive-02`, el mismo azul en su paso más oscuro. Los enlaces, el foco y lo elegido usan el color de acción, que aquí también es nuestro azul.
 - En tema oscuro, el texto, los enlaces y la navegación en azul usan un paso claro de la rampa, `{token:link-01}`: el azul pleno no llega a 4,5:1 sobre el fondo oscuro. En tema claro usan el azul pleno, `{token:link-01:light}`.
 - Los estados del sistema son `support-01` a `support-04`, siempre con una palabra o un ícono.
 - Pide cada color por el nombre de su token, nunca por su valor.

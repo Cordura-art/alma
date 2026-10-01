@@ -24,10 +24,10 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 ## Un acento
 
 - `interactive-01` (azul) es la acción principal de la vista. **Una por pantalla.** Si una pantalla se siente azul, tiene demasiado azul.
-- `interactive-02` (gris oscuro) es la acción secundaria.
+- `interactive-02` (azul muy oscuro) es la acción secundaria.
 - El texto sobre ambas es siempre `text-on-interactive`, blanco.
 - En tema oscuro, el texto y los controles en azul usan pasos claros de la rampa (`primary-400` y `primary-500`). En tema claro usan el azul pleno.
-- El foco es azul en los temas claros y blanco en los oscuros.
+- Los enlaces, el foco y el contorno del botón terciario usan el color de acción: `link-01`.
 
 ## Texto
 
