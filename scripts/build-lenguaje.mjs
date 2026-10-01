@@ -1,0 +1,19 @@
+// Builds one design language page per entity (build/lenguaje-<id>.html) from the template (site/lenguaje.js) and the
+// entity's words (entidades/lenguajes/<id>.json), on top of Entidades ALMA in engine-only mode.
+// Usage: node scripts/build-lenguaje.mjs [id …]   (run `node scripts/build-entidades.mjs` first; no ids = every entity)
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+
+const read = (p) => readFileSync(p, 'utf8');
+const DIR = 'entidades/lenguajes';
+const ids = process.argv.slice(2).length ? process.argv.slice(2) : readdirSync(DIR).filter((f) => f.endsWith('.json')).map((f) => f.replace(/\.json$/, ''));
+const esc = (s) => s.replace(/<\/script/gi, '<\\/script');
+const base = read('build/entidades-alma.html');
+for (const id of ids) {
+  const L = JSON.parse(read(`${DIR}/${id}.json`));
+  let html = base.replace('<title>Entidades ALMA</title>', `<title>Entidad ${L.nombre}</title>`).replace('</style>', read('site/lenguaje.css') + '</style>');
+  // Engine only: the Entidades app exposes window.__ENGINE and returns before rendering.
+  html = html.replace('<script>window.__DATA', '<script>window.__ENGINE_ONLY = true;</script>\n<script>window.__DATA');
+  html += `<script>window.__LENGUAJE = ${JSON.stringify(L)};</script>\n<script>${esc(read('site/lenguaje.js'))}</script>\n`;
+  writeFileSync(`build/lenguaje-${id}.html`, html);
+  console.log(`build/lenguaje-${id}.html · ${(html.length / 1024) | 0} KB`);
+}

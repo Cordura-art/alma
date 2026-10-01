@@ -1,0 +1,792 @@
+{
+ "id": "cordura",
+ "nombre": "Cordura",
+ "nacimiento": {
+  "fecha": "1987-03-31",
+  "hora": "10:45",
+  "zona": "America/Santiago"
+ },
+ "fechaLarga": "31 de marzo de 1987, 10:45, Providencia, Santiago de Chile",
+ "colorHeredado": "#E1F564",
+ "aviso": "Lenguaje de diseño de la entidad Cordura, escrito con ALMA desde su carta. Es un primer borrador: los textos salen de la carta y de los arquetipos de sus puertas, y esperan revisión.",
+ "muestra": {
+  "eyebrow": "Propuestas",
+  "titulo": "Propuesta de identidad, versión 2",
+  "texto": "Revísala con calma antes de aprobarla.",
+  "primaria": "Aprobar propuesta",
+  "secundaria": "Pedir cambios",
+  "parrafo": "Revisa la propuesta con calma antes de decidir. Puedes pedir cambios, comentarla con tu equipo o volver a ella mañana: nada se aprueba sin ti.",
+  "enfasis": [
+   "Tu propuesta está lista para ",
+   "revisión",
+   " desde hoy."
+  ]
+ },
+ "inicio": {
+  "titulo": "Sentir → Esperar → Decidir",
+  "lede": "Este es el ethos detrás de nuestra filosofía y de cada uno de nuestros principios. No decidimos en caliente: dejamos que la emoción pase, miramos hasta la raíz y recién entonces actuamos. A eso le llamamos cordura."
+ },
+ "puntoDeVista": {
+  "lede": "Lo que creemos define lo que hacemos. Esta es la base de todo lo que diseñamos, desde un botón hasta una marca entera.",
+  "bloques": [
+   {
+    "p": "Creemos que las buenas decisiones no son rápidas ni frías: son maduras. Nacen de sentir con intensidad, de darse el tiempo para que esa intensidad se asiente, y de ir a la raíz antes de actuar."
+   },
+   {
+    "p": "Por eso no diseñamos para apurar a nadie. Diseñamos para que cada persona tenga el control de su decisión, y la información para tomarla bien."
+   },
+   {
+    "s": "La cordura es\nemoción con tiempo."
+   },
+   {
+    "p": "Vivimos rodeados de urgencias inventadas: contadores, ofertas que vencen, notificaciones que exigen respuesta ya. Mucho diseño de hoy está hecho para que decidamos antes de pensar."
+   },
+   {
+    "p": "Nosotros creemos lo contrario. Una emoción es información valiosa, pero no es una orden. Nuestro trabajo es acompañarla, no explotarla: dar espacio, mostrar lo que importa y devolver el control a quien decide."
+   },
+   {
+    "s": "Provocar = Despertar"
+   },
+   {
+    "p": "Eso no nos vuelve tibios. Tenemos un pulso emocional que no escondemos, y a veces provocamos: hacemos la pregunta incómoda, mostramos lo que nadie quería mirar. Provocamos para despertar, nunca para presionar."
+   },
+   {
+    "p": "Y recordamos. Lo que funcionó lo contamos, con nombres y con cifras; lo que no, también. La memoria es nuestra forma más honesta de convencer."
+   },
+   {
+    "s": "Raíz → Rumbo"
+   },
+   {
+    "p": "Cuando algo no anda, no lo maquillamos: bajamos hasta la causa. Desde la raíz, el rumbo se ve claro, y la decisión vuelve a ser de quien tiene que tomarla."
+   },
+   {
+    "p": "Todo lo que hacemos es esto. Todo lo que diseñamos también."
+   },
+   {
+    "q": "Toda experiencia con nosotros debería dejarte con más control del que tenías."
+   }
+  ],
+  "origen": "La cruz {cruz}: tener el control (21), ir a la raíz (48), luchar por lo que vale (38) y provocar (39). Autoridad emocional: la claridad llega con el tiempo."
+ },
+ "principios": {
+  "lede": "Nuestros principios son criterios para crear y para evaluar. Los usa quien diseña, quien escribe y quien aprueba: cualquier persona que decida algo en nuestro nombre.",
+  "items": [
+   {
+    "t": "El control es tuyo",
+    "p": "Nuestros productos ofrecen; las personas deciden. Cada decisión importante se puede tomar a su ritmo, revisar y deshacer. No elegimos por nadie, no escondemos opciones y no marcamos casillas por adelantado. Dar el control es la forma más profunda de respeto que conocemos.",
+    "q": [
+     "¿La persona puede decidir a su ritmo, sin presión?",
+     "¿Todas las opciones están a la vista, también la de decir que no?",
+     "¿Hay algo marcado o elegido por adelantado?",
+     "¿Se puede revisar o deshacer la decisión después?"
+    ]
+   },
+   {
+    "t": "Emoción con sentido",
+    "p": "No le tememos a la emoción: es nuestro motor. Una imagen que conmueve o una pregunta que incomoda pueden despertar algo valioso. Pero toda emoción que provocamos tiene que tener un porqué, y nunca la usamos para empujar una decisión que la persona no tomaría con calma.",
+    "q": [
+     "¿Qué queremos que la persona sienta, y para qué?",
+     "¿Esta emoción ayuda a entender o solo a apurar?",
+     "¿La persona tomaría la misma decisión mañana, más tranquila?",
+     "¿Estamos despertando o presionando?"
+    ]
+   },
+   {
+    "t": "Memoria que convence",
+    "p": "Convencemos con lo que ya pasó, no con promesas. Mostramos casos reales, resultados medidos y lo que aprendimos en el camino, también cuando algo no salió bien. La memoria bien contada vale más que cualquier argumento de venta.",
+    "q": [
+     "¿Este argumento se apoya en algo que ya ocurrió?",
+     "¿Mostramos también lo que no funcionó?",
+     "¿Las cifras tienen fuente y fecha?",
+     "¿Recordamos lo que esta persona ya nos dijo o ya hizo?"
+    ]
+   },
+   {
+    "t": "Hasta la raíz",
+    "p": "No nos quedamos en la superficie. Cuando algo falla, buscamos la causa; cuando algo funciona, entendemos por qué. En la interfaz, eso significa explicar el origen de cada problema y ofrecer respuestas con fondo, aunque tomen un paso más.",
+    "q": [
+     "¿Explicamos la causa o solo el síntoma?",
+     "¿La persona puede profundizar si quiere?",
+     "¿Resolvimos el problema o lo tapamos?",
+     "¿Entendemos por qué funciona lo que funciona?"
+    ]
+   }
+  ],
+  "cierre": "Una prueba final: si la persona vuelve mañana, más tranquila, ¿tomaría la misma decisión?"
+ },
+ "prisma": {
+  "lede": "Nuestras seis caras, ordenadas en el prisma de identidad: lo que mostramos y lo que llevamos dentro, lo que emitimos y lo que provocamos en quien nos recibe.",
+  "caras": [
+   {
+    "k": "Físico",
+    "q": "Lo que se ve",
+    "t": "Un lima eléctrico sobre negro tinta, esquinas suaves de 16 px, letra liviana de ancho natural y una firma en dos grupos que no se tocan.",
+    "o": "Color heredado · línea 4 · definición partida"
+   },
+   {
+    "k": "Personalidad",
+    "q": "Cómo somos",
+    "t": "Firmes, tenaces y profundos. Sentimos con intensidad, defendemos lo que vale y no nos quedamos en la superficie.",
+    "o": "Puertas 21, 38 y 48"
+   },
+   {
+    "k": "Relación",
+    "q": "Cómo nos vinculamos",
+    "t": "Guiamos por invitación, y las invitaciones nos llegan por quienes ya nos conocen. Cuidamos cada vínculo como una red que se construye con tiempo.",
+    "o": "Proyector · línea 4"
+   },
+   {
+    "k": "Cultura",
+    "q": "Lo que valoramos",
+    "t": "La autonomía de cada persona, la memoria como forma de verdad y la emoción como información, nunca como presión.",
+    "o": "Venus en la 55 · Saturno en la 26"
+   },
+   {
+    "k": "Reflejo",
+    "q": "A quién le hablamos",
+    "t": "A alguien que siente mucho y quiere decidir bien. No necesita que lo apuren: necesita espacio, contexto y la última palabra.",
+    "o": "Autoridad emocional"
+   },
+   {
+    "k": "Autoimagen",
+    "q": "Cómo se siente quien nos usa",
+    "t": "Dueño de su decisión. Sale con los pies en la tierra, sabiendo por qué eligió lo que eligió.",
+    "o": "Sol en la 21 · Tierra en la 48"
+   }
+  ],
+  "lectura": "La columna izquierda es lo que cualquiera puede ver: nuestra forma, cómo nos vinculamos y a quién le hablamos. La derecha es lo que llevamos dentro: el carácter, los valores y lo que dejamos en las personas. Cuando las dos columnas dicen lo mismo, la marca es creíble. Cuando no, algo en el diseño está mintiendo."
+ },
+ "voz": {
+  "lede": "Nuestra voz es una sola, hablemos donde hablemos. Es firme sin ser dura, tenaz sin ser terca y profunda sin ser oscura: la voz de alguien que pensó antes de hablar.",
+  "atributos": [
+   [
+    "Firmes",
+    "no rígidos",
+    "Decimos las cosas con claridad y sin rodeos, pero dejamos espacio para que la otra persona decida.",
+    "Puerta 21"
+   ],
+   [
+    "Tenaces",
+    "no tercos",
+    "Defendemos lo que vale y no soltamos un problema hasta resolverlo. Cambiamos de opinión cuando hay razones, no cuando hay presión.",
+    "Puerta 38"
+   ],
+   [
+    "Profundos",
+    "no oscuros",
+    "Vamos a la causa de las cosas y lo contamos en palabras simples. La profundidad está en lo que decimos, no en lo difícil que suena.",
+    "Puerta 48"
+   ]
+  ],
+  "como": [
+   {
+    "t": "Sin apuro",
+    "p": "Nos tomamos el tiempo de explicar y le damos tiempo a la persona para responder. Nunca escribimos para que alguien decida en caliente."
+   },
+   {
+    "t": "Fundados",
+    "p": "Damos datos y contexto antes de opinar. Lo que afirmamos se puede revisar."
+   },
+   {
+    "t": "Con memoria",
+    "p": "Recordamos lo que la persona ya hizo y lo que ya nos dijo. Hablamos desde la experiencia compartida, no desde cero."
+   },
+   {
+    "t": "Por invitación",
+    "p": "Sugerimos y orientamos; no ordenamos. La última palabra siempre es de la persona."
+   }
+  ],
+  "comoOrigen": "Autoridad emocional · línea consciente 1 · canal 26-44 · Proyector. La Garganta abierta adapta el tono a quien tenemos enfrente.",
+  "quien": "Hablamos en plural, como el equipo que está detrás de cada pantalla, y tratamos de tú. Nunca hablamos de nosotros en tercera persona, y nunca culpamos a la persona por un error del sistema.",
+  "ex": {
+   "si": {
+    "title": "No pudimos guardar la propuesta",
+    "message": "Se perdió la conexión. Vuelve a intentarlo cuando quieras: tus cambios siguen aquí.",
+    "cap": "Qué pasó, qué hacer y sin apuro."
+   },
+   "no": {
+    "title": "¡Error! Inténtalo de nuevo ahora.",
+    "message": "Si sales de esta página, perderás todo.",
+    "cap": "Nunca uses el miedo ni la urgencia para que la persona actúe."
+   }
+  }
+ },
+ "tono": {
+  "lede": "La voz no cambia; el tono sí. Leemos el momento emocional de la persona y nos ajustamos: más calma cuando hay tensión, más chispa cuando hay espacio.",
+  "filas": [
+   [
+    "Bienvenida",
+    "Sereno",
+    "Lo mínimo",
+    "Bienvenido. Explora con calma: nada se guarda hasta que tú lo decidas."
+   ],
+   [
+    "Recomendación",
+    "Fundado",
+    "El porqué y la historia",
+    "Te sugerimos esperar el cierre del mes: así comparas con datos completos, como la última vez."
+   ],
+   [
+    "Error",
+    "Calmo",
+    "Qué pasó y qué hacer",
+    "{error}"
+   ],
+   [
+    "Acción irreversible",
+    "Firme",
+    "Todo, sin presión",
+    "Se eliminará la propuesta y sus 8 comentarios. No se podrá recuperar. Tómate el tiempo que necesites."
+   ],
+   [
+    "Éxito",
+    "Cálido",
+    "Una línea",
+    "Listo. Tu equipo ya tiene la propuesta."
+   ],
+   [
+    "Desacuerdo",
+    "Tenaz",
+    "La razón de fondo",
+    "Creemos que esta versión no resuelve el problema de raíz. Te mostramos por qué; tú decides."
+   ],
+   [
+    "Anuncio",
+    "Provocador",
+    "La pregunta y la respuesta",
+    "¿Y si tu equipo decidiera con la mitad de las reuniones? Conoce la nueva vista de propuestas."
+   ]
+  ],
+  "cuanto": "Mientras más está en juego, más espacio damos. En un éxito basta una línea; en un error decimos qué pasó y que no hay apuro; antes de algo irreversible decimos exactamente qué se pierde y dejamos que la persona lo piense. Nunca usamos el tono para presionar.",
+  "ex": {
+   "si": {
+    "eyebrow": "Acción irreversible",
+    "title": "Eliminar la propuesta",
+    "body": "Se eliminarán la propuesta y sus 8 comentarios. No se podrán recuperar.",
+    "primary": "Eliminar propuesta",
+    "secondary": "Pensarlo",
+    "cap": "Firme y exacto: qué se pierde, y una salida para pensarlo."
+   },
+   "no": {
+    "eyebrow": "¡Atención!",
+    "title": "¿Seguro? Esta oferta vence en 10 minutos",
+    "primary": "Sí, ahora",
+    "secondary": "No",
+    "cap": "Evita la urgencia inventada y las confirmaciones vagas."
+   }
+  },
+  "nunca": [
+   "Nunca inventes urgencia: contadores, «últimas horas», «solo quedan 2».",
+   "Nunca uses el miedo para que alguien actúe: «perderás todo».",
+   "Nunca culpes a la persona por un error del sistema.",
+   "Evita exclamaciones y emojis en momentos de tensión."
+  ]
+ },
+ "escritura": {
+  "lede": "Reglas para que cualquier persona escriba como nosotros. Escribimos para que la persona decida mejor, no más rápido.",
+  "reglas": [
+   [
+    "Botones con verbo y objeto",
+    "Aprobar propuesta · Pedir cambios",
+    "La acción se entiende sin leer nada más."
+   ],
+   [
+    "Siempre la opción de no",
+    "Ahora no · Pensarlo",
+    "El control es de la persona."
+   ],
+   [
+    "Sin urgencias inventadas",
+    "Vence el 15 de octubre",
+    "Una fecha real informa; un contador presiona."
+   ],
+   [
+    "La causa, no el síntoma",
+    "No se guardó porque se perdió la conexión",
+    "Vamos hasta la raíz."
+   ],
+   [
+    "Recordar lo que ya pasó",
+    "Como en tu última propuesta…",
+    "La memoria convence más que la promesa."
+   ],
+   [
+    "Cifras con fuente y fecha",
+    "Según tus últimas 6 propuestas",
+    "Lo que afirmamos se puede revisar."
+   ],
+   [
+    "Sugerir, no ordenar",
+    "Te sugerimos… · Cuando quieras",
+    "Guiamos por invitación."
+   ],
+   [
+    "Tuteo, sin exclamaciones",
+    "Vuelve a intentarlo cuando quieras.",
+    "La calma también se escribe."
+   ],
+   [
+    "Mayúscula solo al inicio",
+    "Propuesta de identidad · Pedir cambios",
+    "Leemos más rápido en tipo oración."
+   ]
+  ],
+  "ex": {
+   "si": {
+    "title": "2 propuestas esperan tu decisión",
+    "body": "Vencen el 15 de octubre. Puedes revisarlas cuando quieras.",
+    "primary": "Revisar 2 propuestas",
+    "cap": "Cifra exacta, fecha real y el control en manos de la persona."
+   },
+   "no": {
+    "title": "¡Apúrate! Tus propuestas están por vencer",
+    "body": "Decide ahora o perderás tu lugar.",
+    "primary": "¡Decidir ya!",
+    "cap": "Evita la presión, el miedo y los botones que gritan."
+   }
+  },
+  "palabras": [
+   [
+    "Cuando quieras, a tu ritmo",
+    "Ahora mismo, ya, rápido"
+   ],
+   [
+    "Te sugerimos, podrías",
+    "Debes, tienes que"
+   ],
+   [
+    "Porque, la causa es",
+    "Algo salió mal"
+   ],
+   [
+    "Como la última vez, según",
+    "Garantizado, sin duda"
+   ]
+  ],
+  "formatos": [
+   [
+    "Fechas.",
+    "«31 mar 1987» en tablas y etiquetas; «31 de marzo de 1987» en texto corrido."
+   ],
+   [
+    "Horas.",
+    "Formato de 24 horas: 10:45, 18:30."
+   ],
+   [
+    "Plazos.",
+    "Siempre con fecha real, nunca con cuenta regresiva."
+   ],
+   [
+    "Unidades.",
+    "Con espacio: 18 %, 16 px, 12 GB."
+   ],
+   [
+    "Números grandes.",
+    "Con punto de miles: 1.987 propuestas."
+   ]
+  ]
+ },
+ "firma": {
+  "lede": "Nuestra firma es un retrato de cómo funcionamos: cuatro filas de barras, una por cada centro que nos define, en dos grupos que no se tocan. Acompaña al nombre; no lo reemplaza.",
+  "construccion": "La firma usa la gramática del símbolo de Cordura: barras escalonadas y destellos de cuatro puntas. Tenemos dos circuitos: uno une la voluntad con el instinto, el otro une la presión de la raíz con la emoción. Por eso la firma se arma en dos grupos, y el espacio entre ellos es parte del dibujo.",
+  "rasgos": [
+   [
+    "Cuatro centros definidos",
+    "Cuatro filas de barras."
+   ],
+   [
+    "Definición partida",
+    "Dos grupos separados por aire."
+   ],
+   [
+    "Abrir puertas (línea 4)",
+    "Barras de esquinas suaves."
+   ],
+   [
+    "Guiar sin apuro",
+    "Entrada productiva, pausada y serena."
+   ],
+   [
+    "Mirar alrededor",
+    "Lima, amarillo y verde; el lima como acento."
+   ]
+  ],
+  "color": "La firma vive sobre negro tinta, donde el lima brilla. Sobre fondos claros se usa la misma paleta, con el lima en su paso legible. Nunca sobre fotografías ni sobre otro color de la paleta.",
+  "movimiento": "Las barras entran escalonadas, como una ola que llega y se asienta, con la curva productiva y un 25 % más lento que la base. Si la persona pidió menos movimiento, la firma aparece quieta en su estado final.",
+  "ex": {
+   "texto": "Decidir con cordura"
+  }
+ },
+ "tipografia": {
+  "lede": "La tipografía es nuestra voz hecha forma. Escribimos en Roboto Flex, en su ancho natural y con pesos livianos: hablamos bajo, y por eso se nos escucha.",
+  "letra": "Roboto Flex es una tipografía variable: su ancho, su peso y su grado se ajustan por eje. Nosotros la usamos en su ancho natural ({ancho}), con pesos livianos y un grado levemente más firme. La letra no se impone: acompaña, y deja que el énfasis marque solo lo que importa.",
+  "pesos": [
+   "Titulares grandes. Muy livianos: no levantamos la voz.",
+   "Títulos de sección. Livianos y claros.",
+   "Lectura larga e interfaz, con calma.",
+   "La decisión: una palabra o frase clave por párrafo."
+  ],
+  "escala": [
+   "Sentir → Decidir",
+   "La cordura es emoción con tiempo",
+   "El control es tuyo",
+   "Emoción con sentido",
+   "Memoria que convence",
+   "Hasta la raíz",
+   "Escribimos para que la persona decida mejor, no más rápido. Nuestra letra es liviana: no se impone, acompaña.",
+   "Texto de interfaz, descripciones y tablas.",
+   "Etiquetas y controles",
+   "Notas, fuentes y leyendas."
+  ],
+  "origen": "Línea consciente 1 (ancho natural) · autoridad emocional (pesos {pesos}) · línea 4 (grado más firme)."
+ },
+ "fundamentos": {
+  "lede": "La buena tipografía pasa inadvertida porque simplemente funciona. Estas son las prácticas que hacen que un texto nuestro se lea con calma, en cualquier tamaño y en español."
+ },
+ "color": {
+  "lede": "Nuestra paleta parte del lima que siempre fue nuestro y se extiende hacia sus vecinos cálidos. Sobre negro tinta, el lima es una chispa: aparece donde se puede actuar, y por eso se reconoce.",
+  "centro": "El lima no salió de la carta: lo trajimos. Es nuestro color desde antes de este lenguaje y lo heredamos tal cual. La carta decidió todo lo demás: la armonía alrededor, el amarillo y el verde que lo acompañan, y cómo se comporta sobre fondos claros y oscuros.",
+  "neutros": "El negro tinta y los neutros de ALMA dominan toda experiencia. Sobre ellos, el lima tiene la energía de una chispa. Si una pantalla se siente lima, tiene demasiado lima.",
+  "interfaz": "Los neutros ordenan; el lima marca la acción principal en todos los productos. Como es un color luminoso, su texto siempre es oscuro. Los demás colores se usan poco y con un propósito.",
+  "daltonismo": "Nunca usamos solo el color para comunicar: un estado lleva icono y texto, una serie lleva etiqueta, un enlace se distingue también por su forma. El lima, el amarillo y el verde se confunden con facilidad en algunos tipos de daltonismo: nunca los usamos solos para separar dos cosas.",
+  "accion": "Chispas de lima sobre negro tinta: así se ve la paleta en la galería de producto y comunicación.",
+  "origen": "Color heredado (#E1F564). Armonía análoga del Proyector, saturación por cuatro centros definidos, acento luminoso por la Garganta abierta."
+ },
+ "grilla": {
+  "lede": "La grilla es la estructura de todo lo que mostramos. Da el orden justo para que haya calma: cuando todo tiene su lugar, la atención puede ir a lo que importa.",
+  "espacio": "Damos aire. Mientras más importante la decisión, más espacio alrededor. Lo que va junto se ve junto, y lo que necesita pensarse tiene espacio para respirar.",
+  "forma": "Nuestras esquinas son suaves, de 16 px. No suavizamos para decorar: suavizamos para acercar. Abrimos puertas y cuidamos vínculos, y la forma lo dice. La casilla de verificación conserva sus esquinas, para seguir leyéndose como control.",
+  "ex": {
+   "siCap": "Esquinas suaves de 16 px, separación con espacio y todo alineado.",
+   "noCap": "Evita las esquinas rectas, las sombras decorativas y los elementos fuera de la grilla."
+  },
+  "avoid": [
+   "No mezcles esquinas rectas y suaves en una misma pantalla.",
+   "No uses sombras para separar: usa espacio o una línea de 1 px.",
+   "No llenes cada espacio: el aire también comunica."
+  ],
+  "origen": "Línea inconsciente 4: abrir puertas y cuidar la red de vínculos."
+ },
+ "iconografia": {
+  "lede": "Un icono es una señal tranquila. Representa una idea o una acción de un vistazo, sin alarmar y sin dejar dudas.",
+  "principios": [
+   {
+    "t": "Claros",
+    "p": "Un icono, un significado. Siempre el mismo icono para la misma idea en todos los productos."
+   },
+   {
+    "t": "Calmos",
+    "p": "Los iconos de advertencia y error informan; no asustan. Nunca los usamos para crear urgencia."
+   },
+   {
+    "t": "Acompañados",
+    "p": "Un icono acompaña al texto; no lo reemplaza. Solo va solo en barras de herramientas, y entonces lleva una etiqueta accesible."
+   }
+  ],
+  "ex": {
+   "boton": "Descargar propuesta",
+   "texto": "Última versión: 30 sep"
+  }
+ },
+ "ilustracion": {
+  "lede": "Ilustramos para mostrar lo que hay debajo. Un dibujo nuestro explica una causa, un vínculo o un proceso que no se ve a simple vista.",
+  "puntoDeVista": "Si la fotografía muestra a las personas, la ilustración muestra lo que las mueve: la raíz de un problema, la red que conecta a un equipo, el camino de una decisión. Cada ilustración explica una sola idea y deja espacio alrededor.",
+  "estilos": [
+   {
+    "t": "Línea",
+    "p": "El estilo principal. Trazos de grosor uniforme con esquinas suaves, sobre la grilla de 8 px. Ideal para procesos, causas y redes."
+   },
+   {
+    "t": "Plano",
+    "p": "Planos de color de nuestra paleta, sin degradados ni sombras, con el lima como chispa. Para portadas y temas."
+   },
+   {
+    "t": "Interfaz",
+    "p": "Fragmentos de nuestra propia interfaz, simplificados, para explicar una función. Siempre con componentes de ALMA."
+   }
+  ],
+  "personas": "Cuando dibujamos personas, las mostramos en el momento de decidir: pensando, conversando, mirando con calma. Siluetas simples y diversas, sin caricatura.",
+  "color": "Lima para lo importante, negro tinta y neutros para el resto, amarillo y verde solo como apoyo. Una ilustración nunca usa más de tres colores de la paleta.",
+  "avoid": [
+   "Evita las metáforas gastadas: bombillas, cohetes, relojes de arena.",
+   "Evita las escenas de urgencia o alarma.",
+   "Evita los personajes y las mascotas.",
+   "Evita ilustrar lo que una frase ya explica."
+  ]
+ },
+ "fotografia": {
+  "lede": "Nuestras imágenes muestran a las personas en el momento en que algo importa: cuando sienten, piensan y deciden.",
+  "puntoDeVista": "Fotografiamos la emoción sin explotarla. Una buena imagen nuestra muestra a alguien en un momento verdadero, con el tiempo detenido: la pausa antes de decidir, la conversación que cambió algo, el detalle que revela la causa.",
+  "tipos": [
+   {
+    "t": "Momentos: la pausa antes de decidir",
+    "p": "La mayor parte de nuestras imágenes. Personas en un momento real, fotografiadas sin interrumpir: mirando, conversando, pensando."
+   },
+   {
+    "t": "Vínculos: la red que sostiene",
+    "p": "Personas juntas, en confianza. Equipos, conversaciones, manos que trabajan en lo mismo. El vínculo es el tema."
+   },
+   {
+    "t": "Raíces: el detalle que explica",
+    "p": "Un objeto, una textura, un material de cerca. Lo que está debajo de la superficie, con foco exacto."
+   }
+  ],
+  "tecnica": [
+   [
+    "Encuadre.",
+    "Con aire alrededor del sujeto, espacio libre para texto y líneas que siguen la grilla."
+   ],
+   [
+    "Luz.",
+    "Natural y suave, de la mañana o de la tarde. Sin flashes ni luces de colores."
+   ],
+   [
+    "Color.",
+    "Fiel a la realidad, con negros profundos. El lima aparece en la composición, no en un filtro."
+   ],
+   [
+    "Tiempo.",
+    "Momentos pausados, nunca acción congelada en mitad de un apuro."
+   ]
+  ],
+  "avoid": [
+   "Evita las fotos de banco con sonrisas a cámara.",
+   "Evita las imágenes de estrés, prisa o alarma.",
+   "Evita los montajes y los fondos inventados."
+  ]
+ },
+ "datos": {
+  "lede": "Mostramos los datos para que las personas decidan mejor, no más rápido. Una visualización nuestra da contexto, recuerda lo que ya pasó y deja que la persona explore.",
+  "criterios": [
+   {
+    "t": "Exactas",
+    "p": "Cada marca corresponde a su valor. Los ejes empiezan en cero cuando se comparan cantidades, y las proporciones nunca se exageran."
+   },
+   {
+    "t": "Con memoria",
+    "p": "Comparamos con lo que ya pasó: el mes anterior, el año anterior, la última vez. Un dato sin historia no permite decidir."
+   },
+   {
+    "t": "Sin alarma",
+    "p": "El rojo y el movimiento se reservan para lo que de verdad lo necesita. No convertimos cada variación en una emergencia."
+   },
+   {
+    "t": "Hasta la raíz",
+    "p": "Toda cifra se puede abrir para ver de dónde viene. El resumen está arriba; el detalle, a un paso."
+   },
+   {
+    "t": "En tus manos",
+    "p": "Filtros, períodos y comparaciones los elige la persona. Le damos el control de lo que quiere mirar."
+   }
+  ],
+  "ejemplo": {
+   "titulo": "Propuestas aprobadas por trimestre",
+   "barras": [
+    [
+     "T1",
+     42
+    ],
+    [
+     "T2",
+     38
+    ],
+    [
+     "T3",
+     51
+    ],
+    [
+     "T4",
+     24,
+     true
+    ]
+   ],
+   "fuente": "Fuente: registro de propuestas, enero a septiembre. T4: estimado, el trimestre aún no cierra."
+  },
+  "avoid": [
+   "No cortes un eje para exagerar una diferencia.",
+   "No uses rojo para lo que no es un problema.",
+   "No escondas el período ni la fuente."
+  ],
+  "origen": "Canal 26-44 (memoria), puerta 48 (ir a la raíz), puerta 21 (dar el control)."
+ },
+ "movimiento": {
+  "lede": "Nuestro movimiento es como una ola que llega y se asienta. Nunca golpea, nunca apura: acompaña el cambio y deja que todo se calme.",
+  "enfoque": [
+   {
+    "t": "Pausado",
+    "p": "Nos movemos un 25 % más lento que la base de ALMA. La calma también se anima."
+   },
+   {
+    "t": "Continuo",
+    "p": "Los cambios llegan como una ola: empiezan suaves, se asientan suaves. Nada aparece de golpe."
+   },
+   {
+    "t": "Explicativo",
+    "p": "Cada movimiento responde una pregunta: qué cambió, de dónde viene, qué sigue. Si no explica nada, no se mueve."
+   },
+   {
+    "t": "Respetuoso",
+    "p": "Nunca usamos el movimiento para llamar la atención con urgencia: nada parpadea, nada tiembla."
+   }
+  ],
+  "curvas": "ALMA tiene dos curvas: productiva, eficiente y precisa, y expresiva, con más carácter. La productiva es la nuestra en toda la interfaz. La expresiva queda para la firma y las portadas, donde un momento de emoción ayuda a contar algo.",
+  "aplicaciones": [
+   [
+    "Confirmar.",
+    "Una transición suave confirma que una tarea terminó, sin celebraciones ruidosas."
+   ],
+   [
+    "Orientar.",
+    "Un panel que se abre muestra de dónde viene, para no perder el contexto."
+   ],
+   [
+    "Presentar.",
+    "La firma entra como una ola en portadas y aperturas."
+   ]
+  ],
+  "avoid": [
+   "No uses parpadeos ni temblores para llamar la atención.",
+   "No uses rebotes ni escalas exageradas.",
+   "No muevas elementos que la persona está leyendo."
+  ],
+  "origen": "Proyector · autoridad emocional: la claridad llega en olas y con el tiempo."
+ },
+ "producto": {
+  "lede": "Una pantalla de propuestas con nuestro lenguaje. Solo componentes de ALMA: lo que cambia son los tokens y las palabras.",
+  "pantalla": {
+   "titulo": "Propuestas",
+   "secundaria": "Ahora no",
+   "primaria": "Revisar 2 propuestas",
+   "aviso": {
+    "status": "info",
+    "title": "2 propuestas esperan tu decisión",
+    "message": "Vencen el 15 de octubre. No hay apuro: puedes revisarlas cuando quieras."
+   },
+   "tabla": "Propuestas",
+   "columnas": [
+    {
+     "key": "p",
+     "label": "Propuesta"
+    },
+    {
+     "key": "e",
+     "label": "Estado"
+    },
+    {
+     "key": "v",
+     "label": "Versión"
+    },
+    {
+     "key": "f",
+     "label": "Vence"
+    }
+   ],
+   "filas": [
+    {
+     "p": "Identidad de marca",
+     "e": "Espera tu decisión",
+     "v": "2",
+     "f": "15 oct"
+    },
+    {
+     "p": "Sitio web",
+     "e": "Espera tu decisión",
+     "v": "3",
+     "f": "15 oct"
+    },
+    {
+     "p": "Campaña de lanzamiento",
+     "e": "Aprobada",
+     "v": "4",
+     "f": "—"
+    },
+    {
+     "p": "Señalética",
+     "e": "En revisión",
+     "v": "1",
+     "f": "30 oct"
+    }
+   ],
+   "pie": "Según tus últimas 6 propuestas, las decisiones tomadas con un día de pausa necesitaron menos cambios."
+  },
+  "mapa": [
+   [
+    "«Ahora no» junto a la acción principal",
+    "El control es tuyo: siempre la opción de no."
+   ],
+   [
+    "«No hay apuro» y una fecha real",
+    "Emoción con sentido: informar sin presionar."
+   ],
+   [
+    "La nota sobre tus últimas propuestas",
+    "Memoria que convence: lo que ya pasó."
+   ],
+   [
+    "Versión y estado de cada propuesta",
+    "Hasta la raíz: el detalle a un paso."
+   ],
+   [
+    "Una sola acción principal",
+    "Proyector: guiar, no empujar."
+   ]
+  ]
+ },
+ "comunicacion": {
+  "lede": "Cuando anunciamos algo: la firma más la voz, en tres formatos.",
+  "portada": {
+   "eyebrow": "Lo nuevo de octubre",
+   "titulo": "Decidir con cordura",
+   "texto": "La nueva vista de propuestas te muestra qué cambió entre versiones y te deja decidir a tu ritmo.",
+   "boton": "Conocer la vista de propuestas"
+  },
+  "cuadrado": {
+   "titulo": "Tómate tu tiempo.",
+   "texto": "Las mejores decisiones no se toman en caliente."
+  },
+  "historia": {
+   "titulo": "La prisa no es un método.",
+   "texto": "Sentir, esperar, decidir."
+  }
+ },
+ "carta": {
+  "tipo": "Guía cuando la invitan; no persigue.",
+  "perfil": "Consciente: investiga hasta tener una base. Inconsciente: abre puertas y construye su red.",
+  "autoridad": "Decide con tiempo: espera que la emoción se asiente antes de actuar.",
+  "definicion": "Dos circuitos: voluntad e instinto (Corazón y Bazo), presión y emoción (Raíz y Plexo solar).",
+  "centros": "Voluntad, instinto, emoción y presión: una entidad que siente y sostiene."
+ },
+ "fecha": {
+  "lede": "Nacimos el {fechaLarga}. Es nuestra fecha real: para una marca nueva, la fecha manda.",
+  "secciones": [
+   {
+    "titulo": "Una hora en el límite",
+    "bullets": [
+     [
+      "10:45.",
+      "A esa hora nuestro Sol inconsciente acababa de entrar en su línea 4. Con el registro de las 10:41 o antes, el perfil sería 1/3, con esquinas rectas."
+     ],
+     [
+      "Lo que no depende de la hora.",
+      "A cualquier hora de ese día somos Proyector, con autoridad emocional, definición partida, los canales 26-44 y 39-55 y la cruz 21 / 48 / 38 / 39."
+     ],
+     [
+      "Lo que sí depende.",
+      "El perfil ({perfil}), y con él las esquinas ({radio}) y el ancho de la letra ({ancho})."
+     ]
+    ]
+   },
+   {
+    "titulo": "El lima que trajimos",
+    "parrafos": [
+     "Nuestra carta, sola, daría un acento rosado lila: #FC9AFF. Pero el lima ya era nuestro antes de este lenguaje, así que lo heredamos tal cual. La carta decide todo lo demás: la armonía alrededor, los colores de apoyo y cómo se comporta el acento en cada tema.",
+     "ALMA, el sistema base, queda neutro. Cada entidad lo viste con su propia paleta: la nuestra es la del lima."
+    ]
+   }
+  ],
+  "aviso": {
+   "title": "La fecha manda; el color se hereda",
+   "message": "Para una marca nueva, manda su fecha real. Un color que la marca ya tenía se puede heredar: reemplaza el tono de la carta y la armonía sigue saliendo de ella."
+  }
+ }
+}

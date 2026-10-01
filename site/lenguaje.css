@@ -1,4 +1,4 @@
-/* Entidad IBM: ALMA tokens worn with the entity parameters. Layout: sticky Toolbar, Sidebar from 1056 px, 64 rem reading column. */
+/* Lenguaje de diseño: ALMA tokens worn with the entity parameters. Layout: sticky Toolbar, Sidebar from 1056 px, 64 rem reading column. */
 .skip { position: absolute; left: var(--space-16); top: calc(-1 * var(--space-80)); z-index: var(--z-modal); padding: var(--space-8) var(--space-16); background: var(--interactive-01); color: var(--text-on-interactive); text-decoration: none; }
 .skip:focus { top: var(--space-8); outline: 2px solid var(--focus); outline-offset: 2px; }
 .shell { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-48); max-width: 90rem; margin: 0 auto; padding: var(--space-32) var(--space-16) var(--space-80); box-sizing: border-box; }
@@ -133,3 +133,12 @@ a.card .alma-ico { color: var(--nav-selected); align-self: end; }
 .mini__body { color: var(--text-02); }
 .mini .demo-row { padding-top: var(--space-8); }
 .bars--mini .bars__row { grid-template-columns: 3.5rem minmax(0, 1fr) 2.5rem; }
+/* Grids draw their lines on each cell, so an incomplete last row leaves no filled gap; frames wear the entity radius. */
+.cards { background: transparent; border: 0; gap: 0; }
+.cards > .card { box-shadow: 0 0 0 0.5px var(--border-subtle), inset 0 0 0 0.5px var(--border-subtle); }
+.frame, .ex__stage, .mini, .demo, .motion, .dd, .cycle, .prism__grid { border-radius: var(--radius-panel); }
+.ex__stage, .ex__fig--no .ex__stage { border-top: 1px solid var(--border-subtle); }
+.ex__stage { box-shadow: inset 0 4px 0 var(--interactive-01); }
+.ex__fig--no .ex__stage { box-shadow: inset 0 4px 0 var(--danger); }
+.prism__grid, .cycle, .dd { overflow: hidden; }
+.ex__fig { grid-template-rows: minmax(0, 1fr) auto; align-content: stretch; }

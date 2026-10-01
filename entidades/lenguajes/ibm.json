@@ -1,0 +1,954 @@
+{
+ "id": "ibm",
+ "nombre": "IBM",
+ "nacimiento": {
+  "fecha": "1911-06-03",
+  "hora": "04:00",
+  "zona": "America/New_York"
+ },
+ "fechaLarga": "3 de junio de 1911, 04:00, Nueva York",
+ "referencia": {
+  "nombre": "Blue 60",
+  "color": "#0F62FE"
+ },
+ "aviso": "Ejercicio de diseño hecho con ALMA. La entidad escribe como «nosotros», pero no es IBM: no está afiliada a IBM y no usa su logo, sus textos ni su tipografía.",
+ "muestra": {
+  "eyebrow": "Informes",
+  "titulo": "Informe mensual de junio",
+  "texto": "Revisa el total antes de enviarlo a tu equipo.",
+  "primaria": "Enviar informe",
+  "secundaria": "Guardar borrador",
+  "parrafo": "Compara dos versiones de un informe lado a lado antes de decidir. Puedes volver a la vista anterior cuando quieras, sin perder ningún cambio.",
+  "enfasis": [
+   "Con el plan anual ahorras un ",
+   "18 %",
+   " al año."
+  ]
+ },
+ "inicio": {
+  "titulo": "Preguntar → Probar → Nombrar",
+  "lede": "Este es el ethos detrás de nuestra filosofía y de cada uno de nuestros principios. Nos permite reconocer todo lo que diseñamos, y explicar por qué es como es."
+ },
+ "puntoDeVista": {
+  "lede": "Lo que creemos define lo que hacemos. Esta es la base de todo lo que diseñamos, desde una etiqueta de dos palabras hasta una campaña.",
+  "bloques": [
+   {
+    "p": "Creemos en el progreso que se puede comprobar: que preguntar bien, probar pronto y nombrar con exactitud mejora el trabajo, las decisiones y la vida de las personas."
+   },
+   {
+    "p": "Por nuestra escala, la claridad no es un estilo. Es una responsabilidad con cada persona que decide a partir de lo que le mostramos."
+   },
+   {
+    "s": "Diseñar es\nponer nombre."
+   },
+   {
+    "p": "Hoy cualquiera tiene herramientas para producir más, más rápido. El mundo se vuelve complejo antes de volverse claro, y las experiencias se parecen cada vez más entre sí. La prisa por publicar premia lo inmediato sobre lo comprobado."
+   },
+   {
+    "p": "Por eso es más importante que nunca tener un criterio propio, hacerlo visible y que se reconozca en todo lo que hacemos. Un criterio no es un gusto: es una manera de decidir que cualquiera puede aprender y repetir."
+   },
+   {
+    "s": "Dudar = Cuidar"
+   },
+   {
+    "p": "Dudamos de lo que no podemos comprobar, empezando por nuestras propias ideas. No es desconfianza: es la forma más seria de cuidar a quien usa lo que hacemos. Una cifra verificada, una fuente a la vista y un «estimado» dicho a tiempo valen más que cualquier promesa."
+   },
+   {
+    "p": "Lo que heredamos de nuestra historia no es una estética de época, sino una actitud: volver sobre lo vivido hasta entenderlo y usarlo como material de trabajo. Nuestras ideas maduran con cada vuelta."
+   },
+   {
+    "s": "Pregunta → Palabra"
+   },
+   {
+    "p": "El propósito de cada diseño, y de cada persona que diseña con nosotros, es llevar a alguien de una pregunta a una palabra clara: de no entender a poder decidir, de una duda a un dato, de un problema a su nombre."
+   },
+   {
+    "p": "Todo lo que hacemos es esto. Todo lo que diseñamos también."
+   },
+   {
+    "q": "Toda experiencia con nosotros debería dejar algo más claro de lo que estaba."
+   }
+  ],
+  "origen": "La cruz {cruz} (progresar, sostener un ritmo, verificar y dar sentido a lo vivido) y un solo circuito entre Cabeza, Ajna y Garganta: una mente que pregunta, piensa y dice."
+ },
+ "principios": {
+  "lede": "Nuestros principios son criterios para crear y para evaluar. Los usa quien diseña, quien escribe y quien aprueba: cualquier persona que decida algo en nuestro nombre.",
+  "items": [
+   {
+    "t": "Probado primero",
+    "p": "Lo nuevo nos atrae, pero solo lo que funciona merece llegar a las personas. Antes de afirmar algo, lo probamos en pequeño, con quienes lo van a usar, y aprendemos de lo que pasa. Una versión probada vale más que diez prometidas. La novedad llega como una invitación a probar, nunca como una obligación.",
+    "q": [
+     "¿Lo probamos con personas reales antes de anunciarlo?",
+     "¿Qué aprendimos de la última versión, y se nota?",
+     "¿La persona puede probarlo y volver atrás sin perder nada?",
+     "¿Lanzamos para aprender o para parecer modernos?"
+    ]
+   },
+   {
+    "t": "Nombrado con exactitud",
+    "p": "Tenemos opiniones y las damos, siempre con su fundamento. Una recomendación sin razones es ruido; una con datos exactos es ayuda. Elegimos cada palabra como elegimos cada píxel: por lo que significa, no por cómo suena. Lo que tiene un nombre preciso se puede entender, medir y mejorar.",
+    "q": [
+     "¿Cada recomendación dice por qué?",
+     "¿Usamos la cifra exacta, o una que suena mejor?",
+     "¿Algún nombre, etiqueta o verbo se puede malinterpretar?",
+     "¿Se ve de dónde sale cada dato?"
+    ]
+   },
+   {
+    "t": "Pensado dos veces",
+    "p": "Volvemos sobre nuestras ideas hasta que tienen sentido, y dejamos que las personas hagan lo mismo. Ninguna decisión en nuestros productos es definitiva: siempre hay historial, una versión anterior y una forma de volver atrás. Las mejores preguntas no cierran conversaciones; las abren.",
+    "q": [
+     "¿Todo se puede deshacer o revisar?",
+     "¿Dejamos espacio para que la persona pregunte?",
+     "¿Volvimos sobre la idea después de lanzarla?",
+     "¿Existe alguna acción sin salida?"
+    ]
+   },
+   {
+    "t": "Constante por diseño",
+    "p": "Sostenemos un ritmo y lo respetamos en los demás. Las personas aprenden dónde está cada cosa; mover algo sin aviso es romper un acuerdo. Preferimos llegar seguros que llegar primeros, y que cada versión se sienta como la anterior, solo que mejor.",
+    "q": [
+     "¿Algo cambió de lugar sin aviso?",
+     "¿Este patrón funciona igual que en el resto del sistema?",
+     "¿Respetamos el tiempo y la atención de la persona?",
+     "¿Hay alguna urgencia que no sea real?"
+    ]
+   }
+  ],
+  "cierre": "Una prueba final: sin logo ni nombre, solo la pantalla. ¿Se entiende qué pasó, por qué y qué se puede hacer?"
+ },
+ "prisma": {
+  "lede": "Nuestras seis caras, ordenadas en el prisma de identidad: lo que mostramos y lo que llevamos dentro, lo que emitimos y lo que provocamos en quien nos recibe.",
+  "caras": [
+   {
+    "k": "Físico",
+    "q": "Lo que se ve",
+    "t": "Un azul pleno sobre neutros, ángulos rectos, una grilla de 8 px y barras que se alinean. Nada redondo, nada que sobre.",
+    "o": "Garganta definida · línea 3"
+   },
+   {
+    "k": "Personalidad",
+    "q": "Cómo somos",
+    "t": "Curiosos, escépticos y precisos. Nos entusiasma lo nuevo, dudamos hasta comprobar y decimos las cosas por su nombre.",
+    "o": "Puertas 35, 63 y 62"
+   },
+   {
+    "k": "Relación",
+    "q": "Cómo nos vinculamos",
+    "t": "Guiamos por invitación. No perseguimos a nadie: nos preparamos, esperamos la pregunta y respondemos con todo lo que sabemos.",
+    "o": "Proyector · Mercurio en la puerta 2"
+   },
+   {
+    "k": "Cultura",
+    "q": "Lo que valoramos",
+    "t": "La exactitud por encima del brillo y el progreso comprobado por encima de la promesa. Arriesgamos, pero solo por lo que importa.",
+    "o": "Venus en la 62 · Júpiter en la 28"
+   },
+   {
+    "k": "Reflejo",
+    "q": "A quién le hablamos",
+    "t": "A alguien que decide con información incompleta y no quiere que lo apuren. Quiere entender, no que lo convenzan.",
+    "o": "Autoridad mental"
+   },
+   {
+    "k": "Autoimagen",
+    "q": "Cómo se siente quien nos usa",
+    "t": "Más claro y más capaz. Sale sabiendo algo que antes no sabía, y con palabras para explicarlo.",
+    "o": "Canales 17-62 y 24-61"
+   }
+  ],
+  "lectura": "La columna izquierda es lo que cualquiera puede ver: nuestra forma, cómo nos vinculamos y a quién le hablamos. La derecha es lo que llevamos dentro: el carácter, los valores y lo que dejamos en las personas. Cuando las dos columnas dicen lo mismo, la marca es creíble. Cuando no, algo en el diseño está mintiendo."
+ },
+ "voz": {
+  "lede": "Nuestra voz es una sola, hablemos donde hablemos: en una etiqueta, un error o una campaña. Es la voz de una mente que pregunta, prueba y nombra.",
+  "atributos": [
+   [
+    "Curiosos",
+    "no dispersos",
+    "Nos interesa lo nuevo, pero no saltamos de tema en tema. Preguntamos para entender, no para entretener.",
+    "Puerta 35"
+   ],
+   [
+    "Escépticos",
+    "no cínicos",
+    "Dudamos de lo que no está comprobado y lo decimos, sin burlarnos de quien lo creyó. La duda es una herramienta, no una pose.",
+    "Puerta 63"
+   ],
+   [
+    "Precisos",
+    "no fríos",
+    "Usamos la palabra exacta y la cifra justa. La precisión es una forma de cuidado: nadie tiene que adivinar qué quisimos decir.",
+    "Puerta 62"
+   ]
+  ],
+  "como": [
+   {
+    "t": "Fundados",
+    "p": "Damos datos y fuentes antes de opinar. Si una afirmación no tiene base, no la hacemos."
+   },
+   {
+    "t": "En voz alta",
+    "p": "Explicamos y conversamos. Nunca pedimos algo sin decir para qué, ni decidimos por la persona sin mostrarle las razones."
+   },
+   {
+    "t": "Por invitación",
+    "p": "Orientamos y recomendamos; no ordenamos. Reconocemos a la persona antes de pedirle algo."
+   }
+  ],
+  "comoOrigen": "Línea consciente 1 · autoridad mental · Proyector · puerta 62 en la Garganta.",
+  "quien": "Hablamos en plural, como el equipo que está detrás de cada pantalla, y tratamos de tú. Nunca hablamos de nosotros en tercera persona, y nunca culpamos a la persona por un error del sistema.",
+  "ex": {
+   "si": {
+    "title": "No se guardó el informe",
+    "message": "Se perdió la conexión. Revisa la red y vuelve a intentarlo: tus cambios siguen aquí.",
+    "cap": "Qué pasó, por qué y qué hacer."
+   },
+   "no": {
+    "title": "¡Ups! Algo salió mal.",
+    "message": "Ingresaste algo incorrecto. Inténtalo más tarde.",
+    "cap": "Nunca culpes a la persona ni escondas la causa detrás de un «¡Ups!»."
+   }
+  }
+ },
+ "tono": {
+  "lede": "La voz no cambia; el tono sí. Nos ajustamos al momento de la persona: no le hablamos igual a quien empieza que a quien está por borrar algo.",
+  "filas": [
+   [
+    "Bienvenida",
+    "Curioso",
+    "Lo mínimo",
+    "Explora los datos de ejemplo o importa los tuyos."
+   ],
+   [
+    "Recomendación",
+    "Fundado",
+    "El porqué",
+    "Te recomendamos el plan anual: según tu uso, ahorras un 18 %."
+   ],
+   [
+    "Error",
+    "Explicativo",
+    "Qué pasó y qué hacer",
+    "{error}"
+   ],
+   [
+    "Acción irreversible",
+    "Exacto",
+    "Todo, con cifras",
+    "Se eliminarán 12 informes y no se podrán recuperar. Botón: «Eliminar 12 informes»."
+   ],
+   [
+    "Éxito",
+    "Sobrio",
+    "Una línea",
+    "Informe enviado a 4 personas."
+   ],
+   [
+    "Dato incierto",
+    "Escéptico",
+    "Lo que falta",
+    "Estimado: entre 120 y 140 pedidos. Faltan los datos del domingo."
+   ],
+   [
+    "Anuncio",
+    "Invitante",
+    "Lo nuevo y para qué",
+    "Lo nuevo de junio: compara dos versiones de un informe lado a lado. Pruébalo."
+   ]
+  ],
+  "cuanto": "Mientras más está en juego, más explicamos. En un éxito basta una línea; en un error decimos qué pasó y qué hacer; antes de algo irreversible decimos exactamente qué se pierde. Nunca explicamos para llenar espacio: explicamos para que la persona pueda decidir.",
+  "ex": {
+   "si": {
+    "eyebrow": "Acción irreversible",
+    "title": "Eliminar 12 informes",
+    "body": "Se eliminarán 12 informes de junio y no se podrán recuperar.",
+    "primary": "Eliminar 12 informes",
+    "secondary": "Cancelar",
+    "cap": "Exacto: qué se pierde y cuánto, con el verbo en el botón."
+   },
+   "no": {
+    "eyebrow": "Atención",
+    "title": "¿Estás seguro?",
+    "primary": "Sí",
+    "secondary": "No",
+    "cap": "Evita confirmaciones vagas con «Sí» y «No»."
+   }
+  },
+  "nunca": [
+   "Evita exclamaciones, emojis y expresiones como «¡Ups!».",
+   "Nunca culpes a la persona: «Ingresaste un dato inválido».",
+   "Evita urgencias falsas: «¡Últimas horas!».",
+   "Nunca prometas lo que no está comprobado."
+  ]
+ },
+ "escritura": {
+  "lede": "Reglas para que cualquier persona escriba como nosotros. Son pocas y son firmes, porque escribir bien también es diseñar.",
+  "reglas": [
+   [
+    "Botones con verbo y objeto",
+    "Enviar informe · Eliminar 12 informes",
+    "La acción se entiende sin leer nada más."
+   ],
+   [
+    "Cifras, no aproximaciones",
+    "3 de 12 servidores · 18 % · 4 personas",
+    "Una cifra exacta se puede verificar."
+   ],
+   [
+    "La fuente a la vista",
+    "Según tu uso de los últimos 6 meses",
+    "Un dato sin origen pide fe."
+   ],
+   [
+    "Lo estimado, marcado",
+    "Estimado: entre 120 y 140",
+    "La duda dicha a tiempo es honestidad."
+   ],
+   [
+    "El porqué, siempre",
+    "No se guardó porque se perdió la conexión",
+    "Sin causa no hay solución."
+   ],
+   [
+    "Invitar, no ordenar",
+    "Te recomendamos… · Pruébalo",
+    "Guiamos; no empujamos."
+   ],
+   [
+    "Siempre una salida",
+    "Puedes volver a la versión anterior",
+    "Nada es definitivo."
+   ],
+   [
+    "Tuteo, sin exclamaciones",
+    "Revisa la red y vuelve a intentarlo.",
+    "La confianza viene de la claridad."
+   ],
+   [
+    "Mayúscula solo al inicio",
+    "Vista comparada · Informe mensual",
+    "Leemos más rápido en tipo oración."
+   ]
+  ],
+  "ex": {
+   "si": {
+    "title": "3 de 12 servidores necesitan atención",
+    "body": "Uso de CPU sobre el 85 % en los últimos 15 minutos.",
+    "primary": "Revisar 3 servidores",
+    "cap": "Cifras exactas, la causa y un botón con verbo y objeto."
+   },
+   "no": {
+    "title": "Algunos servidores podrían tener problemas",
+    "body": "Te recomendamos revisarlos pronto.",
+    "primary": "OK",
+    "cap": "Evita aproximaciones y botones que no dicen qué hacen."
+   }
+  },
+  "palabras": [
+   [
+    "Probar, comparar, verificar",
+    "Revolucionar, disruptivo"
+   ],
+   [
+    "Estimado, según, porque",
+    "Seguramente, sin duda"
+   ],
+   [
+    "Te recomendamos",
+    "Debes, tienes que"
+   ],
+   [
+    "No se pudo…",
+    "¡Ups!, lo sentimos mucho"
+   ]
+  ],
+  "formatos": [
+   [
+    "Fechas.",
+    "«3 jun 1911» en tablas y etiquetas; «3 de junio de 1911» en texto corrido."
+   ],
+   [
+    "Horas.",
+    "Formato de 24 horas: 04:00, 18:30."
+   ],
+   [
+    "Unidades.",
+    "Con espacio: 18 %, 8 px, 12 GB."
+   ],
+   [
+    "Rangos.",
+    "Con guion: 1911-1924, 120-140."
+   ],
+   [
+    "Números grandes.",
+    "Con punto de miles: 87.600 cartas."
+   ]
+  ]
+ },
+ "firma": {
+  "lede": "Nuestra firma es un retrato de cómo pensamos: tres filas de barras, una por cada centro que nos define, unidas en un solo circuito. Acompaña al nombre; no lo reemplaza.",
+  "construccion": "La firma usa la gramática del símbolo de Cordura: barras escalonadas y destellos de cuatro puntas que unen las filas. La primera fila pregunta, la segunda piensa y la tercera dice. Como nuestras ideas llegan a la voz sin desvíos, todas las filas quedan unidas.",
+  "rasgos": [
+   [
+    "Tres centros definidos",
+    "Tres filas de barras."
+   ],
+   [
+    "Un solo circuito",
+    "Todas las filas unidas por destellos."
+   ],
+   [
+    "Aprender probando",
+    "Barras de esquinas rectas."
+   ],
+   [
+    "Guiar sin apuro",
+    "Entrada productiva, precisa y serena."
+   ],
+   [
+    "Mirar alrededor",
+    "Azul, cian y púrpura; el azul como acento."
+   ]
+  ],
+  "color": "La firma vive sobre fondos oscuros neutros. Sobre fondos claros se usa la misma paleta, con el azul como barra principal. Nunca sobre fotografías ni sobre otro color de la paleta.",
+  "movimiento": "Las barras entran escalonadas, con la curva productiva y un 25 % más lento que la base. Si la persona pidió menos movimiento, la firma aparece quieta en su estado final.",
+  "ex": {
+   "texto": "Compara dos versiones lado a lado"
+  }
+ },
+ "tipografia": {
+  "lede": "La tipografía es nuestra voz hecha forma. Escribimos en Roboto Flex, en su ancho natural, con pocos pesos y una escala que ordena sin gritar.",
+  "letra": "Roboto Flex es una tipografía variable: su ancho, su peso y su grado se ajustan por eje. Nosotros la usamos en su ancho natural ({ancho}) y con grado neutro. No nos ensanchamos para ocupar más lugar ni nos condensamos para decir más: cada palabra ocupa lo justo.",
+  "pesos": [
+   "Titulares grandes. Livianos: pensamos en voz alta, no imponemos.",
+   "Títulos de sección. Regulares: ordenan sin gritar.",
+   "Lectura larga e interfaz.",
+   "Una palabra o frase clave por párrafo."
+  ],
+  "escala": [
+   "Preguntar → Probar",
+   "Una mente que habla",
+   "Nombrado con exactitud",
+   "Pensado dos veces",
+   "Constante por diseño",
+   "Fundamentos tipográficos",
+   "Frases cortas, datos exactos y verbos claros. Nuestra letra no se ensancha ni se adorna: va en su ancho natural.",
+   "Texto de interfaz, descripciones y tablas.",
+   "Etiquetas y controles",
+   "Notas, fuentes y leyendas."
+  ],
+  "origen": "Línea consciente 1 (ancho natural) · autoridad mental (pesos {pesos})."
+ },
+ "fundamentos": {
+  "lede": "La buena tipografía pasa inadvertida porque simplemente funciona. Estas son las prácticas que hacen que un texto nuestro se lea bien, en cualquier tamaño y en español."
+ },
+ "color": {
+  "lede": "Nuestra paleta parte de un azul pleno y se extiende solo hacia sus vecinos. Sobre neutros sobrios, el color aparece donde se puede actuar, y por eso se reconoce.",
+  "centro": "El azul es el punto de partida. Combinado con la sobriedad de los neutros, da una apariencia clara, seria y reconocible. No lo elegimos por moda: es el color de cómo pensamos.",
+  "neutros": "Los neutros de ALMA dominan toda experiencia. Organizan zonas con cambios sutiles de valor y dejan que el azul tenga un propósito. Si una pantalla se siente azul, tiene demasiado azul.",
+  "interfaz": "Los neutros ordenan; el azul marca la acción principal en todos los productos, para que nuestro color sea parte de cada interacción. Los demás colores se usan poco y con un propósito.",
+  "daltonismo": "Nunca usamos solo el color para comunicar: un estado lleva icono y texto, una serie lleva etiqueta, un enlace se distingue también por su forma. El azul y el púrpura se confunden con facilidad: nunca los usamos solos para separar dos cosas.",
+  "accion": "Golpes deliberados de azul sobre neutros ricos: así se ve la paleta en la galería de producto y comunicación.",
+  "origen": "Tono desde Ajna (autoridad mental), saturación por tres centros y la Garganta definida, armonía análoga del Proyector."
+ },
+ "grilla": {
+  "lede": "La grilla es la estructura de todo lo que mostramos. Da el orden justo para que la atención vaya a la idea, no a decidir dónde va cada cosa.",
+  "espacio": "Mientras más grande el objeto, más espacio alrededor. Lo que va junto se ve junto: con una separación consistente no hacen falta divisores ni cajas.",
+  "forma": "Nuestros ángulos son rectos. Hacen visible la alineación: cuando algo se sale de la grilla, se nota de inmediato. Solo la casilla de verificación conserva 2 px, para seguir leyéndose como control.",
+  "ex": {
+   "siCap": "Esquinas rectas, separación con espacio y todo alineado a la izquierda.",
+   "noCap": "Evita radios, sombras decorativas y elementos fuera de la grilla."
+  },
+  "avoid": [
+   "No redondees esquinas «para suavizar».",
+   "No uses sombras para separar: usa espacio o una línea de 1 px.",
+   "Nunca dividas desde el borde del lienzo cuando hay margen."
+  ],
+  "origen": "Línea inconsciente 3: aprender probando y quitar lo que sobra."
+ },
+ "iconografia": {
+  "lede": "Un icono es un nombre corto. Representa una idea, un objeto o una acción de un vistazo, y ahorra palabras solo cuando no deja dudas.",
+  "principios": [
+   {
+    "t": "Exactos",
+    "p": "Un icono, un significado. Siempre el mismo icono para la misma idea en todos los productos."
+   },
+   {
+    "t": "Esenciales",
+    "p": "Solo los trazos necesarios para reconocer la idea. Nada de relleno, brillo ni detalle decorativo."
+   },
+   {
+    "t": "Acompañados",
+    "p": "Un icono acompaña al texto; no lo reemplaza. Solo va solo en barras de herramientas, y entonces lleva una etiqueta accesible."
+   }
+  ],
+  "ex": {
+   "boton": "Descargar informe",
+   "texto": "Último informe: 3 jun"
+  }
+ },
+ "ilustracion": {
+  "lede": "Ilustramos para explicar. Un dibujo nuestro muestra cómo funciona algo antes de mostrar cómo se siente.",
+  "puntoDeVista": "Si la fotografía muestra el mundo como es, la ilustración muestra lo que no se ve: un proceso, un sistema, una relación entre datos. Por eso nuestras ilustraciones son diagramas antes que escenas, y cada una explica una sola idea.",
+  "estilos": [
+   {
+    "t": "Línea",
+    "p": "El estilo principal. Trazos rectos de grosor uniforme, sobre la grilla de 8 px, con esquinas en ángulo recto. Ideal para procesos y arquitecturas."
+   },
+   {
+    "t": "Plano",
+    "p": "Planos de color de nuestra paleta, sin degradados ni sombras. Para conceptos que necesitan más presencia, como portadas o temas."
+   },
+   {
+    "t": "Interfaz",
+    "p": "Fragmentos de nuestra propia interfaz, simplificados, para explicar una función. Siempre con componentes de ALMA, nunca inventados."
+   }
+  ],
+  "personas": "Cuando dibujamos personas, las mostramos haciendo algo: pensando, comparando, explicando. Siluetas simples y diversas, sin rasgos caricaturescos.",
+  "color": "Azul para lo importante, neutros para el resto, cian y púrpura solo como apoyo. Una ilustración nunca usa más de tres colores de la paleta.",
+  "avoid": [
+   "Evita metáforas gastadas: bombillas, cohetes, engranajes.",
+   "Evita volúmenes, brillos y perspectivas exageradas.",
+   "Evita personajes y mascotas.",
+   "Evita ilustrar lo que una frase ya explica."
+  ]
+ },
+ "fotografia": {
+  "lede": "Nuestras imágenes reflejan cómo miramos el mundo: con atención, sin poses y buscando el detalle que explica.",
+  "puntoDeVista": "Somos observadores del trabajo. Una buena fotografía nuestra pone en contexto una pregunta: muestra a alguien en medio de un problema real, con las herramientas en la mano. No celebra el resultado; muestra el proceso que lo hizo posible.",
+  "tipos": [
+   {
+    "t": "Reportaje: el trabajo en curso",
+    "p": "La mayor parte de nuestras imágenes. Personas resolviendo algo, fotografiadas como en un documental: sin mirar a cámara, en su lugar de trabajo, con luz del lugar."
+   },
+   {
+    "t": "Retrato: personas que piensan",
+    "p": "Retratos de quienes hacen el trabajo, con el mismo cuidado para todos. La expresión es de atención, no de sonrisa ensayada."
+   },
+   {
+    "t": "Objeto: el detalle que explica",
+    "p": "Una pieza, una pantalla, una mano sobre un instrumento. Fondos neutros, encuadre frontal y foco exacto en lo que se puede nombrar."
+   }
+  ],
+  "tecnica": [
+   [
+    "Encuadre.",
+    "Ortogonal, con líneas que siguen la grilla. Espacio libre para texto fuera del sujeto."
+   ],
+   [
+    "Luz.",
+    "Natural o del lugar. Sin flashes duros ni luces de colores."
+   ],
+   [
+    "Color.",
+    "Fiel a la realidad. Sin filtros ni virados; el azul aparece cuando está en la escena, no se agrega."
+   ],
+   [
+    "Foco.",
+    "Una sola cosa en foco: la que la imagen quiere explicar."
+   ]
+  ],
+  "avoid": [
+   "Evita las fotos de banco con apretones de manos y sonrisas a cámara.",
+   "Evita los fondos inventados y los montajes.",
+   "Evita las imágenes que no explican nada."
+  ]
+ },
+ "datos": {
+  "lede": "Los datos son nuestro terreno. Una visualización nuestra responde una pregunta de un vistazo, muestra de dónde viene y dice lo que no sabe.",
+  "criterios": [
+   {
+    "t": "Exactas",
+    "p": "Cada marca corresponde a su valor. Los ejes empiezan en cero cuando se comparan cantidades, y las proporciones nunca se exageran. Una mala representación lleva a una mala decisión."
+   },
+   {
+    "t": "Fundadas",
+    "p": "Toda visualización dice de dónde salen los datos y qué período cubren. La fuente va a la vista, no en una nota al final."
+   },
+   {
+    "t": "Honestas con la duda",
+    "p": "Lo estimado, lo incompleto y lo proyectado se marcan con trama y con la palabra «estimado». Mostrar la incertidumbre no debilita el dato: lo vuelve confiable."
+   },
+   {
+    "t": "Sobrias",
+    "p": "Elegimos el gráfico que mejor responde la pregunta y quitamos todo lo demás: sin tres dimensiones, sin sombras, sin decoración. Si una cifra basta, mostramos la cifra."
+   },
+   {
+    "t": "Comparables",
+    "p": "Los mismos colores, escalas y formatos en todos nuestros productos. Un azul significa lo mismo en un informe que en un panel."
+   }
+  ],
+  "ejemplo": {
+   "titulo": "Pedidos por región, junio",
+   "barras": [
+    [
+     "Norte",
+     128
+    ],
+    [
+     "Centro",
+     96
+    ],
+    [
+     "Sur",
+     74
+    ],
+    [
+     "Online",
+     51,
+     true
+    ]
+   ],
+   "fuente": "Fuente: registro de pedidos, 1 al 30 de junio. Online: faltan los datos del domingo."
+  },
+  "avoid": [
+   "No cortes un eje para exagerar una diferencia.",
+   "No uses gráficos de torta con más de cuatro partes.",
+   "No uses el color como única forma de distinguir series."
+  ],
+  "origen": "Puerta 62 (nombrar con precisión), puerta 63 (verificar) y línea 1 (la base a la vista)."
+ },
+ "movimiento": {
+  "lede": "El movimiento es una forma de explicar. Lo usamos para mostrar qué cambió, de dónde viene algo y hacia dónde va. Nada más.",
+  "enfoque": [
+   {
+    "t": "Explicativo",
+    "p": "Cada movimiento responde una pregunta: qué pasó, qué cambió, qué sigue. Si no explica nada, no se mueve."
+   },
+   {
+    "t": "Breve",
+    "p": "Respetamos el tiempo de la persona. El movimiento termina antes de que alguien tenga que esperarlo."
+   },
+   {
+    "t": "Sereno",
+    "p": "Sin rebotes, giros ni excesos. Nos movemos un 25 % más lento que la base de ALMA, con la calma de quien no necesita llamar la atención."
+   },
+   {
+    "t": "Estable",
+    "p": "Lo que ya está en pantalla se queda donde está. El movimiento nunca reordena lo que la persona ya aprendió."
+   }
+  ],
+  "curvas": "ALMA tiene dos curvas: productiva, eficiente y precisa, y expresiva, con más carácter. La productiva es la nuestra en toda la interfaz. La expresiva queda para la firma y las portadas, donde un momento de carácter ayuda a contar algo.",
+  "aplicaciones": [
+   [
+    "Confirmar.",
+    "Una transición productiva y corta confirma que una tarea terminó."
+   ],
+   [
+    "Orientar.",
+    "Un panel que se abre muestra de dónde viene, para no perder el contexto."
+   ],
+   [
+    "Presentar.",
+    "La firma entra con la curva expresiva en portadas y aperturas."
+   ]
+  ],
+  "avoid": [
+   "No animes para decorar o entretener.",
+   "No uses rebotes, giros ni escalas exageradas.",
+   "No muevas elementos que la persona está leyendo."
+  ],
+  "origen": "Proyector: sin motor propio, su energía viene de pensar. Puerta 5: sostener un ritmo."
+ },
+ "producto": {
+  "lede": "Una pantalla de monitoreo con nuestro lenguaje. Solo componentes de ALMA: lo que cambia son los tokens y las palabras.",
+  "pantalla": {
+   "titulo": "Servidores",
+   "secundaria": "Exportar",
+   "primaria": "Revisar 3 servidores",
+   "aviso": {
+    "status": "warning",
+    "title": "3 de 12 servidores necesitan atención",
+    "message": "Uso de CPU sobre el 85 % en los últimos 15 minutos."
+   },
+   "tabla": "Estado",
+   "columnas": [
+    {
+     "key": "s",
+     "label": "Servidor"
+    },
+    {
+     "key": "e",
+     "label": "Estado"
+    },
+    {
+     "key": "c",
+     "label": "CPU"
+    },
+    {
+     "key": "u",
+     "label": "Última lectura"
+    }
+   ],
+   "filas": [
+    {
+     "s": "prod-norte-01",
+     "e": "Requiere atención",
+     "c": "92 %",
+     "u": "hace 4 min"
+    },
+    {
+     "s": "prod-norte-02",
+     "e": "Requiere atención",
+     "c": "88 %",
+     "u": "hace 4 min"
+    },
+    {
+     "s": "prod-sur-01",
+     "e": "Requiere atención",
+     "c": "85 %",
+     "u": "hace 6 min"
+    },
+    {
+     "s": "prod-centro-01",
+     "e": "Normal",
+     "c": "41 %",
+     "u": "hace 2 min"
+    }
+   ],
+   "pie": "Datos de los últimos 15 minutos. Se actualizan cada minuto."
+  },
+  "mapa": [
+   [
+    "«3 de 12 servidores…»",
+    "Nombrado con exactitud: cifras, no aproximaciones."
+   ],
+   [
+    "La causa en el aviso",
+    "Pensado dos veces: explicar el porqué."
+   ],
+   [
+    "Una sola acción principal, con verbo y cantidad",
+    "Proyector: guiar, no empujar."
+   ],
+   [
+    "La fuente y el período al pie",
+    "Línea 1: la base a la vista."
+   ],
+   [
+    "Columnas fijas y orden estable",
+    "Constante por diseño: nada cambia de lugar sin aviso."
+   ]
+  ]
+ },
+ "comunicacion": {
+  "lede": "Cuando anunciamos algo: la firma más la voz, en tres formatos.",
+  "portada": {
+   "eyebrow": "Lo nuevo de junio",
+   "titulo": "Compara dos versiones lado a lado",
+   "texto": "Mira qué cambió entre dos informes antes de decidir. Puedes volver a la vista anterior cuando quieras.",
+   "boton": "Probar la vista comparada"
+  },
+  "cuadrado": {
+   "titulo": "87.600 cartas revisadas.",
+   "texto": "Una sola explica nuestro azul. Fuente: estudio ALMA, 2026."
+  },
+  "historia": {
+   "titulo": "Dudar también es un método.",
+   "texto": "Verificamos antes de afirmar."
+  }
+ },
+ "carta": {
+  "tipo": "Guía cuando la invitan; no empuja.",
+  "perfil": "Consciente: investiga hasta tener una base. Inconsciente: prueba, falla y corrige.",
+  "autoridad": "Decide conversando y tomando distancia, no por impulso.",
+  "definicion": "Un solo circuito: Cabeza, Ajna y Garganta conectadas. La idea llega a la voz sin desvíos.",
+  "centros": "Preguntas, conceptos y expresión: una mente que habla."
+ },
+ "fecha": {
+  "lede": "La compañía se fundó el 16 de junio de 1911, pero la carta de ese día no se parece a lo que somos. En vez de forzar las reglas, se buscó el momento cuya carta sí nos explica.",
+  "busqueda": "Revisamos hora por hora 10 años clave de su historia (1889, 1896, 1911, 1914, 1924, 1933, 1952, 1964, 1972, 1981): más de 87.000 cartas. Solo seis ventanas dan un Proyector 1/3 con Cabeza, Ajna y Garganta definidas, todas en 1911 y 1924.",
+  "ventanas": {
+   "titulo": "Las seis ventanas (Nueva York)",
+   "filas": [
+    {
+     "fecha": "2 jun 1911",
+     "horas": "21:00–23:00",
+     "canales": "17-62 · 24-61",
+     "cruz": "35/5/63/64",
+     "acento": "#0679C4",
+     "dE": 0.109
+    },
+    {
+     "fecha": "3 jun 1911",
+     "horas": "00:00–17:00",
+     "canales": "17-62 · 24-61",
+     "cruz": "35/5/63/64",
+     "acento": "#1D62FF",
+     "dE": 0.006,
+     "elegida": true
+    },
+    {
+     "fecha": "12 ago 1911",
+     "horas": "19:00–23:00",
+     "canales": "4-63 · 23-43",
+     "cruz": "4/49/23/43",
+     "acento": "#0471E0",
+     "dE": 0.058
+    },
+    {
+     "fecha": "13 ago 1911",
+     "horas": "00:00–07:00",
+     "canales": "4-63 · 23-43",
+     "cruz": "4/49/23/43",
+     "acento": "#026CEE",
+     "dE": 0.033
+    },
+    {
+     "fecha": "4 sep 1924",
+     "horas": "17:00–20:00",
+     "canales": "4-63 · 23-43",
+     "cruz": "64/63/35/5",
+     "acento": "#0072DB",
+     "dE": 0.067
+    },
+    {
+     "fecha": "3 dic 1924",
+     "horas": "15:00–21:00",
+     "canales": "4-63 · 11-56",
+     "cruz": "5/35/64/63",
+     "acento": "#0473D8",
+     "dE": 0.072
+    }
+   ]
+  },
+  "secciones": [
+   {
+    "titulo": "Por qué el 3 de junio",
+    "bullets": [
+     [
+      "El mismo mes de la fundación.",
+      "Trece días antes de la firma de 1911: el momento en que la compañía ya existía como idea."
+     ],
+     [
+      "El azul sale solo.",
+      "Con la semilla natural de la fecha, sin elegir variaciones, el acento es {acento}. La diferencia con el Blue 60 es {deltaE}: el ojo no la ve."
+     ],
+     [
+      "Una carta coherente.",
+      "Sus canales, 17-62 y 24-61, son mentales y verbales: pensar, dudar y nombrar. Encajan con una marca que siempre ha hablado de pensar."
+     ]
+    ]
+   }
+  ],
+  "aviso": {
+   "title": "Una fecha elegida, no la de fundación",
+   "message": "Para marcas que ya existen, la fecha es una decisión: se elige el momento cuya carta explica lo que la marca ya es. Para marcas nuevas, como Cordura, manda la fecha real."
+  }
+ },
+ "calibracion": {
+  "lede": "La prueba: si las reglas están bien alineadas, la entidad debería verse como IBM. Con la fecha elegida, se ve. La última columna muestra lo que daría la fecha de fundación.",
+  "titulo": "Entidad frente a IBM hoy",
+  "columnaReferencia": "IBM hoy",
+  "columnaReal": "Con el 16 jun 1911",
+  "filas": [
+   {
+    "e": "Acento (botón principal)",
+    "k": "acento",
+    "ref": "#0F62FE · Blue 60",
+    "ok": "Coincide",
+    "real": "#9C6908 · ámbar"
+   },
+   {
+    "e": "Acento al pasar el cursor",
+    "k": "hover",
+    "ref": "Blue 70",
+    "ok": "Coincide",
+    "real": "—"
+   },
+   {
+    "e": "Texto sobre el acento",
+    "k": "texto",
+    "ref": "#FFFFFF",
+    "ok": "Igual",
+    "real": "#FFFFFF"
+   },
+   {
+    "e": "Enlaces en oscuro",
+    "k": "linkDark",
+    "ref": "#A6C8FF · Blue 30",
+    "ok": "Coincide",
+    "real": "—"
+   },
+   {
+    "e": "Enlaces en claro",
+    "k": "linkLight",
+    "ref": "#0F62FE · Blue 60",
+    "ok": "Coincide",
+    "real": "—"
+   },
+   {
+    "e": "Radio de los botones",
+    "k": "radio",
+    "ref": "0px",
+    "ok": "Igual",
+    "real": "24px"
+   },
+   {
+    "e": "Ancho de la letra",
+    "k": "ancho",
+    "ref": "Normal",
+    "ok": "Igual",
+    "real": "110"
+   },
+   {
+    "e": "Pesos (display / títulos / texto / énfasis)",
+    "k": "pesos",
+    "ref": "Light / Regular / Regular / SemiBold",
+    "ok": "Igual",
+    "real": "500 / 500 / 400 / 650"
+   },
+   {
+    "e": "Colores de apoyo",
+    "k": "apoyo",
+    "ref": "Cian, púrpura y otros",
+    "ok": "Coincide",
+    "real": "Lima, verde"
+   },
+   {
+    "e": "Grilla base",
+    "k": "grilla",
+    "ref": "8 px",
+    "ok": "Igual",
+    "real": "8 px"
+   }
+  ],
+  "corrigio": [
+   [
+    "Acentos profundos.",
+    "Una Garganta definida da un acento saturado con texto blanco."
+   ],
+   [
+    "Saturación.",
+    "Más centros definidos saturan más; una voz definida satura un 50 % adicional."
+   ],
+   [
+    "Armonía del Proyector.",
+    "Análoga amplia: el Proyector mira alrededor, no al lado opuesto."
+   ],
+   [
+    "Línea 3 y grado.",
+    "La línea 3 da ángulos rectos; el grado queda neutro en las líneas del medio."
+   ],
+   [
+    "Enlaces.",
+    "Con un acento profundo, los enlaces usan el primario."
+   ]
+  ],
+  "noCambia": [
+   [
+    "La letra.",
+    "ALMA usa Roboto Flex. La entidad reproduce el ancho y los pesos, no el dibujo de la letra de IBM."
+   ],
+   [
+    "Los neutros.",
+    "Los grises y fondos siguen siendo los de ALMA."
+   ],
+   [
+    "El símbolo.",
+    "La firma sale de la gramática del logo de Cordura, no del logo de IBM."
+   ]
+  ],
+  "nota": "Diferencia de color medida en OKLab: {deltaE}. Bajo 0,02 el ojo no distingue. Semilla: la de la fecha, sin variaciones."
+ }
+}

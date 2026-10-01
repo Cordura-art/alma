@@ -36,7 +36,7 @@ npm run tokens:apply -- cambios.json   # aplica a tokens/ los cambios exportados
 npm run images  # fotografía las imágenes de la documentación con los componentes reales (Playwright)
 npm run carta -- --fecha 1911-06-16 --hora 12:00 --zona America/New_York --nombre IBM   # carta de una entidad (--json para el objeto completo)
 npm run entidades   # arma build/entidades-alma.html: crear entidades y ver ALMA con sus parámetros
-npm run estudio     # arma también build/entidad-ibm.html: el lenguaje de diseño de la Entidad IBM
+npm run lenguaje    # arma también build/lenguaje-<id>.html: el lenguaje de diseño de cada entidad en entidades/lenguajes/
 npm run buscar-fecha -- --anios 1911,1924 --zona America/New_York --tipo proyector --perfil 1/3 --centros cabeza,ajna,garganta --color '#0F62FE'   # fechas cuya carta da esa entidad
 ```
 
@@ -46,7 +46,7 @@ Una entidad es una marca tratada como persona: nace en una fecha, y su carta de 
 
 **Entidades ALMA** (`site/entidades.js`) convierte la carta en parámetros de ALMA: el ancho y el grado de Roboto Flex, los pesos, los radios, el movimiento y una paleta propia en OKLCH, y viste los componentes de ALMA con ellos. Su motor también corre en Node (`scripts/lib/entidades.mjs`), para los scripts y las pruebas.
 
-**Marcas que ya existen.** Para una marca nueva manda su fecha real. Para una que ya existe, la fecha es una decisión: `npm run buscar-fecha` recorre años hora por hora y devuelve los momentos cuya carta da la entidad buscada, ordenados por cercanía a su color. Así nació la **Entidad IBM** (3 de junio de 1911, 04:00, Nueva York): un Proyector 1/3 cuyo acento generado, #1D62FF, queda a ΔE 0,006 del Blue 60 sin ajustes. Su lenguaje de diseño (`site/estudio-ibm.js`) usa como referente de densidad el IBM Design Language, sin copiar su texto: filosofía, prisma de identidad, voz, tono, escritura, elementos con «así sí, así no» hechos con componentes de ALMA, galería y origen.
+**Marcas que ya existen.** Para una marca nueva manda su fecha real. Para una que ya existe, la fecha es una decisión: `npm run buscar-fecha` recorre años hora por hora y devuelve los momentos cuya carta da la entidad buscada, ordenados por cercanía a su color. Así nació la **Entidad IBM** (3 de junio de 1911, 04:00, Nueva York): un Proyector 1/3 cuyo acento generado, #1D62FF, queda a ΔE 0,006 del Blue 60 sin ajustes. **Lenguajes de diseño.** Cada entidad tiene su lenguaje de diseño, armado con una sola plantilla (`site/lenguaje.js`): filosofía, prisma de identidad, voz, tono, escritura, elementos con «así sí, así no» hechos con componentes de ALMA, galería y origen. La estructura, las especificaciones y los ejemplos salen de la carta; las palabras, de `entidades/lenguajes/<id>.json`. La densidad toma como referente el IBM Design Language, sin copiar su texto. Hoy hay dos: IBM y Cordura (31 de marzo de 1987, 10:45, Providencia), que hereda su lima.
 
 ## Usar ALMA
 
