@@ -20,6 +20,7 @@ dist/              GENERADO: no se edita a mano
   dart/alma_tokens.dart  Flutter: AlmaColors (ThemeExtension), espaciado, movimiento, tipografía
 artifact/project/  la guía, los 48 componentes y sus vistas previas, tal como se publican en el artefacto
 entidades/         motor de carta: fecha de nacimiento → carta de diseño humano, la semilla de una entidad
+ejemplos/          páginas de ejemplo hechas con una entidad; hoy, el landing de Ensayo Café
 site/              fuentes de las páginas: documentación (de ALMA y de cada entidad), Ajustes, Entidades ALMA y los lenguajes de diseño
 tests/             pares de contraste y pruebas del motor de carta y de las entidades
 ```
@@ -39,6 +40,7 @@ npm run entidades   # arma build/entidades-alma.html: crear entidades y ver ALMA
 npm run lenguaje    # arma también build/lenguaje-<id>.html: el lenguaje de diseño de cada entidad en entidades/lenguajes/
 npm run entidad -- ibm    # todo lo de una entidad en un paso: lenguaje, documentación (build/documentacion-ibm/), imágenes, pruebas y capturas para revisar
 npm run sistemas          # arma build/documentacion-sistemas/: ALMA y sus entidades en un solo sitio, con su documentación y su lenguaje de diseño
+npm run ejemplo           # arma build/ejemplos/ensayo-cafe.html: un landing hecho con la Entidad Ensayo
 npm run buscar-fecha -- --anios 1911,1924 --zona America/New_York --tipo proyector --perfil 1/3 --centros cabeza,ajna,garganta --color '#0F62FE'   # fechas cuya carta da esa entidad
 ```
 
@@ -55,6 +57,8 @@ Una entidad nueva solo escribe su lenguaje de diseño (`entidades/lenguajes/<id>
 Las imágenes se dibujan varias a la vez y con memoria (`build/cache/`): cada escena anota los tokens de los que depende, y solo se vuelve a dibujar si cambió ella, el código o el valor de uno de esos tokens. `--forzar` las rehace todas. **Un solo lugar para todos los sistemas.** `npm run sistemas` arma `build/documentacion-sistemas/`: ALMA y cada entidad en una sola página. Un selector cambia de sistema y, dentro de una entidad, otro cambia entre su documentación y su lenguaje de diseño, que va anidado en el mismo sitio (`site/lenguaje.js` entrega sus páginas al sitio en vez de armar el suyo). Las imágenes viajan en paquetes de 8 (`img/<id>-<n>.json`) que se piden al abrir la página que las muestra, porque un artefacto publicado admite un número limitado de archivos. Hoy tienen documentación la Entidad IBM, la Entidad Cordura y la Entidad Ensayo, una marca ficticia creada para probar este flujo.
 
 **Marcas que ya existen.** Para una marca nueva manda su fecha real. Para una que ya existe, la fecha es una decisión: `npm run buscar-fecha` recorre años hora por hora y devuelve los momentos cuya carta da la entidad buscada, ordenados por cercanía a su color. Así nació la **Entidad IBM** (3 de junio de 1911, 04:00, Nueva York): un Proyector 1/3 cuyo acento generado, #1D62FF, queda a ΔE 0,006 del Blue 60 sin ajustes. **Lenguajes de diseño.** Cada entidad tiene su lenguaje de diseño, armado con una sola plantilla (`site/lenguaje.js`): filosofía, prisma de identidad, voz, tono, escritura, elementos con «así sí, así no» hechos con componentes de ALMA, galería y origen. La estructura, las especificaciones y los ejemplos salen de la carta; las palabras, de `entidades/lenguajes/<id>.json`. La densidad toma como referente el IBM Design Language, sin copiar su texto. Hoy hay tres: IBM, Cordura (31 de marzo de 1987, 10:45, Providencia), que hereda su lima, y Ensayo, la entidad de prueba.
+
+**Páginas de ejemplo.** `ejemplos/` guarda páginas hechas con una entidad, para ver su lenguaje en uso fuera de la documentación. La primera es **Ensayo Café** (`ejemplos/ensayo-cafe/`): el landing de una cafetería ficticia que parte vendiendo solo cold brew. Usa componentes de ALMA y los valores de la Entidad Ensayo; `pagina.css` solo ordena la página y no define colores. `npm run ejemplo` la arma en un solo archivo, con la firma generativa de la entidad, y `node ejemplos/ensayo-cafe/revisar.mjs` la abre en ancho de escritorio y de teléfono, en los dos temas.
 
 ## Usar ALMA
 

@@ -28,7 +28,8 @@
     "entidad": "node scripts/entidad.mjs",
     "sistemas": "node scripts/build-selector.mjs",
     "documentacion": "node scripts/build-site.mjs --entidad",
-    "documentacion:imagenes": "node scripts/build-images.mjs --entidad"
+    "documentacion:imagenes": "node scripts/build-images.mjs --entidad",
+    "ejemplo": "node ejemplos/ensayo-cafe/build.mjs"
   },
   "engines": {
     "node": ">=20"
