@@ -168,22 +168,24 @@
   // ---------- Three colors do almost everything, as in IBM's buttons: the brand, a very dark tone and the color of action.
   // The action color is what people already read as "this can be followed": a blue. It stays in the blue zone, at the edge
   // nearest to the brand's hue and with the brand's chroma, so it belongs to the entity. A blue brand is its own action color.
-  var BLUE = [245, 275];
+  var BLUE = [258, 268];
   function actionRamp(pal) {
     var h = pal[0].h, d = function (a, b) { var x = Math.abs(a - b) % 360; return x > 180 ? 360 - x : x; };
     if (h >= BLUE[0] && h <= BLUE[1]) return pal[0].ramp;
     return makeRamp(d(h, BLUE[0]) <= d(h, BLUE[1]) ? BLUE[0] : BLUE[1], Math.max(0.12, Math.min(0.2, pal[0].c)));
   }
-  //   secondary = the brand at its darkest, with white text, so it never breaks the brand's harmony: step 900 on light
-  //               themes, 800 on dark ones (900 would sink into the page). Dark values get lighter on interaction.
+  //   secondary = the brand's hue, very dark and with little chroma (as ALMA's secondary-900), with white text, so it
+  //               never breaks the brand's harmony: as dark as step 900 on light themes and as step 800 on dark ones
+  //               (900 would sink into the page). Dark values get lighter on interaction: half a step, then to step 700.
   //   tertiary  = the action color: links, focus, what is selected, and the outline button, which fills on hover.
   //               On dark themes text takes the first light step at 4.5:1 and marks the first at 3:1.
-  function roles(P0, ACT) {
+  function roles(pal, ACT) {
     var B = D.base.accent, BLACK = D.brand['brand-black'], G = D.ramps.gray, R = D.ramps;
     var half = function (a, b) { return mix(a, b, 0.5).toUpperCase(); };
     var first = function (rmp, order, min, bgs) { return order.filter(function (st) { return bgs.every(function (b) { return contrast(rmp[st], b) >= min; }); })[0]; };
     var onDark = [BLACK, B.ui01Dark], onLight = [WHITE, UI02_LIGHT, B.ui01Light];
     var t = first(ACT, [400, 300, 200, 100], 4.5, onDark) || 100, m = first(ACT, [500, 400, 300, 200], 3, onDark) || 200, tl = first(ACT, [600, 700, 800, 900], 4.5, onLight) || 900;
+    var SL = { 900: 0.29, 850: 0.335, 800: 0.38, 750: 0.425, 700: 0.47 }, sc = Math.min(0.07, pal[0].c * 0.3), tone = function (st) { return toHex(SL[st], sc, pal[0].h); };
     var sec = function (rest, hover, active) {
       // A destructive action on the dark fill reads in the first light red that reaches 4.5:1 on it and on its hover.
       var red = [200, 100, 50].filter(function (st) { return contrast(R.danger[st], rest) >= 4.5 && contrast(R.danger[st], hover) >= 4.5; })[0] || 50;
@@ -193,16 +195,16 @@
     };
     return {
       action: ACT,
-      dark: Object.assign(sec(P0[800], half(P0[800], P0[700]), P0[700]),
+      dark: Object.assign(sec(tone(800), tone(750), tone(700)),
         { 'link-01': ACT[t], 'interactive-03': ACT[t], 'interactive-04': ACT[m], 'hover-tertiary': ACT[t], 'active-tertiary': ACT[Math.max(100, t - 100)], 'focus': ACT[t] }),
-      light: Object.assign(sec(P0[900], half(P0[900], P0[800]), P0[700]),
+      light: Object.assign(sec(tone(900), tone(850), tone(700)),
         { 'link-01': ACT[tl], 'interactive-04': ACT[tl], 'hover-tertiary': half(ACT[tl], ACT[Math.min(900, tl + 100)]), 'active-tertiary': ACT[Math.min(900, tl + 200)], 'focus': ACT[tl] }),
       lightHc: { 'link-01': ACT[900], 'interactive-04': ACT[900], 'focus': ACT[900] }, darkHc: { 'link-01': ACT[100], 'interactive-03': ACT[100], 'focus': WHITE }
     };
   }
 
   function accentFor(pal, deep, inherited) {
-    var P0 = pal[0].ramp, B = D.base.accent, RO = roles(P0, actionRamp(pal));
+    var P0 = pal[0].ramp, B = D.base.accent, RO = roles(pal, actionRamp(pal));
     if (deep) return deepAccent(pal);
     // The pressed state and the brand color follow the accent too. Chart series stay ALMA's: a designed set.
     // The inherited color is the accent as is, when ink text on it passes AA; otherwise the nearest ramp step that does.
@@ -224,7 +226,7 @@
   // Deep accent (defined Throat): a saturated primary with white text, the same step in every theme; hover is half a step
   // darker and pressed two steps, as in IBM. On dark themes its text and marks use lighter steps of the same ramp.
   function deepAccent(pal) {
-    var P0 = pal[0].ramp, B = D.base.accent, BLACK = D.brand['brand-black'], R = D.ramps, RO = roles(P0, actionRamp(pal));
+    var P0 = pal[0].ramp, B = D.base.accent, BLACK = D.brand['brand-black'], R = D.ramps, RO = roles(pal, actionRamp(pal));
     var half = function (a, b) { return mix(a, b, 0.5).toUpperCase(); };
     var steps = [600, 500, 700, 800], k = steps.filter(function (s) { return contrast(WHITE, P0[s]) >= 4.5; })[0] || 800, i = P0[k], hv = half(i, P0[Math.min(900, k + 100)]), pr = P0[Math.min(900, k + 200)];
     var first = function (order, min, bgs) { return order.map(function (s) { return P0[s]; }).filter(function (c) { return bgs.every(function (b) { return contrast(c, b) >= min; }); })[0]; };

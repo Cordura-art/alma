@@ -881,7 +881,7 @@
     "e": "Botón secundario",
     "k": "secundario",
     "ref": "Gray 80 en claro · Gray 60 en oscuro",
-    "ok": "Distinto, a propósito: el azul en su paso más oscuro",
+    "ok": "Distinto, a propósito: el tono de la marca, muy oscuro y apagado",
     "real": "—"
    },
    {
@@ -957,7 +957,7 @@
    ],
    [
     "Tres papeles.",
-    "La marca, la marca en su paso más oscuro (botón secundario, con texto blanco) y el color de acción (enlaces, foco, lo elegido y el contorno del terciario). El color de acción es siempre un azul, cercano al tono de la marca; aquí es la marca misma."
+    "La marca, el tono de la marca muy oscuro y con poca saturación (botón secundario, con texto blanco) y el color de acción (enlaces, foco, lo elegido y el contorno del terciario). El color de acción es siempre un azul clásico de enlace, cercano al tono de la marca; aquí es la marca misma."
    ],
    [
     "Estados.",

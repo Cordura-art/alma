@@ -61,8 +61,14 @@ test('tres colores en la Entidad IBM: marca, marca muy oscura y el color de acci
   const v = (n, th) => valor(tok, n, th);
   // Primary: the same brand step in every theme. Secondary: the brand at its darkest. Tertiary: the action color, here the brand itself.
   for (const th of THEMES) assert.equal(v('button-filled-bg', th), '#1D62FF', th);
-  assert.equal(v('button-gray-bg', 'light'), v('primary-900', 'light'));
-  assert.equal(v('button-gray-bg', 'dark'), v('primary-800'));
+  // The secondary keeps the brand's hue, very dark and with little chroma, and is lighter on dark themes.
+  for (const th of ['light', 'dark']) {
+    const [l, c, h] = S.En.fromHex(v('button-gray-bg', th));
+    assert.ok(Math.abs(h - S.P.palette[0].h) < 6, `${th}: tono ${h.toFixed(0)}`);
+    assert.ok(c <= 0.075 && c > 0.02, `${th}: saturación ${c.toFixed(3)}`);
+    assert.ok(l < 0.42, `${th}: luminosidad ${l.toFixed(2)}`);
+  }
+  assert.ok(S.En.fromHex(v('button-gray-bg', 'dark'))[0] > S.En.fromHex(v('button-gray-bg', 'light'))[0]);
   assert.equal(v('button-tertiary-border', 'light'), '#1D62FF');
   assert.equal(v('button-tertiary-border', 'dark'), v('link-01'), 'en oscuro, el contorno es el color de los enlaces');
   assert.equal(v('focus', 'light'), '#1D62FF');
@@ -71,7 +77,7 @@ test('tres colores en la Entidad IBM: marca, marca muy oscura y el color de acci
 
 test('el color de acción de una marca que no es azul queda en la zona del azul, con su saturación', async () => {
   const S = await sistema('cordura'), [, c, h] = S.En.fromHex(S.P.accent.action[500]);
-  assert.ok(h >= 240 && h <= 280, `tono ${h.toFixed(0)}`);
+  assert.ok(h >= 255 && h <= 270, `tono ${h.toFixed(0)}: un azul clásico de enlace`);
   assert.ok(c > 0.1, `saturación ${c.toFixed(2)}`);
   assert.equal(S.P.accent.dark['interactive-01'], '#E1F564', 'la marca no cambia');
   assert.equal(S.P.accent.dark['link-01'], S.P.accent.action[400]);

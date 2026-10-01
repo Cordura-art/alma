@@ -139,8 +139,8 @@ if (S) {
   for (const [k, e] of Object.entries({ ...elements, ...guides })) { textos.push([k, e.summary]); for (const sec of e.sections) textos.push([`${k} · ${sec.title}`, sec.body]); }
   for (const pt of patterns) textos.push([`Patrón ${pt.slug}`, pt.summary + '\n' + pt.body]);
   for (const t of tok.color.tokens) textos.push([`token ${t.name}`, t.usage]);
-  const left = restos(textos, W.vigentes);
-  if (left.length) throw new Error(`${ENT}: ${left.length} textos todavía describen el aspecto de Cordura:\n  ${left.join('\n  ')}`);
+  const left = restos(textos, W.vigentes, W.aspecto);
+  if (left.length) throw new Error(`${ENT}: ${left.length} textos todavía describen un aspecto que la entidad no tiene:\n  ${left.join('\n  ')}`);
 }
 const json = JSON.stringify(content).replace(/</g, '\\u003c');
 

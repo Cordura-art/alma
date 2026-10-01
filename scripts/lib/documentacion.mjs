@@ -118,20 +118,23 @@ export function palabras(S, tok) {
       }
     }
   }
-  // reemplazos.json: { reemplazos: [[texto de ALMA, texto de la entidad]…], vigentes: [frases que siguen siendo ciertas] }
+  // reemplazos.json: { reemplazos: [[texto de ALMA, texto de la entidad]…], vigentes: [frases que siguen siendo ciertas],
+  //                    aspecto: [palabras que delatan una frase sin revisar; por defecto, las del aspecto de Cordura] }
   const R = JSON.parse(read(`${dir}/reemplazos.json`)), pares = R.reemplazos.map(([de, a]) => ({ de, a: fill(a), n: 0 }));
   const adaptar = (text) => {
     for (const p of pares) if (text.includes(p.de)) { p.n++; text = text.split(p.de).join(p.a); }
     // A value written beside its token, as in "`radius-field` (8 px)", follows the entity's token.
     return text.replace(/`((?:duration|radius)-[a-z0-9-]+)` \((\d+) (ms|px)\)/g, (_, n) => '`' + n + '` (' + valor(tok, n) + ')');
   };
-  return { inicio: fill(read(`${dir}/inicio.md`)), tabs, adaptar, vigentes: R.vigentes || [], sinUso: () => pares.filter((p) => !p.n).map((p) => p.de) };
+  return { inicio: fill(read(`${dir}/inicio.md`)), tabs, adaptar, vigentes: R.vigentes || [], aspecto: R.aspecto || ASPECTO, sinUso: () => pares.filter((p) => !p.n).map((p) => p.de) };
 }
 
 // Words that describe Cordura's look. If one survives in an entity's documentation, a sentence is still describing ALMA.
-// Chart series keep ALMA's names, and `vigentes` are the sentences the entity checked and still holds.
-export function restos(textos, vigentes = []) {
-  const R = /\blima\b|\boliva\b|píldora|redondead/i, out = [];
+// Chart series keep ALMA's names, and `vigentes` are the sentences the entity checked and still holds. An entity that
+// shares part of that look (Cordura keeps its lime) lists its own words in `aspecto`.
+const ASPECTO = ['\\blima\\b', '\\boliva\\b', 'píldora', 'redondead'];
+export function restos(textos, vigentes = [], aspecto = ASPECTO) {
+  const R = new RegExp(aspecto.join('|'), 'i'), out = [];
   for (const [donde, text] of textos) for (const line of String(text || '').split('\n')) {
     if (R.test(line) && !/viz-cat/.test(line) && !vigentes.some((v) => line.includes(v))) out.push(`${donde}: ${line.trim().slice(0, 140)}`);
   }
