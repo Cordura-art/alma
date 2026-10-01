@@ -20,7 +20,7 @@ dist/              GENERADO: no se edita a mano
   dart/alma_tokens.dart  Flutter: AlmaColors (ThemeExtension), espaciado, movimiento, tipografía
 artifact/project/  la guía, los 48 componentes y sus vistas previas, tal como se publican en el artefacto
 entidades/         motor de carta: fecha de nacimiento → carta de diseño humano, la semilla de una entidad
-site/              fuentes de las páginas: documentación, Ajustes, Entidades ALMA y el lenguaje de la Entidad IBM
+site/              fuentes de las páginas: documentación (de ALMA y de cada entidad), Ajustes, Entidades ALMA y los lenguajes de diseño
 tests/             pares de contraste y pruebas del motor de carta y de las entidades
 ```
 
@@ -37,6 +37,8 @@ npm run images  # fotografía las imágenes de la documentación con los compone
 npm run carta -- --fecha 1911-06-16 --hora 12:00 --zona America/New_York --nombre IBM   # carta de una entidad (--json para el objeto completo)
 npm run entidades   # arma build/entidades-alma.html: crear entidades y ver ALMA con sus parámetros
 npm run lenguaje    # arma también build/lenguaje-<id>.html: el lenguaje de diseño de cada entidad en entidades/lenguajes/
+npm run documentacion -- ibm            # arma build/documentacion-ibm/: el sitio de documentación de una entidad, con sus tokens y sus textos
+npm run documentacion:imagenes -- ibm   # rehace las imágenes de esa documentación con los tokens de la entidad
 npm run buscar-fecha -- --anios 1911,1924 --zona America/New_York --tipo proyector --perfil 1/3 --centros cabeza,ajna,garganta --color '#0F62FE'   # fechas cuya carta da esa entidad
 ```
 
@@ -45,6 +47,8 @@ npm run buscar-fecha -- --anios 1911,1924 --zona America/New_York --tipo proyect
 Una entidad es una marca tratada como persona: nace en una fecha, y su carta de diseño humano es la receta de su arquetipo. El motor (`entidades/carta.mjs`) calcula la carta completa con posiciones planetarias reales (`astronomy-engine`): las 26 activaciones de personalidad y diseño, las puertas y líneas, los canales, los centros definidos, el tipo, la autoridad, el perfil, la definición y la cruz. La fecha funciona como semilla: la misma fecha siempre da la misma entidad. Desde la carta, `entidades/voz.mjs` escribe la voz y los principios de la entidad: cada puerta parte de su hexagrama del I Ching y se lee como tema, voz y principio (`entidades/arquetipos.mjs`); los canales definidos son sus principios, la cruz es su propósito, y la Garganta, el perfil, la autoridad y el tipo dan su forma de hablar. Sin hora, se usa el mediodía y la carta avisa que la Luna y las líneas pueden cambiar.
 
 **Entidades ALMA** (`site/entidades.js`) convierte la carta en parámetros de ALMA: el ancho y el grado de Roboto Flex, los pesos, los radios, el movimiento y una paleta propia en OKLCH, y viste los componentes de ALMA con ellos. Su motor también corre en Node (`scripts/lib/entidades.mjs`), para los scripts y las pruebas.
+
+**Documentación de una entidad.** `npm run documentacion -- <id>` arma el sitio de documentación de ALMA con los valores de la entidad (`scripts/lib/documentacion.mjs`): tokens, componentes en vivo, imágenes y una página **Origen** que lista cada token que cambia y de qué rasgo de la carta sale. Una entidad cambia valores de tokens, nunca nombres. Sus textos viven en `entidades/documentacion/<id>/`: `inicio.md`, las pestañas de fundamentos que reescribe (`elements/<página>/<n>-<pestaña>.md`, con valores como `{token:radius-button}`) y `reemplazos.json`, con las frases de las guías de ALMA que cambian para ella. La construcción falla si un reemplazo ya no encuentra su frase o si queda una frase sobre el aspecto de Cordura.
 
 **Marcas que ya existen.** Para una marca nueva manda su fecha real. Para una que ya existe, la fecha es una decisión: `npm run buscar-fecha` recorre años hora por hora y devuelve los momentos cuya carta da la entidad buscada, ordenados por cercanía a su color. Así nació la **Entidad IBM** (3 de junio de 1911, 04:00, Nueva York): un Proyector 1/3 cuyo acento generado, #1D62FF, queda a ΔE 0,006 del Blue 60 sin ajustes. **Lenguajes de diseño.** Cada entidad tiene su lenguaje de diseño, armado con una sola plantilla (`site/lenguaje.js`): filosofía, prisma de identidad, voz, tono, escritura, elementos con «así sí, así no» hechos con componentes de ALMA, galería y origen. La estructura, las especificaciones y los ejemplos salen de la carta; las palabras, de `entidades/lenguajes/<id>.json`. La densidad toma como referente el IBM Design Language, sin copiar su texto. Hoy hay dos: IBM y Cordura (31 de marzo de 1987, 10:45, Providencia), que hereda su lima.
 

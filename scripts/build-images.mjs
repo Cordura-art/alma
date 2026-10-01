@@ -1,14 +1,21 @@
 // Builds the images of the ALMA docs (artifact/project/assets/<Section>/*.png) from the real components and tokens:
 // each scene is a page with alma.css, the component bundle and a small script, photographed by Playwright's Chromium.
 // Run after `npm run build`, and again whenever tokens or components change. Usage: node scripts/build-images.mjs [scene…]
+// With --entidad <id> the same scenes are drawn with that entity's tokens, into build/documentacion-<id>/assets/.
 import { readFile, mkdir } from 'node:fs/promises';
 import { chromium } from 'playwright';
 import { componentScenes } from './images/componentes.mjs';
 import { patternScenes } from './images/patrones.mjs';
+import { sistema, aplicar, css as cssEntidad } from './lib/documentacion.mjs';
 
 const P = 'artifact/project';
 const read = (p) => readFile(p, 'utf8');
 const tok = JSON.parse(await read(`${P}/tokens.json`));
+const argv = process.argv.slice(2), ei = argv.indexOf('--entidad');
+const ENT = ei >= 0 ? argv.splice(ei, 2)[1] : null;
+const S = ENT ? await sistema(ENT) : null;
+if (S) aplicar(tok, S);
+const DEST = S ? `build/documentacion-${ENT}/assets` : `${P}/assets`;
 const catalog = JSON.parse(await read(`${P}/assets/Icons/carbon-icons.json`)).icons;
 const CDN = 'https://cdnjs.cloudflare.com/ajax/libs';
 const FONTS = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght,GRAD,XTRA@8..144,25..151,100..1000,-200..150,323..603&family=Roboto+Mono:wght@400;500&display=swap';
@@ -302,9 +309,9 @@ const ALL = scenes.concat(componentScenes, patternScenes);
 export { ALL as allScenes };
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const only = process.argv.slice(2);
+  const only = argv;
   const bundle = await read(`${P}/components/bundle.js`);
-  const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), BASE].join('\n');
+  const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), S ? cssEntidad(S) : '', BASE].join('\n');
   const head = `<link rel="stylesheet" href="${FONTS}"><style>${css}</style>`;
   const libs = `<script src="${CDN}/react/18.3.1/umd/react.production.min.js"></script><script src="${CDN}/react-dom/18.3.1/umd/react-dom.production.min.js"></script>`;
   // The iframe document of device(): same CSS, bundle and helpers; it flags __ready once rendered and its "after" ran.
@@ -335,7 +342,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     if (s.click) { await page.click(s.click); await page.waitForTimeout(200); }
     if (s.after) await page.evaluate(`(async function(){ ${HELPERS}\n${s.after} })()`);
     await page.waitForTimeout(120);
-    const out = `${P}/assets/${s.file}.png`;
+    const out = `${DEST}/${s.file}.png`;
     await mkdir(out.replace(/\/[^/]+$/, ''), { recursive: true });
     await page.locator('#shot').screenshot({ path: out, animations: 'disabled' });
     n++;

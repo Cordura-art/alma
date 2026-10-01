@@ -25,7 +25,7 @@ export function datos() {
 
 // Aliases that point at the accent tokens are resolved where they are declared (:root), so re-declare them on the entity scope.
 export function rebind(alma) {
-  const ACC = /var\(--(interactive-01|hover-primary|text-on-interactive|nav-selected|link-01|field-border|field-border-hover|field-label|button-tinted-text|button-tinted-bg|button-tinted-bg-hover|button-plain-text|control-on)\)/;
+  const ACC = /var\(--(interactive-01|hover-primary|active-primary|brand-lime|text-on-interactive|nav-selected|link-01|field-border|field-border-hover|field-label|button-tinted-text|button-tinted-bg|button-tinted-bg-hover|button-plain-text|control-on)\)/;
   let css = '';
   for (const [, sel, body] of alma.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     const th = /data-theme="([a-z-]+)"/.exec(sel); const theme = th ? th[1] : (/:root/.test(sel) ? 'dark' : null);

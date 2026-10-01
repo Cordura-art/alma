@@ -6,6 +6,9 @@
   var C = JSON.parse(document.getElementById('alma-content').textContent);
   var root = document.documentElement;
   root.lang = 'es';
+  // The site's own names: ALMA's, or an entity's when the page documents one (scripts/build-site.mjs --entidad).
+  var SITE = Object.assign({ nombre: 'ALMA', titulo: 'Documentación ALMA', h1: 'ALMA, sistema de diseño de Cordura', grupo: 'ALMA', pie: '',
+    docs: { id: 'novedades', label: 'Novedades y avance', icon: 'notification', title: 'Novedades y avance', summary: 'Qué cambió en ALMA y cómo va la documentación frente a IBM Carbon.' } }, C.site || {});
 
   // ---- Themes: dark by default (ALMA), the viewer's choice is remembered on this device.
   var THEMES = C.tokens.themes; // [{id, name}]
@@ -129,15 +132,15 @@
   // ---- Pages
   function Home() {
     return h(React.Fragment, null,
-      h('h1', { className: 'sr', tabIndex: -1, id: 'page-title' }, 'ALMA, sistema de diseño de Cordura'),
+      h('h1', { className: 'sr', tabIndex: -1, id: 'page-title' }, SITE.h1),
       h(Cover),
       h(Md, { src: C.readme }),
       h('p', { className: 'foot web-body-s' }, 'Esta página se genera desde el repositorio ',
         h('a', { className: 'alma-link', href: 'https://github.com/Cordura-art/alma', target: '_blank', rel: 'noopener noreferrer' }, 'Cordura-art/alma'),
-        '. Los textos, los tokens y las vistas previas son los mismos del repositorio.'));
+        '. Los textos, los tokens y las vistas previas son los mismos del repositorio.' + SITE.pie));
   }
   function Docs() {
-    return h(React.Fragment, null, h(Head, { eyebrow: 'Sistema de diseño', title: 'Novedades y avance', summary: 'Qué cambió en ALMA y cómo va la documentación frente a IBM Carbon.' }), h(Md, { src: C.docs }));
+    return h(React.Fragment, null, h(Head, { eyebrow: 'Sistema de diseño', title: SITE.docs.title, summary: SITE.docs.summary }), h(Md, { src: C.docs }));
   }
   function Pending() {
     var imgs = /Imágenes por crear \((\d+)\)/.exec(C.pending), reads = /lectores de pantalla \((\d+)\)/.exec(C.pending);
@@ -259,10 +262,10 @@
   var GROUP_ICON = { 'Acciones': 'flash', 'Formularios': 'list', 'Toggles': 'checkbox--checked', 'Menús': 'menu', 'Navegación': 'compass',
     'Contenido': 'grid', 'Datos': 'dashboard', 'Comunicación': 'chat', 'Estados': 'in-progress', 'Ayuda': 'help', 'Iconografía': 'image' };
   var pages = [
-    { id: 'inicio', label: 'Inicio', icon: 'home', group: 'ALMA', render: function () { return h(Home); } },
-    { id: 'novedades', label: 'Novedades y avance', icon: 'notification', group: 'ALMA', render: function () { return h(Docs); } },
-    { id: 'pendientes', label: 'Pendientes', icon: 'incomplete', group: 'ALMA', render: function () { return h(Pending); } }
+    { id: 'inicio', label: 'Inicio', icon: 'home', group: SITE.grupo, render: function () { return h(Home); } },
+    { id: SITE.docs.id, label: SITE.docs.label, icon: SITE.docs.icon, group: SITE.grupo, render: function () { return h(Docs); } }
   ];
+  if (C.pending) pages.push({ id: 'pendientes', label: 'Pendientes', icon: 'incomplete', group: SITE.grupo, render: function () { return h(Pending); } });
   Object.keys(FUND).forEach(function (id) {
     var el = C.elements[FUND[id].slug]; if (!el) return;
     pages.push({ id: id, label: el.name, icon: FUND[id].icon, group: 'Fundamentos', render: function (s) { return h(Foundation, { id: id, theme: s.theme, key: id }); } });
@@ -306,7 +309,7 @@
     }, []);
     useEffect(function () {
       var pg = byId[route];
-      document.title = pg.id === 'inicio' ? 'Documentación ALMA' : pg.label + ' · ALMA';
+      document.title = pg.id === 'inicio' ? SITE.titulo : pg.label + ' · ' + SITE.nombre;
       if (first.current) { first.current = false; return; }
       window.scrollTo(0, 0);
       var t = document.getElementById('page-title'); if (t) t.focus({ preventScroll: true });
@@ -327,8 +330,8 @@
 
     return h(React.Fragment, null,
       h('a', { className: 'skip', href: '#main', onClick: function (e) { e.preventDefault(); var t = document.getElementById('page-title'); if (t) t.focus(); } }, 'Saltar al contenido'),
-      h(A.Toolbar, { title: 'ALMA', sticky: true,
-        search: h(Named, { name: 'Buscar en ALMA' }, h(A.SearchField, { label: 'Buscar en ALMA', placeholder: 'Buscar componentes y fundamentos', value: query,
+      h(A.Toolbar, { title: SITE.nombre, sticky: true,
+        search: h(Named, { name: 'Buscar en ' + SITE.nombre }, h(A.SearchField, { label: 'Buscar en ' + SITE.nombre, placeholder: 'Buscar componentes y fundamentos', value: query,
           onChange: function (v) { qs[1](v); if (v) hid[1](false); },
           onSubmit: function () { var g = groups[0]; if (g) { go(g.items[0].value); qs[1](''); } } })),
         actions: [{ label: dark ? 'Usar tema claro' : 'Usar tema oscuro', icon: dark ? 'light' : 'asleep', onPress: function () { th[1](dark ? 'light' : 'dark'); } }],
@@ -336,7 +339,7 @@
         onMoreAction: function (v) { if (isTheme(v)) th[1](v); } }),
       h('div', { className: 'shell' },
         h('div', { className: 'nav' },
-          h(A.Sidebar, { label: 'Secciones de ALMA', groups: groups, value: route, onChange: go, hidden: hidden, onHiddenChange: hid[1] }),
+          h(A.Sidebar, { label: 'Secciones de ' + SITE.nombre, groups: groups, value: route, onChange: go, hidden: hidden, onHiddenChange: hid[1] }),
           !hidden && !groups.length ? h('p', { className: 'nav__empty web-body-s' }, 'Nada coincide con «' + query + '».') : null),
         h('main', { className: 'main', id: 'main' }, byId[route].render({ theme: theme }))));
   }

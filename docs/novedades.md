@@ -2,6 +2,11 @@
 
 Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detalle de cada cambio está en el historial del repositorio.
 
+## 1 de octubre de 2026
+
+- **Documentación por entidad, y la de la Entidad IBM.** `npm run documentacion -- ibm` arma el sitio de documentación de una entidad (`build/documentacion-ibm/`): el mismo sitio de ALMA, con los valores de sus tokens, sus componentes en vivo y sus propias páginas. La entidad cambia valores, nunca nombres: 53 tokens en el caso de IBM, todos listados en la página nueva **Origen**, que también explica de qué rasgo de la carta sale cada uno. Los textos propios viven en `entidades/documentacion/<id>/`: el inicio, las pestañas de fundamentos que la entidad reescribe y los reemplazos para las frases de las guías de ALMA que solo valen para Cordura. La construcción falla si una frase todavía habla del lima, de píldoras o de esquinas redondeadas. `npm run documentacion:imagenes -- ibm` rehace las 131 imágenes con los tokens de la entidad, y junto al sitio queda `entidad-ibm.css`, con solo sus valores.
+- **El acento de una entidad llega a todos los estados.** El botón presionado (`active-primary`), el color de marca (`brand-lime`) y, con un acento profundo, el texto del botón presionado siguen a la entidad; antes quedaban en el lima de ALMA. Las paletas de gráficos no cambian: son un conjunto probado.
+
 ## 30 de septiembre de 2026
 
 - **Lenguaje de diseño de Cordura y una plantilla para todas las entidades.** `npm run lenguaje` arma un lenguaje de diseño por cada archivo de `entidades/lenguajes/`: la plantilla pone la estructura, las especificaciones y los ejemplos de «así sí, así no» desde la carta, y el archivo pone las palabras. Cordura es la primera entidad con fecha real: «Sentir → Esperar → Decidir», principios como «El control es tuyo» y «Hasta la raíz», y su lima heredado. IBM pasa a la misma plantilla.

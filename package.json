@@ -24,7 +24,9 @@
     "carta": "node scripts/carta.mjs",
     "entidades": "node scripts/build-entidades.mjs",
     "buscar-fecha": "node scripts/buscar-fecha.mjs",
-    "lenguaje": "node scripts/build-entidades.mjs && node scripts/build-lenguaje.mjs"
+    "lenguaje": "node scripts/build-entidades.mjs && node scripts/build-lenguaje.mjs",
+    "documentacion": "node scripts/build-site.mjs --entidad",
+    "documentacion:imagenes": "node scripts/build-images.mjs --entidad"
   },
   "engines": {
     "node": ">=20"

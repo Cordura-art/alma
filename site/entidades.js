@@ -168,6 +168,7 @@
   function accentFor(pal, deep, inherited) {
     var P0 = pal[0].ramp, P1 = pal[1].ramp, B = D.base.accent;
     if (deep) return deepAccent(pal);
+    // The pressed state and the brand color follow the accent too. Chart series stay ALMA's: a designed set.
     // The inherited color is the accent as is, when ink text on it passes AA; otherwise the nearest ramp step that does.
     var i = inherited && contrast(INK, inherited) >= 4.5 ? inherited : [300, 200, 400].map(function (s) { return P0[s]; }).filter(function (c) { return contrast(INK, c) >= 4.5; })[0] || P0[200];
     var navLight = pickText(P0, [WHITE, UI02_LIGHT, B.ui01Light], 'dark');
@@ -177,9 +178,9 @@
     var onLight = [600, 700, 800].map(function (k) { return P0[k]; }).filter(function (c) { return contrast(c, WHITE) >= 3 && contrast(c, UI02_LIGHT) >= 3; })[0] || P0[800];
     return {
       ramp: pal[0].name,
-      dark: { 'interactive-01': i, 'hover-primary': P0[400], 'text-on-interactive': INK, 'nav-selected': i, 'link-01': linkDark,
+      dark: { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': i, 'link-01': linkDark,
         'field-border': i, 'field-border-hover': P0[400], 'field-label': i, 'button-tinted-text': i, 'button-tinted-bg': rgba(i, 0.16), 'button-tinted-bg-hover': rgba(i, 0.24), 'button-plain-text': i, 'control-on': i },
-      light: { 'interactive-01': i, 'hover-primary': P0[400], 'text-on-interactive': INK, 'nav-selected': navLight, 'link-01': linkLight,
+      light: { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': navLight, 'link-01': linkLight,
         'button-tinted-bg': rgba(i, 0.45), 'button-tinted-bg-hover': rgba(i, 0.65), 'button-plain-text': navLight, 'control-on': onLight },
       lightHc: { 'nav-selected': P0[900], 'link-01': P1[900] }, darkHc: { 'link-01': P1[100] }
     };
@@ -188,7 +189,7 @@
   // Deep accent (defined Throat): a saturated primary with white text, and its light steps for text on dark surfaces.
   function deepAccent(pal) {
     var P0 = pal[0].ramp, P1 = pal[1].ramp, B = D.base.accent, BLACK = D.brand['brand-black'];
-    var steps = [600, 500, 700, 800], k = steps.filter(function (s) { return contrast(WHITE, P0[s]) >= 4.5; })[0] || 800, i = P0[k], hv = P0[Math.min(900, k + 100)];
+    var steps = [600, 500, 700, 800], k = steps.filter(function (s) { return contrast(WHITE, P0[s]) >= 4.5; })[0] || 800, i = P0[k], hv = P0[Math.min(900, k + 100)], pr = P0[Math.min(900, k + 200)];
     var navDark = pickText(P0, [BLACK, B.ui01Dark], 'light');
     var ctlDark = [400, 300, 200].map(function (s) { return P0[s]; }).filter(function (c) { return contrast(c, BLACK) >= 3 && contrast(c, B.ui01Dark) >= 3; })[0] || P0[200];
     var navLight = contrast(i, WHITE) >= 4.5 && contrast(i, UI02_LIGHT) >= 4.5 && contrast(i, B.ui01Light) >= 4.5 ? i : pickText(P0, [WHITE, UI02_LIGHT, B.ui01Light], 'dark');
@@ -198,9 +199,9 @@
     // text-on-interactive also colors things that sit on light fills (gray button, floating label, cards): those stay ink.
     return {
       ramp: pal[0].name, deep: true,
-      dark: { 'interactive-01': i, 'hover-primary': hv, 'text-on-interactive': WHITE, 'nav-selected': navDark, 'link-01': linkDark,
+      dark: { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'field-border-active': navDark, 'text-on-interactive': WHITE, 'nav-selected': navDark, 'link-01': linkDark,
         'field-border': ctlDark, 'field-border-hover': navDark, 'field-label': navDark, 'button-tinted-text': navDark, 'button-tinted-bg': rgba(navDark, 0.16), 'button-tinted-bg-hover': rgba(navDark, 0.24), 'button-plain-text': navDark, 'control-on': ctlDark, 'button-gray-text': INK, 'field-label-float-text': INK, 'product-card-text': INK, 'button-inverse-text': INK, 'button-ghost-text-active': INK },
-      light: { 'interactive-01': i, 'hover-primary': hv, 'text-on-interactive': WHITE, 'nav-selected': navLight, 'link-01': linkLight,
+      light: { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'text-on-interactive': WHITE, 'nav-selected': navLight, 'link-01': linkLight,
         'button-tinted-bg': rgba(i, 0.12), 'button-tinted-bg-hover': rgba(i, 0.2), 'button-plain-text': navLight, 'control-on': i, 'button-gray-text': INK, 'field-label-float-text': INK, 'product-card-text': INK, 'button-inverse-text': INK, 'button-ghost-text-active': INK },
       lightHc: { 'nav-selected': P0[900], 'link-01': P0[900] }, darkHc: { 'link-01': P0[100] }
     };
