@@ -1932,13 +1932,13 @@
     },
     "segmented-bg": {
       "$type": "color",
-      "$value": "{color.ui-01}",
-      "$description": "SegmentedControl: fondo del riel. Token de componente: alias de ui-01."
+      "$value": "{color.ui-04}",
+      "$description": "SegmentedControl: fondo del riel, hundido respecto de la superficie. Token de componente: alias de ui-04."
     },
     "segmented-border": {
       "$type": "color",
       "$value": "{color.border-control}",
-      "$description": "SegmentedControl: borde del riel. Token de componente: alias de border-control."
+      "$description": "SegmentedControl: contorno de la opción elegida. Token de componente: alias de border-control."
     },
     "segmented-text": {
       "$type": "color",
@@ -1947,13 +1947,13 @@
     },
     "segmented-selected-bg": {
       "$type": "color",
-      "$value": "{color.brand-white}",
-      "$description": "SegmentedControl: fondo de la opción elegida. Token de componente: alias de brand-white."
+      "$value": "{color.ui-01}",
+      "$description": "SegmentedControl: fondo de la opción elegida, la pieza que se desliza. Token de componente: alias de ui-01."
     },
     "segmented-selected-text": {
       "$type": "color",
-      "$value": "{color.tertiary-600}",
-      "$description": "SegmentedControl: texto de la opción elegida. Token de componente: alias de tertiary-600."
+      "$value": "{color.text-01}",
+      "$description": "SegmentedControl: texto de la opción elegida. Token de componente: alias de text-01."
     },
     "stepper-bg": {
       "$type": "color",

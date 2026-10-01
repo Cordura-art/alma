@@ -163,15 +163,36 @@
       e.preventDefault(); pick(vals[n]); if (refs.current[n]) refs.current[n].focus();
     }
     var chosen = Math.max(0, vals.indexOf(value));
-    return h('div', { className: 'alma-seg', role: 'radiogroup', 'aria-label': props.label },
+    // The thumb takes the place and the width of the chosen option, measured: segments are equal while there is room and
+    // follow their labels when there is not. Until the first measure, CSS places it as one of equal segments.
+    var root = window.React.useRef(null), box = useState(null), ready = useState(false);
+    window.React.useLayoutEffect(function () {
+      function measure() {
+        var el = refs.current[chosen]; if (!el) return;
+        var x = el.offsetLeft, w = el.offsetWidth;
+        box[1](function (b) { return b && b.x === x && b.w === w ? b : { x: x, w: w }; });
+      }
+      measure();
+      if (typeof ResizeObserver === 'undefined') return;
+      var ro = new ResizeObserver(measure);
+      if (root.current) ro.observe(root.current);
+      refs.current.forEach(function (el) { if (el) ro.observe(el); });
+      return function () { ro.disconnect(); };
+    }, [chosen, opts.length]);
+    window.React.useEffect(function () { var id = requestAnimationFrame(function () { ready[1](true); }); return function () { cancelAnimationFrame(id); }; }, []);
+    var vars = { '--alma-seg-n': opts.length, '--alma-seg-i': chosen };
+    if (box[0]) { vars['--alma-seg-x'] = box[0].x + 'px'; vars['--alma-seg-w'] = box[0].w + 'px'; }
+    return h('div', { ref: root, className: 'alma-seg' + (ready[0] ? ' is-ready' : ''), role: 'radiogroup', 'aria-label': props.label, style: vars },
+      h('span', { className: 'alma-seg__thumb', 'aria-hidden': 'true' }),
       opts.map(function (o, i) {
         var v = vals[i], l = o.label !== undefined ? o.label : o, on = v === value;
         return h('button', {
           key: String(v), ref: function (el) { refs.current[i] = el; }, type: 'button', role: 'radio', 'aria-checked': on,
           tabIndex: i === chosen ? 0 : -1,
           className: 'alma-seg__opt' + (on ? ' alma-seg__opt--on' : ''),
+          'data-label': typeof l === 'string' ? l : undefined,
           onClick: function () { pick(v); }, onKeyDown: function (e) { onKey(e, i); }
-        }, l);
+        }, h('span', { className: 'alma-seg__label' }, l));
       }));
   }
 

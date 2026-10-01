@@ -14,7 +14,6 @@
   ["un brillo lima la recorre", "un brillo {v:acento} la recorre"],
   ["Un brillo lima recorre la línea.", "Un brillo {v:acento} recorre la línea."],
   ["Sobre `overlay-01`, el lima llega a 3:1.", "Sobre `overlay-01`, el {v:acento} llega a 3:1."],
-  ["Un selector de una opción entre pocas alternativas, en una píldora.", "Un selector de una opción entre pocas alternativas, en una sola barra{si recta}{sino} de {v:forma}{fin}.", "!pildora"],
   ["con las esquinas superiores redondeadas. Respeta", "con las esquinas rectas. Respeta", "recta"],
   ["Centrada, 560 px de ancho, esquinas redondeadas.", "Centrada, 560 px de ancho, esquinas rectas.", "recta"],
   ["2. **Panel** `ui-01` con esquinas redondeadas.", "2. **Panel** `ui-01` con esquinas rectas.", "recta"],
@@ -31,7 +30,6 @@
   ["La línea lima que termina en verde.", "La línea {v:acento} que termina en verde."],
   ["son píldoras con la etiqueta flotante.", "llevan la etiqueta flotante.", "!pildora"],
   ["Campo en píldora · etiqueta flotante", "Campo de {v:forma} · etiqueta flotante", "!pildora"],
-  ["Selección única en píldora", "Selección única en una barra", "!pildora"],
   ["Fondo acero (`interactive-02`).", "Fondo {v:acento} muy oscuro y apagado (`interactive-02`), con texto blanco."]
  ],
  "vigentes": [

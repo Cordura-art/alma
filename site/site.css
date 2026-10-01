@@ -17,6 +17,7 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .nav__empty { margin: var(--space-8) var(--space-16); color: var(--text-02); }
 /* The system selector of the build with several systems (scripts/build-selector.mjs). */
 .nav__system { display: grid; gap: var(--space-16); padding: 0 var(--space-8) var(--space-16); }
+.nav__system .alma-seg__opt { padding-inline: var(--space-8); }
 .main { min-width: 0; max-width: 60rem; outline: none; }
 @media (min-width: 1056px) {
   .shell { grid-template-columns: auto minmax(0, 1fr); gap: var(--space-32); padding-inline: var(--space-24); }

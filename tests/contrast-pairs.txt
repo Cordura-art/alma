@@ -23,9 +23,9 @@ TextInput|ayuda/contador|text-01|ui-02|4.5
 TextInput|ojo (ícono)|icon-02|ui-02|3
 TextInput|borde error|danger-400|ui-02|3
 TextInput|texto error|text-error|ui-02|4.5
-SegmentedControl|opción texto|text-02|ui-01|4.5
-SegmentedControl|opción elegida|tertiary-600|brand-white|4.5
-SegmentedControl|borde pista|border-control|ui-02|3
+SegmentedControl|opción texto|segmented-text|segmented-bg|4.5
+SegmentedControl|opción elegida texto|segmented-selected-text|segmented-selected-bg|4.5
+SegmentedControl|contorno de la elegida sobre el riel|segmented-border|segmented-bg|3
 Stepper|valor|text-02|ui-01|4.5
 Stepper|íconos − +|text-on-interactive|brand-white|3
 Stepper|borde píldora|border-control|ui-02|3

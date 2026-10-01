@@ -1286,15 +1286,15 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   final Color fieldLabelFloatError;
   /// Switch, Checkbox y Radio apagados: borde. Token de componente: alias de border-control.
   final Color controlOffBorder;
-  /// SegmentedControl: fondo del riel. Token de componente: alias de ui-01.
+  /// SegmentedControl: fondo del riel, hundido respecto de la superficie. Token de componente: alias de ui-04.
   final Color segmentedBg;
-  /// SegmentedControl: borde del riel. Token de componente: alias de border-control.
+  /// SegmentedControl: contorno de la opción elegida. Token de componente: alias de border-control.
   final Color segmentedBorder;
   /// SegmentedControl: opción sin elegir. Token de componente: alias de text-02.
   final Color segmentedText;
-  /// SegmentedControl: fondo de la opción elegida. Token de componente: alias de brand-white.
+  /// SegmentedControl: fondo de la opción elegida, la pieza que se desliza. Token de componente: alias de border-control.
   final Color segmentedSelectedBg;
-  /// SegmentedControl: texto de la opción elegida. Token de componente: alias de tertiary-600.
+  /// SegmentedControl: texto de la opción elegida. Token de componente: alias de text-01.
   final Color segmentedSelectedText;
   /// Stepper: fondo. Token de componente: alias de ui-01.
   final Color stepperBg;
@@ -1902,11 +1902,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     fieldLabelFloatText: Color(0xFF141733),
     fieldLabelFloatError: Color(0xFFAE2424),
     controlOffBorder: Color(0xFF566980),
-    segmentedBg: Color(0xFF0C0B16),
+    segmentedBg: Color(0xFF1B1A24),
     segmentedBorder: Color(0xFF566980),
     segmentedText: Color(0xFFA0C3D2),
-    segmentedSelectedBg: Color(0xFFFFFFFF),
-    segmentedSelectedText: Color(0xFF00339B),
+    segmentedSelectedBg: Color(0xFF566980),
+    segmentedSelectedText: Color(0xFFF8FBFC),
     stepperBg: Color(0xFF0C0B16),
     stepperBgHover: Color(0xFF3A4660),
     stepperBorder: Color(0xFF566980),
@@ -2405,11 +2405,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     fieldLabelFloatText: Color(0xFF141733),
     fieldLabelFloatError: Color(0xFFAE2424),
     controlOffBorder: Color(0xFF566980),
-    segmentedBg: Color(0xFFFFFFFF),
+    segmentedBg: Color(0xFFEDF4F6),
     segmentedBorder: Color(0xFF566980),
     segmentedText: Color(0xFF4C5D74),
     segmentedSelectedBg: Color(0xFFFFFFFF),
-    segmentedSelectedText: Color(0xFF00339B),
+    segmentedSelectedText: Color(0xFF3A4660),
     stepperBg: Color(0xFFFFFFFF),
     stepperBgHover: Color(0xFFABC0EB),
     stepperBorder: Color(0xFF566980),
@@ -2908,7 +2908,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     fieldLabelFloatText: Color(0xFF141733),
     fieldLabelFloatError: Color(0xFF7C1919),
     controlOffBorder: Color(0xFFA0C3D2),
-    segmentedBg: Color(0xFF11101B),
+    segmentedBg: Color(0xFF201F29),
     segmentedBorder: Color(0xFFA0C3D2),
     segmentedText: Color(0xFFDDE9EF),
     segmentedSelectedBg: Color(0xFFFFFFFF),
@@ -3411,11 +3411,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     fieldLabelFloatText: Color(0xFF141733),
     fieldLabelFloatError: Color(0xFF7C1919),
     controlOffBorder: Color(0xFF3A4660),
-    segmentedBg: Color(0xFFFFFFFF),
+    segmentedBg: Color(0xFFD5E5EB),
     segmentedBorder: Color(0xFF3A4660),
     segmentedText: Color(0xFF3A4660),
     segmentedSelectedBg: Color(0xFFFFFFFF),
-    segmentedSelectedText: Color(0xFF00339B),
+    segmentedSelectedText: Color(0xFF141733),
     stepperBg: Color(0xFFFFFFFF),
     stepperBgHover: Color(0xFFABC0EB),
     stepperBorder: Color(0xFF3A4660),

@@ -10,7 +10,7 @@ summary: Qué resuelve ALMA en el selector segmentado.
 ### Comportamiento
 - Es un grupo de radios (`role="radiogroup"`) nombrado por `label`; cada opción es `role="radio"` con `aria-checked`.
 - Una sola parada de Tab: la opción elegida. Las flechas eligen y mueven el foco, como un grupo de radios nativo.
-- Cada opción mide 44 px de alto.
+- El control mide 44 px de alto y el área de toque de cada segmento ocupa todo ese alto.
 
 ### Interacciones de teclado
 
@@ -24,6 +24,7 @@ summary: Qué resuelve ALMA en el selector segmentado.
 ## Recomendaciones de diseño
 
 - Dale siempre un `label` que diga qué se elige.
+- No dependas del color para mostrar la opción elegida: la pieza y el peso del texto ya la marcan.
 
 ## Consideraciones de desarrollo
 

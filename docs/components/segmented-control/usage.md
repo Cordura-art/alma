@@ -1,7 +1,7 @@
 ---
 component: SegmentedControl
 tab: Uso
-summary: Un selector de una opción entre pocas alternativas, en una píldora.
+summary: Un selector de una opción entre pocas alternativas, con una pieza que se desliza a la opción elegida.
 ---
 
 
@@ -22,22 +22,26 @@ summary: Un selector de una opción entre pocas alternativas, en una píldora.
 
 ## Anatomía
 
-1. **Contenedor** con esquinas `radius-button`, con borde.
-2. **Opción.**
-3. **Opción elegida**: fondo blanco.
+1. **Riel**: un fondo hundido respecto de la superficie, con esquinas `radius-button` y sin borde.
+2. **Segmento**: cada opción. Todos miden lo mismo.
+3. **Pieza elegida**: una sola pieza con contorno que se desliza bajo el texto hasta la opción elegida. Sus esquinas son concéntricas con las del riel.
 
 ![SegmentedControl de tipo de pasaje con la opción «Ida» elegida, en tema oscuro y claro.](assets/Componentes/segmented-control-ida.png)
 
 ## Contenido
 
 - Textos cortos, de una a tres palabras, del mismo tipo.
-- Todas las opciones del mismo largo aproximado.
+- Todas las opciones del mismo largo aproximado: los segmentos miden lo mismo, y un texto mucho más largo que los demás deja a los otros con aire de sobra.
+- Sustantivos o frases nominales: «Semana», «Ida y regreso».
+- Solo texto en todos los segmentos; no mezcles texto e íconos.
 - La opción por defecto, la más usada.
 
 ## Comportamiento
 
 - Elegir cambia la vista al instante.
 - Siempre hay una opción elegida.
+- La pieza elegida se desliza de una opción a otra; no aparece y desaparece.
+- Los segmentos miden lo mismo mientras haya espacio. Si el control no cabe en su contenedor, cada segmento toma el ancho de su texto.
 
 ## Relacionados
 

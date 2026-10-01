@@ -256,14 +256,14 @@ export const componentScenes = [
       after: `var st1 = $('.alma-step'), b = all('.alma-step__btn'), v = $('.alma-step__value'); dimH(st1, 'right'); dimW(b[0], 'bottom'); dimW(v, 'top'); rad(b[1], box(b[1]).x + box(b[1]).w + 12, box(b[1]).y + box(b[1]).h + 10);` }),
 
   // ---------- SegmentedControl ----------
-  scene('segmented-control', 'usage', 'la píldora de pasajes', 'segmented-control-ida',
+  scene('segmented-control', 'usage', 'el control de pasajes', 'segmented-control-ida',
     'SegmentedControl de tipo de pasaje con la opción «Ida» elegida, en tema oscuro y claro.',
     { js: `mount(themes(['dark', 'light'], function () { return h(A.SegmentedControl, { label: 'Tipo de viaje', options: ['Ida', 'Ida y regreso', 'Multidestino'], defaultValue: 'Ida' }); }));` }),
 
   scene('segmented-control', 'style', 'anatomía acotada', 'segmented-control-medidas',
-    'Medidas de SegmentedControl: relleno del contenedor, alto de cada opción, separación entre opciones y radio.',
+    'Medidas de SegmentedControl: relleno del riel, alto del control, ancho de un segmento y radio.',
     { js: `mount(h('div', { style: { padding: '64px 200px 72px 150px' } }, h(A.SegmentedControl, { label: 'Tipo de viaje', options: ['Ida', 'Ida y regreso'], defaultValue: 'Ida' })));`,
-      after: `var sg = $('.alma-seg'), o = all('.alma-seg__opt'); padL(sg); dimH(o[1], 'right', null, { d: 30 }); gapX(o[0], o[1], null, box(sg).y - 30); rad(sg, box(sg).x, box(sg).y + box(sg).h + 12);` }),
+      after: `var sg = $('.alma-seg'), o = all('.alma-seg__opt'); padL(sg); dimH(sg, 'right', null, { d: 30 }); dimW(o[1], 'top'); rad(sg, box(sg).x, box(sg).y + box(sg).h + 12);` }),
 
   // ---------- SearchField ----------
   scene('search-field', 'usage', 'anatomía numerada con dos tokens', 'search-field-anatomia',
