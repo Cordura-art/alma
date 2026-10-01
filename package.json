@@ -21,7 +21,10 @@
     "tokens:apply": "node scripts/apply-changes.mjs",
     "tuner": "node scripts/build-tuner.mjs",
     "images": "node scripts/build-images.mjs",
-    "carta": "node scripts/carta.mjs"
+    "carta": "node scripts/carta.mjs",
+    "entidades": "node scripts/build-entidades.mjs",
+    "estudio": "node scripts/build-entidades.mjs && node scripts/build-estudio.mjs",
+    "buscar-fecha": "node scripts/buscar-fecha.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -20,7 +20,8 @@ dist/              GENERADO: no se edita a mano
   dart/alma_tokens.dart  Flutter: AlmaColors (ThemeExtension), espaciado, movimiento, tipografía
 artifact/project/  la guía, los 48 componentes y sus vistas previas, tal como se publican en el artefacto
 entidades/         motor de carta: fecha de nacimiento → carta de diseño humano, la semilla de una entidad
-tests/             pares de contraste y pruebas del motor de carta
+site/              fuentes de las páginas: documentación, Ajustes, Entidades ALMA y el lenguaje de la Entidad IBM
+tests/             pares de contraste y pruebas del motor de carta y de las entidades
 ```
 
 ## Comandos
@@ -28,17 +29,24 @@ tests/             pares de contraste y pruebas del motor de carta
 ```bash
 npm install     # una vez
 npm run build   # genera dist/ desde tokens/
-npm test        # ida y vuelta con el artefacto + contraste (628 pares, 4 temas) + motor de carta
+npm test        # ida y vuelta con el artefacto + contraste (628 pares, 4 temas) + motor de carta + entidades
 npm run site    # arma build/alma-site.html: la documentación con el estilo de ALMA
 npm run tuner   # arma build/alma-ajustes.html: la herramienta para ajustar temas, ejes de Roboto Flex, pesos y radios
 npm run tokens:apply -- cambios.json   # aplica a tokens/ los cambios exportados por la herramienta
 npm run images  # fotografía las imágenes de la documentación con los componentes reales (Playwright)
 npm run carta -- --fecha 1911-06-16 --hora 12:00 --zona America/New_York --nombre IBM   # carta de una entidad (--json para el objeto completo)
+npm run entidades   # arma build/entidades-alma.html: crear entidades y ver ALMA con sus parámetros
+npm run estudio     # arma también build/entidad-ibm.html: el lenguaje de diseño de la Entidad IBM
+npm run buscar-fecha -- --anios 1911,1924 --zona America/New_York --tipo proyector --perfil 1/3 --centros cabeza,ajna,garganta --color '#0F62FE'   # fechas cuya carta da esa entidad
 ```
 
 ## Entidades
 
 Una entidad es una marca tratada como persona: nace en una fecha, y su carta de diseño humano es la receta de su arquetipo. El motor (`entidades/carta.mjs`) calcula la carta completa con posiciones planetarias reales (`astronomy-engine`): las 26 activaciones de personalidad y diseño, las puertas y líneas, los canales, los centros definidos, el tipo, la autoridad, el perfil, la definición y la cruz. La fecha funciona como semilla: la misma fecha siempre da la misma entidad. Desde la carta, `entidades/voz.mjs` escribe la voz y los principios de la entidad: cada puerta parte de su hexagrama del I Ching y se lee como tema, voz y principio (`entidades/arquetipos.mjs`); los canales definidos son sus principios, la cruz es su propósito, y la Garganta, el perfil, la autoridad y el tipo dan su forma de hablar. Sin hora, se usa el mediodía y la carta avisa que la Luna y las líneas pueden cambiar.
+
+**Entidades ALMA** (`site/entidades.js`) convierte la carta en parámetros de ALMA: el ancho y el grado de Roboto Flex, los pesos, los radios, el movimiento y una paleta propia en OKLCH, y viste los componentes de ALMA con ellos. Su motor también corre en Node (`scripts/lib/entidades.mjs`), para los scripts y las pruebas.
+
+**Marcas que ya existen.** Para una marca nueva manda su fecha real. Para una que ya existe, la fecha es una decisión: `npm run buscar-fecha` recorre años hora por hora y devuelve los momentos cuya carta da la entidad buscada, ordenados por cercanía a su color. Así nació la **Entidad IBM** (3 de junio de 1911, 04:00, Nueva York): un Proyector 1/3 cuyo acento generado, #1D62FF, queda a ΔE 0,006 del Blue 60 sin ajustes. Su lenguaje de diseño (`site/estudio-ibm.js`) usa como referente de densidad el IBM Design Language, sin copiar su texto: filosofía, prisma de identidad, voz, tono, escritura, elementos con «así sí, así no» hechos con componentes de ALMA, galería y origen.
 
 ## Usar ALMA
 

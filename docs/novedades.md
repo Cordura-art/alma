@@ -4,6 +4,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 30 de septiembre de 2026
 
+- **Entidades en el repositorio.** Entidades ALMA (`npm run entidades`) y el lenguaje de diseño de la Entidad IBM (`npm run estudio`) se arman desde `site/`, con el mismo motor de carta. Nuevo `npm run buscar-fecha`: encuentra las fechas cuya carta da una entidad, ordenadas por cercanía a un color; con él se eligió el 3 de junio de 1911, 04:00, para IBM. Las pruebas verifican que esa fecha siga generando el azul de IBM, ángulos rectos y letra de ancho normal.
 - **Voz y principios de las entidades.** Se escriben desde la carta: cada una de las 64 puertas tiene un arquetipo de marca (tema, voz, principio y cómo se ve en la interfaz) y cada uno de los 36 canales, un nombre. Los canales definidos son los principios; la cruz, el propósito; la Garganta, el perfil, la autoridad y el tipo dan el registro, el ritmo y el trato de la voz, con ejemplos de «así sí, así no».
 - **Motor de carta para las entidades.** `npm run carta` calcula la carta de diseño humano de una marca desde su fecha, hora y zona de nacimiento, con posiciones planetarias reales: puertas, líneas, canales, centros, tipo, autoridad, perfil, definición y cruz. Es la semilla de las entidades paramétricas; tiene sus propias pruebas en `npm test`.
 - **Títulos de grupo del Sidebar sin mayúsculas.** Se muestran tal como se escriben («Menús», no «MENÚS»), en 12 px (`web-body-s`) y `text-02`.
