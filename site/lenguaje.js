@@ -1,8 +1,12 @@
 // Lenguaje de diseño: one template for every entity. The structure, the specifications and the visual do/don't pairs
 // come from the entity's chart through the Entidades engine; the words come from entidades/lenguajes/<id>.json.
+// build(L, PRE) makes one entity's language: alone it is the whole page (window.__LENGUAJE, at the end of this file);
+// inside the documentation with a system selector (scripts/build-selector.mjs) the host site takes its pages and views,
+// and PRE ('l-') keeps their routes apart from the documentation's.
 (function () {
+  function build(L, PRE) {
   var h = React.createElement, A = window.AlmaDS, En = window.__ENGINE, CT = window.__CARTA, useState = React.useState, useEffect = React.useEffect;
-  var root = document.documentElement, L = window.__LENGUAJE;
+  var root = document.documentElement;
 
   // ---------- The entity: everything below comes from this birth moment (and an inherited color, if it has one).
   var C = CT.calcularCarta(L.nacimiento);
@@ -130,7 +134,7 @@
         h('p', { className: 'web-body-l lede' }, T(I.lede))),
       h(En.Signature, { entity: E, P: P, format: 'wide' }),
       h('div', { className: 'cards' }, cards.map(function (c) {
-        return h('a', { key: c[0], href: '#' + c[0], className: 'card' }, h('span', { className: 'web-h5' }, c[1]), h('span', { className: 'web-body-m cap' }, c[2]), h(A.Icon, { name: 'arrow--right', size: 16 }));
+        return h('a', { key: c[0], href: '#' + PRE + c[0], className: 'card' }, h('span', { className: 'web-h5' }, c[1]), h('span', { className: 'web-body-m cap' }, c[2]), h(A.Icon, { name: 'arrow--right', size: 16 }));
       })),
       h(Sec, { title: 'Recursos' }, h(Bullets, { items: [
         ['Componentes.', 'ALMA: los mismos componentes del sistema base, con nuestros tokens.'],
@@ -292,7 +296,7 @@
         h(Para, null, 'El color no puede interponerse entre el mensaje y la persona. Todo texto pequeño necesita un contraste de 4,5:1; el texto grande y los gráficos, 3:1. Esta tabla muestra qué pasos del ' + VALS.primario + ' cumplen, con ' + inkName + ' encima y sobre el fondo oscuro de ALMA.'),
         h(Tbl, { title: 'Contraste del ' + VALS.primario, columns: [{ key: 's', label: 'Paso' }, { key: 'w', label: 'Con ' + inkName }, { key: 'k', label: 'Sobre el fondo oscuro' }], rows: acc }),
         h(Sub, { title: 'Daltonismo' }, h(Para, null, X.daltonismo))),
-      h(Sec, { title: 'Color en acción' }, h(Para, null, X.accion), h('a', { className: 'web-body-l', href: '#producto' }, 'Ver la galería')),
+      h(Sec, { title: 'Color en acción' }, h(Para, null, X.accion), h('a', { className: 'web-body-l', href: '#' + PRE + 'producto' }, 'Ver la galería')),
       h(Origin, null, X.origen));
   }
 
@@ -494,6 +498,8 @@
         h('main', { id: 'contenido', className: 'main' }, h(VIEWS[r[0]]))));
   }
 
-  wear(hostTheme());
-  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+  return { pages: PAGES, groups: GROUPS, views: VIEWS, start: function () { wear(hostTheme()); ReactDOM.createRoot(document.getElementById('root')).render(h(App)); } };
+  }
+  window.__LENGUAJE_HACER = build;
+  if (window.__LENGUAJE) build(window.__LENGUAJE, '').start();
 })();

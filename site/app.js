@@ -1,9 +1,10 @@
 // ALMA documentation site: the repo's guides, tokens and live previews, drawn with ALMA's own components.
 // In the build with a selector (scripts/build-selector.mjs) the page holds several systems, ALMA and its entities:
-// window.__SISTEMAS lists them, each with its content, its token values and its images, and the site starts again on a switch.
+// window.__SISTEMAS lists them, each with its content, its token values, its images and (an entity) its design language,
+// and the site starts again on a switch.
 (function () {
   'use strict';
-  var SIS = window.__SISTEMAS || null, mounted = null;
+  var SIS = window.__SISTEMAS || null, mounted = null, watcher = null;
   var store = {
     get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage blocked */ } }
@@ -14,10 +15,24 @@
   var A = window.AlmaDS;
   var C = JSON.parse(document.getElementById(SIS ? 'alma-content-' + sisId : 'alma-content').textContent);
   var root = document.documentElement;
-  // Each system's images sit in their own folder, and its token values in a style sheet that only applies while it is chosen.
-  var ASSETS = SIS ? SIS.filter(function (s) { return s.id === sisId; })[0].assets : '';
+  // Each system's token values sit in a style sheet that only applies while it is chosen, and its images in packs of a
+  // few images each (JSON files next to the page), fetched when a page that shows one of them opens.
+  var SYS = SIS ? SIS.filter(function (s) { return s.id === sisId; })[0] : null, packs = {};
+  var BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+  function pack(n) { return packs[n] || (packs[n] = fetch(SYS.pack + n + '.json').then(function (r) { return r.json(); })); }
+  function fill() {
+    [].forEach.call(document.querySelectorAll('img[data-img]'), function (el) {
+      var p = el.getAttribute('data-img'), i = SYS.imgs.indexOf(p);
+      el.removeAttribute('data-img');
+      if (i >= 0) pack(Math.floor(i / SYS.per)).then(function (j) { el.src = j[p]; }, function () { /* the alt text stays */ });
+    });
+  }
+  if (watcher) watcher.disconnect();
+  if (SYS) { watcher = new MutationObserver(fill); watcher.observe(document.getElementById('app'), { childList: true, subtree: true }); }
   if (SIS) [].forEach.call(document.querySelectorAll('style[data-sistema]'), function (el) { el.media = el.getAttribute('data-sistema') === sisId ? 'all' : 'not all'; });
   function change(v) { if (!isSystem(v) || v === sisId) return; store.set('alma-sistema', v); start(v); }
+  // An entity's design language (site/lenguaje.js), nested here: its pages join the site's, under their own routes.
+  var LANG = SIS && window.__LENGUAJE_HACER && window.__LENGUAJES && window.__LENGUAJES[sisId] ? window.__LENGUAJE_HACER(window.__LENGUAJES[sisId], 'l-') : null;
   root.lang = 'es';
   // The site's own names: ALMA's, or an entity's when the page documents one (scripts/build-site.mjs --entidad).
   var SITE = Object.assign({ nombre: 'ALMA', titulo: 'Documentación ALMA', h1: 'ALMA, sistema de diseño de Cordura', grupo: 'ALMA', pie: '',
@@ -46,7 +61,7 @@
     var t = document.createElement('template');
     t.innerHTML = DOMPurify.sanitize(marked.parse(shift ? lift(src) : src, { gfm: true }));
     var f = t.content;
-    if (ASSETS) f.querySelectorAll('img[src^="assets/"]').forEach(function (el) { el.setAttribute('src', ASSETS + el.getAttribute('src')); });
+    if (SYS) f.querySelectorAll('img[src^="assets/"]').forEach(function (el) { el.setAttribute('data-img', el.getAttribute('src')); el.setAttribute('src', BLANK); });
     f.querySelectorAll('h2,h3,h4,h5').forEach(function (el) { el.className = HEAD[el.tagName]; el.id = 'm-' + slug(el.textContent); });
     f.querySelectorAll('a[href]').forEach(function (a) {
       a.className = 'alma-link';
@@ -296,7 +311,12 @@
     pages.push({ id: c.name.toLowerCase(), label: c.name, icon: GROUP_ICON[c.group] || 'grid', group: c.group || 'Otros', title: c.name,
       render: function () { return h(Component, { c: c, key: c.name }); } });
   });
+  if (LANG) LANG.pages.forEach(function (pg) {
+    pages.push({ id: 'l-' + pg.id, label: pg.title, icon: pg.icon, group: pg.group || 'Lenguaje de diseño', area: 'lenguaje',
+      render: function () { return h('div', { className: 'lng', key: pg.id }, h(LANG.views[pg.id])); } });
+  });
   var byId = {}; pages.forEach(function (pg) { byId[pg.id] = pg; });
+  function areaOf(id) { return byId[id].area || 'documentacion'; }
   function fold(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
   function routeFromHash() { var id = location.hash.replace(/^#/, ''); return byId[id] ? id : null; }
   var narrowMq = window.matchMedia ? matchMedia('(max-width: 1055px)') : { matches: false };
@@ -322,26 +342,27 @@
       document.title = pg.id === 'inicio' ? SITE.titulo : pg.label + ' · ' + SITE.nombre;
       if (first.current) { first.current = false; return; }
       window.scrollTo(0, 0);
-      var t = document.getElementById('page-title'); if (t) t.focus({ preventScroll: true });
+      var t = document.getElementById('page-title') || document.getElementById('titulo'); if (t) t.focus({ preventScroll: true });
       if (narrowMq.matches) hid[1](true);
     }, [route]);
 
     var groups = useMemo(function () {
       var out = [], idx = {}, f = fold(query.trim());
       pages.forEach(function (pg) {
+        if (areaOf(pg.id) !== areaOf(route)) return;
         if (f && fold(pg.label + ' ' + pg.group).indexOf(f) < 0) return;
         if (!idx[pg.group]) { idx[pg.group] = { title: pg.group, items: [] }; out.push(idx[pg.group]); }
         idx[pg.group].items.push({ value: pg.id, label: pg.label, icon: pg.icon, href: '#' + pg.id });
       });
       return out;
-    }, [query]);
+    }, [query, areaOf(route)]);
     function go(id) { if (location.hash !== '#' + id) location.hash = id; else rt[1](id); }
     var dark = theme.indexOf('dark') === 0;
 
     return h(React.Fragment, null,
       h('a', { className: 'skip', href: '#main', onClick: function (e) { e.preventDefault(); var t = document.getElementById('page-title'); if (t) t.focus(); } }, 'Saltar al contenido'),
-      h(A.Toolbar, { title: SITE.nombre, sticky: true,
-        search: h(Named, { name: 'Buscar en ' + SITE.nombre }, h(A.SearchField, { label: 'Buscar en ' + SITE.nombre, placeholder: 'Buscar componentes y fundamentos', value: query,
+      h(A.Toolbar, { title: SITE.nombre + (areaOf(route) === 'lenguaje' ? ' · Lenguaje de diseño' : ''), sticky: true,
+        search: h(Named, { name: 'Buscar en ' + SITE.nombre }, h(A.SearchField, { label: 'Buscar en ' + SITE.nombre, placeholder: areaOf(route) === 'lenguaje' ? 'Buscar en el lenguaje de diseño' : 'Buscar componentes y fundamentos', value: query,
           onChange: function (v) { qs[1](v); if (v) hid[1](false); },
           onSubmit: function () { var g = groups[0]; if (g) { go(g.items[0].value); qs[1](''); } } })),
         actions: [{ label: dark ? 'Usar tema claro' : 'Usar tema oscuro', icon: dark ? 'light' : 'asleep', onPress: function () { th[1](dark ? 'light' : 'dark'); } }],
@@ -350,7 +371,9 @@
       h('div', { className: 'shell' },
         h('div', { className: 'nav' },
           SIS && !hidden ? h('div', { className: 'nav__system' }, h(A.PopUpButton, { label: 'Sistema', value: sisId, onChange: change,
-            options: SIS.map(function (s) { return { value: s.id, label: s.nombre }; }) })) : null,
+            options: SIS.map(function (s) { return { value: s.id, label: s.nombre }; }) }),
+            LANG ? h(A.SegmentedControl, { label: 'Qué ver de ' + SITE.nombre, value: areaOf(route), onChange: function (v) { go(v === 'lenguaje' ? 'l-inicio' : 'inicio'); },
+              options: [{ value: 'documentacion', label: 'Documentación' }, { value: 'lenguaje', label: 'Lenguaje' }] }) : null) : null,
           h(A.Sidebar, { label: 'Secciones de ' + SITE.nombre, groups: groups, value: route, onChange: go, hidden: hidden, onHiddenChange: hid[1] }),
           !hidden && !groups.length ? h('p', { className: 'nav__empty web-body-s' }, 'Nada coincide con «' + query + '».') : null),
         h('main', { className: 'main', id: 'main' }, byId[route].render({ theme: theme }))));
