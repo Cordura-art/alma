@@ -344,7 +344,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   // The iframe document of device(): same CSS, bundle and helpers; it flags __ready once rendered and its "after" ran.
   const docFn = `window.__DOC = function (theme, js, after) {
     return '<!doctype html><html lang="es" data-theme="' + theme + '"><head><meta charset="utf-8">' + document.getElementById('src-head').textContent +
-      '<style>body{margin:0;background:var(--ui-02);color:var(--text-01);min-height:100vh}#shot{position:relative;display:block;box-sizing:border-box;width:100%;min-height:100vh}</style></head><body><div id="shot"><div id="app"></div></div>' +
+      '<style>body{margin:0;background:var(--ui-02);color:var(--text-01);min-height:100vh}#shot{position:relative;display:block;box-sizing:border-box;width:100%;min-height:100vh}[tabindex="-1"]:focus-visible{outline:none}</style></head><body><div id="shot"><div id="app"></div></div>' +
       window.__LIBS + '<scr' + 'ipt>' + document.getElementById('src-bundle').textContent + '</scr' + 'ipt><scr' + 'ipt>var D = window.parent.D;' +
       document.getElementById('src-helpers').textContent + 'stateCss(); A.registerIcons({ icons: D.icons });' + js + ';(async function(){ await sleep(400); ' + after + '; await sleep(150); window.__ready = true; })();</scr' + 'ipt></body></html>';
   };`;

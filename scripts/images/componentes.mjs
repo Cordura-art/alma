@@ -660,7 +660,7 @@ export const componentScenes = [
   // ---------- Sheet ----------
   scene('sheet', 'usage', 'la misma hoja en el teléfono', 'sheet-dispositivos',
     'La misma hoja «Compartir viaje» en el teléfono, pegada abajo, y en tablet, centrada.',
-    { js: `var sh = "mount(h(A.Sheet, { open: true, title: 'Compartir viaje', size: 'sm' }, h(A.List, { 'aria-label': 'Opciones para compartir', items: [{ icon: 'copy', title: 'Copiar enlace', onClick: function () {} }, { icon: 'email', title: 'Enviar por correo', onClick: function () {} }, { icon: 'phone', title: 'Enviar por mensaje', onClick: function () {} }] })));";
+    { js: `var sh = "mount(h(A.Sheet, { open: true, title: 'Compartir viaje', size: 'sm' }, h(A.List, { 'aria-label': 'Opciones para compartir', items: [{ icon: 'copy', title: 'Copiar enlace', onClick: function () {} }, { icon: 'email', title: 'Enviar por correo', onClick: function () {} }, { icon: 'chat', title: 'Enviar por mensaje', onClick: function () {} }] })));";
       mount(h('div', { className: 'row', style: { gap: 'var(--space-40)', alignItems: 'flex-end' } }, device({ label: 'Teléfono', w: 390, h: 760, scale: 0.7, js: sh }), device({ label: 'Tablet', w: 820, h: 1000, scale: 0.53, js: sh })));` }),
 
   scene('sheet', 'style', 'anatomía acotada en el teléfono', 'sheet-medidas',

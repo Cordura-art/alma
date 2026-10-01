@@ -20,6 +20,8 @@
 .tbl { overflow-x: auto; }
 .tbl .alma-table { min-width: 40rem; }
 .tbl th, .tbl td { white-space: normal; vertical-align: top; }
+.tbl tbody th, .tbl tbody td { height: auto; padding-block: var(--space-16); line-height: 1.4; }
+.tbl thead th { vertical-align: middle; }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1px; background: var(--border-subtle); border: 1px solid var(--border-subtle); }
 .stat { display: grid; gap: var(--space-8); padding: var(--space-24); background: var(--ui-01); }
 .stat__v { display: flex; align-items: center; gap: var(--space-8); font-variant-numeric: tabular-nums; }

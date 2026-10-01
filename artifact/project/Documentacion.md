@@ -6,6 +6,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 1 de octubre de 2026
 
+- **Arreglos en listas y tablas.** Dentro de un Modal o una Sheet, List ya no suma su sangría a la de la capa: sus filas parten donde parte el título. La flecha de una fila termina donde termina un valor a la derecha. En los lenguajes de diseño, el texto de las tablas ya no queda pegado a la línea de la fila. En las imágenes, la hoja «Compartir viaje» usa el ícono de mensaje y las capas en marcos de dispositivo se dibujan sin el anillo de foco del teclado.
 - **Ensayo Café, una página de ejemplo.** `ejemplos/ensayo-cafe/` guarda el landing de una cafetería ficticia de la Entidad Ensayo, que parte vendiendo solo cold brew: portada con la firma generativa, la receta, la carta, la visita y un botón para cambiar de tema. Está hecho con componentes de ALMA y los valores de la entidad, sin colores propios. `npm run ejemplo` lo arma en `build/ejemplos/ensayo-cafe.html`.
 - **Todo en un solo lugar.** El sitio con selector (`npm run sistemas`) ahora anida el lenguaje de diseño de cada entidad: se elige el sistema (ALMA, IBM, Cordura o Ensayo) y, dentro de una entidad, Documentación o Lenguaje. Las imágenes de cada sistema viajan en paquetes que se piden al abrir la página que las muestra, así caben todos los sistemas en un solo artefacto.
 - **Arreglo: la opción elegida de SegmentedControl.** Con el puntero encima, la opción elegida tomaba el color de texto de las demás y dejaba de leerse. Ahora conserva `segmented-selected-text`.

@@ -555,7 +555,10 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-list__title { overflow-wrap: anywhere; }
 .alma-list__subtitle { font-size: 0.75rem; color: var(--text-02); }
 .alma-list__trailing { flex: none; color: var(--text-02); font-variant-numeric: tabular-nums; }
-.alma-list__chevron { color: var(--icon-02); }
+/* The arrow's drawing is narrower than its 16 px box: pulled out so it ends where a trailing value ends. */
+.alma-list__chevron { margin-inline-end: calc(-1 * var(--space-4)); color: var(--icon-02); }
+/* Inside a Modal or a Sheet the group has the layer's own background: it gives up its inset, so its rows start where the title starts. */
+.alma-modal__body > .alma-list { max-width: none; margin-inline: calc(-1 * var(--space-16)); }
 .alma-list__footer { margin: var(--space-8) var(--space-16) 0; font-size: 0.75rem; line-height: 1.5; color: var(--text-02); }
 
 /* ---------- EmptyState ---------- */
