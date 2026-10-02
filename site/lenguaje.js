@@ -338,12 +338,67 @@
       h(Avoid, { items: ['No uses iconos rellenos o en tres dimensiones.', 'No pongas un icono solo, sin etiqueta.', 'No uses dos iconos distintos para la misma idea.', 'No pintes con el acento un icono que no se puede tocar.'] }));
   }
 
+  // ---------- Generative illustration: creatures, colonies, emblems and card faces, drawn by the generator
+  // (window.__GENERADOR) from the entity's genes (L.genes, set by the build). Only for an entity whose language
+  // declares them (ilustracion.generativa: the names and concepts of its examples). The words are written once here,
+  // in the entity's first person, and take its values. Every drawing is decorative: its name or caption sits next to it.
+  var GEN = window.__GENERADOR, G = L.genes, GV = GEN && G && L.ilustracion.generativa ? L.ilustracion.generativa : null;
+  var CARAS = ['planks', 'vortex', 'petal', 'mesh', 'hole', 'card'];
+  function Dibujo(p) { return h('span', { className: 'gen-av gen-av--' + p.size, 'aria-hidden': 'true', dangerouslySetInnerHTML: { __html: p.svg } }); }
+  // Light or dark, whichever the page wears now (a ground colony has one palette for each).
+  function useTema() {
+    var leer = function () { return /light/.test(root.getAttribute('data-theme') || hostTheme()) ? 'light' : 'dark'; }, t = useState(leer());
+    useEffect(function () { var mo = new MutationObserver(function () { t[1](leer()); }); mo.observe(root, { attributes: true, attributeFilter: ['data-theme'] }); return function () { mo.disconnect(); }; }, []);
+    return t[0];
+  }
+  function GenCriaturas() {
+    var n = useState(GV.nombres[0]), clave = n[0].trim() || GV.nombres[0];
+    var lista = React.useMemo(function () { return GV.nombres.map(function (x) { return { nombre: x, svg: GEN.criatura(G, x) }; }); }, []);
+    return h(Sec, { title: 'Criaturas' },
+      h(Para, null, 'Nuestros personajes. Cada criatura es un cuerpo redondo, una segunda forma de otro color y dos ojos. No las dibujamos a mano: una regla las dibuja a partir de un nombre, y el mismo nombre da siempre la misma criatura.'),
+      h('div', { className: 'gen-try' },
+        h(A.TextInput, { label: 'Nombre o correo', value: n[0], onChange: function (v) { n[1](v); }, helper: 'Escribe un nombre y mira su criatura.', autoComplete: 'off' }),
+        h('div', { className: 'gen-sizes' }, [96, 64, 48, 32].map(function (s) { return h(Dibujo, { key: s, size: s, svg: GEN.criatura(G, clave) }); }))),
+      h('ul', { className: 'gen-people' }, lista.map(function (x) { return h('li', { key: x.nombre, className: 'gen-person' }, h(Dibujo, { size: 64, svg: x.svg }), h('span', { className: 'web-body-s' }, x.nombre)); })),
+      h('p', { className: 'web-body-s cap note' }, 'Una criatura sirve de avatar o de mascota de una pieza. Acompaña al nombre; nunca lo reemplaza.'));
+  }
+  function GenColonia() {
+    var tema = useTema();
+    var losas = React.useMemo(function () {
+      return [['pieza', 1], ['pieza', 2], ['fondo', 1], ['fondo', 2]].map(function (x) { return { modo: x[0], n: x[1], estilo: { backgroundImage: GEN.comoFondo(GEN.colonia(G, x[1], { modo: x[0], tema: tema })) } }; });
+    }, [tema]);
+    return h(Sec, { title: 'Colonia' },
+      h(Para, null, 'La colonia es nuestra textura: las mismas criaturas, vistas de muy cerca y amontonadas. Cada número da un mosaico distinto, que se repite sin costura. Como pieza de marca va sobre negro tinta, con la paleta completa y el acento solo en las criaturas más chicas. Como fondo se apaga hasta que el texto encima se lee con un contraste de 4,5:1 o más.'),
+      h('ul', { className: 'gen-tiles' }, losas.map(function (t) {
+        var pieza = t.modo === 'pieza';
+        return h('li', { key: t.modo + t.n }, h('figure', { className: 'gen-fig' },
+          pieza ? h('div', { className: 'gen-tex', style: t.estilo, role: 'img', 'aria-label': 'Colonia número ' + t.n + ', como pieza: criaturas de colores amontonadas sobre negro tinta, cada una con dos ojos.' })
+            : h('div', { className: 'gen-tex gen-tex--fondo', style: t.estilo }, h('p', { className: 'web-h5' }, 'Texto sobre la colonia'), h('p', { className: 'web-body-s' }, 'El texto secundario también se lee.')),
+          h('figcaption', { className: 'web-body-s cap' }, (pieza ? 'Pieza ' : 'Fondo ') + t.n)));
+      })));
+  }
+  function GenEmblemas() {
+    var lista = React.useMemo(function () { return GV.conceptos.map(function (c) { return { c: c, svg: GEN.emblema(G, c) }; }); }, []);
+    return h(Sec, { title: 'Emblemas' },
+      h(Para, null, 'Un emblema por concepto: estrellas, anillos, espirales y contraformas. Los nuestros tienen ' + G.puntas + ' puntas y van ' + (G.relleno ? 'rellenos' : 'de línea') + ', porque así lo dice nuestra carta. Son ilustración de marca: no reemplazan a los iconos de la interfaz.'),
+      h('ul', { className: 'gen-people gen-people--96' }, lista.map(function (x) { return h('li', { key: x.c, className: 'gen-person' }, h(Dibujo, { size: 96, svg: x.svg }), h('span', { className: 'web-body-s' }, x.c)); })));
+  }
+  function GenCaras() {
+    var lista = React.useMemo(function () { return CARAS.map(function (p, i) { return { p: p, estilo: { backgroundImage: GEN.comoFondo(GEN.placa(G, 'cara-0-' + i, { patron: p })) } }; }); }, []);
+    return h(Sec, { title: 'Caras de tarjeta' },
+      h(Para, null, 'Texturas hechas para una tarjeta, con nuestros colores sobre negro tinta. Hay ' + GEN.PATRONES.length + ' patrones y cada número da una cara distinta de cada uno. Estas son seis.'),
+      h('ul', { className: 'gen-faces' }, lista.map(function (x) {
+        return h('li', { key: x.p }, h('figure', { className: 'gen-fig' }, h('span', { className: 'gen-face', style: x.estilo, 'aria-hidden': 'true' }), h('figcaption', { className: 'web-body-s cap' }, GEN.NOMBRE_PATRON[x.p])));
+      })));
+  }
+
   function Ilustracion() {
     var X = L.ilustracion;
-    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos', 'Personas', 'Color'] }),
-      h(A.InlineNotification, { kind: 'callout', status: 'info', title: 'Reglas antes que piezas', message: 'ALMA todavía no tiene ilustraciones. Estas son las reglas que van a seguir cuando existan.' }),
+    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(GV ? ['Criaturas', 'Colonia', 'Emblemas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
+      GV ? null : h(A.InlineNotification, { kind: 'callout', status: 'info', title: 'Reglas antes que piezas', message: 'ALMA todavía no tiene ilustraciones. Estas son las reglas que van a seguir cuando existan.' }),
       h(Sec, { title: 'Punto de vista' }, h(Para, null, X.puntoDeVista)),
       h(Sec, { title: 'Estilos' }, X.estilos.map(function (x) { return h(Sub, { key: x.t, title: x.t }, h(Para, null, x.p)); })),
+      GV ? h(GenCriaturas) : null, GV ? h(GenColonia) : null, GV ? h(GenEmblemas) : null, GV ? h(GenCaras) : null,
       h(Sec, { title: 'Personas' }, h(Para, null, X.personas)),
       h(Sec, { title: 'Color' }, h(Para, null, X.color)),
       h(Avoid, { items: X.avoid }));

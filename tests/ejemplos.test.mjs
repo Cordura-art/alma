@@ -26,13 +26,13 @@ test('Ensayo Café se arma con los valores de la Entidad Ensayo', () => {
 
 // Ensayo Generativo: the procedural avatars and textures of an entity.
 const { sistema, valor, THEMES } = await import('../scripts/lib/documentacion.mjs');
-const Gen = await import('../ejemplos/ensayo-generativo/generador.mjs');
+const Gen = await import('../entidades/generador.mjs');
 const tok = JSON.parse(readFileSync('dist/json/tokens.json', 'utf8'));
 const genesDe = async (id) => { const S = await sistema(id); return { S, G: Gen.genes(S, (n, th) => valor(tok, n, th)) }; };
 
 test('Ensayo Generativo no trae colores propios: el generador y la página solo usan los de la entidad', () => {
-  for (const f of ['generador.mjs', 'emblemas.mjs', 'placa.mjs', 'campo.mjs', 'carrusel.mjs', 'micelio.mjs', 'pagina.css', 'pagina.js']) {
-    const src = readFileSync(`ejemplos/ensayo-generativo/${f}`, 'utf8');
+  for (const f of ['entidades/generador.mjs', 'entidades/emblemas.mjs', 'entidades/placa.mjs', ...['campo.mjs', 'carrusel.mjs', 'micelio.mjs', 'pagina.css', 'pagina.js'].map((x) => `ejemplos/ensayo-generativo/${x}`)]) {
+    const src = readFileSync(f, 'utf8');
     assert.equal(src.match(/#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(/), null, `${f} trae un color en crudo`);
   }
 });
@@ -68,7 +68,7 @@ test('sobre una textura de fondo, el texto principal y el secundario llegan a 4,
 });
 
 // Emblems, pictograms and creatures: the user's earlier studies, drawn with the entity's genes.
-const Emb = await import('../ejemplos/ensayo-generativo/emblemas.mjs');
+const Emb = await import('../entidades/emblemas.mjs');
 const Pic = await import('../entidades/pictogramas.mjs');
 const sano = (svg) => !/NaN|undefined|Infinity|\$\{/.test(svg);
 const tintas = (svg) => new Set([...svg.matchAll(/(?:fill|stroke)="(#[0-9A-Fa-f]{6})"/g)].map((m) => m[1]));
@@ -233,7 +233,7 @@ test('el carrusel pone una tarjeta por punta, dibuja de atrás hacia adelante y 
 });
 
 test('las caras de tarjeta: quince patrones con los colores de la entidad, sin capa de banco, y el grabado con las puntas del emblema', async () => {
-  const Pla = await import('../ejemplos/ensayo-generativo/placa.mjs');
+  const Pla = await import('../entidades/placa.mjs');
   assert.equal(Pla.PATRONES.length, 15);
   assert.deepEqual(Object.keys(Pla.NOMBRE_PATRON).sort(), [...Pla.PATRONES].sort());
   for (const id of ['ensayo', 'cordura', 'ibm']) {
@@ -291,4 +291,31 @@ test('Ensayo Generativo se arma con los valores de la Entidad Ensayo y con el ge
   assert.match(html, /window\.__GENES = \{"ensayo":/, 'los genes de la entidad');
   assert.equal(html.match(/<\/style>/g).length, 1);
   assert.ok(html.length < 1024 * 1024, `${(html.length / 1024) | 0} KB`);
+});
+
+test('el generador para una página: los mismos dibujos que los módulos, y los genes viajan como datos', async () => {
+  const { genesDe: genesPagina, generadorNavegador } = await import('../scripts/lib/generativo.mjs');
+  const vm = await import('node:vm');
+  const { S, G } = await genesDe('ensayo');
+  // Genes are plain data: a page gets them as JSON.
+  const viajan = JSON.parse(JSON.stringify(genesPagina(S)));
+  assert.deepEqual(viajan, JSON.parse(JSON.stringify(G)));
+  const window = {};
+  vm.runInNewContext(generadorNavegador(), { window });
+  const N = window.__GENERADOR, Pla = await import('../entidades/placa.mjs');
+  assert.equal(N.criatura(viajan, 'Ana Rojas'), Gen.criatura(G, 'Ana Rojas'));
+  assert.equal(N.colonia(viajan, 1, { modo: 'fondo', tema: 'light' }), Gen.colonia(G, 1, { modo: 'fondo', tema: 'light' }));
+  assert.equal(N.emblema(viajan, 'borrador'), Emb.emblema(G, 'borrador'));
+  assert.equal(N.placa(viajan, 'cara-0-0', { patron: 'planks' }), Pla.placa(G, 'cara-0-0', { patron: 'planks' }));
+  assert.equal(N.PATRONES.length, 15);
+});
+
+test('el lenguaje de una entidad con ilustración generativa lleva sus genes y el generador; el de otra, no', async () => {
+  execFileSync('node', ['scripts/build-entidades.mjs']);
+  execFileSync('node', ['scripts/build-lenguaje.mjs', 'ensayo', 'ibm']);
+  const con = readFileSync('build/lenguaje-ensayo.html', 'utf8'), sin = readFileSync('build/lenguaje-ibm.html', 'utf8');
+  assert.match(con, /window\.__GENERADOR = /);
+  assert.match(con, /"genes":\{"id":"ensayo"/);
+  assert.doesNotMatch(sin, /window\.__GENERADOR = /);
+  assert.doesNotMatch(sin, /"genes":/);
 });

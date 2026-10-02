@@ -1,11 +1,11 @@
 // The card faces of an entity: textures for a card of the ID-1 proportion (85.60 × 53.98 mm, a bank card), one per key.
 // The fifteen patterns and the guilloché are the user's own, from the "Placa" study
-// (referencias/placa-generador-texturas-tarjeta.html), kept as written. What changed: no palettes of its own (the face
+// (ejemplos/ensayo-generativo/referencias/placa-generador-texturas-tarjeta.html), kept as written. What changed: no palettes of its own (the face
 // takes the entity's piece colors; where a pattern needs volume, its lights and shadows are tones derived from those
 // colors, as in the original), the sliders are set by the key and the entity's genes, the shadow of the planks is a
 // tone of the ground instead of black, and randomness is the generator's. Left out: the bank layer (chip, contactless,
 // network mark, holder), the film grain, the secondary mix and the relief of the isotype, which needs a canvas.
-import { hash, rng, azar } from '../../entidades/semilla.mjs';
+import { hash, rng, azar } from './semilla.mjs';
 
 // The drawings, as in the original: they read the sliders from `state`. buildPatternLayer(shape, rand, palette) gives
 // { bg, shapes } and buildGuillocheLayer(palette) the engraved rosettes. `palette` is { bg, ink, colors }.

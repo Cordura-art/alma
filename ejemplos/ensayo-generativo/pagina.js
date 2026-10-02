@@ -372,7 +372,6 @@
         h(Sec, { id: 'falta', title: 'Lo que falta decidir' },
           h(A.InlineNotification, { kind: 'callout', status: 'info', title: 'Esto es un prototipo', message: 'ALMA todavía no tiene un componente de avatar ni tokens para texturas. El generador vive en la carpeta de este ejemplo y no cambia nada del sistema.' }),
           h(A.List, { 'aria-label': 'Decisiones pendientes', items: [
-            { id: 'r', icon: 'view', title: 'Criaturas: las reglas escritas dicen otra cosa', subtitle: 'Elegiste criaturas y colonia. El lenguaje de Ensayo aún pide evitar personajes, y ALMA aún excluye la ilustración figurativa. Hay que actualizar los dos textos.' },
             { id: 'g', icon: 'chat', title: 'Criaturas que lean la carta', subtitle: 'Hoy solo toman de la entidad el color y la semilla. Falta decidir qué rasgos cambian su forma.' },
             { id: 'p', icon: 'list', title: 'Caras de tarjeta: lo que quedó fuera', subtitle: 'El grano, la mezcla de dos patrones, el relieve del isotipo y la capa de banco (chip, contactless, marca de red).' },
                         { id: 'a', icon: 'user--avatar', title: 'Avatar como componente de ALMA', subtitle: 'Con tamaños, texto alternativo y qué pasa cuando la persona sube su foto.' },

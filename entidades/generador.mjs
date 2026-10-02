@@ -1,11 +1,11 @@
-// The procedural generator of an entity's identity (a prototype, tried with the Entidad Ensayo).
+// The procedural generator of an entity's identity.
 // Like a game that draws its world from a seed: the entity gives the rules (its "genes": colors, roundness, points,
 // pace, all read from its chart) and a key picks one drawing out of the infinite set. The same entity and the same key
 // always give the same drawing. This file holds what the families share (seed, traits, genes) and the creatures: the
 // avatar and the colony texture. Emblems, pictograms, card faces, the field and the carousel have their own files.
 // No DOM: the build bundles this file into the page (without its `import` and `export` words) and Node tests it.
 
-import { hash, rng } from '../../entidades/semilla.mjs';
+import { hash, rng } from './semilla.mjs';
 
 // What an entity gives the generator. `S` is the entity's system (scripts/lib/documentacion.mjs) and `valor(name, theme)`
 // returns an ALMA token's value. A piece ("pieza") lives on ink with the full palette, as the signature does (its
@@ -44,10 +44,10 @@ export function genes(S, valor) {
 
 const n1 = (v) => Math.round(v * 10) / 10;
 const texto = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-// A creature avatar (the user's p5 study, referencias/criaturas-p5.js): a round body, a second shape on top of it and
+// A creature avatar (the user's p5 study, ejemplos/ensayo-generativo/referencias/criaturas-p5.js): a round body, a second shape on top of it and
 // two eyes. The body and the second shape take two different colors of the entity; the eyes are the ground's ink, and
-// lean in or out a little with the key. The user chose creatures over bars on 2026-10-02; the written rules of ALMA and
-// of Ensayo's language still say no characters, and have to be settled before this moves into ALMA.
+// lean in or out a little with the key. The user chose creatures over bars on 2026-10-02, and ALMA's written
+// rules accept characters since then.
 export function criatura(G, clave, o = {}) {
   const r = rng(hash(`criatura|${G.semilla}|${String(clave).trim().toLowerCase()}`)), C = G.pieza, L = 96, c = L / 2;
   const cuerpo = L * (0.5 + r() * 0.2), colores = [...C.barras, C.acento], i = Math.floor(r() * colores.length), j = (i + 1 + Math.floor(r() * (colores.length - 1))) % colores.length;
@@ -61,7 +61,7 @@ export function criatura(G, clave, o = {}) {
     `<circle cx="${n1(c + sep - mira)}" cy="${n1(y - cuerpo * 0.1)}" r="${n1(ojo)}" fill="${C.base}"/></svg>`;
 }
 
-// A colony texture (the user's p5 study, referencias/manchas-con-ojos-p5.js): a grid of creatures seen from very
+// A colony texture (the user's p5 study, ejemplos/ensayo-generativo/referencias/manchas-con-ojos-p5.js): a grid of creatures seen from very
 // near, each one a large turned field of color with two eyes, that spills over its neighbors; later ones cover earlier
 // ones. Here it is one tile that repeats without a seam: what leaves by one edge comes back by the opposite one, and
 // every creature is drawn whole (with all its copies) before the next, so the layers match across the edges.

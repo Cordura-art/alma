@@ -20,6 +20,16 @@ for (const f of readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
     assert.equal(L.voz.atributos.length, 3);
     if (L.colorHeredado) assert.match(L.colorHeredado, /^#[0-9A-F]{6}$/i);
   });
+  // Generative illustration is declared by the language: the names and concepts its Ilustración page draws.
+  if (L.ilustracion.generativa) test(`${f}: la ilustración generativa trae nombres y conceptos de ejemplo, sin repetir, y el estilo que la nombra`, () => {
+    const X = L.ilustracion.generativa;
+    for (const k of ['nombres', 'conceptos']) {
+      assert.ok(X[k].length >= 6, k);
+      assert.equal(new Set(X[k].map((x) => x.trim().toLowerCase())).size, X[k].length, `${k} repetidos`);
+    }
+    assert.ok(L.ilustracion.estilos.some((e) => e.t === 'Criaturas'), 'falta el estilo «Criaturas»');
+    assert.ok(!L.ilustracion.avoid.some((a) => /evita (los )?personajes y (las )?mascotas/i.test(a)), 'el lenguaje aún pide evitar personajes');
+  });
   test(`${f}: un principio escrito por cada principio de la carta`, () => {
     const c = calcularCarta(L.nacimiento);
     assert.equal(L.principios.items.length, generarPrincipios(c).length);

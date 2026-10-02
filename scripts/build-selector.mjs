@@ -11,6 +11,8 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { datos, motor } from './lib/entidades.mjs';
+import { sistema } from './lib/documentacion.mjs';
+import { genesDe, generadorNavegador } from './lib/generativo.mjs';
 
 const read = (p) => readFileSync(p, 'utf8');
 const all = readdirSync('entidades/lenguajes').filter((f) => f.endsWith('.json')).map((f) => f.replace(/\.json$/, ''));
@@ -69,6 +71,8 @@ for (const id of ids) {
   // The entity's values apply only while it is the chosen system: the app switches this sheet on.
   styles.push(`<style data-sistema="${id}" media="not all">\n${read(join(tmp, id, `entidad-${id}.css`))}</style>`);
   sistemas.push({ id, nombre: `Entidad ${L.nombre}`, ...empacar(id, from) });
+  // Generative illustration: the entity's genes travel with its language (see build-lenguaje.mjs).
+  if (L.ilustracion.generativa) L.genes = genesDe(await sistema(id));
   lenguajes[id] = L;
 }
 // The language template and what it runs on: the chart engine, the token data and Entidades ALMA in engine-only mode.
@@ -77,6 +81,7 @@ const lenguaje = [
   `<script>${esc(motor())}</script>`,
   `<script>window.__ENGINE_ONLY = true; window.__DATA = ${JSON.stringify(datos()).replace(/</g, '\\u003c')};</script>`,
   `<script>${esc(read('site/entidades.js'))}</script>`,
+  ...(Object.values(lenguajes).some((L) => L.genes) ? [`<script>${esc(generadorNavegador())}</script>`] : []),
   `<script>window.__LENGUAJES = ${JSON.stringify(lenguajes).replace(/</g, '\\u003c')};</script>`,
   `<script>${esc(read('site/lenguaje.js'))}</script>`
 ].join('\n');

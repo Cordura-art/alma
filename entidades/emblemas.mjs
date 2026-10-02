@@ -1,9 +1,9 @@
 // The emblems of an entity: abstract radial drawings (stars, rings, spirals, counterforms), one per concept.
-// The 32 drawings are the user's own, from the "Neo-banking Icons v15" study (referencias/icon_system_v15.html), kept as
+// The 32 drawings are the user's own, from the "Neo-banking Icons v15" study (ejemplos/ensayo-generativo/referencias/icon_system_v15.html), kept as
 // written, except three (nested_stars, hex_core, dual_star) that now also read the traits of the concept. What changed:
 // no palette, background or stroke of their own (they take the entity's), the points, the
 // complexity and fill-or-line come from the entity's genes instead of sliders, and randomness is the generator's.
-import { hash, azar, rasgos } from '../../entidades/semilla.mjs';
+import { hash, azar, rasgos } from './semilla.mjs';
 
 // Each drawing: (S, r, T, pal, im, pts, cx) → SVG. S size, r seeded randomness, T traits of the concept, pal five
 // colors, im "fill" or "line", pts points, cx complexity 1–5. SW is the stroke, BASE the ground, mid() a mask id.

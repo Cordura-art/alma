@@ -169,8 +169,10 @@ Sale de las piezas de marca de Figma (Brand Key, Behance y mockups). La marca ju
 
 ### Formas e ilustración
 
-- ALMA no usa ilustración figurativa, 3D, clip art ni emoji.
-- La ilustración son las formas de marca, hechas con tokens: círculo, estrella de cuatro puntas (el hueco entre cuatro círculos), píldora (`radius-pill`), píldoras concéntricas y las líneas de velocidad del logo.
+- ALMA no usa 3D, clip art ni emoji.
+- **Personajes y mascotas:** cada entidad puede tener los suyos. Son criaturas hechas con formas simples (un círculo, una elipse y dos ojos) y los colores de la paleta de la entidad; el mismo nombre da siempre la misma criatura. Sirven de avatar, de mascota de una pieza y, amontonadas, de textura. Las dibuja el generador de `entidades/` (criaturas, colonia, emblemas y caras de tarjeta) y se ven en la página Ilustración del lenguaje de cada entidad que las declara, hoy Ensayo. Todavía no son un componente.
+- Un personaje acompaña, no informa: errores, avisos e instrucciones van con texto y un `Icon`. Si solo decora lleva `aria-hidden`; si identifica a alguien, su nombre va como texto alternativo. No uses personajes ajenos ni que imiten a una persona real.
+- Las formas de marca, hechas con tokens, siguen siendo la base: círculo, estrella de cuatro puntas (el hueco entre cuatro círculos), píldora (`radius-pill`), píldoras concéntricas y las líneas de velocidad del logo.
 - Colores de las formas: tonos acero (`secondary-*`), azul (`tertiary-*`) y a lo sumo un toque de lima (`interactive-01`), el mismo acento que en la interfaz.
 - En estados vacíos, un `Icon` basta; no agregues ilustraciones que no sumen información.
 

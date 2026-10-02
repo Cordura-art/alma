@@ -503,14 +503,19 @@
    {
     "t": "Interfaz",
     "p": "Fragmentos de nuestra propia interfaz, simplificados, para explicar una función. Siempre con componentes de ALMA."
+   },
+   {
+    "t": "Criaturas",
+    "p": "Nuestros personajes. Cada uno son dos formas redondas y dos ojos, con los colores de la paleta, y el mismo nombre da siempre la misma criatura. Sirven de avatar, de mascota de una pieza y, amontonadas, de textura."
    }
   ],
   "personas": "Cuando dibujamos personas, las mostramos en el momento de decidir: pensando, conversando, mirando con calma. Siluetas simples y diversas, sin caricatura.",
-  "color": "Lima para lo importante, negro tinta y neutros para el resto, amarillo y verde solo como apoyo. Una ilustración nunca usa más de tres colores de la paleta.",
+  "color": "Lima para lo importante, negro tinta y neutros para el resto, amarillo y verde solo como apoyo. Una ilustración nunca usa más de tres colores de la paleta. Las criaturas son la excepción: una sola lleva dos colores sobre negro tinta, y una textura de criaturas puede usar la paleta completa.",
   "avoid": [
    "Evita las metáforas gastadas: bombillas, cohetes, relojes de arena.",
    "Evita las escenas de urgencia o alarma.",
-   "Evita los personajes y las mascotas.",
+   "Evita que una criatura dé un error, un aviso o una instrucción: eso va con texto y un icono.",
+   "Evita los personajes ajenos y los que imitan a una persona real.",
    "Evita ilustrar lo que una frase ya explica."
   ]
  },
