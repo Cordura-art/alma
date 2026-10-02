@@ -1,22 +1,22 @@
 Button|primary texto|text-on-interactive|interactive-01|4.5
 Button|primary hover texto|text-on-interactive|hover-primary|4.5
-Button|primary activo texto|text-on-pressed|active-primary|4.5
-Button|secondary texto|text-on-interactive|interactive-02|4.5
-Button|secondary hover texto|text-on-interactive|hover-secondary|4.5
+Button|primary activo texto|button-filled-text-active|active-primary|4.5
+Button|secondary texto|button-gray-text|interactive-02|4.5
+Button|secondary hover texto|button-gray-text|hover-secondary|4.5
 Button|secondary activo texto|brand-white|active-secondary|4.5
 Button|ghost texto|secondary-50|brand-ink|4.5
 Button|ghost hover texto|secondary-50|active-secondary|4.5
-Button|ghost activo texto|text-on-interactive|hover-secondary|4.5
-Button|inverse texto|text-on-interactive|brand-white|4.5
-Button|inverse hover texto|text-on-interactive|hover-secondary|4.5
-Button|inverse activo texto|brand-white|active-secondary|4.5
+Button|ghost activo texto|button-ghost-text-active|hover-secondary|4.5
+Button|inverse texto|button-inverse-text|brand-white|4.5
+Button|inverse hover texto|button-inverse-text|button-inverse-bg-hover|4.5
+Button|inverse activo texto|button-inverse-text-active|button-inverse-bg-active|4.5
 Button|foco vs página|focus|ui-02|3
 Button|foco vs contenedor|focus|ui-01|3
 TextInput|borde vs página|field-border|ui-02|3
 TextInput|borde hover|field-border-hover|ui-02|3
-TextInput|borde activo|active-primary|ui-02|3
+TextInput|borde activo|field-border-active|ui-02|3
 TextInput|etiqueta|field-label|ui-02|4.5
-TextInput|chip etiqueta|text-on-interactive|secondary-50|4.5
+TextInput|chip etiqueta|field-label-float-text|secondary-50|4.5
 TextInput|texto|text-01|ui-02|4.5
 TextInput|placeholder|text-03|ui-02|4.5
 TextInput|ayuda/contador|text-01|ui-02|4.5
@@ -27,9 +27,9 @@ SegmentedControl|opción texto|segmented-text|segmented-bg|4.5
 SegmentedControl|opción elegida texto|segmented-selected-text|segmented-selected-bg|4.5
 SegmentedControl|contorno de la elegida sobre el riel|segmented-border|segmented-bg|3
 Stepper|valor|text-02|ui-01|4.5
-Stepper|íconos − +|text-on-interactive|brand-white|3
+Stepper|íconos − +|text-01|ui-01|3
 Stepper|borde píldora|border-control|ui-02|3
-ProductCard|título/cuerpo|text-on-interactive|tag-red-bg|4.5
+ProductCard|título/cuerpo|product-card-text|tag-red-bg|4.5
 ProductCard|subtítulo|tertiary-500|tag-red-bg|4.5
 ProductCard|subtítulo (cyan)|tertiary-500|tag-cyan-bg|4.5
 ProductCard|subtítulo (yellow)|tertiary-500|tag-yellow-bg|4.5
@@ -53,7 +53,7 @@ Button|destructivo hover texto|brand-white|hover-danger|4.5
 Button|destructivo activo texto|brand-white|active-danger|4.5
 Button|destructivo tinted texto|button-destructive-text|button-destructive-tinted-bg|4.5
 Button|destructivo plain texto|button-destructive-text|ui-02|4.5
-Button|destructivo gray texto|active-danger|interactive-02|4.5
+Button|destructivo gray texto|button-destructive-gray-text|interactive-02|4.5
 Button|gray (secondary) activo destructivo|brand-white|active-secondary|4.5
 Button|spinner sobre primario|text-on-interactive|interactive-01|3
 Switch|pista encendida vs página|control-on|ui-02|3
@@ -113,27 +113,27 @@ FileUploader|error|text-error|ui-02|4.5
 Texto|error en contenedor|text-error|ui-01|4.5
 Button|destructivo plain en contenedor|button-destructive-text|ui-01|4.5
 TextInput|chip etiqueta error|hover-danger|secondary-50|4.5
-ProductCard|texto (red)|text-on-interactive|tag-red-bg|4.5
+ProductCard|texto (red)|product-card-text|tag-red-bg|4.5
 ProductCard|dato destacado (red)|product-card-subtitle|tag-red-bg|4.5
-ProductCard|texto (yellow)|text-on-interactive|tag-yellow-bg|4.5
+ProductCard|texto (yellow)|product-card-text|tag-yellow-bg|4.5
 ProductCard|dato destacado (yellow)|product-card-subtitle|tag-yellow-bg|4.5
-ProductCard|texto (magenta)|text-on-interactive|tag-magenta-bg|4.5
+ProductCard|texto (magenta)|product-card-text|tag-magenta-bg|4.5
 ProductCard|dato destacado (magenta)|product-card-subtitle|tag-magenta-bg|4.5
-ProductCard|texto (purple)|text-on-interactive|tag-purple-bg|4.5
+ProductCard|texto (purple)|product-card-text|tag-purple-bg|4.5
 ProductCard|dato destacado (purple)|product-card-subtitle|tag-purple-bg|4.5
-ProductCard|texto (blue)|text-on-interactive|tag-blue-bg|4.5
+ProductCard|texto (blue)|product-card-text|tag-blue-bg|4.5
 ProductCard|dato destacado (blue)|product-card-subtitle|tag-blue-bg|4.5
-ProductCard|texto (cyan)|text-on-interactive|tag-cyan-bg|4.5
+ProductCard|texto (cyan)|product-card-text|tag-cyan-bg|4.5
 ProductCard|dato destacado (cyan)|product-card-subtitle|tag-cyan-bg|4.5
-ProductCard|texto (teal)|text-on-interactive|tag-teal-bg|4.5
+ProductCard|texto (teal)|product-card-text|tag-teal-bg|4.5
 ProductCard|dato destacado (teal)|product-card-subtitle|tag-teal-bg|4.5
-ProductCard|texto (green)|text-on-interactive|tag-green-bg|4.5
+ProductCard|texto (green)|product-card-text|tag-green-bg|4.5
 ProductCard|dato destacado (green)|product-card-subtitle|tag-green-bg|4.5
-ProductCard|texto (warmgray)|text-on-interactive|tag-warmgray-bg|4.5
+ProductCard|texto (warmgray)|product-card-text|tag-warmgray-bg|4.5
 ProductCard|dato destacado (warmgray)|product-card-subtitle|tag-warmgray-bg|4.5
-ProductCard|texto (gray)|text-on-interactive|tag-gray-bg|4.5
+ProductCard|texto (gray)|product-card-text|tag-gray-bg|4.5
 ProductCard|dato destacado (gray)|product-card-subtitle|tag-gray-bg|4.5
-ProductCard|texto (coolgray)|text-on-interactive|tag-coolgray-bg|4.5
+ProductCard|texto (coolgray)|product-card-text|tag-coolgray-bg|4.5
 ProductCard|dato destacado (coolgray)|product-card-subtitle|tag-coolgray-bg|4.5
 TextInput|solo lectura: borde vs página|field-border-readonly|ui-02|3
 TextInput|solo lectura: borde vs contenedor|field-border-readonly|ui-01|3

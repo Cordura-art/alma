@@ -79,7 +79,7 @@ El ícono hereda el color de su texto (`currentColor`). Ponlo dentro de algo que
 |---|---|
 | `icon-01` | Íconos principales. |
 | `icon-02` | Íconos secundarios, como los de una lista. |
-| `text-on-interactive` | Sobre lima o acero. |
+| `text-on-interactive` | Sobre el azul. |
 | `status-icon-*` | En avisos de error, éxito, advertencia e información. |
 
 Un ícono que informa necesita 3:1 contra su fondo.

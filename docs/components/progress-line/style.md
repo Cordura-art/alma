@@ -25,4 +25,4 @@ El brillo recorre la línea cada 1,4 s (dos veces `duration-slow-02`) con `easin
 
 ## Contraste
 
-Sobre `overlay-01`, el lima llega a 3:1. En la interfaz normal no se usa.
+Sobre `overlay-01`, el azul llega a 3:1. En la interfaz normal no se usa.

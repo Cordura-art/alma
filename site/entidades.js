@@ -215,9 +215,13 @@
     var onLight = [600, 700, 800].map(function (k) { return P0[k]; }).filter(function (c) { return contrast(c, WHITE) >= 3 && contrast(c, UI02_LIGHT) >= 3; })[0] || P0[800];
     return {
       ramp: pal[0].name, action: RO.action,
+      // ALMA's own accent is deep (white text): a luminous accent also says what goes on it when pressed, and its
+      // active field border, so ALMA's values for a deep accent do not show through.
       dark: Object.assign({}, RO.dark, { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': i,
+        'button-filled-text-active': D.brand['brand-black'], 'field-border-active': P0[500],
         'field-border': i, 'field-border-hover': P0[400], 'field-label': i, 'button-tinted-text': i, 'button-tinted-bg': rgba(i, 0.16), 'button-tinted-bg-hover': rgba(i, 0.24), 'button-plain-text': i, 'control-on': i }),
       light: Object.assign({}, RO.light, { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': navLight,
+        'button-filled-text-active': D.brand['brand-black'], 'field-border-active': P0[500],
         'button-tinted-bg': rgba(i, 0.45), 'button-tinted-bg-hover': rgba(i, 0.65), 'button-plain-text': navLight, 'control-on': onLight }),
       lightHc: Object.assign({}, RO.lightHc, { 'nav-selected': P0[900] }), darkHc: RO.darkHc
     };
@@ -533,7 +537,7 @@
       { id: 2, t: 'Línea consciente ' + a[0] + ' · ' + LINES[a[0]], f: 'Ancho de la letra', v: String(P.fontWidth), b: String(B.fontAxis['font-width']), n: 'De 100 (línea 1) a 150 (línea 6).' },
       { id: 3, t: 'Línea inconsciente ' + a[1] + ' · ' + LINES[a[1]], f: 'Radios y grado', v: P.radius['radius-button'] + ' · grado ' + P.fontGrade, b: B.radius['radius-button'] + ' · grado ' + B.fontAxis['font-grade'], n: 'Forma: ' + P.shape.note + '.' },
       { id: 4, t: 'Autoridad: ' + AUTH[e.auth].name, f: 'Pesos de letra', v: [P.weights.display, P.weights.heading, P.weights.body, P.weights.emphasis].join(' / '), b: [B.weights.display, B.weights.heading, B.weights.body, B.weights.emphasis].join(' / '), n: AUTH[e.auth].note + ' (display / títulos / texto / énfasis)' },
-      { id: 5, t: 'Centro de la autoridad', f: 'Tono del primario', v: P.palette[0].name, b: 'lima de Cordura', n: (AUTH[e.auth].center ? centerOf(AUTH[e.auth].center).name + ' (' + centerOf(AUTH[e.auth].center).role + '), movido por la semilla de la entidad.' : 'Sin centro: el tono lo decide la semilla.') },
+      { id: 5, t: 'Centro de la autoridad', f: 'Tono del primario', v: P.palette[0].name, b: 'azul de ALMA', n: (AUTH[e.auth].center ? centerOf(AUTH[e.auth].center).name + ' (' + centerOf(AUTH[e.auth].center).role + '), movido por la semilla de la entidad.' : 'Sin centro: el tono lo decide la semilla.') },
       { id: 8, t: 'Tipo: ' + TYPES[e.type].name, f: 'Armonía de la paleta', v: { manifestador: 'complementaria', generador: 'análoga', mg: 'complementaria dividida', proyector: 'triádica', reflector: 'un solo tono' }[e.type], b: '—', n: 'Cómo se relacionan el secundario y el terciario con el primario.' },
       { id: 10, t: 'Garganta ' + (e.centers.indexOf('garganta') >= 0 ? 'definida' : 'abierta'), f: 'Profundidad del acento', v: P.accent.deep ? 'profundo, texto blanco' : 'luminoso, texto tinta', b: 'luminoso, texto tinta', n: P.accent.deep ? 'Una voz definida: acento pleno y saturado.' : 'Una voz abierta: acento claro que ilumina.' },
       { id: 9, t: 'Centros definidos: ' + e.centers.length, f: 'Intensidad del color', v: 'croma ' + P.palette[0].c.toFixed(3), b: '—', n: 'Más centros definidos, más saturación.' },

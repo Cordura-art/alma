@@ -27,7 +27,7 @@ summary: Una tarjeta de pago virtual sobre vidrio oscuro, con su avance de activ
 
 El estado se escribe junto al chip («Pendiente», «Activando», «Habilitada», «Activa»), así no depende del color.
 
-![PaymentCard en sus cuatro estados sobre el azul noche de marca: pendiente, activando, habilitada y activa.](assets/Componentes/payment-card-estados.png)
+![PaymentCard en sus cuatro estados sobre la tinta de marca: pendiente, activando, habilitada y activa.](assets/Componentes/payment-card-estados.png)
 
 ## Contenido
 

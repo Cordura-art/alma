@@ -39,7 +39,7 @@ test('Cordura (31 mar 1987, 10:45, Santiago) es un Proyector 1/4 emocional que h
   assert.deepEqual(c.canales.map((k) => k.id), ['26-44', '39-55']);
   const e = { ...entidad(nac), name: 'Cordura', color: '#E1F564' }, P = En.params(e);
   assert.equal(P.accent.dark['interactive-01'], '#E1F564');
-  assert.equal(P.accent.dark['text-on-interactive'], '#141733');
+  assert.equal(P.accent.dark['text-on-interactive'], '#191919');
   delete e.color;
   assert.notEqual(En.params(e).accent.dark['interactive-01'], '#E1F564', 'sin heredar, la carta no da lima');
 });

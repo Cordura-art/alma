@@ -16,7 +16,7 @@ summary: Especificaciones visuales de la casilla.
 | Casilla:focus | contorno | `focus` (2 px, separado 2 px) |
 | Fila:disabled | opacidad | 45 % |
 
-En tema claro, `control-on` es un oliva oscuro: el lima no llega a 3:1 sobre fondo claro.
+En tema oscuro, `control-on` es un paso claro de la rampa azul: se despega del fondo. En tema claro es el azul de acción.
 
 ## Tipografía
 

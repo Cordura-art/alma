@@ -7,7 +7,7 @@ summary: El color de ALMA: tres capas de tokens, cuatro temas y un solo acento.
 
 ## Cómo funciona el color en ALMA
 
-ALMA casi no usa color. La interfaz es un fondo oscuro, texto claro y un solo acento lima que marca la acción. Todo lo demás, los estados, las etiquetas y los gráficos, usa color solo cuando comunica algo, y siempre con una palabra o un ícono al lado.
+ALMA casi no usa color. La interfaz es un fondo negro, texto claro y un solo acento azul que marca la acción. Todo lo demás, los estados, las etiquetas y los gráficos, usa color solo cuando comunica algo, y siempre con una palabra o un ícono al lado.
 
 Nunca se escribe un color: se pide un **token** por su nombre. El tema decide el valor. Por eso la misma interfaz funciona en los cuatro temas sin cambiar una línea.
 
@@ -35,7 +35,7 @@ Para ajustar un componente, cambia su token de componente, nunca el semántico: 
 | Bordes | `border-subtle`, `border-control` | El borde sutil separa contenedores; el de control marca campos y selectores (3:1). |
 | Texto | `text-01` a `text-05`, `text-error`, `text-on-interactive` | Principal, secundario, desactivado, sobre colores. |
 | Íconos | `icon-01` a `icon-03` | Principal, secundario, sobre colores. |
-| Acción | `interactive-01` a `interactive-04` | Lima para la acción principal, acero para la secundaria. |
+| Acción | `interactive-01` a `interactive-04` | Azul para la acción principal; el mismo azul, muy oscuro y apagado, para la secundaria. |
 | Estados de interacción | `hover-*`, `active-*`, `selected-ui`, `focus` | Encima, presionado, elegido y foco. |
 | Estados del sistema | `support-01` a `support-04` | Error, éxito, advertencia, información. |
 | Inversos | `inverse-01`, `inverse-02`, `inverse-support-*` | Superficies que invierten el tema, como el tooltip. |
@@ -50,9 +50,9 @@ Las superficies se apilan en un orden fijo. Cada capa se distingue de la que tie
 |---|---|---|---|---|
 | 1 | `ui-02` | Gris muy claro | El fondo más profundo | La página. |
 | 2 | `ui-01` | Blanco | Blanco al 4 % sobre la página | Contenedores: tarjetas, menús, tablas, alertas. |
-| 3 | `ui-03` | Gris azulado claro | Blanco al 7 % | Un panel dentro de un contenedor. |
-| 4 | `ui-04` | Azul acero claro | Blanco al 10 % | Una zona dentro de ese panel. |
-| Acción | `interactive-01`, `interactive-02` | Lima y acero | Lima y acero | Los botones, sobre cualquier capa. |
+| 3 | `ui-03` | Gris claro | Blanco al 7 % | Un panel dentro de un contenedor. |
+| 4 | `ui-04` | Gris medio claro | Blanco al 10 % | Una zona dentro de ese panel. |
+| Acción | `interactive-01`, `interactive-02` | Azul y azul muy oscuro | Azul y azul muy oscuro | Los botones, sobre cualquier capa. |
 
 No saltes capas hacia atrás: un contenedor dentro de otro `ui-01` pasa a `ui-03`, no vuelve a `ui-02`. En los dos temas cada capa de encima se despega de la anterior.
 

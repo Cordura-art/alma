@@ -7,7 +7,7 @@ El color de ALMA: tres capas de tokens, cuatro temas y un solo acento.
 
 ### Cómo funciona el color en ALMA
 
-ALMA casi no usa color. La interfaz es un fondo oscuro, texto claro y un solo acento lima que marca la acción. Todo lo demás, los estados, las etiquetas y los gráficos, usa color solo cuando comunica algo, y siempre con una palabra o un ícono al lado.
+ALMA casi no usa color. La interfaz es un fondo negro, texto claro y un solo acento azul que marca la acción. Todo lo demás, los estados, las etiquetas y los gráficos, usa color solo cuando comunica algo, y siempre con una palabra o un ícono al lado.
 
 Nunca se escribe un color: se pide un **token** por su nombre. El tema decide el valor. Por eso la misma interfaz funciona en los cuatro temas sin cambiar una línea.
 
@@ -35,7 +35,7 @@ Para ajustar un componente, cambia su token de componente, nunca el semántico: 
 | Bordes | `border-subtle`, `border-control` | El borde sutil separa contenedores; el de control marca campos y selectores (3:1). |
 | Texto | `text-01` a `text-05`, `text-error`, `text-on-interactive` | Principal, secundario, desactivado, sobre colores. |
 | Íconos | `icon-01` a `icon-03` | Principal, secundario, sobre colores. |
-| Acción | `interactive-01` a `interactive-04` | Lima para la acción principal, acero para la secundaria. |
+| Acción | `interactive-01` a `interactive-04` | Azul para la acción principal; el mismo azul, muy oscuro y apagado, para la secundaria. |
 | Estados de interacción | `hover-*`, `active-*`, `selected-ui`, `focus` | Encima, presionado, elegido y foco. |
 | Estados del sistema | `support-01` a `support-04` | Error, éxito, advertencia, información. |
 | Inversos | `inverse-01`, `inverse-02`, `inverse-support-*` | Superficies que invierten el tema, como el tooltip. |
@@ -50,9 +50,9 @@ Las superficies se apilan en un orden fijo. Cada capa se distingue de la que tie
 |---|---|---|---|---|
 | 1 | `ui-02` | Gris muy claro | El fondo más profundo | La página. |
 | 2 | `ui-01` | Blanco | Blanco al 4 % sobre la página | Contenedores: tarjetas, menús, tablas, alertas. |
-| 3 | `ui-03` | Gris azulado claro | Blanco al 7 % | Un panel dentro de un contenedor. |
-| 4 | `ui-04` | Azul acero claro | Blanco al 10 % | Una zona dentro de ese panel. |
-| Acción | `interactive-01`, `interactive-02` | Lima y acero | Lima y acero | Los botones, sobre cualquier capa. |
+| 3 | `ui-03` | Gris claro | Blanco al 7 % | Un panel dentro de un contenedor. |
+| 4 | `ui-04` | Gris medio claro | Blanco al 10 % | Una zona dentro de ese panel. |
+| Acción | `interactive-01`, `interactive-02` | Azul y azul muy oscuro | Azul y azul muy oscuro | Los botones, sobre cualquier capa. |
 
 No saltes capas hacia atrás: un contenedor dentro de otro `ui-01` pasa a `ui-03`, no vuelve a `ui-02`. En los dos temas cada capa de encima se despega de la anterior.
 
@@ -88,10 +88,10 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 
 ### Un acento
 
-- `interactive-01` (lima) es la acción principal y el foco de la pieza. **Una por pantalla.** Si todo es lima, nada lo es.
-- `interactive-02` (acero) es la acción secundaria.
+- `interactive-01` (azul) es la acción principal y el foco de la pieza. **Una por pantalla.** Si todo es azul, nada lo es.
+- `interactive-02` (el mismo azul, muy oscuro y apagado) es la acción secundaria.
 - El texto sobre ambos es siempre `text-on-interactive`.
-- En tema claro, lo que en oscuro es lima pasa a tonos oliva y acero oscuros: el lima no llega a 3:1 sobre fondo claro.
+- En tema oscuro, los bordes, las etiquetas y los controles encendidos usan pasos claros de la rampa azul, que se despegan del negro. En claro usan el azul de acción.
 
 ### Texto
 
@@ -101,7 +101,7 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 | `text-02` | Texto secundario: ayudas, descripciones, metadatos. |
 | `text-03` | Texto desactivado y marcadores de posición. |
 | `text-error` | Mensajes de error. |
-| `text-on-interactive` | Texto sobre lima o acero. |
+| `text-on-interactive` | Texto sobre el azul. |
 
 ### Estados del sistema
 
@@ -122,7 +122,7 @@ El color nunca es la única pista. Los avisos usan `notification-*-bg` de fondo 
 
 | Paleta | Tokens | Uso |
 |---|---|---|
-| Categórica | `viz-cat-01` a `viz-cat-08` | Series distintas, en ese orden: lima, azul, magenta, turquesa, amarillo, violeta, cian, rojo. Con más de 8, agrupa. |
+| Categórica | `viz-cat-01` a `viz-cat-08` | Series distintas, en ese orden: violeta, cian, turquesa, magenta, rojo, un rojo muy claro u oscuro según el tema, verde y azul. Con más de 8, agrupa. |
 | Secuencial | `viz-seq-1` a `viz-seq-5` | Valores de menos a más. |
 | Divergente | `viz-div-1` a `viz-div-5` | Desvíos alrededor de un centro neutro (`viz-div-3`). |
 
@@ -144,7 +144,7 @@ Cada color categórico llega a 3:1 sobre `ui-01` en su tema. Rotula las series o
 
 - No escribas un hex en una interfaz: pide el token.
 - No uses una rampa base (`primary-500`) donde hay un rol semántico (`interactive-01`).
-- No uses el lima para decorar.
+- No uses el azul de acción para decorar.
 - No diferencies dos estados solo por el color.
 
 ## Código
@@ -166,7 +166,7 @@ El tema lo elige el atributo `data-theme` de un contenedor, normalmente `<html>`
 
 ```js
 import { themes } from './dist/js/tokens.mjs';
-themes.dark['interactive-01'];   // '#E1F564'
+themes.dark['interactive-01'];   // '#2667F2'
 themes.light['interactive-01'];  // el valor del tema claro
 ```
 

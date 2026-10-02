@@ -23,10 +23,10 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 
 ## Un acento
 
-- `interactive-01` (lima) es la acción principal y el foco de la pieza. **Una por pantalla.** Si todo es lima, nada lo es.
-- `interactive-02` (acero) es la acción secundaria.
+- `interactive-01` (azul) es la acción principal y el foco de la pieza. **Una por pantalla.** Si todo es azul, nada lo es.
+- `interactive-02` (el mismo azul, muy oscuro y apagado) es la acción secundaria.
 - El texto sobre ambos es siempre `text-on-interactive`.
-- En tema claro, lo que en oscuro es lima pasa a tonos oliva y acero oscuros: el lima no llega a 3:1 sobre fondo claro.
+- En tema oscuro, los bordes, las etiquetas y los controles encendidos usan pasos claros de la rampa azul, que se despegan del negro. En claro usan el azul de acción.
 
 ## Texto
 
@@ -36,7 +36,7 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 | `text-02` | Texto secundario: ayudas, descripciones, metadatos. |
 | `text-03` | Texto desactivado y marcadores de posición. |
 | `text-error` | Mensajes de error. |
-| `text-on-interactive` | Texto sobre lima o acero. |
+| `text-on-interactive` | Texto sobre el azul. |
 
 ## Estados del sistema
 
@@ -57,7 +57,7 @@ El color nunca es la única pista. Los avisos usan `notification-*-bg` de fondo 
 
 | Paleta | Tokens | Uso |
 |---|---|---|
-| Categórica | `viz-cat-01` a `viz-cat-08` | Series distintas, en ese orden: lima, azul, magenta, turquesa, amarillo, violeta, cian, rojo. Con más de 8, agrupa. |
+| Categórica | `viz-cat-01` a `viz-cat-08` | Series distintas, en ese orden: violeta, cian, turquesa, magenta, rojo, un rojo muy claro u oscuro según el tema, verde y azul. Con más de 8, agrupa. |
 | Secuencial | `viz-seq-1` a `viz-seq-5` | Valores de menos a más. |
 | Divergente | `viz-div-1` a `viz-div-5` | Desvíos alrededor de un centro neutro (`viz-div-3`). |
 
@@ -79,5 +79,5 @@ Cada color categórico llega a 3:1 sobre `ui-01` en su tema. Rotula las series o
 
 - No escribas un hex en una interfaz: pide el token.
 - No uses una rampa base (`primary-500`) donde hay un rol semántico (`interactive-01`).
-- No uses el lima para decorar.
+- No uses el azul de acción para decorar.
 - No diferencies dos estados solo por el color.

@@ -27,9 +27,9 @@ El estilo marca la prominencia. Usa el de más énfasis solo para la acción que
 
 | Estilo | Énfasis | Para qué |
 |---|---|---|
-| `filled` | Alto | La acción principal de la vista. Fondo lima (`interactive-01`). Una por vista; como máximo dos si son equivalentes. |
+| `filled` | Alto | La acción principal de la vista. Fondo azul (`interactive-01`). Una por vista; como máximo dos si son equivalentes. |
 | `tinted` | Medio | Una acción secundaria importante junto a la principal, o la principal de una sección cuando la vista ya tiene una `filled`. |
-| `gray` | Medio | Acciones neutras: «Cancelar», «Volver», «Ver detalles». Fondo acero (`interactive-02`). |
+| `gray` | Medio | Acciones neutras: «Cancelar», «Volver», «Ver detalles». Fondo azul muy oscuro y apagado (`interactive-02`), con texto blanco. |
 | `tertiary` | Medio-bajo | Una acción alternativa con contorno, cuando `gray` se confunde con el fondo. Viene del theme de origen de Cordura (`interactive-03`). |
 | `plain` | Bajo | Acciones de poco peso o muy repetidas: en tablas, barras de herramientas, tarjetas y como «Omitir». Solo texto. |
 | `ghost` | Especial | Sobre imágenes o fondos claros de marca. |
@@ -46,7 +46,7 @@ El rol dice qué significa el botón, con independencia de su estilo.
 | `normal` | Una acción cualquiera. | Ninguno. |
 | `primary` | La acción por defecto del formulario o diálogo. | Es `type="submit"`: Enter la dispara. Una sola por formulario. |
 | `cancel` | Descarta sin cambiar nada. | En `Alert` y `Modal` va a la izquierda y Esc la equivale. Nunca es la acción por defecto. |
-| `destructive` | Borra o deshace algo que cuesta recuperar. | Rojo de sistema en cualquier estilo; nunca lima. |
+| `destructive` | Borra o deshace algo que cuesta recuperar. | Rojo de sistema en cualquier estilo; nunca azul. |
 
 ## Anatomía
 
@@ -70,7 +70,7 @@ Con densidad compacta (`data-density="compact"`) y puntero fino, `sm` baja a 32 
 
 ## Énfasis y jerarquía
 
-- **Una acción de alto énfasis por vista.** Una sola `filled` deja claro qué es lo principal. Si todo es lima, nada lo es.
+- **Una acción de alto énfasis por vista.** Una sola `filled` deja claro qué es lo principal. Si todo es azul, nada lo es.
 - **Baja el énfasis en lo repetido.** Donde hay muchas acciones (tablas, listas, paneles), usa `plain` o `tertiary`.
 - **Agrupa solo acciones relacionadas.** Un grupo es un conjunto de alternativas para el mismo momento, no una colección de botones sueltos.
 - **No toda vista necesita una acción `filled`.** Una vista de lectura o un listado puede no tener acción principal.
@@ -159,7 +159,7 @@ Acciones de poco peso o muy frecuentes: en filas de tabla, barras de herramienta
 Solo sobre fondos de marca: `ghost` sobre imágenes y superficies claras de marca, `inverse` sobre piezas oscuras. No los uses en la interfaz de trabajo.
 
 ### Destructivo
-Para lo que borra o deshace: eliminar una tarjeta, cancelar un viaje. Se ve rojo en cualquier estilo y nunca usa el lima.
+Para lo que borra o deshace: eliminar una tarjeta, cancelar un viaje. Se ve rojo en cualquier estilo y nunca usa el azul.
 - En `Alert`, si la persona no pidió explícitamente la acción destructiva, el botón va en rojo; si la eligió deliberadamente («Vaciar papelera»), la confirmación no necesita ser roja.
 - Siempre acompañado de «Cancelar».
 - No existe como botón solo ícono sin nombre visible: usa `plain` con ícono y `aria-label`.

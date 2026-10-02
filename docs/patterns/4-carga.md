@@ -11,7 +11,7 @@ summary: Qué mostrar mientras algo tarda.
 | No se sabe cuánto falta, en una sección | `ProgressBar` sin valor o `ActivityIndicator` | Indica que sigue trabajando. |
 | Llega una vista con estructura conocida (una lista, una tarjeta) | `Skeleton` | Muestra la forma antes que el contenido y evita saltos. |
 | Una acción de un botón | `loading` del `Button` | La espera queda donde se hizo clic. |
-| Una pantalla de marca que se prepara | `ProgressLine` | La línea lima que termina en verde. |
+| Una pantalla de marca que se prepara | `ProgressLine` | La línea azul que termina en verde. |
 
 ![La vista Mis viajes mientras carga, con Skeleton en el lugar de cada tarjeta, y la misma vista con los datos.](assets/Patrones/carga-skeleton.png)
 

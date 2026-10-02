@@ -129,7 +129,7 @@ El ojo alterna entre mostrar y ocultar. Su nombre cambia con el estado («Mostra
 | Ícono del ojo | relleno | `field-icon` |
 | Ícono del ojo:focus | contorno | `focus` (2 px, separado 2 px) |
 
-En tema oscuro el borde y la etiqueta son lima; en claro, tonos acero oscuros, porque el lima sobre fondo claro no llega a 3:1.
+En tema oscuro el borde y la etiqueta usan pasos claros de la rampa azul (`field-border` y `field-label`); en claro, grises oscuros.
 
 ![TextInput en los cuatro temas de ALMA, en reposo, con foco, con texto, con error y desactivado.](assets/Componentes/text-input-temas.png)
 

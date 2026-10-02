@@ -24,7 +24,7 @@ Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
 
 | Elemento | Valor |
 |---|---|
-| Vidrio | azul noche al 50 % de opacidad |
+| Vidrio | tinta de marca al 50 % de opacidad |
 | Borde | 0,5 px blanco al 42 % |
 | Radio | 14,4 px |
 | Chip | 34 × 24 px, radio 5 px |

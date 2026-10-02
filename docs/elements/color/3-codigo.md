@@ -22,7 +22,7 @@ El tema lo elige el atributo `data-theme` de un contenedor, normalmente `<html>`
 
 ```js
 import { themes } from './dist/js/tokens.mjs';
-themes.dark['interactive-01'];   // '#E1F564'
+themes.dark['interactive-01'];   // '#2667F2'
 themes.light['interactive-01'];  // el valor del tema claro
 ```
 

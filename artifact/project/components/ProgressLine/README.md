@@ -1,13 +1,13 @@
 # ProgressLine
 
-Una línea lima que indica una espera de marca y termina en verde.
+Una línea azul que indica una espera de marca y termina en verde.
 
 
 ## Uso
 
 ### Resumen
 
-`ProgressLine` es una línea delgada: un brillo lima la recorre mientras algo se procesa y queda verde al terminar. Es propia de ALMA, de las pantallas de pago de Cordura.
+`ProgressLine` es una línea delgada: un brillo azul la recorre mientras algo se procesa y queda verde al terminar. Es propia de ALMA, de las pantallas de pago de Cordura.
 
 #### Cuándo usarla
 - Sobre una pantalla velada con `overlay-01`, centrada cerca del borde inferior, mientras se procesa un pago o una validación.
@@ -21,7 +21,7 @@ Una línea lima que indica una espera de marca y termina en verde.
 
 | Estado | Aspecto |
 |---|---|
-| `loading` | Un brillo lima recorre la línea. |
+| `loading` | Un brillo azul recorre la línea. |
 | `success` | Verde fijo. |
 
 ![La pantalla de pago velada mientras se procesa: la línea de ProgressLine cargando y, al terminar, en verde.](assets/Componentes/progress-line-pago.png)
@@ -56,7 +56,7 @@ El brillo recorre la línea cada 1,4 s (dos veces `duration-slow-02`) con `easin
 
 ### Contraste
 
-Sobre `overlay-01`, el lima llega a 3:1. En la interfaz normal no se usa.
+Sobre `overlay-01`, el azul llega a 3:1. En la interfaz normal no se usa.
 
 ## Código
 

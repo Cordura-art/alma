@@ -34,7 +34,7 @@ test('cada tema declara los mismos tokens, para que el oscuro no se filtre en lo
   const S = await sistema('ibm'), keys = (th) => Object.keys(S.color[th]).sort().join();
   for (const th of THEMES) assert.equal(keys(th), keys('dark'), th);
   const hoja = css(S);
-  assert.match(hoja, /\[data-theme="light"\] \{[^}]*--button-tinted-text: #141733;/);
+  assert.match(hoja, /\[data-theme="light"\] \{[^}]*--button-tinted-text: #191919;/);
   assert.doesNotMatch(hoja, /E1F564/i, 'no queda lima en los valores de la entidad');
 });
 

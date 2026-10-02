@@ -13,7 +13,7 @@ El ícono hereda el color del texto (`currentColor`). Ponlo dentro de algo que y
 |---|---|
 | `icon-01` | Íconos principales. |
 | `icon-02` | Íconos secundarios. |
-| `text-on-interactive` | Sobre lima o acero. |
+| `text-on-interactive` | Sobre el azul. |
 | `status-icon-*` | Avisos de estado. |
 
 ## Tamaño

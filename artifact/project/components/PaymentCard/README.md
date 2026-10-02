@@ -27,7 +27,7 @@ Una tarjeta de pago virtual sobre vidrio oscuro, con su avance de activación.
 
 El estado se escribe junto al chip («Pendiente», «Activando», «Habilitada», «Activa»), así no depende del color.
 
-![PaymentCard en sus cuatro estados sobre el azul noche de marca: pendiente, activando, habilitada y activa.](assets/Componentes/payment-card-estados.png)
+![PaymentCard en sus cuatro estados sobre la tinta de marca: pendiente, activando, habilitada y activa.](assets/Componentes/payment-card-estados.png)
 
 ### Contenido
 
@@ -59,7 +59,7 @@ Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
 
 | Elemento | Valor |
 |---|---|
-| Vidrio | azul noche al 50 % de opacidad |
+| Vidrio | tinta de marca al 50 % de opacidad |
 | Borde | 0,5 px blanco al 42 % |
 | Radio | 14,4 px |
 | Chip | 34 × 24 px, radio 5 px |

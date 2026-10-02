@@ -1,4 +1,4 @@
-ALMA es el sistema de diseño de Cordura, un estudio de lenguajes de movimiento. Es oscuro por defecto, con Roboto Flex extendida y un solo acento lima que marca la acción. Todo lo que construyas con ALMA sale de estos tokens y componentes; si algo falta, se pide, no se inventa.
+ALMA es el sistema de diseño de Cordura, un estudio de lenguajes de movimiento. Es oscuro por defecto, negro y azul, con Roboto Flex extendida y un solo acento azul que marca la acción. Todo lo que construyas con ALMA sale de estos tokens y componentes; si algo falta, se pide, no se inventa.
 
 ## Misión
 
@@ -23,7 +23,7 @@ Guían a cualquier persona que diseñe, o apruebe un diseño, en nombre de Cordu
 
 ## Principios de interfaz
 
-- **Un acento, bien usado.** `brand-lime` / `interactive-01` es la acción principal y el foco de la pieza. Si todo es lima, nada lo es.
+- **Un acento, bien usado.** `interactive-01`, el azul, es la acción principal y el foco de la pieza. Si todo es azul, nada lo es. (`brand-lime` guarda el mismo color: conserva el nombre de cuando el acento era lima.)
 - **El espacio agrupa.** El espacio en blanco relaciona elementos. Con una separación normada no hacen falta divisores ni contenedores: el usuario entiende qué va junto.
 - **Cuanto más grande el objeto, más espacio alrededor.** Titulares `web-display-*` respiran con `space-56` a `space-80`. Controles con `space-8` a `space-24`.
 - **Todo en múltiplos de 8.** Usa `space-4`, `space-2` y `space-0` solo dentro de componentes compactos como los inputs.
@@ -33,7 +33,7 @@ Guían a cualquier persona que diseñe, o apruebe un diseño, en nombre de Cordu
 - Superficies, como en el theme de origen de Cordura: la **página** va en `ui-02` y los **contenedores** (tarjetas, alertas, menús, tablas) en `ui-01`.
 - Tema **Oscuro** (por defecto): página `ui-02` (`#02010C`), contenedores `ui-01` (`#141733`), texto en `text-01`, secundario en `text-02`.
 - Tema **Claro**: son los valores exactos de las variables de Figma. Úsalo en documentos e interfaces de trabajo.
-- Acciones: `interactive-01` (lima) para la principal, `interactive-02` (acero) para la secundaria. El texto sobre ambas es siempre `text-on-interactive`.
+- Acciones: `interactive-01` (azul) para la principal, `interactive-02` (el mismo azul, muy oscuro y apagado) para la secundaria. El texto sobre la principal es `text-on-interactive` (blanco); cada botón trae además su propio token de texto.
 - Enlaces: `link-01`. Foco: `focus`, un borde o anillo de 2 px sólido.
 - Estados del sistema: `support-01` error, `support-02` éxito, `support-03` advertencia, `support-04` información. Van siempre con palabra o ícono, nunca solo color. Los fondos de aviso son `notification-*-bg`.
 - Etiquetas: `tag-<color>-bg` con `tag-<color>-text`. Hay 11 colores: red, yellow, magenta, purple, blue, cyan, teal, green, warmgray, gray y coolgray.
@@ -43,7 +43,7 @@ Guían a cualquier persona que diseñe, o apruebe un diseño, en nombre de Cordu
 
 ### Gráficos
 
-- **Categórica:** `viz-cat-01` a `viz-cat-08`, en ese orden: lima, azul, magenta, turquesa, amarillo, violeta, cian, rojo. Cada color llega a 3:1 sobre `ui-01` (contenedores) en su tema. Usa tantos como series haya, empezando por el 01; con más de 8 series, agrupa.
+- **Categórica:** `viz-cat-01` a `viz-cat-08`, en ese orden: violeta, cian, turquesa, magenta, rojo, un rojo muy claro u oscuro según el tema, verde y azul. Cada color llega a 3:1 sobre `ui-01` (contenedores) en su tema. Usa tantos como series haya, empezando por el 01; con más de 8 series, agrupa.
 - **Secuencial:** `viz-seq-1` (claro) a `viz-seq-5` (intenso), rampa terciaria, para valores de menos a más.
 - **Divergente:** `viz-div-1` a `viz-div-5`, de rojo a azul con neutro en el centro (`viz-div-3`), para desvíos alrededor de un punto medio.
 - El color nunca es la única pista: rotula las series o usa forma o trama.
@@ -62,7 +62,7 @@ Contraste: todos los componentes pasan WCAG AA en los dos temas (texto 4.5:1, bo
 - En Claro: `text-02`, `text-03` e `icon-02` pasan a `#566980`; `text-error` a `#AE2424`; `focus` a `#0043CC`.
 - En Oscuro: `text-error` pasa de `#FF003D` a `#EB6161` (el primero daba 4,4:1 sobre contenedores).
 - Verificado con axe (WCAG 2.2 AA) en los 46 componentes y en los cuatro temas: cero problemas. El verificador propio revisa 580 pares de color: cero fallos.
-- El campo usa `field-border`, `field-border-hover` y `field-label`. En Oscuro son lima; en Claro, tonos acero oscuros.
+- El campo usa `field-border`, `field-border-hover` y `field-label`. En Oscuro son pasos claros de la rampa azul; en Claro, grises oscuros.
 - `border-control` marca el borde del selector y del contador sobre la página.
 Cada token cambiado lo dice en su nota. No uses los valores anteriores.
 
@@ -170,10 +170,10 @@ Sale de las piezas de marca de Figma (Brand Key, Behance y mockups). La marca ju
 ### Formas e ilustración
 
 - ALMA no usa 3D, clip art ni emoji.
-- **Personajes y mascotas:** cada entidad puede tener los suyos. Son criaturas hechas con formas simples (un círculo, una elipse y dos ojos) y los colores de la paleta de la entidad; el mismo nombre da siempre la misma criatura. Sirven de avatar, de mascota de una pieza y, amontonadas, de textura. Las dibuja el generador de `entidades/`, junto con los emblemas, las caras de tarjeta, el campo, el carrusel y el micelio. En el lenguaje de cada entidad que las declara, hoy Cordura y Ensayo, se ven en Ilustración y reemplazan a la firma de barras en Firma, Inicio y Comunicación. Todavía no son un componente.
+- **Personajes y mascotas:** cada entidad puede tener los suyos. Son criaturas hechas con formas simples (un círculo, una elipse y dos ojos) y los colores de la paleta de la entidad; el mismo nombre da siempre la misma criatura. Sirven de avatar, de mascota de una pieza y, amontonadas, de textura. Las dibuja el generador de `entidades/`, junto con los emblemas, las caras de tarjeta, el campo, el carrusel y el micelio. En el lenguaje de cada entidad se ven en Ilustración y son su firma en Firma, Inicio y Comunicación. Una entidad que no usa personajes (hoy IBM) lo declara y se queda con lo que no es un personaje: campo, carrusel, micelio, emblemas y caras de tarjeta. Todavía no son un componente.
 - Un personaje acompaña, no informa: errores, avisos e instrucciones van con texto y un `Icon`. Si solo decora lleva `aria-hidden`; si identifica a alguien, su nombre va como texto alternativo. No uses personajes ajenos ni que imiten a una persona real.
 - Las formas de marca, hechas con tokens, siguen siendo la base: círculo, estrella de cuatro puntas (el hueco entre cuatro círculos), píldora (`radius-pill`), píldoras concéntricas y las líneas de velocidad del logo.
-- Colores de las formas: tonos acero (`secondary-*`), azul (`tertiary-*`) y a lo sumo un toque de lima (`interactive-01`), el mismo acento que en la interfaz.
+- Colores de las formas: grises (`secondary-*`) y azul (`tertiary-*`, `primary-*`), el mismo acento que en la interfaz.
 - En estados vacíos, un `Icon` basta; no agregues ilustraciones que no sumen información.
 
 ### En la interfaz
@@ -200,7 +200,7 @@ Sale de las piezas de marca de Figma (Brand Key, Behance y mockups). La marca ju
   - Indicador de actividad, modo de solo ícono y tamaños 44, 56 y 72.
   - Como máximo 1 o 2 botones `filled` por vista.
 - **Formularios:**
-  - `TextInput`: campo en píldora con borde lima; también de solo lectura (`readOnly`, borde punteado).
+  - `TextInput`: campo en píldora con borde azul; también de solo lectura (`readOnly`, borde punteado).
   - `SegmentedControl`: selección única entre 2 o 3 opciones.
   - `Stepper`: cantidad con − y +.
 - **Toggles** (según Apple):
@@ -237,7 +237,7 @@ Sale de las piezas de marca de Figma (Brand Key, Behance y mockups). La marca ju
 - **Contenido:**
   - `ProductCard`: tarjeta desplegable con fondo de color de etiqueta.
   - `PaymentCard`: tarjeta de pago sobre vidrio oscuro, con su avance de activación.
-- **Estados:** `ProgressLine`, una línea de carga lima que termina en verde.
+- **Estados:** `ProgressLine`, una línea de carga azul que termina en verde.
 - **Iconografía:** `Icon` y `Pictogram` (un dibujo pequeño que distingue una cosa de sus vecinas; nunca reemplaza a un ícono).
 - **Contenido, más:** `Card` (toda la tarjeta es un enlace, con acciones encima), `List` (lista agrupada de Apple, filas de 44 px), `Tag` (solo lectura, se puede quitar o filtro seleccionable) y `EmptyState` (qué falta, por qué, una acción).
 - **Navegación, más:** `Link` (subrayado dentro del texto), `Breadcrumb` (la página actual es texto; los niveles del medio se pliegan), `Accordion` y `ProgressIndicator` (pasos de un flujo).
@@ -255,7 +255,7 @@ Los flujos de «Design System – Solutions» (billetera, KYC, pasajes, app de v
 - Para íconos usa siempre el componente `Icon`. Tamaños de Carbon: `icon-size-sm` (16 px) en datos densos, `icon-size-md` (20 px) dentro de controles, `icon-size-lg` (24 px) por defecto y `icon-size-xl` (32 px) en zonas vacías. Van en rem: crecen con el texto.
 - Para pictogramas usa el componente `Pictogram`: el nombre de la cosa elige su dibujo, y el mismo nombre da siempre el mismo. Cada entidad dibuja los suyos. Van desde `icon-size-lg` (24 px), siempre junto al nombre, y nunca en un botón ni en un aviso.
 - Un solo peso y un solo estilo. `variant: 'filled'` usa la versión `--filled` cuando existe (estados elegidos y avisos). Las flechas de los botones y el ojo del campo también usan `Icon`.
-- El color se hereda: `icon-01` principal, `icon-02` secundario, `text-on-interactive` sobre lima o acero.
+- El color se hereda: `icon-01` principal, `icon-02` secundario, `text-on-interactive` sobre el azul.
 - Sin emoji.
 
 ## Contenido

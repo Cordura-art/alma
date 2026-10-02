@@ -19,7 +19,7 @@ summary: Especificaciones visuales del interruptor.
 | Pista:focus | contorno | `focus` (2 px, separado 2 px) |
 | Fila:disabled | opacidad | 45 % |
 
-En tema claro, `control-on` es un oliva oscuro, porque el lima no se ve sobre fondo claro.
+En tema oscuro, `control-on` es un paso claro de la rampa azul, que se despega del fondo; en tema claro es el azul de acción.
 
 ## Tipografía
 
