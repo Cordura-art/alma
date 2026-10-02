@@ -66,19 +66,19 @@ body {
 .tile figcaption, .cap { color: var(--text-02); }
 
 /* The field: a canvas that keeps the cover's proportion. It is a piece: no text goes on top of it. */
-.campo { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-panel); background: var(--brand-ink); }
+.gen-campo { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-panel); background: var(--brand-ink); }
 
 /* The mycelium: a canvas with the proportion of the phone screen it was made for, and the corner of that screen
    (55 of 430 points wide). The corner is the device's, so it is a share of the canvas and not a radius token. */
-.micelio { display: block; width: 100%; max-width: 20rem; aspect-ratio: 430 / 932; border-radius: 12.79% / 5.9%; background: var(--brand-ink); }
+.gen-micelio { display: block; width: 100%; max-width: 20rem; aspect-ratio: 430 / 932; border-radius: 12.79% / 5.9%; background: var(--brand-ink); }
 
 /* The carousel: a stage with the ring's proportion; every card is placed from the middle of the ring by the script.
    A card has the proportion of the original's (a bank card) and the ink ground of a piece. */
-.ring { position: relative; isolation: isolate; overflow: hidden; width: 100%; aspect-ratio: 800 / 360; }
-.ring__card { position: absolute; left: 50%; top: 60%; width: 32.5%; will-change: transform; }
+.gen-ring { position: relative; isolation: isolate; overflow: hidden; width: 100%; aspect-ratio: 800 / 360; }
+.gen-ring__card { position: absolute; left: 50%; top: 60%; width: 32.5%; will-change: transform; }
 /* A card face: the proportion and the corner of an ID-1 card (85.60 × 53.98 mm, corners of 3.18 mm). The corner is the
    format's, so it is a share of the card and not a radius token. */
-.ring__card, .face { aspect-ratio: 856 / 540; border-radius: 3.715% / 5.889%; background-color: var(--brand-ink); background-size: 100% 100%; background-repeat: no-repeat; }
+.gen-ring__card, .face { aspect-ratio: 856 / 540; border-radius: 3.715% / 5.889%; background-color: var(--brand-ink); background-size: 100% 100%; background-repeat: no-repeat; }
 .face { display: block; width: 100%; }
 .faces { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: var(--space-24); margin: 0; padding: 0; list-style: none; }
 

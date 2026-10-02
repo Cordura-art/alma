@@ -6,18 +6,22 @@ import { valor } from './documentacion.mjs';
 import { genes } from '../../entidades/generador.mjs';
 
 const read = (p) => readFileSync(p, 'utf8');
-// What every page with generative pieces carries: creatures, colonies, emblems and card faces.
-const MODULOS = ['entidades/semilla.mjs', 'entidades/generador.mjs', 'entidades/emblemas.mjs', 'entidades/placa.mjs'];
-const NOMBRES = ['hash', 'rng', 'criatura', 'colonia', 'comoFondo', 'emblema', 'placa', 'PATRONES', 'NOMBRE_PATRON'];
+// What every page with generative pieces carries: creatures, colonies, emblems, card faces, the field, the carousel
+// and the mycelium.
+const MODULOS = ['semilla', 'generador', 'emblemas', 'placa', 'campo', 'carrusel', 'micelio'].map((m) => `entidades/${m}.mjs`);
+const NOMBRES = ['hash', 'rng', 'criatura', 'colonia', 'comoFondo', 'emblema', 'placa', 'PATRONES', 'NOMBRE_PATRON', 'campo', 'pintarCampo', 'carrusel', 'anillo', 'micelio', 'pintarMicelio', 'vaivenMicelio'];
 
 // The genes of an entity's system (`S`, from sistema(id)), with ALMA's token values.
 export function genesDe(S, tok = JSON.parse(read('dist/json/tokens.json'))) {
   return genes(S, (name, theme) => valor(tok, name, theme));
 }
 
-// window.__GENERADOR as a classic script. `extra` are more module files and `nombres` what they add to the global.
-export function generadorNavegador(extra = [], nombres = []) {
-  const src = [...MODULOS, ...extra].map((f) => read(f).replace(/^import .*$/gm, '').replace(/^export /gm, '')).join('\n');
+// window.__GENERADOR as a classic script, followed by the pieces that move as React components
+// (window.__GENERADOR_VISTAS, site/generativo.js), which need the page's React.
+export function generadorNavegador() {
+  const src = MODULOS.map((f) => read(f).replace(/^import .*$/gm, '').replace(/^export /gm, '')).join('\n');
   if (/<\/script|<!--/i.test(src)) throw new Error('El generador cerraría su etiqueta');
-  return `(function () {\n${src}\nwindow.__GENERADOR = { ${[...NOMBRES, ...nombres].map((n) => `${n}: ${n}`).join(', ')} };\n})();`;
+  const vistas = read('site/generativo.js');
+  if (/<\/script|<!--/i.test(vistas)) throw new Error('site/generativo.js cerraría su etiqueta');
+  return `(function () {\n${src}\nwindow.__GENERADOR = { ${NOMBRES.map((n) => `${n}: ${n}`).join(', ')} };\n})();\n${vistas}`;
 }

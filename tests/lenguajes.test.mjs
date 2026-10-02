@@ -28,6 +28,8 @@ for (const f of readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
       assert.equal(new Set(X[k].map((x) => x.trim().toLowerCase())).size, X[k].length, `${k} repetidos`);
     }
     assert.ok(L.ilustracion.estilos.some((e) => e.t === 'Criaturas'), 'falta el estilo «Criaturas»');
+    // Its signature is what the generator draws, so its words no longer describe the bars.
+    for (const k of ['lede', 'construccion', 'color', 'movimiento']) { assert.ok(L.firma[k], `firma.${k}`); assert.doesNotMatch(L.firma[k], /barra/i, `firma.${k} habla de barras`); }
     assert.ok(!L.ilustracion.avoid.some((a) => /evita (los )?personajes y (las )?mascotas/i.test(a)), 'el lenguaje aún pide evitar personajes');
   });
   test(`${f}: un principio escrito por cada principio de la carta`, () => {

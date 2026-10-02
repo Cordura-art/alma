@@ -1,5 +1,5 @@
 // The carousel of an entity: a ring of cards that turns in perspective, each card a piece of the generator. It is the
-// user's Rive script (referencias/tarjetas-carrusel-rive.lua) without Rive: the same ring, with the entity's genes
+// user's Rive script (ejemplos/ensayo-generativo/referencias/tarjetas-carrusel-rive.lua) without Rive: the same ring, with the entity's genes
 // instead of inputs. `carrusel()` gives the parameters and `anillo()` where every card is at a moment (no DOM: Node
 // tests it); the page moves one element per card with those numbers.
 

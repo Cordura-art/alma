@@ -17,10 +17,9 @@ const tok = JSON.parse(read('dist/json/tokens.json')), S = await sistema('ensayo
 const G = {};
 for (const X of [S, await sistema('cordura')]) G[X.id] = { ...genesDe(X, tok), paleta: X.P.palette.map((p) => p.name), fechaLarga: X.L.fechaLarga, radio: X.P.radius['radius-button'] };
 
-// The generator as a browser script: the system's families (entidades/) plus the ones that still live in this folder.
-// Pictograms are not here: they are ALMA's Pictogram component, in the bundle.
-const AQUI = 'ejemplos/ensayo-generativo';
-const generador = generadorNavegador([`${AQUI}/campo.mjs`, `${AQUI}/carrusel.mjs`, `${AQUI}/micelio.mjs`], ['campo', 'pintarCampo', 'carrusel', 'anillo', 'micelio', 'pintarMicelio', 'vaivenMicelio']);
+// The generator as a browser script, with the components of the pieces that move. Pictograms are not here: they are
+// ALMA's Pictogram component, in the bundle.
+const generador = generadorNavegador();
 
 const css = [read('dist/css/alma.css'), read(`${P}/components/bundle.css`), cssEntidad(S), read(join(here, 'pagina.css'))].join('\n');
 const bundle = read(`${P}/components/bundle.js`), app = read(join(here, 'pagina.js'));

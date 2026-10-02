@@ -1,8 +1,8 @@
 // The field of an entity: particles carried by a noise field and a steady wind, leaving trails. It is the user's p5
-// study (referencias/campo-de-particulas-p5.js) without p5: the same motion, with the entity's colors instead of the
+// study (ejemplos/ensayo-generativo/referencias/campo-de-particulas-p5.js) without p5: the same motion, with the entity's colors instead of the
 // pointer's hue, the entity's genes instead of sliders, and a seed, so the same key always gives the same field.
 // `campo()` is the simulation (no DOM: Node tests it); `pintarCampo()` draws one frame on a canvas 2D context.
-import { hash, rng } from '../../entidades/semilla.mjs';
+import { hash, rng } from './semilla.mjs';
 
 // Seeded value noise in three dimensions, three octaves, between 0 and 1 (what p5's noise() gave the original).
 function ruido(seed) {

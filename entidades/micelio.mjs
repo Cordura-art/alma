@@ -1,13 +1,13 @@
 // The mycelium of an entity: a welcome piece for a phone screen. A rectangle is cut again and again; the cuts form a
 // network, and hyphae grow along it from a few foci at the bottom, fork at every crossing and merge. A young hypha
 // is a thin plain line; as it ages it takes a holographic sheen that shifts when the piece tilts.
-// It is the user's Rive script "Cordura · Micelio de silicio holográfico" (referencias/cordura-micelio-rive.lua, a
+// It is the user's Rive script "Cordura · Micelio de silicio holográfico" (ejemplos/ensayo-generativo/referencias/cordura-micelio-rive.lua, a
 // port of referencias/cordura-micelio.html) without Rive: the same structure, growth and timing. What changed: the
 // hologram runs through the entity's colors instead of the visible spectrum, the ground, the young line and the sheen
 // are the entity's, the foci and the pace come from its genes, and randomness is the generator's.
 // `micelio()` builds the structure and says what is drawn at a moment (no DOM: Node tests it); `pintarMicelio()`
 // draws one frame on a canvas 2D context; `vaivenMicelio()` is the automatic sway of the tilt.
-import { hash, rng } from '../../entidades/semilla.mjs';
+import { hash, rng } from './semilla.mjs';
 
 // The original's fixed settings: the screen (iPhone 16 Plus, in points), ten levels of maturity, four classes of
 // facet, the longest stretch colored by its own age, and the user's parameters (depth 9, smallest cell 3 %,

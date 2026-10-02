@@ -83,7 +83,7 @@
  "prisma": {
   "lede": "Nuestras seis caras, ordenadas en el prisma de identidad: lo que mostramos y lo que llevamos dentro, lo que emitimos y lo que provocamos en quien nos recibe.",
   "caras": [
-   { "k": "Físico", "q": "Lo que se ve", "t": "Un rojo de corrector sobre negro tinta, letra ancha y liviana, esquinas suaves de 12 px y una firma en dos grupos que no se tocan.", "o": "Garganta definida · línea 5 · línea 2 · definición partida" },
+   { "k": "Físico", "q": "Lo que se ve", "t": "Un rojo de corrector sobre negro tinta, letra ancha y liviana, esquinas suaves de 12 px y una firma que una regla dibuja: criaturas, colonias y un campo en movimiento.", "o": "Garganta definida · línea 5 · línea 2 · definición partida" },
    { "k": "Personalidad", "q": "Cómo somos", "t": "Críticos, provocadores y precisos. Miramos con atención, decimos lo que vemos y lo decimos con las palabras justas.", "o": "Puertas 18, 39 y 62" },
    { "k": "Relación", "q": "Cómo nos vinculamos", "t": "Guiamos por invitación y ofrecemos soluciones que le sirven a cualquiera. Entre una lectura y otra nos retiramos: el texto es de quien lo escribe.", "o": "Proyector · línea 5 · línea 2" },
    { "k": "Cultura", "q": "Lo que valoramos", "t": "El oficio de corregir, la opinión con fundamento y el deseo de escribir, que es lo primero que hay que cuidar.", "o": "Canales 17-62 y 30-41" },
@@ -167,18 +167,10 @@
   ]
  },
  "firma": {
-  "lede": "Nuestra firma es un retrato de cómo funcionamos: cuatro filas de barras, una por cada centro que nos define, en dos grupos que no se tocan. Acompaña al nombre; no lo reemplaza.",
-  "construccion": "La firma usa la gramática de las entidades de ALMA: barras escalonadas y destellos de cuatro puntas. Tenemos dos circuitos: uno une la mente con la voz, el otro une la presión de la raíz con la emoción. Por eso la firma se arma en dos grupos, y el espacio entre ellos es parte del dibujo.",
-  "rasgos": [
-   ["Cuatro centros definidos", "Cuatro filas de barras."],
-   ["Definición partida", "Dos grupos separados por aire."],
-   ["Natural y retirada (línea 2)", "Barras de esquinas suaves."],
-   ["Guiar sin apuro", "Entrada productiva, pausada y serena."],
-   ["Mirar alrededor", "Rojo, magenta y ámbar; el rojo como acento."]
-  ],
-  "color": "La firma vive sobre negro tinta, donde el rojo se ve pleno. Sobre fondos claros se usa la misma paleta. Nunca sobre fotografías ni sobre otro color de la paleta.",
-  "movimiento": "Las barras entran escalonadas, como quien subraya una frase tras otra, con la curva productiva y un 25 % más lento que la base. Si la persona pidió menos movimiento, la firma aparece quieta en su estado final.",
-  "ex": { "texto": "Corregir es cuidar" }
+  "lede": "Nuestra firma no es un dibujo fijo. Es una familia de piezas que una regla dibuja a partir de nuestra carta y de nuestra fecha de nacimiento: un campo, un carrusel, un micelio, criaturas, colonias, emblemas y caras de tarjeta. Acompaña al nombre; no lo reemplaza.",
+  "construccion": "Funciona como un juego que dibuja su mundo desde una semilla. La carta da las reglas: los colores, las puntas, los focos, el ritmo. La fecha de nacimiento da la semilla. Una clave, que puede ser un nombre, un concepto o un número, elige un dibujo entre infinitos, y la misma clave da siempre el mismo.",
+  "color": "Las piezas viven sobre negro tinta, con la paleta completa y el rojo como acento: en el centro de un emblema, en las criaturas más chicas de una colonia, en una partícula de cada doce del campo. Solo la colonia tiene una versión apagada para ir detrás de un texto.",
+  "movimiento": "El campo, el carrusel y el micelio se mueven un 25 % más lento que la base, sin apuro. Siempre se pueden pausar y se detienen solos al salir de la pantalla. Si la persona pidió menos movimiento, parten quietos y completos."
  },
  "tipografia": {
   "lede": "La tipografía es nuestra voz hecha forma. Escribimos en Roboto Flex, ancha y liviana: una letra que se lee de lejos y no levanta la voz.",
@@ -315,7 +307,7 @@
   "aplicaciones": [
    ["Comparar.", "Al cambiar de versión, lo que se quitó se va y lo nuevo llega, para que el cambio se vea."],
    ["Orientar.", "Una observación que se abre muestra de qué frase viene."],
-   ["Presentar.", "La firma entra barra por barra en portadas y aperturas."]
+   ["Presentar.", "El campo, el carrusel y el micelio abren portadas y bienvenidas, a nuestro ritmo."]
   ],
   "avoid": [
    "No uses parpadeos ni temblores para llamar la atención.",

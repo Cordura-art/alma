@@ -132,7 +132,7 @@
         h('p', { className: 'web-label-m eyebrow' }, 'Lenguaje de diseño'),
         h('h1', { className: 'web-display-m hero__title', tabIndex: -1, id: 'titulo' }, T(I.titulo)),
         h('p', { className: 'web-body-l lede' }, T(I.lede))),
-      h(En.Signature, { entity: E, P: P, format: 'wide' }),
+      h(Pieza, { format: 'wide' }),
       h('div', { className: 'cards' }, cards.map(function (c) {
         return h('a', { key: c[0], href: '#' + PRE + c[0], className: 'card' }, h('span', { className: 'web-h5' }, c[1]), h('span', { className: 'web-body-m cap' }, c[2]), h(A.Icon, { name: 'arrow--right', size: 16 }));
       })),
@@ -392,6 +392,79 @@
       })));
   }
 
+  // ---------- The generative signature. For an entity with generative illustration the bars give way to what the
+  // generator draws: the field (its cover), the carousel and the mycelium move; creatures, colonies, emblems and card
+  // faces are still, and live in Ilustración. Words are written once here and take the entity's values.
+  var VG = GV && window.__GENERADOR_VISTAS ? window.__GENERADOR_VISTAS(G) : null;
+  var QUIETO = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var coma = function (x) { return String(Math.round(x * 10) / 10).replace('.', ','); };
+  // The piece of a format, where the bars used to go, always still: the cover is the field, the square a colony and
+  // the story the grown mycelium. An entity without generative illustration keeps its signature of bars.
+  function Pieza(p) {
+    if (!VG) return h(En.Signature, { entity: E, P: P, format: p.format });
+    if (p.format === 'square') return h('div', { className: 'gen-tex gen-tex--cuadro', style: { backgroundImage: GEN.comoFondo(GEN.colonia(G, 'portada', { modo: 'pieza' })) }, role: 'img', 'aria-label': 'Colonia de ' + L.nombre + ': criaturas de colores amontonadas sobre negro tinta, cada una con dos ojos.' });
+    if (p.format === 'tall') return h(VG.Micelio, { clave: 1, anda: false, label: 'Micelio de ' + L.nombre + ': una red de líneas que cubre la pantalla de un teléfono, con un brillo de sus colores.' });
+    return h(VG.Campo, { clave: 1, anda: false, label: 'Campo de ' + L.nombre + ': partículas de sus colores que dejan estela sobre negro tinta.' });
+  }
+  function Control(p) {
+    return h('div', { className: 'gen-row' },
+      h(A.Button, { variant: 'tinted', iconBefore: p.anda ? 'pause' : 'play', onClick: p.onToggle }, p.anda ? 'Pausar' : 'Reproducir'),
+      h(A.Button, { variant: 'gray', iconBefore: 'renew', onClick: p.onOtro }, p.otro),
+      h('span', { className: 'web-body-s cap' }, QUIETO ? 'Parte en pausa porque pediste menos movimiento.' : 'Se detiene solo cuando sale de la pantalla.'));
+  }
+  function FirmaGenerativa() {
+    // Each piece has its own pause: a piece paused before it was seen would stay as it was (the mycelium, not grown).
+    var X = L.firma, fluye = useState(!QUIETO), gira = useState(!QUIETO), crece = useState(!QUIETO), sem = useState(1), mazo = useState(0), hifa = useState(1), R = VG.RING;
+    var tog = function (s) { return function () { s[1](!s[0]); }; };
+    var baraja = React.useMemo(function () { return VG.caras(mazo[0]); }, [mazo[0]]);
+    var quietas = React.useMemo(function () {
+      return [
+        { t: 'Criaturas', svg: GEN.criatura(G, L.nombre) },
+        { t: 'Colonia', bg: GEN.comoFondo(GEN.colonia(G, 1, { modo: 'pieza' })) },
+        { t: 'Emblemas', svg: GEN.emblema(G, GV.conceptos[0]) },
+        { t: 'Caras de tarjeta', bg: GEN.comoFondo(GEN.placa(G, 'cara-0-2', { patron: 'petal' })) }];
+    }, []);
+    var filas = [
+      ['Fecha de nacimiento', 'La semilla: lo que hace propio cada dibujo', L.fechaLarga],
+      ['Paleta', 'Los colores de todas las piezas', VALS.secundario + ' y ' + VALS.terciario + ', con acero; ' + VALS.primario + ' como acento'],
+      ['Línea inconsciente', 'El remate de las líneas y la redondez de las tejas', 'El radio de nuestros botones: ' + VALS.radio],
+      ['Centros definidos y línea consciente', 'Las puntas de un emblema y las tarjetas del carrusel', G.puntas + ' puntas y ' + R.cantidad + ' tarjetas'],
+      ['Canales definidos', 'El nivel de detalle de un emblema', G.complejidad + ' de 5'],
+      ['Garganta definida o abierta', 'Emblemas rellenos o de línea', G.relleno ? 'Rellenos' : 'De línea'],
+      ['Centros definidos', 'Los focos desde donde crece el micelio', G.focos + ' focos'],
+      ['Definición', 'El tamaño de las corrientes del campo', 'Remolinos de unos ' + Math.round(360 / G.grupos) + ' px'],
+      ['Tipo', 'El ritmo de todo lo que se mueve', Math.round(100 / G.ritmo) + ' % de la velocidad base']];
+    return h('div', { className: 'page' }, h(Head, { id: 'firma', lede: X.lede, index: ['Construcción', 'Campo', 'Carrusel', 'Micelio', 'Lo que no se mueve', 'Espacio y tamaño', 'Color', 'Movimiento', 'Usos incorrectos'] }),
+      h(Sec, { title: 'Construcción' }, h(Para, null, X.construccion),
+        h(Tbl, { title: 'Cada rasgo de la firma', columns: [{ key: 'r', label: 'Rasgo de la carta' }, { key: 'g', label: 'Qué decide' }, { key: 'v', label: 'En nuestra firma' }], rows: filas.map(function (f, i) { return { id: i, r: f[0], g: f[1], v: f[2] }; }) })),
+      h(Sec, { title: 'Campo' },
+        h(Para, null, 'Nuestra portada. Partículas que siguen corrientes y dejan estela, a ' + Math.round(100 / G.ritmo) + ' % de la velocidad base. Es una pieza de marca: no lleva texto encima.'),
+        h(VG.Campo, { clave: sem[0], anda: fluye[0], label: 'Campo de ' + L.nombre + ': partículas de sus colores que derivan sobre negro tinta y dejan estela.' }),
+        h(Control, { anda: fluye[0], onToggle: tog(fluye), otro: 'Ver otro campo', onOtro: function () { sem[1](sem[0] + 1); } })),
+      h(Sec, { title: 'Carrusel' },
+        h(Para, null, 'Un anillo de ' + R.cantidad + ' tarjetas, una por cada punta de nuestro emblema, que gira en perspectiva y da una vuelta cada ' + coma(R.periodo) + ' segundos. Cada tarjeta lleva una cara distinta.'),
+        h(VG.Carrusel, { caras: baraja, anda: gira[0], label: 'Carrusel de ' + L.nombre + ': ' + R.cantidad + ' tarjetas que giran en anillo, cada una con un patrón distinto: ' + baraja.map(function (c) { return c.nombre.toLowerCase(); }).join(', ') + '.' }),
+        h(Control, { anda: gira[0], onToggle: tog(gira), otro: 'Ver otras ' + R.cantidad + ' caras', onOtro: function () { mazo[1](mazo[0] + 1); } })),
+      h(Sec, { title: 'Micelio' },
+        h(Para, null, 'Nuestra bienvenida en la pantalla de un teléfono. Una red crece desde ' + G.focos + ' focos, uno por cada centro que nos define, se bifurca en cada cruce y se une. Crece una sola vez, en ' + coma(4 * G.ritmo) + ' segundos, y después solo se mece: ese vaivén mueve el brillo.'),
+        h(VG.Micelio, { clave: hifa[0], anda: crece[0], label: 'Micelio de ' + L.nombre + ': una red de líneas rectas que crece desde el borde inferior de la pantalla de un teléfono y toma un brillo de sus colores.' }),
+        h(Control, { anda: crece[0], onToggle: tog(crece), otro: 'Ver otro micelio', onOtro: function () { hifa[1](hifa[0] + 1); } })),
+      h(Sec, { title: 'Lo que no se mueve' },
+        h(Para, null, 'Las criaturas, la colonia, los emblemas y las caras de tarjeta salen de la misma regla y de la misma semilla.'),
+        h('ul', { className: 'gen-people gen-people--96' }, quietas.map(function (q) {
+          return h('li', { key: q.t, className: 'gen-person' }, q.svg ? h(Dibujo, { size: 96, svg: q.svg }) : h('span', { className: 'gen-av gen-av--96 gen-av--bg', 'aria-hidden': 'true', style: { backgroundImage: q.bg } }), h('span', { className: 'web-body-s' }, q.t));
+        })),
+        h('a', { className: 'web-body-l', href: '#' + PRE + 'ilustracion' }, 'Ver todas en Ilustración')),
+      h(Sec, { title: 'Espacio y tamaño' }, h(Bullets, { items: [
+        ['Sin texto encima.', 'El campo, el carrusel y el micelio van sin texto. El título va al lado o debajo, alineado a la grilla de 8 px.'],
+        ['Texto sobre textura.', 'Solo sobre la colonia en su versión de fondo, que asegura un contraste de 4,5:1 o más.'],
+        ['Tamaño mínimo.', 'Una criatura se usa desde 32 px. Por debajo, se usa solo el nombre.']] })),
+      h(Sec, { title: 'Color' }, h(Para, null, X.color)),
+      h(Sec, { title: 'Movimiento' }, h(Para, null, X.movimiento)),
+      h(Sec, { title: 'Usos incorrectos' },
+        h(Avoid, { items: ['No escribas texto encima del campo, del carrusel ni del micelio.', 'No cambies los colores de una pieza: salen de nuestra paleta.', 'No dibujes una pieza a mano ni la retoques: la dibuja la regla.', 'No dejes una pieza en movimiento sin una forma de pausarla.', 'No la uses dentro de un formulario, una tabla o un botón.'] })));
+  }
+
   function Ilustracion() {
     var X = L.ilustracion;
     return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(GV ? ['Criaturas', 'Colonia', 'Emblemas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
@@ -470,11 +543,11 @@
   function Comunicacion() {
     var X = L.comunicacion;
     return h('div', { className: 'page' }, h(Head, { id: 'comunicacion', lede: X.lede }),
-      h(Frame, { label: 'Portada 16:9 · anuncio' }, h(En.Signature, { entity: E, P: P, format: 'wide' }),
+      h(Frame, { label: 'Portada 16:9 · anuncio' }, h(Pieza, { format: 'wide' }),
         h('div', { className: 'piece' }, h('p', { className: 'web-label-m eyebrow' }, X.portada.eyebrow), h('h2', { className: 'web-h2', style: { margin: 0 } }, X.portada.titulo), h('p', { className: 'web-body-l cap' }, X.portada.texto), h(Btns, { primary: X.portada.boton }))),
       h('div', { className: 'pieces' },
-        h(Frame, { label: 'Publicación 1:1' }, h(En.Signature, { entity: E, P: P, format: 'square' }), h('div', { className: 'piece' }, h('h3', { className: 'web-h4', style: { margin: 0 } }, X.cuadrado.titulo), h('p', { className: 'web-body-m cap' }, X.cuadrado.texto))),
-        h(Frame, { label: 'Historia 9:16' }, h(En.Signature, { entity: E, P: P, format: 'tall' }), h('div', { className: 'piece' }, h('h3', { className: 'web-h4', style: { margin: 0 } }, X.historia.titulo), h('p', { className: 'web-body-m cap' }, X.historia.texto)))));
+        h(Frame, { label: 'Publicación 1:1' }, h(Pieza, { format: 'square' }), h('div', { className: 'piece' }, h('h3', { className: 'web-h4', style: { margin: 0 } }, X.cuadrado.titulo), h('p', { className: 'web-body-m cap' }, X.cuadrado.texto))),
+        h(Frame, { label: 'Historia 9:16' }, h(Pieza, { format: 'tall' }), h('div', { className: 'piece' }, h('h3', { className: 'web-h4', style: { margin: 0 } }, X.historia.titulo), h('p', { className: 'web-body-m cap' }, X.historia.texto)))));
   }
 
   function Componentes() {
@@ -528,7 +601,7 @@
       h('p', { className: 'web-body-s cap note' }, T(X.nota)));
   }
 
-  var VIEWS = { inicio: Inicio, 'punto-de-vista': PuntoDeVista, principios: Principios, prisma: Prisma, voz: Voz, tono: Tono, escritura: Escritura, firma: Firma, tipografia: Tipografia, fundamentos: Fundamentos, color: Color, grilla: Grilla, iconografia: Iconografia, ilustracion: Ilustracion, fotografia: Fotografia, datos: Datos, movimiento: Movimiento, producto: Producto, comunicacion: Comunicacion, componentes: Componentes, carta: Carta, fecha: Fecha, calibracion: Calibracion };
+  var VIEWS = { inicio: Inicio, 'punto-de-vista': PuntoDeVista, principios: Principios, prisma: Prisma, voz: Voz, tono: Tono, escritura: Escritura, firma: VG ? FirmaGenerativa : Firma, tipografia: Tipografia, fundamentos: Fundamentos, color: Color, grilla: Grilla, iconografia: Iconografia, ilustracion: Ilustracion, fotografia: Fotografia, datos: Datos, movimiento: Movimiento, producto: Producto, comunicacion: Comunicacion, componentes: Componentes, carta: Carta, fecha: Fecha, calibracion: Calibracion };
 
   function App() {
     var r = useState(route()), th = useState(hostTheme());

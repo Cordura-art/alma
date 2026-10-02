@@ -31,7 +31,7 @@ const tok = JSON.parse(readFileSync('dist/json/tokens.json', 'utf8'));
 const genesDe = async (id) => { const S = await sistema(id); return { S, G: Gen.genes(S, (n, th) => valor(tok, n, th)) }; };
 
 test('Ensayo Generativo no trae colores propios: el generador y la página solo usan los de la entidad', () => {
-  for (const f of ['entidades/generador.mjs', 'entidades/emblemas.mjs', 'entidades/placa.mjs', ...['campo.mjs', 'carrusel.mjs', 'micelio.mjs', 'pagina.css', 'pagina.js'].map((x) => `ejemplos/ensayo-generativo/${x}`)]) {
+  for (const f of [...['generador', 'emblemas', 'placa', 'campo', 'carrusel', 'micelio'].map((x) => `entidades/${x}.mjs`), 'site/generativo.js', 'ejemplos/ensayo-generativo/pagina.css', 'ejemplos/ensayo-generativo/pagina.js']) {
     const src = readFileSync(f, 'utf8');
     assert.equal(src.match(/#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(/), null, `${f} trae un color en crudo`);
   }
@@ -183,7 +183,7 @@ test('una colonia es un mosaico de criaturas con dos ojos cada una, solo con los
 });
 
 test('el campo de partículas es el mismo para la misma clave, no se sale de su caja y va al ritmo de la entidad', async () => {
-  const Cam = await import('../ejemplos/ensayo-generativo/campo.mjs');
+  const Cam = await import('../entidades/campo.mjs');
   const { S, G } = await genesDe('ensayo'), { G: I } = await genesDe('ibm');
   assert.equal(G.ritmo, S.P.motion.speed, 'el ritmo es el del tipo');
   const a = Cam.campo(G, 1, 800, 450), b = Cam.campo(G, 1, 800, 450), c = Cam.campo(G, 2, 800, 450);
@@ -205,7 +205,7 @@ test('el campo de partículas es el mismo para la misma clave, no se sale de su 
 });
 
 test('el carrusel pone una tarjeta por punta, dibuja de atrás hacia adelante y vuelve al mismo lugar tras una vuelta', async () => {
-  const Car = await import('../ejemplos/ensayo-generativo/carrusel.mjs');
+  const Car = await import('../entidades/carrusel.mjs');
   const { G } = await genesDe('ensayo'), P = Car.carrusel(G);
   assert.equal(P.cantidad, G.puntas);
   assert.equal(P.periodo, 9 * G.ritmo, 'una vuelta al ritmo del tipo');
@@ -255,7 +255,7 @@ test('las caras de tarjeta: quince patrones con los colores de la entidad, sin c
 });
 
 test('el micelio crece una vez desde los focos de la entidad, cubre toda su red y madura, con sus colores', async () => {
-  const Mic = await import('../ejemplos/ensayo-generativo/micelio.mjs');
+  const Mic = await import('../entidades/micelio.mjs');
   const largo = (T) => T.flat().reduce((a, s) => { for (let k = 0; k < s.length; k += 4) a += Math.hypot(s[k + 2] - s[k], s[k + 3] - s[k + 1]); return a; }, 0);
   for (const id of ['ensayo', 'cordura', 'ibm']) {
     const { S, G } = await genesDe(id), M = Mic.micelio(G, 1);
@@ -308,6 +308,8 @@ test('el generador para una página: los mismos dibujos que los módulos, y los 
   assert.equal(N.emblema(viajan, 'borrador'), Emb.emblema(G, 'borrador'));
   assert.equal(N.placa(viajan, 'cara-0-0', { patron: 'planks' }), Pla.placa(G, 'cara-0-0', { patron: 'planks' }));
   assert.equal(N.PATRONES.length, 15);
+  for (const f of ['campo', 'pintarCampo', 'carrusel', 'anillo', 'micelio', 'pintarMicelio', 'vaivenMicelio']) assert.equal(typeof N[f], 'function', f);
+  assert.equal(N.carrusel(viajan).cantidad, viajan.puntas);
 });
 
 test('el lenguaje de una entidad con ilustración generativa lleva sus genes y el generador; el de otra, no', async () => {
@@ -315,6 +317,7 @@ test('el lenguaje de una entidad con ilustración generativa lleva sus genes y e
   execFileSync('node', ['scripts/build-lenguaje.mjs', 'ensayo', 'ibm']);
   const con = readFileSync('build/lenguaje-ensayo.html', 'utf8'), sin = readFileSync('build/lenguaje-ibm.html', 'utf8');
   assert.match(con, /window\.__GENERADOR = /);
+  assert.match(con, /window\.__GENERADOR_VISTAS = /, 'los componentes de lo que se mueve');
   assert.match(con, /"genes":\{"id":"ensayo"/);
   assert.doesNotMatch(sin, /window\.__GENERADOR = /);
   assert.doesNotMatch(sin, /"genes":/);
