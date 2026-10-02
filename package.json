@@ -14,7 +14,7 @@
     "./tokens.json": "./dist/json/tokens.json"
   },
   "scripts": {
-    "build": "node scripts/build-tokens.mjs && node scripts/build-docs.mjs",
+    "build": "node scripts/build-tokens.mjs && node scripts/build-pictogramas.mjs && node scripts/build-docs.mjs",
     "test": "node scripts/check-roundtrip.mjs && node scripts/check-contrast.mjs && node --test tests/*.test.mjs",
     "check": "npm run build && npm test",
     "site": "node scripts/build-site.mjs",
@@ -29,7 +29,8 @@
     "sistemas": "node scripts/build-selector.mjs",
     "documentacion": "node scripts/build-site.mjs --entidad",
     "documentacion:imagenes": "node scripts/build-images.mjs --entidad",
-    "ejemplo": "node ejemplos/ensayo-cafe/build.mjs"
+    "ejemplo": "node ejemplos/ensayo-cafe/build.mjs",
+    "ejemplo:generativo": "node ejemplos/ensayo-generativo/build.mjs"
   },
   "engines": {
     "node": ">=20"

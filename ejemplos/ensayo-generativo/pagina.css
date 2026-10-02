@@ -1,0 +1,104 @@
+/* Ensayo Generativo. Layout only: every color, space, radius and type value is an ALMA token with the Entidad Ensayo's
+   values. The colors of the drawings come from the entity's genes, inside the SVG the generator writes. */
+html { background: var(--ui-02); scroll-padding-top: var(--space-80); }
+body {
+  margin: 0; background: var(--ui-02); color: var(--text-01);
+  font-family: var(--font-flex); font-stretch: calc(var(--font-width, 150) * 1%); font-variation-settings: "wdth" var(--font-width, 150), "GRAD" var(--font-grade, 0);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+.wrap { box-sizing: border-box; width: 100%; max-width: 72rem; margin-inline: auto; padding-inline: var(--space-16); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ui-02); border-bottom: 1px solid var(--border-subtle); }
+.top__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); min-height: var(--space-64); }
+.brand { margin: 0; color: var(--text-01); }
+.brand span { color: var(--text-02); }
+
+.hero { display: grid; gap: var(--space-40); align-items: center; padding-block: var(--space-56) var(--space-64); }
+.hero__txt { display: grid; gap: var(--space-24); min-width: 0; }
+.eyebrow { margin: 0; color: var(--nav-selected); }
+.hero__title { margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
+.lede { margin: 0; max-width: 36rem; color: var(--text-02); }
+
+.sec { display: grid; gap: var(--space-32); padding-block: var(--space-56); border-top: 1px solid var(--border-subtle); }
+.sec__head { display: grid; gap: var(--space-8); max-width: 44rem; }
+.sec__title { margin: 0; line-height: 1.25; text-wrap: balance; }
+.sec__lede { margin: 0; color: var(--text-02); }
+.sub { margin: 0; color: var(--text-01); }
+.note { margin: 0; color: var(--text-02); max-width: 44rem; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16); }
+.two { display: grid; gap: var(--space-32); align-items: start; }
+.two > * { min-width: 0; }
+.stack { display: grid; gap: var(--space-16); min-width: 0; }
+
+/* Avatars: a square that takes the entity's corners. The drawing is an SVG that fills it. */
+.av { display: block; flex: none; overflow: hidden; width: var(--space-48); aspect-ratio: 1; border-radius: var(--radius-chip); }
+.av svg { display: block; width: 100%; height: 100%; }
+.av--32 { width: var(--space-32); }
+.av--40 { width: var(--space-40); }
+.av--64 { width: var(--space-64); border-radius: var(--radius-panel); }
+.av--96 { width: calc(var(--space-48) * 2); border-radius: var(--radius-panel); }
+.sizes { display: flex; align-items: end; gap: var(--space-16); min-height: calc(var(--space-48) * 2); }
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(var(--space-64) + var(--space-24)), 1fr)); gap: var(--space-24) var(--space-16); margin: 0; padding: 0; list-style: none; }
+.person { display: grid; justify-items: start; gap: var(--space-8); min-width: 0; }
+.person span:last-child { color: var(--text-02); overflow-wrap: anywhere; }
+
+.people--96 { grid-template-columns: repeat(auto-fill, minmax(calc(var(--space-48) * 2 + var(--space-16)), 1fr)); }
+.av--160 { width: calc(var(--space-80) * 2); max-width: 100%; border-radius: var(--radius-panel); }
+
+/* Pictograms are ALMA's Pictogram component, which sizes and colors itself; this is only their layout. */
+.sizes--icon { min-height: var(--icon-size-xl); align-items: center; gap: var(--space-24); }
+.icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--space-64), 1fr)); gap: var(--space-24) var(--space-16); margin: 0; padding: 0; list-style: none; }
+.icons li { display: grid; justify-items: center; gap: var(--space-8); }
+.marks { display: grid; margin: 0; padding: 0; list-style: none; max-width: 35rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--ui-01); }
+.marks li { display: flex; align-items: center; gap: var(--space-16); padding: var(--space-16) var(--space-24); }
+.marks li + li { border-top: 1px solid var(--border-subtle); }
+.marks p { margin: 0; }
+.pic { display: grid; gap: var(--space-8); margin: 0; min-width: 0; }
+.pic figcaption { color: var(--text-02); }
+
+/* Textures: the tile repeats as a background. A ground sits on the page color, so a line marks its edge. */
+.tex { box-sizing: border-box; display: grid; align-content: end; gap: var(--space-8); aspect-ratio: 4 / 3; max-width: 100%; padding: var(--space-24); border-radius: var(--radius-panel); background-repeat: repeat; }
+.tex--fondo { border: 1px solid var(--border-subtle); }
+.tex p { margin: 0; }
+.tex p + p { color: var(--text-02); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: var(--space-24); margin: 0; padding: 0; list-style: none; }
+.tile { min-width: 0; }
+.tile figure { display: grid; gap: var(--space-8); margin: 0; }
+.tile figcaption, .cap { color: var(--text-02); }
+
+/* The field: a canvas that keeps the cover's proportion. It is a piece: no text goes on top of it. */
+.campo { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-panel); background: var(--brand-ink); }
+
+/* The mycelium: a canvas with the proportion of the phone screen it was made for, and the corner of that screen
+   (55 of 430 points wide). The corner is the device's, so it is a share of the canvas and not a radius token. */
+.micelio { display: block; width: 100%; max-width: 20rem; aspect-ratio: 430 / 932; border-radius: 12.79% / 5.9%; background: var(--brand-ink); }
+
+/* The carousel: a stage with the ring's proportion; every card is placed from the middle of the ring by the script.
+   A card has the proportion of the original's (a bank card) and the ink ground of a piece. */
+.ring { position: relative; isolation: isolate; overflow: hidden; width: 100%; aspect-ratio: 800 / 360; }
+.ring__card { position: absolute; left: 50%; top: 60%; width: 32.5%; will-change: transform; }
+/* A card face: the proportion and the corner of an ID-1 card (85.60 × 53.98 mm, corners of 3.18 mm). The corner is the
+   format's, so it is a share of the card and not a radius token. */
+.ring__card, .face { aspect-ratio: 856 / 540; border-radius: 3.715% / 5.889%; background-color: var(--brand-ink); background-size: 100% 100%; background-repeat: no-repeat; }
+.face { display: block; width: 100%; }
+.faces { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: var(--space-24); margin: 0; padding: 0; list-style: none; }
+
+/* In use: a draft's header on a ground texture, and its observations with the avatar of who wrote each one. */
+.draft { overflow: hidden; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--ui-01); }
+.draft__head { display: grid; gap: var(--space-16); padding: var(--space-32) var(--space-24); background-repeat: repeat; border-bottom: 1px solid var(--border-subtle); }
+.draft__head h3, .draft__head p { margin: 0; }
+.draft__head p { color: var(--text-02); }
+.obs { display: grid; margin: 0; padding: 0; list-style: none; }
+.obs li { display: flex; gap: var(--space-16); padding: var(--space-16) var(--space-24); }
+.obs li + li { border-top: 1px solid var(--border-subtle); }
+.obs__txt { display: grid; gap: var(--space-4); min-width: 0; }
+.obs__txt p { margin: 0; }
+.obs__who span { color: var(--text-02); }
+
+.foot { padding-block: var(--space-32) var(--space-56); border-top: 1px solid var(--border-subtle); color: var(--text-02); }
+.foot p { margin: 0; max-width: 48rem; }
+
+@media (min-width: 56rem) {
+  .wrap { padding-inline: var(--space-32); }
+  .hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-64); padding-block: var(--space-80); }
+  .two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-48); }
+}

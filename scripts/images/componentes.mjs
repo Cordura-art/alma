@@ -546,6 +546,16 @@ export const componentScenes = [
         h('span', { className: 'cap web-label-s' }, 'Contorno'), [16, 20, 24, 32].map(function (s) { return h('div', { key: s }, h(A.Icon, { name: 'information', size: s })); }),
         h('span', { className: 'cap web-label-s' }, 'Relleno'), [16, 20, 24, 32].map(function (s) { return h('div', { key: s }, h(A.Icon, { name: 'information', variant: 'filled', size: s })); })));` }),
 
+  // ---------- Pictogram ----------
+  scene('pictogram', 'usage', 'los borradores de un libro', 'pictogram-lista',
+    'Seis borradores de un libro, cada uno con su pictograma a 24 px junto a su nombre, y el pictograma de «Capítulo 3» a 24 y 32 px.',
+    { js: `var nombres = ['Prólogo', 'Capítulo 1', 'Capítulo 2', 'Capítulo 3', 'Capítulo 4', 'Notas del editor'], dibujos = A.pictogramDrawings(nombres);
+      mount(h('div', { style: { display: 'grid', gridTemplateColumns: '16rem auto', gap: '24px 48px', alignItems: 'start' } },
+        h('div', { style: { display: 'grid', gap: 16 } }, nombres.map(function (n, i) { return h('div', { key: n, style: { display: 'flex', alignItems: 'center', gap: 16, color: 'var(--nav-selected)' } }, h(A.Pictogram, { name: n, drawing: dibujos[i] }), h('span', { className: 'web-body-m', style: { color: 'var(--text-01)' } }, n)); })),
+        h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(2, 5rem)', gap: '16px', alignItems: 'center', color: 'var(--icon-01)' } },
+          [24, 32].map(function (s) { return h('span', { key: s, className: 'tok' }, s + ' px'); }),
+          [24, 32].map(function (s) { return h('div', { key: s }, h(A.Pictogram, { name: 'Capítulo 3', drawing: dibujos[3], size: s })); }))));` }),
+
   // ---------- EmptyState ----------
   scene('empty-state', 'usage', '«Aún no tienes viajes»', 'empty-state-viajes',
     'EmptyState «Aún no tienes viajes», con su mensaje y la acción «Buscar pasajes».',

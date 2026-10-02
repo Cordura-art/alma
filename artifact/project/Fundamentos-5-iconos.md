@@ -42,9 +42,34 @@ Van en `rem`: crecen con el texto.
 
 ### Cuándo no
 
-- Para decorar.
+- Para decorar. Si lo que buscas es distinguir cosas entre sí, usa un pictograma.
 - Si el ícono no es conocido: una palabra se entiende antes.
 - Para distinguir estados solo por el ícono: acompáñalo de la palabra.
+
+### Pictogramas
+
+Un pictograma es un dibujo de línea que le pertenece a una cosa: un capítulo, un proyecto, una etiqueta. No explica qué es; la distingue de las que tiene al lado, como una huella.
+
+#### Cuándo un pictograma
+
+- En listas y tarjetas donde varias cosas del mismo tipo se parecen y la persona vuelve a buscarlas.
+- Siempre junto al nombre de la cosa. El nombre informa; el pictograma ayuda a encontrarla.
+
+#### Cuándo no
+
+- En botones, menús, campos o avisos: ahí va un ícono de Carbon.
+- Para decir un estado. «Con observaciones» se dice con la palabra y, si hace falta, con un ícono de Carbon.
+- Solo, sin nombre.
+- Más de una lista con pictogramas por pantalla: si todo lleva dibujo, nada se distingue.
+
+#### Cómo se usan
+
+- Con el componente `Pictogram`: recibe el nombre de la cosa y dibuja su pictograma.
+- Tamaño: `icon-size-lg` (24 px) o `icon-size-xl` (32 px). A 16 y 20 px pierden detalle.
+- Color: heredan el del texto, igual que los íconos. Usa `icon-01`, o `nav-selected` cuando quieras que se note. Necesitan 3:1 contra su fondo.
+- En una lista, pide los dibujos del conjunto completo con `pictogramDrawings()`: así no se repite ninguno.
+- Son decorativos para un lector de pantalla (`aria-hidden`), porque el nombre ya está al lado.
+- El mismo nombre da siempre el mismo dibujo. Si la cosa cambia de nombre, cambia de pictograma.
 
 ### Color
 

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Neo-banking Icons — v15</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d; --bg2:#161616; --bg3:#1e1e1e;
+  --ink:#f0ede8; --mu:#888; --fa:#333;
+  --f:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);padding:1.6rem 2rem;min-height:100vh}
+header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:.8rem;margin-bottom:1.2rem;border-bottom:1px solid var(--fa)}
+header h1{font-size:10px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:var(--mu)}
+.gi{font-size:9px;color:var(--fa);letter-spacing:.06em}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:.55rem}
+.tl{font-size:9px;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.tv{font-size:9px;color:var(--ink);min-width:26px;font-variant-numeric:tabular-nums}
+input[type=range]{width:64px;accent-color:var(--ink);cursor:pointer}
+.sep{width:1px;height:12px;background:var(--fa);flex-shrink:0}
+.btn{font-size:9px;padding:3px 11px;border:1px solid var(--fa);background:transparent;cursor:pointer;color:var(--mu);letter-spacing:.07em;text-transform:uppercase;transition:all .1s;white-space:nowrap}
+.btn:hover{border-color:var(--ink);color:var(--ink)}
+.btn.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.swatches{display:flex;gap:4px;align-items:center}
+.sw{width:14px;height:14px;border-radius:50%;cursor:pointer;border:1.5px solid transparent;transition:all .12s;flex-shrink:0}
+.sw.on{border-color:var(--ink);transform:scale(1.25)}
+.mode-row{display:flex;gap:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:1px;background:var(--fa);border:1px solid var(--fa);margin-bottom:1px}
+.cell{background:var(--bg);padding:14px 10px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:background .1s;position:relative}
+.cell:hover{background:var(--bg2)}
+.cell svg{display:block;width:72px;height:72px}
+.cell-nm{font-size:8px;color:var(--mu);letter-spacing:.08em;text-align:center;line-height:1.3}
+.pin{position:absolute;top:6px;right:6px;font-size:9px;color:var(--fa);cursor:pointer;padding:2px 3px;transition:color .1s;line-height:1}
+.pin:hover,.pin.on{color:var(--ink)}
+.panel{padding:1.4rem 1.8rem;background:var(--bg2);border:1px solid var(--fa);display:none;gap:22px;align-items:flex-start;flex-wrap:wrap;margin-bottom:1px}
+.panel.show{display:flex}
+.panel svg{width:120px;height:120px;flex-shrink:0}
+.pi{flex:1;min-width:180px;padding-top:2px}
+.pi h2{font-size:11px;font-weight:400;letter-spacing:.15em;text-transform:uppercase;margin-bottom:3px}
+.pid{font-size:8px;color:var(--fa);margin-bottom:8px;letter-spacing:.05em}
+.pdesc{font-size:10px;color:var(--mu);line-height:1.7;margin-bottom:9px}
+.plog{font-size:9px;color:var(--fa);border-top:1px solid var(--fa);padding-top:8px;line-height:1.8}
+.pacts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.board{padding:1.1rem 1.8rem;background:var(--bg2);border:1px solid var(--fa);display:none}
+.board.show{display:block}
+.bh{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:.8rem}
+.bgr{display:flex;flex-wrap:wrap;gap:5px}
+.bc{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px;border:1px solid var(--fa);background:var(--bg);transition:background .1s}
+.bc:hover{background:var(--bg3)}
+.bc svg{width:48px;height:48px;display:block}
+.bc span{font-size:7px;color:var(--mu);letter-spacing:.06em;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>Neo-banking Icons — v15</h1>
+  <span class="gi" id="gi">—</span>
+</header>
+<div class="row">
+  <span class="tl">semilla</span>
+  <input type="range" id="sl-s" min="1" max="99999" value="4096" step="1">
+  <span class="tv" id="tv-s">4096</span>
+  <div class="sep"></div>
+  <button class="btn" id="btn-new">↺ nuevos</button>
+  <button class="btn" id="btn-evo">⟳ evolucionar</button>
+  <div class="sep"></div>
+  <span class="tl">cantidad</span>
+  <input type="range" id="sl-n" min="4" max="128" value="32" step="4">
+  <span class="tv" id="tv-n">32</span>
+  <div class="sep"></div>
+  <span class="tl">variación</span>
+  <input type="range" id="sl-v" min="0" max="1" value="0.4" step="0.01">
+  <span class="tv" id="tv-v">0.40</span>
+</div>
+<div class="row">
+  <span class="tl">puntas</span>
+  <input type="range" id="sl-pts" min="3" max="16" value="6" step="1">
+  <span class="tv" id="tv-pts">6</span>
+  <div class="sep"></div>
+  <span class="tl">complejidad</span>
+  <input type="range" id="sl-cx" min="1" max="5" value="3" step="1">
+  <span class="tv" id="tv-cx">3</span>
+  <div class="sep"></div>
+  <span class="tl">trazo</span>
+  <input type="range" id="sl-sw" min="0.5" max="4" value="1.5" step="0.25">
+  <span class="tv" id="tv-sw">1.5</span>
+  <div class="sep"></div>
+  <span class="tl">paleta</span>
+  <div class="swatches" id="sw-pal"></div>
+  <div class="sep"></div>
+  <span class="tl">modo</span>
+  <div class="mode-row">
+    <button class="btn on" id="m-fill">relleno</button>
+    <button class="btn" id="m-line">línea</button>
+    <button class="btn" id="m-mix">mixto</button>
+    <button class="btn" id="m-contra">contraforma</button>
+  </div>
+  <div class="sep"></div>
+  <button class="btn" id="btn-b">tablero</button>
+  <button class="btn" id="btn-ex">↓ exportar</button>
+</div>
+<div class="grid" id="grid"></div>
+<div class="panel" id="panel">
+  <div id="p-svg"></div>
+  <div class="pi">
+    <h2 id="p-nm">—</h2>
+    <p class="pid" id="p-id">—</p>
+    <p class="pdesc" id="p-dc">—</p>
+    <p class="plog" id="p-lg">—</p>
+    <div class="pacts">
+      <button class="btn" id="p-cp">copiar SVG</button>
+      <button class="btn" id="p-an">+ anclar</button>
+      <button class="btn" id="p-fz">❄ fijar</button>
+    </div>
+  </div>
+</div>
+<div class="board" id="board">
+  <p class="bh">anclados</p>
+  <div class="bgr" id="bgr"></div>
+</div>
+</body>
+</html>
+FILEEOF
+
+<script>
+'use strict';
+const pi=Math.PI,tau=pi*2;
+const f2=n=>(+n).toFixed(2);
+
+function mkRng(seed){
+  let s=(seed^0xdeadbeef)>>>0;
+  const fn=()=>{s=Math.imul(s^(s>>>17),0x45d9f3b);s=(s^(s>>>13))>>>0;return((s^(s>>>15))>>>0)/0xffffffff};
+  fn.f=(a,b)=>a+fn()*(b-a);
+  fn.i=(a,b)=>Math.floor(fn.f(a,b+.9999));
+  fn.b=(p=.5)=>fn()<p;
+  fn.pick=a=>a[Math.floor(fn()*a.length)];
+  return fn;
+}
+
+const PALETTES=[
+  {name:'indigo',  c:['#c8c6ff','#9b97f5','#6b64e8','#3d35c0','#1a1060']},
+  {name:'glaciar', c:['#c8e6f5','#8ec9e8','#4a9cc4','#1e6fa0','#0d4060']},
+  {name:'brasa',   c:['#fff0d6','#f5b84f','#d97c22','#a83d0a','#5c1a02']},
+  {name:'botanico',c:['#d4e8c2','#9dc97a','#5b9a3a','#2f6b1e','#153a0b']},
+  {name:'arena',   c:['#f0ede8','#d4c9b8','#a89880','#7a6858','#3a2c20']},
+  {name:'coral',   c:['#ffd6d6','#ff9999','#e05555','#a82020','#5c0808']},
+  {name:'slate',   c:['#e0e8f0','#8eb0cc','#4a7099','#1e4060','#0a1a28']},
+];
+let PAL_IDX=0, MODE='fill', SW=1.5, PTS=6, CX=3;
+
+const polar=(cx,cy,a,r)=>[cx+Math.cos(a)*r,cy+Math.sin(a)*r];
+
+function starPath(cx,cy,n,r1,r2,off=0){
+  let d='';
+  for(let i=0;i<n*2;i++){const a=tau*i/(n*2)+off;const[x,y]=polar(cx,cy,a,i%2===0?r1:r2);d+=(i?'L':'M')+f2(x)+','+f2(y);}
+  return d+'Z';
+}
+function ngon(cx,cy,n,r,off=0){
+  let d='';
+  for(let i=0;i<n;i++){const a=tau*i/n+off;const[x,y]=polar(cx,cy,a,r);d+=(i?'L':'M')+f2(x)+','+f2(y);}
+  return d+'Z';
+}
+
+const DOMAINS=[
+  'payment','transfer','deposit','credit','debit','escrow','collateral','margin',
+  'balance','ledger','settlement','clearing','custody','account','card','wallet',
+  'onboarding','kyc','compliance','audit','reconciliation','batch','authorization',
+  'authentication','verification','tokenization','encryption','signature',
+  'liquidity','solvency','yield','interest','compound','drawdown','portfolio',
+  'allocation','diversification','hedge','exposure','risk','spread','velocity',
+  'threshold','limit','alert','metric','index','score','forecast','trend','insight',
+  'api','webhook','gateway','network','protocol','session','token','node',
+  'nft','stablecoin','cbdc','defi','blockchain','vault','equity','bond',
+  'loan','mortgage','derivative','swap','repo','fx','acquiring','issuing',
+  'interchange','amortization','accrual','valuation','provision','netting',
+  'open_banking','monitoring','reporting','statement','analytics','onchain',
+];
+const ACTIONS=[
+  'flow','lock','bridge','gate','loop','pulse','arc','layer',
+  'grid','ring','fork','merge','chain','wave','signal','path',
+  'orbit','frame','matrix','cluster','band','axis','scale','mark',
+  'point','vector','stack','shield','field','route','branch','node',
+];
+
+function conceptHash(domain,action){
+  let h=0x811c9dc5>>>0;
+  for(const c of domain+'\x00'+action) h=Math.imul(h^c.charCodeAt(0),0x01000193)>>>0;
+  return h;
+}
+function extractTraits(h){
+  const b=(sh,bits)=>(h>>>sh)&((1<<bits)-1);
+  return{n:3+b(0,4)%12,n2:2+b(4,3)%6,ratio:b(8,8)/255,angle:b(16,8)/255*pi,
+    decay:.52+b(24,6)/255*.36,phase:b(2,8)/255*tau,flip:!!(h&(1<<10)),
+    alt:!!(h&(1<<11)),sub:!!(h&(1<<12)),mode:b(13,2),variant:b(18,3),weight:b(21,3),h};
+}
+
+const pickC=(pal,r)=>pal[Math.floor(r()*pal.length)];
+let _mid=0;
+const mid=()=>'m'+((_mid++)&0xffff).toString(16);
+
+// ── DRAW FUNCTIONS ─────────────────────────────
+// Each: (S, r, T, pal, imode, pts, cx) → SVG string
+const DRAWS=[
+
+// 00 starburst
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,inner=R*(.18+T.ratio*.35);
+  const c1=pickC(pal,r),c2=pickC(pal,r),c3=pickC(pal,r),lm=im==='line';
+  let o=`<path d="${starPath(h,h,pts,R,inner)}" fill="${lm?'none':c1}" stroke="${lm?c1:'none'}" stroke-width="${SW}" stroke-linejoin="round"/>`;
+  if(cx>2) o+=`<path d="${starPath(h,h,pts,inner*1.1,inner*.35,pi/pts)}" fill="${lm?'none':c2}" stroke="${lm?c2:'none'}" stroke-width="${SW}"/>`;
+  if(cx>3) o+=`<circle cx="${h}" cy="${h}" r="${inner*.4}" fill="${c3}"/>`;
+  return o;
+},
+
+// 01 asterisk — thick bars
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,th=R*(.055+T.ratio*.065),lm=im==='line';
+  const c2=pickC(pal,r);
+  let o='';
+  for(let i=0;i<pts;i++){
+    const a=tau*i/pts+T.phase/pts,p2=a+pi/2;
+    const [x2,y2]=polar(h,h,a,R);
+    const ox=Math.cos(p2)*th,oy=Math.sin(p2)*th;
+    const col=pal[i%pal.length];
+    o+=`<path d="M${f2(h+ox)},${f2(h+oy)} L${f2(x2+ox)},${f2(y2+oy)} L${f2(x2-ox)},${f2(y2-oy)} L${f2(h-ox)},${f2(h-oy)}Z" fill="${lm?'none':col}" stroke="${lm?col:'none'}" stroke-width="${SW}"/>`;
+  }
+  if(cx>2) o+=`<circle cx="${h}" cy="${h}" r="${th*2.2}" fill="${c2}"/>`;
+  return o;
+},
+
+// 02 ring_dots
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,rings=Math.min(cx,3),lm=im==='line';
+  let o='';
+  for(let ri=0;ri<rings;ri++){
+    const rad=R*(.28+ri*.26),n=pts+ri*2,dotR=R*(.058-ri*.008);
+    for(let i=0;i<n;i++){
+      const a=tau*i/n+T.phase;const[x,y]=polar(h,h,a,rad);
+      const col=pal[ri%pal.length];
+      o+=`<circle cx="${f2(x)}" cy="${f2(y)}" r="${f2(dotR)}" fill="${lm?'none':col}" stroke="${lm?col:'none'}" stroke-width="${SW}"/>`;
+    }
+  }
+  if(cx>3) o+=`<circle cx="${h}" cy="${h}" r="${R*.1}" fill="${pal[2]}"/>`;
+  return o;
+},
+
+// 03 spiral
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.9,turns=1.4+cx*.45,steps=pts*cx*4;
+  const c1=pal[0],c2=pal[2];
+  const mkS=(ph)=>{let d=`M${h},${h}`;for(let i=1;i<=steps;i++){const t=i/steps,a=t*tau*turns+ph,rad=t*R;const[x,y]=polar(h,h,a,rad);d+=`L${f2(x)},${f2(y)}`;}return d;};
+  let o=`<path d="${mkS(T.phase)}" fill="none" stroke="${c1}" stroke-width="${SW}" stroke-linecap="round"/>`;
+  if(cx>2) o+=`<path d="${mkS(T.phase+pi)}" fill="none" stroke="${c2}" stroke-width="${SW*.8}" stroke-linecap="round"/>`;
+  return o;
+},
+
+// 04 radial_lines
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.9,n=pts*cx;
+  let o='';
+  for(let i=0;i<n;i++){
+    const a=tau*i/n+T.phase/n;
+    const[x1,y1]=polar(h,h,a,R*(.12+T.ratio*.2));
+    const[x2,y2]=polar(h,h,a,R*(.62+T.ratio*.35));
+    o+=`<line x1="${f2(x1)}" y1="${f2(y1)}" x2="${f2(x2)}" y2="${f2(y2)}" stroke="${pal[i%pal.length]}" stroke-width="${SW}" stroke-linecap="round"/>`;
+  }
+  return o;
+},
+
+// 05 cross_burst — alternating long/short
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.9,lm=im==='line',c1=pickC(pal,r),c2=pickC(pal,r);
+  let o='';
+  for(let i=0;i<pts*2;i++){
+    const a=tau*i/(pts*2)+T.phase,long=i%2===0;
+    const rr=long?R*.9:R*.52,th=R*(.06+T.ratio*.06)*(long?1:.65);
+    const p2=a+pi/2,ox=Math.cos(p2)*th,oy=Math.sin(p2)*th;
+    const[x2,y2]=polar(h,h,a,rr),col=long?c1:c2;
+    o+=`<path d="M${f2(h+ox)},${f2(h+oy)} L${f2(x2+ox)},${f2(y2+oy)} L${f2(x2-ox)},${f2(y2-oy)} L${f2(h-ox)},${f2(h-oy)}Z" fill="${lm?'none':col}" stroke="${lm?col:'none'}" stroke-width="${SW}"/>`;
+  }
+  o+=`<circle cx="${h}" cy="${h}" r="${R*(.1+T.ratio*.08)}" fill="${pal[4]}" stroke="none"/>`;
+  return o;
+},
+
+// 06 nested_stars
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,inner=R*.35,lm=im==='line';
+  let o=`<path d="${starPath(h,h,pts,R*.9,inner)}" fill="${lm?'none':pal[0]}" stroke="${lm?pal[0]:'none'}" stroke-width="${SW}" stroke-linejoin="round"/>`;
+  o+=`<path d="${starPath(h,h,pts,inner*1.15,inner*.32,pi/pts)}" fill="${lm?'none':pal[2]}" stroke="${lm?pal[2]:'none'}" stroke-width="${SW}" stroke-linejoin="round"/>`;
+  if(cx>2) o+=`<circle cx="${h}" cy="${h}" r="${R*.09}" fill="${pal[4]}"/>`;
+  return o;
+},
+
+// 07 orbital
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.85,tilt=T.angle*180/pi;
+  const rx=R*(.62+T.ratio*.28),ry=rx*(.22+T.ratio*.28);
+  const sa=T.phase,sx=h+rx*Math.cos(sa)*Math.cos(T.angle)-ry*Math.sin(sa)*Math.sin(T.angle);
+  const sy=h+rx*Math.cos(sa)*Math.sin(T.angle)+ry*Math.sin(sa)*Math.cos(T.angle);
+  let o='';
+  const nn=cx>3?2:1;
+  for(let i=0;i<nn;i++) o+=`<ellipse cx="${h}" cy="${h}" rx="${f2(rx*(1-i*.28))}" ry="${f2(ry*(1-i*.28))}" transform="rotate(${f2(tilt+i*25)} ${h} ${h})" fill="none" stroke="${pal[i*2]}" stroke-width="${SW}"/>`;
+  o+=`<circle cx="${h}" cy="${h}" r="${R*(.1+T.ratio*.07)}" fill="${pal[0]}"/>`;
+  o+=`<circle cx="${f2(sx)}" cy="${f2(sy)}" r="${R*(.045+T.ratio*.04)}" fill="${pal[3]}"/>`;
+  return o;
+},
+
+// 08 arc_flower
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.85,pR=R*(.42+T.ratio*.22),lm=im==='line';
+  let o='';
+  for(let i=0;i<pts;i++){
+    const a=tau*i/pts+T.phase;
+    const[pcx,pcy]=polar(h,h,a,pR*.7),col=pal[i%pal.length];
+    o+=`<ellipse cx="${f2(pcx)}" cy="${f2(pcy)}" rx="${f2(pR*.45)}" ry="${f2(pR*.28)}" transform="rotate(${f2(a*180/pi+90)} ${f2(pcx)} ${f2(pcy)})" fill="${lm?'none':col}" stroke="${lm?col:'none'}" stroke-width="${SW}" opacity="${.75+T.ratio*.2}"/>`;
+  }
+  o+=`<circle cx="${h}" cy="${h}" r="${R*.14}" fill="${pal[2]}"/>`;
+  return o;
+},
+
+// 09 thorn
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,n=pts*2,lm=im==='line';
+  let d='';
+  for(let i=0;i<n;i++){
+    const a=tau*i/n+T.phase/n,t=i%3;
+    const rad=t===0?R*.92:t===1?R*(.38+T.ratio*.2):R*(.62+T.ratio*.18);
+    const[x,y]=polar(h,h,a,rad);d+=(i?'L':'M')+f2(x)+','+f2(y);
+  }
+  return`<path d="${d}Z" fill="${lm?'none':pal[0]}" stroke="${lm?pal[0]:pal[3]}" stroke-width="${SW}" stroke-linejoin="round"/>`;
+},
+
+// 10 lens_burst
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,n=Math.min(cx,4);
+  let o='';
+  for(let i=0;i<n;i++){
+    const rr=R*(.28+i*.2),span=pi*(.6+T.ratio*.9),base=T.phase+i*.22;
+    const gap=.06+T.ratio*.1,a0=base+gap,a1=base+span-gap;
+    const[sx,sy]=polar(h,h,a0,rr),[ex,ey]=polar(h,h,a1,rr);
+    const lg=span>pi?1:0;
+    o+=`<path d="M${f2(sx)} ${f2(sy)} A${f2(rr)} ${f2(rr)} 0 ${lg} 1 ${f2(ex)} ${f2(ey)}" fill="none" stroke="${pal[i%pal.length]}" stroke-width="${SW}" stroke-linecap="round"/>`;
+  }
+  for(let i=0;i<pts;i++){
+    const a=tau*i/pts+T.phase;
+    const[x1,y1]=polar(h,h,a,R*.15),[x2,y2]=polar(h,h,a,R*.88);
+    o+=`<line x1="${f2(x1)}" y1="${f2(y1)}" x2="${f2(x2)}" y2="${f2(y2)}" stroke="${pal[i%pal.length]}" stroke-width="${SW*.5}" stroke-linecap="round" opacity=".5"/>`;
+  }
+  return o;
+},
+
+// 11 hex_core
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.9,layers=Math.min(cx,4),lm=im==='line';
+  let o='';
+  for(let l=layers-1;l>=0;l--){
+    const hexR=R*(.95-l*.26),col=pal[l%pal.length];
+    o+=`<path d="${ngon(h,h,6,hexR,pi/6)}" fill="${lm?'none':col}" stroke="${lm?col:(l>0?pal[4]:'none')}" stroke-width="${lm?SW:SW*.6}" stroke-linejoin="round"/>`;
+  }
+  if(cx>3){for(let i=0;i<6;i++){const a=pi/3*i+pi/6;const[x,y]=polar(h,h,a,R*.54);o+=`<circle cx="${f2(x)}" cy="${f2(y)}" r="${R*.06}" fill="${pal[2]}"/>`;}}
+  return o;
+},
+
+// 12 feather_radial
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,r2=mkRng(T.h^0xabcd);
+  let o='';
+  for(let i=0;i<pts;i++){
+    const a=tau*i/pts+T.phase,barbN=cx+2,col=pal[i%2===0?0:2];
+    for(let j=0;j<barbN;j++){
+      const t=j/barbN,bR=R*.14+t*(R*.82-R*.14);
+      const[bx,by]=polar(h,h,a,bR),bLen=R*(.07+r2.f(0,.05))*(1-t*.5),ba=a+pi/2;
+      o+=`<line x1="${f2(bx)}" y1="${f2(by)}" x2="${f2(bx+Math.cos(ba)*bLen)}" y2="${f2(by+Math.sin(ba)*bLen)}" stroke="${col}" stroke-width="${SW*.7}"/>`;
+      o+=`<line x1="${f2(bx)}" y1="${f2(by)}" x2="${f2(bx-Math.cos(ba)*bLen)}" y2="${f2(by-Math.sin(ba)*bLen)}" stroke="${col}" stroke-width="${SW*.7}"/>`;
+    }
+    const[tx,ty]=polar(h,h,a,R*.88);
+    o+=`<line x1="${h}" y1="${h}" x2="${f2(tx)}" y2="${f2(ty)}" stroke="${col}" stroke-width="${SW*.9}" stroke-linecap="round"/>`;
+  }
+  return o;
+},
+
+// 13 dot_ring
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,n=pts*cx,lm=im==='line',r2=mkRng(T.h^0x1234);
+  let o='';
+  for(let i=0;i<n;i++){
+    const a=tau*i/n+T.phase,vary=r2.f(-.1,.1);
+    const[x,y]=polar(h,h,a,R*(.7+vary)),sz=R*(.042+r2.f(0,.055));
+    const col=pal[Math.floor(r2()*pal.length)];
+    o+=`<circle cx="${f2(x)}" cy="${f2(y)}" r="${f2(sz)}" fill="${lm?'none':col}" stroke="${lm?col:'none'}" stroke-width="${SW}"/>`;
+  }
+  if(cx>2) o+=`<circle cx="${h}" cy="${h}" r="${R*.14}" fill="${pal[0]}"/>`;
+  return o;
+},
+
+// 14 arrow_star
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.9,lm=im==='line';
+  let o='';
+  for(let i=0;i<pts;i++){
+    const a=tau*i/pts+T.phase;
+    const[tx,ty]=polar(h,h,a,R*.88),[bx1,by1]=polar(h,h,a-.38,R*.34),[bx2,by2]=polar(h,h,a+.38,R*.34),[mx,my]=polar(h,h,a,R*.5);
+    const col=pal[i%2===0?0:1];
+    o+=`<path d="M${f2(bx1)},${f2(by1)} L${f2(mx)},${f2(my)} L${f2(bx2)},${f2(by2)} L${f2(tx)},${f2(ty)}Z" fill="${lm?'none':col}" stroke="${lm?col:'none'}" stroke-width="${SW}" stroke-linejoin="round"/>`;
+  }
+  o+=`<circle cx="${h}" cy="${h}" r="${R*.16}" fill="${pal[4]}"/>`;
+  return o;
+},
+
+// 15 zig_burst
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.9,lm=im==='line',n=pts*3;
+  let d='';
+  for(let i=0;i<n;i++){
+    const a=tau*i/n+T.phase,t=i%3;
+    const rad=t===0?R*.92:t===1?R*(.45+T.ratio*.15):R*(.68+T.ratio*.14);
+    const[x,y]=polar(h,h,a,rad);d+=(i?'L':'M')+f2(x)+','+f2(y);
+  }
+  let o=`<path d="${d}Z" fill="${lm?'none':pal[0]}" stroke="${lm?pal[0]:pal[3]}" stroke-width="${SW}" stroke-linejoin="round"/>`;
+  if(cx>2) o+=`<circle cx="${h}" cy="${h}" r="${R*.18}" fill="${lm?'none':pal[2]}" stroke="${lm?pal[2]:'none'}" stroke-width="${SW}"/>`;
+  return o;
+},
+
+// 16 crystal
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.9,mid2=R*.48,lm=im==='line';
+  let o='';
+  for(let i=0;i<pts;i++){
+    const a1=tau*i/pts+T.phase,a2=tau*(i+1)/pts+T.phase;
+    const[ox1,oy1]=polar(h,h,a1,R),[ox2,oy2]=polar(h,h,a2,R),[mx,my]=polar(h,h,(a1+a2)/2,mid2);
+    const col=pal[i%pal.length],st=lm?col:pal[4];
+    o+=`<path d="M${h},${h} L${f2(ox1)},${f2(oy1)} L${f2(mx)},${f2(my)}Z" fill="${lm?'none':col}" stroke="${st}" stroke-width="${SW*.5}" opacity="${.75+T.ratio*.2}"/>`;
+    o+=`<path d="M${h},${h} L${f2(ox2)},${f2(oy2)} L${f2(mx)},${f2(my)}Z" fill="${lm?'none':pal[(i+2)%pal.length]}" stroke="${st}" stroke-width="${SW*.5}" opacity=".6"/>`;
+  }
+  return o;
+},
+
+// 17 contra_ring
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,outerR=R*.9,innerR=R*.42;
+  let o='';
+  for(let i=0;i<pts;i++){
+    const a1=tau*i/pts+T.phase,a2=tau*(i+.5)/pts+T.phase;
+    const[ox,oy]=polar(h,h,a1,outerR),[ix,iy]=polar(h,h,a2,innerR);
+    const col=i%2===0?pal[0]:pal[2];
+    o+=`<line x1="${f2(ox)}" y1="${f2(oy)}" x2="${f2(ix)}" y2="${f2(iy)}" stroke="${col}" stroke-width="${SW}" stroke-linecap="round"/>`;
+    o+=`<circle cx="${f2(ox)}" cy="${f2(oy)}" r="${R*.062}" fill="${col}"/>`;
+  }
+  for(let i=0;i<pts;i++){const a=tau*(i+.5)/pts+T.phase;const[ix,iy]=polar(h,h,a,innerR);o+=`<circle cx="${f2(ix)}" cy="${f2(iy)}" r="${R*.044}" fill="${pal[3]}"/>`;}
+  return o;
+},
+
+// 18 dual_star
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,inner=R*.34,lm=im==='line';
+  let o=`<path d="${starPath(h,h,pts,R*.88,inner)}" fill="${lm?'none':pal[0]}" stroke="${lm?pal[0]:'none'}" stroke-width="${SW}" stroke-linejoin="round"/>`;
+  o+=`<path d="${starPath(h,h,pts,inner*1.18,inner*.34,pi/pts)}" fill="${lm?'none':pal[2]}" stroke="${lm?pal[2]:'none'}" stroke-width="${SW}" stroke-linejoin="round"/>`;
+  if(cx>2) o+=`<circle cx="${h}" cy="${h}" r="${R*.1}" fill="${pal[4]}"/>`;
+  return o;
+},
+
+// 19 eyelet
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.86,r2=mkRng(T.h^0x5678),lm=im==='line';
+  let o='';
+  for(let i=0;i<pts;i++){
+    const a=tau*i/pts+T.phase,cx2=h+Math.cos(a)*R*.54,cy2=h+Math.sin(a)*R*.54;
+    const er=R*(.22+r2.f(0,.1)),col=pal[i%pal.length];
+    o+=`<ellipse cx="${f2(cx2)}" cy="${f2(cy2)}" rx="${f2(er)}" ry="${f2(er*.54)}" transform="rotate(${f2(a*180/pi+90)} ${f2(cx2)} ${f2(cy2)})" fill="${lm?'none':col}" stroke="${lm?col:pal[4]}" stroke-width="${SW*.8}"/>`;
+  }
+  o+=`<circle cx="${h}" cy="${h}" r="${R*.13}" fill="${pal[0]}" stroke="${pal[4]}" stroke-width="${SW*.8}"/>`;
+  return o;
+},
+
+// 20 CONTRA: radial slots cut from disc
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,id=mid(),n=pts,slotW=(tau/n)*(.32+T.ratio*.36);
+  const r0=R*(.08+T.ratio*.1),col=pickC(pal,r);
+  let mask=`<mask id="${id}"><rect width="${S}" height="${S}" fill="white"/>`;
+  for(let i=0;i<n;i++){
+    const a=tau*i/n+T.phase,a0=a-slotW/2,a1=a+slotW/2;
+    const[ox0,oy0]=polar(h,h,a0,R),[ox1,oy1]=polar(h,h,a1,R);
+    const[ix0,iy0]=polar(h,h,a0,r0),[ix1,iy1]=polar(h,h,a1,r0);
+    mask+=`<path d="M${f2(ix0)},${f2(iy0)} L${f2(ox0)},${f2(oy0)} A${f2(R)},${f2(R)} 0 0 1 ${f2(ox1)},${f2(oy1)} L${f2(ix1)},${f2(iy1)} A${f2(r0)},${f2(r0)} 0 0 0 ${f2(ix0)},${f2(iy0)}Z" fill="black"/>`;
+  }
+  return`${mask}</mask><circle cx="${h}" cy="${h}" r="${R}" fill="${col}" mask="url(#${id})"/>`;
+},
+
+// 21 CONTRA: 4-pointed bezier star solid
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,col=pickC(pal,r);
+  const sp=R*(.78+T.ratio*.16),ip=R*(.1+T.ratio*.12);
+  const d=`M${h},${f2(h-sp)} Q${f2(h+ip)} ${f2(h-ip)} ${f2(h+sp*(.5+T.ratio*.18))},${h} Q${f2(h+ip)} ${f2(h+ip)} ${h},${f2(h+sp)} Q${f2(h-ip)} ${f2(h+ip)} ${f2(h-sp*(.5+T.ratio*.18))},${h} Q${f2(h-ip)} ${f2(h-ip)} ${h},${f2(h-sp)}Z`;
+  return`<path d="${d}" fill="${col}" stroke="none"/>`;
+},
+
+// 22 CONTRA: clean ring of dots
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,n=pts*(cx>3?2:1);
+  const ringR=R*(.62+T.ratio*.26),dotR=R*(.068+T.ratio*.04),col=pickC(pal,r);
+  return Array.from({length:n},(_,i)=>{const a=T.phase+i*tau/n;const[x,y]=polar(h,h,a,ringR);return`<circle cx="${f2(x)}" cy="${f2(y)}" r="${f2(dotR)}" fill="${col}"/>`;}).join('');
+},
+
+// 23 CONTRA: asterisk with hexagonal core removed
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,id=mid(),n=pts,th=R*(.09+T.ratio*.07),cR=R*(.18+T.ratio*.1),col=pickC(pal,r);
+  let bars='';
+  for(let i=0;i<n;i++){
+    const a=tau*i/n+T.phase,p2=a+pi/2;
+    const[x2,y2]=polar(h,h,a,R*.9),ox=Math.cos(p2)*th,oy=Math.sin(p2)*th;
+    bars+=`<path d="M${f2(h+ox)},${f2(h+oy)} L${f2(x2+ox)},${f2(y2+oy)} L${f2(x2-ox)},${f2(y2-oy)} L${f2(h-ox)},${f2(h-oy)}Z" fill="${col}"/>`;
+  }
+  return`<mask id="${id}"><rect width="${S}" height="${S}" fill="white"/><path d="${ngon(h,h,6,cR,pi/6)}" fill="black"/></mask><g mask="url(#${id})">${bars}</g>`;
+},
+
+// 24 CONTRA: polygon evenodd ring
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,col=pickC(pal,r);
+  const sides=3+T.n2%5,rot=T.phase/sides-pi/2;
+  const outerD=ngon(h,h,sides,R*.88,rot);
+  const innerD=ngon(h,h,sides,R*(.38+T.ratio*.32),rot+(T.flip?pi/sides:0));
+  return`<path d="${outerD}${innerD}" fill="${col}" fill-rule="evenodd" stroke="none"/>`;
+},
+
+// 25 CONTRA: disc with parallel slit cuts
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,id=mid(),col=pickC(pal,r);
+  const n=Math.max(3,pts-1),slitH=R*(.1+T.ratio*.06);
+  let mask=`<mask id="${id}"><rect width="${S}" height="${S}" fill="white"/>`;
+  for(let i=0;i<n;i++){
+    const y=h-R*.72+i*R*1.44/(n-1);
+    mask+=`<rect x="${f2(h-R*.88)}" y="${f2(y-slitH/2)}" width="${f2(R*1.76)}" height="${f2(slitH)}" fill="black"/>`;
+  }
+  return`${mask}</mask><circle cx="${h}" cy="${h}" r="${R*.88}" fill="${col}" mask="url(#${id})"/>`;
+},
+
+// 26 CONTRA: chain links evenodd
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.82,col=pickC(pal,r);
+  const lkR=R*(.36+T.ratio*.12),dist=lkR*(1.18+T.ratio*.28),ang=T.angle+pi/6;
+  const lnk=(lx,ly)=>{const or=lkR,ir=or*(.44+T.ratio*.24);return`M${f2(lx+or)} ${f2(ly)} A${or} ${or} 0 1 0 ${f2(lx-or)} ${f2(ly)} A${or} ${or} 0 1 0 ${f2(lx+or)} ${f2(ly)} Z M${f2(lx+ir)} ${f2(ly)} A${ir} ${ir} 0 1 0 ${f2(lx-ir)} ${f2(ly)} A${ir} ${ir} 0 1 0 ${f2(lx+ir)} ${f2(ly)} Z`;};
+  const l1x=h-Math.cos(ang)*dist/2,l1y=h-Math.sin(ang)*dist/2;
+  const l2x=h+Math.cos(ang)*dist/2,l2y=h+Math.sin(ang)*dist/2;
+  return`<path d="${lnk(l1x,l1y)}" fill="${col}" fill-rule="evenodd" stroke="none"/>
+<path d="${lnk(l2x,l2y)}" fill="${col}" fill-rule="evenodd" stroke="none"/>`;
+},
+
+// 27 CONTRA: filled ring + BG-colour radial accents
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,col=pickC(pal,r),acc='#0d0d0d';
+  const r1=R*(.3+T.ratio*.22),r2=R*.9;
+  const ringD=`M${f2(h+r2)} ${h} A${r2} ${r2} 0 1 0 ${f2(h-r2)} ${h} A${r2} ${r2} 0 1 0 ${f2(h+r2)} ${h}Z M${f2(h+r1)} ${h} A${r1} ${r1} 0 1 0 ${f2(h-r1)} ${h} A${r1} ${r1} 0 1 0 ${f2(h+r1)} ${h}Z`;
+  let o=`<path d="${ringD}" fill="${col}" fill-rule="evenodd" stroke="none"/>`;
+  for(let i=0;i<pts;i++){
+    const a=T.phase+i*tau/pts;
+    const[x1,y1]=polar(h,h,a,r2),[x2,y2]=polar(h,h,a,r1*.1);
+    o+=`<line x1="${f2(x1)}" y1="${f2(y1)}" x2="${f2(x2)}" y2="${f2(y2)}" stroke="${acc}" stroke-width="${SW}" stroke-linecap="round"/>`;
+  }
+  return o;
+},
+
+// 28 CONTRA: 3-way Venn evenodd
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.82,col=pickC(pal,r);
+  const vR=R*(.44+T.ratio*.12),dist=vR*(.6+T.ratio*.28);
+  let d='';
+  for(let i=0;i<3;i++){
+    const a=-pi/2+i*tau/3+T.phase;
+    const[lx,ly]=polar(h,h,a,dist);
+    d+=`M${f2(lx+vR)} ${f2(ly)} A${f2(vR)} ${f2(vR)} 0 1 0 ${f2(lx-vR)} ${f2(ly)} A${f2(vR)} ${f2(vR)} 0 1 0 ${f2(lx+vR)} ${f2(ly)} Z`;
+  }
+  return`<path d="${d}" fill="${col}" fill-rule="evenodd" stroke="none"/>`;
+},
+
+// 29 mixed orbital (filled bodies + stroke orbit)
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.85,tilt=T.angle*180/pi;
+  const rx=R*(.62+T.ratio*.26),ry=rx*(.24+T.ratio*.26);
+  const sa=T.phase,col=pickC(pal,r),col2=pickC(pal,r);
+  const sx=h+rx*Math.cos(sa)*Math.cos(T.angle)-ry*Math.sin(sa)*Math.sin(T.angle);
+  const sy=h+rx*Math.cos(sa)*Math.sin(T.angle)+ry*Math.sin(sa)*Math.cos(T.angle);
+  let o=`<ellipse cx="${h}" cy="${h}" rx="${f2(rx)}" ry="${f2(ry)}" transform="rotate(${f2(tilt)} ${h} ${h})" fill="none" stroke="${col}" stroke-width="${SW}"/>`;
+  o+=`<circle cx="${h}" cy="${h}" r="${R*.1}" fill="${col}"/>`;
+  o+=`<circle cx="${f2(sx)}" cy="${f2(sy)}" r="${R*.055}" fill="${col2}"/>`;
+  if(cx>2){const a2=sa+pi*2/3;const sx2=h+rx*.65*Math.cos(a2)*Math.cos(T.angle)-ry*.65*Math.sin(a2)*Math.sin(T.angle);const sy2=h+rx*.65*Math.cos(a2)*Math.sin(T.angle)+ry*.65*Math.sin(a2)*Math.cos(T.angle);o+=`<circle cx="${f2(sx2)}" cy="${f2(sy2)}" r="${R*.038}" fill="${pal[3]}"/>`;}
+  return o;
+},
+
+// 30 scatter dots
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.9,n=pts*Math.max(1,cx-1),r2=mkRng(T.h^0x9abc);
+  let o='';
+  for(let i=0;i<n;i++){
+    const a=r2()*tau,dist=Math.pow(r2(),.8)*R*.85;
+    const[x,y]=polar(h,h,a,dist),sz=R*(.04+r2()*.07);
+    o+=`<circle cx="${f2(x)}" cy="${f2(y)}" r="${f2(sz)}" fill="${pal[Math.floor(r2()*pal.length)]}"/>`;
+  }
+  return o;
+},
+
+// 31 concentric_arcs_color
+(S,r,T,pal,im,pts,cx)=>{
+  const h=S/2,R=h*.88,n=Math.min(cx+1,5);
+  let o='';
+  for(let i=0;i<n;i++){
+    const t=(i+1)/(n+.4),rr=R*t,col=pal[i%pal.length];
+    const gap=.06+T.ratio*.1,rot=T.phase+i*(.15+T.ratio*.2),span=tau-gap*2;
+    const[sx,sy]=polar(h,h,rot+gap,rr),[ex,ey]=polar(h,h,rot+gap+span,rr);
+    const laf=span>pi?1:0;
+    o+=`<path d="M${f2(sx)} ${f2(sy)} A${f2(rr)} ${f2(rr)} 0 ${laf} 1 ${f2(ex)} ${f2(ey)}" fill="none" stroke="${col}" stroke-width="${SW+(i===0?SW*.5:0)}" stroke-linecap="round"/>`;
+  }
+  return o;
+},
+];
+
+// ── CONCEPT GENERATION ─────────────────────────
+function generateConcepts(masterSeed,n){
+  const r=mkRng(masterSeed);
+  const used=new Set();
+  const shuffled=[];
+  const cycles=Math.ceil(n/DRAWS.length);
+  for(let c=0;c<cycles;c++){
+    const tile=DRAWS.map((_,i)=>i);
+    for(let i=tile.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[tile[i],tile[j]]=[tile[j],tile[i]];}
+    shuffled.push(...tile);
+  }
+  const list=[];
+  for(let i=0;i<n;i++){
+    let domain,action,label,tries=0;
+    do{domain=DOMAINS[Math.floor(r()*DOMAINS.length)];action=ACTIONS[Math.floor(r()*ACTIONS.length)];label=`${domain} ${action}`;tries++;}
+    while(used.has(label)&&tries<60);
+    used.add(label);
+    const h=conceptHash(domain,action);
+    const drawSeed=((h*1664525+1013904223)>>>0)^(masterSeed&0xffff);
+    list.push({label,domain,action,drawIdx:shuffled[i],drawSeed,h});
+  }
+  return list;
+}
+
+function resolveMode(concept,globalMode){
+  if(globalMode!=='mix') return globalMode;
+  return concept.h%3===0?'line':concept.h%7===0?'contra':'fill';
+}
+
+function renderConcept(concept,S=72){
+  const v=+document.getElementById('sl-v').value;
+  const varSeed=(concept.drawSeed+Math.round(v*4999))>>>0;
+  const r=mkRng(varSeed);
+  const T=extractTraits(concept.h);
+  const pal=PALETTES[PAL_IDX].c;
+  const imode=resolveMode(concept,MODE);
+  const bg=(imode==='contra'||MODE==='contra')?'#000':'#0d0d0d';
+  return`<svg width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" xmlns="http://www.w3.org/2000/svg"><rect width="${S}" height="${S}" fill="${bg}"/>${DRAWS[concept.drawIdx](S,r,T,pal,imode,PTS,CX)}</svg>`;
+}
+
+// ── APP STATE ──────────────────────────────────
+let MASTER=4096,CONCEPTS=[],FROZEN={},PINNED=[];
+function refresh(){const n=+document.getElementById('sl-n').value;const fresh=generateConcepts(MASTER,n);CONCEPTS=fresh.map((c,i)=>FROZEN[i]||c);}
+
+function buildGrid(){
+  SW=+document.getElementById('sl-sw').value;
+  PTS=+document.getElementById('sl-pts').value;
+  CX=+document.getElementById('sl-cx').value;
+  const grid=document.getElementById('grid');grid.innerHTML='';
+  CONCEPTS.forEach((c,i)=>{
+    const svg=renderConcept(c);
+    const cell=document.createElement('div');cell.className='cell';
+    cell.innerHTML=`${svg}<span class="cell-nm">${c.label}</span><span class="pin${FROZEN[i]?' on':''}" data-i="${i}">◈</span>`;
+    cell.querySelector('.pin').addEventListener('click',e=>{e.stopPropagation();const idx=+e.currentTarget.dataset.i;if(FROZEN[idx]){delete FROZEN[idx];e.currentTarget.classList.remove('on');}else{FROZEN[idx]=c;e.currentTarget.classList.add('on');}});
+    cell.addEventListener('click',e=>{if(!e.target.classList.contains('pin'))showPanel(c,i);});
+    grid.appendChild(cell);
+  });
+  document.getElementById('gi').textContent=`${CONCEPTS.length} conceptos · semilla ${MASTER} · ${DOMAINS.length*ACTIONS.length} combinaciones · ${PALETTES[PAL_IDX].name} · ${MODE}`;
+}
+
+function showPanel(c,i){
+  SW=+document.getElementById('sl-sw').value;PTS=+document.getElementById('sl-pts').value;CX=+document.getElementById('sl-cx').value;
+  document.getElementById('p-svg').innerHTML=renderConcept(c,120);
+  document.getElementById('p-nm').textContent=c.label;
+  document.getElementById('p-id').textContent=`draw #${c.drawIdx} · seed 0x${(c.drawSeed&0xffff).toString(16).padStart(4,'0')} · slot ${i}`;
+  document.getElementById('p-dc').textContent=`${c.domain} — ${c.action}`;
+  document.getElementById('p-lg').textContent=`hash 0x${c.h.toString(16).padStart(8,'0')} · variant ${extractTraits(c.h).variant}`;
+  document.getElementById('p-cp').onclick=()=>{navigator.clipboard.writeText(renderConcept(c,120)).catch(()=>{});document.getElementById('p-cp').textContent='✓';setTimeout(()=>document.getElementById('p-cp').textContent='copiar SVG',1400);};
+  document.getElementById('p-an').onclick=()=>{PINNED.push(c);buildBoard();document.getElementById('p-an').textContent='✓';setTimeout(()=>document.getElementById('p-an').textContent='+ anclar',1400);};
+  document.getElementById('p-fz').onclick=()=>{FROZEN[i]=c;buildGrid();document.getElementById('p-fz').textContent='✓';setTimeout(()=>document.getElementById('p-fz').textContent='❄ fijar',1400);};
+  document.getElementById('panel').className='panel show';
+}
+
+function buildBoard(){
+  SW=+document.getElementById('sl-sw').value;PTS=+document.getElementById('sl-pts').value;CX=+document.getElementById('sl-cx').value;
+  const g=document.getElementById('bgr');g.innerHTML='';
+  PINNED.forEach((c,i)=>{const cell=document.createElement('div');cell.className='bc';cell.innerHTML=renderConcept(c,48)+`<span>${c.label}</span>`;cell.addEventListener('click',()=>showPanel(c,CONCEPTS.length+i));g.appendChild(cell);});
+  document.getElementById('btn-b').textContent=`tablero${PINNED.length?' ('+PINNED.length+')':''}`;
+  document.getElementById('board').className=PINNED.length?'board show':'board';
+}
+
+function buildSwatches(){
+  const row=document.getElementById('sw-pal');row.innerHTML='';
+  PALETTES.forEach((p,i)=>{
+    const d=document.createElement('div');
+    d.className='sw'+(i===PAL_IDX?' on':'');
+    d.style.background=p.c[2];d.title=p.name;
+    d.addEventListener('click',()=>{PAL_IDX=i;buildSwatches();buildGrid();});
+    row.appendChild(d);
+  });
+}
+
+function setMode(m){
+  MODE=m;
+  ['fill','line','mix','contra'].forEach(x=>document.getElementById('m-'+x).classList.toggle('on',x===m));
+  buildGrid();
+}
+['fill','line','mix','contra'].forEach(m=>document.getElementById('m-'+m).addEventListener('click',()=>setMode(m)));
+
+function sl(id,tvId,fmt,cb){document.getElementById(id).addEventListener('input',e=>{document.getElementById(tvId).textContent=fmt(+e.target.value);cb(+e.target.value);});}
+sl('sl-s','tv-s',v=>v,v=>{MASTER=v;FROZEN={};refresh();buildGrid();document.getElementById('panel').className='panel';});
+sl('sl-n','tv-n',v=>v,()=>{refresh();buildGrid();document.getElementById('panel').className='panel';});
+sl('sl-v','tv-v',v=>v.toFixed(2),()=>buildGrid());
+sl('sl-sw','tv-sw',v=>v.toFixed(1),v=>{SW=v;buildGrid();});
+sl('sl-pts','tv-pts',v=>v,v=>{PTS=v;buildGrid();});
+sl('sl-cx','tv-cx',v=>v,v=>{CX=v;buildGrid();});
+document.getElementById('btn-new').addEventListener('click',()=>{MASTER=Math.floor(Math.random()*99998)+1;FROZEN={};document.getElementById('sl-s').value=MASTER;document.getElementById('tv-s').textContent=MASTER;refresh();buildGrid();document.getElementById('panel').className='panel';});
+document.getElementById('btn-evo').addEventListener('click',()=>{MASTER=((MASTER*1664525+1013904223)&0xfffe)>>>0||1;document.getElementById('sl-s').value=Math.min(MASTER,99999);document.getElementById('tv-s').textContent=MASTER;refresh();buildGrid();});
+document.getElementById('btn-b').addEventListener('click',()=>{const b=document.getElementById('board');b.className=b.classList.contains('show')?'board':'board show';});
+document.getElementById('btn-ex').addEventListener('click',()=>{SW=+document.getElementById('sl-sw').value;PTS=+document.getElementById('sl-pts').value;CX=+document.getElementById('sl-cx').value;const svgs=CONCEPTS.map(c=>`<!-- ${c.label} -->\n${renderConcept(c,96)}`).join('\n');navigator.clipboard.writeText(svgs).catch(()=>{});document.getElementById('btn-ex').textContent='✓';setTimeout(()=>document.getElementById('btn-ex').textContent='↓ exportar',1600);});
+buildSwatches();refresh();buildGrid();
+</script>
+</body>
+</html>

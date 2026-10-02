@@ -18,7 +18,7 @@ dist/              GENERADO: no se edita a mano
   js/tokens.mjs        valores resueltos para JavaScript
   json/tokens.json     el formato del artefacto ALMA
   dart/alma_tokens.dart  Flutter: AlmaColors (ThemeExtension), espaciado, movimiento, tipografía
-artifact/project/  la guía, los 48 componentes y sus vistas previas, tal como se publican en el artefacto
+artifact/project/  la guía, los 49 componentes y sus vistas previas, tal como se publican en el artefacto
 entidades/         motor de carta: fecha de nacimiento → carta de diseño humano, la semilla de una entidad
 ejemplos/          páginas de ejemplo hechas con una entidad; hoy, el landing de Ensayo Café
 site/              fuentes de las páginas: documentación (de ALMA y de cada entidad), Ajustes, Entidades ALMA y los lenguajes de diseño

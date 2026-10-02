@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placa — Generador de texturas para tarjetas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=Oswald:wght@600;700&family=Baloo+2:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #171310;
+    --panel: #201A15;
+    --panel-line: #3a3129;
+    --paper: #F2EDE4;
+    --paper-dim: #b6ada0;
+    --accent: #C98A4B;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(242,237,228,0.035) 1px, transparent 0);
+    background-size: 22px 22px;
+    color:var(--paper);
+    font-family:'IBM Plex Mono', monospace;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  header{
+    padding:28px 32px 18px;
+    border-bottom:1px solid var(--panel-line);
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  header h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:26px;
+    letter-spacing:0.2px;
+    margin:0;
+    color:var(--paper);
+  }
+  header h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+  header p{
+    margin:0;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+  }
+
+  .layout{
+    display:flex;
+    flex:1;
+    min-height:0;
+  }
+  @media (max-width: 880px){
+    .layout{flex-direction:column;}
+  }
+
+  /* ---- Sidebar ---- */
+  .sidebar{
+    width:328px;
+    flex-shrink:0;
+    padding:26px 26px 40px;
+    border-right:1px solid var(--panel-line);
+    overflow-y:auto;
+  }
+  @media (max-width: 880px){
+    .sidebar{width:100%;border-right:none;border-bottom:1px solid var(--panel-line);}
+  }
+
+  .group{margin-bottom:26px;}
+  .group-label{
+    font-size:10px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .group-label span.val{color:var(--accent);letter-spacing:0.5px;}
+
+  select, input[type=number], input[type=text]{
+    width:100%;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    color:var(--paper);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    padding:9px 10px;
+    border-radius:2px;
+    outline:none;
+  }
+  select:focus, input[type=number]:focus, input[type=text]:focus, input[type=range]:focus{
+    border-color:var(--accent);
+  }
+
+  .color-row{display:flex; align-items:center; gap:10px;}
+  input[type=color]{
+    -webkit-appearance:none;
+    appearance:none;
+    width:40px; height:32px;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:2px;
+    padding:2px;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  input[type=color]::-webkit-color-swatch-wrapper{padding:0;}
+  input[type=color]::-webkit-color-swatch{border:none; border-radius:1px;}
+  .color-hex{
+    font-size:11px;
+    color:var(--paper-dim);
+    letter-spacing:0.5px;
+  }
+
+  .swatch-row{display:flex; gap:6px; flex-wrap:wrap;}
+  .swatch{
+    flex:1;
+    min-width:60px;
+    border:1px solid var(--panel-line);
+    border-radius:2px;
+    padding:8px 6px;
+    cursor:pointer;
+    font-size:10px;
+    letter-spacing:0.5px;
+    text-align:center;
+    color:var(--paper-dim);
+    background:var(--panel);
+    transition:border-color .15s;
+  }
+  .swatch.active{border-color:var(--accent); color:var(--paper);}
+  .swatch .dots{display:flex; justify-content:center; gap:3px; margin-bottom:6px;}
+  .swatch .dot{width:9px;height:9px;border-radius:50%; border:1px solid rgba(0,0,0,.25);}
+
+  .shape-row, .layout-row{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:6px;
+  }
+  .type-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+  }
+  .pill{
+    border:1px solid var(--panel-line);
+    background:var(--panel);
+    color:var(--paper-dim);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    padding:9px 4px;
+    border-radius:2px;
+    cursor:pointer;
+    text-align:center;
+    transition:border-color .15s, color .15s;
+  }
+  .pill.active{border-color:var(--accent); color:var(--paper); background:#2a2118;}
+
+  input[type=range]{
+    width:100%;
+    accent-color:var(--accent);
+    height:22px;
+    background:transparent;
+  }
+
+  .group.dimmed{opacity:0.35; pointer-events:none;}
+
+  .checkline{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:var(--paper-dim);
+    cursor:pointer;
+    user-select:none;
+  }
+  .checkline input{accent-color:var(--accent);}
+
+  .seed-row{display:flex; gap:8px;}
+  .seed-row input{flex:1;}
+  .icon-btn{
+    width:40px; flex-shrink:0;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    color:var(--paper);
+    border-radius:2px;
+    cursor:pointer;
+    font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .15s, transform .2s;
+  }
+  .icon-btn:hover{border-color:var(--accent);}
+  .icon-btn:active{transform:rotate(120deg);}
+
+  .btn{
+    width:100%;
+    padding:11px 10px;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    color:var(--paper);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    border-radius:2px;
+    cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  .btn:hover{border-color:var(--accent); background:#2a2118;}
+  .btn.primary{background:var(--accent); color:#201406; border-color:var(--accent); font-weight:600;}
+  .btn.primary:hover{filter:brightness(1.08); background:var(--accent);}
+  .btn-row{display:flex; gap:8px; margin-top:4px;}
+
+  hr.rule{border:none; border-top:1px solid var(--panel-line); margin:22px 0;}
+
+  details.accordion{ border-bottom:1px solid var(--panel-line); }
+  details.accordion:first-of-type{ border-top:1px solid var(--panel-line); }
+  details.accordion summary{
+    list-style:none; cursor:pointer; padding:16px 2px;
+    font-family:'Fraunces', serif; font-size:14.5px; font-weight:500;
+    color:var(--paper); display:flex; justify-content:space-between; align-items:center;
+  }
+  details.accordion summary::-webkit-details-marker{display:none;}
+  details.accordion summary::after{
+    content:'+'; color:var(--paper-dim); font-family:'IBM Plex Mono',monospace; font-size:15px;
+  }
+  details.accordion[open] summary::after{content:'–';}
+  details.accordion summary .count{
+    font-size:10px; color:var(--paper-dim); font-family:'IBM Plex Mono',monospace;
+    margin-left:auto; margin-right:10px; letter-spacing:0.5px;
+  }
+  details.accordion .accordion-body{ padding-bottom:18px; }
+
+  /* ---- Main / stage ---- */
+  .stage{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 30px;
+    min-width:0;
+  }
+  .plate-mount{
+    width:100%;
+    max-width:760px;
+  }
+  .plate-frame{
+    position:relative;
+    border:1px solid var(--panel-line);
+    padding:34px;
+  }
+  .crop{
+    position:absolute;
+    width:14px; height:14px;
+    border:1px solid var(--paper-dim);
+    opacity:0.55;
+  }
+  .crop.tl{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .crop.tr{top:-1px;right:-1px;border-left:none;border-bottom:none;}
+  .crop.bl{bottom:-1px;left:-1px;border-right:none;border-top:none;}
+  .crop.br{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+  .card-wrap{
+    width:100%;
+    aspect-ratio: 856 / 540;
+    border-radius: calc(31.8 * (100% / 856));
+    overflow:hidden;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(242,237,228,0.06);
+  }
+  svg#cardSvg{display:block; width:100%; height:100%;}
+
+  .caption{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-top:16px;
+    padding:0 2px;
+    font-size:11px;
+    letter-spacing:1px;
+    color:var(--paper-dim);
+  }
+  .caption b{color:var(--paper); font-weight:500;}
+  .caption .plate-no{font-family:'Fraunces', serif; font-style:italic; font-size:14px; color:var(--accent);}
+
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--panel-line); border-radius:4px;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Placa <em>— texturas orgánicas</em></h1>
+  <p>Generador de patrones SVG · proporción ID-1 85.60 × 53.98 mm</p>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+
+    <details class="accordion" open>
+    <summary>Patrón</summary>
+    <div class="accordion-body">
+
+    <div class="group">
+      <div class="group-label">Formas orgánicas</div>
+      <div class="shape-row" id="shapeRowOrganic"></div>
+    </div>
+
+    <div class="group">
+      <div class="group-label">Texturas estructuradas</div>
+      <div class="shape-row" id="shapeRowStructured"></div>
+    </div>
+
+    <div class="group">
+      <div class="group-label">Patrones Cordura</div>
+      <div class="shape-row" id="shapeRowCordura"></div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="group">
+      <label class="checkline">
+        <input type="checkbox" id="mixCheck">
+        Mezclar con textura secundaria
+      </label>
+    </div>
+    <div class="group" id="mixShapeGroup">
+      <div class="group-label">Patrón secundario</div>
+      <div class="shape-row" id="mixShapeRow"></div>
+    </div>
+    <div class="group" id="mixOpacityGroup">
+      <div class="group-label">Opacidad de mezcla <span class="val" id="mixOpacityVal"></span></div>
+      <input type="range" id="mixOpacity" min="10" max="90" value="45">
+    </div>
+
+    <div class="group" id="layoutGroup">
+      <div class="group-label">Disposición</div>
+      <div class="layout-row" id="layoutRow"></div>
+    </div>
+
+    </div>
+    </details>
+
+    <details class="accordion">
+    <summary>Paleta y grano</summary>
+    <div class="accordion-body">
+
+    <div class="group">
+      <div class="group-label">Tinta / paleta</div>
+      <div class="swatch-row" id="paletteRow"></div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="group">
+      <label class="checkline">
+        <input type="checkbox" id="grainCheck" checked>
+        Grano fílmico
+      </label>
+    </div>
+
+    </div>
+    </details>
+
+    <details class="accordion">
+    <summary>Ajustes del patrón</summary>
+    <div class="accordion-body">
+
+    <div class="group">
+      <div class="group-label">Densidad <span class="val" id="densityVal"></span></div>
+      <input type="range" id="density" min="6" max="34" value="14">
+    </div>
+
+    <div class="group">
+      <div class="group-label">Tamaño base <span class="val" id="sizeVal"></span></div>
+      <input type="range" id="baseSize" min="20" max="100" value="60">
+    </div>
+
+    <div class="group">
+      <div class="group-label">Dispersión <span class="val" id="jitterVal"></span></div>
+      <input type="range" id="jitter" min="0" max="100" value="20">
+    </div>
+
+    <div class="group" id="clusterGroup">
+      <div class="group-label">Agrupamiento orgánico <span class="val" id="clusterVal"></span></div>
+      <input type="range" id="cluster" min="0" max="100" value="70">
+    </div>
+
+    <div class="group" id="sizeVarGroup">
+      <div class="group-label">Variación de tamaño <span class="val" id="sizeVarVal"></span></div>
+      <input type="range" id="sizeVar" min="0" max="100" value="35">
+    </div>
+
+    <div class="group" id="toneVarGroup">
+      <div class="group-label">Variación tonal <span class="val" id="toneVarVal"></span></div>
+      <input type="range" id="toneVar" min="0" max="100" value="40">
+    </div>
+
+    <div class="group" id="roundGroup">
+      <div class="group-label">Redondez <span class="val" id="roundnessVal"></span></div>
+      <input type="range" id="roundness" min="0" max="100" value="20">
+    </div>
+
+    <div class="group" id="rotationGroup">
+      <div class="group-label">Rotación aleatoria <span class="val" id="rotationVal"></span></div>
+      <input type="range" id="rotation" min="0" max="100" value="60">
+    </div>
+
+    <div class="group" id="waveFreqGroup">
+      <div class="group-label">Frecuencia de onda <span class="val" id="waveFreqVal"></span></div>
+      <input type="range" id="waveFreq" min="5" max="60" value="55">
+    </div>
+
+    </div>
+    </details>
+
+    <details class="accordion">
+    <summary>Marca</summary>
+    <div class="accordion-body">
+
+    <div class="group">
+      <label class="checkline">
+        <input type="checkbox" id="brandCheck" checked>
+        Mostrar marca
+      </label>
+    </div>
+
+    <div class="group" id="brandNameGroup">
+      <div class="group-label">Nombre de marca</div>
+      <input type="text" id="brandName" value="Vela" maxlength="16">
+    </div>
+
+    <div class="group" id="brandFontGroup">
+      <div class="group-label">Estilo tipográfico</div>
+      <div class="type-row" id="brandFontRow"></div>
+    </div>
+
+    <div class="group" id="brandPosGroup">
+      <div class="group-label">Posición del logo</div>
+      <div class="type-row" id="brandPosRow"></div>
+    </div>
+
+    <div class="group" id="brandContactlessGroup">
+      <label class="checkline">
+        <input type="checkbox" id="brandContactlessCheck" checked>
+        Contactless
+      </label>
+    </div>
+
+    <div class="group" id="brandNetworkGroup">
+      <label class="checkline">
+        <input type="checkbox" id="brandNetworkCheck" checked>
+        Marca de red
+      </label>
+    </div>
+
+    <div class="group" id="brandHolderCheckGroup">
+      <label class="checkline">
+        <input type="checkbox" id="brandHolderCheck">
+        Mostrar titular
+      </label>
+    </div>
+
+    <div class="group" id="brandHolderNameGroup">
+      <div class="group-label">Nombre del titular</div>
+      <input type="text" id="brandHolderName" value="Alex Rivera" maxlength="24">
+    </div>
+
+    <div class="group" id="animateGroup">
+      <label class="checkline">
+        <input type="checkbox" id="animateCheck">
+        Animar textura (SVG vivo)
+      </label>
+    </div>
+
+    </div>
+    </details>
+
+    <details class="accordion">
+    <summary>Guilloché</summary>
+    <div class="accordion-body">
+
+    <div class="group">
+      <label class="checkline">
+        <input type="checkbox" id="guillocheCheck">
+        Capa guilloché (rosetas de billete)
+      </label>
+    </div>
+
+    <div class="group" id="guillocheTypeGroup">
+      <div class="group-label">Tipo</div>
+      <div class="type-row" id="guillocheTypeRow"></div>
+    </div>
+
+    <div class="group" id="guillocheColorGroup">
+      <div class="group-label">Color del guilloché</div>
+      <div class="color-row">
+        <input type="color" id="guillocheColor" value="#1c1712">
+        <span class="color-hex" id="guillocheColorHex">#1C1712</span>
+      </div>
+    </div>
+
+    <div class="group" id="guillocheCountGroup">
+      <div class="group-label">Cantidad de rosetas <span class="val" id="guillocheCountVal"></span></div>
+      <input type="range" id="guillocheCount" min="1" max="4" step="1" value="2">
+    </div>
+
+    <div class="group" id="guillochePetalsGroup">
+      <div class="group-label">Pétalos <span class="val" id="guillochePetalsVal"></span></div>
+      <input type="range" id="guillochePetals" min="3" max="24" step="1" value="9">
+    </div>
+
+    <div class="group" id="guillocheSizeGroup">
+      <div class="group-label">Tamaño de roseta <span class="val" id="guillocheSizeVal"></span></div>
+      <input type="range" id="guillocheSize" min="30" max="160" value="85">
+    </div>
+
+    <div class="group" id="guillocheAmpGroup">
+      <div class="group-label">Amplitud del pétalo <span class="val" id="guillocheAmpVal"></span></div>
+      <input type="range" id="guillocheAmp" min="0" max="100" value="55">
+    </div>
+
+    <div class="group" id="guillocheTwistGroup">
+      <div class="group-label">Torsión / avance moiré <span class="val" id="guillocheTwistVal"></span></div>
+      <input type="range" id="guillocheTwist" min="0" max="100" value="45">
+    </div>
+
+    <div class="group" id="guillocheDensityGroup">
+      <div class="group-label">Densidad de anillos <span class="val" id="guillocheDensityVal"></span></div>
+      <input type="range" id="guillocheDensity" min="0" max="100" value="55">
+    </div>
+
+    <div class="group" id="guillocheStrokeGroup">
+      <div class="group-label">Grosor de línea <span class="val" id="guillocheStrokeVal"></span></div>
+      <input type="range" id="guillocheStroke" min="5" max="100" value="30">
+    </div>
+
+    <div class="group" id="guillocheOpacityGroup">
+      <div class="group-label">Opacidad guilloché <span class="val" id="guillocheOpacityVal"></span></div>
+      <input type="range" id="guillocheOpacity" min="5" max="100" value="35">
+    </div>
+
+    <div class="group" id="guillocheReliefGroup">
+      <label class="checkline">
+        <input type="checkbox" id="guillocheReliefCheck">
+        Relieve de isotipo (solo Ondas)
+      </label>
+    </div>
+
+    <div class="group" id="guillocheReliefAmountGroup">
+      <div class="group-label">Empuje de relieve <span class="val" id="guillocheReliefAmountVal"></span></div>
+      <input type="range" id="guillocheReliefAmount" min="-100" max="100" value="60">
+    </div>
+
+    <div class="group" id="guillocheReliefXGroup">
+      <div class="group-label">Posición X del isotipo <span class="val" id="guillocheReliefXVal"></span></div>
+      <input type="range" id="guillocheReliefX" min="-100" max="100" value="0">
+    </div>
+
+    <div class="group" id="guillocheReliefYGroup">
+      <div class="group-label">Posición Y del isotipo <span class="val" id="guillocheReliefYVal"></span></div>
+      <input type="range" id="guillocheReliefY" min="-100" max="100" value="0">
+    </div>
+
+    <div class="group" id="baseOpacityGroup">
+      <div class="group-label">Opacidad de la base <span class="val" id="baseLayerOpacityVal"></span></div>
+      <input type="range" id="baseLayerOpacity" min="5" max="100" value="100">
+    </div>
+
+    </div>
+    </details>
+
+    <div class="group" style="margin-top:22px;">
+      <div class="group-label">Semilla</div>
+      <div class="seed-row">
+        <input type="number" id="seedInput" value="8821">
+        <button class="icon-btn" id="diceBtn" title="Nueva semilla al azar">⟳</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="btn-row">
+        <button class="btn" id="downloadSvg">Descargar SVG</button>
+        <button class="btn" id="downloadPng">Descargar PNG</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn primary" id="regenBtn" style="margin-top:8px;">Regenerar textura</button>
+      </div>
+    </div>
+
+  </aside>
+
+  <main class="stage">
+    <div class="plate-mount">
+      <div class="plate-frame">
+        <span class="crop tl"></span><span class="crop tr"></span>
+        <span class="crop bl"></span><span class="crop br"></span>
+        <div class="card-wrap">
+          <svg id="cardSvg" viewBox="0 0 856 540" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+      </div>
+      <div class="caption">
+        <span>PLACA N.º <b id="plateNo">8821</b> — <span id="plateSpec">pétalos / panal</span></span>
+        <span class="plate-no" id="paletteName">Tinta Sepia</span>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+/* ---------------------------------------------------------
+   RNG determinístico
+--------------------------------------------------------- */
+function mulberry32(seed){
+  let a = seed >>> 0;
+  return function(){
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/* ---------------------------------------------------------
+   Datos de configuración
+--------------------------------------------------------- */
+const SHAPES = [
+  {id:'circle', label:'Círculo'},
+  {id:'petal', label:'Pétalo'},
+  {id:'arc', label:'Arco'},
+  {id:'line', label:'Línea'},
+  {id:'ring', label:'Anillo'},
+  {id:'card', label:'Tarjeta'},
+  {id:'mesh', label:'Malla'},
+  {id:'bricks', label:'Tejas'},
+  {id:'planks', label:'Planchas'},
+  {id:'checker', label:'Grilla'},
+  {id:'curves', label:'Curvas'},
+  {id:'vortex', label:'Vórtice'},
+  {id:'web', label:'Telaraña'},
+  {id:'hole', label:'Agujero'},
+  {id:'mixed', label:'Mixta'},
+];
+const LAYOUTS = [
+  {id:'hex', label:'Panal'},
+  {id:'grid', label:'Grilla'},
+  {id:'radial', label:'Radial'},
+  {id:'wave', label:'Onda'},
+];
+const GUILLOCHE_TYPES = [
+  {id:'rosette', label:'Roseta'},
+  {id:'spiro', label:'Espirógrafo'},
+  {id:'waves', label:'Ondas'},
+  {id:'radial', label:'Radial'},
+];
+const BRAND_FONTS = {
+  geometric: {label:'Geométrica', family:"'Space Grotesk', sans-serif", weight:700, size:34, tracking:0.3, transform:'none', italic:false},
+  condensed: {label:'Condensada', family:"'Oswald', sans-serif", weight:700, size:32, tracking:3, transform:'upper', italic:false},
+  rounded:   {label:'Redondeada', family:"'Baloo 2', sans-serif", weight:700, size:32, tracking:0, transform:'none', italic:false},
+  editorial: {label:'Editorial', family:"'Fraunces', serif", weight:500, size:30, tracking:0.4, transform:'lower', italic:true},
+  technical: {label:'Técnica', family:"'IBM Plex Mono', monospace", weight:600, size:25, tracking:0.5, transform:'lower', italic:false},
+};
+const BRAND_POSITIONS = [
+  {id:'left', label:'Arriba-izq'},
+  {id:'right', label:'Arriba-der'},
+];
+const PALETTES = [
+  {id:'sepia', name:'Tinta Sepia', bg:'#2B1E14', colors:['#C98A4B','#E8C089','#7A4B26','#F2E1C0','#4A2E17'], ink:'#241608'},
+  {id:'cobalt', name:'Placa Cobalto', bg:'#0E1728', colors:['#3E6FB0','#7FA8D9','#B9D2EC','#1B3556','#E8B94A'], ink:'#0b1526'},
+  {id:'verdigris', name:'Verdigris', bg:'#10201C', colors:['#3FA796','#7FCABF','#234E45','#C9E4DF','#E8B94A'], ink:'#0c1a17'},
+  {id:'blackletter', name:'Grabado Negro', bg:'#141414', colors:['#D8D3C4','#8A8578','#4A473E','#F2EDE4','#B0271E'], ink:'#0e0e0e'},
+  {id:'rose', name:'Rosa Antiguo', bg:'#241417', colors:['#C97B84','#E8B9A0','#6B2E33','#F2DCC9','#8A5A3B'], ink:'#1f0f12'},
+  {id:'niebla', name:'Niebla', bg:'#AEB2BC', colors:['#9EA3AE','#C7CAD1','#8A8FA0','#DADCE1','#6E7480'], ink:'#141414'},
+];
+
+const state = {
+  shape:'planks',
+  layout:'hex',
+  palette:'niebla',
+  density:14,
+  baseSize:60,
+  jitter:15,
+  cluster:70,
+  rotation:60,
+  waveFreq:12,
+  animate:false,
+  brand:true,
+  brandName:'Vela',
+  brandFont:'geometric',
+  brandLogoPos:'left',
+  brandContactless:true,
+  brandNetwork:true,
+  brandHolder:false,
+  brandHolderName:'Alex Rivera',
+  sizeVar:35,
+  toneVar:40,
+  roundness:20,
+  guilloche:false,
+  guillocheType:'rosette',
+  guillocheCount:2,
+  guillochePetals:9,
+  guillocheSize:85,
+  guillocheAmp:55,
+  guillocheTwist:45,
+  guillocheStroke:30,
+  guillocheDensity:55,
+  guillocheOpacity:35,
+  guillocheColor:'#1c1712',
+  guillocheRelief:false,
+  guillocheReliefAmount:60,
+  guillocheReliefX:0,
+  guillocheReliefY:0,
+  baseLayerOpacity:100,
+  mixEnabled:false,
+  mixShape:'vortex',
+  mixOpacity:45,
+  grain:true,
+  seed:8821,
+};
+
+const W = 856, H = 540;
+
+/* ---------------------------------------------------------
+   UI: construir selectores de forma / disposición / paleta
+--------------------------------------------------------- */
+const SHAPE_GROUPS = [
+  {rowId:'shapeRowOrganic', ids:['circle','petal','arc','line','ring','card','mixed']},
+  {rowId:'shapeRowStructured', ids:['mesh','bricks','planks']},
+  {rowId:'shapeRowCordura', ids:['checker','curves','vortex','web','hole']},
+];
+const allShapePills = [];
+SHAPE_GROUPS.forEach(group=>{
+  const row = document.getElementById(group.rowId);
+  group.ids.forEach(id=>{
+    const s = SHAPES.find(x=>x.id===id);
+    const el = document.createElement('div');
+    el.className = 'pill' + (s.id===state.shape?' active':'');
+    el.textContent = s.label;
+    el.dataset.id = s.id;
+    el.addEventListener('click', ()=>{
+      state.shape = s.id;
+      allShapePills.forEach(c=>c.classList.remove('active'));
+      el.classList.add('active');
+      updateControlsVisibility();
+      render();
+    });
+    row.appendChild(el);
+    allShapePills.push(el);
+  });
+});
+
+const mixShapeRow = document.getElementById('mixShapeRow');
+const mixablePills = [];
+SHAPES.filter(s=>s.id!=='mixed').forEach(s=>{
+  const el = document.createElement('div');
+  el.className = 'pill' + (s.id===state.mixShape?' active':'');
+  el.textContent = s.label;
+  el.addEventListener('click', ()=>{
+    state.mixShape = s.id;
+    mixablePills.forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    render();
+  });
+  mixShapeRow.appendChild(el);
+  mixablePills.push(el);
+});
+
+document.getElementById('grainCheck').addEventListener('change', e=>{
+  state.grain = e.target.checked;
+  render();
+});
+document.getElementById('mixCheck').addEventListener('change', e=>{
+  state.mixEnabled = e.target.checked;
+  updateMixVisibility();
+  render();
+});
+bindRange('mixOpacity','mixOpacity', v=>v+'%');
+function updateMixVisibility(){
+  ['mixShapeGroup','mixOpacityGroup'].forEach(id=>{
+    document.getElementById(id).classList.toggle('dimmed', !state.mixEnabled);
+  });
+}
+updateMixVisibility();
+
+const layoutRow = document.getElementById('layoutRow');
+LAYOUTS.forEach(l=>{
+  const el = document.createElement('div');
+  el.className = 'pill' + (l.id===state.layout?' active':'');
+  el.textContent = l.label;
+  el.dataset.id = l.id;
+  el.addEventListener('click', ()=>{
+    state.layout = l.id;
+    [...layoutRow.children].forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    updateControlsVisibility();
+    render();
+  });
+  layoutRow.appendChild(el);
+});
+
+function updateControlsVisibility(){
+  const isMesh = state.shape === 'mesh';
+  const isBricks = state.shape === 'bricks';
+  const isPlanks = state.shape === 'planks';
+  const isCordura = ['checker','curves','vortex','web','hole'].includes(state.shape);
+
+  document.getElementById('layoutGroup').classList.toggle('dimmed', isMesh || isBricks || isPlanks || isCordura);
+  document.getElementById('rotationGroup').classList.toggle('dimmed', isMesh);
+  document.getElementById('animateGroup').classList.toggle('dimmed', isMesh || isBricks || isPlanks || isCordura);
+
+  const waveGroup = document.getElementById('waveFreqGroup');
+  const showWave = state.layout === 'wave' || isMesh || isBricks;
+  waveGroup.classList.toggle('dimmed', !showWave || isPlanks);
+  waveGroup.querySelector('.group-label').firstChild.textContent =
+    isMesh ? 'Abultamiento del tejido ' : isBricks ? 'Frecuencia del remolino ' : 'Frecuencia de onda ';
+
+  const clusterGroup = document.getElementById('clusterGroup');
+  clusterGroup.querySelector('.group-label').firstChild.textContent =
+    isMesh ? 'Intensidad del abultamiento ' : isBricks ? 'Intensidad del remolino ' : isPlanks ? 'Sombra proyectada ' : 'Agrupamiento orgánico ';
+
+  const rotationGroup = document.getElementById('rotationGroup');
+  rotationGroup.querySelector('.group-label').firstChild.textContent =
+    isBricks || isPlanks ? 'Inclinación base ' : 'Rotación aleatoria ';
+
+  ['sizeVarGroup','toneVarGroup','roundGroup'].forEach(id=>{
+    document.getElementById(id).classList.toggle('dimmed', !isBricks);
+  });
+}
+
+const guillocheTypeRow = document.getElementById('guillocheTypeRow');
+GUILLOCHE_TYPES.forEach(t=>{
+  const el = document.createElement('div');
+  el.className = 'pill' + (t.id===state.guillocheType?' active':'');
+  el.textContent = t.label;
+  el.addEventListener('click', ()=>{
+    state.guillocheType = t.id;
+    [...guillocheTypeRow.children].forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    updateGuillocheVisibility();
+    render();
+  });
+  guillocheTypeRow.appendChild(el);
+});
+
+const paletteRow = document.getElementById('paletteRow');
+PALETTES.forEach(p=>{
+  const el = document.createElement('div');
+  el.className = 'swatch' + (p.id===state.palette?' active':'');
+  el.dataset.id = p.id;
+  const dots = document.createElement('div');
+  dots.className = 'dots';
+  p.colors.slice(0,3).forEach(c=>{
+    const d = document.createElement('span');
+    d.className='dot'; d.style.background = c;
+    dots.appendChild(d);
+  });
+  el.appendChild(dots);
+  const lbl = document.createElement('div');
+  lbl.textContent = p.name;
+  el.appendChild(lbl);
+  el.addEventListener('click', ()=>{
+    state.palette = p.id;
+    [...paletteRow.children].forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    render();
+  });
+  paletteRow.appendChild(el);
+});
+
+/* sliders */
+function bindRange(id, key, fmt){
+  const input = document.getElementById(id);
+  const label = document.getElementById(key+'Val');
+  const update = ()=>{
+    state[key] = Number(input.value);
+    if(label) label.textContent = fmt ? fmt(state[key]) : state[key];
+    render();
+  };
+  input.addEventListener('input', update);
+  update();
+}
+bindRange('density','density', v=>v);
+bindRange('baseSize','size', v=>v);
+bindRange('jitter','jitter', v=>v+'%');
+bindRange('cluster','cluster', v=>v+'%');
+bindRange('rotation','rotation', v=>v+'%');
+bindRange('sizeVar','sizeVar', v=>v+'%');
+bindRange('toneVar','toneVar', v=>v+'%');
+bindRange('roundness','roundness', v=>v+'%');
+
+const waveFreqInput = document.getElementById('waveFreq');
+const waveFreqLabel = document.getElementById('waveFreqVal');
+function updateWaveFreq(){
+  state.waveFreq = Number(waveFreqInput.value)/10;
+  waveFreqLabel.textContent = state.waveFreq.toFixed(1);
+  render();
+}
+waveFreqInput.addEventListener('input', updateWaveFreq);
+updateWaveFreq();
+
+document.getElementById('brandCheck').addEventListener('change', e=>{
+  state.brand = e.target.checked;
+  updateBrandVisibility();
+  render();
+});
+document.getElementById('brandName').addEventListener('input', e=>{
+  state.brandName = e.target.value;
+  render();
+});
+document.getElementById('brandHolderName').addEventListener('input', e=>{
+  state.brandHolderName = e.target.value;
+  render();
+});
+document.getElementById('brandContactlessCheck').addEventListener('change', e=>{
+  state.brandContactless = e.target.checked;
+  render();
+});
+document.getElementById('brandNetworkCheck').addEventListener('change', e=>{
+  state.brandNetwork = e.target.checked;
+  render();
+});
+document.getElementById('brandHolderCheck').addEventListener('change', e=>{
+  state.brandHolder = e.target.checked;
+  updateBrandVisibility();
+  render();
+});
+
+const brandFontRow = document.getElementById('brandFontRow');
+Object.keys(BRAND_FONTS).forEach(key=>{
+  const el = document.createElement('div');
+  el.className = 'pill' + (key===state.brandFont?' active':'');
+  el.textContent = BRAND_FONTS[key].label;
+  el.addEventListener('click', ()=>{
+    state.brandFont = key;
+    [...brandFontRow.children].forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    render();
+  });
+  brandFontRow.appendChild(el);
+});
+
+const brandPosRow = document.getElementById('brandPosRow');
+BRAND_POSITIONS.forEach(p=>{
+  const el = document.createElement('div');
+  el.className = 'pill' + (p.id===state.brandLogoPos?' active':'');
+  el.textContent = p.label;
+  el.addEventListener('click', ()=>{
+    state.brandLogoPos = p.id;
+    [...brandPosRow.children].forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    render();
+  });
+  brandPosRow.appendChild(el);
+});
+
+function updateBrandVisibility(){
+  const on = state.brand;
+  ['brandNameGroup','brandFontGroup','brandPosGroup','brandContactlessGroup',
+   'brandNetworkGroup','brandHolderCheckGroup'].forEach(id=>{
+    document.getElementById(id).classList.toggle('dimmed', !on);
+  });
+  document.getElementById('brandHolderNameGroup').classList.toggle('dimmed', !on || !state.brandHolder);
+}
+updateBrandVisibility();
+document.getElementById('animateCheck').addEventListener('change', e=>{
+  state.animate = e.target.checked;
+  render();
+});
+
+document.getElementById('guillocheCheck').addEventListener('change', e=>{
+  state.guilloche = e.target.checked;
+  updateGuillocheVisibility();
+  render();
+});
+document.getElementById('guillocheColor').addEventListener('input', e=>{
+  state.guillocheColor = e.target.value;
+  document.getElementById('guillocheColorHex').textContent = e.target.value.toUpperCase();
+  render();
+});
+bindRange('guillocheCount','guillocheCount', v=>v);
+bindRange('guillochePetals','guillochePetals', v=>v);
+bindRange('guillocheSize','guillocheSize', v=>v+'%');
+bindRange('guillocheAmp','guillocheAmp', v=>v+'%');
+bindRange('guillocheTwist','guillocheTwist', v=>v+'%');
+bindRange('guillocheDensity','guillocheDensity', v=>v+'%');
+bindRange('guillocheStroke','guillocheStroke', v=>v+'%');
+bindRange('guillocheOpacity','guillocheOpacity', v=>v+'%');
+document.getElementById('guillocheReliefCheck').addEventListener('change', e=>{
+  state.guillocheRelief = e.target.checked;
+  updateGuillocheVisibility();
+  render();
+});
+bindRange('guillocheReliefAmount','guillocheReliefAmount', v=>(v>0?'+':'')+v);
+bindRange('guillocheReliefX','guillocheReliefX', v=>(v>0?'+':'')+v);
+bindRange('guillocheReliefY','guillocheReliefY', v=>(v>0?'+':'')+v);
+bindRange('baseLayerOpacity','baseLayerOpacity', v=>v+'%');
+function updateGuillocheVisibility(){
+  const on = state.guilloche;
+  const isWaves = state.guillocheType === 'waves';
+  ['guillocheTypeGroup','guillocheColorGroup','guillochePetalsGroup','guillocheSizeGroup','guillocheAmpGroup',
+   'guillocheTwistGroup','guillocheDensityGroup','guillocheStrokeGroup','guillocheOpacityGroup',
+   'baseOpacityGroup'].forEach(id=>{
+    document.getElementById(id).classList.toggle('dimmed', !on);
+  });
+  document.getElementById('guillocheCountGroup').classList.toggle('dimmed', !on || isWaves);
+  document.getElementById('guillocheReliefGroup').classList.toggle('dimmed', !on || !isWaves);
+  document.getElementById('guillocheReliefAmountGroup').classList.toggle('dimmed', !on || !isWaves || !state.guillocheRelief);
+  document.getElementById('guillocheReliefXGroup').classList.toggle('dimmed', !on || !isWaves || !state.guillocheRelief);
+  document.getElementById('guillocheReliefYGroup').classList.toggle('dimmed', !on || !isWaves || !state.guillocheRelief);
+
+  const petalsLabel = document.querySelector('#guillochePetalsGroup .group-label');
+  petalsLabel.firstChild.textContent = isWaves
+    ? 'Ondas por ancho '
+    : (state.guillocheType==='radial' ? 'Cúspides ' : 'Pétalos ');
+}
+updateGuillocheVisibility();
+
+const seedInput = document.getElementById('seedInput');
+seedInput.addEventListener('input', ()=>{
+  state.seed = Number(seedInput.value) || 0;
+  render();
+});
+document.getElementById('diceBtn').addEventListener('click', ()=>{
+  state.seed = Math.floor(Math.random()*99999);
+  seedInput.value = state.seed;
+  render();
+});
+document.getElementById('regenBtn').addEventListener('click', ()=>{
+  state.seed = Math.floor(Math.random()*99999);
+  seedInput.value = state.seed;
+  render();
+});
+
+/* ---------------------------------------------------------
+   Generación de puntos (disposiciones orgánicas)
+--------------------------------------------------------- */
+function buildPoints(rand){
+  const spacing = W / state.density;
+  const pts = [];
+  const margin = spacing * 0.6;
+
+  if(state.layout === 'grid' || state.layout === 'wave'){
+    const cols = Math.ceil((W + margin*2) / spacing);
+    const rows = Math.ceil((H + margin*2) / spacing);
+    for(let r=-1;r<=rows;r++){
+      for(let c=-1;c<=cols;c++){
+        pts.push({x: c*spacing + spacing/2, y: r*spacing + spacing/2});
+      }
+    }
+  } else if(state.layout === 'hex'){
+    const vSpacing = spacing * 0.866;
+    const rows = Math.ceil(H / vSpacing) + 2;
+    const cols = Math.ceil(W / spacing) + 2;
+    for(let r=-1;r<=rows;r++){
+      const offset = (r % 2 === 0) ? 0 : spacing/2;
+      for(let c=-1;c<=cols;c++){
+        pts.push({x: c*spacing + offset, y: r*vSpacing});
+      }
+    }
+  } else if(state.layout === 'radial'){
+    const cx = W/2, cy = H/2;
+    const maxR = Math.hypot(W,H)/2 + spacing;
+    let ring = 0;
+    for(let rad = spacing*0.3; rad < maxR; rad += spacing*0.85){
+      const circumference = 2*Math.PI*rad;
+      const count = Math.max(6, Math.round(circumference / spacing));
+      const angleOffset = ring * 0.35;
+      for(let i=0;i<count;i++){
+        const a = (i/count)*Math.PI*2 + angleOffset;
+        pts.push({x: cx + Math.cos(a)*rad, y: cy + Math.sin(a)*rad});
+      }
+      ring++;
+    }
+  }
+
+  return pts.filter(p => p.x > -spacing && p.x < W+spacing && p.y > -spacing && p.y < H+spacing);
+}
+
+/* ---------------------------------------------------------
+   Atractores para tamaño/opacidad orgánicos
+--------------------------------------------------------- */
+function buildAttractors(rand){
+  const n = 2 + Math.floor(rand()*3); // 2-4
+  const list = [];
+  for(let i=0;i<n;i++){
+    list.push({
+      x: rand()*W,
+      y: rand()*H,
+      sigma: (0.18 + rand()*0.28) * Math.max(W,H),
+      strength: 0.6 + rand()*1.0,
+    });
+  }
+  return list;
+}
+function attractorInfluence(x,y,attractors){
+  let sum = 0;
+  for(const a of attractors){
+    const dx=x-a.x, dy=y-a.y;
+    const d2 = dx*dx+dy*dy;
+    sum += a.strength * Math.exp(-d2/(2*a.sigma*a.sigma));
+  }
+  return sum;
+}
+
+/* ---------------------------------------------------------
+   Planchas metálicas — barras con bisel (esquina cortada),
+   gradiente de luz por barra y sombra proyectada marcada,
+   como láminas de metal cepillado en filas trabadas.
+--------------------------------------------------------- */
+function buildPlanksBackground(palette){
+  return `<rect x="0" y="0" width="${W}" height="${H}" fill="${shade(palette.ink,-0.5)}"/>`;
+}
+
+function buildPlanksLayer(rand, palette){
+  const cols = Math.max(5, Math.round(state.density*0.9));
+  const spacingX = W/cols;
+  const spacingY = spacingX * 0.55 * (state.baseSize/60);
+  const rowsCount = Math.ceil(H/spacingY)+2;
+  const tileW = spacingX * 0.92;
+  const tileH = spacingY * 0.72;
+
+  const baseTilt = (state.rotation/100)*24 - 8;
+  const jitterAmt = state.jitter/100;
+  const shadowAmt = 6 + (state.cluster/100)*22;
+
+  const lightTone = lighten(palette.bg, 0.62);
+  const darkTone = shade(palette.bg, -0.35);
+
+  function hash(i,j,o){
+    const v = Math.sin(i*127.1+j*311.7+state.seed*0.013+o)*43758.5453;
+    return v-Math.floor(v);
+  }
+
+  let defs = '';
+  let out = '';
+  let gradId = 0;
+
+  for(let row=-1; row<=rowsCount; row++){
+    const rowOffset = (row % 2 === 0) ? 0 : spacingX/2;
+    const y = row*spacingY + spacingY/2;
+    if(y < -spacingY || y > H+spacingY) continue;
+
+    for(let col=-1; col<=cols+1; col++){
+      const x = col*spacingX + spacingX/2 + rowOffset;
+      if(x < -spacingX || x > W+spacingX) continue;
+
+      const jr = (hash(col,row,0)-0.5) * 12 * jitterAmt;
+      const rotation = baseTilt + jr;
+      const toneJ = hash(col,row,50);
+      const gId = `pg${gradId++}`;
+      const a1 = lighten(lightTone, toneJ*0.12);
+      const a2 = shade(darkTone, -toneJ*0.15);
+
+      defs += `<linearGradient id="${gId}" x1="0%" y1="0%" x2="100%" y2="35%">
+        <stop offset="0%" stop-color="${a1}"/>
+        <stop offset="60%" stop-color="${shade(a1,-0.28)}"/>
+        <stop offset="100%" stop-color="${a2}"/>
+      </linearGradient>`;
+
+      const w=tileW, h=tileH;
+      const path = `M ${-w/2},${-h/2} L ${w/2},${-h/2} L ${w/2},${h/2} L ${-w/2},${h/2} Z`;
+
+      out += `<g transform="translate(${(x+shadowAmt*0.4).toFixed(2)},${(y+shadowAmt*0.5).toFixed(2)}) rotate(${rotation.toFixed(2)})">
+        <path d="${path}" fill="#000000" opacity="0.42"/>
+      </g>`;
+      out += `<g transform="translate(${x.toFixed(2)},${y.toFixed(2)}) rotate(${rotation.toFixed(2)})">
+        <path d="${path}" fill="url(#${gId})"/>
+      </g>`;
+    }
+  }
+  return `<defs>${defs}</defs>${out}`;
+}
+
+/* ---------------------------------------------------------
+   Malla deformada — grilla continua tipo "tejido" curvado
+   por puntos de abultamiento (lente), en vez de formas sueltas.
+--------------------------------------------------------- */
+function lighten(hex, amt){
+  const n = hex.replace('#','');
+  const r = parseInt(n.substring(0,2),16);
+  const g = parseInt(n.substring(2,4),16);
+  const b = parseInt(n.substring(4,6),16);
+  const mix = c => Math.round(c + (255-c)*amt);
+  const toHex = c => c.toString(16).padStart(2,'0');
+  return `#${toHex(mix(r))}${toHex(mix(g))}${toHex(mix(b))}`;
+}
+
+// amt en [-1,1]: positivo aclara (mezcla blanco), negativo oscurece (mezcla negro)
+function shade(hex, amt){
+  const n = hex.replace('#','');
+  const r = parseInt(n.substring(0,2),16);
+  const g = parseInt(n.substring(2,4),16);
+  const b = parseInt(n.substring(4,6),16);
+  const mix = c => amt >= 0 ? c + (255-c)*amt : c * (1+amt);
+  const toHex = c => Math.max(0,Math.min(255,Math.round(c))).toString(16).padStart(2,'0');
+  return `#${toHex(mix(r))}${toHex(mix(g))}${toHex(mix(b))}`;
+}
+
+function luminance(hex){
+  const n = hex.replace('#','');
+  const r = parseInt(n.substring(0,2),16)/255;
+  const g = parseInt(n.substring(2,4),16)/255;
+  const b = parseInt(n.substring(4,6),16)/255;
+  const lin = c => c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+  return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+}
+
+function autoTextColor(bgHex){
+  return luminance(bgHex) > 0.42 ? '#15120e' : '#f5f1e8';
+}
+
+/* ---------------------------------------------------------
+   Marca — logotipo, chip, contactless, marca de red y titular,
+   compuestos sobre cualquiera de los patrones anteriores. El
+   color de cada elemento se calcula por contraste automático
+   contra el fondo real de la placa.
+--------------------------------------------------------- */
+function buildBrandLayer(palette){
+  const bgRef = state.shape === 'bricks' ? palette.ink : palette.bg;
+  const ink = autoTextColor(bgRef);
+  const dim = ink === '#f5f1e8' ? 'rgba(245,241,232,0.6)' : 'rgba(21,18,14,0.55)';
+  const style = BRAND_FONTS[state.brandFont];
+  const logoRight = state.brandLogoPos === 'right';
+
+  let out = '';
+
+  // Chip
+  const chipX = 58, chipY = 200;
+  out += `<g opacity="0.95">
+    <rect x="${chipX}" y="${chipY}" width="80" height="60" rx="9" fill="none" stroke="${ink}" stroke-width="2.2"/>
+    <line x1="${chipX}" y1="${chipY+20}" x2="${chipX+80}" y2="${chipY+20}" stroke="${ink}" stroke-width="1.2"/>
+    <line x1="${chipX}" y1="${chipY+40}" x2="${chipX+80}" y2="${chipY+40}" stroke="${ink}" stroke-width="1.2"/>
+    <line x1="${chipX+27}" y1="${chipY}" x2="${chipX+27}" y2="${chipY+60}" stroke="${ink}" stroke-width="1.2"/>
+    <line x1="${chipX+53}" y1="${chipY}" x2="${chipX+53}" y2="${chipY+60}" stroke="${ink}" stroke-width="1.2"/>
+  </g>`;
+
+  // Contactless
+  if(state.brandContactless){
+    const ccx = chipX+112, ccy = chipY+30;
+    out += `<g opacity="0.85">
+      <path d="M${ccx},${ccy-16} A16,16 0 0 1 ${ccx},${ccy+16}" fill="none" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M${ccx},${ccy-10} A10,10 0 0 1 ${ccx},${ccy+10}" fill="none" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M${ccx},${ccy-4} A4,4 0 0 1 ${ccx},${ccy+4}" fill="none" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+    </g>`;
+  }
+
+  // Logotipo / nombre de marca
+  const raw = (state.brandName || 'Vela').trim();
+  const label = style.transform==='upper' ? raw.toUpperCase() : (style.transform==='lower' ? raw.toLowerCase() : raw);
+  const wmX = logoRight ? W-40 : 40;
+  const anchor = logoRight ? 'end' : 'start';
+  out += `<text x="${wmX}" y="66" text-anchor="${anchor}" font-family="${style.family}" font-weight="${style.weight}" font-style="${style.italic?'italic':'normal'}" font-size="${style.size}" letter-spacing="${style.tracking}" fill="${ink}">${label}</text>`;
+
+  // Titular
+  if(state.brandHolder){
+    const holder = (state.brandHolderName || 'Alex Rivera').trim().toUpperCase();
+    out += `<text x="40" y="${H-42}" font-family="'IBM Plex Mono', monospace" font-size="16" letter-spacing="2" fill="${dim}">${holder}</text>`;
+  }
+
+  // Marca de red (genérica, dos círculos superpuestos)
+  if(state.brandNetwork){
+    const nx = W-92, ny = H-56;
+    out += `<g opacity="0.92">
+      <circle cx="${nx}" cy="${ny}" r="17" fill="${ink}" opacity="0.85"/>
+      <circle cx="${nx+16}" cy="${ny}" r="17" fill="${ink}" opacity="0.5"/>
+    </g>`;
+  }
+
+  return out;
+}
+
+function buildMeshBackground(palette){
+  const bgA = palette.bg;
+  const bgB = lighten(palette.bg, 0.4);
+  return `<defs>
+      <linearGradient id="meshGrad" x1="0" y1="0" x2="${W}" y2="${(H*0.2).toFixed(1)}">
+        <stop offset="0%" stop-color="${bgA}"/>
+        <stop offset="100%" stop-color="${bgB}"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="${W}" height="${H}" fill="url(#meshGrad)"/>`;
+}
+
+function buildMeshLayer(rand, palette){
+  const cols = Math.max(6, Math.round(state.density * 1.6));
+  const rows = Math.max(4, Math.round(cols / (W/H)));
+  const colW = W/cols, rowH = H/rows;
+
+  const bulges = buildAttractors(rand);
+  const warpAmt = (state.cluster/100) * Math.max(colW,rowH) * 3.2;
+  const sigmaScale = 0.5 + (state.waveFreq/6);
+  const jitterAmt = (state.jitter/100) * Math.min(colW,rowH) * 0.18;
+
+  function hashJitter(i,j,offset){
+    const v = Math.sin(i*127.1 + j*311.7 + state.seed*0.013 + offset) * 43758.5453;
+    return v - Math.floor(v);
+  }
+
+  const iMin=-1, iMax=cols+1, jMin=-1, jMax=rows+1;
+  const grid = {};
+  for(let j=jMin;j<=jMax;j++){
+    for(let i=iMin;i<=iMax;i++){
+      const x0 = i*colW, y0 = j*rowH;
+      let dx=0, dy=0;
+      bulges.forEach(b=>{
+        const ddx=x0-b.x, ddy=y0-b.y;
+        const dist = Math.hypot(ddx,ddy) || 0.0001;
+        const sigma = b.sigma * sigmaScale;
+        const falloff = Math.exp(-(dist*dist)/(2*sigma*sigma));
+        const push = b.strength * falloff * warpAmt;
+        dx += (ddx/dist)*push;
+        dy += (ddy/dist)*push;
+      });
+      dx += (hashJitter(i,j,0)-0.5) * jitterAmt * 2;
+      dy += (hashJitter(i,j,50)-0.5) * jitterAmt * 2;
+      grid[j+'_'+i] = {x:x0+dx, y:y0+dy};
+    }
+  }
+
+  const strokeW = Math.max(1.5, (state.baseSize/100) * Math.min(colW,rowH) * 0.55);
+  const ink = palette.ink;
+
+  let paths = '';
+  for(let i=iMin;i<=iMax;i++){
+    let d = '';
+    for(let j=jMin;j<=jMax;j++){
+      const p = grid[j+'_'+i];
+      d += (j===jMin ? 'M' : 'L') + p.x.toFixed(2)+','+p.y.toFixed(2)+' ';
+    }
+    paths += `<path d="${d}" fill="none" stroke="${ink}" stroke-width="${strokeW.toFixed(2)}" stroke-linejoin="round" stroke-linecap="round"/>`;
+  }
+  for(let j=jMin;j<=jMax;j++){
+    let d = '';
+    for(let i=iMin;i<=iMax;i++){
+      const p = grid[j+'_'+i];
+      d += (i===iMin ? 'M' : 'L') + p.x.toFixed(2)+','+p.y.toFixed(2)+' ';
+    }
+    paths += `<path d="${d}" fill="none" stroke="${ink}" stroke-width="${strokeW.toFixed(2)}" stroke-linejoin="round" stroke-linecap="round"/>`;
+  }
+
+  return paths;
+}
+
+/* ---------------------------------------------------------
+   Tejas — tiles de tamaño uniforme, filas trabadas (offset
+   tipo ladrillo), con sombra proyectada y giro en remolino
+   (fuerte a la izquierda, se endereza hacia la derecha).
+--------------------------------------------------------- */
+function buildBricksBackground(palette){
+  return `<rect x="0" y="0" width="${W}" height="${H}" fill="${palette.ink}"/>`;
+}
+
+/* ---------------------------------------------------------
+   Capa guilloché — rosetas concéntricas cuyo radio se modula
+   con una onda de N pétalos; la fase avanza levemente en cada
+   anillo, que es lo que produce la interferencia moiré típica
+   de billetes y pasaportes. Es una capa independiente: se puede
+   superponer a cualquiera de los modos anteriores.
+--------------------------------------------------------- */
+/* ---------------------------------------------------------
+   Mapa de relieve — renderiza un isotipo en un canvas oculto,
+   lo desenfoca para lograr una transición suave, y expone un
+   valor 0..1 por punto (x,y de la placa) que empuja la línea
+   hacia arriba (valor positivo) o abajo (valor negativo).
+--------------------------------------------------------- */
+const RELIEF_LOGO_PATHS = [
+  "M219.17,82.28l-.03-26.5L109.54.3c-.12-.06-.26-.1-.4-.1H36.64l146.19,82.76c.13.08.28.12.44.12l35.01.08c.49,0,.9-.4.89-.89Z",
+  "M255.76,54.42V1.12c0-.49-.4-.89-.89-.89h-34.36c-.49,0-.89.4-.89.9v54.19h35.26c.49,0,.89-.4.89-.89Z",
+  "M0,0 H36.13 V82.86 H0 Z",
+];
+const RELIEF_LOGO_W = 255.76, RELIEF_LOGO_H = 83.17;
+
+function buildReliefMask(sizeScale, offsetXNorm, offsetYNorm){
+  const maskW = 220, maskH = 143;
+  const raw = document.createElement('canvas');
+  raw.width = maskW; raw.height = maskH;
+  const rctx = raw.getContext('2d');
+
+  const targetW = maskW * 0.8 * sizeScale;
+  const scale = targetW / RELIEF_LOGO_W;
+  const drawW = RELIEF_LOGO_W*scale, drawH = RELIEF_LOGO_H*scale;
+  const baseX = (maskW-drawW)/2 + offsetXNorm*maskW*0.5;
+  const baseY = (maskH-drawH)/2 + offsetYNorm*maskH*0.5;
+  rctx.save();
+  rctx.translate(baseX, baseY);
+  rctx.scale(scale, scale);
+  rctx.fillStyle = '#fff';
+  RELIEF_LOGO_PATHS.forEach(d=> rctx.fill(new Path2D(d)));
+  rctx.restore();
+
+  const blurred = document.createElement('canvas');
+  blurred.width = maskW; blurred.height = maskH;
+  const bctx = blurred.getContext('2d');
+  bctx.filter = 'blur(5px)';
+  bctx.drawImage(raw, 0, 0);
+
+  return { data: bctx.getImageData(0,0,maskW,maskH).data, w: maskW, h: maskH };
+}
+
+function sampleRelief(mask, x, y){
+  if(!mask) return 0;
+  const mx = Math.min(mask.w-1, Math.max(0, Math.round((x/W)*mask.w)));
+  const my = Math.min(mask.h-1, Math.max(0, Math.round((y/H)*mask.h)));
+  const idx = (my*mask.w+mx)*4;
+  return mask.data[idx+3]/255;
+}
+
+function buildGuillocheLayer(palette){
+  const gRand = mulberry32(state.seed + 9973);
+  const ink = state.guillocheColor;
+  const opacity = state.guillocheOpacity/100;
+  const strokeW = Math.max(0.3, (state.guillocheStroke/100) * 2.2);
+  const petals = state.guillochePetals;
+  const amp = state.guillocheAmp/100;
+  const twist = state.guillocheTwist/100;
+  const sizeScale = state.guillocheSize/100;
+  const ringCount = Math.round(8 + (state.guillocheDensity/100)*50);
+
+  function centersFor(count){
+    const centers = [];
+    for(let i=0;i<count;i++){
+      centers.push({
+        cx: W * (0.18 + gRand()*0.64),
+        cy: H * (0.18 + gRand()*0.64),
+        phaseBase: gRand()*Math.PI*2,
+      });
+    }
+    return centers;
+  }
+
+  let out = '';
+
+  if(state.guillocheType === 'rosette'){
+    // Círculos concéntricos con el radio modulado por una onda de N pétalos.
+    const centers = centersFor(state.guillocheCount);
+    const maxR = Math.min(W,H) * 0.5 * sizeScale;
+    const ampR = amp * 0.30;
+    const twistR = twist * 0.6;
+    const steps = 140;
+    centers.forEach(c=>{
+      for(let i=0;i<ringCount;i++){
+        const rr = maxR * (i+1)/ringCount;
+        const phase = c.phaseBase + i*twistR;
+        let d = '';
+        for(let s=0;s<=steps;s++){
+          const t = (s/steps) * Math.PI*2;
+          const radius = rr * (1 + ampR*Math.sin(petals*t + phase));
+          const x = c.cx + radius*Math.cos(t), y = c.cy + radius*Math.sin(t);
+          d += (s===0 ? 'M' : 'L') + x.toFixed(2)+','+y.toFixed(2)+' ';
+        }
+        out += `<path d="${d}Z" fill="none" stroke="${ink}" stroke-width="${strokeW.toFixed(2)}" opacity="${opacity.toFixed(2)}"/>`;
+      }
+    });
+  }
+
+  else if(state.guillocheType === 'radial'){
+    // Igual estructura que la roseta, pero con cúspides filosas (valor
+    // absoluto) en vez de lóbulos suaves — efecto engranaje/estrella.
+    const centers = centersFor(state.guillocheCount);
+    const maxR = Math.min(W,H) * 0.5 * sizeScale;
+    const ampR = amp * 0.35;
+    const twistR = twist * 0.6;
+    const steps = 160;
+    centers.forEach(c=>{
+      for(let i=0;i<ringCount;i++){
+        const rr = maxR * (i+1)/ringCount;
+        const phase = c.phaseBase + i*twistR;
+        let d = '';
+        for(let s=0;s<=steps;s++){
+          const t = (s/steps) * Math.PI*2;
+          const radius = rr * (1 + ampR*Math.abs(Math.sin(petals*t/2 + phase)));
+          const x = c.cx + radius*Math.cos(t), y = c.cy + radius*Math.sin(t);
+          d += (s===0 ? 'M' : 'L') + x.toFixed(2)+','+y.toFixed(2)+' ';
+        }
+        out += `<path d="${d}Z" fill="none" stroke="${ink}" stroke-width="${strokeW.toFixed(2)}" opacity="${opacity.toFixed(2)}"/>`;
+      }
+    });
+  }
+
+  else if(state.guillocheType === 'spiro'){
+    // Hipotrocoide real (curva de Espirógrafo): un círculo rodando dentro
+    // de otro, con la pluma a distancia d del centro del círculo pequeño.
+    const centers = centersFor(state.guillocheCount);
+    const rOuter = Math.min(W,H) * 0.5 * sizeScale;
+    const ringCountS = Math.min(ringCount, 22);
+    const p = Math.max(3, petals);
+    const steps = Math.min(640, 36*p);
+    centers.forEach(c=>{
+      for(let i=0;i<ringCountS;i++){
+        const Rr = rOuter * (0.35 + 0.65*(i+1)/ringCountS);
+        const rr = Rr / p;
+        const dd = amp * rr * 0.92;
+        const kRatio = (Rr-rr)/rr;
+        const phase = c.phaseBase + i*twist*0.5;
+        let d = '';
+        for(let s=0;s<=steps;s++){
+          const t = (s/steps) * Math.PI*2 * p;
+          const tt = t + phase;
+          const x = c.cx + (Rr-rr)*Math.cos(tt) + dd*Math.cos(kRatio*tt);
+          const y = c.cy + (Rr-rr)*Math.sin(tt) - dd*Math.sin(kRatio*tt);
+          d += (s===0 ? 'M' : 'L') + x.toFixed(2)+','+y.toFixed(2)+' ';
+        }
+        out += `<path d="${d}" fill="none" stroke="${ink}" stroke-width="${strokeW.toFixed(2)}" opacity="${opacity.toFixed(2)}"/>`;
+      }
+    });
+  }
+
+  else if(state.guillocheType === 'waves'){
+    // Bandas horizontales de líneas onduladas paralelas, con la fase
+    // avanzando banda a banda — interferencia moiré tipo borde de billete.
+    const bandCount = ringCount;
+    const spacing = H / Math.max(4, bandCount);
+    const freq = Math.max(1, petals);
+    const ampPx = amp * spacing * 1.9 * sizeScale;
+    const phaseBase = gRand()*Math.PI*2;
+    const stepsX = 160;
+    const mask = state.guillocheRelief ? buildReliefMask(sizeScale, state.guillocheReliefX/100, state.guillocheReliefY/100) : null;
+    const reliefAmt = (state.guillocheReliefAmount/100) * 70;
+    for(let i=-1;i<=bandCount+1;i++){
+      const y0 = i*spacing;
+      if(y0 < -spacing || y0 > H+spacing) continue;
+      const phase = phaseBase + i*twist*2.2;
+      let d = '';
+      for(let s=0;s<=stepsX;s++){
+        const xx = (s/stepsX)*W;
+        const relief = mask ? sampleRelief(mask, xx, y0) : 0;
+        const yy = y0 + Math.sin((xx/W)*freq*Math.PI*2 + phase)*ampPx - reliefAmt*relief;
+        d += (s===0 ? 'M' : 'L') + xx.toFixed(2)+','+yy.toFixed(2)+' ';
+      }
+      out += `<path d="${d}" fill="none" stroke="${ink}" stroke-width="${strokeW.toFixed(2)}" opacity="${opacity.toFixed(2)}"/>`;
+    }
+  }
+
+  return out;
+}
+
+/* ---------------------------------------------------------
+   Patrones "Cordura" — Grilla, Curvas, Vórtice, Telaraña,
+   Agujero: se apoyan en los mismos 5 sliders que el resto
+   (Densidad, Tamaño base, Dispersión, Agrupamiento, Rotación)
+   para no duplicar panel, y usan palette.ink como tinta.
+--------------------------------------------------------- */
+function regularShapePath(shape, size){
+  if(shape==='square') return `M ${-size/2},${-size/2} L ${size/2},${-size/2} L ${size/2},${size/2} L ${-size/2},${size/2} Z`;
+  if(shape==='triangle') return `M ${-size/2},${size/2} L ${size/2},${size/2} L 0,${-size/2} Z`;
+  return '';
+}
+function smoothOpenPath(pts){
+  if(pts.length<2) return '';
+  let d = `M ${pts[0].x.toFixed(2)},${pts[0].y.toFixed(2)} `;
+  for(let i=0;i<pts.length-1;i++){
+    const mx=(pts[i].x+pts[i+1].x)/2, my=(pts[i].y+pts[i+1].y)/2;
+    d += `Q ${pts[i].x.toFixed(2)},${pts[i].y.toFixed(2)} ${mx.toFixed(2)},${my.toFixed(2)} `;
+  }
+  const last = pts[pts.length-1];
+  d += `L ${last.x.toFixed(2)},${last.y.toFixed(2)} `;
+  return d;
+}
+function smoothClosedPath(pts){
+  return smoothOpenPath([...pts, pts[0], pts[1]]) + 'Z';
+}
+
+function buildChecker(rand, palette){
+  const cols = Math.max(6, Math.round(state.density*1.3));
+  const cellSize = W/cols;
+  const rows = Math.ceil(H/cellSize)+1;
+  const attrCount = 1 + Math.floor((state.jitter/100)*2.4);
+  const attractors = [];
+  for(let i=0;i<attrCount;i++) attractors.push({x:rand()*W, y:rand()*H});
+  const radius = 100 + (state.cluster/100)*420;
+  const minSize = Math.max(1.5, (state.baseSize/100)*10);
+  const maxSize = minSize + (state.baseSize/100)*46;
+  const rotateToward = state.rotation > 40;
+
+  let out = '';
+  for(let i=0;i<cols;i++) for(let j=0;j<rows;j++){
+    const x = i*cellSize+cellSize/2, y = j*cellSize+cellSize/2;
+    let nearest=null, dmin=Infinity;
+    attractors.forEach(a=>{ const d=Math.hypot(x-a.x,y-a.y); if(d<dmin){dmin=d; nearest=a;} });
+    const size = dmin<radius ? (maxSize - (maxSize-minSize)*Math.min(1,dmin/radius)) : minSize;
+    const rotationDeg = (rotateToward && nearest) ? Math.atan2(y-nearest.y,x-nearest.x)*180/Math.PI : 0;
+    const shapeOpts = ['circle','square','triangle'];
+    const shape = shapeOpts[Math.floor(rand()*3)];
+    out += `<g transform="translate(${x.toFixed(2)},${y.toFixed(2)}) rotate(${rotationDeg.toFixed(1)})">`;
+    if(shape==='circle') out += `<circle r="${(size/2).toFixed(2)}" fill="${palette.ink}"/>`;
+    else if(shape==='square') out += `<g transform="rotate(45)"><path d="${regularShapePath('square',size)}" fill="${palette.ink}"/></g>`;
+    else out += `<path d="${regularShapePath('triangle',size)}" fill="${palette.ink}"/>`;
+    out += `</g>`;
+  }
+  return out;
+}
+
+function buildCurves(rand, palette){
+  const rows = Math.max(12, Math.round(state.density*4.5));
+  const numPts = 7;
+  const vertical = state.rotation > 50;
+  const spanAlong = vertical ? H : W;
+  const spanAcross = vertical ? W : H;
+  const separation = spanAcross/(rows-1);
+  const jitter = (state.jitter/100)*30;
+  const strokeW = Math.max(0.4, (state.baseSize/100)*2.4);
+  const filled = state.cluster > 55;
+
+  const rowsV = [];
+  for(let r=0;r<rows;r++){
+    const v = new Array(numPts);
+    if(r===0){ for(let k=0;k<numPts;k++) v[k]=0; }
+    else{
+      v[0]=r*separation; v[numPts-1]=r*separation;
+      for(let k=1;k<numPts-1;k++) v[k] = rowsV[r-1][k] + separation + (rand()-0.5)*2*jitter;
+    }
+    rowsV.push(v);
+  }
+  let out = '';
+  for(let r=0;r<rows;r++){
+    const pts = [];
+    for(let k=0;k<numPts;k++){
+      const along = k*(spanAlong/(numPts-1));
+      pts.push(vertical ? {x:rowsV[r][k], y:along} : {x:along, y:rowsV[r][k]});
+    }
+    const d = smoothOpenPath(pts);
+    out += filled
+      ? `<path d="${d}Z" fill="${palette.ink}" opacity="0.2" stroke="none"/>`
+      : `<path d="${d}" fill="none" stroke="${palette.ink}" stroke-width="${strokeW.toFixed(2)}"/>`;
+  }
+  return out;
+}
+
+function buildVortex(rand, palette){
+  const cx = W/2 + (rand()-0.5)*W*0.1, cy = H/2 + (rand()-0.5)*H*0.1;
+  const rings = Math.max(6, Math.round(state.density*1.7));
+  const step = 2 + (state.cluster/100)*44;
+  const sizeInit = 40 + (state.baseSize/100)*(Math.min(W,H)-60);
+  const angle = (state.rotation/100)*90;
+  const strokeW = Math.max(0.4, (state.jitter/100)*2.6+0.4);
+  const crossed = state.rotation > 60;
+
+  let out = `<g transform="translate(${cx.toFixed(2)},${cy.toFixed(2)}) rotate(${angle.toFixed(2)})">`;
+  for(let i=0;i<rings;i++){
+    const rx = Math.max(0.5,(sizeInit-step*i)/2), ry = Math.max(0.5,(sizeInit+step*i)/2);
+    out += `<ellipse rx="${rx.toFixed(2)}" ry="${ry.toFixed(2)}" fill="none" stroke="${palette.ink}" stroke-width="${strokeW.toFixed(2)}"/>`;
+    if(crossed) out += `<ellipse rx="${ry.toFixed(2)}" ry="${rx.toFixed(2)}" fill="none" stroke="${palette.ink}" stroke-width="${strokeW.toFixed(2)}"/>`;
+  }
+  return out + `</g>`;
+}
+
+function buildWeb(rand, palette){
+  const cx = W/2 + (rand()-0.5)*W*0.14, cy = H/2 + (rand()-0.5)*H*0.14;
+  const numPts = 10 + Math.round((state.rotation/100)*22);
+  const rings = Math.max(5, Math.round(state.density*1.3));
+  let radius = 10 + (state.cluster/100)*100;
+  const growth = 4 + (state.baseSize/100)*36;
+  const jitter = (state.jitter/100)*24;
+  const filled = state.cluster > 65;
+  const angleStep = Math.PI*2/numPts;
+
+  let out = '';
+  for(let r=0;r<rings;r++){
+    const pts = [];
+    for(let k=0;k<numPts;k++){
+      const a = angleStep*k;
+      const jx = r===0?0:(rand()-0.5)*2*jitter, jy = r===0?0:(rand()-0.5)*2*jitter;
+      pts.push({x:Math.cos(a)*radius+cx+jx, y:Math.sin(a)*radius+cy+jy});
+    }
+    const d = smoothClosedPath(pts);
+    out += filled ? `<path d="${d}" fill="${palette.ink}" opacity="0.16" stroke="none"/>` : `<path d="${d}" fill="none" stroke="${palette.ink}" stroke-width="1"/>`;
+    radius += growth;
+  }
+  return out;
+}
+
+function buildHole(rand, palette){
+  const cx = W/2 + (rand()-0.5)*W*0.08, cy = H/2 + (rand()-0.5)*H*0.08;
+  const count = Math.max(10, Math.round(state.density*4));
+  const size = 30 + (state.baseSize/100)*(Math.max(W,H)-30);
+  const angleStep = (state.cluster/100)*0.12 + 0.004;
+  const initAngle = (state.rotation/100)*Math.PI/2;
+  const strokeW = Math.max(0.3, (state.jitter/100)*1.8+0.3);
+  const shapeOpts = ['square','triangle'];
+  const shape = shapeOpts[Math.floor(rand()*2)];
+
+  let out = `<g transform="translate(${cx.toFixed(2)},${cy.toFixed(2)})">`;
+  for(let i=0;i<count;i++){
+    const rot = (i*angleStep+initAngle)*180/Math.PI;
+    out += `<path d="${regularShapePath(shape,size)}" fill="none" stroke="${palette.ink}" stroke-width="${strokeW.toFixed(2)}" transform="rotate(${rot.toFixed(2)})"/>`;
+  }
+  return out + `</g>`;
+}
+
+function buildBricksLayer(rand, palette){
+  const cols = Math.max(6, Math.round(state.density * 1.3));
+  const spacingX = W / cols;
+  const spacingY = spacingX * 0.62;
+  const rowsCount = Math.ceil(H / spacingY) + 2;
+  const sizeScale = state.baseSize / 60;
+  const tileW = spacingX * 0.86 * sizeScale;
+  const tileH = spacingY * 0.7 * sizeScale;
+
+  const tileColor = lighten(palette.bg, 0.55);
+  const swirlAmt = state.cluster/100;
+  const freq = Math.max(0.25, state.waveFreq/3);
+  const jitterAmt = state.jitter/100;
+  const baseTilt = (state.rotation/100) * 40 - 20;
+  const sizeVarAmt = state.sizeVar/100;
+  const toneVarAmt = state.toneVar/100;
+  const roundAmt = state.roundness/100;
+
+  function hash(i,j,o){
+    const v = Math.sin(i*127.1 + j*311.7 + state.seed*0.013 + o) * 43758.5453;
+    return v - Math.floor(v);
+  }
+
+  let out = '';
+  for(let row=-1; row<=rowsCount; row++){
+    const rowOffset = (row % 2 === 0) ? 0 : spacingX/2;
+    const y = row*spacingY + spacingY/2;
+    if(y < -spacingY || y > H+spacingY) continue;
+
+    for(let col=-1; col<=cols+1; col++){
+      const x = col*spacingX + spacingX/2 + rowOffset;
+      if(x < -spacingX || x > W+spacingX) continue;
+
+      const nx = x/W, ny = y/H;
+      // Campo de remolino: rotación fuerte cerca del borde izquierdo, se
+      // endereza hacia la derecha. La curvatura (derivada del campo) mide
+      // qué tan brusco es el giro en ese punto — se usa para modular el
+      // grosor del trazo, como una línea grabada de billete.
+      const envelope = Math.pow(Math.max(0, 1-nx), 1.6);
+      const localWave = Math.sin(ny*freq*Math.PI*2) * envelope * swirlAmt * 85;
+      const curvature = envelope * Math.abs(Math.cos(ny*freq*Math.PI*2));
+      const jr = (hash(col,row,0)-0.5) * 10 * jitterAmt;
+      const rotation = baseTilt + localWave + jr;
+
+      // Variación orgánica por teja: tamaño, tono y redondez de esquina.
+      const sx = 1 + (hash(col,row,100)-0.5) * 2 * sizeVarAmt * 0.4;
+      const sy = 1 + (hash(col,row,150)-0.5) * 2 * sizeVarAmt * 0.4;
+      const w = tileW * sx, h = tileH * sy;
+      const rx = Math.min(w,h)/2 * roundAmt * 0.85;
+
+      const toneJ = (hash(col,row,200)-0.5) * 2 * toneVarAmt;
+      const fill = shade(tileColor, toneJ*0.4);
+
+      out += `<g transform="translate(${x.toFixed(2)},${y.toFixed(2)}) rotate(${rotation.toFixed(2)})">`;
+      out += `<rect x="${(-w/2).toFixed(2)}" y="${(-h/2).toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" rx="${rx.toFixed(2)}" fill="${fill}"/>`;
+      out += `</g>`;
+    }
+  }
+  return out;
+}
+
+/* ---------------------------------------------------------
+   Dibujo de formas individuales
+--------------------------------------------------------- */
+function shapeMarkup(type, r, color, opacity, strokeW){
+  switch(type){
+    case 'circle':
+      return `<circle cx="0" cy="0" r="${r.toFixed(2)}" fill="${color}" opacity="${opacity.toFixed(2)}"/>`;
+    case 'petal':
+      return `<path d="M 0 ${(-r).toFixed(2)} Q ${(r*0.92).toFixed(2)} 0 0 ${r.toFixed(2)} Q ${(-r*0.92).toFixed(2)} 0 0 ${(-r).toFixed(2)} Z" fill="${color}" opacity="${opacity.toFixed(2)}"/>`;
+    case 'arc':
+      return `<path d="M ${(-r).toFixed(2)} 0 A ${r.toFixed(2)} ${r.toFixed(2)} 0 0 1 ${r.toFixed(2)} 0" stroke="${color}" stroke-width="${strokeW.toFixed(2)}" fill="none" stroke-linecap="round" opacity="${opacity.toFixed(2)}"/>`;
+    case 'line':
+      return `<line x1="0" y1="${(-r).toFixed(2)}" x2="0" y2="${r.toFixed(2)}" stroke="${color}" stroke-width="${strokeW.toFixed(2)}" stroke-linecap="round" opacity="${opacity.toFixed(2)}"/>`;
+    case 'ring':
+      return `<circle cx="0" cy="0" r="${(r*0.7).toFixed(2)}" fill="none" stroke="${color}" stroke-width="${strokeW.toFixed(2)}" opacity="${opacity.toFixed(2)}"/>`;
+    case 'card': {
+      const w = r*1.7, h = w/1.586, rx = h*0.16;
+      return `<rect x="${(-w/2).toFixed(2)}" y="${(-h/2).toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" rx="${rx.toFixed(2)}" fill="${color}" opacity="${opacity.toFixed(2)}"/>`;
+    }
+    default:
+      return '';
+  }
+}
+
+/* ---------------------------------------------------------
+   Render principal
+--------------------------------------------------------- */
+function buildOrganicLayer(shapeId, rand, palette){
+  const points = buildPoints(rand);
+  const attractors = buildAttractors(rand);
+
+  const jitterAmt = state.jitter/100;
+  const clusterAmt = state.cluster/100;
+  const rotAmt = state.rotation/100;
+  const spacing = W / state.density;
+  const baseR = (state.baseSize/100) * (spacing*0.62);
+
+  let maxInfluence = 0.0001;
+  const infl = points.map(p=>{
+    const v = attractorInfluence(p.x,p.y,attractors);
+    if(v>maxInfluence) maxInfluence=v;
+    return v;
+  });
+
+  const isWave = state.layout === 'wave';
+  const wavePhase = (state.seed % 1000) / 1000 * Math.PI * 2;
+  let shapes = '';
+
+  points.forEach((p,i)=>{
+    let waveVal = 0;
+    if(isWave){
+      const nx = p.x / W, ny = p.y / H;
+      const wx = Math.sin(nx * state.waveFreq * Math.PI * 2 + wavePhase);
+      const wy = Math.cos(ny * state.waveFreq * Math.PI * 2 + wavePhase * 0.7);
+      waveVal = wx * wy;
+    }
+
+    const jx = (rand()-0.5) * spacing * jitterAmt * (isWave ? 0.5 : 1.4);
+    const jy = (rand()-0.5) * spacing * jitterAmt * (isWave ? 0.5 : 1.4);
+    const x = p.x + jx, y = p.y + jy;
+    if(x < -spacing || x > W+spacing || y < -spacing || y > H+spacing) return;
+
+    const normInfl = infl[i] / maxInfluence;
+    let sizeFactor = 1 + (normInfl - 0.4) * clusterAmt * 1.6;
+    if(isWave) sizeFactor *= 1 + waveVal * 0.4 * clusterAmt;
+    const rndSize = 0.55 + rand()*0.9;
+    let r = baseR * Math.max(0.18, sizeFactor) * rndSize;
+    r = Math.max(1.5, r);
+
+    let rotation;
+    if(isWave){
+      rotation = waveVal * 55 + (rand()-0.5) * 40 * rotAmt;
+    } else {
+      rotation = (rand()*360) * rotAmt;
+    }
+    const opacity = 0.35 + normInfl*0.4 + rand()*0.25;
+    const clampedOpacity = Math.min(0.98, Math.max(0.18, opacity));
+    const strokeW = Math.max(1, r*0.16);
+
+    let type = shapeId;
+    if(type === 'mixed'){
+      const opts = ['circle','petal','arc','line','ring','card'];
+      type = opts[Math.floor(rand()*opts.length)];
+    }
+    const color = palette.colors[Math.floor(rand()*palette.colors.length)];
+    const shapeInner = shapeMarkup(type, r, color, clampedOpacity, strokeW);
+
+    let rotGroup;
+    if(state.animate){
+      const oscAmp = 6 + rand()*16;
+      const dur = (2.5 + rand()*4).toFixed(2);
+      const begin = (rand()*3).toFixed(2);
+      const from = (rotation - oscAmp).toFixed(1);
+      const to = (rotation + oscAmp).toFixed(1);
+      rotGroup = `<g transform="rotate(${rotation.toFixed(1)})"><animateTransform attributeName="transform" attributeType="XML" type="rotate" values="${from} 0 0;${to} 0 0;${from} 0 0" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/>${shapeInner}</g>`;
+    } else {
+      rotGroup = `<g transform="rotate(${rotation.toFixed(1)})">${shapeInner}</g>`;
+    }
+    shapes += `<g transform="translate(${x.toFixed(2)},${y.toFixed(2)})">${rotGroup}</g>`;
+  });
+  return shapes;
+}
+
+/* Despachador único: cualquier forma/textura/patrón se resuelve acá,
+   así una misma función sirve para la capa principal y la de mezcla. */
+function buildPatternLayer(shapeId, rand, palette){
+  if(shapeId === 'mesh') return {bg: buildMeshBackground(palette), shapes: buildMeshLayer(rand, palette)};
+  if(shapeId === 'bricks') return {bg: buildBricksBackground(palette), shapes: buildBricksLayer(rand, palette)};
+  if(shapeId === 'planks') return {bg: buildPlanksBackground(palette), shapes: buildPlanksLayer(rand, palette)};
+  if(shapeId === 'checker') return {bg: null, shapes: buildChecker(rand, palette)};
+  if(shapeId === 'curves') return {bg: null, shapes: buildCurves(rand, palette)};
+  if(shapeId === 'vortex') return {bg: null, shapes: buildVortex(rand, palette)};
+  if(shapeId === 'web') return {bg: null, shapes: buildWeb(rand, palette)};
+  if(shapeId === 'hole') return {bg: null, shapes: buildHole(rand, palette)};
+  return {bg: null, shapes: buildOrganicLayer(shapeId, rand, palette)};
+}
+
+function render(){
+  const rand = mulberry32(state.seed);
+  const palette = PALETTES.find(p=>p.id===state.palette);
+
+  const primary = buildPatternLayer(state.shape, rand, palette);
+  let shapes = primary.shapes;
+  let meshBackground = primary.bg || '';
+
+  if(state.mixEnabled && state.mixShape){
+    const mixRand = mulberry32(state.seed + 55341);
+    const secondary = buildPatternLayer(state.mixShape, mixRand, palette);
+    shapes += `<g opacity="${(state.mixOpacity/100).toFixed(2)}">${secondary.shapes}</g>`;
+  }
+
+  const overlay = state.brand ? buildBrandLayer(palette) : '';
+
+  const svg = document.getElementById('cardSvg');
+  const grainLayer = state.grain
+    ? `<filter id="grainFilter" x="-5%" y="-5%" width="110%" height="110%">
+         <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="${(state.seed % 60)+1}" result="noise"/>
+         <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.85 0.85 0.85 0 0"/>
+       </filter>
+       <rect x="0" y="0" width="${W}" height="${H}" filter="url(#grainFilter)" opacity="0.16"/>`
+    : '';
+  svg.innerHTML = `
+    <defs>
+      <clipPath id="cardClip"><rect x="0" y="0" width="${W}" height="${H}" rx="31.8" ry="31.8"/></clipPath>
+      <radialGradient id="sheen" cx="20%" cy="10%" r="90%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.10"/>
+        <stop offset="45%" stop-color="#ffffff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <g clip-path="url(#cardClip)">
+      ${meshBackground || `<rect x="0" y="0" width="${W}" height="${H}" fill="${palette.bg}"/>`}
+      <g opacity="${(state.baseLayerOpacity/100).toFixed(2)}">${shapes}</g>
+      ${state.guilloche ? buildGuillocheLayer(palette) : ''}
+      <rect x="0" y="0" width="${W}" height="${H}" fill="url(#sheen)"/>
+      ${grainLayer}
+      ${overlay}
+    </g>
+  `;
+
+  document.getElementById('plateNo').textContent = state.seed;
+  document.getElementById('paletteName').textContent = palette.name;
+  const shapeLabel = SHAPES.find(s=>s.id===state.shape).label.toLowerCase();
+  const bareLabelShapes = ['mesh','bricks','planks','checker','curves','vortex','web','hole'];
+  const specText = bareLabelShapes.includes(state.shape)
+    ? shapeLabel
+    : `${shapeLabel} / ${LAYOUTS.find(l=>l.id===state.layout).label.toLowerCase()}`;
+  document.getElementById('plateSpec').textContent = specText;
+}
+
+/* ---------------------------------------------------------
+   Descargas
+--------------------------------------------------------- */
+document.getElementById('downloadSvg').addEventListener('click', ()=>{
+  const svg = document.getElementById('cardSvg');
+  const clone = svg.cloneNode(true);
+  clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+  const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + clone.outerHTML;
+  const blob = new Blob([xml], {type:'image/svg+xml'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `textura-tarjeta-${state.seed}.svg`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('downloadPng').addEventListener('click', ()=>{
+  const svg = document.getElementById('cardSvg');
+  const clone = svg.cloneNode(true);
+  clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+  const xml = new XMLSerializer().serializeToString(clone);
+  const svg64 = btoa(unescape(encodeURIComponent(xml)));
+  const image64 = 'data:image/svg+xml;base64,' + svg64;
+  const img = new Image();
+  const scale = 3;
+  img.onload = ()=>{
+    const canvas = document.createElement('canvas');
+    canvas.width = W*scale;
+    canvas.height = H*scale;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(blob=>{
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `textura-tarjeta-${state.seed}.png`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  };
+  img.src = image64;
+});
+
+updateControlsVisibility();
+render();
+</script>
+</body>
+</html>

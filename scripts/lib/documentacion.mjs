@@ -76,11 +76,15 @@ export function aplicar(tok, S) {
   return cambios;
 }
 
+// The seed of an entity: its birth. Everything it generates starts from it, so the same entity always draws the same.
+export function semilla(S) { const n = S.E.nacimiento; return `nac|${n.fecha}|${n.hora || ''}|${n.zona}`; }
+
 // The same values as custom properties, declared after alma.css on the selectors alma.css uses for each theme.
 export function css(S) {
   const sel = { dark: ':root, [data-theme="dark"]', light: '[data-theme="light"]', 'dark-hc': '[data-theme="dark-hc"]', 'light-hc': '[data-theme="light-hc"]' };
   const decl = (o) => Object.entries(o).map(([k, v]) => `  --${k}: ${String(v).replace(/^\{(.+)\}$/, 'var(--$1)')};`).join('\n');
-  let out = `/* Entidad ${S.L.nombre}: los valores de la entidad sobre los tokens de ALMA. */\n:root {\n${Object.values(S.core).map(decl).join('\n')}\n}\n`;
+  // The seed of what the entity generates (its pictograms) travels with its values: the Pictogram component reads it.
+  let out = `/* Entidad ${S.L.nombre}: los valores de la entidad sobre los tokens de ALMA. */\n:root {\n${Object.values(S.core).map(decl).join('\n')}\n  --pictogram-seed: "${semilla(S)}";\n}\n`;
   for (const th of THEMES) out += `${sel[th]} {\n${decl(S.color[th])}\n}\n`;
   return out;
 }

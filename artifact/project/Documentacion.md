@@ -4,6 +4,11 @@
 
 Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detalle de cada cambio está en el historial del repositorio.
 
+### 2 de octubre de 2026
+
+- **Pictogram, un componente nuevo.** Un dibujo de línea pequeño que distingue una cosa de sus vecinas: un capítulo, un proyecto, una etiqueta. El nombre de la cosa elige el dibujo y el mismo nombre da siempre el mismo; `pictogramDrawings()` reparte los dibujos de una lista para que no se repitan. Va a 24 o 32 px, hereda el color del texto y sigue el peso de la letra y las esquinas de cada entidad. No reemplaza a `Icon`: los íconos de Carbon siguen para acciones y estados. Los dibujos vienen del estudio de íconos de Cordura y viven en `entidades/pictogramas.mjs`; `npm run build` los copia al paquete.
+- **Dos familias de íconos.** La guía de íconos ahora dice cuándo va un ícono y cuándo un pictograma.
+
 ### 1 de octubre de 2026
 
 - **SegmentedControl, versión nueva.** Se rehízo siguiendo el control segmentado de Apple: un riel hundido sin borde, segmentos del mismo ancho y una sola pieza que se desliza hasta la opción elegida, con esquinas concéntricas a las del riel. Mide 44 px de alto en vez de 62, el texto sube de 11 a 12 px y la opción elegida va en peso de énfasis. Corrige el tema claro, donde la opción elegida era blanca sobre blanco y solo cambiaba el color del texto. Cambian los valores de `segmented-bg`, `segmented-selected-bg` y `segmented-selected-text`; `segmented-border` pasa a ser el contorno de la pieza elegida. Las propiedades y el teclado son los mismos.

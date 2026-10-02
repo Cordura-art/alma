@@ -94,6 +94,27 @@ export interface IconProps {
 }
 export declare function Icon(props: IconProps): any;
 
+export interface PictogramProps {
+  /** The name of the thing this pictogram distinguishes (a chapter, a project, a tag). The same name always gives the same drawing. */
+  name: string | number;
+  /** px: 24 (default) · 32. Rendered in rem, so it scales with text. Below 24 the drawings lose detail. */
+  size?: 24 | 32;
+  /** One of the drawings, as given by pictogramDrawings() for a list, so no two names of the list share one. */
+  drawing?: number;
+  color?: string;
+  /** Accessible name; omit it when the thing's name is next to the pictogram (the usual case). */
+  label?: string;
+  className?: string;
+}
+/** A small line drawing that tells one thing apart from its neighbors. Not an icon: use Icon for actions and states. */
+export declare function Pictogram(props: PictogramProps): any;
+/** The drawings for a list of names that sit together, none repeated while there are drawings left. */
+export declare function pictogramDrawings(names: Array<string | number>): number[];
+/** Fixes by hand what the component otherwise reads from the page's styles: the seed (--pictogram-seed, which an entity's
+ *  stylesheet declares; Cordura's birth without it), the stroke (font-weight-body; 1 = base) and round line ends
+ *  (radius-button). null gives one back to the styles. Returns what pictograms are drawn with. */
+export declare function configurePictograms(options?: { seed?: string | null; stroke?: number | null; round?: boolean | null }): { seed: string; stroke: number; round: boolean };
+
 export interface SegmentedOption { value: string; label: string; }
 export interface SegmentedControlProps {
   options: Array<SegmentedOption | string>;

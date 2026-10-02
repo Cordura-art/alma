@@ -1,0 +1,18 @@
+<!-- @dsCard group="Iconografía" height=300 subtitle="Distingue una cosa de sus vecinas · 30 dibujos · junto al nombre" -->
+<div id="root" style="padding:24px;display:grid;gap:24px;color:var(--icon-01);"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, P = AlmaDS.Pictogram;
+  var nombres = ['Prólogo', 'Capítulo 1', 'Capítulo 2', 'Capítulo 3', 'Capítulo 4', 'Notas del editor'], dibujos = AlmaDS.pictogramDrawings(nombres);
+  var lab = { fontSize: '0.6875rem', letterSpacing: '0.165px', color: 'var(--text-02)', width: 72 };
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(11rem, 1fr))', gap: 16 } }, nombres.map(function (n, i) {
+      return h('div', { key: n, style: { display: 'flex', alignItems: 'center', gap: 16, color: 'var(--nav-selected)' } },
+        h(P, { name: n, drawing: dibujos[i] }), h('span', { className: 'web-body-m', style: { color: 'var(--text-01)' } }, n));
+    })),
+    [['24 px', 24], ['32 px', 32]].map(function (r) {
+      return h('div', { key: r[0], style: { display: 'flex', alignItems: 'center', gap: 16 } }, h('span', { style: lab }, r[0]),
+        ['Borradores', 'Lecturas', 'Etiquetas', 'Proyectos', 'Versiones', 'Notas', 'Autores', 'Archivo'].map(function (n) { return h(P, { key: n, name: n, size: r[1] }); }));
+    })));
+</script>

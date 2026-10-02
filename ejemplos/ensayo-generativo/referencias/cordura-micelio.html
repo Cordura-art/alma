@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cordura — Micelio de silicio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141210; --panel:#1d1a16; --panel-line:#37312a;
+    --paper:#F2EDE4; --paper-dim:#a89f92; --accent:#C98A4B;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    background-image:radial-gradient(circle at 1px 1px, rgba(242,237,228,0.035) 1px, transparent 0);
+    background-size:22px 22px;
+    color:var(--paper); font-family:'IBM Plex Mono', monospace;
+    min-height:100vh; display:flex; flex-direction:column;
+  }
+  header{
+    padding:24px 32px 16px; border-bottom:1px solid var(--panel-line);
+    display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  header h1{font-family:'Fraunces', serif; font-weight:600; font-size:26px; margin:0;}
+  header h1 em{font-style:italic; font-weight:400; color:var(--accent);}
+  header p{margin:0; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--paper-dim);}
+  .layout{display:flex; flex:1; min-height:0;}
+  @media (max-width:880px){ .layout{flex-direction:column;} }
+
+  .sidebar{width:328px; flex-shrink:0; padding:24px 26px 40px; border-right:1px solid var(--panel-line); overflow-y:auto;}
+  @media (max-width:880px){ .sidebar{width:100%; border-right:none; border-bottom:1px solid var(--panel-line);} }
+
+  .group{margin-bottom:22px;}
+  .group-label{
+    font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--paper-dim);
+    margin-bottom:10px; display:flex; justify-content:space-between;
+  }
+  .group-label .val{color:var(--paper); letter-spacing:0.5px;}
+  .check{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--paper-dim); cursor:pointer;}
+
+  input[type=number]{
+    width:100%; background:var(--panel); border:1px solid var(--panel-line);
+    color:var(--paper); font-family:inherit; font-size:13px; padding:9px 10px; border-radius:2px; outline:none;
+  }
+  input[type=number]:focus{border-color:var(--accent);}
+  input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:18px; background:transparent; cursor:pointer; margin:0;}
+  input[type=range]::-webkit-slider-runnable-track{height:2px; background:var(--panel-line);}
+  input[type=range]::-moz-range-track{height:2px; background:var(--panel-line);}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:12px; height:12px; margin-top:-5px; background:var(--accent); border:none; border-radius:50%;}
+  input[type=range]::-moz-range-thumb{width:12px; height:12px; background:var(--accent); border:none; border-radius:50%;}
+
+  .color-row{display:flex; align-items:center; gap:10px;}
+  input[type=color]{
+    -webkit-appearance:none; appearance:none; width:40px; height:32px; background:var(--panel);
+    border:1px solid var(--panel-line); border-radius:2px; padding:2px; cursor:pointer; flex-shrink:0;
+  }
+  input[type=color]::-webkit-color-swatch-wrapper{padding:0;}
+  input[type=color]::-webkit-color-swatch{border:none; border-radius:1px;}
+  .color-hex{font-size:11px; color:var(--paper-dim); letter-spacing:0.5px;}
+
+  .seed-row{display:flex; gap:8px;}
+  .seed-row input{flex:1;}
+  .icon-btn{
+    width:40px; flex-shrink:0; background:var(--panel); border:1px solid var(--panel-line);
+    color:var(--paper); border-radius:2px; cursor:pointer; font-size:16px;
+    display:flex; align-items:center; justify-content:center; transition:border-color .15s, transform .2s;
+  }
+  .icon-btn:hover{border-color:var(--accent);}
+  .icon-btn:active{transform:rotate(120deg);}
+
+  .btn{
+    width:100%; padding:11px 10px; background:var(--panel); border:1px solid var(--panel-line);
+    color:var(--paper); font-family:inherit; font-size:12px; letter-spacing:1px; text-transform:uppercase;
+    border-radius:2px; cursor:pointer; transition:border-color .15s, background .15s;
+  }
+  .btn:hover{border-color:var(--accent); background:#2a2118;}
+  .btn.primary{background:var(--accent); color:#201406; border-color:var(--accent); font-weight:600;}
+  .btn-row{display:flex; gap:8px; margin-top:4px;}
+  hr.rule{border:none; border-top:1px solid var(--panel-line); margin:22px 0;}
+
+  .group-title{font-family:'Fraunces',serif; font-style:italic; font-size:15px; color:var(--accent); margin:0 0 16px;}
+  .pill-row{display:grid; grid-template-columns:repeat(4,1fr); gap:6px;}
+  .pill{border:1px solid var(--panel-line); background:var(--panel); color:var(--paper-dim); font-family:inherit; font-size:11px; padding:9px 2px; border-radius:2px; cursor:pointer; text-align:center; transition:border-color .15s,color .15s;}
+  .pill.active{border-color:var(--accent); color:var(--paper); background:#2a2118;}
+  .readout{font-size:11px; color:var(--paper-dim); letter-spacing:.5px; margin-top:8px;}
+  .transport{display:flex; align-items:center; gap:12px;}
+  .transport .btn{width:84px; flex-shrink:0; padding:9px 6px;}
+
+  .stage{flex:1; display:flex; align-items:center; justify-content:center; padding:32px 30px; min-width:0;}
+  /* la tarjeta ocupa el alto disponible; el ancho sale de la proporción 430:932 */
+  .plate-mount{width:min(100%, calc((100vh - 300px) * 0.4614 + 68px)); min-width:250px;}
+  .plate-frame{position:relative; border:1px solid var(--panel-line); padding:34px;}
+  .crop{position:absolute; width:14px; height:14px; border:1px solid var(--paper-dim); opacity:0.55;}
+  .crop.tl{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .crop.tr{top:-1px;right:-1px;border-left:none;border-bottom:none;}
+  .crop.bl{bottom:-1px;left:-1px;border-right:none;border-top:none;}
+  .crop.br{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+  .card-wrap{
+    width:100%; aspect-ratio:430/932; border-radius:12.79% / 5.9%;
+    overflow:hidden; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(242,237,228,0.06);
+  }
+  svg#cardSvg{display:block; width:100%; height:100%;}
+
+  .caption{
+    display:flex; justify-content:space-between; align-items:baseline; margin-top:16px; padding:0 2px;
+    font-size:11px; letter-spacing:1px; color:var(--paper-dim);
+  }
+  .caption b{color:var(--paper); font-weight:500;}
+  .caption .plate-no{font-family:'Fraunces', serif; font-style:italic; font-size:14px; color:var(--accent);}
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--panel-line); border-radius:4px;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Cordura <em>— Micelio de silicio</em></h1>
+  <p>iPhone 16 Plus — 430 × 932 pt</p>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+
+    <div class="group">
+      <div class="group-label">Tiempo <span class="val" id="timeVal">0.0 s</span></div>
+      <div class="transport">
+        <button class="btn" id="playBtn">Pausa</button>
+        <input type="range" id="timeline" min="0" max="1000" value="0">
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="group">
+      <div class="group-label">Duración del crecimiento <span class="val" id="growVal"></span></div>
+      <input type="range" id="grow" min="4" max="24" value="4">
+    </div>
+    <div class="group">
+      <div class="group-label">Pausa con textura completa <span class="val" id="holdVal"></span></div>
+      <input type="range" id="hold" min="0" max="12" value="4">
+    </div>
+    <div class="group">
+      <div class="group-label">Tiempo de maduración <span class="val" id="matureVal"></span></div>
+      <input type="range" id="mature" min="8" max="70" value="32">
+    </div>
+    <div class="group">
+      <div class="group-label">Intensidad del holograma <span class="val" id="holoVal"></span></div>
+      <input type="range" id="holo" min="10" max="100" value="10">
+    </div>
+    <hr class="rule">
+    <div class="group-title">Holograma</div>
+    <div class="group">
+      <div class="group-label">Movimiento (inclinación)</div>
+      <div class="pill-row" id="tiltModeRow"></div>
+      <div class="readout" id="tiltReadout">X 0° · Y 0°</div>
+    </div>
+    <div id="swayCtl">
+    <div class="group">
+      <div class="group-label">Velocidad del vaivén <span class="val" id="swaySpeedVal"></span></div>
+      <input type="range" id="swaySpeed" min="2" max="60" value="15">
+    </div>
+    <div class="group">
+      <div class="group-label">Amplitud del vaivén <span class="val" id="swayAmpVal"></span></div>
+      <input type="range" id="swayAmp" min="5" max="45" value="25">
+    </div>
+    </div>
+    <div id="manualCtl" style="display:none">
+    <div class="group">
+      <div class="group-label">Inclinación X <span class="val" id="tiltXVal"></span></div>
+      <input type="range" id="tiltX" min="-45" max="45" value="0">
+    </div>
+    <div class="group">
+      <div class="group-label">Inclinación Y <span class="val" id="tiltYVal"></span></div>
+      <input type="range" id="tiltY" min="-45" max="45" value="0">
+    </div>
+    </div>
+    <div class="group">
+      <div class="group-label">Ángulo de la red de difracción <span class="val" id="hgAngleVal"></span></div>
+      <input type="range" id="hgAngle" min="0" max="180" value="35">
+    </div>
+    <div class="group">
+      <div class="group-label">Período del espectro <span class="val" id="hgPeriodVal"></span></div>
+      <input type="range" id="hgPeriod" min="80" max="900" value="320">
+    </div>
+    <div class="group">
+      <div class="group-label">Dispersión (espectros / 10°) <span class="val" id="hgDispVal"></span></div>
+      <input type="range" id="hgDisp" min="5" max="200" value="45">
+    </div>
+    <div class="group">
+      <div class="group-label">Pureza espectral <span class="val" id="hgSatVal"></span></div>
+      <input type="range" id="hgSat" min="0" max="100" value="85">
+    </div>
+    <div class="group">
+      <div class="group-label">Facetas (variación por hifa) <span class="val" id="hgFacetVal"></span></div>
+      <input type="range" id="hgFacet" min="0" max="100" value="35">
+    </div>
+    <div class="group">
+      <div class="group-label">Brillo especular <span class="val" id="hgSheenVal"></span></div>
+      <input type="range" id="hgSheen" min="0" max="100" value="35">
+    </div>
+    <div class="group">
+      <div class="group-label">Tamaño del destello <span class="val" id="hgSheenSizeVal"></span></div>
+      <input type="range" id="hgSheenSize" min="60" max="600" value="240">
+    </div>
+    <div class="group">
+      <div class="group-label">Paralaje de profundidad <span class="val" id="hgParallaxVal"></span></div>
+      <input type="range" id="hgParallax" min="0" max="30" value="2">
+    </div>
+    <div class="group">
+      <div class="group-label">Selectividad angular <span class="val" id="hgSelVal"></span></div>
+      <input type="range" id="hgSel" min="0" max="100" value="40">
+    </div>
+    <hr class="rule">
+    <div class="group-title">Colonización</div>
+    <div class="group">
+      <div class="group-label">Focos de colonización <span class="val" id="fociVal"></span></div>
+      <input type="range" id="foci" min="1" max="8" value="4">
+    </div>
+    <div class="group">
+      <div class="group-label">Irregularidad de las hifas <span class="val" id="irregVal"></span></div>
+      <input type="range" id="irreg" min="0" max="100" value="60">
+    </div>
+    <div class="group">
+      <div class="group-label">Pausa en cada bifurcación <span class="val" id="dwellVal"></span></div>
+      <input type="range" id="dwell" min="0" max="100" value="30">
+    </div>
+    <div class="group">
+      <div class="group-label">Color de línea en crecimiento</div>
+      <div class="color-row">
+        <input type="color" id="growColor" value="#041419">
+        <span class="color-hex" id="growColorHex">#041419</span>
+      </div>
+    </div>
+    <div class="group">
+      <label class="check"><input type="checkbox" id="reseed" checked> Nueva semilla en cada ciclo</label>
+    </div>
+
+    <hr class="rule">
+
+    <div class="group">
+      <div class="group-label">Profundidad <span class="val" id="sdDepthVal"></span></div>
+      <input type="range" id="sdDepth" min="3" max="9" value="9">
+    </div>
+    <div class="group">
+      <div class="group-label">Probabilidad de relleno <span class="val" id="sdFillProbVal"></span></div>
+      <input type="range" id="sdFillProb" min="0" max="100" value="1">
+    </div>
+    <div class="group">
+      <div class="group-label">Tamaño mínimo <span class="val" id="sdMinSizeVal"></span></div>
+      <input type="range" id="sdMinSize" min="3" max="20" value="3">
+    </div>
+
+    <hr class="rule">
+
+    <div class="group">
+      <div class="group-label">Color de relleno</div>
+      <div class="color-row">
+        <input type="color" id="fillColor" value="#000000">
+        <span class="color-hex" id="fillColorHex">#000000</span>
+      </div>
+    </div>
+    <div class="group">
+      <div class="group-label">Color de fondo</div>
+      <div class="color-row">
+        <input type="color" id="bgColor" value="#060606">
+        <span class="color-hex" id="bgColorHex">#060606</span>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="group">
+      <div class="group-label">Semilla</div>
+      <div class="seed-row">
+        <input type="number" id="seedInput" value="90794">
+        <button class="icon-btn" id="diceBtn" title="Nueva semilla al azar">⟳</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="btn-row">
+        <button class="btn" id="downloadSvg">SVG (cuadro actual)</button>
+        <button class="btn" id="downloadPng">PNG (cuadro actual)</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn primary" id="regenBtn" style="margin-top:8px;">Regenerar ("R")</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="stage">
+    <div class="plate-mount">
+      <div class="plate-frame">
+        <span class="crop tl"></span><span class="crop tr"></span>
+        <span class="crop bl"></span><span class="crop br"></span>
+        <div class="card-wrap">
+          <svg id="cardSvg" viewBox="0 0 430 932" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+      </div>
+      <div class="caption">
+        <span>PLACA N.º <b id="plateNo">90794</b> — Micelio</span>
+        <span class="plate-no">Cordura</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ---------------------------------------------------------
+   Utilidades
+--------------------------------------------------------- */
+function mulberry32(seed){
+  let a = seed >>> 0;
+  return function(){
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const randRange = (r,a,b)=> a + r()*(b-a);
+const clamp01 = v => Math.max(0, Math.min(1, v));
+const smooth = v => { v = clamp01(v); return v*v*(3-2*v); };
+
+// Tarjeta iPhone 16 Plus: 1290 x 2796 px = 430 x 932 pt
+const W = 430, H = 932, CORNER = 55;
+const SPX = W*1.02, SPY = H*1.02;
+const X0 = W/2 - SPX/2;
+const Y0 = H/2 - SPY/2;
+
+const state = {
+  bgColor:'#060606', fillColor:'#000000', growColor:'#041419', seed:90794,
+  sdDepth:9, sdFillProb:1, sdMinSize:3,
+  grow:4, hold:4, mature:32, holo:10, reseed:true,
+  foci:4, irreg:60, dwell:30,
+  tiltMode:'auto', tiltX:0, tiltY:0, swaySpeed:15, swayAmp:25,
+  hgAngle:35, hgPeriod:320, hgDisp:45, hgSat:85, hgFacet:35, hgSheen:35, hgSheenSize:240, hgParallax:2, hgSel:40,
+};
+
+const FADE = 1.6;      // disolución final (s)
+const GAP  = 0.4;      // silencio entre ciclos (s)
+const LEVELS = 10;     // niveles de maduración (0 = línea joven, LEVELS = degradé completo)
+const NEUTRAL_FLOOR = 0.251;
+const FACETS = 4;      // clases de faceta (cada hifa refleja con una fase distinta)
+const PIECE = 36;      // largo máximo de tramo para colorear por edad (pt)
+const TIP_LAG = 0.03;  // fracción de la duración de crecimiento antes de empezar a madurar
+
+/* ---------------------------------------------------------
+   1) Estructura: subdivisión recursiva -> segmentos + hojas
+--------------------------------------------------------- */
+let segs = [], leaves = [];
+
+function buildTree(){
+  const rand = mulberry32(state.seed + 777);
+  rand(); rand(); rand();                       // (mantiene la secuencia de semillas anteriores)
+  segs = []; leaves = [];
+  const minSize = Math.min(SPX,SPY)*(state.sdMinSize/100);
+  const fillProb = state.sdFillProb/100;
+
+  function sub(x,y,w,h,depth){
+    const big = w*h > SPX*SPY*0.05;
+    const stop = depth<=0 || w<minSize || h<minSize || (!big && rand()<0.14);
+    if(stop){
+      leaves.push({x,y,w,h, fill: rand()<fillProb}); rand();
+      return;
+    }
+    const vertical = w>=h ? rand()<0.72 : rand()<0.28;
+    if(vertical){
+      const sx = x + w*randRange(rand,0.32,0.68);
+      segs.push({v:true, x:sx, ya:y, yb:y+h}); rand();
+      sub(x,y,sx-x,h,depth-1);
+      sub(sx,y,x+w-sx,h,depth-1);
+    } else {
+      const sy = y + h*randRange(rand,0.32,0.68);
+      segs.push({v:false, y:sy, xa:x, xb:x+w}); rand(); rand();
+      sub(x,y,w,sy-y,depth-1);
+      sub(x,sy,w,y+h-sy,depth-1);
+    }
+  }
+  sub(X0, Y0, SPX, SPY, state.sdDepth);
+}
+
+/* ---------------------------------------------------------
+   2) Red de hifas: las líneas de corte forman un grafo
+   (nodos = cruces/extremos, aristas = tramos entre nodos).
+   La colonización es un frente de Dijkstra multi-fuente:
+   avanza por las líneas, se bifurca en cada cruce y las
+   hifas se fusionan (anastomosis) al encontrarse.
+--------------------------------------------------------- */
+let nodes = [], edges = [], sc = 1;
+
+function buildGraph(){
+  const rand = mulberry32(state.seed*31 + 4242);
+  nodes = []; edges = [];
+  if(!segs.length) return;
+  const map = new Map();
+  const nodeId = (x,y)=>{
+    const k = Math.round(x*100)+','+Math.round(y*100);
+    let i = map.get(k);
+    if(i === undefined){ i = nodes.length; nodes.push({x,y,adj:[],din:Infinity,dout:Infinity,dwell:0}); map.set(k,i); }
+    return i;
+  };
+
+  const EPS = 0.01;
+  const V = segs.filter(s=>s.v), Hs = segs.filter(s=>!s.v);
+  segs.forEach(s=>{ s.pts = s.v ? [s.ya,s.yb] : [s.xa,s.xb]; });
+  for(const v of V) for(const h of Hs){
+    if(v.x>=h.xa-EPS && v.x<=h.xb+EPS && h.y>=v.ya-EPS && h.y<=v.yb+EPS){
+      v.pts.push(h.y); h.pts.push(v.x);
+    }
+  }
+
+  const I = state.irreg/100;
+  for(const s of segs){
+    const p = s.pts.slice().sort((a,b)=>a-b);
+    const u = [p[0]];
+    for(let i=1;i<p.length;i++) if(p[i]-u[u.length-1] > EPS) u.push(p[i]);
+    for(let i=0;i<u.length-1;i++){
+      const a = s.v ? nodeId(s.x,u[i])   : nodeId(u[i],s.y);
+      const b = s.v ? nodeId(s.x,u[i+1]) : nodeId(u[i+1],s.y);
+      if(a===b) continue;
+      const len = u[i+1]-u[i];
+      const w = len*Math.exp((rand()-0.5)*2*I*0.9);      // velocidad irregular por tramo
+      const e = {a,b,len,w,pieces:[]};
+      const n = Math.max(1,Math.ceil(len/PIECE));
+      for(let k=0;k<n;k++) e.pieces.push([k/n,(k+1)/n,(((edges.length*73856093) ^ (k*19349663))>>>0)%FACETS]);
+      edges.push(e);
+      nodes[a].adj.push(edges.length-1); nodes[b].adj.push(edges.length-1);
+    }
+  }
+  const D = state.dwell/100;
+  nodes.forEach(n=>{ n.dwell = D*rand()*40; });
+
+  // Focos de colonización cerca del borde inferior
+  const nf = state.foci;
+  for(let i=0;i<nf;i++){
+    const tx = W*((i+0.5)/nf + (rand()-0.5)*0.5/nf), ty = H+10;
+    let best = -1, bd = Infinity;
+    nodes.forEach((n,idx)=>{ const d=(n.x-tx)**2+(n.y-ty)**2; if(d<bd){bd=d;best=idx;} });
+    const off = rand()*40;
+    if(off < nodes[best].din) nodes[best].din = off;
+  }
+
+  // Dijkstra multi-fuente con pausa en cada nodo
+  const done = new Uint8Array(nodes.length);
+  for(;;){
+    let u = -1, m = Infinity;
+    for(let i=0;i<nodes.length;i++) if(!done[i] && nodes[i].din < m){ m = nodes[i].din; u = i; }
+    if(u < 0) break;
+    done[u] = 1;
+    const nu = nodes[u];
+    nu.dout = nu.din + nu.dwell;
+    for(const ei of nu.adj){
+      const e = edges[ei], o = e.a===u ? e.b : e.a;
+      const cand = nu.dout + e.w;
+      if(cand < nodes[o].din) nodes[o].din = cand;
+    }
+  }
+  // Nodos inalcanzables (no debería ocurrir): se colonizan al final
+  let maxEnd = 0;
+  for(const e of edges){
+    const t = Math.min(nodes[e.a].dout, nodes[e.b].dout) + e.w;
+    if(isFinite(t) && t > maxEnd) maxEnd = t;
+  }
+  nodes.forEach(n=>{ if(!isFinite(n.dout)){ n.dout = maxEnd; n.din = maxEnd; } });
+  sc = maxEnd > 0 ? 1/maxEnd : 1;                        // sc * (unidades de peso) = fracción de la duración
+
+  // Hojas: se rellenan cuando la red llega a su centro
+  for(const l of leaves){
+    if(!l.fill) continue;
+    const cx = l.x+l.w/2, cy = l.y+l.h/2;
+    let best = 0, bd = Infinity;
+    nodes.forEach((n,idx)=>{ const d=(n.x-cx)**2+(n.y-cy)**2; if(d<bd){bd=d;best=idx;} });
+    l.f = nodes[best].din*sc;
+  }
+}
+
+/* ---------------------------------------------------------
+   SVG: esqueleto + una ruta por nivel de maduración
+--------------------------------------------------------- */
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('cardSvg');
+
+/* Espectro visible (Bruton): longitud de onda -> RGB */
+function wl2rgb(w){
+  let r=0,g=0,b=0;
+  if(w<440){ r=-(w-440)/60; b=1; }
+  else if(w<490){ g=(w-440)/50; b=1; }
+  else if(w<510){ g=1; b=-(w-510)/20; }
+  else if(w<580){ r=(w-510)/70; g=1; }
+  else if(w<645){ r=1; g=-(w-645)/65; }
+  else { r=1; }
+  let f = 1;
+  if(w<420) f = 0.3+0.7*(w-380)/40; else if(w>645) f = 0.3+0.7*(700-w)/55;
+  const gm = 0.8;
+  return [r,g,b].map(c=>Math.pow(Math.max(0,c)*f, gm));
+}
+
+svg.innerHTML = `
+  <defs>
+    <clipPath id="cardClip"><rect width="${W}" height="${H}" rx="${CORNER}" ry="${CORNER}"/></clipPath>
+    ${Array.from({length:FACETS},(_,c)=>`<linearGradient id="holoGrad${c}" gradientUnits="userSpaceOnUse" spreadMethod="reflect" x1="0" y1="0" x2="100" y2="0"></linearGradient>`).join('')}
+    <radialGradient id="sheenGrad" gradientUnits="userSpaceOnUse" cx="${W/2}" cy="${H/2}" r="240">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g clip-path="url(#cardClip)">
+    <rect id="bgRect" width="${W}" height="${H}"/>
+    <g id="content">
+      <g id="fillsG"></g>
+      <g id="neutralG" fill="none" stroke-width="0.7" stroke-linecap="round"></g>
+      <g id="holoG" fill="none" stroke-width="0.9" stroke-linecap="round"></g>
+      <g id="sheenG" fill="none" stroke="url(#sheenGrad)" stroke-width="1.1" stroke-linecap="round" style="mix-blend-mode:screen"></g>
+    </g>
+  </g>
+`;
+const $ = id => document.getElementById(id);
+const fillsG = $('fillsG'), neutralG = $('neutralG'), holoG = $('holoG'), sheenG = $('sheenG');
+const content = $('content'), sheenGrad = $('sheenGrad');
+const holoGrads = Array.from({length:FACETS},(_,c)=>$('holoGrad'+c));
+const pathN = [], pathS = [], pathC = [];
+for(let j=0;j<=LEVELS;j++){
+  const a = document.createElementNS(NS,'path'); neutralG.appendChild(a); pathN.push(a);
+  const s = document.createElementNS(NS,'path'); sheenG.appendChild(s); pathS.push(s);
+  const row = [];
+  for(let c=0;c<FACETS;c++){
+    const p = document.createElementNS(NS,'path');
+    p.setAttribute('stroke', `url(#holoGrad${c})`);
+    holoG.appendChild(p); row.push(p);
+  }
+  pathC.push(row);
+}
+
+function updateSpectrum(){
+  // Un barrido violeta->rojo; "reflect" lo espeja para repetir órdenes de difracción sin saltos.
+  const N = 24, sat = state.hgSat/100;
+  const stopsHtml = Array.from({length:N+1},(_,i)=>{
+    const u = i/N, w = 400 + 290*u;
+    const rgb = wl2rgb(w).map(c=> Math.round(255*(c*sat + (1-sat)*0.62*(1-c*0.2))));
+    return `<stop offset="${(u*100).toFixed(1)}%" stop-color="rgb(${rgb[0]},${rgb[1]},${rgb[2]})"/>`;
+  }).join('');
+  holoGrads.forEach(g=>{ g.innerHTML = stopsHtml; });
+}
+
+function rebuildElements(){
+  fillsG.innerHTML = '';
+  leaves.forEach(l=>{
+    if(!l.fill){ l.el = null; return; }
+    l.el = document.createElementNS(NS,'rect');
+    l.el.setAttribute('x', l.x.toFixed(2)); l.el.setAttribute('y', l.y.toFixed(2));
+    l.el.setAttribute('width', l.w.toFixed(2)); l.el.setAttribute('height', l.h.toFixed(2));
+    l.el.setAttribute('fill', state.fillColor);
+    l.el.setAttribute('opacity','0');
+    fillsG.appendChild(l.el);
+  });
+}
+function applyStatic(){
+  $('bgRect').setAttribute('fill', state.bgColor);
+  neutralG.setAttribute('stroke', state.growColor);
+  updateSpectrum();
+  leaves.forEach(l=>{ if(l.el) l.el.setAttribute('fill', state.fillColor); });
+}
+
+/* ---------------------------------------------------------
+   Holograma: red de difracción + inclinación.
+   El color depende de (posición · dirección de la red)/período
+   + inclinación · dispersión. Al inclinar, las bandas espectrales
+   barren la superficie; cada faceta de hifa tiene otra fase;
+   el destello especular sigue a la luz; la capa "flota" en
+   profundidad (paralaje) y se apaga fuera del ángulo de brillo.
+--------------------------------------------------------- */
+const tilt = {x:0, y:0};
+function applyHologram(){
+  const phi = state.hgAngle*Math.PI/180, dx = Math.cos(phi), dy = Math.sin(phi);
+  const P = state.hgPeriod;
+  const along = tilt.x*dx + tilt.y*dy;
+  const shift = along/10*(state.hgDisp/100);            // espectros barridos por la inclinación
+  for(let c=0;c<FACETS;c++){
+    const off = shift + (c/FACETS)*(state.hgFacet/100);
+    const x1 = W/2 + dx*P*off, y1 = H/2 + dy*P*off;
+    holoGrads[c].setAttribute('x1', x1.toFixed(2)); holoGrads[c].setAttribute('y1', y1.toFixed(2));
+    holoGrads[c].setAttribute('x2', (x1+dx*P).toFixed(2)); holoGrads[c].setAttribute('y2', (y1+dy*P).toFixed(2));
+  }
+  const mag = Math.hypot(tilt.x, tilt.y);
+  const gain = 1 - (state.hgSel/100)*(1 - Math.exp(-Math.pow(mag/40,2)));
+  holoG.setAttribute('opacity', clamp01(state.holo/100*gain).toFixed(3));
+  const par = state.hgParallax/30;                        // px por grado
+  holoG.setAttribute('transform', `translate(${(tilt.x*par).toFixed(2)},${(tilt.y*par).toFixed(2)})`);
+  sheenGrad.setAttribute('cx', (W/2 + tilt.x*7).toFixed(1));
+  sheenGrad.setAttribute('cy', (H/2 + tilt.y*7).toFixed(1));
+  sheenGrad.setAttribute('r', state.hgSheenSize);
+  sheenG.setAttribute('opacity', (state.hgSheen/100).toFixed(3));
+}
+
+/* ---------------------------------------------------------
+   Frame: función pura de t (permite scrub).
+   Cada tramo de hifa avanza desde sus extremos colonizados;
+   su color depende de la EDAD de cada trozo: la punta joven
+   es fina y sin color, y madura al degradé holográfico.
+--------------------------------------------------------- */
+const cycleLen = () => state.grow + state.hold + FADE + GAP;
+
+function renderAt(t){
+  const grow = state.grow;
+  const tu = t/(sc*0.9*grow);                 // tiempo en unidades de peso (0.9: colonización termina al 90%)
+  const secPerUnit = sc*0.9*grow;
+  const lagT = TIP_LAG*grow;
+  const matT = Math.max(0.05, state.mature/100*grow*0.8);
+
+  const dN = Array.from({length:LEVELS+1},()=>Array.from({length:FACETS},()=>[]));
+  for(const e of edges){
+    const A = nodes[e.a], B = nodes[e.b];
+    let pa = clamp01((tu - A.dout)/e.w), pb = clamp01((tu - B.dout)/e.w);
+    if(pa<=0 && pb<=0) continue;
+    if(pa+pb >= 1){ pa = 1; pb = 1; }
+    for(const [p0,p1,cls] of e.pieces){
+      let s0 = null, s1 = null, hasA = pa>p0, hasB = (1-pb)<p1;
+      if(!hasA && !hasB) continue;
+      let ivs = [];
+      if(hasA) ivs.push([p0, Math.min(p1,pa)]);
+      if(hasB) ivs.push([Math.max(p0,1-pb), p1]);
+      if(ivs.length===2 && ivs[0][1] >= ivs[1][0]-1e-9) ivs = [[ivs[0][0], ivs[1][1]]];
+      // edad del trozo (la más antigua entre las dos direcciones que lo alcanzan)
+      let age = -Infinity;
+      if(hasA) age = Math.max(age, (tu - (A.dout + p0*e.w))*secPerUnit);
+      if(hasB) age = Math.max(age, (tu - (B.dout + (1-p1)*e.w))*secPerUnit);
+      const m = smooth((age - lagT)/matT);
+      const lvl = Math.round(m*LEVELS);
+      for(const [q0,q1] of ivs){
+        if(q1-q0 < 1e-4) continue;
+        const x1 = A.x+(B.x-A.x)*q0, y1 = A.y+(B.y-A.y)*q0;
+        const x2 = A.x+(B.x-A.x)*q1, y2 = A.y+(B.y-A.y)*q1;
+        dN[lvl][cls].push(`M${x1.toFixed(1)},${y1.toFixed(1)}L${x2.toFixed(1)},${y2.toFixed(1)}`);
+      }
+    }
+  }
+  const fade = 1 - smooth((t - (state.grow + state.hold))/FADE);
+  for(let j=0;j<=LEVELS;j++){
+    const tj = j/LEVELS;
+    const all = dN[j].map(a=>a.join('')).join('');
+    pathN[j].setAttribute('d', all);
+    pathN[j].setAttribute('stroke-opacity', (1-(1-NEUTRAL_FLOOR)*tj).toFixed(3));
+    pathS[j].setAttribute('d', tj>0 ? all : '');
+    pathS[j].setAttribute('stroke-opacity', tj.toFixed(3));
+    for(let c=0;c<FACETS;c++){
+      pathC[j][c].setAttribute('d', tj>0 ? dN[j][c].join('') : '');
+      pathC[j][c].setAttribute('stroke-opacity', tj.toFixed(3));
+    }
+  }
+
+  for(const l of leaves){
+    if(!l.el) continue;
+    const a = smooth((t - (l.f*0.9*grow + 0.05*grow))/(0.12*grow));
+    l.el.setAttribute('opacity', a.toFixed(3));
+  }
+
+  applyHologram();
+  content.setAttribute('opacity', fade.toFixed(3));
+}
+
+/* ---------------------------------------------------------
+   Reloj
+--------------------------------------------------------- */
+let cycleT = 0, playing = true, lastTs = null;
+const timeline = $('timeline'), timeVal = $('timeVal'), playBtn = $('playBtn');
+
+function refresh(){
+  renderAt(cycleT);
+  timeline.value = Math.round(cycleT/cycleLen()*1000);
+  timeVal.textContent = cycleT.toFixed(1) + ' s';
+}
+let clockT = 0, pointerT = {x:0,y:0}, sensorT = {x:0,y:0};
+function targetTilt(){
+  const m = state.tiltMode;
+  if(m==='auto'){
+    const w = clockT*state.swaySpeed/100*2*Math.PI, A = state.swayAmp;
+    return {x:A*Math.sin(w), y:A*0.6*Math.sin(w*0.63+1.3)};
+  }
+  if(m==='pointer') return pointerT;
+  if(m==='sensor')  return sensorT;
+  return {x:state.tiltX, y:state.tiltY};
+}
+function tick(ts){
+  if(lastTs === null) lastTs = ts;
+  const dt = Math.min(0.1, (ts - lastTs)/1000);
+  lastTs = ts;
+  clockT += dt;
+  const tg = targetTilt(), k = 1 - Math.exp(-dt*9);     // amortiguación: se siente peso físico
+  tilt.x += (tg.x - tilt.x)*k; tilt.y += (tg.y - tilt.y)*k;
+  $('tiltReadout').textContent = `X ${tilt.x.toFixed(1)}° · Y ${tilt.y.toFixed(1)}°`;
+  if(playing){
+    cycleT += dt;
+    if(cycleT >= cycleLen()){
+      cycleT -= cycleLen();
+      if(state.reseed) setSeed(Math.floor(Math.random()*99999), false);
+    }
+  }
+  refresh();
+  requestAnimationFrame(tick);
+}
+playBtn.addEventListener('click', ()=>{
+  playing = !playing;
+  playBtn.textContent = playing ? 'Pausa' : 'Play';
+});
+timeline.addEventListener('input', ()=>{
+  cycleT = timeline.value/1000*cycleLen();
+  refresh();
+});
+
+/* ---------------------------------------------------------
+   UI
+--------------------------------------------------------- */
+function rebuildAll(){ buildTree(); buildGraph(); rebuildElements(); applyStatic(); }
+// mode: 'tree' rehace todo, 'graph' solo la red, 'style' solo estilos
+function bindRange(id, key, fmt, mode){
+  const input = $(id), label = $(id+'Val');
+  const update = ()=>{
+    state[key] = Number(input.value);
+    if(label) label.textContent = fmt(state[key]);
+    if(mode==='tree') rebuildAll();
+    else if(mode==='graph') buildGraph();
+    if(mode!=='tree') applyStatic();
+    if(key==='grow' || key==='hold') cycleT = Math.min(cycleT, cycleLen()-0.01);
+    if(window.__ready) refresh();
+  };
+  input.addEventListener('input', update);
+  update();
+}
+bindRange('grow','grow', v=>v+' s', 'style');
+bindRange('hold','hold', v=>v+' s', 'style');
+bindRange('mature','mature', v=>v+'%', 'style');
+bindRange('holo','holo', v=>v+'%', 'style');
+bindRange('foci','foci', v=>v, 'graph');
+bindRange('irreg','irreg', v=>v+'%', 'graph');
+bindRange('dwell','dwell', v=>v+'%', 'graph');
+bindRange('sdDepth','sdDepth', v=>v, 'tree');
+bindRange('sdFillProb','sdFillProb', v=>v+'%', 'tree');
+bindRange('sdMinSize','sdMinSize', v=>v+'%', 'tree');
+
+bindRange('swaySpeed','swaySpeed', v=>(v/100).toFixed(2)+' Hz', 'style');
+bindRange('swayAmp','swayAmp', v=>v+'°', 'style');
+bindRange('tiltX','tiltX', v=>v+'°', 'style');
+bindRange('tiltY','tiltY', v=>v+'°', 'style');
+bindRange('hgAngle','hgAngle', v=>v+'°', 'style');
+bindRange('hgPeriod','hgPeriod', v=>v+' pt', 'style');
+bindRange('hgDisp','hgDisp', v=>(v/100).toFixed(2), 'style');
+bindRange('hgSat','hgSat', v=>v+'%', 'style');
+bindRange('hgFacet','hgFacet', v=>v+'%', 'style');
+bindRange('hgSheen','hgSheen', v=>v+'%', 'style');
+bindRange('hgSheenSize','hgSheenSize', v=>v+' pt', 'style');
+bindRange('hgParallax','hgParallax', v=>v+' pt', 'style');
+bindRange('hgSel','hgSel', v=>v+'%', 'style');
+
+const MODES = [{id:'auto',label:'Auto'},{id:'pointer',label:'Puntero'},{id:'manual',label:'Manual'},{id:'sensor',label:'Sensor'}];
+const modeRow = $('tiltModeRow');
+function setMode(id){
+  state.tiltMode = id;
+  [...modeRow.children].forEach(c=>c.classList.toggle('active', c.dataset.id===id));
+  $('swayCtl').style.display = id==='auto' ? 'block' : 'none';
+  $('manualCtl').style.display = id==='manual' ? 'block' : 'none';
+}
+MODES.forEach(m=>{
+  const el = document.createElement('div');
+  el.className = 'pill'; el.textContent = m.label; el.dataset.id = m.id;
+  el.addEventListener('click', async ()=>{
+    if(m.id==='sensor' && window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission==='function'){
+      try{ const r = await DeviceOrientationEvent.requestPermission(); if(r!=='granted') return; }catch(err){ return; }
+    }
+    setMode(m.id);
+  });
+  modeRow.appendChild(el);
+});
+setMode('auto');
+document.addEventListener('pointermove', e=>{
+  pointerT = {x:(e.clientX/innerWidth-0.5)*2*32, y:(e.clientY/innerHeight-0.5)*2*32};
+});
+window.addEventListener('deviceorientation', e=>{
+  if(e.gamma===null) return;
+  sensorT = {x:Math.max(-45,Math.min(45,e.gamma)), y:Math.max(-45,Math.min(45,(e.beta||0)-45))};
+});
+$('reseed').addEventListener('change', e=>{ state.reseed = e.target.checked; });
+
+$('fillColor').addEventListener('input', e=>{
+  state.fillColor = e.target.value; $('fillColorHex').textContent = e.target.value.toUpperCase(); applyStatic();
+});
+$('growColor').addEventListener('input', e=>{
+  state.growColor = e.target.value; $('growColorHex').textContent = e.target.value.toUpperCase(); applyStatic();
+});
+$('bgColor').addEventListener('input', e=>{
+  state.bgColor = e.target.value; $('bgColorHex').textContent = e.target.value.toUpperCase(); applyStatic();
+});
+
+const seedInput = $('seedInput');
+function setSeed(v, restart){
+  state.seed = v; seedInput.value = v;
+  $('plateNo').textContent = v;
+  rebuildAll();
+  if(restart) cycleT = 0;
+  refresh();
+}
+seedInput.addEventListener('input', ()=> setSeed(Number(seedInput.value)||0, false));
+const newSeed = ()=> setSeed(Math.floor(Math.random()*99999), true);
+$('diceBtn').addEventListener('click', newSeed);
+$('regenBtn').addEventListener('click', newSeed);
+document.addEventListener('keydown', e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey) return;
+  if(/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName) && document.activeElement.type!=='range') return;
+  if(e.key==='r'||e.key==='R') newSeed();
+  if(e.key===' '){ e.preventDefault(); playBtn.click(); }
+});
+
+/* ---------------------------------------------------------
+   Descargas (cuadro actual)
+--------------------------------------------------------- */
+$('downloadSvg').addEventListener('click', ()=>{
+  const clone = svg.cloneNode(true);
+  clone.setAttribute('xmlns', NS);
+  const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + clone.outerHTML;
+  const url = URL.createObjectURL(new Blob([xml], {type:'image/svg+xml'}));
+  const a = document.createElement('a');
+  a.href = url; a.download = `cordura-micelio-${state.seed}.svg`; a.click();
+  URL.revokeObjectURL(url);
+});
+$('downloadPng').addEventListener('click', ()=>{
+  const clone = svg.cloneNode(true);
+  clone.setAttribute('xmlns', NS);
+  clone.setAttribute('width', W); clone.setAttribute('height', H);
+  const xml = new XMLSerializer().serializeToString(clone);
+  const img = new Image();
+  const scale = 3; // 1290 x 2796 px
+  img.onload = ()=>{
+    const c = document.createElement('canvas');
+    c.width = W*scale; c.height = H*scale;
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    c.toBlob(blob=>{
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `cordura-micelio-${state.seed}.png`; a.click();
+      URL.revokeObjectURL(url);
+    });
+  };
+  img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(xml)));
+});
+
+window.__ready = true;
+rebuildAll(); refresh();
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
