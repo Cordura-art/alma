@@ -19,4 +19,4 @@ summary: Qué resuelve ALMA en el pictograma.
 
 ## Verificación
 
-Pendiente: axe en los cuatro temas.
+axe sin problemas en los cuatro temas.

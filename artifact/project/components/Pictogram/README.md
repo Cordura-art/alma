@@ -136,4 +136,4 @@ Los dibujos viven en `entidades/pictogramas.mjs`. `npm run build` los copia al p
 
 ### Verificación
 
-Pendiente: axe en los cuatro temas.
+axe sin problemas en los cuatro temas.

@@ -2,11 +2,11 @@
 
 Todo lo que falta crear en ALMA. Las imágenes y las pruebas con lectores de pantalla se listan solas desde los documentos del repositorio; esta página se actualiza en cada cambio. En el sitio, cada imagen pendiente se marca en magenta dentro de su página.
 
-**En resumen:** 0 imágenes por crear y 46 componentes por probar con lectores de pantalla.
+**En resumen:** 0 imágenes por crear y 45 componentes por probar con lectores de pantalla.
 
 ## Imágenes por crear (0)
 
-## Pruebas con lectores de pantalla (46)
+## Pruebas con lectores de pantalla (45)
 
 axe ya pasa en todos. Falta escuchar cada componente con un lector de pantalla real.
 
@@ -30,7 +30,6 @@ axe ya pasa en todos. Falta escuchar cada componente con un lector de pantalla r
 | [PageControl](#pagecontrol) | VoiceOver y NVDA |
 | [Pagination](#pagination) | VoiceOver y NVDA |
 | [PaymentCard](#paymentcard) | VoiceOver y NVDA |
-| [Pictogram](#pictogram) | axe en los cuatro temas |
 | [PopUpButton](#popupbutton) | VoiceOver y NVDA |
 | [Popover](#popover) | VoiceOver y NVDA |
 | [ProductCard](#productcard) | VoiceOver y NVDA |
