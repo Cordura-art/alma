@@ -95,7 +95,36 @@
     }));
   }
   function Avoid(p) { return h('ul', { className: 'avoid web-body-m' }, (p.items || []).map(function (x) { return h('li', { key: x }, h(A.Icon, { name: 'close', size: 16 }), h('span', null, T(x))); })); }
-  function Statement(p) { var parts = T(p.children).split('\n'); return h('p', { className: 'statement web-display-m' }, parts.map(function (x, i) { return [i ? h('br', { key: 'b' + i }) : null, x]; })); }
+  // An arrow in a large title, drawn instead of typed: the typeface's own arrow keeps one weight and one width, so in
+  // display sizes it looks heavier and narrower than the letters around it. This one has the stroke of the letters next
+  // to it and the entity's width axis for its length, and sits at the middle of the lowercase. The typed arrow stays,
+  // hidden, for whoever reads or copies the text.
+  // The stroke is Roboto Flex's stem, measured on the letter «l» (2026-10-02): at weight 400 it is 0.069 em at 44 px,
+  // 0.054 at 88 and 0.052 at 144 (the optical size thins it as the text grows); each unit of weight below 400 takes
+  // 0.000157 em off, and each one above adds 0.00038. A horizontal stroke is a little thinner than a stem.
+  function trazoDeLetra(peso, px) {
+    var K = [[44, 0.0689], [88, 0.0542], [144, 0.0522]], t = Math.max(44, Math.min(144, px)), i = t <= 88 ? 0 : 1;
+    var s400 = K[i][1] + (K[i + 1][1] - K[i][1]) * (t - K[i][0]) / (K[i + 1][0] - K[i][0]);
+    return Math.max(0.012, peso <= 400 ? s400 - (400 - peso) * 0.000157 : s400 + (peso - 400) * 0.00038) * 0.95;
+  }
+  function Flecha() {
+    var ref = React.useRef(null), m = useState({ peso: P.weights.display, px: 88 });
+    useEffect(function () {
+      function medir() { var cs = getComputedStyle(ref.current), peso = parseFloat(cs.fontWeight) || P.weights.display, px = parseFloat(cs.fontSize) || 88; m[1](function (v) { return v.peso === peso && v.px === px ? v : { peso: peso, px: px }; }); }
+      medir(); window.addEventListener('resize', medir);
+      return function () { window.removeEventListener('resize', medir); };
+    }, []);
+    var W = Math.round(Math.max(60, Math.min(110, 70 * P.fontWidth / 100))), sw = Math.round(trazoDeLetra(m[0].peso, m[0].px) * 1000) / 10;
+    return h('span', { className: 'flecha', ref: ref },
+      h('svg', { viewBox: '0 0 ' + W + ' 70', 'aria-hidden': 'true', focusable: 'false', style: { width: (W / 100) + 'em' } },
+        h('path', { d: 'M2 35H' + (W - 4) + 'M' + (W - 29) + ' 9L' + (W - 3) + ' 35L' + (W - 29) + ' 61', fill: 'none', stroke: 'currentColor', strokeWidth: sw, strokeLinejoin: 'miter' })),
+      h('span', { className: 'flecha__txt' }, ' → '));
+  }
+  function conFlechas(s) {
+    var partes = String(s).split(/\s*→\s*/);
+    return partes.map(function (x, i) { return h(React.Fragment, { key: i }, i ? h(Flecha) : null, x); });
+  }
+  function Statement(p) { var parts = T(p.children).split('\n'); return h('p', { className: 'statement web-display-m' }, parts.map(function (x, i) { return [i ? h('br', { key: 'b' + i }) : null, h(React.Fragment, { key: 't' + i }, conFlechas(x))]; })); }
   function Origin(p) { return p.children ? h('p', { className: 'web-body-s cap origin' }, h('strong', null, 'Origen en la carta. '), T(p.children)) : null; }
   function Frame(p) { return h('div', { className: 'frame' }, p.label ? h('p', { className: 'web-label-m cap frame__label' }, p.label) : null, p.children); }
   function Bullets(p) { return h('ul', { className: 'steps web-body-l' }, (p.items || []).map(function (x) { return h('li', { key: x[0] }, h('strong', null, T(x[0]) + ' '), T(x[1])); })); }
@@ -130,7 +159,7 @@
     return h('div', { className: 'page' },
       h('div', { className: 'head' },
         h('p', { className: 'web-label-m eyebrow' }, 'Lenguaje de diseño'),
-        h('h1', { className: 'web-display-m hero__title', tabIndex: -1, id: 'titulo' }, T(I.titulo)),
+        h('h1', { className: 'web-display-m hero__title', tabIndex: -1, id: 'titulo' }, conFlechas(T(I.titulo))),
         h('p', { className: 'web-body-l lede' }, T(I.lede))),
       h(Pieza, { format: 'wide' }),
       h('div', { className: 'cards' }, cards.map(function (c) {

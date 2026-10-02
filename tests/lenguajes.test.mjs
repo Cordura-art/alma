@@ -41,3 +41,15 @@ for (const f of readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
     for (const p of L.principios.items) assert.ok(p.t && p.p && p.q.length >= 3, p.t);
   });
 }
+
+test('las flechas de los títulos grandes se dibujan con el trazo de la letra', () => {
+  const src = readFileSync('site/lenguaje.js', 'utf8'), a = src.indexOf('  function trazoDeLetra('), z = src.indexOf('  function Flecha()');
+  const trazoDeLetra = new Function(src.slice(a, z) + '; return trazoDeLetra;')();
+  // The measured stems of Roboto Flex's «l», times 0.95 for a horizontal stroke.
+  for (const [peso, px, em] of [[200, 88, 0.0227], [300, 88, 0.0384], [400, 88, 0.0542], [600, 88, 0.1302], [200, 44, 0.0381], [400, 44, 0.0689], [300, 400, 0.0365]]) {
+    assert.ok(Math.abs(trazoDeLetra(peso, px) - em * 0.95) < 0.003, `peso ${peso} a ${px} px: ${trazoDeLetra(peso, px).toFixed(4)} em`);
+  }
+  assert.ok(trazoDeLetra(100, 144) >= 0.011, 'nunca tan fino que desaparezca');
+  assert.match(src, /hero__title', tabIndex: -1, id: 'titulo' \}, conFlechas\(/, 'el título de inicio las usa');
+  assert.match(src, /className: 'flecha__txt' \}, ' → '\)/, 'el carácter sigue en el texto');
+});

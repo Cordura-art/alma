@@ -103,6 +103,10 @@ a.card .alma-ico { color: var(--nav-selected); align-self: end; }
 .sub { display: grid; gap: var(--space-8); max-width: 48rem; }
 .sub__title { margin: 0; }
 .statement { margin: 0; color: var(--text-01); text-wrap: balance; }
+/* A drawn arrow inside a large title (see Flecha in lenguaje.js): sized in em, centered on the lowercase. */
+.flecha { display: inline-block; margin-inline: 0.22em; white-space: nowrap; }
+.flecha svg { display: inline-block; height: 0.7em; vertical-align: -0.08em; overflow: visible; }
+.flecha__txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .avoid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-8); max-width: 48rem; }
 .avoid li { display: flex; gap: var(--space-8); align-items: baseline; color: var(--text-01); }
 .avoid .alma-ico { color: var(--text-02); flex: none; position: relative; top: 2px; }
