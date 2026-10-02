@@ -222,10 +222,15 @@ test('un emblema nace de una puerta: sus trigramas eligen silueta y motivo, y la
 });
 const TRIG = (n) => Emb.TRIGRAMAS_DE[n].join();
 
-test('el campo va hacia donde dice el tipo y sus partículas son los emblemas de la entidad', async () => {
+test('el campo va hacia donde dice la entidad (su dirección, o la de su tipo) y sus partículas son los emblemas de la entidad', async () => {
   const Cam = await import('../entidades/campo.mjs');
   const { S, G } = await genesDe('ensayo');
   assert.equal(G.tipo, S.E.type); assert.equal(G.autoridad, S.E.auth);
+  // Ensayo takes its type's direction; Autómata, a Projector too, declares its own.
+  const { G: Au } = await genesDe('automata');
+  assert.equal(G.direccion, 'foco'); assert.equal(G.direccionPropia, false);
+  assert.equal(Au.tipo, 'proyector'); assert.equal(Au.direccion, 'giro'); assert.equal(Au.direccionPropia, true);
+  assert.deepEqual(Gen.DIRECCIONES, ['foco', 'estallido', 'giro', 'espiral', 'espejo']);
   assert.deepEqual(G.centros, S.E.centers);
   assert.deepEqual(G.canales, [['ajna', 'garganta'], ['plexo', 'raiz'], ['raiz', 'plexo']], 'cada canal, como los dos centros que une');
   // Its defined centers and channels, and its authority, change the field; without them it is the type's alone.
@@ -234,21 +239,21 @@ test('el campo va hacia donde dice el tipo y sus partículas son los emblemas de
   assert.notEqual(mueve({ ...G, canales: [], autoridad: '' }), solo, 'los centros definidos mueven el campo');
   assert.notEqual(mueve({ ...G, centros: [], autoridad: '' }), solo, 'los canales definidos mueven el campo');
   for (const aut of ['emocional', 'sacral', 'esplenica', 'ego', 'autoproyectada', 'mental', 'lunar']) if (aut !== 'autoproyectada') assert.notEqual(mueve({ ...G, centros: [], canales: [], autoridad: aut }), solo, `la autoridad ${aut} cambia cómo respira`);
-  // Each type moves the field its own way; genes without a type keep the first field (ALMA's cover).
+  // Each direction moves the field its own way; genes without one keep the first field (ALMA's cover).
   const finales = {};
-  for (const tipo of ['', 'proyector', 'manifestador', 'generador', 'mg', 'reflector']) {
-    const F = Cam.campo({ ...G, tipo }, 1, 800, 450, { emblemas: 12 });
+  for (const tipo of ['', ...Gen.DIRECCIONES]) {
+    const F = Cam.campo({ ...G, direccion: tipo }, 1, 800, 450, { emblemas: 12 });
     for (let i = 0; i < 200; i++) F.avanzar();
     for (let i = 0; i < F.n; i++) assert.ok(F.x[i] >= 0 && F.x[i] <= 800 && F.y[i] >= 0 && F.y[i] <= 450, `${tipo}: partícula ${i} fuera de la caja`);
     finales[tipo] = Array.from(F.x.slice(0, 40)).join();
-    assert.equal(F.espejo, tipo === 'reflector');
+    assert.equal(F.espejo, tipo === 'espejo');
   }
-  assert.equal(new Set(Object.values(finales).slice(0, 5)).size, 5, 'cada tipo, su propio campo');
-  // A Projector's field converges: in one step, most particles get closer to its focus.
-  const P = Cam.campo({ ...G, tipo: 'proyector' }, 1, 800, 450), d0 = Array.from(P.x, (x, i) => Math.hypot(x - 640, P.y[i] - 225));
+  assert.equal(new Set(Object.values(finales).slice(0, 5)).size, 5, 'cada dirección, su propio campo');
+  // The field with a focus converges: in one step, most particles get closer to its focus.
+  const P = Cam.campo({ ...G, direccion: 'foco' }, 1, 800, 450), d0 = Array.from(P.x, (x, i) => Math.hypot(x - 640, P.y[i] - 225));
   P.avanzar();
   const cerca = d0.filter((d, i) => Math.hypot(P.x[i] - 640, P.y[i] - 225) < d).length / P.n;
-  assert.ok(cerca > 0.85, `el campo de un Proyector converge hacia su foco: ${cerca.toFixed(2)}`);
+  assert.ok(cerca > 0.85, `el campo con foco converge hacia él: ${cerca.toFixed(2)}`);
   // With emblems the field is sparser, and each particle stamps one of them, a few much bigger.
   const E = Cam.campo(G, 1, 800, 450, { emblemas: 12 }), D = Cam.campo(G, 1, 800, 450);
   assert.equal(E.n, Math.round(800 * 450 * 0.0042)); assert.equal(D.n, Math.round(800 * 450 * 0.012));
@@ -264,7 +269,7 @@ test('el campo va hacia donde dice el tipo y sus partículas son los emblemas de
   dibujos.length = 0; velos.length = 0; Cam.pintarCampo(ctx, E, null); assert.equal(dibujos.length, 0); assert.equal(velos[0], 0.09);
 });
 
-test('el relieve: el campo como terreno, en línea, con la cumbre de su tipo, un cerro por centro y una versión de fondo', async () => {
+test('el relieve: el campo como terreno, en línea, con la forma de su dirección, un cerro por centro y una versión de fondo', async () => {
   const Rel = await import('../entidades/relieve.mjs');
   for (const id of ['ensayo', 'cordura', 'automata']) {
     const { G } = await genesDe(id), pieza = Rel.relieveSvg(G, 1), propios = new Set(Gen.colores(G.pieza));
@@ -276,14 +281,41 @@ test('el relieve: el campo como terreno, en línea, con la cumbre de su tipo, un
     for (const th of ['dark', 'light']) { const quietos = new Set(Gen.colores(G.fondo[th])); for (const c of tintas(Rel.relieveSvg(G, 1, { modo: 'fondo', tema: th }))) assert.ok(quietos.has(c), `${id} · ${th}: ${c} no es un color de fondo`); }
     // Far rows hide behind near ones: fewer points are drawn than the land has.
     const puntos = (pieza.match(/[ML]\d/g) || []).length; assert.ok(puntos > 1500 && puntos < 40 * 129, `${id}: ${puntos} puntos`);
-    // A Projector's land peaks where its field converges, and every defined center is a hill.
-    const alt = Rel.relieve(G, 1), llano = Rel.relieve({ ...G, tipo: '', centros: [] }, 1);
-    assert.ok(alt(0.8, 0.5) - llano(0.8, 0.5) > 0.8, `${id}: la cumbre del Proyector`);
-    assert.ok(Rel.relieve({ ...G, tipo: '' }, 1)(0.08 + 0.36 * 0.84, 0.5) - llano(0.08 + 0.36 * 0.84, 0.5) > 0.3 === G.centros.includes('garganta'), `${id}: el cerro de la Garganta`);
+    // The land takes the shape of the field's direction, and every defined center is a hill.
+    const alt = Rel.relieve({ ...G, centros: [] }, 1), llano = Rel.relieve({ ...G, direccion: '', centros: [] }, 1);
+    if (G.direccion === 'foco') assert.ok(alt(0.8, 0.5) - llano(0.8, 0.5) > 0.8, `${id}: la cumbre donde converge`);
+    else assert.ok(alt(0.77, 0.5) - llano(0.77, 0.5) > 0.5 && alt(0.5, 0.5) - llano(0.5, 0.5) < 0.05, `${id}: el anillo por donde gira`);
+    assert.ok(Rel.relieve({ ...G, direccion: '' }, 1)(0.08 + 0.36 * 0.84, 0.5) - llano(0.08 + 0.36 * 0.84, 0.5) > 0.3 === G.centros.includes('garganta'), `${id}: el cerro de la Garganta`);
   }
-  const { G } = await genesDe('ensayo'), formas = new Set(['', 'proyector', 'manifestador', 'generador', 'mg', 'reflector'].map((tipo) => Rel.relieveSvg({ ...G, tipo, centros: [] }, 1)));
-  assert.equal(formas.size, 6, 'cada tipo, su terreno');
-  const espejo = Rel.relieve({ ...G, tipo: 'reflector', centros: [] }, 1); assert.ok(Math.abs(espejo(0.2, 0.4) - espejo(0.8, 0.4)) < 1e-9, 'el de un Reflector es simétrico');
+  const { G } = await genesDe('ensayo'), formas = new Set(['', ...Gen.DIRECCIONES].map((direccion) => Rel.relieveSvg({ ...G, direccion, centros: [] }, 1)));
+  assert.equal(formas.size, 6, 'cada dirección, su terreno');
+  const espejo = Rel.relieve({ ...G, direccion: 'espejo', centros: [] }, 1); assert.ok(Math.abs(espejo(0.2, 0.4) - espejo(0.8, 0.4)) < 1e-9, 'el de espejo es simétrico');
+});
+
+test('una criatura con volumen es la criatura plana con cuerpo: mismos colores, cara al frente, y solo se dibuja lo que se ve', async () => {
+  const Vol = await import('../entidades/volumen.mjs');
+  // A canvas that records what is drawn on it.
+  const lienzo = () => { const c = { trazos: 0, puntos: 0, ojos: 0, tintas: new Set(), fillRect() {}, beginPath() {}, moveTo() { c.puntos++; }, lineTo() { c.puntos++; }, stroke() { c.trazos++; c.tintas.add(c.strokeStyle); }, ellipse() { c.ojos++; }, fill() { c.tintas.add(c.fillStyle); }, drawImage() {} }; return c; };
+  for (const id of ['ensayo', 'cordura', 'automata']) {
+    const { G } = await genesDe(id), propios = new Set(Gen.colores(G.pieza));
+    for (const nombre of ['Ana Rojas', 'Luis Soto', 'Marta Díaz']) {
+      const K = Vol.criatura3d(G, nombre), plana = Gen.criatura(G, nombre), enPlana = [...plana.matchAll(/<(?:circle|ellipse)[^>]*fill="(#[0-9A-Fa-f]{6})"/g)].map((m) => m[1]);
+      assert.deepEqual(K.solidos.map((s) => s.color), enPlana.slice(0, 2), `${id} · ${nombre}: los colores del cuerpo y de la segunda forma son los de la plana`);
+      assert.deepEqual(Vol.criatura3d(G, ' ' + nombre.toUpperCase()), K, 'el mismo nombre, la misma criatura');
+      assert.equal(K.anillos, G.numeros[0]); assert.equal(K.lleno, G.relleno);
+      // From the front both eyes show; from behind, none. And fewer points are drawn than the lines have: some hide.
+      const frente = lienzo(), espalda = lienzo();
+      Vol.pintarCriatura(frente, K, 200, 0); Vol.pintarCriatura(espalda, K, 200, Math.PI);
+      assert.equal(frente.ojos, 2, `${id} · ${nombre}: de frente se ven los dos ojos`); assert.equal(espalda.ojos, 0, 'de espaldas, ninguno');
+      const total = 2 * 97 + (2 * K.anillos + 1) * 73;
+      assert.ok(frente.puntos > 150 && frente.puntos < total, `${id} · ${nombre}: ${frente.puntos} de ${total} puntos`);
+      for (const c of frente.tintas) assert.ok(propios.has(c), `${id}: ${c} no es de la entidad`);
+      // Seen from the front, the eyes sit where the flat creature has them: level, and one on each side.
+      const V = Vol.camara(K, 200, 0), a = V.pr(K.ojos[0].p), b = V.pr(K.ojos[1].p);
+      assert.ok(Math.abs(a[1] - b[1]) < 1 && a[0] < 100 && b[0] > 100, 'los ojos, a la misma altura y uno a cada lado');
+    }
+  }
+  assert.ok(Math.abs(Vol.vaivenCriatura(0)) < 1e-9 && Math.max(...Array.from({ length: 200 }, (_, i) => Math.abs(Vol.vaivenCriatura(i / 10)))) <= 0.85, 'se mece poco a cada lado');
 });
 
 test('las caras de tarjeta: quince patrones con los colores de la entidad, sin capa de banco, y el grabado con las puntas del emblema', async () => {

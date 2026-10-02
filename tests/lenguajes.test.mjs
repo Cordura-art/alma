@@ -23,6 +23,8 @@ for (const f of readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
   // Generative illustration is declared by the language: the names and concepts its Ilustración page draws.
   if (L.ilustracion.generativa) test(`${f}: la ilustración generativa trae sus ejemplos sin repetir, y sus reglas escritas dicen lo mismo`, () => {
     const X = L.ilustracion.generativa, pers = X.personajes !== false;
+    // An entity may declare where its field goes; otherwise its type decides.
+    if (X.campo !== undefined) assert.ok(['foco', 'estallido', 'giro', 'espiral', 'espejo'].includes(X.campo), `la dirección del campo «${X.campo}»`);
     for (const k of pers ? ['nombres', 'conceptos'] : ['conceptos']) {
       assert.ok(X[k].length >= 6, k);
       assert.equal(new Set(X[k].map((x) => x.trim().toLowerCase())).size, X[k].length, `${k} repetidos`);

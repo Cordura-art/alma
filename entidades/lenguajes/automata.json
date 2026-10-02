@@ -493,6 +493,7 @@
    "Evita ilustrar lo que una frase ya explica."
   ],
   "generativa": {
+   "campo": "giro",
    "nombres": ["Ana Rojas", "Luis Soto", "Marta Díaz", "Pedro Vera", "Camila Paz", "Tomás Mora", "Elena Lagos", "Raúl Pino", "Sofía Reyes", "Iván Silva", "Noa Campos", "Diego Vidal"],
    "conceptos": ["pregunta", "prueba", "nombre", "dato", "modelo", "sistema", "red", "proceso", "escala", "fuente", "comparación", "resultado"]
   }

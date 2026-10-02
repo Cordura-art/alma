@@ -8,8 +8,8 @@ import { genes } from '../../entidades/generador.mjs';
 const read = (p) => readFileSync(p, 'utf8');
 // What every page with generative pieces carries: creatures, colonies, emblems, card faces, the field, the carousel
 // and the mycelium.
-const MODULOS = ['semilla', 'generador', 'emblemas', 'placa', 'campo', 'relieve', 'carrusel', 'micelio'].map((m) => `entidades/${m}.mjs`);
-const NOMBRES = ['hash', 'rng', 'criatura', 'colonia', 'comoFondo', 'emblema', 'emblemaPuerta', 'emblemasDe', 'TRIGRAMAS', 'TRIGRAMAS_DE', 'SILUETAS', 'MOTIVOS', 'placa', 'PATRONES', 'NOMBRE_PATRON', 'campo', 'pintarCampo', 'ladoEmblema', 'relieve', 'relieveSvg', 'carrusel', 'anillo', 'micelio', 'pintarMicelio', 'vaivenMicelio'];
+const MODULOS = ['semilla', 'generador', 'emblemas', 'placa', 'campo', 'relieve', 'volumen', 'carrusel', 'micelio'].map((m) => `entidades/${m}.mjs`);
+const NOMBRES = ['hash', 'rng', 'criatura', 'colonia', 'comoFondo', 'emblema', 'emblemaPuerta', 'emblemasDe', 'TRIGRAMAS', 'TRIGRAMAS_DE', 'SILUETAS', 'MOTIVOS', 'placa', 'PATRONES', 'NOMBRE_PATRON', 'campo', 'pintarCampo', 'ladoEmblema', 'relieve', 'relieveSvg', 'criatura3d', 'pintarCriatura', 'vaivenCriatura', 'carrusel', 'anillo', 'micelio', 'pintarMicelio', 'vaivenMicelio'];
 
 // The genes of an entity's system (`S`, from sistema(id)), with ALMA's token values.
 export function genesDe(S, tok = JSON.parse(read('dist/json/tokens.json'))) {

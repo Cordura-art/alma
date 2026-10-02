@@ -29,8 +29,16 @@ function numerosDe(E) {
   return n.length ? n : [Math.max(3, Math.min(12, c + lc))];
 }
 
+// Where an entity's field goes. Its type gives one (a Projector guides: its field converges on a focus; a Manifestor
+// starts: it bursts from a point; a Generator sustains: it turns; a Manifesting Generator spirals out; a Reflector
+// mirrors), and an entity may declare its own in its language (ilustracion.generativa.campo).
+export const DIRECCIONES = ['foco', 'estallido', 'giro', 'espiral', 'espejo'];
+const DIRECCION_DEL_TIPO = { proyector: 'foco', manifestador: 'estallido', generador: 'giro', mg: 'espiral', reflector: 'espejo' };
+
 export function genes(S, valor) {
   const { E, P, En } = S, n = E.nacimiento, ramps = P.palette.map((p) => p.ramp);
+  const propia = S.L && S.L.ilustracion && S.L.ilustracion.generativa ? S.L.ilustracion.generativa.campo : undefined;
+  if (propia !== undefined && !DIRECCIONES.includes(propia)) throw new Error(`${S.id}: la dirección del campo «${propia}» no existe. Las que hay: ${DIRECCIONES.join(', ')}`);
   const fondo = (tema, pasos) => {
     const textos = ['text-01', 'text-02'].flatMap((t) => [tema, `${tema}-hc`].map((th) => valor(t, th)));
     const lee = (c) => textos.every((t) => En.contrast(t, c) >= 4.5);
@@ -52,9 +60,9 @@ export function genes(S, valor) {
     complejidad: Math.max(1, Math.min(5, 1 + (E.carta ? E.carta.canales.length : 0))),
     trazo: Math.round(P.weights.body / 400 * 1000) / 1000,
     relleno: !!P.accent.deep,
-    // Its field: where it goes (its type), how it breathes (its authority), and the eddies and streams of its
+    // Its field: where it goes (the direction it declares, or its type's), how it breathes (its authority), and the eddies and streams of its
     // defined centers and channels (each channel, as the two centers it joins).
-    tipo: E.type, autoridad: E.auth, centros: [...E.centers],
+    tipo: E.type, direccion: propia || DIRECCION_DEL_TIPO[E.type], direccionPropia: !!propia, autoridad: E.auth, centros: [...E.centers],
     canales: (E.carta ? E.carta.canales : []).map((k) => String(k).split('-').map((p) => CENTRO_DE[Number(p)])),
     // What moves (the field, the carousel, the mycelium): the pace of the entity's type (1 is ALMA's; 1.25 is a quarter
     // slower).

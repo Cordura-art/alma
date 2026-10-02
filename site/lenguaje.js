@@ -385,7 +385,7 @@
     return t[0];
   }
   function GenCriaturas() {
-    var n = useState(GV.nombres[0]), clave = n[0].trim() || GV.nombres[0];
+    var n = useState(GV.nombres[0]), clave = n[0].trim() || GV.nombres[0], mece = useState(!QUIETO);
     var lista = React.useMemo(function () { return GV.nombres.map(function (x) { return { nombre: x, svg: GEN.criatura(G, x) }; }); }, []);
     return h(Sec, { title: 'Criaturas' },
       h(Para, null, 'Nuestros personajes. Cada criatura es un cuerpo redondo, una segunda forma de otro color y dos ojos. No las dibujamos a mano: una regla las dibuja a partir de un nombre, y el mismo nombre da siempre la misma criatura.'),
@@ -393,7 +393,15 @@
         h(A.TextInput, { label: 'Nombre o correo', value: n[0], onChange: function (v) { n[1](v); }, helper: 'Escribe un nombre y mira su criatura.', autoComplete: 'off' }),
         h('div', { className: 'gen-sizes' }, [96, 64, 48, 32].map(function (s) { return h(Dibujo, { key: s, size: s, svg: GEN.criatura(G, clave) }); }))),
       h('ul', { className: 'gen-people' }, lista.map(function (x) { return h('li', { key: x.nombre, className: 'gen-person' }, h(Dibujo, { size: 64, svg: x.svg }), h('span', { className: 'web-body-s' }, x.nombre)); })),
-      h('p', { className: 'web-body-s cap note' }, 'Una criatura sirve de avatar o de mascota de una pieza. Acompaña al nombre; nunca lo reemplaza.'));
+      h('p', { className: 'web-body-s cap note' }, 'Una criatura sirve de avatar o de mascota de una pieza. Acompaña al nombre; nunca lo reemplaza.'),
+      h('h3', { className: 'web-h5 gen-sub' }, 'Con volumen'),
+      h(Para, null, 'La misma criatura, con cuerpo: dos formas redondas y dos ojos, dibujadas ' + (G.relleno ? 'con su color y con anillos en el color del fondo' : 'solo con líneas') + '. Lleva ' + G.numeros[0] + ' anillos, uno de nuestros números. Se mece para mostrar la cara, y de frente es la criatura plana. Es para piezas grandes y animaciones; como avatar se usa la plana.'),
+      h('div', { className: 'gen-vols' },
+        h('figure', { className: 'gen-fig gen-vols__una' }, h(VG.Criatura, { key: clave, clave: clave, anda: mece[0], label: 'Criatura de ' + clave + ' con volumen: dos formas redondas con anillos y dos ojos, que se mece.' }), h('figcaption', { className: 'web-body-s cap' }, clave)),
+        h('ul', { className: 'gen-vols__lista' }, GV.nombres.slice(1, 7).map(function (x) { return h('li', { key: x, className: 'gen-person' }, h(VG.Criatura, { clave: x, anda: mece[0], label: 'Criatura de ' + x + ' con volumen.' }), h('span', { className: 'web-body-s' }, x)); }))),
+      h('div', { className: 'gen-row' },
+        h(A.Button, { variant: 'tinted', iconBefore: mece[0] ? 'pause' : 'play', onClick: function () { mece[1](!mece[0]); } }, mece[0] ? 'Pausar' : 'Reproducir'),
+        h('span', { className: 'web-body-s cap' }, QUIETO ? 'Parte en pausa porque pediste menos movimiento.' : 'Se detiene solo cuando sale de la pantalla.')));
   }
   // The relief: the still texture. Two lands as pieces and the same two as grounds, with text on top.
   function GenRelieve() {
@@ -402,7 +410,7 @@
       return [['pieza', 1], ['pieza', 2], ['fondo', 1], ['fondo', 2]].map(function (x) { return { modo: x[0], n: x[1], estilo: { backgroundImage: GEN.comoFondo(GEN.relieveSvg(G, x[1], { modo: x[0], tema: tema })) } }; });
     }, [tema]);
     return h(Sec, { title: 'Relieve' },
-      h(Para, null, 'El relieve es nuestro campo convertido en terreno, dibujado solo con líneas: cada fila muestra lo que asoma por encima de las de adelante. ' + RELIEVE_TIPO[G.tipo] + (G.centros.length ? ' Cada uno de nuestros ' + G.centros.length + ' centros definidos es un cerro, en el lugar que ocupa en la carta.' : '') + ' Es nuestra textura quieta: como pieza va sobre negro con la paleta completa; como fondo se apaga hasta que el texto encima se lee con un contraste de 4,5:1 o más, en tema claro y oscuro.'),
+      h(Para, null, 'El relieve es nuestro campo convertido en terreno, dibujado solo con líneas: cada fila muestra lo que asoma por encima de las de adelante. ' + RELIEVE_DIR[G.direccion] + (G.centros.length ? ' Cada uno de nuestros ' + G.centros.length + ' centros definidos es un cerro, en el lugar que ocupa en la carta.' : '') + ' Es nuestra textura quieta: como pieza va sobre negro con la paleta completa; como fondo se apaga hasta que el texto encima se lee con un contraste de 4,5:1 o más, en tema claro y oscuro.'),
       h('ul', { className: 'gen-tiles gen-tiles--anchas' }, losas.map(function (t) {
         var pieza = t.modo === 'pieza';
         return h('li', { key: t.modo + t.n }, h('figure', { className: 'gen-fig' },
@@ -411,7 +419,7 @@
           h('figcaption', { className: 'web-body-s cap' }, (pieza ? 'Pieza ' : 'Fondo ') + t.n)));
       })));
   }
-  var RELIEVE_TIPO = { proyector: 'Tiene una cumbre donde nuestro campo converge.', manifestador: 'Tiene ondas que salen de un punto.', generador: 'Tiene un anillo alrededor de su centro.', mg: 'Tiene una espiral que se abre.', reflector: 'Una mitad es el espejo de la otra.' };
+  var RELIEVE_DIR = { foco: 'Tiene una cumbre donde nuestro campo converge.', estallido: 'Tiene ondas que salen de un punto.', giro: 'Tiene un anillo, por donde nuestro campo gira.', espiral: 'Tiene una espiral que se abre.', espejo: 'Una mitad es el espejo de la otra.' };
   function GenColonia() {
     var tema = useTema();
     var losas = React.useMemo(function () {
@@ -428,7 +436,7 @@
       })));
   }
   // Where an entity's field goes, by its type.
-  var CAMPO_TIPO = { proyector: 'Todo converge hacia un foco: guiamos.', manifestador: 'Todo sale de un punto y se abre: iniciamos.', generador: 'Gira constante alrededor de su centro: sostenemos.', mg: 'Gira y se abre en espiral: respondemos rápido.', reflector: 'Una mitad es el espejo de la otra: reflejamos.' };
+  var CAMPO_DIR = { foco: 'Todo converge hacia un foco.', estallido: 'Todo sale de un punto y se abre.', giro: 'Gira constante alrededor de su centro.', espiral: 'Gira y se abre en espiral.', espejo: 'Una mitad es el espejo de la otra.' };
   var CAMPO_AUT = { emocional: 'Respira en olas: se agita y se calma al avanzar.', sacral: 'Avanza a pulso, como un latido.', esplenica: 'Quieto y, de pronto, un salto breve.', ego: 'Va recto y firme, casi sin desvío.', autoproyectada: 'Sigue su propia dirección, sin sobresaltos.', mental: 'Va en capas paralelas y ordenadas.', lunar: 'Se agita y se calma muy lento, en un ciclo largo.' };
   function GenEmblemas() {
     var lista = React.useMemo(function () { return GEN.emblemasDe(G, GV.conceptos).map(function (x) { return { c: x.clave, svg: x.svg, puerta: x.puerta ? 'Puerta ' + x.puerta + '.' + x.linea : '' }; }); }, []);
@@ -489,8 +497,8 @@
       ['Centros definidos y línea consciente', 'Las tarjetas del carrusel', R.cantidad + ' tarjetas'],
       ['Garganta definida o abierta', 'Emblemas rellenos o de línea', G.relleno ? 'Rellenos' : 'De línea'],
       ['Centros definidos', 'Los focos desde donde crece el micelio', G.focos + ' focos'],
-      ['Tipo', 'Hacia dónde va el campo', CAMPO_TIPO[G.tipo]],
-      ['Tipo y centros definidos', 'La cumbre y los cerros del relieve', RELIEVE_TIPO[G.tipo] + ' ' + G.centros.length + ' cerros.'],
+      [G.direccionPropia ? 'Dirección que elegimos' : 'Tipo', 'Hacia dónde va el campo', CAMPO_DIR[G.direccion]],
+      [(G.direccionPropia ? 'Dirección' : 'Tipo') + ' y centros definidos', 'La forma y los cerros del relieve', RELIEVE_DIR[G.direccion] + ' ' + G.centros.length + ' cerros.'],
       ['Autoridad', 'Cómo respira el campo', CAMPO_AUT[G.autoridad]],
       ['Centros y canales definidos', 'Los remolinos y las corrientes del campo', G.centros.length + ' remolinos y ' + G.canales.length + ' corrientes'],
       ['Puertas de la carta', 'Las partículas del campo', 'Los emblemas de nuestras primeras ' + Math.min(12, G.puertas.length) + ' puertas'],
@@ -500,7 +508,7 @@
       h(Sec, { title: 'Construcción' }, h(Para, null, X.construccion),
         h(Tbl, { title: 'Cada rasgo de la firma', columns: [{ key: 'r', label: 'Rasgo de la carta' }, { key: 'g', label: 'Qué decide' }, { key: 'v', label: 'En nuestra firma' }], rows: filas.map(function (f, i) { return { id: i, r: f[0], g: f[1], v: f[2] }; }) })),
       h(Sec, { title: 'Campo' },
-        h(Para, null, 'Nuestra portada. Cada partícula es uno de nuestros emblemas, algunos mucho más grandes que el resto. ' + CAMPO_TIPO[G.tipo] + ' ' + CAMPO_AUT[G.autoridad] + (G.centros.length ? ' Nuestros ' + G.centros.length + ' centros definidos son remolinos en el camino' + (G.canales.length ? ', y nuestros canales, corrientes entre ellos.' : '.') : '') + ' Van a ' + Math.round(100 / G.ritmo) + ' % de la velocidad base y dejan estela. Es una pieza de marca: no lleva texto encima.'),
+        h(Para, null, 'Nuestra portada. Cada partícula es uno de nuestros emblemas, algunos mucho más grandes que el resto. ' + CAMPO_DIR[G.direccion] + ' ' + CAMPO_AUT[G.autoridad] + (G.centros.length ? ' Nuestros ' + G.centros.length + ' centros definidos son remolinos en el camino' + (G.canales.length ? ', y nuestros canales, corrientes entre ellos.' : '.') : '') + ' Van a ' + Math.round(100 / G.ritmo) + ' % de la velocidad base y dejan estela. Es una pieza de marca: no lleva texto encima.'),
         h(VG.Campo, { clave: sem[0], anda: fluye[0], label: 'Campo de ' + L.nombre + ': sus emblemas, de distintos tamaños, que derivan sobre negro y dejan estela.' }),
         h(Control, { anda: fluye[0], onToggle: tog(fluye), otro: 'Ver otro campo', onOtro: function () { sem[1](sem[0] + 1); } })),
       h(Sec, { title: 'Carrusel' },

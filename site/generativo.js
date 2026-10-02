@@ -19,6 +19,27 @@ window.__GENERADOR_VISTAS = function (G) {
     return { cuantos: P.length, listos: function () { return P.length && hechos === P.length ? lista : null; }, avisar: function (fn) { if (P.length && hechos < P.length) espera.push(fn); } };
   })();
 
+  // A creature with volume, on a square canvas. It sways to show its face; still, it faces the front.
+  function Criatura(p) {
+    var ref = useRef(null), S = useRef({ anda: p.anda, seguir: function () {} });
+    useEffect(function () {
+      var cv = ref.current, ctx = cv.getContext('2d'), tela = document.createElement('canvas'), K = GEN.criatura3d(G, p.clave), raf = 0, visto = false, ultimo = 0, t = 0, lado = 0;
+      function medir() { var box = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1); if (!box.width) return false; lado = box.width; cv.width = cv.height = Math.round(lado * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return true; }
+      function una() { if (lado || medir()) GEN.pintarCriatura(ctx, K, lado, S.current.anda ? GEN.vaivenCriatura(t, G.ritmo) : 0, { tela: tela }); }
+      function cuadro(ahora) { raf = 0; if (!S.current.anda || !visto || document.hidden) return; t += Math.min(0.05, (ahora - (ultimo || ahora)) / 1000); ultimo = ahora; una(); raf = requestAnimationFrame(cuadro); }
+      function seguir() { ultimo = 0; if (!visto) return; una(); if (!raf && S.current.anda) raf = requestAnimationFrame(cuadro); }
+      S.current.seguir = seguir;
+      var io = window.IntersectionObserver ? new IntersectionObserver(function (es) { visto = es[0].isIntersecting; seguir(); }, { rootMargin: '100px' }) : null;
+      if (io) io.observe(cv); else { visto = true; seguir(); }
+      var ro = window.ResizeObserver ? new ResizeObserver(function () { var w = cv.getBoundingClientRect().width; if (Math.abs(w - lado) > 1) { medir(); una(); } }) : null;
+      if (ro) ro.observe(cv);
+      document.addEventListener('visibilitychange', seguir);
+      return function () { cancelAnimationFrame(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); document.removeEventListener('visibilitychange', seguir); S.current.seguir = function () {}; };
+    }, [p.clave]);
+    useEffect(function () { S.current.anda = p.anda; S.current.seguir(); }, [p.anda]);
+    return h('canvas', { ref: ref, className: 'gen-vol', role: 'img', 'aria-label': p.label });
+  }
+
   // The field, on a canvas. It always starts from a settled frame, so it reads complete when it is still. Its
   // particles are the entity's emblems; until they load (and for genes without gates) they are dots.
   function Campo(p) {
@@ -143,5 +164,5 @@ window.__GENERADOR_VISTAS = function (G) {
     return h('div', { ref: ref, className: 'gen-ring', role: 'img', 'aria-label': p.label }, p.caras.map(function (cara, i) { return h('span', { key: i, className: 'gen-ring__card', style: cara.estilo }); }));
   }
 
-  return { Campo: Campo, Micelio: Micelio, Carrusel: Carrusel, caras: caras, RING: RING, ORDEN: ORDEN };
+  return { Criatura: Criatura, Campo: Campo, Micelio: Micelio, Carrusel: Carrusel, caras: caras, RING: RING, ORDEN: ORDEN };
 };
