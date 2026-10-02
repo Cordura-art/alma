@@ -1,20 +1,23 @@
 // Everything an entity's documentation needs, in one command: npm run entidad -- <id>
 // 1. checks that the entity has its design language (entidades/lenguajes/<id>.json): the only file an entity writes;
 // 2. builds its design language page and its documentation site (build/documentacion-<id>/);
-// 3. draws the images that changed (the rest come from the cache);
-// 4. runs the entity's tests: token names, contrast in the four themes, every sentence checked;
-// 5. photographs the key pages in the four themes (build/documentacion-<id>/revision/) to look at before publishing.
-// --sin-capturas skips step 5; --forzar draws every image again.
+// 3. runs the entity's tests: token names, contrast in the four themes, every sentence checked;
+// 4. photographs the key pages in the four themes (build/documentacion-<id>/revision/) to look at before publishing;
+// 5. builds the one page that is published, «Sistemas ALMA» (build/documentacion-sistemas/index.html), with every entity.
+// A new entity starts with `npm run entidad:nueva`, which writes the first draft of its language from its birth date.
+// No images are drawn: the pictures of the guides are scenes the site shows live with the entity's values.
+// --sin-capturas skips step 4; --sin-sistemas skips step 5.
 import { existsSync, readFileSync, readdirSync, mkdirSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { extname, join } from 'node:path';
 import { chromium } from 'playwright';
 
 const args = process.argv.slice(2), has = (f) => (args.includes(f) ? args.splice(args.indexOf(f), 1).length > 0 : false);
-const FORZAR = has('--forzar'), SIN = has('--sin-capturas'), id = args[0];
+has('--forzar'); // accepted and ignored: there are no images to draw again
+const SIN = has('--sin-capturas'), SOLA = has('--sin-sistemas'), id = args[0];
 const LENG = 'entidades/lenguajes', ids = readdirSync(LENG).filter((f) => f.endsWith('.json')).map((f) => f.replace(/\.json$/, ''));
 if (!id || !ids.includes(id)) {
-  console.error(id ? `No existe ${LENG}/${id}.json. Una entidad nace de su lenguaje de diseño: créalo a partir del de otra entidad (README, «Entidades») y vuelve a correr este comando.` : 'Uso: npm run entidad -- <id> [--forzar] [--sin-capturas]');
+  console.error(id ? `No existe ${LENG}/${id}.json. Una entidad nace de su lenguaje de diseño. Para escribir su primer borrador desde su fecha de nacimiento: npm run entidad:nueva -- --nombre Nombre --fecha AAAA-MM-DD --hora HH:MM --zona Zona/IANA` : 'Uso: npm run entidad -- <id> [--sin-capturas] [--sin-sistemas]');
   console.error(`Entidades con lenguaje: ${ids.join(', ')}`);
   process.exit(1);
 }
@@ -25,9 +28,6 @@ if (!existsSync('dist/css/alma.css')) paso('ALMA: tokens y guías', 'scripts/bui
 paso('Lenguaje de diseño', 'scripts/build-entidades.mjs', []);
 execFileSync(process.execPath, ['scripts/build-lenguaje.mjs', id], { stdio: 'inherit' });
 paso('Sitio de documentación', 'scripts/build-site.mjs', ['--entidad', id]);
-paso('Imágenes', 'scripts/build-images.mjs', ['--entidad', id, ...(FORZAR ? ['--forzar'] : [])]);
-// The site counts the images it finds next to it: build it again now that they exist.
-execFileSync(process.execPath, ['scripts/build-site.mjs', '--entidad', id], { stdio: 'inherit' });
 console.log('\n— Pruebas');
 execFileSync(process.execPath, ['--test', '--test-name-pattern', `^${id}:`, 'tests/documentacion.test.mjs'], { stdio: 'inherit' });
 
@@ -55,8 +55,10 @@ if (!SIN) {
       await page.waitForTimeout(400);
       const desborde = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
       if (desborde > 0) errores.push(`${pagina} (${tema}): la página desborda ${desborde} px a lo ancho`);
-      const rotas = await page.evaluate(() => [...document.images].filter((i) => i.complete && !i.naturalWidth).map((i) => i.getAttribute('src')));
-      if (rotas.length) errores.push(`${pagina} (${tema}): imágenes que no cargan: ${rotas.join(', ')}`);
+      // The scenes on screen must draw: wait for the ones that started, and report the ones that could not.
+      await page.waitForFunction(() => [...document.querySelectorAll('.escena[data-on="cargando"]')].length === 0, null, { timeout: 30000 }).catch(() => {});
+      const rotas = await page.evaluate(() => [...document.querySelectorAll('.escena')].filter((e) => ['falla', 'cargando'].includes(e.getAttribute('data-on'))).map((e) => e.getAttribute('data-escena')));
+      if (rotas.length) errores.push(`${pagina} (${tema}): escenas que no se dibujan: ${rotas.join(', ')}`);
       await page.screenshot({ path: `${DIR}/revision/${pagina}-${tema}.png` });
       await page.close();
     }
@@ -67,9 +69,12 @@ if (!SIN) {
   if (errores.length) { console.error(`\nLa revisión encontró ${errores.length} problemas:\n  ${[...new Set(errores)].join('\n  ')}`); process.exit(1); }
 }
 
+if (!SOLA) paso('Sistemas ALMA: la página que se publica', 'scripts/build-selector.mjs', []);
+const L = JSON.parse(readFileSync(`${LENG}/${id}.json`, 'utf8'));
+if (L.borrador) console.log(`\nEl lenguaje de ${L.nombre} todavía es un borrador automático (${L.borrador.fecha}). Falta escribir a mano: ${L.borrador.revisar.join(', ')}. Al terminar, borra «borrador» y «aviso» de ${LENG}/${id}.json.`);
 console.log(`\nEntidad ${id}: lista en ${((Date.now() - t0) / 1000).toFixed(0)} s.
   Lenguaje de diseño   build/lenguaje-${id}.html
   Documentación        ${DIR}/index.html
   Valores de tokens    ${DIR}/entidad-${id}.css
-  Imágenes             ${DIR}/assets/
-  Capturas             ${SIN ? '(omitidas)' : `${DIR}/revision/`}`);
+  Capturas             ${SIN ? '(omitidas)' : `${DIR}/revision/`}
+  Para publicar        ${SOLA ? '(omitido)' : 'build/documentacion-sistemas/index.html, en el artefacto «Sistemas ALMA»: un solo archivo con todas las entidades'}`);

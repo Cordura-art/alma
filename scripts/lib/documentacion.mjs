@@ -118,7 +118,7 @@ export function rasgos(S) {
       recta: base === 0, suave: base > 0 && base < 100, pildora: base >= 100, radioUnico: radios.size === 1, productivo: T.motion === 'productivo' },
     v: {
       acento, marca: heredado ? `el ${acento} heredado` : `un ${acento} ${profundo ? 'pleno' : 'luminoso'}`, sobre: profundo ? 'blanco' : 'tinta',
-      vecinos: `${nombre(P.palette[1])} y ${nombre(P.palette[2])}`,
+      vecinos: `${nombre(P.palette[1])} y ${nombre(P.palette[2])}`, vecino: nombre(P.palette[1]),
       ancho: fw === 100 ? 'en su ancho natural' : fw > 100 ? 'extendida' : 'condensada',
       anchoNota: fw === 100 ? 'El ancho natural de la letra, sin extender ni condensar.' : fw > 100 ? 'La letra extendida: más ancha que su dibujo natural.' : 'La letra condensada: más angosta que su dibujo natural.',
       grado: g === 0 ? 'con grado neutro' : `con un grado levemente más ${g > 0 ? 'firme' : 'liviano'}`,

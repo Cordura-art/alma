@@ -95,7 +95,7 @@ En los temas claros, el valor más alto es el paso más oscuro (`viz-seq-5`, `{t
 
 Rotula las series o usa forma o trama: el color solo no basta. Dos tonos vecinos, como el azul y el púrpura, se confunden con facilidad: nunca los uses solos para separar dos cosas.
 {sino}
-Cada color categórico llega a 3:1 sobre `ui-01` en su tema. Rotula las series o usa forma o trama: el color solo no basta. Dos tonos vecinos, como el lima y el amarillo, se confunden con facilidad: nunca los uses solos para separar dos cosas.
+Cada color categórico llega a 3:1 sobre `ui-01` en su tema. Rotula las series o usa forma o trama: el color solo no basta. Dos tonos vecinos, como el {v:acento} y el {v:vecino}, se confunden con facilidad: nunca los uses solos para separar dos cosas.
 {fin}
 
 ![Un gráfico de barras de viajes por mes con cuatro series (interurbano, rural, aeropuerto y turismo) y su leyenda, en tema oscuro y claro, con los colores viz-cat-01 a viz-cat-04.](assets/Fundamentos/color-grafico.png)

@@ -5,30 +5,77 @@
 (function () {
   'use strict';
   var SIS = window.__SISTEMAS || null, mounted = null, watcher = null;
+  // The pictures of the guides are scenes shown live (see escenaHtml below). A scene's frame tells the page its size
+  // when it is done; the frame is as wide as the camera's window, and its box scales it to the column.
+  var vivas = {}, serie = 0;
+  function ajustar(el) {
+    if (!el.__w || !el.parentNode) return;
+    var k = Math.min(2, el.parentNode.clientWidth / el.__w), f = el.querySelector('iframe');
+    el.style.width = Math.floor(el.__w * k) + 'px'; el.style.height = Math.floor(el.__h * k) + 'px';
+    if (f) { f.style.height = Math.max(1200, el.__h) + 'px'; f.style.transform = 'scale(' + k + ')'; }
+  }
+  window.addEventListener('message', function (e) {
+    var d = e.data, el = d && d.almaEscena ? vivas[d.almaEscena] : null;
+    if (!el) return;
+    el.__w = d.w; el.__h = d.h; el.setAttribute('data-on', 'lista'); ajustar(el);
+  });
+  window.addEventListener('resize', function () { Object.keys(vivas).forEach(function (k) { if (vivas[k].isConnected) ajustar(vivas[k]); else delete vivas[k]; }); });
   var store = {
     get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage blocked */ } }
   };
+  // An entity's content travels as what differs from ALMA's (scripts/lib/delta.mjs): the page rebuilds it from ALMA's.
+  function aplicarDelta(a, d) {
+    if (d === undefined) return a;
+    if ('$v' in d) return d.$v;
+    var i, k, out;
+    if (d.$l) { out = a.split('\n'); for (i in d.$l) out[i] = d.$l[i]; return out.join('\n'); }
+    if (d.$a) { out = a.slice(0, d.$n); for (i = 0; i < d.$n; i++) if (i in d.$a) out[i] = aplicarDelta(a[i], d.$a[i]); return out; }
+    out = {}; var sin = d.$x || [];
+    Object.keys(a).forEach(function (k) { if (sin.indexOf(k) < 0) out[k] = a[k]; });
+    Object.keys(d.$o).forEach(function (k) { out[k] = aplicarDelta(a[k], d.$o[k]); });
+    if (d.$k) { var en = {}; d.$k.forEach(function (k) { en[k] = out[k]; }); return en; }
+    return out;
+  }
+  var contenidos = {};
+  function contenido(id) {
+    if (contenidos[id]) return contenidos[id];
+    var json = function (x) { var el = document.getElementById(x); return el ? JSON.parse(el.textContent) : null; };
+    var propio = json(id ? 'alma-content-' + id : 'alma-content'), d = propio ? null : json('alma-delta-' + id);
+    return (contenidos[id] = propio || aplicarDelta(contenido('alma'), d === null ? undefined : d));
+  }
   function isSystem(v) { return SIS.some(function (s) { return s.id === v; }); }
   function start(sisId) {
   var h = React.createElement, useState = React.useState, useEffect = React.useEffect, useRef = React.useRef, useMemo = React.useMemo;
   var A = window.AlmaDS;
-  var C = JSON.parse(document.getElementById(SIS ? 'alma-content-' + sisId : 'alma-content').textContent);
+  var C = contenido(SIS ? sisId : '');
   var root = document.documentElement;
-  // Each system's token values sit in a style sheet that only applies while it is chosen, and its images in packs of a
-  // few images each (JSON files next to the page), fetched when a page that shows one of them opens.
-  var SYS = SIS ? SIS.filter(function (s) { return s.id === sisId; })[0] : null, packs = {};
-  var BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-  function pack(n) { return packs[n] || (packs[n] = fetch(SYS.pack + n + '.json').then(function (r) { return r.json(); })); }
-  function fill() {
-    [].forEach.call(document.querySelectorAll('img[data-img]'), function (el) {
-      var p = el.getAttribute('data-img'), i = SYS.imgs.indexOf(p);
-      el.removeAttribute('data-img');
-      if (i >= 0) pack(Math.floor(i / SYS.per)).then(function (j) { el.src = j[p]; }, function () { /* the alt text stays */ });
-    });
+  // Each system's token values sit in a style sheet that only applies while it is chosen.
+  var ESC = (function () { var el = document.getElementById('alma-escenas'); return el && window.__ESCENA_DOC ? JSON.parse(el.textContent) : null; })();
+  function textoDe(sel) { var el = document.querySelector(sel); return el ? el.textContent : ''; }
+  // The document of a scene, with ALMA's styles, the values of the system on screen and the scene's own code.
+  function escenaHtml(id, n) {
+    var cssSistema = SIS ? textoDe('style[data-sistema="' + sisId + '"]') : textoDe('#alma-entidad');
+    return window.__ESCENA_DOC({ fuentes: ESC.fuentes, css: textoDe('#alma-css') + '\n' + cssSistema + '\n' + ESC.base, bundle: textoDe('#alma-bundle'), libs: ESC.libs,
+      helpers: ESC.helpers, doc: ESC.doc, datos: Object.assign({ icons: ESC.iconos }, C.escena), escena: ESC.lista[id], vivo: n });
+  }
+  // A scene starts when it comes near the screen. Nothing inside it can be reached: it is a picture, named by its text.
+  function encender(el) {
+    var n = 'e' + (++serie), f = document.createElement('iframe');
+    vivas[n] = el; el.setAttribute('data-on', 'cargando');
+    f.setAttribute('aria-hidden', 'true'); f.setAttribute('tabindex', '-1'); f.setAttribute('inert', ''); f.setAttribute('scrolling', 'no');
+    f.srcdoc = escenaHtml(el.getAttribute('data-escena'), n);
+    el.appendChild(f);
+    setTimeout(function () { if (el.getAttribute('data-on') === 'cargando') el.setAttribute('data-on', 'falla'); }, 20000);
+  }
+  var mirador = window.IntersectionObserver ? new IntersectionObserver(function (es) {
+    es.forEach(function (x) { if (x.isIntersecting) { mirador.unobserve(x.target); encender(x.target); } });
+  }, { rootMargin: '600px' }) : null;
+  function vivir() {
+    [].forEach.call(document.querySelectorAll('.escena:not([data-on])'), function (el) { el.setAttribute('data-on', 'espera'); if (mirador) mirador.observe(el); else encender(el); });
   }
   if (watcher) watcher.disconnect();
-  if (SYS) { watcher = new MutationObserver(fill); watcher.observe(document.getElementById('app'), { childList: true, subtree: true }); }
+  if (ESC) { watcher = new MutationObserver(vivir); watcher.observe(document.getElementById('app'), { childList: true, subtree: true }); }
   if (SIS) [].forEach.call(document.querySelectorAll('style[data-sistema]'), function (el) { el.media = el.getAttribute('data-sistema') === sisId ? 'all' : 'not all'; });
   function change(v) { if (!isSystem(v) || v === sisId) return; store.set('alma-sistema', v); start(v); }
   // An entity's design language (site/lenguaje.js), nested here: its pages join the site's, under their own routes.
@@ -61,7 +108,14 @@
     var t = document.createElement('template');
     t.innerHTML = DOMPurify.sanitize(marked.parse(shift ? lift(src) : src, { gfm: true }));
     var f = t.content;
-    if (SYS) f.querySelectorAll('img[src^="assets/"]').forEach(function (el) { el.setAttribute('data-img', el.getAttribute('src')); el.setAttribute('src', BLANK); });
+    // A picture of the guides becomes the box of its scene, named by the picture's text.
+    if (ESC) f.querySelectorAll('img[src^="assets/"]').forEach(function (el) {
+      var id = el.getAttribute('src').replace(/^assets\//, '').replace(/\.png$/, '');
+      if (!ESC.lista[id]) return;
+      var caja = document.createElement('span');
+      caja.className = 'escena'; caja.setAttribute('data-escena', id); caja.setAttribute('role', 'img'); caja.setAttribute('aria-label', el.getAttribute('alt') || '');
+      el.replaceWith(caja);
+    });
     f.querySelectorAll('h2,h3,h4,h5').forEach(function (el) { el.className = HEAD[el.tagName]; el.id = 'm-' + slug(el.textContent); });
     f.querySelectorAll('a[href]').forEach(function (a) {
       a.className = 'alma-link';

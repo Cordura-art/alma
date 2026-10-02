@@ -60,6 +60,13 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .md blockquote > :last-child { margin-bottom: 0; }
 .md .alma-table-wrap { margin: 0 0 var(--space-24); }
 .md img { display: block; max-width: 100%; height: auto; margin: 0 0 var(--space-24); border-radius: var(--radius-panel); }
+/* A picture of a guide is a scene shown live: a frame as wide as the camera's window (1800 px), scaled to the column by
+   its box. While it loads the box is a quiet block; if it cannot load, the box shows the picture's text. */
+.md .escena { display: block; position: relative; overflow: hidden; max-width: 100%; min-height: 6rem; margin: 0 0 var(--space-24); border-radius: var(--radius-panel); background: var(--ui-01); }
+.md .escena[data-on="lista"] { min-height: 0; background: none; }
+.md .escena iframe { position: absolute; left: 0; top: 0; width: 1800px; height: 1200px; border: 0; transform-origin: 0 0; pointer-events: none; visibility: hidden; }
+.md .escena[data-on="lista"] iframe { visibility: visible; }
+.md .escena[data-on="falla"]::after { content: attr(aria-label); display: block; padding: var(--space-16); color: var(--text-02); }
 
 /* Tables: ALMA Table, with wrapping cells for documentation text. */
 .doc .alma-table td, .md .alma-table td { white-space: normal; height: auto; min-height: var(--alma-row); padding-block: var(--space-8); vertical-align: top; }

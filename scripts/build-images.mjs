@@ -331,6 +331,19 @@ const DEPS = `window.__deps = function () {
   scan(document); return Object.keys(used).sort();
 };`;
 
+// The iframe document of device(): same CSS, bundle and helpers; it flags __ready once rendered and its "after" ran.
+const DOC = `window.__DOC = function (theme, js, after) {
+  return '<!doctype html><html lang="es" data-theme="' + theme + '"><head><meta charset="utf-8">' + document.getElementById('src-head').textContent +
+    '<style>body{margin:0;background:var(--ui-02);color:var(--text-01);min-height:100vh}#shot{position:relative;display:block;box-sizing:border-box;width:100%;min-height:100vh}[tabindex="-1"]:focus-visible{outline:none}</style></head><body><div id="shot"><div id="app"></div></div>' +
+    window.__LIBS + '<scr' + 'ipt>' + document.getElementById('src-bundle').textContent + '</scr' + 'ipt><scr' + 'ipt>var D = window.parent.D;' +
+    document.getElementById('src-helpers').textContent + 'stateCss(); A.registerIcons({ icons: D.icons });' + js + ';(async function(){ await sleep(400); ' + after + '; await sleep(150); window.__ready = true; })();</scr' + 'ipt></body></html>';
+};`;
+
+// The document of a scene, built by the same function the documentation site uses to show it live (site/escenas.js).
+const escenaDoc = await (async () => { const w = {}; new Function('window', await read('site/escenas.js'))(w); return w.__ESCENA_DOC; })();
+// What the site needs to show the scenes live: the shared pieces, and each system's own data.
+export { BASE as cssEscenas, HELPERS as ayudantes, DOC as docDispositivo, DATA as datosEscenas, FONTS as fuentesEscenas, escenaDoc };
+
 if (import.meta.url === `file://${process.argv[1]}`) {
   const flag = (name) => { const i = argv.indexOf(name); if (i < 0) return null; return argv.splice(i, 2)[1]; };
   const FORCE = argv.includes('--forzar') ? argv.splice(argv.indexOf('--forzar'), 1).length > 0 : false;
@@ -339,16 +352,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const bundle = await read(`${P}/components/bundle.js`);
   const sheets = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), S ? cssEntidad(S) : '', BASE];
   const css = sheets.join('\n');
-  const head = `<link rel="stylesheet" href="${FONTS}"><style>${css}</style>`;
   const libs = `<script src="${CDN}/react/18.3.1/umd/react.production.min.js"></script><script src="${CDN}/react-dom/18.3.1/umd/react-dom.production.min.js"></script>`;
-  // The iframe document of device(): same CSS, bundle and helpers; it flags __ready once rendered and its "after" ran.
-  const docFn = `window.__DOC = function (theme, js, after) {
-    return '<!doctype html><html lang="es" data-theme="' + theme + '"><head><meta charset="utf-8">' + document.getElementById('src-head').textContent +
-      '<style>body{margin:0;background:var(--ui-02);color:var(--text-01);min-height:100vh}#shot{position:relative;display:block;box-sizing:border-box;width:100%;min-height:100vh}[tabindex="-1"]:focus-visible{outline:none}</style></head><body><div id="shot"><div id="app"></div></div>' +
-      window.__LIBS + '<scr' + 'ipt>' + document.getElementById('src-bundle').textContent + '</scr' + 'ipt><scr' + 'ipt>var D = window.parent.D;' +
-      document.getElementById('src-helpers').textContent + 'stateCss(); A.registerIcons({ icons: D.icons });' + js + ';(async function(){ await sleep(400); ' + after + '; await sleep(150); window.__ready = true; })();</scr' + 'ipt></body></html>';
-  };`;
-
   // The cache. A picture is kept while its scene, the code it runs on and the value of every token it depends on are
   // the same: a change of one token redraws only the scenes that read it. The manifest lives in build/, out of the repo.
   const sha = (t) => createHash('sha1').update(t).digest('hex');
@@ -364,7 +368,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const resolve = (n, th, depth = 0) => (raw[th][n] === undefined || depth > 12 ? '' : raw[th][n].replace(/var\(\s*--([\w-]+)\s*(?:,[^)]*)?\)/g, (_, x) => resolve(x, th, depth + 1)));
   // Everything a scene runs on except token values: those count only for the scenes that read them.
   const sinValores = sheets.map((c) => c.replace(/--[\w-]+\s*:[^;{}]*;?/g, '')).join('\n');
-  const comun = sha([bundle, sinValores, HELPERS, DEPS, docFn, FONTS, libs, JSON.stringify(DATA.icons), JSON.stringify(DATA.themes)].join('\u0000'));
+  const comun = sha([bundle, sinValores, HELPERS, DEPS, DOC, FONTS, libs, JSON.stringify(DATA.icons), JSON.stringify(DATA.themes)].join('\u0000'));
   const fuente = (s) => { const code = [s.js, s.after, s.css, s.click].join('\u0000'); return sha([comun, s.file, code, ...['easing', 'duration', 'fontAxis', 'swatch'].filter((k) => code.includes(k)).map((k) => JSON.stringify(DATA[k]))].join('\u0000')); };
   const llave = (src, deps) => sha(src + deps.map((n) => THEMES.map((th) => resolve(n, th)).join('|')).join('\n'));
 
@@ -394,10 +398,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
             await page.setContent('<button style="position:fixed;left:0;top:0;width:40px;height:40px"></button>');
             await page.mouse.click(20, 20);
             await page.mouse.move(0, 0);
-            const html = `<!doctype html><html lang="es" data-theme="dark"><head><meta charset="utf-8">${head}<style>${s.css || ''}</style>
-<script type="text/plain" id="src-head">${head.replace(/<\/(script)/gi, '<\\/$1')}</script><script type="text/plain" id="src-bundle">${bundle}</script><script type="text/plain" id="src-helpers">${HELPERS}</script></head>
-<body><div id="shot"><div id="app"></div></div>${libs}<script>${bundle}</script>
-<script>var D = ${JSON.stringify(DATA)};\nwindow.__LIBS = ${JSON.stringify(libs).replace(/<\//g, '<\\/')};\n${docFn}\n${DEPS}\n${HELPERS}\nstateCss(); A.registerIcons({ icons: D.icons });\n${s.js}</script></body></html>`;
+            const html = escenaDoc({ fuentes: FONTS, css, bundle, libs, helpers: HELPERS, doc: DOC, deps: DEPS, datos: DATA, escena: s });
             await page.setContent(html, { waitUntil: 'networkidle' });
             await page.evaluate(() => document.fonts.ready);
             await page.waitForTimeout(250);

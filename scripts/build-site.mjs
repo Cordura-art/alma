@@ -7,6 +7,7 @@
 import { readdir, readFile, writeFile, mkdir, stat, copyFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { generadorNavegador } from './lib/generativo.mjs';
+import { allScenes, cssEscenas, ayudantes, docDispositivo, datosEscenas, fuentesEscenas } from './build-images.mjs';
 import { sistema, aplicar, css as cssEntidad, palabras, restos, portada, origen } from './lib/documentacion.mjs';
 
 const args = process.argv.slice(2), ei = args.indexOf('--entidad');
@@ -19,8 +20,8 @@ const LIBS = ['react/18.3.1/umd/react.production.min.js', 'react-dom/18.3.1/umd/
   'marked/12.0.2/marked.min.js', 'dompurify/3.1.6/purify.min.js'];
 
 const read = (p) => readFile(p, 'utf8');
-// Images the docs link as assets/<Section>/<name>.png are copied next to the page, and load from there.
-const IMAGE_DIRS = ['Componentes', 'Fundamentos', 'Patrones', 'Iconos', 'Movimiento', 'Temas', 'Tipografia'];
+// The pictures the docs link as assets/<Section>/<name>.png are not files here: each one is a scene (the same code
+// build-images.mjs photographs for the ALMA artifact) that the page shows live, with the values of its system.
 const exists = (p) => stat(p).then(() => true, () => false);
 
 // A preview document: line 1 is the @dsCard marker, then markup, then one <script>.
@@ -65,7 +66,8 @@ const propias = (slug, page) => {
 };
 
 const bundle = await read(`${P}/components/bundle.js`);
-const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), S ? cssEntidad(S) : '', await read('site/site.css')].join('\n');
+const almaCss = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`)].join('\n'), entidadCss = S ? cssEntidad(S) : '', siteCss = await read('site/site.css');
+const css = [almaCss, entidadCss, siteCss].join('\n');
 const app = await read('site/app.js');
 // An entity whose cover is its field (generative illustration, no characters) needs the generator on the page.
 const GENV = S && S.L.ilustracion.generativa, campoPortada = GENV && GENV.personajes === false ? `</script>\n<script>\n${generadorNavegador()}\n` : '';
@@ -145,6 +147,12 @@ if (S) {
   const left = restos(textos, W.vigentes, W.aspecto);
   if (left.length) throw new Error(`${ENT}: ${left.length} textos todavía describen un aspecto que la entidad no tiene:\n  ${left.join('\n  ')}`);
 }
+// Live scenes: the pieces every system shares travel once; a system's own data (its durations, its swatches) with its content.
+const { icons: iconosEscenas, ...datosSistema } = datosEscenas;
+content.escena = datosSistema;
+const escenas = JSON.stringify({ fuentes: fuentesEscenas, base: cssEscenas, helpers: ayudantes, doc: docDispositivo, iconos: iconosEscenas,
+  libs: LIBS.slice(0, 2).map((l) => `<script src="${CDN}/${l}"></script>`).join(''),
+  lista: Object.fromEntries(allScenes.map((s) => [s.file, { js: s.js, after: s.after, css: s.css, click: s.click }])) }).replace(/</g, '\\u003c');
 const json = JSON.stringify(content).replace(/</g, '\\u003c');
 
 const html = `<title>${TITLE}</title>
@@ -152,14 +160,21 @@ const html = `<title>${TITLE}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght,GRAD,XTRA@8..144,25..151,100..1000,-200..150,323..603&family=Roboto+Mono:wght@400;500&display=swap">
+<style id="alma-css">
+${almaCss}
+</style>${S ? `\n<style id="alma-entidad">\n${entidadCss}</style>` : ''}
 <style>
-${css}
+${siteCss}
 </style>
 <div id="app"></div>
 ${LIBS.map((l) => `<script src="${CDN}/${l}"></script>`).join('\n')}
-<script>
+<script id="alma-bundle">
 ${bundle}
-${campoPortada}</script>
+</script>
+<script>
+${campoPortada.replace(/^<\/script>\n<script>\n/, '')}${await read('site/escenas.js')}
+</script>
+<script type="application/json" id="alma-escenas">${escenas}</script>
 <script type="application/json" id="alma-content">${json}</script>
 <script>
 ${app}
@@ -169,12 +184,4 @@ await mkdir(dirname(OUT), { recursive: true });
 await writeFile(OUT, html);
 // The entity's values alone, to load after alma.css in any product.
 if (S) await writeFile(`${dirname(OUT)}/entidad-${ENT}.css`, cssEntidad(S));
-let images = 0;
-// An entity's images are drawn with its own tokens, straight into its folder (build-images.mjs --entidad <id>).
-if (S) for (const d of IMAGE_DIRS) { if (await exists(`${dirname(OUT)}/assets/${d}`)) images += (await readdir(`${dirname(OUT)}/assets/${d}`)).filter((f) => f.endsWith('.png')).length; }
-for (const d of S ? [] : IMAGE_DIRS) {
-  if (!(await exists(`${P}/assets/${d}`))) continue;
-  await mkdir(`${dirname(OUT)}/assets/${d}`, { recursive: true });
-  for (const f of (await readdir(`${P}/assets/${d}`)).filter((f) => f.endsWith('.png'))) { await copyFile(`${P}/assets/${d}/${f}`, `${dirname(OUT)}/assets/${d}/${f}`); images++; }
-}
-console.log(`Sitio: ${OUT} (${(html.length / 1024).toFixed(0)} KB, ${components.length} componentes, ${images} imágenes en assets/)`);
+console.log(`Sitio: ${OUT} (${(html.length / 1024).toFixed(0)} KB, ${components.length} componentes, ${allScenes.length} escenas en vivo)`);

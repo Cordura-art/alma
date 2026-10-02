@@ -2,39 +2,28 @@
 // switch between them and, for an entity, between its documentation and its design language. It is the site of
 // build-site.mjs holding each system's content and token values side by side, plus the language template
 // (site/lenguaje.js) and the engine it runs on.
-// Images travel in packs (img/<id>-<n>.json, a few images each as data URIs) instead of one file per image: a published
-// artifact holds a limited number of files, and every system brings 131 images.
-// Run after `npm run build` and `npm run entidad -- <id>` for each entity (their images come from there).
+// An entity's content is stored as what differs from ALMA's (scripts/lib/delta.mjs): most of it is the same text.
+// It is one file: the pictures of the guides are scenes the page shows live with the values of the system on screen
+// (site/escenas.js), so no system brings images and any number of entities fits.
+// Run after `npm run build`.
 // Usage: node scripts/build-selector.mjs [id …]   (no ids = every entity with a design language)
-import { readFileSync, writeFileSync, readdirSync, mkdirSync, mkdtempSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, mkdirSync, mkdtempSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { datos, motor } from './lib/entidades.mjs';
 import { sistema } from './lib/documentacion.mjs';
 import { genesDe, generadorNavegador } from './lib/generativo.mjs';
+import { delta, aplicarDelta } from './lib/delta.mjs';
 
 const read = (p) => readFileSync(p, 'utf8');
 const all = readdirSync('entidades/lenguajes').filter((f) => f.endsWith('.json')).map((f) => f.replace(/\.json$/, ''));
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : all;
-const OUT = 'build/documentacion-sistemas', tmp = mkdtempSync(join(tmpdir(), 'alma-sistemas-')), PER = 8;
+const OUT = 'build/documentacion-sistemas', tmp = mkdtempSync(join(tmpdir(), 'alma-sistemas-'));
+mkdirSync(OUT, { recursive: true });
 const CONTENT = /<script type="application\/json" id="alma-content">([\s\S]*?)<\/script>/;
 const esc = (s) => s.replace(/<\/script/gi, '<\\/script');
 const build = (dir, args) => { execFileSync(process.execPath, ['scripts/build-site.mjs', ...args, join(tmp, dir, 'index.html')], { stdio: 'pipe' }); return read(join(tmp, dir, 'index.html')); };
-
-// A system's images, in packs of PER: the page asks for pack floor(index / PER) of the image it needs.
-mkdirSync(`${OUT}/img`, { recursive: true });
-let images = 0, files = 0;
-function empacar(id, dir) {
-  const imgs = readdirSync(dir, { recursive: true }).map(String).filter((f) => f.endsWith('.png')).map((f) => 'assets/' + f.split('\\').join('/')).sort();
-  for (let n = 0; n * PER < imgs.length; n++) {
-    const pack = Object.fromEntries(imgs.slice(n * PER, n * PER + PER).map((p) => [p, 'data:image/png;base64,' + readFileSync(join(dir, p.slice(7))).toString('base64')]));
-    writeFileSync(`${OUT}/img/${id}-${n}.json`, JSON.stringify(pack));
-    files++;
-  }
-  images += imgs.length;
-  return { pack: `img/${id}-`, per: PER, imgs };
-}
 
 // The language's own styles (and the engine's, which it builds on) apply only inside its pages (.lng), and the site's
 // page header does not reach in there: the two were written as separate sites and share a few class names.
@@ -62,15 +51,19 @@ const siteScoped = siteCss.replace(/\.(head__title|head|type-sample)(?![\w-])/g,
 // ALMA's page is the shell: its CSS, components and app.
 const shell = build('alma', []);
 if (!CONTENT.test(shell) || !shell.includes('<div id="app"></div>') || !shell.includes(siteCss)) throw new Error('El sitio de ALMA cambió de forma: no encuentro su contenido o sus estilos');
-const sistemas = [{ id: 'alma', nombre: 'ALMA', ...empacar('alma', 'artifact/project/assets') }];
+const sistemas = [{ id: 'alma', nombre: 'ALMA' }];
+const base = JSON.parse(CONTENT.exec(shell)[1]), pesos = [];
 const blocks = [`<script type="application/json" id="alma-content-alma">${CONTENT.exec(shell)[1]}</script>`], styles = [], lenguajes = {};
 for (const id of ids) {
-  const L = JSON.parse(read(`entidades/lenguajes/${id}.json`)), from = `build/documentacion-${id}/assets`;
-  if (!existsSync(from)) throw new Error(`Faltan las imágenes de ${id}: corre "npm run entidad -- ${id}" primero`);
-  blocks.push(`<script type="application/json" id="alma-content-${id}">${CONTENT.exec(build(id, ['--entidad', id]))[1]}</script>`);
+  const L = JSON.parse(read(`entidades/lenguajes/${id}.json`));
+  // Only what differs from ALMA travels, and the build checks that the page will rebuild exactly the same content.
+  const suyo = JSON.parse(CONTENT.exec(build(id, ['--entidad', id]))[1]), d = delta(base, suyo), json = JSON.stringify(d === undefined ? null : d).replace(/</g, '\\u003c');
+  if (JSON.stringify(aplicarDelta(base, d)) !== JSON.stringify(suyo)) throw new Error(`${id}: el contenido reconstruido desde ALMA no es igual al suyo`);
+  blocks.push(`<script type="application/json" id="alma-delta-${id}">${json}</script>`);
+  pesos.push(json.length);
   // The entity's values apply only while it is the chosen system: the app switches this sheet on.
   styles.push(`<style data-sistema="${id}" media="not all">\n${read(join(tmp, id, `entidad-${id}.css`))}</style>`);
-  sistemas.push({ id, nombre: `Entidad ${L.nombre}`, ...empacar(id, from) });
+  sistemas.push({ id, nombre: `Entidad ${L.nombre}` });
   // Generative illustration: the entity's genes travel with its language (see build-lenguaje.mjs).
   if (L.ilustracion.generativa) L.genes = genesDe(await sistema(id));
   lenguajes[id] = L;
@@ -91,4 +84,4 @@ const html = shell.replace(siteCss, () => siteScoped)
   .replace('<div id="app"></div>', () => `<style>\n${scope(read('site/entidades.css') + '\n' + read('site/lenguaje.css'))}\n</style>\n${styles.join('\n')}\n<div id="app"></div>`)
   .replace(CONTENT, () => `${blocks.join('\n')}\n<script>window.__SISTEMAS = ${JSON.stringify(sistemas)};</script>\n${lenguaje}`);
 writeFileSync(`${OUT}/index.html`, html);
-console.log(`Sitio con selector: ${OUT}/index.html (${(html.length / 1024).toFixed(0)} KB, ${sistemas.map((s) => s.nombre).join(', ')}; ${images} imágenes en ${files} paquetes)`);
+console.log(`Sitio con selector: ${OUT}/index.html (${(html.length / 1024).toFixed(0)} KB, ${sistemas.map((s) => s.nombre).join(', ')}; un solo archivo, con las imágenes en vivo; el contenido de cada entidad pesa ${pesos.map((p) => Math.round(p / 1024)).join(", ")} KB)`);
