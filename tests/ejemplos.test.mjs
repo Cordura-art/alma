@@ -288,3 +288,14 @@ test('la portada de la documentación: la colonia en una entidad con personajes,
   assert.match(sin.code, /GEN\.campo\(\{"id":"automata"/, 'el campo con los genes de la entidad');
   for (const p of [con, sin]) assert.doesNotMatch(p.markup, /<svg class="ecv__art"/, 'ya sin barras');
 });
+
+test('la portada de ALMA es su campo, dibujado con el código de entidades/ y los colores de sus tokens', () => {
+  assert.match(execFileSync('node', ['scripts/build-portada.mjs', '--check']).toString(), /al día/);
+  assert.match(readFileSync('package.json', 'utf8'), /"build": "[^"]*build-portada\.mjs/);
+  const p = readFileSync('artifact/project/components/Cover/preview.html', 'utf8'), fuera = p.slice(0, p.indexOf('/* @campo:start */')) + p.slice(p.indexOf('/* @campo:end */'));
+  assert.match(p, /^<!-- @dsCard height=300 -->\n/);
+  assert.match(p, /<canvas id="cv-campo" class="art" width="896" height="600" aria-hidden="true">/);
+  assert.match(p, /campo\(G, 'portada', 448, 300\)/);
+  assert.equal(fuera.match(/#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(/), null, 'la portada no trae colores propios: los lee de los tokens');
+  for (const n of ['brand-ink', 'primary-300', 'primary-500', 'tertiary-400', 'secondary-50', 'secondary-500', 'interactive-01']) assert.ok(p.includes(`tok('${n}')`), n);
+});

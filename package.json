@@ -14,7 +14,7 @@
     "./tokens.json": "./dist/json/tokens.json"
   },
   "scripts": {
-    "build": "node scripts/build-tokens.mjs && node scripts/build-pictogramas.mjs && node scripts/build-docs.mjs",
+    "build": "node scripts/build-tokens.mjs && node scripts/build-pictogramas.mjs && node scripts/build-portada.mjs && node scripts/build-docs.mjs",
     "test": "node scripts/check-roundtrip.mjs && node scripts/check-contrast.mjs && node --test tests/*.test.mjs",
     "check": "npm run build && npm test",
     "site": "node scripts/build-site.mjs",
