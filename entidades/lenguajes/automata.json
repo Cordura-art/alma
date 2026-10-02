@@ -386,9 +386,9 @@
   ]
  },
  "firma": {
-  "lede": "Nuestra firma no es un dibujo fijo. Es una familia de piezas que una regla dibuja a partir de nuestra carta y de nuestra fecha de nacimiento: un campo, un carrusel, un micelio, emblemas y caras de tarjeta. No usa personajes. Acompaña al nombre; no lo reemplaza.",
-  "construccion": "Funciona como un juego que dibuja su mundo desde una semilla. La carta da las reglas: los colores, las puntas, los focos, el ritmo. La fecha de nacimiento da la semilla. Una clave, que puede ser un concepto o un número, elige un dibujo entre infinitos, y la misma clave da siempre el mismo.",
-  "color": "Las piezas viven sobre un fondo oscuro, con la paleta completa y el azul como acento: en el centro de un emblema y en una partícula de cada doce del campo. Nunca sobre fotografías ni sobre otro color de la paleta.",
+  "lede": "Nuestra firma no es un dibujo fijo. Es una familia de piezas que una regla dibuja a partir de nuestra carta y de nuestra fecha de nacimiento: un campo, un carrusel, un micelio, criaturas, colonias, emblemas y caras de tarjeta. Acompaña al nombre; no lo reemplaza.",
+  "construccion": "Funciona como un juego que dibuja su mundo desde una semilla. La carta da las reglas: los colores, las puntas, los focos, el ritmo. La fecha de nacimiento da la semilla. Una clave, que puede ser un nombre, un concepto o un número, elige un dibujo entre infinitos, y la misma clave da siempre el mismo.",
+  "color": "Las piezas viven sobre un fondo oscuro, con la paleta completa y el azul como acento: en el centro de un emblema, en las criaturas más chicas de una colonia y en una partícula de cada doce del campo. Solo la colonia tiene una versión apagada para ir detrás de un texto.",
   "movimiento": "El campo, el carrusel y el micelio se mueven un 25 % más lento que la base. Siempre se pueden pausar y se detienen solos al salir de la pantalla. Si la persona pidió menos movimiento, parten quietos y completos."
  },
  "tipografia": {
@@ -477,18 +477,23 @@
    {
     "t": "Interfaz",
     "p": "Fragmentos de nuestra propia interfaz, simplificados, para explicar una función. Siempre con componentes de ALMA, nunca inventados."
+   },
+   {
+    "t": "Criaturas",
+    "p": "Nuestros personajes. Cada uno son dos formas redondas y dos ojos, con los colores de la paleta, y el mismo nombre da siempre la misma criatura. Sirven de avatar, de mascota de una pieza y, amontonadas, de textura."
    }
   ],
   "personas": "Cuando dibujamos personas, las mostramos haciendo algo: pensando, comparando, explicando. Siluetas simples y diversas, sin rasgos caricaturescos.",
-  "color": "Azul para lo importante, neutros para el resto, cian y púrpura solo como apoyo. Una ilustración nunca usa más de tres colores de la paleta.",
+  "color": "Azul para lo importante, neutros para el resto, cian y púrpura solo como apoyo. Una ilustración nunca usa más de tres colores de la paleta. Las criaturas son la excepción: una sola lleva dos colores sobre un fondo oscuro, y una textura de criaturas puede usar la paleta completa.",
   "avoid": [
    "Evita metáforas gastadas: bombillas, cohetes, engranajes.",
    "Evita volúmenes, brillos y perspectivas exageradas.",
-   "Evita personajes y mascotas.",
+   "Evita que una criatura dé un error, un aviso o una instrucción: eso va con texto y un icono.",
+   "Evita los personajes ajenos y los que imitan a una persona real.",
    "Evita ilustrar lo que una frase ya explica."
   ],
   "generativa": {
-   "personajes": false,
+   "nombres": ["Ana Rojas", "Luis Soto", "Marta Díaz", "Pedro Vera", "Camila Paz", "Tomás Mora", "Elena Lagos", "Raúl Pino", "Sofía Reyes", "Iván Silva", "Noa Campos", "Diego Vidal"],
    "conceptos": ["pregunta", "prueba", "nombre", "dato", "modelo", "sistema", "red", "proceso", "escala", "fuente", "comparación", "resultado"]
   }
  },

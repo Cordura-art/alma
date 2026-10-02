@@ -274,12 +274,14 @@ test('el lenguaje de una entidad con ilustración generativa lleva sus genes y e
   assert.match(con, /"genes":\{"id":"ensayo"/);
   assert.match(sin, /window\.__GENERADOR = /);
   assert.match(sin, /"genes":\{"id":"automata"/);
-  assert.match(sin, /"personajes":false/, 'Autómata no usa personajes');
 });
 
 test('la portada de la documentación: la colonia en una entidad con personajes, el campo en una sin ellos', async () => {
   const { portada } = await import('../scripts/lib/documentacion.mjs');
-  const con = portada(await sistema('ensayo')), sin = portada(await sistema('automata'));
+  // No entity goes without characters today: the case is tried on a copy of one that declares it.
+  const A = await sistema('automata'), sinPersonajes = { ...A, L: { ...A.L, ilustracion: { ...A.L.ilustracion, generativa: { ...A.L.ilustracion.generativa, personajes: false } } } };
+  const con = portada(await sistema('ensayo')), sin = portada(sinPersonajes);
+  assert.match(portada(A).markup, /<div class="ecv__art ecv__art--gen"/, 'Autómata usa personajes: su portada es la colonia');
   assert.match(con.markup, /<div class="ecv__art ecv__art--gen"/); assert.equal(con.code, '');
   assert.match(con.markup, /Ensayo/, 'el nombre sigue al lado');
   assert.match(sin.markup, /<canvas id="ecv-campo" class="ecv__art ecv__art--gen"/, 'un lienzo para el campo');
