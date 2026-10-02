@@ -239,7 +239,7 @@ export function borrador({ id, nombre, nacimiento, lugar, colorHeredado, hoy }, 
     firma: {
       lede: 'Nuestra firma no es un dibujo fijo. Es una familia de piezas que una regla dibuja a partir de nuestra carta y de nuestra fecha de nacimiento: un campo, un carrusel, un micelio, criaturas, colonias, emblemas y caras de tarjeta. Acompaña al nombre; no lo reemplaza.',
       construccion: 'Funciona como un juego que dibuja su mundo desde una semilla. La carta da las reglas: los colores, las puntas, los focos, el ritmo. La fecha de nacimiento da la semilla. Una clave, que puede ser un nombre, un concepto o un número, elige un dibujo entre infinitos, y la misma clave da siempre el mismo.',
-      color: `Las piezas viven sobre negro, con la paleta completa y el ${primario} como acento: en el centro de un emblema, en las criaturas más chicas de una colonia, en una partícula de cada doce del campo. Solo la colonia tiene una versión apagada para ir detrás de un texto.`,
+      color: `Las piezas viven sobre negro, con la paleta completa y el ${primario} como acento: en la marca de cada emblema, también en los que forman el campo, y en las criaturas más chicas de una colonia. Solo la colonia tiene una versión apagada para ir detrás de un texto.`,
       movimiento: `El campo, el carrusel y el micelio se mueven ${ritmo}. Siempre se pueden pausar y se detienen solos al salir de la pantalla. Si la persona pidió menos movimiento, parten quietos y completos.`
     },
     tipografia: {

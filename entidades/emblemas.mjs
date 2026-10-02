@@ -1,4 +1,6 @@
-// The emblems of an entity: abstract radial drawings (stars, rings, spirals, counterforms), one per concept.
+// The emblems of an entity, one per concept. Two engines live here. The one in use (at the end of the file) builds an
+// emblem in layers and lets a gate of the entity's chart choose them. The first one, kept as the classic family, is a
+// set of 32 whole drawings: abstract radial figures (stars, rings, spirals, counterforms).
 // The 32 drawings are the user's own, from the "Neo-banking Icons v15" study (ejemplos/ensayo-generativo/referencias/icon_system_v15.html), kept as
 // written, except three (nested_stars, hex_core, dual_star) that now also read the traits of the concept. What changed:
 // no palette, background or stroke of their own (they take the entity's), the points, the
@@ -440,14 +442,97 @@ function dibujosEmblema(SW, BASE, mkRng, mid) {
 
 export const EMBLEMAS = dibujosEmblema(1, '', azar, () => '').length;
 
-// An emblem for a concept (any word). The same entity and the same word always give the same emblem; `dibujo` forces
-// one of the drawings. It sits on ink with the entity's piece palette; the accent is the fifth color, which the
-// drawings use for centers and thin strokes, so it marks and does not fill. Decorative unless `nombre` is given.
+// ---------- Emblems in layers, chosen by a gate of the chart
+// An emblem is a silhouette, a motif inside it and a mark. A gate of the entity's chart decides the three: a gate is a
+// hexagram, a hexagram is two trigrams, and there are eight trigrams, eight silhouettes and eight motifs. The lower
+// trigram picks the silhouette, the upper one the motif, and the line the entity has active in that gate (1 to 6)
+// picks one of six marks. Each of the 64 gates has its own emblem, and each entity wears it with its line, its
+// numbers, its colors, its corners and its fill or line.
+// The trigrams, in the order of the tables below: heaven, thunder, water, mountain, earth, wind, fire, lake.
+export const TRIGRAMAS = ['cielo', 'trueno', 'agua', 'montaña', 'tierra', 'viento', 'fuego', 'lago'];
+// The 64 hexagrams by trigram: rows are the lower trigram, columns the upper one.
+const HEXAGRAMAS = [[1, 34, 5, 26, 11, 9, 14, 43], [25, 51, 3, 27, 24, 42, 21, 17], [6, 40, 29, 4, 7, 59, 64, 47], [33, 62, 39, 52, 15, 53, 56, 31], [12, 16, 8, 23, 2, 20, 35, 45], [44, 32, 48, 18, 46, 57, 50, 28], [13, 55, 63, 22, 36, 37, 30, 49], [10, 54, 60, 41, 19, 61, 38, 58]];
+// A gate's two trigrams: [lower, upper], as indexes of TRIGRAMAS.
+export const TRIGRAMAS_DE = {};
+HEXAGRAMAS.forEach((fila, abajo) => fila.forEach((n, arriba) => { TRIGRAMAS_DE[n] = [abajo, arriba]; }));
+
+const C0 = 48, PI = Math.PI, TAU = PI * 2;
+const n2 = (v) => String(Math.round(v * 100) / 100);
+const pt = (a, r) => `${n2(C0 + Math.cos(a) * r)},${n2(C0 + Math.sin(a) * r)}`;
+const poligono = (n, r, off = 0) => { let d = ''; for (let i = 0; i < n; i++) d += (i ? 'L' : 'M') + pt(TAU * i / n + off - PI / 2, r); return d + 'Z'; };
+const estrella = (n, r1, r2) => { let d = ''; for (let i = 0; i < n * 2; i++) d += (i ? 'L' : 'M') + pt(PI * i / n - PI / 2, i % 2 ? r2 : r1); return d + 'Z'; };
+// A silhouette, one per lower trigram: (n, G) → { s: svg with {P} where its paint goes, r: the radius left inside for
+// the motif, crudo: it paints itself (the ring) }.
+export const SILUETAS = ['disco', 'estrella', 'anillo', 'polígono', 'cuadro', 'flor', 'engranaje', 'cruz'];
+const SILUETA = [
+  () => ({ s: '<circle cx="48" cy="48" r="42"{P}/>', r: 34 }),
+  (n) => { const k = n < 5 ? 0.42 : 0.66; return { s: `<path d="${estrella(Math.max(3, n), 45, 45 * k)}"{P} stroke-linejoin="round"/>`, r: 45 * k - 5 }; },
+  () => ({ s: '<circle cx="48" cy="48" r="36" fill="none" stroke="{C}" stroke-width="11"/>', r: 26, crudo: true }),
+  (n) => ({ s: `<path d="${poligono(Math.max(3, n), 44)}"{P} stroke-linejoin="round"/>`, r: 44 * Math.cos(PI / Math.max(3, n)) - 6 }),
+  (n, G) => ({ s: `<rect x="8" y="8" width="80" height="80" rx="${n2(G.redondez * 26)}"{P}/>`, r: 33 }),
+  (n) => { const m = Math.max(3, n), q = Math.min(17, Math.max(8, 27 * Math.sin(PI / m) * 1.12)); let s = ''; for (let i = 0; i < m; i++) { const a = TAU * i / m - PI / 2; s += `<circle cx="${n2(C0 + Math.cos(a) * 27)}" cy="${n2(C0 + Math.sin(a) * 27)}" r="${n2(q)}"{P}/>`; } return { s, r: 17 }; },
+  (n) => { const m = Math.max(4, n), w = PI / m * 0.5; let d = ''; for (let i = 0; i < m; i++) { const a = TAU * i / m - PI / 2; d += `${i ? 'L' : 'M'}${pt(a - w, 44)}L${pt(a + w, 44)}L${pt(a + PI / m - w * 0.3, 33)}L${pt(a + PI / m + w * 0.3, 33)}`; } return { s: `<path d="${d}Z"{P} stroke-linejoin="round"/>`, r: 27 }; },
+  (n, G) => { const rx = n2(G.redondez * 13); return { s: `<rect x="34" y="6" width="28" height="84" rx="${rx}"{P}/><rect x="6" y="34" width="84" height="28" rx="${rx}"{P}/>`, r: 12 }; }
+];
+// A motif, one per upper trigram: (n, R, K, W, lleno) → svg inside radius R, in color K, with stroke W.
+export const MOTIVOS = ['órbitas', 'rayos', 'arcos', 'polígono', 'franjas', 'espiral', 'cuñas', 'puntos'];
+const MOTIVO = [
+  (n, R, K, W) => { const k = Math.max(2, Math.min(3, Math.round(n / 2))); let s = ''; for (let i = 0; i < k; i++) s += `<ellipse cx="48" cy="48" rx="${n2(R)}" ry="${n2(R * 0.36)}" transform="rotate(${n2(180 * i / k)} 48 48)"/>`; return `<g fill="none" stroke="${K}" stroke-width="${n2(W)}">${s}</g>`; },
+  (n, R, K, W) => { let s = ''; for (let i = 0; i < n; i++) { const a = TAU * i / n - PI / 2; s += `<path d="M${pt(a, R * 0.3)}L${pt(a, R)}"/>`; } return `<g stroke="${K}" stroke-width="${n2(W * 1.4)}" stroke-linecap="round" fill="none">${s}</g>`; },
+  (n, R, K, W) => `<g fill="none" stroke="${K}" stroke-width="${n2(W)}"><circle cx="48" cy="48" r="${n2(R * 0.38)}"/><circle cx="48" cy="48" r="${n2(R * 0.66)}"/><circle cx="48" cy="48" r="${n2(R * 0.94)}"/></g>`,
+  (n, R, K, W, lleno) => `<path d="${poligono(Math.max(3, n), R * 0.8, PI / Math.max(3, n))}" ${lleno ? `fill="${K}"` : `fill="none" stroke="${K}" stroke-width="${n2(W)}"`} stroke-linejoin="round"/>`,
+  (n, R, K, W) => { const k = Math.max(3, Math.min(6, n)); let s = ''; for (let i = 0; i < k; i++) { const y = -R * 0.8 + R * 1.6 * i / (k - 1), x = Math.sqrt(Math.max(0, R * R - y * y)); s += `<path d="M${n2(C0 - x)},${n2(C0 + y)}H${n2(C0 + x)}"/>`; } return `<g stroke="${K}" stroke-width="${n2(Math.max(W * 1.2, R * 0.9 / k))}" stroke-linecap="round">${s}</g>`; },
+  (n, R, K, W) => { let d = ''; for (let i = 0; i <= 60; i++) { const t = i / 60; d += (i ? 'L' : 'M') + pt(t * TAU * 2.4 - PI / 2, R * (0.08 + 0.9 * t)); } return `<path d="${d}" fill="none" stroke="${K}" stroke-width="${n2(W * 1.2)}" stroke-linecap="round"/>`; },
+  (n, R, K) => { const m = Math.max(2, n) * 2; let s = ''; for (let i = 0; i < m; i += 2) s += `<path d="M48,48L${pt(TAU * i / m - PI / 2, R)}A${n2(R)},${n2(R)} 0 0 1 ${pt(TAU * (i + 1) / m - PI / 2, R)}Z"/>`; return `<g fill="${K}">${s}</g>`; },
+  (n, R, K) => { let s = ''; for (let i = 0; i < n; i++) { const a = TAU * i / n - PI / 2; s += `<circle cx="${n2(C0 + Math.cos(a) * R * 0.68)}" cy="${n2(C0 + Math.sin(a) * R * 0.68)}" r="${n2(Math.max(2, Math.min(R * 0.2, R * 1.6 / n)))}"/>`; } return `<g fill="${K}">${s}</g>`; }
+];
+// A mark in the accent, one per line: (A, W, r) → svg.
+const MARCA = [
+  (A) => `<circle cx="48" cy="48" r="5" fill="${A}"/>`,
+  (A, W) => `<circle cx="48" cy="48" r="7" fill="none" stroke="${A}" stroke-width="${n2(W)}"/>`,
+  (A, W, r) => { const a = r() * TAU; return `<circle cx="${n2(C0 + Math.cos(a) * 40)}" cy="${n2(C0 + Math.sin(a) * 40)}" r="5" fill="${A}"/>`; },
+  () => '',
+  (A) => `<ellipse cx="48" cy="48" rx="9" ry="5" fill="${A}"/>`,
+  (A, W, r) => { const a = r() * PI, x = Math.cos(a) * 40, y = Math.sin(a) * 40; return `<circle cx="${n2(C0 + x)}" cy="${n2(C0 + y)}" r="3.5" fill="${A}"/><circle cx="${n2(C0 - x)}" cy="${n2(C0 - y)}" r="3.5" fill="${A}"/>`; }
+];
+
+// The gate of a word: one of the entity's own gates, always the same for the same word.
+function puertaDe(G, k) { const P = G.puertas || []; return P.length ? P[hash(`puerta|${G.semilla}|${k}`) % P.length] : null; }
+
+// An emblem for a concept (any word). The same entity and the same word always give the same emblem. The word picks
+// one of the entity's gates, which decides silhouette, motif and mark; the word itself decides the colors, the number
+// (one of the entity's own: G.numeros) and the turn of the motif, so two words on the same gate are still two emblems.
+// `puerta` and `linea` force the gate; `dibujo` asks for one of the 32 original drawings instead (the classic family).
+// It sits on ink with the entity's piece palette; the accent is only the mark. Decorative unless `nombre` is given.
 export function emblema(G, clave, o = {}) {
   const S = 96, k = String(clave).trim().toLowerCase(), h = hash(`emblema|${G.semilla}|${k}`), C = G.pieza;
-  const D = dibujosEmblema(1.5 * S / 72 * G.trazo, C.base, azar, () => 'e' + h.toString(36));
-  const i = o.dibujo ?? hash(`dibujo|${G.semilla}|${k}`) % D.length;
   const marca = o.nombre ? `role="img" aria-label="${String(o.nombre).replace(/[&<>"]/g, '')}"` : 'aria-hidden="true"';
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" ${marca}><rect width="${S}" height="${S}" fill="${C.base}"/>` +
-    D[i](S, azar(h ^ 0x9e3779b9), rasgos(h), [...C.barras.slice(0, 4), C.acento], G.relleno ? 'fill' : 'line', G.puntas, G.complejidad) + '</svg>';
+  const abre = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" ${marca}><rect width="${S}" height="${S}" fill="${C.base}"/>`;
+  if (o.dibujo !== undefined) {
+    const D = dibujosEmblema(1.5 * S / 72 * G.trazo, C.base, azar, () => 'e' + h.toString(36));
+    return abre + D[o.dibujo](S, azar(h ^ 0x9e3779b9), rasgos(h), [...C.barras.slice(0, 4), C.acento], G.relleno ? 'fill' : 'line', G.puntas, G.complejidad) + '</svg>';
+  }
+  const g = o.puerta ? { n: o.puerta, l: o.linea || 1 } : puertaDe(G, k), r = azar(h ^ 0x9e3779b9), pal = C.barras.slice(0, 4), W = 2 * G.trazo, lleno = G.relleno;
+  const [si, mi] = g ? TRIGRAMAS_DE[g.n] : [h % SILUETA.length, (h >>> 8) % MOTIVO.length], ki = g ? g.l - 1 : (h >>> 16) % MARCA.length;
+  const numeros = G.numeros && G.numeros.length ? G.numeros : [G.puntas], n = o.n || numeros[(h >>> 20) % numeros.length];
+  const i1 = Math.floor(r() * pal.length), c1 = pal[i1], c2 = pal[(i1 + 1 + Math.floor(r() * (pal.length - 1))) % pal.length];
+  const F = SILUETA[si](n, G), pinta = lleno ? ` fill="${c1}"` : ` fill="none" stroke="${c1}" stroke-width="${n2(W)}"`;
+  // On a filled silhouette the motif is cut out in the ground's color or drawn in a second color; in line, a second color.
+  const K = lleno && !F.crudo ? (r() < 0.5 ? C.base : c2) : c2, giro = ((h >>> 12) % 24) * 15;
+  return abre + F.s.split('{P}').join(pinta).split('{C}').join(c1) +
+    `<g transform="rotate(${giro} 48 48)">${MOTIVO[mi](n, Math.max(10, F.r), K, W, lleno)}</g>` + MARCA[ki](C.acento, W, r) + '</svg>';
+}
+
+// The emblem of one of the 64 gates, with the line the entity has active in it.
+export function emblemaPuerta(G, puerta, linea, o = {}) { return emblema(G, `puerta ${puerta}`, { ...o, puerta, linea }); }
+
+// The emblems of a list of concepts, each on a different gate of the entity while it has gates left, so neighbors
+// never share silhouette and motif. For each: its word, its gate, its line and its drawing.
+export function emblemasDe(G, claves) {
+  const P = G.puertas || [], r = azar(hash(`reparto|${G.semilla}`)), orden = P.map((_, i) => i);
+  for (let i = orden.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)), t = orden[i]; orden[i] = orden[j]; orden[j] = t; }
+  return claves.map((clave, i) => {
+    const g = P.length ? P[orden[i % P.length]] : null;
+    return { clave, puerta: g ? g.n : null, linea: g ? g.l : null, svg: emblema(G, clave, g ? { puerta: g.n, linea: g.l } : {}) };
+  });
 }

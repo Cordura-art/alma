@@ -7,7 +7,20 @@ window.__GENERADOR_VISTAS = function (G) {
   'use strict';
   var h = React.createElement, useEffect = React.useEffect, useRef = React.useRef, GEN = window.__GENERADOR;
 
-  // The field, on a canvas. It always starts from a settled frame, so it reads complete when it is still.
+  // The emblems of the entity's first twelve gates, as pictures without their ground, for the field's particles.
+  // They load a moment after the page; `listos()` gives them once all are drawn, and `avisar(fn)` calls back then.
+  var SELLOS = (function () {
+    var P = (G.puertas || []).slice(0, 12), hechos = 0, espera = [], lista = P.map(function (p) {
+      var cv = document.createElement('canvas'), img = new Image(); cv.width = cv.height = 192;
+      img.onload = function () { cv.getContext('2d').drawImage(img, 0, 0, 192, 192); if (++hechos === P.length) espera.splice(0).forEach(function (fn) { fn(); }); };
+      img.src = 'data:image/svg+xml,' + encodeURIComponent(GEN.emblemaPuerta(G, p.n, p.l).replace(/<rect width="96" height="96" fill="[^"]*"\/>/, ''));
+      return cv;
+    });
+    return { cuantos: P.length, listos: function () { return P.length && hechos === P.length ? lista : null; }, avisar: function (fn) { if (P.length && hechos < P.length) espera.push(fn); } };
+  })();
+
+  // The field, on a canvas. It always starts from a settled frame, so it reads complete when it is still. Its
+  // particles are the entity's emblems; until they load (and for genes without gates) they are dots.
   function Campo(p) {
     var ref = useRef(null), S = useRef({ anda: p.anda, seguir: function () {} });
     useEffect(function () {
@@ -17,9 +30,9 @@ window.__GENERADOR_VISTAS = function (G) {
         if (!box.width || !box.height) return;
         ancho = box.width; cv.width = Math.round(box.width * dpr); cv.height = Math.round(box.height * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        F = GEN.campo(G, p.clave, box.width, box.height, { max: box.width < 640 ? 3000 : 9000 });
+        F = GEN.campo(G, p.clave, box.width, box.height, { max: box.width < 640 ? 3000 : 9000, emblemas: SELLOS.cuantos });
         ctx.fillStyle = F.base; ctx.fillRect(0, 0, F.ancho, F.alto);
-        for (var i = 0; i < 90; i++) { F.avanzar(); GEN.pintarCampo(ctx, F); }
+        for (var i = 0; i < 160; i++) { F.avanzar(); if (i > 90) GEN.pintarCampo(ctx, F, SELLOS.listos()); }
       }
       function cuadro(ahora) {
         raf = 0;
@@ -28,12 +41,14 @@ window.__GENERADOR_VISTAS = function (G) {
         var pasos = 0;
         while (resto >= PASO && pasos < 3) { F.avanzar(); resto -= PASO; pasos++; }
         if (pasos === 3) resto = 0;
-        if (pasos) GEN.pintarCampo(ctx, F);
+        if (pasos) GEN.pintarCampo(ctx, F, SELLOS.listos());
         raf = requestAnimationFrame(cuadro);
       }
       function seguir() { ultimo = 0; if (!raf && S.current.anda) raf = requestAnimationFrame(cuadro); }
       S.current.seguir = seguir;
       armar(); seguir();
+      // Drawn again, settled, once the emblems are ready (a still field would otherwise keep its dots).
+      SELLOS.avisar(function () { if (cv.isConnected) armar(); });
       var io = window.IntersectionObserver ? new IntersectionObserver(function (es) { visto = es[0].isIntersecting; if (visto) seguir(); }) : null;
       if (io) io.observe(cv);
       var ro = window.ResizeObserver ? new ResizeObserver(function () { var w = cv.getBoundingClientRect().width; if (Math.abs(w - ancho) > 1) armar(); }) : null;

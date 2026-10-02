@@ -74,16 +74,22 @@ const Emb = await import('../entidades/emblemas.mjs');
 const sano = (svg) => !/NaN|undefined|Infinity|\$\{/.test(svg);
 const tintas = (svg) => new Set([...svg.matchAll(/(?:fill|stroke)="(#[0-9A-Fa-f]{6})"/g)].map((m) => m[1]));
 
-test('los emblemas leen puntas, detalle, trazo y relleno de la carta', async () => {
+test('los emblemas leen puntas, detalle, trazo, relleno, puertas y números de la carta', async () => {
   const { S, G } = await genesDe('ensayo'), { G: C } = await genesDe('cordura');
   assert.equal(G.puntas, S.E.centers.length + Number(S.E.profile[0]), 'centros definidos más línea consciente');
   assert.equal(G.complejidad, 1 + S.E.carta.canales.length, 'un nivel por canal definido');
   assert.equal(G.relleno, true, 'Garganta definida: emblemas rellenos');
   assert.equal(C.relleno, false, 'Garganta abierta: emblemas de línea');
   assert.notEqual(G.puntas, C.puntas, 'dos entidades con los mismos centros no comparten puntas');
+  // Its gates, the four of its cross first, each with its active line; and its own numbers.
+  assert.deepEqual(G.puertas.slice(0, 4).map((p) => p.n), [18, 17, 39, 38], 'la cruz de Ensayo abre sus puertas');
+  assert.deepEqual(G.puertas[0], { n: 18, l: 5 });
+  assert.equal(new Set(G.puertas.map((p) => p.n)).size, G.puertas.length, 'sin puertas repetidas');
+  assert.deepEqual(G.numeros, [3, 4, 5, 7, 9]);
+  assert.deepEqual(C.numeros, [4, 5, 6]);
 });
 
-test('los 32 emblemas se dibujan para cada entidad, solo con sus colores, y la misma palabra da el mismo', async () => {
+test('los 32 emblemas clásicos se dibujan para cada entidad, solo con sus colores, y la misma palabra da el mismo', async () => {
   assert.equal(Emb.EMBLEMAS, 32);
   for (const id of ['ensayo', 'cordura', 'automata']) {
     const { G } = await genesDe(id), propios = new Set([G.pieza.base, ...G.pieza.barras, G.pieza.acento]);
@@ -183,6 +189,79 @@ test('el carrusel pone una tarjeta por punta, dibuja de atrás hacia adelante y 
     assert.ok(k.s > 0 && k.s <= 1 && k.opacidad >= 0.7 && Math.abs(k.giro) <= P.inclinacion * Math.PI / 180 + 1e-9);
     assert.ok(Math.abs(k.x) + mx <= 400 && k.y - my >= -216 && k.y + my <= 144, `t=${t.toFixed(2)}: la tarjeta ${k.i} se sale del escenario`);
   }
+});
+
+test('un emblema nace de una puerta: sus trigramas eligen silueta y motivo, y la línea de la entidad, la marca', async () => {
+  // The table of hexagrams is whole: 64 gates, and every pair of trigrams once.
+  assert.equal(Object.keys(Emb.TRIGRAMAS_DE).length, 64);
+  assert.equal(new Set(Object.values(Emb.TRIGRAMAS_DE).map((t) => t.join())).size, 64);
+  assert.deepEqual(Emb.TRIGRAMAS_DE[1], [0, 0], 'cielo sobre cielo'); assert.deepEqual(Emb.TRIGRAMAS_DE[2], [4, 4], 'tierra sobre tierra');
+  assert.deepEqual(Emb.TRIGRAMAS_DE[63], [6, 2], 'agua sobre fuego'); assert.deepEqual(Emb.TRIGRAMAS_DE[64], [2, 6], 'fuego sobre agua');
+  assert.equal(Emb.SILUETAS.length, 8); assert.equal(Emb.MOTIVOS.length, 8);
+  for (const id of ['ensayo', 'cordura', 'automata']) {
+    const { G } = await genesDe(id), propios = new Set([G.pieza.base, ...G.pieza.barras, G.pieza.acento]);
+    for (let n = 1; n <= 64; n++) for (let l = 1; l <= 6; l++) {
+      const svg = Emb.emblemaPuerta(G, n, l);
+      assert.ok(sano(svg), `${id} · puerta ${n}.${l}`);
+      for (const c of tintas(svg)) assert.ok(propios.has(c), `${id} · puerta ${n}.${l}: ${c} no es de la entidad`);
+    }
+    // Two gates never share silhouette and motif; the same gate with another line changes only the mark.
+    assert.notEqual(Emb.emblemaPuerta(G, 18, 5), Emb.emblemaPuerta(G, 17, 5));
+    assert.notEqual(Emb.emblemaPuerta(G, 18, 5), Emb.emblemaPuerta(G, 18, 1));
+    // A list of concepts gets a different gate each, all of them the entity's own.
+    const lista = Emb.emblemasDe(G, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l']), suyas = new Set(G.puertas.map((p) => p.n));
+    assert.equal(new Set(lista.map((x) => x.puerta)).size, 12, `${id}: doce conceptos, doce puertas`);
+    assert.equal(new Set(lista.map((x) => TRIG(x.puerta))).size, 12, `${id}: ningún par repite silueta y motivo`);
+    for (const x of lista) assert.ok(suyas.has(x.puerta) && G.puertas.some((p) => p.n === x.puerta && p.l === x.linea), `${id}: la puerta ${x.puerta} es suya, con su línea`);
+    assert.deepEqual(Emb.emblemasDe(G, ['a', 'b']), Emb.emblemasDe(G, ['a', 'b']));
+    assert.equal(Emb.emblema(G, 'Observación '), Emb.emblema(G, 'observación'));
+  }
+  // Genes without a chart still draw: the word alone picks the layers.
+  const { G } = await genesDe('ensayo');
+  assert.ok(sano(Emb.emblema({ ...G, puertas: [], numeros: undefined }, 'borrador')));
+});
+const TRIG = (n) => Emb.TRIGRAMAS_DE[n].join();
+
+test('el campo va hacia donde dice el tipo y sus partículas son los emblemas de la entidad', async () => {
+  const Cam = await import('../entidades/campo.mjs');
+  const { S, G } = await genesDe('ensayo');
+  assert.equal(G.tipo, S.E.type); assert.equal(G.autoridad, S.E.auth);
+  assert.deepEqual(G.centros, S.E.centers);
+  assert.deepEqual(G.canales, [['ajna', 'garganta'], ['plexo', 'raiz'], ['raiz', 'plexo']], 'cada canal, como los dos centros que une');
+  // Its defined centers and channels, and its authority, change the field; without them it is the type's alone.
+  const mueve = (g) => { const F = Cam.campo(g, 1, 800, 450); for (let i = 0; i < 120; i++) F.avanzar(); for (let i = 0; i < F.n; i++) assert.ok(F.x[i] >= 0 && F.x[i] <= 800 && F.y[i] >= 0 && F.y[i] <= 450 && Number.isFinite(F.x[i] + F.y[i])); return Array.from(F.x.slice(0, 60)).join(); };
+  const solo = mueve({ ...G, centros: [], canales: [], autoridad: '' });
+  assert.notEqual(mueve({ ...G, canales: [], autoridad: '' }), solo, 'los centros definidos mueven el campo');
+  assert.notEqual(mueve({ ...G, centros: [], autoridad: '' }), solo, 'los canales definidos mueven el campo');
+  for (const aut of ['emocional', 'sacral', 'esplenica', 'ego', 'autoproyectada', 'mental', 'lunar']) if (aut !== 'autoproyectada') assert.notEqual(mueve({ ...G, centros: [], canales: [], autoridad: aut }), solo, `la autoridad ${aut} cambia cómo respira`);
+  // Each type moves the field its own way; genes without a type keep the first field (ALMA's cover).
+  const finales = {};
+  for (const tipo of ['', 'proyector', 'manifestador', 'generador', 'mg', 'reflector']) {
+    const F = Cam.campo({ ...G, tipo }, 1, 800, 450, { emblemas: 12 });
+    for (let i = 0; i < 200; i++) F.avanzar();
+    for (let i = 0; i < F.n; i++) assert.ok(F.x[i] >= 0 && F.x[i] <= 800 && F.y[i] >= 0 && F.y[i] <= 450, `${tipo}: partícula ${i} fuera de la caja`);
+    finales[tipo] = Array.from(F.x.slice(0, 40)).join();
+    assert.equal(F.espejo, tipo === 'reflector');
+  }
+  assert.equal(new Set(Object.values(finales).slice(0, 5)).size, 5, 'cada tipo, su propio campo');
+  // A Projector's field converges: in one step, most particles get closer to its focus.
+  const P = Cam.campo({ ...G, tipo: 'proyector' }, 1, 800, 450), d0 = Array.from(P.x, (x, i) => Math.hypot(x - 640, P.y[i] - 225));
+  P.avanzar();
+  const cerca = d0.filter((d, i) => Math.hypot(P.x[i] - 640, P.y[i] - 225) < d).length / P.n;
+  assert.ok(cerca > 0.85, `el campo de un Proyector converge hacia su foco: ${cerca.toFixed(2)}`);
+  // With emblems the field is sparser, and each particle stamps one of them, a few much bigger.
+  const E = Cam.campo(G, 1, 800, 450, { emblemas: 12 }), D = Cam.campo(G, 1, 800, 450);
+  assert.equal(E.n, Math.round(800 * 450 * 0.0042)); assert.equal(D.n, Math.round(800 * 450 * 0.012));
+  const dibujos = [], velos = [], ctx = { fillRect: () => velos.push(ctx.globalAlpha), drawImage: (img, x, y, w, h) => dibujos.push([img, w, h]), beginPath() {}, moveTo() {}, arc() {}, fill() {} };
+  const sellos = Array.from({ length: 12 }, (_, i) => 'sello-' + i);
+  Cam.pintarCampo(ctx, E, sellos);
+  assert.equal(dibujos.length, E.n, 'un emblema por partícula');
+  assert.ok(new Set(dibujos.map((d) => d[0])).size >= 10, 'circulan sus doce emblemas');
+  const lados = dibujos.map((d) => d[1]).sort((a, b) => a - b);
+  assert.ok(Math.abs(lados[0] - E.radio * 7.5) < 0.5 && lados[lados.length - 1] > lados[0] * 3, 'algunos mucho más grandes que el resto');
+  assert.equal(velos[0], 0.16, 'con emblemas, la estela es más corta');
+  // Without the pictures (they have not loaded, or the genes have no gates) it draws dots, as before.
+  dibujos.length = 0; velos.length = 0; Cam.pintarCampo(ctx, E, null); assert.equal(dibujos.length, 0); assert.equal(velos[0], 0.09);
 });
 
 test('las caras de tarjeta: quince patrones con los colores de la entidad, sin capa de banco, y el grabado con las puntas del emblema', async () => {

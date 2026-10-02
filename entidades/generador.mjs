@@ -6,11 +6,29 @@
 // No DOM: the build bundles this file into the page (without its `import` and `export` words) and Node tests it.
 
 import { hash, rng } from './semilla.mjs';
+// Only genes() reads the chart's tables, and genes() runs in the builds: a page gets the genes already made, so this
+// file travels to pages without this module.
+import { CENTRO_DE } from './tabla.mjs';
 
 // What an entity gives the generator. `S` is the entity's system (scripts/lib/documentacion.mjs) and `valor(name, theme)`
 // returns an ALMA token's value. A piece ("pieza") lives on ink with the full palette, as the signature does (its
 // `barras` are the colors of the shapes: the name comes from the signature's bars). A ground
 // ("fondo") goes behind text, so it takes the quietest step of each ramp that keeps text-01 and text-02 at 4.5:1.
+// The gates of a chart, the four of its cross first, each with the line the entity has active there.
+function puertasDe(carta) {
+  if (!carta || !carta.personalidad) return [];
+  const vistas = new Set(), out = [], P = carta.personalidad, D = carta.diseno;
+  for (const a of [P[0], P[1], D[0], D[1], ...P.slice(2), ...D.slice(2)]) if (a && !vistas.has(a.p)) { vistas.add(a.p); out.push({ n: a.p, l: a.l }); }
+  return out;
+}
+// The entity's own numbers, for the symmetries of its emblems: its defined centers, its channels, the two lines of
+// its profile and their sums, between 3 and 12.
+function numerosDe(E) {
+  const [lc, li] = E.profile.split('/').map(Number), c = E.centers.length, k = E.carta ? E.carta.canales.length : 0;
+  const n = [...new Set([c, k, lc, li, c + lc, c + k, lc + li].filter((x) => x >= 3 && x <= 12))].sort((a, b) => a - b);
+  return n.length ? n : [Math.max(3, Math.min(12, c + lc))];
+}
+
 export function genes(S, valor) {
   const { E, P, En } = S, n = E.nacimiento, ramps = P.palette.map((p) => p.ramp);
   const fondo = (tema, pasos) => {
@@ -29,9 +47,15 @@ export function genes(S, valor) {
     // centers still differ), a level of detail for every defined channel, the stroke of the body weight, and a full
     // shape for a defined Throat (a deep accent) or a line for an open one.
     puntas: Math.max(3, Math.min(16, E.centers.length + Number(E.profile.split('/')[0]))),
+    // An emblem is drawn from one of its gates, with one of its numbers.
+    puertas: puertasDe(E.carta), numeros: numerosDe(E),
     complejidad: Math.max(1, Math.min(5, 1 + (E.carta ? E.carta.canales.length : 0))),
     trazo: Math.round(P.weights.body / 400 * 1000) / 1000,
     relleno: !!P.accent.deep,
+    // Its field: where it goes (its type), how it breathes (its authority), and the eddies and streams of its
+    // defined centers and channels (each channel, as the two centers it joins).
+    tipo: E.type, autoridad: E.auth, centros: [...E.centers],
+    canales: (E.carta ? E.carta.canales : []).map((k) => String(k).split('-').map((p) => CENTRO_DE[Number(p)])),
     // What moves (the field, the carousel, the mycelium): the pace of the entity's type (1 is ALMA's; 1.25 is a quarter
     // slower).
     ritmo: P.motion.speed,

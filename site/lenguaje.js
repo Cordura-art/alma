@@ -410,11 +410,15 @@
           h('figcaption', { className: 'web-body-s cap' }, (pieza ? 'Pieza ' : 'Fondo ') + t.n)));
       })));
   }
+  // Where an entity's field goes, by its type.
+  var CAMPO_TIPO = { proyector: 'Todo converge hacia un foco: guiamos.', manifestador: 'Todo sale de un punto y se abre: iniciamos.', generador: 'Gira constante alrededor de su centro: sostenemos.', mg: 'Gira y se abre en espiral: respondemos rápido.', reflector: 'Una mitad es el espejo de la otra: reflejamos.' };
+  var CAMPO_AUT = { emocional: 'Respira en olas: se agita y se calma al avanzar.', sacral: 'Avanza a pulso, como un latido.', esplenica: 'Quieto y, de pronto, un salto breve.', ego: 'Va recto y firme, casi sin desvío.', autoproyectada: 'Sigue su propia dirección, sin sobresaltos.', mental: 'Va en capas paralelas y ordenadas.', lunar: 'Se agita y se calma muy lento, en un ciclo largo.' };
   function GenEmblemas() {
-    var lista = React.useMemo(function () { return GV.conceptos.map(function (c) { return { c: c, svg: GEN.emblema(G, c) }; }); }, []);
+    var lista = React.useMemo(function () { return GEN.emblemasDe(G, GV.conceptos).map(function (x) { return { c: x.clave, svg: x.svg, puerta: x.puerta ? 'Puerta ' + x.puerta + '.' + x.linea : '' }; }); }, []);
     return h(Sec, { title: 'Emblemas' },
-      h(Para, null, 'Un emblema por concepto: estrellas, anillos, espirales y contraformas. Los nuestros tienen ' + G.puntas + ' puntas y van ' + (G.relleno ? 'rellenos' : 'de línea') + ', porque así lo dice nuestra carta. Son ilustración de marca: no reemplazan a los iconos de la interfaz.'),
-      h('ul', { className: 'gen-people gen-people--96' }, lista.map(function (x) { return h('li', { key: x.c, className: 'gen-person' }, h(Dibujo, { size: 96, svg: x.svg }), h('span', { className: 'web-body-s' }, x.c)); })));
+      h(Para, null, 'Un emblema por concepto. Cada uno nace de una de las ' + G.puertas.length + ' puertas de nuestra carta: una puerta es un hexagrama, y sus dos mitades eligen la silueta y el motivo; nuestra línea en esa puerta elige la marca, que lleva el acento. Por eso ninguna otra entidad tiene este mismo juego. Los nuestros van ' + (G.relleno ? 'rellenos' : 'de línea') + ' y usan nuestros números: ' + G.numeros.join(', ') + '.'),
+      h(Para, null, 'Son ilustración de marca: no reemplazan a los iconos de la interfaz.'),
+      h('ul', { className: 'gen-people gen-people--96' }, lista.map(function (x) { return h('li', { key: x.c, className: 'gen-person' }, h(Dibujo, { size: 96, svg: x.svg }), h('span', { className: 'web-body-s' }, x.c), x.puerta ? h('span', { className: 'web-label-s gen-nota' }, x.puerta) : null); })));
   }
   function GenCaras() {
     var lista = React.useMemo(function () { return CARAS.map(function (p, i) { return { p: p, estilo: { backgroundImage: GEN.comoFondo(GEN.placa(G, 'cara-0-' + i, { patron: p })) } }; }); }, []);
@@ -435,10 +439,10 @@
   // the story the grown mycelium. An entity without generative illustration keeps its signature of bars.
   function Pieza(p) {
     if (!VG) return h(En.Signature, { entity: E, P: P, format: p.format });
-    if (p.format === 'square' && !PERS) return h('div', { className: 'gen-emblema', role: 'img', 'aria-label': 'Emblema de ' + L.nombre + ': una figura de ' + G.puntas + ' puntas con sus colores.', dangerouslySetInnerHTML: { __html: GEN.emblema(G, GV.conceptos[0]) } });
+    if (p.format === 'square' && !PERS) return h('div', { className: 'gen-emblema', role: 'img', 'aria-label': 'Emblema de ' + L.nombre + ': una figura con sus colores, nacida de una puerta de su carta.', dangerouslySetInnerHTML: { __html: GEN.emblema(G, GV.conceptos[0]) } });
     if (p.format === 'square') return h('div', { className: 'gen-tex gen-tex--cuadro', style: { backgroundImage: GEN.comoFondo(GEN.colonia(G, 'portada', { modo: 'pieza' })) }, role: 'img', 'aria-label': 'Colonia de ' + L.nombre + ': criaturas de colores amontonadas sobre negro tinta, cada una con dos ojos.' });
     if (p.format === 'tall') return h(VG.Micelio, { clave: 1, anda: false, label: 'Micelio de ' + L.nombre + ': una red de líneas que cubre la pantalla de un teléfono, con un brillo de sus colores.' });
-    return h(VG.Campo, { clave: 1, anda: false, label: 'Campo de ' + L.nombre + ': partículas de sus colores que dejan estela sobre negro tinta.' });
+    return h(VG.Campo, { clave: 1, anda: false, label: 'Campo de ' + L.nombre + ': sus emblemas, de distintos tamaños, que dejan estela sobre negro.' });
   }
   function Control(p) {
     return h('div', { className: 'gen-row' },
@@ -462,21 +466,26 @@
       ['Fecha de nacimiento', 'La semilla: lo que hace propio cada dibujo', L.fechaLarga],
       ['Paleta', 'Los colores de todas las piezas', VALS.secundario + ' y ' + VALS.terciario + ', con acero; ' + VALS.primario + ' como acento'],
       ['Línea inconsciente', 'El remate de las líneas y la redondez de las tejas', 'El radio de nuestros botones: ' + VALS.radio],
-      ['Centros definidos y línea consciente', 'Las puntas de un emblema y las tarjetas del carrusel', G.puntas + ' puntas y ' + R.cantidad + ' tarjetas'],
-      ['Canales definidos', 'El nivel de detalle de un emblema', G.complejidad + ' de 5'],
+      ['Puertas de la carta', 'La silueta, el motivo y la marca de cada emblema', G.puertas.length + ' puertas, cada una con nuestra línea'],
+      ['Centros, canales y líneas del perfil', 'Las puntas y los lados de los emblemas', 'Nuestros números: ' + G.numeros.join(', ')],
+      ['Centros definidos y línea consciente', 'Las tarjetas del carrusel', R.cantidad + ' tarjetas'],
       ['Garganta definida o abierta', 'Emblemas rellenos o de línea', G.relleno ? 'Rellenos' : 'De línea'],
       ['Centros definidos', 'Los focos desde donde crece el micelio', G.focos + ' focos'],
+      ['Tipo', 'Hacia dónde va el campo', CAMPO_TIPO[G.tipo]],
+      ['Autoridad', 'Cómo respira el campo', CAMPO_AUT[G.autoridad]],
+      ['Centros y canales definidos', 'Los remolinos y las corrientes del campo', G.centros.length + ' remolinos y ' + G.canales.length + ' corrientes'],
+      ['Puertas de la carta', 'Las partículas del campo', 'Los emblemas de nuestras primeras ' + Math.min(12, G.puertas.length) + ' puertas'],
       ['Definición', 'El tamaño de las corrientes del campo', 'Remolinos de unos ' + Math.round(360 / G.grupos) + ' px'],
       ['Tipo', 'El ritmo de todo lo que se mueve', Math.round(100 / G.ritmo) + ' % de la velocidad base']];
     return h('div', { className: 'page' }, h(Head, { id: 'firma', lede: X.lede, index: ['Construcción', 'Campo', 'Carrusel', 'Micelio', 'Lo que no se mueve', 'Espacio y tamaño', 'Color', 'Movimiento', 'Usos incorrectos'] }),
       h(Sec, { title: 'Construcción' }, h(Para, null, X.construccion),
         h(Tbl, { title: 'Cada rasgo de la firma', columns: [{ key: 'r', label: 'Rasgo de la carta' }, { key: 'g', label: 'Qué decide' }, { key: 'v', label: 'En nuestra firma' }], rows: filas.map(function (f, i) { return { id: i, r: f[0], g: f[1], v: f[2] }; }) })),
       h(Sec, { title: 'Campo' },
-        h(Para, null, 'Nuestra portada. Partículas que siguen corrientes y dejan estela, a ' + Math.round(100 / G.ritmo) + ' % de la velocidad base. Es una pieza de marca: no lleva texto encima.'),
-        h(VG.Campo, { clave: sem[0], anda: fluye[0], label: 'Campo de ' + L.nombre + ': partículas de sus colores que derivan sobre negro tinta y dejan estela.' }),
+        h(Para, null, 'Nuestra portada. Cada partícula es uno de nuestros emblemas, algunos mucho más grandes que el resto. ' + CAMPO_TIPO[G.tipo] + ' ' + CAMPO_AUT[G.autoridad] + (G.centros.length ? ' Nuestros ' + G.centros.length + ' centros definidos son remolinos en el camino' + (G.canales.length ? ', y nuestros canales, corrientes entre ellos.' : '.') : '') + ' Van a ' + Math.round(100 / G.ritmo) + ' % de la velocidad base y dejan estela. Es una pieza de marca: no lleva texto encima.'),
+        h(VG.Campo, { clave: sem[0], anda: fluye[0], label: 'Campo de ' + L.nombre + ': sus emblemas, de distintos tamaños, que derivan sobre negro y dejan estela.' }),
         h(Control, { anda: fluye[0], onToggle: tog(fluye), otro: 'Ver otro campo', onOtro: function () { sem[1](sem[0] + 1); } })),
       h(Sec, { title: 'Carrusel' },
-        h(Para, null, 'Un anillo de ' + R.cantidad + ' tarjetas, una por cada punta de nuestro emblema, que gira en perspectiva y da una vuelta cada ' + coma(R.periodo) + ' segundos. Cada tarjeta lleva una cara distinta.'),
+        h(Para, null, 'Un anillo de ' + R.cantidad + ' tarjetas, una por cada centro definido más nuestra línea consciente, que gira en perspectiva y da una vuelta cada ' + coma(R.periodo) + ' segundos. Cada tarjeta lleva una cara distinta.'),
         h(VG.Carrusel, { caras: baraja, anda: gira[0], label: 'Carrusel de ' + L.nombre + ': ' + R.cantidad + ' tarjetas que giran en anillo, cada una con un patrón distinto: ' + baraja.map(function (c) { return c.nombre.toLowerCase(); }).join(', ') + '.' }),
         h(Control, { anda: gira[0], onToggle: tog(gira), otro: 'Ver otras ' + R.cantidad + ' caras', onOtro: function () { mazo[1](mazo[0] + 1); } })),
       h(Sec, { title: 'Micelio' },

@@ -66,36 +66,102 @@ function ruido(seed) {
   return (x, y, z) => (una(x, y, z) * 4 + una(x * 2, y * 2, z * 2) * 2 + una(x * 4, y * 4, z * 4)) / 7;
 }
 
+// The nine centers as a map, lying down: the head on the left, the root on the right (the way the field blows).
+// [along the body 0..1, across it -1..1]
+const MAPA = { cabeza: [0.06, 0], ajna: [0.2, 0], garganta: [0.36, 0], g: [0.52, 0], corazon: [0.6, 0.38], bazo: [0.74, -0.62], sacro: [0.72, 0], plexo: [0.74, 0.62], raiz: [0.93, 0] };
+
 // A field of `ancho` × `alto` pixels. The entity decides: the pace (its type's speed: a slower entity drifts slower),
-// how many currents (one scale of noise per group of its definition: more groups, smaller eddies), the size of a
-// particle (its stroke) and the colors (its piece palette, with the accent on one particle in twelve).
-// The amount of particles follows the area, up to `max`. `avanzar()` moves every particle one step of 1/60 s.
+// where the field goes (its type: a Projector's converges on a focus, a Manifestor's bursts from a point, a
+// Generator's turns around its center, a Manifesting Generator's spirals out, a Reflector's is mirrored), how it
+// breathes (its authority: in waves, in beats, in sudden darts, in ordered layers), its eddies and streams (each
+// defined center turns the field around its place on the chart, each defined channel carries it between two), how many
+// currents (one scale of noise per group of its definition: more groups, smaller eddies), the size of a particle (its
+// stroke) and the colors (its piece palette, with the accent on one particle in twelve). Genes without a type (ALMA's
+// own cover) keep the first field: a steady wind to the right.
+// With `emblemas` (how many of the entity's emblems the page will stamp, see pintarCampo) each particle carries one
+// of them, a few much bigger than the rest, and the field is sparser. The amount of particles follows the area, up to
+// `max`. `avanzar()` moves every particle one step of 1/60 s.
 function campo(G, clave, ancho, alto, o = {}) {
-  const r = rng(hash(`campo|${G.semilla}|${clave}`)), n3 = ruido(hash(`ruido|${G.semilla}|${clave}`)), C = G.pieza;
-  const n = Math.max(200, Math.min(o.max ?? 9000, Math.round(ancho * alto * (o.densidad ?? 0.012))));
+  const r = rng(hash(`campo|${G.semilla}|${clave}`)), n3 = ruido(hash(`ruido|${G.semilla}|${clave}`)), C = G.pieza, emblemas = o.emblemas || 0;
+  const n = Math.max(emblemas ? 120 : 200, Math.min(o.max ?? 9000, Math.round(ancho * alto * (o.densidad ?? (emblemas ? 0.0042 : 0.012)))));
   const x = new Float32Array(n), y = new Float32Array(n), color = new Uint8Array(n), colores = [...C.barras, C.acento];
   for (let i = 0; i < n; i++) { x[i] = r() * ancho; y[i] = r() * alto; color[i] = r() < 1 / 12 ? C.barras.length : Math.floor(r() * C.barras.length); }
-  const escala = 360 / G.grupos, fuerza = 1.2, paso = 1 / G.ritmo, giro = Math.PI * 2 * fuerza;
-  const F = { n, ancho, alto, x, y, color, colores, base: C.base, radio: 1.5 * G.trazo, t: 0, escala, paso };
+  // What only the field with a type or with emblems needs has its own randomness, so the first field stays as it was.
+  const q = rng(hash(`talla|${G.semilla}|${clave}`)), talla = new Float32Array(n), sello = new Uint8Array(n), vida = new Float32Array(n);
+  const fase = new Float32Array(n);
+  for (let i = 0; i < n; i++) { talla[i] = q() ** 3; sello[i] = Math.floor(q() * 251); vida[i] = q() * 420; fase[i] = q(); }
+  const escala = 360 / G.grupos, fuerza = 1.2, paso = 1 / G.ritmo, giro = Math.PI * 2 * fuerza, tipo = G.tipo || '', m = Math.min(ancho, alto);
+  const aut = G.autoridad || '', lugar = (id) => [ancho * (0.08 + MAPA[id][0] * 0.84), alto * (0.5 + MAPA[id][1] * 0.4)], Rc = m * 0.15, banda = m * 0.07;
+  const centros = (G.centros || []).filter((id) => MAPA[id]).map((id, k) => { const [cx, cy] = lugar(id); return { x: cx, y: cy, s: k % 2 ? -1 : 1 }; });
+  // Every stream runs from the center nearer the head to the one nearer the root, so two channels between the same
+  // two centers add up instead of cancelling.
+  const canales = (G.canales || []).filter((k) => MAPA[k[0]] && MAPA[k[1]]).map(([a, b]) => { if (MAPA[a][0] > MAPA[b][0]) [a, b] = [b, a]; const A = lugar(a), B = lugar(b), dx = B[0] - A[0], dy = B[1] - A[1], L = Math.hypot(dx, dy) || 1; return { ax: A[0], ay: A[1], dx: dx / L, dy: dy / L, L }; });
+  const foco = [ancho * 0.8, alto * 0.5], origen = [ancho * 0.18, alto * 0.5], medio = [ancho * 0.5, alto * 0.5];
+  const F = { n, ancho, alto, x, y, color, colores, base: C.base, radio: 1.5 * G.trazo, t: 0, escala, paso, tipo, espejo: tipo === 'reflector', emblemas, talla, sello };
+  const nace = (i) => {
+    if (tipo === 'manifestador') { const a = q() * 6.2832, d = q() * m * 0.05; x[i] = origen[0] + Math.cos(a) * d; y[i] = origen[1] + Math.sin(a) * d; }
+    else if (tipo === 'mg') { const a = q() * 6.2832, d = q() * m * 0.12; x[i] = medio[0] + Math.cos(a) * d; y[i] = medio[1] + Math.sin(a) * d; }
+    else if (tipo === 'proyector') { if (q() < 0.5) { x[i] = q() * ancho * 0.15; y[i] = q() * alto; } else { x[i] = q() * ancho; y[i] = q() < 0.5 ? q() * alto * 0.08 : alto - q() * alto * 0.08; } }
+    else { x[i] = q() * ancho; y[i] = q() * alto; }
+  };
   F.avanzar = () => {
     const z = F.t / escala;
     for (let i = 0; i < n; i++) {
-      const a = n3(x[i] / escala, y[i] / escala, z) * giro, c = Math.cos(a), s = Math.sin(a);
-      // The original's direction: the field's, plus a wind of one step to the right.
-      x[i] += (c + 1) * paso; y[i] += (s - c * s) * paso;
-      if (x[i] < 0 || x[i] > ancho || y[i] < 0 || y[i] > alto) { x[i] = r() * ancho; y[i] = r() * alto; }
+      // Authority: how the field breathes (how far the noise turns it, and how fast it goes).
+      let amp = 1, vel = 1;
+      if (tipo) {
+        if (aut === 'emocional') { const ola = Math.sin(F.t / 140 - x[i] / (ancho * 0.3)); amp = 1 + 0.75 * ola; vel = 0.85 + 0.35 * ola; }
+        else if (aut === 'sacral') { vel = 0.6 + 1.1 * Math.max(0, Math.sin(F.t / 36)) ** 2; amp = 0.9; }
+        else if (aut === 'esplenica') { vel = ((F.t / 50 + fase[i] * 7) % 1) < 0.14 ? 3.2 : 0.55; amp = 1.1; }
+        else if (aut === 'ego') { amp = 0.35; vel = 1.35; }
+        else if (aut === 'mental') { amp = 0.25; vel = 0.7 + 0.5 * Math.abs(Math.sin(y[i] / (alto / 7))); }
+        else if (aut === 'lunar') { amp = 1 + 0.8 * Math.sin(F.t / 500); vel = 0.7; }
+      }
+      const a = n3(x[i] / escala, y[i] / escala, z) * giro * amp, c = Math.cos(a), s = Math.sin(a);
+      if (!tipo) {
+        // The first field's direction: the noise's, plus a wind of one step to the right.
+        x[i] += (c + 1) * paso; y[i] += (s - c * s) * paso;
+        if (x[i] < 0 || x[i] > ancho || y[i] < 0 || y[i] > alto) { x[i] = r() * ancho; y[i] = r() * alto; }
+        continue;
+      }
+      let vx, vy, dx, dy, d;
+      if (tipo === 'proyector') { dx = foco[0] - x[i]; dy = foco[1] - y[i]; d = Math.hypot(dx, dy) || 1; vx = c * 0.7 + dx / d * 1.15; vy = (s - c * s) * 0.7 + dy / d * 1.15; if (d < m * 0.03) { nace(i); continue; } }
+      else if (tipo === 'manifestador') { dx = x[i] - origen[0]; dy = y[i] - origen[1]; d = Math.hypot(dx, dy) || 1; vx = c * 0.55 + dx / d * 1.5; vy = s * 0.55 + dy / d * 1.5; }
+      else if (tipo === 'generador') { dx = x[i] - medio[0]; dy = y[i] - medio[1]; d = Math.hypot(dx, dy) || 1; const tira = (d / (m * 0.34) - 1) * 0.35; vx = c * 0.45 - dy / d * 1.15 - dx / d * tira; vy = s * 0.45 + dx / d * 1.15 - dy / d * tira; }
+      else if (tipo === 'mg') { dx = x[i] - medio[0]; dy = y[i] - medio[1]; d = Math.hypot(dx, dy) || 1; vx = c * 0.4 - dy / d * 1.3 + dx / d * 0.5; vy = s * 0.4 + dx / d * 1.3 + dy / d * 0.5; }
+      else { vx = c + 1; vy = s - c * s; }
+      // A defined center turns the field around it and keeps an open eye in its middle; a defined channel carries the
+      // field from one center to the other.
+      for (const k of centros) { dx = x[i] - k.x; dy = y[i] - k.y; d = Math.hypot(dx, dy) || 1; const w = Math.exp(-d * d / (2 * Rc * Rc)), ojo = Math.exp(-d * d / (Rc * Rc * 0.18)) * 1.4; vx = vx * (1 - 0.5 * w) - dy / d * 1.7 * w * k.s + dx / d * ojo; vy = vy * (1 - 0.5 * w) + dx / d * 1.7 * w * k.s + dy / d * ojo; }
+      for (const k of canales) { const u = (x[i] - k.ax) * k.dx + (y[i] - k.ay) * k.dy; if (u > 0 && u < k.L) { d = Math.abs((x[i] - k.ax) * k.dy - (y[i] - k.ay) * k.dx); if (d < banda * 2) { const w = Math.exp(-d * d / (banda * banda)); vx = vx * (1 - 0.7 * w) + k.dx * 2.2 * w; vy = vy * (1 - 0.7 * w) + k.dy * 2.2 * w; } } }
+      x[i] += vx * paso * vel; y[i] += vy * paso * vel;
+      // A particle lives a few seconds and is born again, so nothing piles up where the field converges.
+      if (x[i] < 0 || x[i] > ancho || y[i] < 0 || y[i] > alto || --vida[i] < 0) { vida[i] = 240 + q() * 300; nace(i); }
     }
     F.t++;
   };
   return F;
 }
 
-// One frame: a veil of the ground's color over what was there (the trails fade), then every particle, color by color.
-function pintarCampo(ctx, F) {
-  ctx.globalAlpha = 0.09; ctx.fillStyle = F.base; ctx.fillRect(0, 0, F.ancho, F.alto); ctx.globalAlpha = 1;
+// The side of a particle's emblem, in pixels: 2.5 times the dot's width, and up to five times that for a few.
+const ladoEmblema = (F, i) => F.radio * 7.5 * (1 + 4 * F.talla[i]);
+
+// One frame: a veil of the ground's color over what was there (the trails fade), then every particle. With `sellos`
+// (the entity's emblems as pictures without their ground: canvases or images, all loaded) each particle is one of
+// them and the trail is shorter; without them, a dot of its color. A mirrored field draws every particle twice.
+function pintarCampo(ctx, F, sellos) {
+  const con = F.emblemas && sellos && sellos.length, veces = F.espejo ? 2 : 1;
+  ctx.globalAlpha = con ? 0.16 : 0.09; ctx.fillStyle = F.base; ctx.fillRect(0, 0, F.ancho, F.alto); ctx.globalAlpha = 1;
+  if (con) {
+    for (let i = 0; i < F.n; i++) {
+      const lado = ladoEmblema(F, i), img = sellos[F.sello[i] % sellos.length];
+      for (let v = 0; v < veces; v++) ctx.drawImage(img, (v ? F.ancho - F.x[i] : F.x[i]) - lado / 2, F.y[i] - lado / 2, lado, lado);
+    }
+    return;
+  }
   for (let k = 0; k < F.colores.length; k++) {
     ctx.fillStyle = F.colores[k]; ctx.beginPath();
-    for (let i = 0; i < F.n; i++) if (F.color[i] === k) { ctx.moveTo(F.x[i] + F.radio, F.y[i]); ctx.arc(F.x[i], F.y[i], F.radio, 0, Math.PI * 2); }
+    for (let i = 0; i < F.n; i++) if (F.color[i] === k) for (let v = 0; v < veces; v++) { const X = v ? F.ancho - F.x[i] : F.x[i]; ctx.moveTo(X + F.radio, F.y[i]); ctx.arc(X, F.y[i], F.radio, 0, Math.PI * 2); }
     ctx.fill();
   }
 }
