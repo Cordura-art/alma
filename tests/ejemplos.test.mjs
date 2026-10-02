@@ -60,7 +60,7 @@ test('la misma entidad y la misma clave dan siempre el mismo dibujo; otra clave 
 });
 
 test('sobre una textura de fondo, el texto principal y el secundario llegan a 4,5:1 en los cuatro temas', async () => {
-  for (const id of ['ensayo', 'cordura', 'ibm']) {
+  for (const id of ['ensayo', 'cordura', 'automata']) {
     const { S, G } = await genesDe(id);
     for (const th of THEMES) for (const c of Gen.colores(G.fondo[th.startsWith('light') ? 'light' : 'dark'])) for (const t of ['text-01', 'text-02']) {
       const r = S.En.contrast(valor(tok, t, th), c);
@@ -85,7 +85,7 @@ test('los emblemas leen puntas, detalle, trazo y relleno de la carta', async () 
 
 test('los 32 emblemas se dibujan para cada entidad, solo con sus colores, y la misma palabra da el mismo', async () => {
   assert.equal(Emb.EMBLEMAS, 32);
-  for (const id of ['ensayo', 'cordura', 'ibm']) {
+  for (const id of ['ensayo', 'cordura', 'automata']) {
     const { G } = await genesDe(id), propios = new Set([G.pieza.base, ...G.pieza.barras, G.pieza.acento]);
     for (let i = 0; i < Emb.EMBLEMAS; i++) for (const k of ['borrador', 'observación', 'versión']) {
       const svg = Emb.emblema(G, k, { dibujo: i });
@@ -111,7 +111,7 @@ test('una criatura es un cuerpo, una segunda forma de otro color y dos ojos, sie
 });
 
 test('una colonia es un mosaico de criaturas con dos ojos cada una, solo con los colores de su uso, y el acento en las más chicas', async () => {
-  for (const id of ['ensayo', 'cordura', 'ibm']) {
+  for (const id of ['ensayo', 'cordura', 'automata']) {
     const { G } = await genesDe(id);
     for (const [o, C] of [[{}, G.pieza], [{ modo: 'fondo', tema: 'dark' }, G.fondo.dark], [{ modo: 'fondo', tema: 'light' }, G.fondo.light]]) {
       const propios = new Set(Gen.colores(C));
@@ -137,7 +137,7 @@ test('una colonia es un mosaico de criaturas con dos ojos cada una, solo con los
 
 test('el campo de partículas es el mismo para la misma clave, no se sale de su caja y va al ritmo de la entidad', async () => {
   const Cam = await import('../entidades/campo.mjs');
-  const { S, G } = await genesDe('ensayo'), { G: I } = await genesDe('ibm');
+  const { S, G } = await genesDe('ensayo'), { G: I } = await genesDe('automata');
   assert.equal(G.ritmo, S.P.motion.speed, 'el ritmo es el del tipo');
   const a = Cam.campo(G, 1, 800, 450), b = Cam.campo(G, 1, 800, 450), c = Cam.campo(G, 2, 800, 450);
   assert.equal(a.n, Math.round(800 * 450 * 0.012), 'la cantidad sigue al área');
@@ -152,7 +152,7 @@ test('el campo de partículas es el mismo para la misma clave, no se sale de su 
   assert.deepEqual(a.colores, [...G.pieza.barras, G.pieza.acento]);
   const rojas = a.color.filter((k) => k === G.pieza.barras.length).length / a.n;
   assert.ok(rojas > 0.04 && rojas < 0.13, `el acento va en una de cada doce: ${rojas.toFixed(3)}`);
-  // A slower entity moves less per step: Ensayo (a Projector) against IBM's pace.
+  // A slower entity moves less per step: Ensayo (a Projector) against Autómata's pace.
   assert.equal(a.paso, 1 / G.ritmo);
   assert.ok(G.ritmo !== I.ritmo ? a.paso !== Cam.campo(I, 1, 800, 450).paso : true);
 });
@@ -189,7 +189,7 @@ test('las caras de tarjeta: quince patrones con los colores de la entidad, sin c
   const Pla = await import('../entidades/placa.mjs');
   assert.equal(Pla.PATRONES.length, 15);
   assert.deepEqual(Object.keys(Pla.NOMBRE_PATRON).sort(), [...Pla.PATRONES].sort());
-  for (const id of ['ensayo', 'cordura', 'ibm']) {
+  for (const id of ['ensayo', 'cordura', 'automata']) {
     const { G } = await genesDe(id), propios = new Set([G.pieza.base, ...G.pieza.barras, G.pieza.acento, G.pieza.tinta]);
     for (const patron of Pla.PATRONES) for (let k = 1; k <= 20; k++) {
       const svg = Pla.placa(G, k, { patron });
@@ -210,7 +210,7 @@ test('las caras de tarjeta: quince patrones con los colores de la entidad, sin c
 test('el micelio crece una vez desde los focos de la entidad, cubre toda su red y madura, con sus colores', async () => {
   const Mic = await import('../entidades/micelio.mjs');
   const largo = (T) => T.flat().reduce((a, s) => { for (let k = 0; k < s.length; k += 4) a += Math.hypot(s[k + 2] - s[k], s[k + 3] - s[k + 1]); return a; }, 0);
-  for (const id of ['ensayo', 'cordura', 'ibm']) {
+  for (const id of ['ensayo', 'cordura', 'automata']) {
     const { S, G } = await genesDe(id), M = Mic.micelio(G, 1);
     assert.equal(M.focos, S.E.centers.length, `${id}: un foco por centro definido`);
     assert.equal(M.crece, 4 * G.ritmo, `${id}: crece al ritmo del tipo`);
@@ -267,22 +267,22 @@ test('el generador para una página: los mismos dibujos que los módulos, y los 
 
 test('el lenguaje de una entidad con ilustración generativa lleva sus genes y el generador', async () => {
   execFileSync('node', ['scripts/build-entidades.mjs']);
-  execFileSync('node', ['scripts/build-lenguaje.mjs', 'ensayo', 'ibm']);
-  const con = readFileSync('build/lenguaje-ensayo.html', 'utf8'), sin = readFileSync('build/lenguaje-ibm.html', 'utf8');
+  execFileSync('node', ['scripts/build-lenguaje.mjs', 'ensayo', 'automata']);
+  const con = readFileSync('build/lenguaje-ensayo.html', 'utf8'), sin = readFileSync('build/lenguaje-automata.html', 'utf8');
   assert.match(con, /window\.__GENERADOR = /);
   assert.match(con, /window\.__GENERADOR_VISTAS = /, 'los componentes de lo que se mueve');
   assert.match(con, /"genes":\{"id":"ensayo"/);
   assert.match(sin, /window\.__GENERADOR = /);
-  assert.match(sin, /"genes":\{"id":"ibm"/);
-  assert.match(sin, /"personajes":false/, 'IBM no usa personajes');
+  assert.match(sin, /"genes":\{"id":"automata"/);
+  assert.match(sin, /"personajes":false/, 'Autómata no usa personajes');
 });
 
 test('la portada de la documentación: la colonia en una entidad con personajes, el campo en una sin ellos', async () => {
   const { portada } = await import('../scripts/lib/documentacion.mjs');
-  const con = portada(await sistema('ensayo')), sin = portada(await sistema('ibm'));
+  const con = portada(await sistema('ensayo')), sin = portada(await sistema('automata'));
   assert.match(con.markup, /<div class="ecv__art ecv__art--gen"/); assert.equal(con.code, '');
   assert.match(con.markup, /Ensayo/, 'el nombre sigue al lado');
   assert.match(sin.markup, /<canvas id="ecv-campo" class="ecv__art ecv__art--gen"/, 'un lienzo para el campo');
-  assert.match(sin.code, /GEN\.campo\(\{"id":"ibm"/, 'el campo con los genes de la entidad');
+  assert.match(sin.code, /GEN\.campo\(\{"id":"automata"/, 'el campo con los genes de la entidad');
   for (const p of [con, sin]) assert.doesNotMatch(p.markup, /<svg class="ecv__art"/, 'ya sin barras');
 });

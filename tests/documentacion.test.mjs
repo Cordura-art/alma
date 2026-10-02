@@ -12,8 +12,8 @@ const tokens = () => JSON.parse(readFileSync('dist/json/tokens.json', 'utf8'));
 const lum = (hex) => { const f = (i) => { const c = parseInt(hex.substr(i, 2), 16) / 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }; return 0.2126 * f(1) + 0.7152 * f(3) + 0.0722 * f(5); };
 const contraste = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
 
-test('la Entidad IBM cambia valores de tokens, nunca nombres', async () => {
-  const S = await sistema('ibm'), tok = tokens(), names = new Set(tok.color.tokens.map((t) => t.name));
+test('la Entidad Autómata cambia valores de tokens, nunca nombres', async () => {
+  const S = await sistema('automata'), tok = tokens(), names = new Set(tok.color.tokens.map((t) => t.name));
   for (const th of THEMES) for (const n of Object.keys(S.color[th])) assert.ok(names.has(n), `${n} no es un token de ALMA`);
   for (const [fam, vals] of Object.entries(S.core)) for (const n of Object.keys(vals)) assert.ok(tok[fam].tokens.some((t) => t.name === n), `${fam}: ${n}`);
   const cambios = aplicar(tok, S);
@@ -31,15 +31,15 @@ test('la Entidad IBM cambia valores de tokens, nunca nombres', async () => {
 });
 
 test('cada tema declara los mismos tokens, para que el oscuro no se filtre en los demás', async () => {
-  const S = await sistema('ibm'), keys = (th) => Object.keys(S.color[th]).sort().join();
+  const S = await sistema('automata'), keys = (th) => Object.keys(S.color[th]).sort().join();
   for (const th of THEMES) assert.equal(keys(th), keys('dark'), th);
   const hoja = css(S);
   assert.match(hoja, /\[data-theme="light"\] \{[^}]*--button-tinted-text: #191919;/);
   assert.doesNotMatch(hoja, /E1F564/i, 'no queda lima en los valores de la entidad');
 });
 
-test('el acento de la Entidad IBM pasa el contraste en los cuatro temas', async () => {
-  const S = await sistema('ibm'), tok = tokens();
+test('el acento de la Entidad Autómata pasa el contraste en los cuatro temas', async () => {
+  const S = await sistema('automata'), tok = tokens();
   aplicar(tok, S);
   for (const th of THEMES) {
     const v = (n) => valor(tok, n, th);
@@ -55,8 +55,8 @@ test('el acento de la Entidad IBM pasa el contraste en los cuatro temas', async 
   }
 });
 
-test('tres colores en la Entidad IBM: marca, marca muy oscura y el color de acción', async () => {
-  const S = await sistema('ibm'), tok = tokens();
+test('tres colores en la Entidad Autómata: marca, marca muy oscura y el color de acción', async () => {
+  const S = await sistema('automata'), tok = tokens();
   aplicar(tok, S);
   const v = (n, th) => valor(tok, n, th);
   // Primary: the same brand step in every theme. Secondary: the brand at its darkest. Tertiary: the action color, here the brand itself.
@@ -115,19 +115,19 @@ for (const id of readdirSync('entidades/lenguajes').map((f) => f.replace(/\.json
 }
 
 test('la plantilla escribe lo que la carta decidió, y falla ante una marca que no conoce', async () => {
-  const ibm = await sistema('ibm'), cordura = await sistema('cordura'), ti = tokens(), tc = tokens();
-  aplicar(ti, ibm); aplicar(tc, cordura);
-  const R = rasgos(ibm), C = rasgos(cordura);
+  const automata = await sistema('automata'), cordura = await sistema('cordura'), ti = tokens(), tc = tokens();
+  aplicar(ti, automata); aplicar(tc, cordura);
+  const R = rasgos(automata), C = rasgos(cordura);
   assert.deepEqual([R.si.profundo, R.si.recta, R.si.accionMarca, R.si.heredado], [true, true, true, false]);
   assert.deepEqual([C.si.profundo, C.si.suave, C.si.accionMarca, C.si.heredado, C.si.lima], [false, true, false, true, true]);
   const src = 'Texto {v:sobre} sobre {v:marca}.{si profundo} Profundo.{sino} Luminoso.{fin} {V:forma}: {token:radius-button}.';
-  assert.equal(plantilla(src, ibm, ti), 'Texto blanco sobre un azul pleno. Profundo. Ángulos rectos: 0 px.');
+  assert.equal(plantilla(src, automata, ti), 'Texto blanco sobre un azul pleno. Profundo. Ángulos rectos: 0 px.');
   assert.equal(plantilla(src, cordura, tc), 'Texto tinta sobre el lima heredado. Luminoso. Esquinas suaves: 16 px.');
   // A line that only opens or closes a condition leaves no empty line behind.
-  assert.equal(plantilla('a\n{si heredado}\nb\n{fin}\nc', ibm, ti), 'a\nc');
-  assert.equal(plantilla('{L:grilla.forma:1}', ibm, ti), 'Nuestros ángulos son rectos.');
-  assert.match(plantilla('{tabla:rampa}', ibm, ti), /\| `primary-600` \| `#1D62FF` \| `interactive-01` en los cuatro temas/);
-  assert.throws(() => plantilla('{si inventada}x{fin}', ibm, ti), /Condición desconocida/);
-  assert.throws(() => plantilla('{v:inventada}', ibm, ti), /Palabra desconocida/);
-  assert.throws(() => plantilla('{L:no.existe}', ibm, ti), /le falta "no.existe"/);
+  assert.equal(plantilla('a\n{si heredado}\nb\n{fin}\nc', automata, ti), 'a\nc');
+  assert.equal(plantilla('{L:grilla.forma:1}', automata, ti), 'Nuestros ángulos son rectos.');
+  assert.match(plantilla('{tabla:rampa}', automata, ti), /\| `primary-600` \| `#1D62FF` \| `interactive-01` en los cuatro temas/);
+  assert.throws(() => plantilla('{si inventada}x{fin}', automata, ti), /Condición desconocida/);
+  assert.throws(() => plantilla('{v:inventada}', automata, ti), /Palabra desconocida/);
+  assert.throws(() => plantilla('{L:no.existe}', automata, ti), /le falta "no.existe"/);
 });

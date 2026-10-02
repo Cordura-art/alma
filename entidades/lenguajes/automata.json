@@ -1,6 +1,6 @@
 {
- "id": "ibm",
- "nombre": "IBM",
+ "id": "automata",
+ "nombre": "Autómata",
  "nacimiento": {
   "fecha": "1911-06-03",
   "hora": "04:00",
@@ -11,7 +11,7 @@
   "nombre": "Blue 60",
   "color": "#0F62FE"
  },
- "aviso": "Ejercicio de diseño hecho con ALMA. La entidad escribe como «nosotros», pero no es IBM: no está afiliada a IBM y no usa su logo, sus textos ni su tipografía.",
+ "aviso": "Autómata es una entidad ficticia, un ejercicio de diseño hecho con ALMA. Nació de buscar la fecha cuya carta da un lenguaje parecido al de IBM, que usamos de referencia para calibrar las reglas. No es IBM, no está afiliada a IBM y no usa su logo, sus textos ni su tipografía.",
  "muestra": {
   "eyebrow": "Informes",
   "titulo": "Informe mensual de junio",
@@ -735,8 +735,8 @@
   "centros": "Preguntas, conceptos y expresión: una mente que habla."
  },
  "fecha": {
-  "lede": "La compañía se fundó el 16 de junio de 1911, pero la carta de ese día no se parece a lo que somos. En vez de forzar las reglas, se buscó el momento cuya carta sí nos explica.",
-  "busqueda": "Revisamos hora por hora 10 años clave de su historia (1889, 1896, 1911, 1914, 1924, 1933, 1952, 1964, 1972, 1981): más de 87.000 cartas. Solo seis ventanas dan un Proyector 1/3 con Cabeza, Ajna y Garganta definidas, todas en 1911 y 1924.",
+  "lede": "Nacimos de una prueba: encontrar la fecha cuya carta da un lenguaje como el de IBM, nuestra referencia. IBM se fundó el 16 de junio de 1911, pero la carta de ese día no se parece a su lenguaje de diseño. En vez de forzar las reglas, se buscó el momento cuya carta sí lo explica. Esa es nuestra fecha.",
+  "busqueda": "Revisamos hora por hora 10 años clave de la historia de IBM (1889, 1896, 1911, 1914, 1924, 1933, 1952, 1964, 1972, 1981): más de 87.000 cartas. Solo seis ventanas dan un Proyector 1/3 con Cabeza, Ajna y Garganta definidas, todas en 1911 y 1924.",
   "ventanas": {
    "titulo": "Las seis ventanas (Nueva York)",
    "filas": [
@@ -796,8 +796,8 @@
     "titulo": "Por qué el 3 de junio",
     "bullets": [
      [
-      "El mismo mes de la fundación.",
-      "Trece días antes de la firma de 1911: el momento en que la compañía ya existía como idea."
+      "El mismo mes en que se fundó IBM.",
+      "Trece días antes de la firma de 1911."
      ],
      [
       "El azul sale solo.",
@@ -805,7 +805,7 @@
      ],
      [
       "Una carta coherente.",
-      "Sus canales, 17-62 y 24-61, son mentales y verbales: pensar, dudar y nombrar. Encajan con una marca que siempre ha hablado de pensar."
+      "Sus canales, 17-62 y 24-61, son mentales y verbales: pensar, dudar y nombrar. Encajan con la referencia: una marca que siempre ha hablado de pensar."
      ]
     ]
    }
@@ -817,7 +817,7 @@
  },
  "calibracion": {
   "lede": "La prueba: si las reglas están bien alineadas, la entidad debería verse como IBM. Con la fecha elegida, se ve. La última columna muestra lo que daría la fecha de fundación.",
-  "titulo": "Entidad frente a IBM hoy",
+  "titulo": "Autómata frente a IBM hoy",
   "columnaReferencia": "IBM hoy",
   "columnaReal": "Con el 16 jun 1911",
   "filas": [
