@@ -238,7 +238,7 @@ Sale de las piezas de marca de Figma (Brand Key, Behance y mockups). La marca ju
   - `ProductCard`: tarjeta desplegable con fondo de color de etiqueta.
   - `PaymentCard`: tarjeta de pago sobre vidrio oscuro, con su avance de activación.
 - **Estados:** `ProgressLine`, una línea de carga azul que termina en verde.
-- **Iconografía:** `Icon` y `Pictogram` (un dibujo pequeño que distingue una cosa de sus vecinas; nunca reemplaza a un ícono).
+- **Iconografía:** `Icon` y `Pictogram` (un dibujo pequeño que distingue una cosa de sus vecinas, en tres tipos: sello, letra y criatura; nunca reemplaza a un ícono).
 - **Contenido, más:** `Card` (toda la tarjeta es un enlace, con acciones encima), `List` (lista agrupada de Apple, filas de 44 px), `Tag` (solo lectura, se puede quitar o filtro seleccionable) y `EmptyState` (qué falta, por qué, una acción).
 - **Navegación, más:** `Link` (subrayado dentro del texto), `Breadcrumb` (la página actual es texto; los niveles del medio se pliegan), `Accordion` y `ProgressIndicator` (pasos de un flujo).
 - **Capas:** `Popover` (no modal, junto a su botón), `Modal` (tarea breve; atrapa el foco) y `Sheet` (sube desde abajo en el teléfono).
@@ -253,7 +253,7 @@ Los flujos de «Design System – Solutions» (billetera, KYC, pasajes, app de v
 - ALMA incluye 896 íconos de interfaz (acciones, navegación, estados, personas, comercio y viajes). El catálogo completo, con 2.775 íconos, sus categorías y sinónimos, está en `assets/Icons/carbon-icons.json`; se carga con `AlmaDS.registerIcons()` solo cuando hace falta.
 - Dos familias, cada una con un trabajo. Los **íconos** de Carbon dicen qué hace un control o qué pasó: acciones, navegación y estados. Los **pictogramas** distinguen una cosa de sus vecinas: un capítulo, un proyecto, una etiqueta.
 - Para íconos usa siempre el componente `Icon`. Tamaños de Carbon: `icon-size-sm` (16 px) en datos densos, `icon-size-md` (20 px) dentro de controles, `icon-size-lg` (24 px) por defecto y `icon-size-xl` (32 px) en zonas vacías. Van en rem: crecen con el texto.
-- Para pictogramas usa el componente `Pictogram`: el nombre de la cosa elige su dibujo, y el mismo nombre da siempre el mismo. Cada entidad dibuja los suyos. Van desde `icon-size-lg` (24 px), siempre junto al nombre, y nunca en un botón ni en un aviso.
+- Para pictogramas usa el componente `Pictogram`: el nombre de la cosa elige su dibujo, y el mismo nombre da siempre el mismo. Hay tres tipos (`kind`): `seal`, un sello para tipos de cosas (etiquetas, archivos); `letter`, la inicial y el número para lo que va en orden (capítulos, pasos); y `creature`, una criatura para lo que tiene carácter (proyectos, equipos), solo en entidades que usan personajes. Se dibujan como los íconos de Carbon: misma grilla y mismo trazo. Cada entidad dibuja los suyos. Van desde `icon-size-lg` (24 px), siempre junto al nombre, y nunca en un botón ni en un aviso.
 - Un solo peso y un solo estilo. `variant: 'filled'` usa la versión `--filled` cuando existe (estados elegidos y avisos). Las flechas de los botones y el ojo del campo también usan `Icon`.
 - El color se hereda: `icon-01` principal, `icon-02` secundario, `text-on-interactive` sobre el azul.
 - Sin emoji.

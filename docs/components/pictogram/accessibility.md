@@ -15,8 +15,9 @@ summary: Qué resuelve ALMA en el pictograma.
 
 - Nunca dejes que el pictograma sea la única forma de reconocer algo: el nombre siempre está.
 - No lo uses para comunicar un estado ni una acción: una persona que no lo ve no pierde nada.
+- La letra de un pictograma repite lo que ya dice el nombre: no la leas dos veces, déjala decorativa.
 - Dos pictogramas pueden parecerse. En una lista, repártelos con `pictogramDrawings()`.
 
 ## Verificación
 
-axe sin problemas en los cuatro temas.
+axe sin problemas en los cuatro temas, con los tres tipos.

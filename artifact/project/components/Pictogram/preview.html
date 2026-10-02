@@ -1,18 +1,17 @@
-<!-- @dsCard group="Iconografía" height=300 subtitle="Distingue una cosa de sus vecinas · 30 dibujos · junto al nombre" -->
+<!-- @dsCard group="Iconografía" height=340 subtitle="Distingue una cosa de sus vecinas · sello, letra o criatura · junto al nombre" -->
 <div id="root" style="padding:24px;display:grid;gap:24px;color:var(--icon-01);"></div>
 <script>
   // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
   document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, P = AlmaDS.Pictogram;
-  var nombres = ['Prólogo', 'Capítulo 1', 'Capítulo 2', 'Capítulo 3', 'Capítulo 4', 'Notas del editor'], dibujos = AlmaDS.pictogramDrawings(nombres);
-  var lab = { fontSize: '0.6875rem', letterSpacing: '0.165px', color: 'var(--text-02)', width: 72 };
-  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
-    h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(11rem, 1fr))', gap: 16 } }, nombres.map(function (n, i) {
-      return h('div', { key: n, style: { display: 'flex', alignItems: 'center', gap: 16, color: 'var(--nav-selected)' } },
-        h(P, { name: n, drawing: dibujos[i] }), h('span', { className: 'web-body-m', style: { color: 'var(--text-01)' } }, n));
-    })),
-    [['24 px', 24], ['32 px', 32]].map(function (r) {
-      return h('div', { key: r[0], style: { display: 'flex', alignItems: 'center', gap: 16 } }, h('span', { style: lab }, r[0]),
-        ['Borradores', 'Lecturas', 'Etiquetas', 'Proyectos', 'Versiones', 'Notas', 'Autores', 'Archivo'].map(function (n) { return h(P, { key: n, name: n, size: r[1] }); }));
-    })));
+  var grupos = [['Sello · tipos de cosas', 'seal', ['Borradores', 'Lecturas', 'Etiquetas', 'Archivo']], ['Letra · lo que va en orden', 'letter', ['Prólogo', 'Capítulo 1', 'Capítulo 2', 'Capítulo 3']], ['Criatura · lo que tiene carácter', 'creature', ['Proyecto Atlas', 'Equipo de voz', 'Taller', 'Club de lectura']]];
+  var lab = { fontSize: '0.6875rem', letterSpacing: '0.165px', color: 'var(--text-02)', margin: 0 };
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null, grupos.map(function (g) {
+    var dibujos = AlmaDS.pictogramDrawings(g[2], g[1]);
+    return h('div', { key: g[1], style: { display: 'grid', gap: 12 } }, h('p', { style: lab }, g[0]),
+      h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(11rem, 1fr))', gap: 16 } }, g[2].map(function (n, i) {
+        return h('div', { key: n, style: { display: 'flex', alignItems: 'center', gap: 12, color: 'var(--nav-selected)' } },
+          h(P, { name: n, kind: g[1], drawing: dibujos[i] }), h('span', { className: 'web-body-m', style: { color: 'var(--text-01)' } }, n));
+      })));
+  })));
 </script>

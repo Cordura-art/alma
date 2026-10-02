@@ -27,14 +27,15 @@ Van en `rem`: crecen con el texto.
 
 ## Trazo
 
-- Se dibuja en la misma grilla de 32 px de los íconos.
-- El grosor sigue el peso del texto: 2 px en la grilla cuando `font-weight-body` es 400, y proporcional a ese peso. Con el peso de ALMA (350) son 1,75 px.
-- El remate de las líneas sigue las esquinas: redondo, o recto cuando `radius-button` es 0.
+- Se dibuja en la misma grilla de 32 px de los íconos de Carbon, con su mismo trazo: 2 px en la grilla.
+- Cada pictograma tiene entre dos y cinco piezas.
+- Las esquinas siguen las de la entidad: redondas, o rectas cuando `radius-button` es 0.
+- La letra usa la tipografía de la página, en peso 600 y a su ancho normal, aunque el texto de la entidad sea más ancho.
 
 ## Semilla
 
-Cada sistema dibuja sus propios pictogramas: el mismo nombre da otro dibujo en otra entidad. La semilla es la fecha de nacimiento: ALMA usa la de Cordura, y cada entidad declara la suya en su hoja de valores (`--pictogram-seed`).
+Cada sistema dibuja sus propios pictogramas: el mismo nombre da otro dibujo en otra entidad. La semilla es la fecha de nacimiento: ALMA usa la de Cordura, y cada entidad declara la suya en su hoja de valores (`--pictogram-seed`). Una entidad que no usa personajes lo declara ahí mismo (`--pictogram-characters: "no"`).
 
 ## Contraste
 
-Un pictograma necesita 3:1 contra su fondo, como un ícono.
+Un pictograma necesita 3:1 contra su fondo, como un ícono. La letra es texto pequeño: dale 4,5:1.

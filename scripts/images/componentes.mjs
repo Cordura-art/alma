@@ -548,13 +548,13 @@ export const componentScenes = [
 
   // ---------- Pictogram ----------
   scene('pictogram', 'usage', 'los borradores de un libro', 'pictogram-lista',
-    'Seis borradores de un libro, cada uno con su pictograma a 24 px junto a su nombre, y el pictograma de «Capítulo 3» a 24 y 32 px.',
-    { js: `var nombres = ['Prólogo', 'Capítulo 1', 'Capítulo 2', 'Capítulo 3', 'Capítulo 4', 'Notas del editor'], dibujos = A.pictogramDrawings(nombres);
-      mount(h('div', { style: { display: 'grid', gridTemplateColumns: '16rem auto', gap: '24px 48px', alignItems: 'start' } },
-        h('div', { style: { display: 'grid', gap: 16 } }, nombres.map(function (n, i) { return h('div', { key: n, style: { display: 'flex', alignItems: 'center', gap: 16, color: 'var(--nav-selected)' } }, h(A.Pictogram, { name: n, drawing: dibujos[i] }), h('span', { className: 'web-body-m', style: { color: 'var(--text-01)' } }, n)); })),
-        h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(2, 5rem)', gap: '16px', alignItems: 'center', color: 'var(--icon-01)' } },
+    'Tres listas con pictogramas a 24 px junto a cada nombre: sellos para tipos de cosas, letras para los capítulos de un libro y criaturas para proyectos y equipos; al lado, un pictograma de cada tipo a 24 y 32 px.',
+    { js: `var grupos = [['Sello', 'seal', ['Borradores', 'Lecturas', 'Etiquetas', 'Archivo']], ['Letra', 'letter', ['Prólogo', 'Capítulo 1', 'Capítulo 2', 'Capítulo 3']], ['Criatura', 'creature', ['Proyecto Atlas', 'Equipo de voz', 'Taller', 'Club de lectura']]];
+      mount(h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3, 13rem) auto', gap: '24px 40px', alignItems: 'start' } },
+        grupos.map(function (g) { var d = A.pictogramDrawings(g[2], g[1]); return h('div', { key: g[1], style: { display: 'grid', gap: 16 } }, h('span', { className: 'tok' }, g[0]), g[2].map(function (n, i) { return h('div', { key: n, style: { display: 'flex', alignItems: 'center', gap: 12, color: 'var(--nav-selected)' } }, h(A.Pictogram, { name: n, kind: g[1], drawing: d[i] }), h('span', { className: 'web-body-m', style: { color: 'var(--text-01)' } }, n)); })); }),
+        h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(2, 4rem)', gap: '16px', alignItems: 'center', color: 'var(--icon-01)' } },
           [24, 32].map(function (s) { return h('span', { key: s, className: 'tok' }, s + ' px'); }),
-          [24, 32].map(function (s) { return h('div', { key: s }, h(A.Pictogram, { name: 'Capítulo 3', drawing: dibujos[3], size: s })); }))));` }),
+          grupos.map(function (g) { return [24, 32].map(function (s) { return h('div', { key: g[1] + s }, h(A.Pictogram, { name: g[2][3], kind: g[1], size: s })); }); }))));` }),
 
   // ---------- EmptyState ----------
   scene('empty-state', 'usage', '«Aún no tienes viajes»', 'empty-state-viajes',

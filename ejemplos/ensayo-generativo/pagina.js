@@ -34,14 +34,6 @@
   ];
   // Words of Ensayo's own trade: an emblem is asked for by concept.
   var CONCEPTOS = ['borrador', 'observación', 'versión', 'capítulo', 'párrafo', 'lectura', 'corrección', 'pregunta', 'estructura', 'estilo', 'ritmo', 'comienzo', 'cierre', 'razón', 'lugar', 'voz'];
-  var BORRADORES = [
-    { nombre: 'Prólogo', estado: 'Corregido · versión 4' },
-    { nombre: 'Capítulo 1', estado: 'Corregido · versión 4' },
-    { nombre: 'Capítulo 2', estado: 'Corregido · versión 3' },
-    { nombre: 'Capítulo 3', estado: 'Con 4 observaciones · versión 2' },
-    { nombre: 'Capítulo 4', estado: 'En lectura · versión 1' },
-    { nombre: 'Notas del editor', estado: 'Sin empezar' }
-  ];
   function reglas(g) {
     return [
       { id: 'color', rasgo: 'Paleta de la entidad', regla: 'Colores de criaturas, colonias, emblemas y tarjetas', valor: g.paleta.slice(1).join(' y ') + ', con acero' },
@@ -65,7 +57,12 @@
   function Avatar(p) { return h('span', { className: 'av av--' + (p.size || 48), dangerouslySetInnerHTML: { __html: GEN.criatura(p.genes || G, p.clave) } }); }
   // A pictogram is ALMA's Pictogram component: 24 or 32 px, in the icon color, or in the entity's accent as a mark.
   // It reads Ensayo's seed from the entity's stylesheet, so nothing is configured here.
-  function Pictograma(p) { return h(A.Pictogram, { name: p.clave, size: p.size || 24, drawing: p.dibujo, color: p.marca ? 'var(--nav-selected)' : 'var(--icon-01)' }); }
+  function Pictograma(p) { return h(A.Pictogram, { name: p.clave, kind: p.tipo, size: p.size || 24, drawing: p.dibujo, color: p.marca ? 'var(--nav-selected)' : 'var(--icon-01)' }); }
+  var TIPOS = [
+    ['seal', 'Sello', 'Para tipos de cosas: etiquetas, archivos, categorías.', ['Borradores', 'Lecturas', 'Etiquetas', 'Archivo', 'Versiones']],
+    ['letter', 'Letra', 'Para lo que va en orden o numerado: capítulos, pasos.', ['Prólogo', 'Capítulo 1', 'Capítulo 2', 'Capítulo 3', 'Notas del editor']],
+    ['creature', 'Criatura', 'Para lo que tiene carácter: proyectos, equipos.', ['Taller de novela', 'Club de lectura', 'Equipo de estilo', 'Mesa de corrección', 'Revista']]
+  ];
   function Emblema(p) { return h('span', { className: 'av av--' + (p.size || 96), dangerouslySetInnerHTML: { __html: GEN.emblema(p.genes || G, p.clave) } }); }
   function fondo(genes, clave, modo, tema) { return { backgroundImage: GEN.comoFondo(GEN.colonia(genes, clave, { modo: modo, tema: tema })) }; }
 
@@ -100,8 +97,6 @@
       navigator.clipboard.writeText(svg).then(function () { aviso[1]('SVG copiado.'); }, no);
     }
     var filas = reglas(G);
-    // The drafts sit together in one list, so their pictograms are dealt as a set: no two share a drawing.
-    var MARCAS = A.pictogramDrawings(BORRADORES.map(function (b) { return b.nombre; }));
 
     return h(React.Fragment, null,
       h('header', { className: 'top' }, h('div', { className: 'wrap top__in' },
@@ -189,31 +184,25 @@
             return h('li', { key: c, className: 'person' }, h(Emblema, { clave: c, size: 96 }), h('span', { className: 'web-body-s' }, c));
           }))),
 
-        h(Sec, { id: 'pictogramas', title: 'Pictogramas', lede: 'Íconos pequeños para distinguir cosas entre sí: un capítulo, un proyecto, una etiqueta. Cada nombre saca su propio dibujo, siempre el mismo. Ya son un componente de ALMA, Pictogram: toman el color del texto que los rodea y van a 24 o 32 px. Para acciones y estados siguen los íconos de Carbon.' },
+        h(Sec, { id: 'pictogramas', title: 'Pictogramas', lede: 'Dibujos pequeños para distinguir cosas entre sí, junto a su nombre. Son el componente Pictogram de ALMA y se dibujan como un ícono de Carbon: misma grilla, mismo trazo, pocas piezas. Hay tres tipos, uno para cada caso. Para acciones y estados siguen los íconos de Carbon.' },
           h('div', { className: 'two' },
             h('div', { className: 'stack' },
               h(A.TextInput, { id: 'marca', label: 'Nombre de lo que quieres distinguir', value: marca[0], onChange: function (v) { marca[1](v || ''); }, helper: 'Un capítulo, un proyecto, una etiqueta.' })),
             sello
               ? h('div', { className: 'stack' },
-                h('div', { className: 'sizes sizes--icon' }, [32, 24].map(function (s) { return h(Pictograma, { key: s, clave: sello, size: s }); })),
-                h('p', { className: 'web-body-s note' }, 'El pictograma de «' + sello + '» a 32 y 24 px, los dos tamaños que admite. Más chicos pierden detalle.'))
-              : h('p', { className: 'web-body-m note' }, 'Escribe un nombre para ver su pictograma.')),
-          h('h3', { className: 'web-h5 sub' }, 'En uso: los borradores de un libro'),
-          h('ul', { className: 'marks' }, BORRADORES.map(function (b, i) {
-            return h('li', { key: b.nombre },
-              h(Pictograma, { clave: b.nombre, dibujo: MARCAS[i], marca: true }),
-              h('div', { className: 'obs__txt' },
-                h('p', { className: 'web-label-m' }, b.nombre),
-                h('p', { className: 'web-body-s cap' }, b.estado)));
+                h('div', { className: 'sizes sizes--icon' }, TIPOS.map(function (t) { return [32, 24].map(function (s) { return h(Pictograma, { key: t[0] + s, clave: sello, tipo: t[0], size: s }); }); })),
+                h('p', { className: 'web-body-s note' }, '«' + sello + '» como sello, letra y criatura, a 32 y 24 px.'))
+              : h('p', { className: 'web-body-m note' }, 'Escribe un nombre para ver sus pictogramas.')),
+          h('div', { className: 'three' }, TIPOS.map(function (t) {
+            var dibujos = A.pictogramDrawings(t[3], t[0]);
+            return h('div', { key: t[0], className: 'stack' },
+              h('h3', { className: 'web-h5 sub' }, t[1]),
+              h('p', { className: 'web-body-s note' }, t[2]),
+              h('ul', { className: 'marks' }, t[3].map(function (n, i) {
+                return h('li', { key: n }, h(Pictograma, { clave: n, tipo: t[0], dibujo: dibujos[i], marca: true }), h('p', { className: 'web-label-m' }, n));
+              })));
           })),
-          h('h3', { className: 'web-h5 sub' }, '32 pictogramas'),
-          h('ul', { className: 'icons' }, Array.from({ length: 32 }, function (_, i) {
-            var n = serie[0] * 32 + i + 1;
-            return h('li', { key: n }, h(Pictograma, { clave: n, size: 32 }), h('span', { className: 'web-body-s cap' }, String(n)));
-          })),
-          h('div', { className: 'row' },
-            h(A.Button, { variant: 'gray', iconBefore: 'renew', onClick: function () { serie[1](serie[0] + 1); } }, 'Ver otros 32 pictogramas')),
-          h('p', { className: 'web-body-m note' }, 'El dibujo no explica qué es cada cosa: la distingue de sus vecinas, como una huella. Por eso siempre va junto a su nombre. En una lista se reparten para que no se repitan; sueltos, cerca de uno de cada veinte nombres comparte dibujo con otro. Vienen de un estudio para banca, así que aparecen gráficos, escudos y balanzas.')),
+          h('p', { className: 'web-body-m note' }, 'La letra es la única que dice algo del nombre: su inicial y su número. El sello y la criatura no explican qué es cada cosa; la distinguen de sus vecinas, y en una lista se reparten para que no se repitan.')),
 
         h(Sec, { id: 'uso', title: 'En uso', lede: 'Un borrador con sus observaciones. La colonia va de fondo en el encabezado y cada observación lleva la criatura de quien la escribió.' },
           h('div', { className: 'draft' },

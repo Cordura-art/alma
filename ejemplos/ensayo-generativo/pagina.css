@@ -27,7 +27,9 @@ body {
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16); }
 .two { display: grid; gap: var(--space-32); align-items: start; }
 .two > * { min-width: 0; }
-.stack { display: grid; gap: var(--space-16); min-width: 0; }
+.stack { display: grid; gap: var(--space-16); min-width: 0; align-content: start; }
+.three { display: grid; gap: var(--space-32); align-items: start; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+.three > * { min-width: 0; }
 
 /* Avatars: a square that takes the entity's corners. The drawing is an SVG that fills it. */
 .av { display: block; flex: none; overflow: hidden; width: var(--space-48); aspect-ratio: 1; border-radius: var(--radius-chip); }

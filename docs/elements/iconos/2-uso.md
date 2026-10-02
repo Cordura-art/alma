@@ -19,7 +19,17 @@ summary: Íconos de IBM Carbon, dibujados como SVG dentro de la página.
 
 ## Pictogramas
 
-Un pictograma es un dibujo de línea que le pertenece a una cosa: un capítulo, un proyecto, una etiqueta. No explica qué es; la distingue de las que tiene al lado, como una huella.
+Un pictograma es un dibujo de línea que le pertenece a una cosa: un capítulo, un proyecto, una etiqueta. No explica qué es; la distingue de las que tiene al lado. Se dibuja como un ícono de Carbon: misma grilla, mismo trazo, pocas piezas.
+
+### Tres tipos
+
+| Tipo | Para qué | Qué dibuja |
+|---|---|---|
+| Sello | Tipos de cosas: etiquetas, archivos, categorías. | Una base y una marca. |
+| Letra | Lo que va en orden o numerado: capítulos, pasos. | La inicial del nombre y su número, en un marco. |
+| Criatura | Lo que tiene carácter: proyectos, equipos. | Una cabeza, dos ojos y un rasgo. Solo en entidades que usan personajes. |
+
+Usa un solo tipo por lista.
 
 ### Cuándo un pictograma
 
@@ -35,8 +45,8 @@ Un pictograma es un dibujo de línea que le pertenece a una cosa: un capítulo, 
 
 ### Cómo se usan
 
-- Con el componente `Pictogram`: recibe el nombre de la cosa y dibuja su pictograma.
-- Tamaño: `icon-size-lg` (24 px) o `icon-size-xl` (32 px). A 16 y 20 px pierden detalle.
+- Con el componente `Pictogram`: recibe el nombre de la cosa y el tipo (`kind`), y dibuja su pictograma.
+- Tamaño: `icon-size-lg` (24 px) o `icon-size-xl` (32 px).
 - Color: heredan el del texto, igual que los íconos. Usa `icon-01`, o `nav-selected` cuando quieras que se note. Necesitan 3:1 contra su fondo.
 - En una lista, pide los dibujos del conjunto completo con `pictogramDrawings()`: así no se repite ninguno.
 - Son decorativos para un lector de pantalla (`aria-hidden`), porque el nombre ya está al lado.

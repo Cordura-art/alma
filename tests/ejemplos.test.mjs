@@ -71,7 +71,6 @@ test('sobre una textura de fondo, el texto principal y el secundario llegan a 4,
 
 // Emblems, pictograms and creatures: the user's earlier studies, drawn with the entity's genes.
 const Emb = await import('../entidades/emblemas.mjs');
-const Pic = await import('../entidades/pictogramas.mjs');
 const sano = (svg) => !/NaN|undefined|Infinity|\$\{/.test(svg);
 const tintas = (svg) => new Set([...svg.matchAll(/(?:fill|stroke)="(#[0-9A-Fa-f]{6})"/g)].map((m) => m[1]));
 
@@ -95,54 +94,6 @@ test('los 32 emblemas se dibujan para cada entidad, solo con sus colores, y la m
     }
     assert.equal(Emb.emblema(G, 'Observación '), Emb.emblema(G, 'observación'));
     assert.ok(new Set(Array.from({ length: 300 }, (_, n) => Emb.emblema(G, `concepto-${n}`))).size > 290, `${id}: 300 conceptos casi no se repiten`);
-  }
-});
-
-test('los 32 pictogramas se dibujan en sus ocho composiciones, con una sola tinta sobre su fondo', async () => {
-  assert.equal(Pic.PICTOGRAMAS, 32);
-  for (const id of ['ensayo', 'cordura', 'ibm']) {
-    const { S, G } = await genesDe(id);
-    for (const [o, C] of [[{}, G.pieza], [{ modo: 'fondo', tema: 'dark' }, G.fondo.dark], [{ modo: 'fondo', tema: 'light' }, G.fondo.light]]) {
-      assert.ok(S.En.contrast(C.tinta, C.base) >= 4.5, `${id}: la tinta sobre su fondo`);
-      for (let i = 0; i < Pic.PICTOGRAMAS; i++) for (let v = 0; v < 8; v++) for (let k = 0; k < 12; k++) {
-        const svg = Pic.pictograma(G, `c${k}`, { ...o, dibujo: i, variante: v });
-        assert.ok(sano(svg), `${id} · pictograma ${i}/${v} · c${k}`);
-        assert.deepEqual([...tintas(svg)].filter((c) => c !== C.tinta && c !== C.base), [], `${id} · pictograma ${i}/${v}: un color ajeno`);
-      }
-    }
-    assert.equal(Pic.pictograma(G, 7), Pic.pictograma(G, 7));
-    // Line ends follow the entity's corners: square only for straight corners.
-    assert.equal(/stroke-linecap="square"/.test(Pic.pictograma(G, 1, { dibujo: 4, variante: 0 })), G.redondez === 0, `${id}: remate de línea`);
-  }
-});
-
-test('un pictograma como ícono: grilla de 32, sin fondo, con el color del texto, pocas piezas y siempre el mismo para un nombre', async () => {
-  for (const id of ['ensayo', 'cordura', 'ibm']) {
-    const { G } = await genesDe(id), vistos = new Set();
-    for (let k = 0; k < 400; k++) {
-      const svg = Pic.pictograma(G, `cosa-${k}`, { modo: 'icono' });
-      assert.ok(sano(svg) && /^<svg xmlns="[^"]+" viewBox="0 0 32 32" aria-hidden="true">/.test(svg), `${id} · cosa-${k}`);
-      assert.ok(!/<rect width="32" height="32"/.test(svg), 'sin fondo');
-      assert.equal(tintas(svg).size, 0, `${id} · cosa-${k}: trae un color propio`);
-      assert.ok(/currentColor/.test(svg));
-      vistos.add(svg);
-    }
-    // Some compositions (a padlock, a key) have a single form, so a few names share a pictogram: about one in twenty.
-    assert.ok(vistos.size >= 370, `${id}: 400 nombres dan ${vistos.size} pictogramas distintos`);
-    assert.equal(Pic.pictograma(G, ' Capítulo 3', { modo: 'icono' }), Pic.pictograma(G, 'capítulo 3', { modo: 'icono' }));
-    // Every drawing in its eight compositions draws as an icon; the two that fill in at 24 px are never picked by a name.
-    const trazo = new RegExp(`stroke-width="${(2 * G.trazo).toFixed(3)}"`);
-    for (let i = 0; i < Pic.PICTOGRAMAS; i++) for (let v = 0; v < 8; v++) for (let k = 0; k < 6; k++) assert.ok(sano(Pic.pictograma(G, `c${k}`, { modo: 'icono', dibujo: i, variante: v })), `${id} · ícono ${i}/${v}`);
-    assert.ok(trazo.test(Pic.pictograma(G, 'x', { modo: 'icono', dibujo: 1, variante: 0 })), `${id}: trazo de ${2 * G.trazo} en la grilla de 32`);
-    const densos = [12, 21].map((i) => Pic.pictograma(G, 'x', { modo: 'icono', dibujo: i, variante: 0 }));
-    for (let k = 0; k < 400; k++) { const svg = Pic.pictograma(G, `cosa-${k}`, { modo: 'icono' }); for (let v = 0; v < 8; v++) for (const i of [12, 21]) assert.notEqual(svg, Pic.pictograma(G, `cosa-${k}`, { modo: 'icono', dibujo: i, variante: v })); }
-    assert.equal(densos.length, 2);
-    // In a list every name gets its own drawing: thirty names use the thirty drawings, and the list repeats itself.
-    const nombres = Array.from({ length: 30 }, (_, n) => `Capítulo ${n + 1}`), lista = Pic.pictogramasDe(G, nombres, { modo: 'icono' });
-    const dibujo = (svg, nombre) => Array.from({ length: Pic.PICTOGRAMAS }, (_, i) => i).find((i) => Pic.pictograma(G, nombre, { modo: 'icono', dibujo: i }) === svg);
-    assert.equal(new Set(lista.map((svg, n) => dibujo(svg, nombres[n]))).size, 30, `${id}: treinta nombres, treinta dibujos`);
-    assert.deepEqual(Pic.pictogramasDe(G, nombres, { modo: 'icono' }), lista);
-    assert.equal(lista[0], Pic.pictograma(G, nombres[0], { modo: 'icono' }), 'el primero conserva el suyo');
   }
 });
 

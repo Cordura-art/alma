@@ -85,7 +85,7 @@ export function css(S) {
   const sel = { dark: ':root, [data-theme="dark"]', light: '[data-theme="light"]', 'dark-hc': '[data-theme="dark-hc"]', 'light-hc': '[data-theme="light-hc"]' };
   const decl = (o) => Object.entries(o).map(([k, v]) => `  --${k}: ${String(v).replace(/^\{(.+)\}$/, 'var(--$1)')};`).join('\n');
   // The seed of what the entity generates (its pictograms) travels with its values: the Pictogram component reads it.
-  let out = `/* Entidad ${S.L.nombre}: los valores de la entidad sobre los tokens de ALMA. */\n:root {\n${Object.values(S.core).map(decl).join('\n')}\n  --pictogram-seed: "${semilla(S)}";\n}\n`;
+  let out = `/* Entidad ${S.L.nombre}: los valores de la entidad sobre los tokens de ALMA. */\n:root {\n${Object.values(S.core).map(decl).join('\n')}\n  --pictogram-seed: "${semilla(S)}";${S.L.ilustracion && S.L.ilustracion.generativa && S.L.ilustracion.generativa.personajes === false ? '\n  --pictogram-characters: "no";' : ''}\n}\n`;
   for (const th of THEMES) out += `${sel[th]} {\n${decl(S.color[th])}\n}\n`;
   return out;
 }

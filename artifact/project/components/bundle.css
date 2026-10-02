@@ -134,6 +134,8 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 
 /* ---------- Icon: IBM Carbon, inline SVG (32 px artwork, currentColor) ---------- */
 .alma-ico { display: inline-block; flex: none; fill: currentColor; vertical-align: middle; }
+/* A pictogram is drawn with lines, like the strokes inside a Carbon icon; its letter takes the text's typeface. */
+.alma-pictogram { fill: none; stroke: currentColor; overflow: visible; }
 
 /* ---------- SegmentedControl: recessed track, equal segments, one thumb that slides (Apple HIG) ---------- */
 .alma-seg {

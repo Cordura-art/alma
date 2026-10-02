@@ -97,9 +97,11 @@ export declare function Icon(props: IconProps): any;
 export interface PictogramProps {
   /** The name of the thing this pictogram distinguishes (a chapter, a project, a tag). The same name always gives the same drawing. */
   name: string | number;
-  /** px: 24 (default) · 32. Rendered in rem, so it scales with text. Below 24 the drawings lose detail. */
+  /** seal (default): kinds of things, such as tags and files · letter: what is ordered or numbered, such as chapters and steps (it writes the initial and the number) · creature: what has character, such as projects and teams. In an entity that does not use characters a creature is drawn as a seal. */
+  kind?: 'seal' | 'letter' | 'creature';
+  /** px: 24 (default) · 32. Rendered in rem, so it scales with text. */
   size?: 24 | 32;
-  /** One of the drawings, as given by pictogramDrawings() for a list, so no two names of the list share one. */
+  /** One of the drawings of the kind, as given by pictogramDrawings() for a list, so no two names of the list share one. */
   drawing?: number;
   color?: string;
   /** Accessible name; omit it when the thing's name is next to the pictogram (the usual case). */
@@ -108,12 +110,13 @@ export interface PictogramProps {
 }
 /** A small line drawing that tells one thing apart from its neighbors. Not an icon: use Icon for actions and states. */
 export declare function Pictogram(props: PictogramProps): any;
-/** The drawings for a list of names that sit together, none repeated while there are drawings left. */
-export declare function pictogramDrawings(names: Array<string | number>): number[];
+/** The drawings for a list of names that sit together, none repeated while the kind has drawings left. */
+export declare function pictogramDrawings(names: Array<string | number>, kind?: 'seal' | 'letter' | 'creature'): number[];
 /** Fixes by hand what the component otherwise reads from the page's styles: the seed (--pictogram-seed, which an entity's
- *  stylesheet declares; Cordura's birth without it), the stroke (font-weight-body; 1 = base) and round line ends
- *  (radius-button). null gives one back to the styles. Returns what pictograms are drawn with. */
-export declare function configurePictograms(options?: { seed?: string | null; stroke?: number | null; round?: boolean | null }): { seed: string; stroke: number; round: boolean };
+ *  stylesheet declares; Cordura's birth without it), the stroke (1 = Carbon's), round corners (radius-button) and whether
+ *  characters are used (--pictogram-characters: "no" turns creatures into seals). null gives one back to the styles.
+ *  Returns what pictograms are drawn with. */
+export declare function configurePictograms(options?: { seed?: string | null; stroke?: number | null; round?: boolean | null; characters?: boolean | null }): { seed: string; stroke: number; round: boolean; characters: boolean };
 
 export interface SegmentedOption { value: string; label: string; }
 export interface SegmentedControlProps {
