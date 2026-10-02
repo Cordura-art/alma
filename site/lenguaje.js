@@ -395,6 +395,23 @@
       h('ul', { className: 'gen-people' }, lista.map(function (x) { return h('li', { key: x.nombre, className: 'gen-person' }, h(Dibujo, { size: 64, svg: x.svg }), h('span', { className: 'web-body-s' }, x.nombre)); })),
       h('p', { className: 'web-body-s cap note' }, 'Una criatura sirve de avatar o de mascota de una pieza. Acompaña al nombre; nunca lo reemplaza.'));
   }
+  // The relief: the still texture. Two lands as pieces and the same two as grounds, with text on top.
+  function GenRelieve() {
+    var tema = useTema();
+    var losas = React.useMemo(function () {
+      return [['pieza', 1], ['pieza', 2], ['fondo', 1], ['fondo', 2]].map(function (x) { return { modo: x[0], n: x[1], estilo: { backgroundImage: GEN.comoFondo(GEN.relieveSvg(G, x[1], { modo: x[0], tema: tema })) } }; });
+    }, [tema]);
+    return h(Sec, { title: 'Relieve' },
+      h(Para, null, 'El relieve es nuestro campo convertido en terreno, dibujado solo con líneas: cada fila muestra lo que asoma por encima de las de adelante. ' + RELIEVE_TIPO[G.tipo] + (G.centros.length ? ' Cada uno de nuestros ' + G.centros.length + ' centros definidos es un cerro, en el lugar que ocupa en la carta.' : '') + ' Es nuestra textura quieta: como pieza va sobre negro con la paleta completa; como fondo se apaga hasta que el texto encima se lee con un contraste de 4,5:1 o más, en tema claro y oscuro.'),
+      h('ul', { className: 'gen-tiles gen-tiles--anchas' }, losas.map(function (t) {
+        var pieza = t.modo === 'pieza';
+        return h('li', { key: t.modo + t.n }, h('figure', { className: 'gen-fig' },
+          pieza ? h('div', { className: 'gen-tex gen-tex--relieve', style: t.estilo, role: 'img', 'aria-label': 'Relieve número ' + t.n + ', como pieza: filas de líneas de colores que suben en cerros sobre negro.' })
+            : h('div', { className: 'gen-tex gen-tex--relieve gen-tex--fondo', style: t.estilo }, h('p', { className: 'web-h5' }, 'Texto sobre el relieve'), h('p', { className: 'web-body-s' }, 'El texto secundario también se lee.')),
+          h('figcaption', { className: 'web-body-s cap' }, (pieza ? 'Pieza ' : 'Fondo ') + t.n)));
+      })));
+  }
+  var RELIEVE_TIPO = { proyector: 'Tiene una cumbre donde nuestro campo converge.', manifestador: 'Tiene ondas que salen de un punto.', generador: 'Tiene un anillo alrededor de su centro.', mg: 'Tiene una espiral que se abre.', reflector: 'Una mitad es el espejo de la otra.' };
   function GenColonia() {
     var tema = useTema();
     var losas = React.useMemo(function () {
@@ -459,6 +476,7 @@
       return (PERS ? [
         { t: 'Criaturas', svg: GEN.criatura(G, L.nombre) },
         { t: 'Colonia', bg: GEN.comoFondo(GEN.colonia(G, 1, { modo: 'pieza' })) }] : []).concat([
+        { t: 'Relieve', bg: GEN.comoFondo(GEN.relieveSvg(G, 1, { ancho: 360, alto: 360, filas: 28 })) },
         { t: 'Emblemas', svg: GEN.emblema(G, GV.conceptos[0]) },
         { t: 'Caras de tarjeta', bg: GEN.comoFondo(GEN.placa(G, 'cara-0-2', { patron: 'petal' })) }]);
     }, []);
@@ -472,6 +490,7 @@
       ['Garganta definida o abierta', 'Emblemas rellenos o de línea', G.relleno ? 'Rellenos' : 'De línea'],
       ['Centros definidos', 'Los focos desde donde crece el micelio', G.focos + ' focos'],
       ['Tipo', 'Hacia dónde va el campo', CAMPO_TIPO[G.tipo]],
+      ['Tipo y centros definidos', 'La cumbre y los cerros del relieve', RELIEVE_TIPO[G.tipo] + ' ' + G.centros.length + ' cerros.'],
       ['Autoridad', 'Cómo respira el campo', CAMPO_AUT[G.autoridad]],
       ['Centros y canales definidos', 'Los remolinos y las corrientes del campo', G.centros.length + ' remolinos y ' + G.canales.length + ' corrientes'],
       ['Puertas de la carta', 'Las partículas del campo', 'Los emblemas de nuestras primeras ' + Math.min(12, G.puertas.length) + ' puertas'],
@@ -493,15 +512,16 @@
         h(VG.Micelio, { clave: hifa[0], anda: crece[0], label: 'Micelio de ' + L.nombre + ': una red de líneas rectas que crece desde el borde inferior de la pantalla de un teléfono y toma un brillo de sus colores.' }),
         h(Control, { anda: crece[0], onToggle: tog(crece), otro: 'Ver otro micelio', onOtro: function () { hifa[1](hifa[0] + 1); } })),
       h(Sec, { title: 'Lo que no se mueve' },
-        h(Para, null, (PERS ? 'Las criaturas, la colonia, los emblemas' : 'Los emblemas') + ' y las caras de tarjeta salen de la misma regla y de la misma semilla.'),
+        h(Para, null, (PERS ? 'Las criaturas, la colonia, el relieve, los emblemas' : 'El relieve, los emblemas') + ' y las caras de tarjeta salen de la misma regla y de la misma semilla.'),
         h('ul', { className: 'gen-people gen-people--96' }, quietas.map(function (q) {
           return h('li', { key: q.t, className: 'gen-person' }, q.svg ? h(Dibujo, { size: 96, svg: q.svg }) : h('span', { className: 'gen-av gen-av--96 gen-av--bg', 'aria-hidden': 'true', style: { backgroundImage: q.bg } }), h('span', { className: 'web-body-s' }, q.t));
         })),
         h('a', { className: 'web-body-l', href: '#' + PRE + 'ilustracion' }, 'Ver todas en Ilustración')),
       h(Sec, { title: 'Espacio y tamaño' }, h(Bullets, { items: [
         ['Sin texto encima.', 'El campo, el carrusel y el micelio van sin texto. El título va al lado o debajo, alineado a la grilla de 8 px.']].concat(PERS ? [
-        ['Texto sobre textura.', 'Solo sobre la colonia en su versión de fondo, que asegura un contraste de 4,5:1 o más.'],
+        ['Texto sobre textura.', 'Solo sobre la colonia o el relieve en su versión de fondo, que aseguran un contraste de 4,5:1 o más.'],
         ['Tamaño mínimo.', 'Una criatura se usa desde 32 px. Por debajo, se usa solo el nombre.']] : [
+        ['Texto sobre textura.', 'Solo sobre el relieve en su versión de fondo, que asegura un contraste de 4,5:1 o más.'],
         ['Alineación.', 'Siempre a la grilla de 8 px y al margen izquierdo del contenido.']]) })),
       h(Sec, { title: 'Color' }, h(Para, null, X.color)),
       h(Sec, { title: 'Movimiento' }, h(Para, null, X.movimiento)),
@@ -511,11 +531,11 @@
 
   function Ilustracion() {
     var X = L.ilustracion;
-    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(PERS ? ['Criaturas', 'Colonia'] : [], GV ? ['Emblemas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
+    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(PERS ? ['Criaturas', 'Colonia'] : [], GV ? ['Relieve', 'Emblemas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
       GV ? null : h(A.InlineNotification, { kind: 'callout', status: 'info', title: 'Reglas antes que piezas', message: 'ALMA todavía no tiene ilustraciones. Estas son las reglas que van a seguir cuando existan.' }),
       h(Sec, { title: 'Punto de vista' }, h(Para, null, X.puntoDeVista)),
       h(Sec, { title: 'Estilos' }, X.estilos.map(function (x) { return h(Sub, { key: x.t, title: x.t }, h(Para, null, x.p)); })),
-      PERS ? h(GenCriaturas) : null, PERS ? h(GenColonia) : null, GV ? h(GenEmblemas) : null, GV ? h(GenCaras) : null,
+      PERS ? h(GenCriaturas) : null, PERS ? h(GenColonia) : null, GV ? h(GenRelieve) : null, GV ? h(GenEmblemas) : null, GV ? h(GenCaras) : null,
       h(Sec, { title: 'Personas' }, h(Para, null, X.personas)),
       h(Sec, { title: 'Color' }, h(Para, null, X.color)),
       h(Avoid, { items: X.avoid }));

@@ -264,6 +264,28 @@ test('el campo va hacia donde dice el tipo y sus partículas son los emblemas de
   dibujos.length = 0; velos.length = 0; Cam.pintarCampo(ctx, E, null); assert.equal(dibujos.length, 0); assert.equal(velos[0], 0.09);
 });
 
+test('el relieve: el campo como terreno, en línea, con la cumbre de su tipo, un cerro por centro y una versión de fondo', async () => {
+  const Rel = await import('../entidades/relieve.mjs');
+  for (const id of ['ensayo', 'cordura', 'automata']) {
+    const { G } = await genesDe(id), pieza = Rel.relieveSvg(G, 1), propios = new Set(Gen.colores(G.pieza));
+    assert.ok(sano(pieza), id); assert.equal(pieza, Rel.relieveSvg(G, 1)); assert.notEqual(pieza, Rel.relieveSvg(G, 2), 'otra clave, otro terreno');
+    for (const c of tintas(pieza)) assert.ok(propios.has(c), `${id}: ${c} no es de la entidad`);
+    assert.ok(tintas(pieza).has(G.pieza.acento), 'el acento va en una fila de cada doce');
+    assert.match(pieza, /^<svg [^>]*viewBox="0 0 640 360"[^>]*aria-hidden="true">/); assert.doesNotMatch(pieza, /fill="(?!none|#)/);
+    // As a ground it uses only the quiet colors of the theme, the ones text reads on.
+    for (const th of ['dark', 'light']) { const quietos = new Set(Gen.colores(G.fondo[th])); for (const c of tintas(Rel.relieveSvg(G, 1, { modo: 'fondo', tema: th }))) assert.ok(quietos.has(c), `${id} · ${th}: ${c} no es un color de fondo`); }
+    // Far rows hide behind near ones: fewer points are drawn than the land has.
+    const puntos = (pieza.match(/[ML]\d/g) || []).length; assert.ok(puntos > 1500 && puntos < 40 * 129, `${id}: ${puntos} puntos`);
+    // A Projector's land peaks where its field converges, and every defined center is a hill.
+    const alt = Rel.relieve(G, 1), llano = Rel.relieve({ ...G, tipo: '', centros: [] }, 1);
+    assert.ok(alt(0.8, 0.5) - llano(0.8, 0.5) > 0.8, `${id}: la cumbre del Proyector`);
+    assert.ok(Rel.relieve({ ...G, tipo: '' }, 1)(0.08 + 0.36 * 0.84, 0.5) - llano(0.08 + 0.36 * 0.84, 0.5) > 0.3 === G.centros.includes('garganta'), `${id}: el cerro de la Garganta`);
+  }
+  const { G } = await genesDe('ensayo'), formas = new Set(['', 'proyector', 'manifestador', 'generador', 'mg', 'reflector'].map((tipo) => Rel.relieveSvg({ ...G, tipo, centros: [] }, 1)));
+  assert.equal(formas.size, 6, 'cada tipo, su terreno');
+  const espejo = Rel.relieve({ ...G, tipo: 'reflector', centros: [] }, 1); assert.ok(Math.abs(espejo(0.2, 0.4) - espejo(0.8, 0.4)) < 1e-9, 'el de un Reflector es simétrico');
+});
+
 test('las caras de tarjeta: quince patrones con los colores de la entidad, sin capa de banco, y el grabado con las puntas del emblema', async () => {
   const Pla = await import('../entidades/placa.mjs');
   assert.equal(Pla.PATRONES.length, 15);

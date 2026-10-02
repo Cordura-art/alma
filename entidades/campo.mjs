@@ -5,7 +5,7 @@
 import { hash, rng } from './semilla.mjs';
 
 // Seeded value noise in three dimensions, three octaves, between 0 and 1 (what p5's noise() gave the original).
-function ruido(seed) {
+export function ruido(seed) {
   const r = rng(seed), p = new Uint8Array(512), v = new Float32Array(256);
   for (let i = 0; i < 256; i++) { p[i] = i; v[i] = r(); }
   for (let i = 255; i > 0; i--) { const j = Math.floor(r() * (i + 1)), t = p[i]; p[i] = p[j]; p[j] = t; }
@@ -21,7 +21,7 @@ function ruido(seed) {
 
 // The nine centers as a map, lying down: the head on the left, the root on the right (the way the field blows).
 // [along the body 0..1, across it -1..1]
-const MAPA = { cabeza: [0.06, 0], ajna: [0.2, 0], garganta: [0.36, 0], g: [0.52, 0], corazon: [0.6, 0.38], bazo: [0.74, -0.62], sacro: [0.72, 0], plexo: [0.74, 0.62], raiz: [0.93, 0] };
+export const MAPA = { cabeza: [0.06, 0], ajna: [0.2, 0], garganta: [0.36, 0], g: [0.52, 0], corazon: [0.6, 0.38], bazo: [0.74, -0.62], sacro: [0.72, 0], plexo: [0.74, 0.62], raiz: [0.93, 0] };
 
 // A field of `ancho` × `alto` pixels. The entity decides: the pace (its type's speed: a slower entity drifts slower),
 // where the field goes (its type: a Projector's converges on a focus, a Manifestor's bursts from a point, a
