@@ -3,6 +3,7 @@
 // into the artifact's tokens.json shape, `css()` into custom properties, and `palabras()` fills the shared templates
 // (entidades/documentacion/plantilla/) and the replacements for the sentences of ALMA's guides that only hold for Cordura.
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { genes, colonia, comoFondo } from '../../entidades/generador.mjs';
 import { cargarMotor } from './entidades.mjs';
 
 const read = (p) => readFileSync(p, 'utf8');
@@ -209,7 +210,8 @@ export function restos(textos, vigentes = [], aspecto = []) {
   return out;
 }
 
-// The cover: the entity's generative signature (the engine's layout, drawn as SVG) beside its name.
+// The cover: the entity's signature beside its name. An entity with generative illustration wears its colony, the
+// texture of its creatures; the others, the bars of the engine's layout, drawn as SVG.
 export function portada(S) {
   const { En, E, P, L } = S, W = 448, H = 420, lay = En.layout(E, P, W, H);
   const x0 = Math.min(...lay.pills.map((p) => p.x)), x1 = Math.max(...lay.pills.map((p) => p.x + p.w));
@@ -220,9 +222,14 @@ export function portada(S) {
   const T = En.TYPES[E.type], A = En.AUTH[E.auth];
   const style = `.ecv{position:relative;display:grid;grid-template-columns:1fr 1fr;align-items:center;width:960px;height:300px;box-sizing:border-box;padding:var(--space-32) var(--space-40);gap:var(--space-40);background:var(--brand-ink);color:var(--text-01);overflow:hidden}
 .ecv__txt{display:grid;gap:var(--space-8);align-content:center}.ecv__eyebrow{margin:0;color:var(--text-02)}.ecv__name{margin:0;line-height:1}.ecv__tag{margin:0;color:var(--text-02)}
-.ecv__art{width:100%;height:236px}`;
+.ecv__art{width:100%;height:236px}.ecv__art--gen{border-radius:var(--radius-panel);background-repeat:repeat}`;
+  const gen = L.ilustracion && L.ilustracion.generativa, tok = gen ? JSON.parse(read('dist/json/tokens.json')) : null;
+  const fondo = gen ? comoFondo(colonia(genes(S, (name, theme) => valor(tok, name, theme)), 'portada', { modo: 'pieza' })) : '';
+  if (fondo.includes("'")) throw new Error('La colonia de la portada trae una comilla simple');
+  const arte = gen ? `<div class="ecv__art ecv__art--gen" aria-hidden="true" style='background-image:${fondo}'></div>`
+    : `<svg class="ecv__art" viewBox="${n(x0)} ${n(y0 - 8)} ${n(x1 - x0)} ${n(y1 - y0 + 16)}" preserveAspectRatio="xMaxYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${pills}${sparks}</svg>`;
   const markup = `<style>${style}</style><div class="ecv" data-theme="dark"><div class="ecv__txt"><p class="ecv__eyebrow web-label-m">${T.name} ${E.profile} · ${A.name}</p><p class="ecv__name web-display-s">${L.nombre}</p><p class="ecv__tag web-body-l">${L.inicio.titulo}</p></div>
-<svg class="ecv__art" viewBox="${n(x0)} ${n(y0 - 8)} ${n(x1 - x0)} ${n(y1 - y0 + 16)}" preserveAspectRatio="xMaxYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${pills}${sparks}</svg></div>`;
+${arte}</div>`;
   return { markup, code: '' };
 }
 

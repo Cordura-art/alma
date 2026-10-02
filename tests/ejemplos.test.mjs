@@ -322,3 +322,11 @@ test('el lenguaje de una entidad con ilustración generativa lleva sus genes y e
   assert.doesNotMatch(sin, /window\.__GENERADOR = /);
   assert.doesNotMatch(sin, /"genes":/);
 });
+
+test('la portada de la documentación: la colonia en una entidad con ilustración generativa, las barras en las demás', async () => {
+  const { portada } = await import('../scripts/lib/documentacion.mjs');
+  const con = portada(await sistema('ensayo')).markup, sin = portada(await sistema('ibm')).markup;
+  assert.match(con, /class="ecv__art ecv__art--gen"/); assert.doesNotMatch(con, /<svg class="ecv__art"/);
+  assert.match(con, /Ensayo/, 'el nombre sigue al lado');
+  assert.match(sin, /<svg class="ecv__art"/); assert.doesNotMatch(sin, /class="ecv__art ecv__art--gen"/);
+});
