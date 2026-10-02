@@ -1,6 +1,6 @@
 // Tests for pictograms: the three kinds (seal, letter, creature) drawn like Carbon's icons, and the Pictogram component,
-// whose bundle draws with the same code as entidades/pictogramas.mjs, reads each entity's seed, corners and use of
-// characters from the page's styles, and comes with its guide, preview and types.
+// whose bundle draws with the same code as entidades/pictogramas.mjs, reads each entity's seed and corners from the
+// page's styles, and comes with its guide, preview and types.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
@@ -77,15 +77,13 @@ test('la letra escribe la inicial y el número del nombre', () => {
   assert.match(trazosPictograma({ semilla: CORDURA, trazo: 1, redondez: 1 }, 'a<b', { tipo: 'letra' }).trazos, />A<\/text>/);
 });
 
-test('una criatura es una cabeza, dos ojos y a lo más un rasgo; donde no se usan personajes, es un sello', () => {
+test('una criatura es una cabeza, dos ojos y a lo más un rasgo, en cualquier entidad', () => {
   const G = { semilla: CORDURA, trazo: 1, redondez: 1 };
   for (let d = 0; d < PICTOGRAMAS.criatura; d++) {
     const s = trazosPictograma(G, 'Equipo', { tipo: 'criatura', dibujo: d }).trazos;
     assert.equal((s.match(/<circle [^>]*r="2" fill="currentColor"/g) || []).length, 2, `criatura ${d}: dos ojos`);
   }
-  const sin = trazosPictograma(G, 'Equipo', { tipo: 'criatura', personajes: false });
-  assert.equal(sin.tipo, 'sello');
-  assert.equal(sin.trazos, trazosPictograma(G, 'Equipo', { tipo: 'sello' }).trazos);
+  assert.equal(trazosPictograma(G, 'Equipo', { tipo: 'criatura', personajes: false }).tipo, 'criatura', 'ya no depende de si la entidad usa personajes');
 });
 
 test('en una lista, dibujosDe reparte sin repetir mientras el tipo tenga dibujos', () => {
@@ -99,7 +97,7 @@ test('en una lista, dibujosDe reparte sin repetir mientras el tipo tenga dibujos
 });
 
 test('el componente dibuja lo mismo que entidades/pictogramas.mjs, con la semilla de Cordura si la página no declara otra', () => {
-  const A = almaDS(ALMA), G = { semilla: CORDURA, trazo: 1, redondez: 16 / 24, personajes: true };
+  const A = almaDS(ALMA), G = { semilla: CORDURA, trazo: 1, redondez: 16 / 24 };
   for (const [kind, tipo] of Object.entries(KIND)) for (const nombre of ['Capítulo 3', 'Proyecto Atlas', 42, '']) {
     const el = A.Pictogram({ name: nombre, kind }), P = trazosPictograma(G, nombre, { tipo });
     assert.equal(el.type, 'svg');
@@ -109,7 +107,7 @@ test('el componente dibuja lo mismo que entidades/pictogramas.mjs, con la semill
   }
   assert.equal(A.Pictogram({ name: 'x' }).props['data-kind'], 'seal', 'sin kind, un sello');
   assert.equal(A.Pictogram({ name: 'x', kind: 'otro' }).props['data-kind'], 'seal');
-  assert.deepEqual(A.configurePictograms(), { seed: CORDURA, stroke: 1, round: true, characters: true });
+  assert.deepEqual(A.configurePictograms(), { seed: CORDURA, stroke: 1, round: true });
   assert.match(read('artifact/project/components/bundle.css'), /\.alma-pictogram \{ fill: none; stroke: currentColor;/);
 });
 
@@ -122,28 +120,27 @@ test('tamaño, color y nombre accesible como en Icon', () => {
   assert.match(b.props.className, /^alma-ico alma-pictogram mia$/);
 });
 
-test('cada entidad dibuja los suyos: la semilla, las esquinas y si usa personajes salen de su hoja de valores', async () => {
-  for (const id of ['ensayo', 'cordura', 'ibm']) {
+test('cada entidad dibuja los suyos, con los tres tipos: la semilla y las esquinas salen de su hoja de valores', async () => {
+  for (const id of ['ensayo', 'cordura', 'automata']) {
     const S = await sistema(id), hoja = css(S), prop = (n) => (new RegExp(`--${n}: ([^;]+);`).exec(hoja) || [])[1];
     assert.equal(prop('pictogram-seed'), `"${semilla(S)}"`, `${id}: su hoja declara la semilla`);
-    const personajes = S.L.ilustracion.generativa.personajes !== false;
-    assert.equal(prop('pictogram-characters'), personajes ? undefined : '"no"', `${id}: su hoja dice si no usa personajes`);
-    const estilos = { '--pictogram-seed': prop('pictogram-seed'), '--radius-button': prop('radius-button'), '--pictogram-characters': prop('pictogram-characters') };
+    assert.equal(prop('pictogram-characters'), undefined, `${id}: la hoja ya no dice nada de personajes`);
+    const estilos = { '--pictogram-seed': prop('pictogram-seed'), '--radius-button': prop('radius-button') };
     const A = almaDS(estilos), G = { semilla: semilla(S), trazo: 1, redondez: Math.min(1, S.P.shape.base / 24) };
     assert.equal(A.Pictogram({ name: 'Capítulo 3' }).props.dangerouslySetInnerHTML.__html, trazosPictograma(G, 'Capítulo 3').trazos, id);
-    assert.equal(A.Pictogram({ name: 'Equipo', kind: 'creature' }).props['data-kind'], personajes ? 'creature' : 'seal', `${id}: criatura`);
-    assert.deepEqual([A.configurePictograms().round, A.configurePictograms().characters], [S.P.shape.base > 0, personajes], id);
+    assert.equal(A.Pictogram({ name: 'Equipo', kind: 'creature' }).props['data-kind'], 'creature', `${id}: criatura`);
+    assert.equal(A.configurePictograms().round, S.P.shape.base > 0, id);
   }
   const A = almaDS(ALMA), suyo = A.Pictogram({ name: 'Capítulo 3' }).props.dangerouslySetInnerHTML.__html;
-  // By hand: a seed, a stroke, square corners and no characters; null gives each back to the page's styles.
-  assert.deepEqual(A.configurePictograms({ seed: 'otra', stroke: 1.5, round: false, characters: false }), { seed: 'otra', stroke: 1.5, round: false, characters: false });
+  // By hand: a seed, a stroke and square corners; null gives each back to the page's styles.
+  assert.deepEqual(A.configurePictograms({ seed: 'otra', stroke: 1.5, round: false }), { seed: 'otra', stroke: 1.5, round: false });
   assert.notEqual(A.Pictogram({ name: 'Capítulo 3' }).props.dangerouslySetInnerHTML.__html, suyo);
-  A.configurePictograms({ seed: null, stroke: null, round: null, characters: null });
+  A.configurePictograms({ seed: null, stroke: null, round: null });
   assert.equal(A.Pictogram({ name: 'Capítulo 3' }).props.dangerouslySetInnerHTML.__html, suyo);
 });
 
 test('en una lista, pictogramDrawings reparte dibujos del tipo sin repetir, y un dibujo inválido se ignora', () => {
-  const A = almaDS(ALMA), G = { semilla: CORDURA, trazo: 1, redondez: 16 / 24, personajes: true };
+  const A = almaDS(ALMA), G = { semilla: CORDURA, trazo: 1, redondez: 16 / 24 };
   const nombres = Array.from({ length: 30 }, (_, n) => `Proyecto ${n + 1}`);
   for (const [kind, tipo] of Object.entries(KIND)) assert.deepEqual(A.pictogramDrawings(nombres, kind), dibujosDe(G, nombres, { tipo }), kind);
   const dibujos = A.pictogramDrawings(nombres);

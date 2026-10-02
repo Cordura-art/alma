@@ -34,7 +34,7 @@ Van en `rem`: crecen con el texto.
 
 ## Semilla
 
-Cada sistema dibuja sus propios pictogramas: el mismo nombre da otro dibujo en otra entidad. La semilla es la fecha de nacimiento: ALMA usa la de Cordura, y cada entidad declara la suya en su hoja de valores (`--pictogram-seed`). Una entidad que no usa personajes lo declara ahí mismo (`--pictogram-characters: "no"`).
+Cada sistema dibuja sus propios pictogramas: el mismo nombre da otro dibujo en otra entidad. La semilla es la fecha de nacimiento: ALMA usa la de Cordura, y cada entidad declara la suya en su hoja de valores (`--pictogram-seed`).
 
 ## Contraste
 

@@ -32,7 +32,6 @@ Hay tres, uno para cada caso. Usa uno solo por lista.
 ![Tres listas con pictogramas a 24 px junto a cada nombre: sellos para tipos de cosas, letras para los capítulos de un libro y criaturas para proyectos y equipos; al lado, un pictograma de cada tipo a 24 y 32 px.](assets/Componentes/pictogram-lista.png)
 
 - La **letra** es la única que dice algo del nombre. «Capítulo 3» se escribe `C3`; un número de dos cifras va solo (`12`).
-- La **criatura** solo existe donde la entidad usa personajes. En una entidad que no los usa, se dibuja un sello.
 
 ### Tamaños
 
@@ -85,7 +84,7 @@ Van en `rem`: crecen con el texto.
 
 ### Semilla
 
-Cada sistema dibuja sus propios pictogramas: el mismo nombre da otro dibujo en otra entidad. La semilla es la fecha de nacimiento: ALMA usa la de Cordura, y cada entidad declara la suya en su hoja de valores (`--pictogram-seed`). Una entidad que no usa personajes lo declara ahí mismo (`--pictogram-characters: "no"`).
+Cada sistema dibuja sus propios pictogramas: el mismo nombre da otro dibujo en otra entidad. La semilla es la fecha de nacimiento: ALMA usa la de Cordura, y cada entidad declara la suya en su hoja de valores (`--pictogram-seed`).
 
 ### Contraste
 
@@ -130,7 +129,7 @@ nombres.map((n, i) => h(Pictogram, { key: n, name: n, kind: 'creature', drawing:
 AlmaDS.configurePictograms({ seed: 'nac|2026-10-01|12:00|America/Santiago' });
 ```
 
-No suele hacer falta: el componente lee la semilla (`--pictogram-seed`) y si la entidad usa personajes (`--pictogram-characters`) de su hoja de valores, y las esquinas del token `radius-button`. `configurePictograms` los fija a mano (`seed`, `stroke` con 1 = el trazo de Carbon, `round`, `characters`); con `null` vuelve a leerlos. Devuelve los valores con que se dibuja.
+No suele hacer falta: el componente lee la semilla de la hoja de valores de la entidad (`--pictogram-seed`), y las esquinas del token `radius-button`. `configurePictograms` los fija a mano (`seed`, `stroke` con 1 = el trazo de Carbon, `round`); con `null` vuelve a leerlos. Devuelve los valores con que se dibuja.
 
 Los dibujos viven en `entidades/pictogramas.mjs`. `npm run build` los copia al paquete de componentes; no se editan en `bundle.js`.
 

@@ -56,7 +56,7 @@ Un pictograma es un dibujo de línea que le pertenece a una cosa: un capítulo, 
 |---|---|---|
 | Sello | Tipos de cosas: etiquetas, archivos, categorías. | Una base y una marca. |
 | Letra | Lo que va en orden o numerado: capítulos, pasos. | La inicial del nombre y su número, en un marco. |
-| Criatura | Lo que tiene carácter: proyectos, equipos. | Una cabeza, dos ojos y un rasgo. Solo en entidades que usan personajes. |
+| Criatura | Lo que tiene carácter: proyectos, equipos. | Una cabeza, dos ojos y un rasgo. |
 
 Usa un solo tipo por lista.
 

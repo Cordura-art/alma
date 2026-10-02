@@ -32,7 +32,6 @@ Hay tres, uno para cada caso. Usa uno solo por lista.
 ![Tres listas con pictogramas a 24 px junto a cada nombre: sellos para tipos de cosas, letras para los capítulos de un libro y criaturas para proyectos y equipos; al lado, un pictograma de cada tipo a 24 y 32 px.](assets/Componentes/pictogram-lista.png)
 
 - La **letra** es la única que dice algo del nombre. «Capítulo 3» se escribe `C3`; un número de dos cifras va solo (`12`).
-- La **criatura** solo existe donde la entidad usa personajes. En una entidad que no los usa, se dibuja un sello.
 
 ## Tamaños
 

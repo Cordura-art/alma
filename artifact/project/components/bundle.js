@@ -169,7 +169,7 @@ function rasgos(h) {
 //   letra     the thing's own initial (and its number) in a frame. For what is ordered or numbered: chapters, steps.
 //   sello     one base and one mark from a small vocabulary. For kinds of things: tags, files, categories.
 //   criatura  a head, two eyes and one feature: the identity's characters at icon size. For what has character:
-//             projects, teams, spaces. An entity that does not use characters gets a seal instead.
+//             projects, teams, spaces.
 // The thing's name picks the drawing, and the same name always gives the same one in the same entity (its seed).
 // No DOM: the build copies this file into the component bundle (scripts/build-pictogramas.mjs) and Node tests it.
 // The first engine (32 drawings from the user's "Neo-banking Icons v14" study) was replaced on 2026-10-02: it did not
@@ -203,13 +203,12 @@ function letras(clave) {
   return num[1].length > 1 ? num[1].slice(-2) : (/\p{L}/u.test(ini) ? ini + num[1] : num[1]);
 }
 
-// The kind an entity really draws: a creature only where characters are used.
-const tipoDe = (o) => { const t = TIPOS.includes(o.tipo) ? o.tipo : 'sello'; return t === 'criatura' && o.personajes === false ? 'sello' : t; };
+// The kind to draw: a seal when none, or an unknown one, is asked for.
+const tipoDe = (o) => (TIPOS.includes(o.tipo) ? o.tipo : 'sello');
 
 // One pictogram: { tipo, dibujo, lado, trazos }. `trazos` is the inside of an <svg viewBox="0 0 32 32" fill="none"
 // stroke="currentColor">. G gives the seed, the stroke (1 = Carbon's 2) and whether corners are round. `o.tipo` is the
-// kind (sello by default), `o.dibujo` one of its drawings (see dibujosDe), `o.personajes: false` an entity without
-// characters.
+// kind (sello by default) and `o.dibujo` one of its drawings (see dibujosDe).
 function trazosPictograma(G, clave, o = {}) {
   const tipo = tipoDe(o), nombre = String(clave === undefined || clave === null ? '' : clave).trim().toLowerCase();
   const r = rng(hash(`pictograma|${tipo}|${G.semilla}|${nombre}`)), R = G.redondez > 0, sw = n1(2 * (G.trazo || 1));
@@ -258,10 +257,9 @@ function pictograma(G, clave, o = {}) {
   // The drawings are entidades/pictogramas.mjs, put between the marks above by scripts/build-pictogramas.mjs: change
   // them there, never here. They are drawn like Carbon's icons: on the 32 grid, with a stroke of 2. Every system draws
   // its own: an entity's stylesheet declares its seed (--pictogram-seed; without it, Cordura's birth, as ALMA is
-  // Cordura's system) and, if it does not use characters, --pictogram-characters: "no" (a creature is then drawn as a
-  // seal). Corners follow radius-button (0 = square).
+  // Cordura's system). Corners follow radius-button (0 = square).
   var PICTO_SEED = 'nac|1987-03-31|10:45|America/Santiago', PICTO_KIND = { seal: 'sello', letter: 'letra', creature: 'criatura' }, PICTO_NAME = { sello: 'seal', letra: 'letter', criatura: 'creature' };
-  var pictoSet = { seed: null, stroke: null, round: null, characters: null };
+  var pictoSet = { seed: null, stroke: null, round: null };
   function pictogramGenes() {
     var cs = window.getComputedStyle ? window.getComputedStyle(document.documentElement) : null;
     var prop = function (n) { return cs ? String(cs.getPropertyValue(n) || '').trim().replace(/^["']|["']$/g, '') : ''; };
@@ -269,26 +267,24 @@ function pictograma(G, clave, o = {}) {
     return {
       semilla: pictoSet.seed !== null ? pictoSet.seed : (prop('--pictogram-seed') || PICTO_SEED),
       trazo: pictoSet.stroke !== null ? pictoSet.stroke : 1,
-      redondez: pictoSet.round !== null ? (pictoSet.round ? 1 : 0) : Math.min(1, num(prop('--radius-button'), 16) / 24),
-      personajes: pictoSet.characters !== null ? !!pictoSet.characters : prop('--pictogram-characters') !== 'no'
+      redondez: pictoSet.round !== null ? (pictoSet.round ? 1 : 0) : Math.min(1, num(prop('--radius-button'), 16) / 24)
     };
   }
-  // Fixes by hand the seed, the stroke (1 = Carbon's 2 px on the grid), round corners or whether characters are used,
-  // instead of reading them from the page's styles; null gives one back to the styles. Returns what pictograms are
-  // drawn with.
+  // Fixes by hand the seed, the stroke (1 = Carbon's 2 px on the grid) or round corners, instead of reading them from
+  // the page's styles; null gives one back to the styles. Returns what pictograms are drawn with.
   function configurePictograms(o) {
     o = o || {};
-    ['seed', 'stroke', 'round', 'characters'].forEach(function (k) { if (o[k] !== undefined) pictoSet[k] = o[k]; });
+    ['seed', 'stroke', 'round'].forEach(function (k) { if (o[k] !== undefined) pictoSet[k] = o[k]; });
     var g = pictogramGenes();
-    return { seed: g.semilla, stroke: g.trazo, round: g.redondez > 0, characters: g.personajes };
+    return { seed: g.semilla, stroke: g.trazo, round: g.redondez > 0 };
   }
-  function pictoOptions(kind, g, drawing) { return { tipo: PICTO_KIND[kind] || 'sello', personajes: g.personajes, dibujo: drawing }; }
+  function pictoOptions(kind, drawing) { return { tipo: PICTO_KIND[kind] || 'sello', dibujo: drawing }; }
   // The drawings of a list of names that sit together, with none repeated while the kind has drawings left: pass each
   // one as `drawing` to its Pictogram, with the same `kind`.
-  function pictogramDrawings(names, kind) { var g = pictogramGenes(); return PICTO.dibujosDe(g, names || [], pictoOptions(kind, g)); }
+  function pictogramDrawings(names, kind) { return PICTO.dibujosDe(pictogramGenes(), names || [], pictoOptions(kind)); }
   function Pictogram(props) {
-    var size = props.size || 24, rem = (size / 16) + 'rem', g = pictogramGenes();
-    var P = PICTO.trazosPictograma(g, props.name === undefined || props.name === null ? '' : props.name, pictoOptions(props.kind, g, props.drawing));
+    var size = props.size || 24, rem = (size / 16) + 'rem';
+    var P = PICTO.trazosPictograma(pictogramGenes(), props.name === undefined || props.name === null ? '' : props.name, pictoOptions(props.kind, props.drawing));
     return h('svg', {
       className: 'alma-ico alma-pictogram' + (props.className ? ' ' + props.className : ''),
       viewBox: '0 0 32 32', focusable: 'false', 'data-pictogram': P.dibujo, 'data-kind': PICTO_NAME[P.tipo],

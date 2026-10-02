@@ -42,6 +42,6 @@ nombres.map((n, i) => h(Pictogram, { key: n, name: n, kind: 'creature', drawing:
 AlmaDS.configurePictograms({ seed: 'nac|2026-10-01|12:00|America/Santiago' });
 ```
 
-No suele hacer falta: el componente lee la semilla (`--pictogram-seed`) y si la entidad usa personajes (`--pictogram-characters`) de su hoja de valores, y las esquinas del token `radius-button`. `configurePictograms` los fija a mano (`seed`, `stroke` con 1 = el trazo de Carbon, `round`, `characters`); con `null` vuelve a leerlos. Devuelve los valores con que se dibuja.
+No suele hacer falta: el componente lee la semilla de la hoja de valores de la entidad (`--pictogram-seed`), y las esquinas del token `radius-button`. `configurePictograms` los fija a mano (`seed`, `stroke` con 1 = el trazo de Carbon, `round`); con `null` vuelve a leerlos. Devuelve los valores con que se dibuja.
 
 Los dibujos viven en `entidades/pictogramas.mjs`. `npm run build` los copia al paquete de componentes; no se editan en `bundle.js`.

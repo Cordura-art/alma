@@ -3,7 +3,7 @@
 //   letra     the thing's own initial (and its number) in a frame. For what is ordered or numbered: chapters, steps.
 //   sello     one base and one mark from a small vocabulary. For kinds of things: tags, files, categories.
 //   criatura  a head, two eyes and one feature: the identity's characters at icon size. For what has character:
-//             projects, teams, spaces. An entity that does not use characters gets a seal instead.
+//             projects, teams, spaces.
 // The thing's name picks the drawing, and the same name always gives the same one in the same entity (its seed).
 // No DOM: the build copies this file into the component bundle (scripts/build-pictogramas.mjs) and Node tests it.
 // The first engine (32 drawings from the user's "Neo-banking Icons v14" study) was replaced on 2026-10-02: it did not
@@ -37,13 +37,12 @@ export function letras(clave) {
   return num[1].length > 1 ? num[1].slice(-2) : (/\p{L}/u.test(ini) ? ini + num[1] : num[1]);
 }
 
-// The kind an entity really draws: a creature only where characters are used.
-const tipoDe = (o) => { const t = TIPOS.includes(o.tipo) ? o.tipo : 'sello'; return t === 'criatura' && o.personajes === false ? 'sello' : t; };
+// The kind to draw: a seal when none, or an unknown one, is asked for.
+const tipoDe = (o) => (TIPOS.includes(o.tipo) ? o.tipo : 'sello');
 
 // One pictogram: { tipo, dibujo, lado, trazos }. `trazos` is the inside of an <svg viewBox="0 0 32 32" fill="none"
 // stroke="currentColor">. G gives the seed, the stroke (1 = Carbon's 2) and whether corners are round. `o.tipo` is the
-// kind (sello by default), `o.dibujo` one of its drawings (see dibujosDe), `o.personajes: false` an entity without
-// characters.
+// kind (sello by default) and `o.dibujo` one of its drawings (see dibujosDe).
 export function trazosPictograma(G, clave, o = {}) {
   const tipo = tipoDe(o), nombre = String(clave === undefined || clave === null ? '' : clave).trim().toLowerCase();
   const r = rng(hash(`pictograma|${tipo}|${G.semilla}|${nombre}`)), R = G.redondez > 0, sw = n1(2 * (G.trazo || 1));
