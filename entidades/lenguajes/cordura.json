@@ -120,7 +120,7 @@
    {
     "k": "Físico",
     "q": "Lo que se ve",
-    "t": "Un lima eléctrico sobre negro tinta, esquinas suaves de 16 px, letra liviana de ancho natural y una firma en dos grupos que no se tocan.",
+    "t": "Un lima eléctrico sobre negro tinta, esquinas suaves de 16 px, letra liviana de ancho natural y una firma que una regla dibuja: criaturas, colonias y un campo en movimiento.",
     "o": "Color heredado · línea 4 · definición partida"
    },
    {
@@ -387,35 +387,10 @@
   ]
  },
  "firma": {
-  "lede": "Nuestra firma es un retrato de cómo funcionamos: cuatro filas de barras, una por cada centro que nos define, en dos grupos que no se tocan. Acompaña al nombre; no lo reemplaza.",
-  "construccion": "La firma usa la gramática del símbolo de Cordura: barras escalonadas y destellos de cuatro puntas. Tenemos dos circuitos: uno une la voluntad con el instinto, el otro une la presión de la raíz con la emoción. Por eso la firma se arma en dos grupos, y el espacio entre ellos es parte del dibujo.",
-  "rasgos": [
-   [
-    "Cuatro centros definidos",
-    "Cuatro filas de barras."
-   ],
-   [
-    "Definición partida",
-    "Dos grupos separados por aire."
-   ],
-   [
-    "Abrir puertas (línea 4)",
-    "Barras de esquinas suaves."
-   ],
-   [
-    "Guiar sin apuro",
-    "Entrada productiva, pausada y serena."
-   ],
-   [
-    "Mirar alrededor",
-    "Lima, amarillo y verde; el lima como acento."
-   ]
-  ],
-  "color": "La firma vive sobre negro tinta, donde el lima brilla. Sobre fondos claros se usa la misma paleta, con el lima en su paso legible. Nunca sobre fotografías ni sobre otro color de la paleta.",
-  "movimiento": "Las barras entran escalonadas, como una ola que llega y se asienta, con la curva productiva y un 25 % más lento que la base. Si la persona pidió menos movimiento, la firma aparece quieta en su estado final.",
-  "ex": {
-   "texto": "Decidir con cordura"
-  }
+  "lede": "Nuestra firma no es un dibujo fijo. Es una familia de piezas que una regla dibuja a partir de nuestra carta y de nuestra fecha de nacimiento: un campo, un carrusel, un micelio, criaturas, colonias, emblemas y caras de tarjeta. Acompaña al nombre; no lo reemplaza.",
+  "construccion": "Funciona como un juego que dibuja su mundo desde una semilla. La carta da las reglas: los colores, las puntas, los focos, el ritmo. La fecha de nacimiento da la semilla. Una clave, que puede ser un nombre, un concepto o un número, elige un dibujo entre infinitos, y la misma clave da siempre el mismo.",
+  "color": "Las piezas viven sobre negro tinta, donde el lima brilla, con la paleta completa y el lima como acento: en las criaturas más chicas de una colonia y en una partícula de cada doce del campo. Solo la colonia tiene una versión apagada para ir detrás de un texto.",
+  "movimiento": "El campo, el carrusel y el micelio se mueven un 25 % más lento que la base, como una ola que llega y se asienta. Siempre se pueden pausar y se detienen solos al salir de la pantalla. Si la persona pidió menos movimiento, parten quietos y completos."
  },
  "tipografia": {
   "lede": "La tipografía es nuestra voz hecha forma. Escribimos en Roboto Flex, en su ancho natural y con pesos livianos: hablamos bajo, y por eso se nos escucha.",
@@ -517,7 +492,11 @@
    "Evita que una criatura dé un error, un aviso o una instrucción: eso va con texto y un icono.",
    "Evita los personajes ajenos y los que imitan a una persona real.",
    "Evita ilustrar lo que una frase ya explica."
-  ]
+  ],
+  "generativa": {
+   "nombres": ["Ana Rojas", "Luis Soto", "Marta Díaz", "Pedro Vera", "Camila Paz", "Tomás Mora", "Elena Lagos", "Raúl Pino", "Sofía Reyes", "Iván Silva", "Noa Campos", "Diego Vidal"],
+   "conceptos": ["decisión", "raíz", "pausa", "vínculo", "causa", "propuesta", "emoción", "calma", "confianza", "camino", "conversación", "equipo"]
+  }
  },
  "fotografia": {
   "lede": "Nuestras imágenes muestran a las personas en el momento en que algo importa: cuando sienten, piensan y deciden.",
@@ -646,7 +625,7 @@
    ],
    [
     "Presentar.",
-    "La firma entra como una ola en portadas y aperturas."
+    "El campo, el carrusel y el micelio abren portadas y bienvenidas, como una ola."
    ]
   ],
   "avoid": [
