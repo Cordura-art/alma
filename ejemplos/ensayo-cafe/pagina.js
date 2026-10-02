@@ -57,6 +57,8 @@
       p.children);
   }
 
+  var Campo = window.__GENERADOR_VISTAS(window.__GENES.ensayo).Campo;
+
   function Page() {
     var wide = useState(!window.matchMedia || matchMedia('(min-width: 56rem)').matches);
     useEffect(function () {
@@ -66,7 +68,8 @@
     }, []);
     var tema = useState(painted), light = tema[0] === 'light';
     useEffect(function () { listen = tema[1]; return function () { listen = function () {}; }; }, []);
-    var firma = document.getElementById('firma').innerHTML;
+    // The cover is Ensayo's field. It moves unless the person asked for less motion, and can always be paused.
+    var anda = useState(!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
     return h(React.Fragment, null,
       h('a', { className: 'skip', href: '#carta', onClick: function (e) { e.preventDefault(); goTo('carta'); } }, 'Saltar a la carta'),
       h('header', { className: 'top' }, h('div', { className: 'wrap top__in' },
@@ -84,7 +87,9 @@
             h('div', { className: 'actions' },
               h(A.Button, { variant: 'filled', size: wide[0] ? 'md' : 'sm', iconAfter: 'arrow--down', onClick: function () { goTo('carta'); } }, 'Ver la carta'),
               h(A.Button, { variant: 'tertiary', size: wide[0] ? 'md' : 'sm', onClick: function () { goTo('visita'); } }, 'Cómo llegar'))),
-          h('div', { className: 'hero__art', 'data-theme': 'dark', dangerouslySetInnerHTML: { __html: firma } })),
+          h('div', { className: 'hero__art' },
+            h(Campo, { clave: 'cafe', anda: anda[0], label: 'Campo de Ensayo: partículas magenta, ámbar y rojas que derivan sobre negro tinta y dejan estela.' }),
+            h(A.Button, { variant: 'plain', size: 'sm', iconBefore: anda[0] ? 'pause' : 'play', onClick: function () { anda[1](!anda[0]); } }, anda[0] ? 'Pausar el movimiento' : 'Reproducir el movimiento'))),
 
         h(Sec, { id: 'receta', title: 'La receta, versión 14', lede: 'Un café también se edita. Esta es la versión que servimos y lo que corregimos para llegar a ella.' },
           h('div', { className: 'two' },

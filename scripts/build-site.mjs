@@ -6,6 +6,7 @@
 // (node scripts/build-images.mjs --entidad <id>).
 import { readdir, readFile, writeFile, mkdir, stat, copyFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
+import { generadorNavegador } from './lib/generativo.mjs';
 import { sistema, aplicar, css as cssEntidad, palabras, restos, portada, origen } from './lib/documentacion.mjs';
 
 const args = process.argv.slice(2), ei = args.indexOf('--entidad');
@@ -66,6 +67,8 @@ const propias = (slug, page) => {
 const bundle = await read(`${P}/components/bundle.js`);
 const css = [await read('dist/css/alma.css'), await read(`${P}/components/bundle.css`), S ? cssEntidad(S) : '', await read('site/site.css')].join('\n');
 const app = await read('site/app.js');
+// An entity whose cover is its field (generative illustration, no characters) needs the generator on the page.
+const GENV = S && S.L.ilustracion.generativa, campoPortada = GENV && GENV.personajes === false ? `</script>\n<script>\n${generadorNavegador()}\n` : '';
 for (const [name, text, bad] of [['bundle.js', bundle, /<\/script|<!--/i], ['app.js', app, /<\/script|<!--/i], ['CSS', css, /<\/style/i]]) {
   if (bad.test(text)) throw new Error(`${name} contiene una secuencia que cerraría la etiqueta en línea`);
 }
@@ -156,7 +159,7 @@ ${css}
 ${LIBS.map((l) => `<script src="${CDN}/${l}"></script>`).join('\n')}
 <script>
 ${bundle}
-</script>
+${campoPortada}</script>
 <script type="application/json" id="alma-content">${json}</script>
 <script>
 ${app}

@@ -21,8 +21,9 @@ body {
 .hero__title { margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
 .lede { margin: 0; max-width: 36rem; color: var(--text-02); }
 .actions { display: flex; flex-wrap: wrap; gap: var(--space-16); }
-.hero__art { padding: var(--space-32); border-radius: var(--radius-panel); background: var(--brand-ink); }
-.firma { display: block; width: 100%; height: auto; max-height: 20rem; }
+/* The cover: Ensayo's field, a canvas the generator paints, and its pause control under it. */
+.hero__art { display: grid; gap: var(--space-8); justify-items: start; min-width: 0; }
+.gen-campo { display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: var(--radius-panel); background: var(--brand-ink); }
 
 .sec { display: grid; gap: var(--space-32); padding-block: var(--space-56); border-top: 1px solid var(--border-subtle); }
 .sec__head { display: grid; gap: var(--space-8); max-width: 44rem; }

@@ -211,7 +211,8 @@ export function restos(textos, vigentes = [], aspecto = []) {
 }
 
 // The cover: the entity's signature beside its name. An entity with generative illustration wears its colony, the
-// texture of its creatures; the others, the bars of the engine's layout, drawn as SVG.
+// texture of its creatures, or, if it does not use characters, its field (a canvas the page's generator paints once,
+// still); the others, the bars of the engine's layout, drawn as SVG.
 export function portada(S) {
   const { En, E, P, L } = S, W = 448, H = 420, lay = En.layout(E, P, W, H);
   const x0 = Math.min(...lay.pills.map((p) => p.x)), x1 = Math.max(...lay.pills.map((p) => p.x + p.w));
@@ -224,13 +225,18 @@ export function portada(S) {
 .ecv__txt{display:grid;gap:var(--space-8);align-content:center}.ecv__eyebrow{margin:0;color:var(--text-02)}.ecv__name{margin:0;line-height:1}.ecv__tag{margin:0;color:var(--text-02)}
 .ecv__art{width:100%;height:236px}.ecv__art--gen{border-radius:var(--radius-panel);background-repeat:repeat}`;
   const gen = L.ilustracion && L.ilustracion.generativa, tok = gen ? JSON.parse(read('dist/json/tokens.json')) : null;
-  const fondo = gen ? comoFondo(colonia(genes(S, (name, theme) => valor(tok, name, theme)), 'portada', { modo: 'pieza' })) : '';
+  const G = gen ? genes(S, (name, theme) => valor(tok, name, theme)) : null, pers = !!gen && gen.personajes !== false;
+  const fondo = pers ? comoFondo(colonia(G, 'portada', { modo: 'pieza' })) : '';
   if (fondo.includes("'")) throw new Error('La colonia de la portada trae una comilla simple');
-  const arte = gen ? `<div class="ecv__art ecv__art--gen" aria-hidden="true" style='background-image:${fondo}'></div>`
+  const arte = pers ? `<div class="ecv__art ecv__art--gen" aria-hidden="true" style='background-image:${fondo}'></div>`
+    : gen ? '<canvas id="ecv-campo" class="ecv__art ecv__art--gen" width="840" height="472" aria-hidden="true"></canvas>'
     : `<svg class="ecv__art" viewBox="${n(x0)} ${n(y0 - 8)} ${n(x1 - x0)} ${n(y1 - y0 + 16)}" preserveAspectRatio="xMaxYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${pills}${sparks}</svg>`;
   const markup = `<style>${style}</style><div class="ecv" data-theme="dark"><div class="ecv__txt"><p class="ecv__eyebrow web-label-m">${T.name} ${E.profile} · ${A.name}</p><p class="ecv__name web-display-s">${L.nombre}</p><p class="ecv__tag web-body-l">${L.inicio.titulo}</p></div>
 ${arte}</div>`;
-  return { markup, code: '' };
+  // The field, drawn once at twice the size of its box (420 × 236) and left still.
+  const code = gen && !pers ? `var cv = document.getElementById('ecv-campo'), GEN = window.__GENERADOR;
+if (cv && GEN) { var ctx = cv.getContext('2d'), F = GEN.campo(${JSON.stringify(G)}, 'portada', 420, 236); ctx.setTransform(2, 0, 0, 2, 0, 0); ctx.fillStyle = F.base; ctx.fillRect(0, 0, F.ancho, F.alto); for (var i = 0; i < 90; i++) { F.avanzar(); GEN.pintarCampo(ctx, F); } }` : '';
+  return { markup, code };
 }
 
 // "Origen": how the chart became the system, and every token the entity changes, generated from the engine.

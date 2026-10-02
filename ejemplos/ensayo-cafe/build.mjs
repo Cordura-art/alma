@@ -5,18 +5,15 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sistema, css as cssEntidad } from '../../scripts/lib/documentacion.mjs';
+import { genesDe, generadorNavegador } from '../../scripts/lib/generativo.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url)), read = (p) => readFileSync(p, 'utf8');
 const P = 'artifact/project', CDN = 'https://cdnjs.cloudflare.com/ajax/libs';
 const OUT = process.argv[2] || 'build/ejemplos/ensayo-cafe.html';
 const S = await sistema('ensayo');
 
-// The entity's generative signature, as SVG: the engine's layout of pills and sparks.
-const lay = S.En.layout(S.E, S.P, 448, 420), n = (v) => Math.round(v * 10) / 10;
-const xs = lay.pills.flatMap((p) => [p.x, p.x + p.w]), ys = lay.pills.flatMap((p) => [p.y, p.y + p.h]);
-const firma = `<svg class="firma" viewBox="${n(Math.min(...xs))} ${n(Math.min(...ys) - 8)} ${n(Math.max(...xs) - Math.min(...xs))} ${n(Math.max(...ys) - Math.min(...ys) + 16)}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">` +
-  lay.pills.map((p) => `<rect x="${n(p.x)}" y="${n(p.y)}" width="${n(p.w)}" height="${n(p.h)}" rx="${n(p.h / 2 * lay.roundF)}" fill="${p.c}"/>`).join('') +
-  lay.sparks.map((s) => `<path d="M${n(s.x)} ${n(s.y - s.s)}Q${n(s.x)} ${n(s.y)} ${n(s.x + s.s)} ${n(s.y)}Q${n(s.x)} ${n(s.y)} ${n(s.x)} ${n(s.y + s.s)}Q${n(s.x)} ${n(s.y)} ${n(s.x - s.s)} ${n(s.y)}Q${n(s.x)} ${n(s.y)} ${n(s.x)} ${n(s.y - s.s)}Z" fill="var(--secondary-700)"/>`).join('') + '</svg>';
+// The entity's signature is generative: the page gets the generator and Ensayo's genes, and its cover is the field.
+const generador = generadorNavegador(), G = genesDe(S);
 
 const css = [read('dist/css/alma.css'), read(`${P}/components/bundle.css`), cssEntidad(S), read(join(here, 'pagina.css'))].join('\n');
 const bundle = read(`${P}/components/bundle.js`), app = read(join(here, 'pagina.js'));
@@ -31,11 +28,14 @@ const html = `<title>Ensayo Café</title>
 ${css}
 </style>
 <div id="app"></div>
-<template id="firma">${firma}</template>
 <script src="${CDN}/react/18.3.1/umd/react.production.min.js"></script>
 <script src="${CDN}/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script>
 ${bundle}
+</script>
+<script>
+${generador}
+window.__GENES = ${JSON.stringify({ ensayo: G })};
 </script>
 <script>
 ${app}

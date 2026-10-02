@@ -19,7 +19,9 @@ test('Ensayo Café se arma con los valores de la Entidad Ensayo', () => {
   const html = readFileSync(out, 'utf8');
   assert.match(html, /^<title>Ensayo Café<\/title>/);
   assert.match(html, /--interactive-01:\s*#D5025D/i, 'el acento de la entidad');
-  assert.match(html, /<template id="firma"><svg /, 'la firma generativa');
+  assert.match(html, /window\.__GENERADOR_VISTAS = /, 'la firma generativa');
+  assert.match(html, /window\.__GENES = \{"ensayo":/, 'los genes de la entidad');
+  assert.doesNotMatch(html, /<template id="firma">/, 'ya sin la firma de barras');
   assert.equal(html.match(/<\/style>/g).length, 1);
   assert.ok(html.length < 1024 * 1024, `${(html.length / 1024) | 0} KB`);
 });
@@ -312,21 +314,24 @@ test('el generador para una página: los mismos dibujos que los módulos, y los 
   assert.equal(N.carrusel(viajan).cantidad, viajan.puntas);
 });
 
-test('el lenguaje de una entidad con ilustración generativa lleva sus genes y el generador; el de otra, no', async () => {
+test('el lenguaje de una entidad con ilustración generativa lleva sus genes y el generador', async () => {
   execFileSync('node', ['scripts/build-entidades.mjs']);
   execFileSync('node', ['scripts/build-lenguaje.mjs', 'ensayo', 'ibm']);
   const con = readFileSync('build/lenguaje-ensayo.html', 'utf8'), sin = readFileSync('build/lenguaje-ibm.html', 'utf8');
   assert.match(con, /window\.__GENERADOR = /);
   assert.match(con, /window\.__GENERADOR_VISTAS = /, 'los componentes de lo que se mueve');
   assert.match(con, /"genes":\{"id":"ensayo"/);
-  assert.doesNotMatch(sin, /window\.__GENERADOR = /);
-  assert.doesNotMatch(sin, /"genes":/);
+  assert.match(sin, /window\.__GENERADOR = /);
+  assert.match(sin, /"genes":\{"id":"ibm"/);
+  assert.match(sin, /"personajes":false/, 'IBM no usa personajes');
 });
 
-test('la portada de la documentación: la colonia en una entidad con ilustración generativa, las barras en las demás', async () => {
+test('la portada de la documentación: la colonia en una entidad con personajes, el campo en una sin ellos', async () => {
   const { portada } = await import('../scripts/lib/documentacion.mjs');
-  const con = portada(await sistema('ensayo')).markup, sin = portada(await sistema('ibm')).markup;
-  assert.match(con, /class="ecv__art ecv__art--gen"/); assert.doesNotMatch(con, /<svg class="ecv__art"/);
-  assert.match(con, /Ensayo/, 'el nombre sigue al lado');
-  assert.match(sin, /<svg class="ecv__art"/); assert.doesNotMatch(sin, /class="ecv__art ecv__art--gen"/);
+  const con = portada(await sistema('ensayo')), sin = portada(await sistema('ibm'));
+  assert.match(con.markup, /<div class="ecv__art ecv__art--gen"/); assert.equal(con.code, '');
+  assert.match(con.markup, /Ensayo/, 'el nombre sigue al lado');
+  assert.match(sin.markup, /<canvas id="ecv-campo" class="ecv__art ecv__art--gen"/, 'un lienzo para el campo');
+  assert.match(sin.code, /GEN\.campo\(\{"id":"ibm"/, 'el campo con los genes de la entidad');
+  for (const p of [con, sin]) assert.doesNotMatch(p.markup, /<svg class="ecv__art"/, 'ya sin barras');
 });

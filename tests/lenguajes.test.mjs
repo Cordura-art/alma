@@ -21,16 +21,19 @@ for (const f of readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
     if (L.colorHeredado) assert.match(L.colorHeredado, /^#[0-9A-F]{6}$/i);
   });
   // Generative illustration is declared by the language: the names and concepts its Ilustración page draws.
-  if (L.ilustracion.generativa) test(`${f}: la ilustración generativa trae nombres y conceptos de ejemplo, sin repetir, y el estilo que la nombra`, () => {
-    const X = L.ilustracion.generativa;
-    for (const k of ['nombres', 'conceptos']) {
+  if (L.ilustracion.generativa) test(`${f}: la ilustración generativa trae sus ejemplos sin repetir, y sus reglas escritas dicen lo mismo`, () => {
+    const X = L.ilustracion.generativa, pers = X.personajes !== false;
+    for (const k of pers ? ['nombres', 'conceptos'] : ['conceptos']) {
       assert.ok(X[k].length >= 6, k);
       assert.equal(new Set(X[k].map((x) => x.trim().toLowerCase())).size, X[k].length, `${k} repetidos`);
     }
-    assert.ok(L.ilustracion.estilos.some((e) => e.t === 'Criaturas'), 'falta el estilo «Criaturas»');
     // Its signature is what the generator draws, so its words no longer describe the bars.
     for (const k of ['lede', 'construccion', 'color', 'movimiento']) { assert.ok(L.firma[k], `firma.${k}`); assert.doesNotMatch(L.firma[k], /barra/i, `firma.${k} habla de barras`); }
-    assert.ok(!L.ilustracion.avoid.some((a) => /evita (los )?personajes y (las )?mascotas/i.test(a)), 'el lenguaje aún pide evitar personajes');
+    // An entity with characters names them as a style and no longer asks to avoid them; one without keeps the rule.
+    const evita = L.ilustracion.avoid.some((a) => /evita (los )?personajes y (las )?mascotas/i.test(a));
+    assert.equal(L.ilustracion.estilos.some((e) => e.t === 'Criaturas'), pers, 'el estilo «Criaturas»');
+    assert.equal(evita, !pers, 'la regla sobre personajes');
+    if (!pers) assert.equal(X.nombres, undefined, 'sin personajes no hay nombres de ejemplo');
   });
   test(`${f}: un principio escrito por cada principio de la carta`, () => {
     const c = calcularCarta(L.nacimiento);

@@ -123,7 +123,7 @@
    {
     "k": "Físico",
     "q": "Lo que se ve",
-    "t": "Un azul pleno sobre neutros, ángulos rectos, una grilla de 8 px y barras que se alinean. Nada redondo, nada que sobre.",
+    "t": "Un azul pleno sobre neutros, ángulos rectos, una grilla de 8 px y una firma que una regla dibuja. Nada redondo, nada que sobre.",
     "o": "Garganta definida · línea 3"
    },
    {
@@ -386,35 +386,10 @@
   ]
  },
  "firma": {
-  "lede": "Nuestra firma es un retrato de cómo pensamos: tres filas de barras, una por cada centro que nos define, unidas en un solo circuito. Acompaña al nombre; no lo reemplaza.",
-  "construccion": "La firma usa la gramática del símbolo de Cordura: barras escalonadas y destellos de cuatro puntas que unen las filas. La primera fila pregunta, la segunda piensa y la tercera dice. Como nuestras ideas llegan a la voz sin desvíos, todas las filas quedan unidas.",
-  "rasgos": [
-   [
-    "Tres centros definidos",
-    "Tres filas de barras."
-   ],
-   [
-    "Un solo circuito",
-    "Todas las filas unidas por destellos."
-   ],
-   [
-    "Aprender probando",
-    "Barras de esquinas rectas."
-   ],
-   [
-    "Guiar sin apuro",
-    "Entrada productiva, precisa y serena."
-   ],
-   [
-    "Mirar alrededor",
-    "Azul, cian y púrpura; el azul como acento."
-   ]
-  ],
-  "color": "La firma vive sobre fondos oscuros neutros. Sobre fondos claros se usa la misma paleta, con el azul como barra principal. Nunca sobre fotografías ni sobre otro color de la paleta.",
-  "movimiento": "Las barras entran escalonadas, con la curva productiva y un 25 % más lento que la base. Si la persona pidió menos movimiento, la firma aparece quieta en su estado final.",
-  "ex": {
-   "texto": "Compara dos versiones lado a lado"
-  }
+  "lede": "Nuestra firma no es un dibujo fijo. Es una familia de piezas que una regla dibuja a partir de nuestra carta y de nuestra fecha de nacimiento: un campo, un carrusel, un micelio, emblemas y caras de tarjeta. No usa personajes. Acompaña al nombre; no lo reemplaza.",
+  "construccion": "Funciona como un juego que dibuja su mundo desde una semilla. La carta da las reglas: los colores, las puntas, los focos, el ritmo. La fecha de nacimiento da la semilla. Una clave, que puede ser un concepto o un número, elige un dibujo entre infinitos, y la misma clave da siempre el mismo.",
+  "color": "Las piezas viven sobre un fondo oscuro, con la paleta completa y el azul como acento: en el centro de un emblema y en una partícula de cada doce del campo. Nunca sobre fotografías ni sobre otro color de la paleta.",
+  "movimiento": "El campo, el carrusel y el micelio se mueven un 25 % más lento que la base. Siempre se pueden pausar y se detienen solos al salir de la pantalla. Si la persona pidió menos movimiento, parten quietos y completos."
  },
  "tipografia": {
   "lede": "La tipografía es nuestra voz hecha forma. Escribimos en Roboto Flex, en su ancho natural, con pocos pesos y una escala que ordena sin gritar.",
@@ -511,7 +486,11 @@
    "Evita volúmenes, brillos y perspectivas exageradas.",
    "Evita personajes y mascotas.",
    "Evita ilustrar lo que una frase ya explica."
-  ]
+  ],
+  "generativa": {
+   "personajes": false,
+   "conceptos": ["pregunta", "prueba", "nombre", "dato", "modelo", "sistema", "red", "proceso", "escala", "fuente", "comparación", "resultado"]
+  }
  },
  "fotografia": {
   "lede": "Nuestras imágenes reflejan cómo miramos el mundo: con atención, sin poses y buscando el detalle que explica.",
@@ -640,7 +619,7 @@
    ],
    [
     "Presentar.",
-    "La firma entra con la curva expresiva en portadas y aperturas."
+    "El campo, el carrusel y el micelio abren portadas y aperturas."
    ]
   ],
   "avoid": [
@@ -979,7 +958,7 @@
    ],
    [
     "El símbolo.",
-    "La firma sale de la gramática del logo de Cordura, no del logo de IBM."
+    "La firma la dibuja la regla de ALMA desde la carta; no sale del logo de IBM."
    ]
   ],
   "nota": "Diferencia de color medida en OKLab: {deltaE}. Bajo 0,02 el ojo no distingue. Semilla: la de la fecha, sin variaciones."

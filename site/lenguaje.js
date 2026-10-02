@@ -265,7 +265,7 @@
 
   function Color() {
     var X = L.color, d = P.accent.dark, l = P.accent.light, c = En.contrast, STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900];
-    var BG = '#02010C', INK = d['text-on-interactive'] === '#FFFFFF' ? '#FFFFFF' : d['text-on-interactive'];
+    var BG = '#000000', INK = d['text-on-interactive'] === '#FFFFFF' ? '#FFFFFF' : d['text-on-interactive'];
     var spec = STEPS.map(function (st) { var row = { id: st, s: String(st) }; P.palette.forEach(function (f, i) { row['f' + i] = h('span', { className: 'stat__v' }, h(Chip, { c: f.ramp[st] }), f.ramp[st]); }); return row; });
     var ok = function (x) { return x >= 4.5 ? 'Texto' : x >= 3 ? 'Gráficos y texto grande' : 'No'; };
     var acc = STEPS.map(function (st) { var v = P.palette[0].ramp[st], w = c(INK, v), k = c(v, BG); return { id: st, s: P.palette[0].name + ' ' + st, w: w.toFixed(2) + ':1 · ' + ok(w), k: k.toFixed(2) + ':1 · ' + ok(k) }; });
@@ -343,6 +343,9 @@
   // declares them (ilustracion.generativa: the names and concepts of its examples). The words are written once here,
   // in the entity's first person, and take its values. Every drawing is decorative: its name or caption sits next to it.
   var GEN = window.__GENERADOR, G = L.genes, GV = GEN && G && L.ilustracion.generativa ? L.ilustracion.generativa : null;
+  // An entity that does not use characters (generativa.personajes: false) keeps what is not one: the field, the
+  // carousel, the mycelium, the emblems and the card faces. Creatures and colonies stay out.
+  var PERS = !!GV && GV.personajes !== false;
   var CARAS = ['planks', 'vortex', 'petal', 'mesh', 'hole', 'card'];
   function Dibujo(p) { return h('span', { className: 'gen-av gen-av--' + p.size, 'aria-hidden': 'true', dangerouslySetInnerHTML: { __html: p.svg } }); }
   // Light or dark, whichever the page wears now (a ground colony has one palette for each).
@@ -402,6 +405,7 @@
   // the story the grown mycelium. An entity without generative illustration keeps its signature of bars.
   function Pieza(p) {
     if (!VG) return h(En.Signature, { entity: E, P: P, format: p.format });
+    if (p.format === 'square' && !PERS) return h('div', { className: 'gen-emblema', role: 'img', 'aria-label': 'Emblema de ' + L.nombre + ': una figura de ' + G.puntas + ' puntas con sus colores.', dangerouslySetInnerHTML: { __html: GEN.emblema(G, GV.conceptos[0]) } });
     if (p.format === 'square') return h('div', { className: 'gen-tex gen-tex--cuadro', style: { backgroundImage: GEN.comoFondo(GEN.colonia(G, 'portada', { modo: 'pieza' })) }, role: 'img', 'aria-label': 'Colonia de ' + L.nombre + ': criaturas de colores amontonadas sobre negro tinta, cada una con dos ojos.' });
     if (p.format === 'tall') return h(VG.Micelio, { clave: 1, anda: false, label: 'Micelio de ' + L.nombre + ': una red de líneas que cubre la pantalla de un teléfono, con un brillo de sus colores.' });
     return h(VG.Campo, { clave: 1, anda: false, label: 'Campo de ' + L.nombre + ': partículas de sus colores que dejan estela sobre negro tinta.' });
@@ -418,11 +422,11 @@
     var tog = function (s) { return function () { s[1](!s[0]); }; };
     var baraja = React.useMemo(function () { return VG.caras(mazo[0]); }, [mazo[0]]);
     var quietas = React.useMemo(function () {
-      return [
+      return (PERS ? [
         { t: 'Criaturas', svg: GEN.criatura(G, L.nombre) },
-        { t: 'Colonia', bg: GEN.comoFondo(GEN.colonia(G, 1, { modo: 'pieza' })) },
+        { t: 'Colonia', bg: GEN.comoFondo(GEN.colonia(G, 1, { modo: 'pieza' })) }] : []).concat([
         { t: 'Emblemas', svg: GEN.emblema(G, GV.conceptos[0]) },
-        { t: 'Caras de tarjeta', bg: GEN.comoFondo(GEN.placa(G, 'cara-0-2', { patron: 'petal' })) }];
+        { t: 'Caras de tarjeta', bg: GEN.comoFondo(GEN.placa(G, 'cara-0-2', { patron: 'petal' })) }]);
     }, []);
     var filas = [
       ['Fecha de nacimiento', 'La semilla: lo que hace propio cada dibujo', L.fechaLarga],
@@ -450,15 +454,16 @@
         h(VG.Micelio, { clave: hifa[0], anda: crece[0], label: 'Micelio de ' + L.nombre + ': una red de líneas rectas que crece desde el borde inferior de la pantalla de un teléfono y toma un brillo de sus colores.' }),
         h(Control, { anda: crece[0], onToggle: tog(crece), otro: 'Ver otro micelio', onOtro: function () { hifa[1](hifa[0] + 1); } })),
       h(Sec, { title: 'Lo que no se mueve' },
-        h(Para, null, 'Las criaturas, la colonia, los emblemas y las caras de tarjeta salen de la misma regla y de la misma semilla.'),
+        h(Para, null, (PERS ? 'Las criaturas, la colonia, los emblemas' : 'Los emblemas') + ' y las caras de tarjeta salen de la misma regla y de la misma semilla.'),
         h('ul', { className: 'gen-people gen-people--96' }, quietas.map(function (q) {
           return h('li', { key: q.t, className: 'gen-person' }, q.svg ? h(Dibujo, { size: 96, svg: q.svg }) : h('span', { className: 'gen-av gen-av--96 gen-av--bg', 'aria-hidden': 'true', style: { backgroundImage: q.bg } }), h('span', { className: 'web-body-s' }, q.t));
         })),
         h('a', { className: 'web-body-l', href: '#' + PRE + 'ilustracion' }, 'Ver todas en Ilustración')),
       h(Sec, { title: 'Espacio y tamaño' }, h(Bullets, { items: [
-        ['Sin texto encima.', 'El campo, el carrusel y el micelio van sin texto. El título va al lado o debajo, alineado a la grilla de 8 px.'],
+        ['Sin texto encima.', 'El campo, el carrusel y el micelio van sin texto. El título va al lado o debajo, alineado a la grilla de 8 px.']].concat(PERS ? [
         ['Texto sobre textura.', 'Solo sobre la colonia en su versión de fondo, que asegura un contraste de 4,5:1 o más.'],
-        ['Tamaño mínimo.', 'Una criatura se usa desde 32 px. Por debajo, se usa solo el nombre.']] })),
+        ['Tamaño mínimo.', 'Una criatura se usa desde 32 px. Por debajo, se usa solo el nombre.']] : [
+        ['Alineación.', 'Siempre a la grilla de 8 px y al margen izquierdo del contenido.']]) })),
       h(Sec, { title: 'Color' }, h(Para, null, X.color)),
       h(Sec, { title: 'Movimiento' }, h(Para, null, X.movimiento)),
       h(Sec, { title: 'Usos incorrectos' },
@@ -467,11 +472,11 @@
 
   function Ilustracion() {
     var X = L.ilustracion;
-    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(GV ? ['Criaturas', 'Colonia', 'Emblemas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
+    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(PERS ? ['Criaturas', 'Colonia'] : [], GV ? ['Emblemas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
       GV ? null : h(A.InlineNotification, { kind: 'callout', status: 'info', title: 'Reglas antes que piezas', message: 'ALMA todavía no tiene ilustraciones. Estas son las reglas que van a seguir cuando existan.' }),
       h(Sec, { title: 'Punto de vista' }, h(Para, null, X.puntoDeVista)),
       h(Sec, { title: 'Estilos' }, X.estilos.map(function (x) { return h(Sub, { key: x.t, title: x.t }, h(Para, null, x.p)); })),
-      GV ? h(GenCriaturas) : null, GV ? h(GenColonia) : null, GV ? h(GenEmblemas) : null, GV ? h(GenCaras) : null,
+      PERS ? h(GenCriaturas) : null, PERS ? h(GenColonia) : null, GV ? h(GenEmblemas) : null, GV ? h(GenCaras) : null,
       h(Sec, { title: 'Personas' }, h(Para, null, X.personas)),
       h(Sec, { title: 'Color' }, h(Para, null, X.color)),
       h(Avoid, { items: X.avoid }));
