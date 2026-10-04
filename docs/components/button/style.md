@@ -189,7 +189,7 @@ Los tokens resuelven un color distinto en cada tema (`dark`, `light`, `dark-hc`,
 
 ## Tipografía
 
-Roboto Flex extendida (`wdth` 150), peso Regular, en una línea. Las etiquetas usan mayúscula solo al inicio.
+Roboto Flex extendida (`wdth` 130), peso 350, en una línea. Las etiquetas usan mayúscula solo al inicio.
 
 | Tamaño | Tamaño de letra (px / rem) | Peso | Estilo de texto |
 |---|---|---|---|

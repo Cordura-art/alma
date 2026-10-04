@@ -5170,9 +5170,9 @@ abstract final class AlmaGrid {
 }
 
 abstract final class AlmaFontAxis {
-  /// Ancho de Roboto Flex (eje wdth, de 25 a 151). ALMA usa 151, el máximo: la versión más extendida. Antes 150.
+  /// Ancho de Roboto Flex (eje wdth, de 25 a 151). ALMA usa 130: extendida, sin llegar al máximo de la fuente (151). Antes 150, 151 y 125.
   static const double fontWidth = 130.0;
-  /// Grado de Roboto Flex (eje GRAD, de −200 a 150): engrosa o aligera el trazo sin cambiar el ancho del texto. ALMA usa −200, el más liviano. Antes 0.
+  /// Grado de Roboto Flex (eje GRAD, de −200 a 150): engrosa o aligera el trazo sin cambiar el ancho del texto, así nada se mueve de lugar. ALMA usa 20, un poco sobre el neutro (0). Antes 0 y −200.
   static const double fontGrade = 20.0;
 }
 

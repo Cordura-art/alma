@@ -5,7 +5,7 @@
   ["Rojo de sistema en cualquier estilo; nunca azul.", "Rojo de sistema en cualquier estilo; nunca {v:acento}."],
   ["Si todo es azul, nada lo es.", "Si todo es {v:acento}, nada lo es."],
   ["y nunca usa el azul.", "y nunca usa el {v:acento}."],
-  ["Roboto Flex extendida (`wdth` 150), peso Regular", "Roboto Flex {v:ancho} (`wdth` {token:font-width}), peso {token:font-weight-body}"],
+  ["Roboto Flex extendida (`wdth` 130), peso 350", "Roboto Flex {v:ancho} (`wdth` {token:font-width}), peso {token:font-weight-body}"],
   ["En tema oscuro, `control-on` es un paso claro de la rampa azul: se despega del fondo. En tema claro es el azul de acción.", "{si profundo}En tema oscuro, `control-on` es un paso claro de la rampa (`{token:control-on}`) que se despega del fondo; en tema claro es el {v:acento} pleno.{sino}En tema claro, `control-on` es un paso oscuro de la rampa (`{token:control-on:light}`): el {v:acento} no llega a 3:1 sobre fondo claro.{fin}"],
   ["En tema oscuro, `control-on` es un paso claro de la rampa azul, que se despega del fondo; en tema claro es el azul de acción.", "{si profundo}En tema oscuro, `control-on` es un paso claro de la rampa (`{token:control-on}`) que se despega del fondo; en tema claro es el {v:acento} pleno.{sino}En tema claro, `control-on` es un paso oscuro de la rampa (`{token:control-on:light}`), porque el {v:acento} no se ve sobre fondo claro.{fin}"],
   ["obre el azul.", "obre el {v:acento}."],
