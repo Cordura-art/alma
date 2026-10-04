@@ -417,6 +417,7 @@
       ['Peso', peso + '. ' + (W.peso >= 0.6 ? 'Pasos cortos y lentos, con balanceo amplio.' : W.peso < 0.34 ? 'Pasos largos y rápidos, con rebote.' : 'Pasos parejos, con algo de rebote.'), 'Su ancho y su grosor' + (tiene('sacral') ? ', y el centro sacral definido.' : '.')],
       ['Postura', 'Se inclina ' + Math.round(-W.inclina) + '° hacia adelante.', arriba ? 'Tenemos ' + arriba + (arriba === 1 ? ' centro definido' : ' centros definidos') + ' entre cabeza y garganta: cada uno lo echa hacia adelante.' : 'No tenemos centros definidos en cabeza ni garganta: va casi erguido.'],
       ['Cojera', W.cojera < 0.12 ? 'No cojea.' : 'Cojea de la pierna ' + (W.pataCoja === 'I' ? 'izquierda' : 'derecha') + '.', tiene('raiz') ? (tiene('plexo') !== tiene('bazo') ? 'La raíz definida lo afirma, pero carga hacia el lado del ' + (tiene('plexo') ? 'plexo' : 'bazo') + ', que no tiene su par.' : 'La raíz definida lo afirma.') : 'Sin raíz definida, cojea.'],
+      ['Número', '#' + K.numero + '.', 'Nuestra fecha de nacimiento. Va con el nombre donde aparezca el personaje.'],
       ['Ritmo', 'Un paso de cada pie cada ' + dos(W.ritmo) + ' segundos.', 'El ritmo de nuestra carta, más lento cuanto más pesa.']];
     return h(Sec, { title: 'Personaje' },
       h(Para, null, 'Nuestra criatura, de cuerpo entero. Tiene huesos, camina, y nada en ella se dibuja a mano: sus medidas, sus piezas y su manera de andar salen de nuestra carta. La misma carta da siempre el mismo personaje.'),
@@ -425,6 +426,9 @@
           h('figcaption', { className: 'web-body-s cap' }, 'Con piezas. El cuerpo es de arcilla; encima van masas, placas, tubos y detalles en laca, acrílico y tela.')) : null,
         R.pelaje ? h('figure', { className: 'gen-fig' }, h('img', { src: R.pelaje, loading: 'lazy', alt: 'Personaje de ' + L.nombre + ' cubierto de pelaje: pelo, plumas y flecos en nuestros colores, a medio paso.' }),
           h('figcaption', { className: 'web-body-s cap' }, 'Con pelaje. Cada zona del cuerpo lleva el suyo: pelo, rizo, púa, pluma o fleco. Se mueve al caminar.')) : null) : null,
+      window.__DESFILE ? h('figure', { className: 'gen-fig gen-video' },
+        h('video', { src: window.__DESFILE.video, poster: window.__DESFILE.portada || undefined, controls: true, muted: true, loop: true, playsInline: true, preload: 'none', 'aria-label': 'Video del desfile: los personajes de las entidades caminan de perfil sobre fondo negro, cada uno con su número y su nombre debajo. Dura 8 segundos y no tiene sonido.' }),
+        h('figcaption', { className: 'web-body-s cap' }, 'El desfile. Nuestro personaje camina junto a los de las otras entidades, cada uno con su andar y con su número y su nombre debajo. 8 segundos, sin sonido; parte cuando lo pides.')) : null,
       h(Tbl, { title: 'Su cuerpo y su andar', columns: [{ key: 'r', label: 'Rasgo' }, { key: 'v', label: 'Cómo es' }, { key: 'o', label: 'De dónde sale' }], rows: filas.map(function (f, i) { return { id: i, r: f[0], v: f[1], o: f[2] }; }) }),
       K.materiales ? h(Tbl, { title: 'Sus materiales', columns: [{ key: 'm', label: 'Material' }, { key: 'd', label: 'Cómo es y dónde va' }], rows: Object.keys(K.materiales).map(function (k, i) { return { id: i, m: NOMBRE[k] || k, d: K.materiales[k] }; }) }) : null,
       K.pelajes ? h(Tbl, { title: 'Su pelaje', columns: [{ key: 'm', label: 'Clase' }, { key: 'd', label: 'Cómo es' }], rows: Object.keys(K.pelajes).map(function (k, i) { return { id: i, m: NOMBRE[k] || k, d: K.pelajes[k] }; }) }) : null,

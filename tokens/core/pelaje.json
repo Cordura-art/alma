@@ -88,12 +88,12 @@
     },
     "pelaje-pua-grosor": {
       "$type": "number",
-      "$value": 0.01,
+      "$value": 0.012,
       "$description": "Medio ancho de la hebra en su raíz, en alturas de un personaje llano."
     },
     "pelaje-pua-densidad": {
       "$type": "number",
-      "$value": 0.5,
+      "$value": 0.85,
       "$description": "Cuántas lleva frente al pelo: 1 es un pelaje tupido."
     },
     "pelaje-pluma-largo-min": {

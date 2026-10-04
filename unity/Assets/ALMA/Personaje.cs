@@ -103,6 +103,7 @@ namespace Alma
 
         // ---------- The body under the coat: the lumps, dark (balls, or boxes lying along their bone for an entity of
         // blocks). It is hardly seen; the coat needs something behind it.
+        readonly List<MeshRenderer> piel = new List<MeshRenderer>();
         void Cuerpo(Color tinta)
         {
             var mat = new Material(Shader.Find("Universal Render Pipeline/Lit")) { color = tinta }; mat.SetFloat("_Smoothness", 0.1f);
@@ -111,7 +112,7 @@ namespace Alma
                 var o = GameObject.CreatePrimitive(C.anguloso ? PrimitiveType.Cube : PrimitiveType.Sphere); Destroy(o.GetComponent<Collider>());
                 o.transform.SetParent(huesos[b.hueso], false); o.transform.position = transform.TransformPoint(b.p); o.transform.localScale = Vector3.one * b.r * (C.anguloso ? 1.7f : 2f);
                 if (C.anguloso) { var d = J[HUESOS[b.hueso][1]] - J[HUESOS[b.hueso][0]]; if (d.sqrMagnitude > 1e-6f) o.transform.rotation = transform.rotation * Quaternion.LookRotation(d.normalized, Mathf.Abs(d.normalized.y) > 0.9f ? Vector3.forward : Vector3.up); }
-                o.GetComponent<MeshRenderer>().sharedMaterial = mat;
+                o.GetComponent<MeshRenderer>().sharedMaterial = mat; piel.Add(o.GetComponent<MeshRenderer>());
             }
         }
 
@@ -155,10 +156,13 @@ namespace Alma
             }
             float area = 0; foreach (var x in bultos) area += x.r * x.r;
             var nombres = new List<string>(huesos.Keys); huesoDe = new Transform[nombres.Count]; for (int i = 0; i < nombres.Count; i++) huesoDe[i] = huesos[nombres[i]]; matriz = new NativeArray<float4x4>(nombres.Count, Allocator.Persistent);
+            var tintes = new Dictionary<Color, Material>();
             var hueso = new List<int>(); var lugar = new List<Vector3>(); var normal = new List<Vector3>(); var est = new List<Estilo>(); var R0 = new Azar(G.semilla + "|raices");
             for (int k = 0; k < bultos.Count; k++)
             {
                 var x = bultos[k]; var e = De(x.centro ? "centro" + k : x.hueso.Split('.')[0]); int ih = nombres.IndexOf(x.hueso); var h = huesoDe[ih];
+                // Under its coat, each part of the body is the dark of that coat's root: where the coat opens, it looks deep, not bare.
+                if (k < piel.Count) { if (!tintes.TryGetValue(e.raiz, out var m)) { m = new Material(piel[k].sharedMaterial) { color = e.raiz * 0.4f }; tintes[e.raiz] = m; } piel[k].sharedMaterial = m; }
                 int n = Mathf.Max(4, Mathf.RoundToInt(hebras * 1.9f * e.densidad * x.r * x.r / area)); float giro = R0.Uno() * 6.283f;
                 for (int i = 0; i < n; i++)
                 {

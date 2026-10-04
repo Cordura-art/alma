@@ -10,3 +10,10 @@ export function personajeParaPagina(id, G, tok = JSON.parse(readFileSync('dist/j
   // The materials and the kinds of coat, as the system's tokens describe them.
   return { ...personajeDe(G), retratos: { piezas: foto('piezas'), pelaje: foto('pelaje') }, materiales: descripciones(tok, 'material'), pelajes: descripciones(tok, 'pelaje') };
 }
+
+// The parade: the short video of every entity's character walking by (entidades/retratos/desfile.mp4, taken in Unity)
+// and its still picture, as data the page carries once, whatever the number of entities.
+export function desfileParaPagina() {
+  const v = 'entidades/retratos/desfile.mp4', p = 'entidades/retratos/desfile.jpg'; if (!existsSync(v)) return null;
+  return { video: 'data:video/mp4;base64,' + readFileSync(v).toString('base64'), portada: existsSync(p) ? 'data:image/jpeg;base64,' + readFileSync(p).toString('base64') : null };
+}

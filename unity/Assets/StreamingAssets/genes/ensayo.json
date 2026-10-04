@@ -164,6 +164,7 @@
   }
  },
  "personaje": {
+  "numero": "38541741",
   "medidas": {
    "alto": 1.0447,
    "ancho": 1.0689,
@@ -247,8 +248,8 @@
    "largoMax": 0.1,
    "caida": 0.02,
    "firmeza": 0.6,
-   "grosor": 0.01,
-   "densidad": 0.5
+   "grosor": 0.012,
+   "densidad": 0.85
   },
   "pluma": {
    "largoMin": 0.12,

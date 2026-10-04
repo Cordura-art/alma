@@ -199,6 +199,9 @@ a.card .alma-ico { color: var(--nav-selected); align-self: end; }
 /* The character's portraits, side by side. */
 .gen-retratos { display: grid; gap: var(--space-24); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); align-items: start; }
 .gen-retratos img { display: block; width: 100%; height: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); }
+/* The parade's video: as wide as the text, never wider than the page. */
+.gen-video { max-width: 50rem; }
+.gen-video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--brand-ink); }
 /* Sheets for a plotter: each one on its paper, upright or lying down as its drawing asks. */
 .gen-laminas { display: grid; gap: var(--space-32) var(--space-24); grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); margin: 0; padding: 0; list-style: none; align-items: start; }
 .gen-lamina { display: grid; gap: var(--space-8); min-width: 0; }

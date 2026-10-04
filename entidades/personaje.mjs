@@ -35,4 +35,6 @@ export function andarDe(G, M) {
   for (const k in a) a[k] = dec(a[k]);
   return { ...a, pataCoja: lado };
 }
-export function personajeDe(G) { const medidas = medidasDe(G); return { medidas, andar: andarDe(G, medidas) }; }
+// Its number: eight digits that are its own, from its date of birth. It goes with its name wherever the character is shown.
+export function numeroDe(G) { return String(hash(G.semilla + '|numero') % 100000000).padStart(8, '0'); }
+export function personajeDe(G) { const medidas = medidasDe(G); return { numero: numeroDe(G), medidas, andar: andarDe(G, medidas) }; }

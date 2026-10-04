@@ -13,7 +13,8 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 - **Con pelaje, en vivo, en Unity** (`unity/`): el mismo cuerpo cubierto de pelo, rizo, púa, pluma y fleco, que se mueve al caminar, con luz y sombra. Los tres personajes desfilan de perfil sobre negro, cada uno con su andar, a más de 80 cuadros por segundo.
 - **En el lenguaje de cada entidad**, Ilustración suma «Personaje»: sus dos retratos y una tabla que dice cómo es su cuerpo, cómo camina y de qué parte de la carta sale cada rasgo.
 - **Materiales y pelaje son tokens de ALMA.** Dos familias nuevas en `tokens/`: `material` (arcilla, laca, acrílico y tela: aspereza, capa, luz interior, brillo de borde, paso de luz y relieve) y `pelaje` (pelo, rizo, púa, pluma y fleco: largo, caída, firmeza, grosor y densidad). Viajan con los genes, y Blender y Unity los leen: cambiar un token cambia el material en los dos. El color nunca va ahí; siempre es de la entidad.
-- Pendiente: el rótulo con nombre y número de cada personaje; los andares nuevos (postura, peso, cojera) solo están en Unity; la receta de cada textura (el grano de la arcilla, las puntadas de la tela) sigue en el código de Blender.
+- **Desfile ordenado y con rótulo.** En Unity los personajes caminan con separación pareja, sin alcanzarse, y cada uno lleva debajo su número (ocho cifras que salen de su fecha de nacimiento) y su nombre, en Roboto Flex con los ejes de ALMA. Un video corto del desfile va en la sección Personaje de cada entidad.
+- Pendiente: los andares nuevos (postura, peso, cojera) solo están en Unity; la receta de cada textura (el grano de la arcilla, las puntadas de la tela) sigue en el código de Blender.
 
 ### 3 de octubre de 2026
 
