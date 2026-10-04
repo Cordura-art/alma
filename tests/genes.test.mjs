@@ -39,3 +39,16 @@ test('el personaje de una entidad tiene las mismas medidas y el mismo andar cada
   }
   assert.ok(C.personaje.andar.cojera > A.personaje.andar.cojera * 0 && C.personaje.andar.cojera >= 0.25, 'sin raíz definida, cojea');
 });
+
+test('los materiales y el pelaje que viajan con los genes son los tokens de ALMA', async () => {
+  const D = await genesParaFuera('cordura'), tok = JSON.parse(readFileSync('dist/json/tokens.json', 'utf8'));
+  assert.deepEqual(Object.keys(D.materiales), ['arcilla', 'laca', 'acrilico', 'tela']);
+  assert.deepEqual(Object.keys(D.pelaje), ['pelo', 'rizo', 'pua', 'pluma', 'fleco']);
+  for (const m of Object.values(D.materiales)) for (const k of ['aspereza', 'capa', 'luzInterior', 'brilloDeBorde', 'pasoDeLuz', 'relieve']) assert.ok(m[k] >= 0 && m[k] <= 1, k);
+  for (const p of Object.values(D.pelaje)) assert.ok(p.largoMin > 0 && p.largoMax > p.largoMin && p.grosor > 0 && p.densidad > 0 && p.densidad <= 1);
+  assert.equal(D.materiales.laca.aspereza, Number(tok.material.tokens.find((x) => x.name === 'material-laca-aspereza').value));
+  assert.equal(D.pelaje.rizo.radio, Number(tok.pelaje.tokens.find((x) => x.name === 'pelaje-rizo-radio').value));
+  const py = readFileSync('blender/personaje.py', 'utf8'), cs = readFileSync('unity/Assets/ALMA/Genes.cs', 'utf8');
+  for (const k of ['aspereza', 'capa', 'luzInterior', 'brilloDeBorde', 'pasoDeLuz', 'relieve']) assert.ok(py.includes("'" + k + "'"), 'Blender lee ' + k);
+  for (const k of ['largoMin', 'largoMax', 'caida', 'firmeza', 'grosor', 'densidad', 'radio']) assert.ok(cs.includes(k), 'Unity lee ' + k);
+});

@@ -126,18 +126,12 @@ namespace Alma
         Transform[] huesoDe; NativeArray<float4x4> matriz; NativeArray<int> raizHueso; NativeArray<float3> raizLugar, raizNormal, P, Antes, vertices, normales, hebrasT;
         NativeArray<float> largo, cae, firme, rizo, fase, grueso; NativeArray<byte> clase; Mesh malla; GameObject peloObjeto;
 
+        // A zone's own version of a kind of coat: what ALMA's tokens say that kind is like, a little different each time.
         Estilo EstiloDe(Clase k, Azar R, (Color, Color) par)
         {
-            var e = new Estilo { clase = k, raiz = par.Item1, punta = par.Item2, densidad = 1 };
-            switch (k)
-            {
-                case Clase.Pelo: e.largo = R.Entre(0.07f, 0.14f); e.cae = R.Entre(0.4f, 1f); e.firme = R.Entre(0.06f, 0.16f); e.grueso = R.Entre(0.005f, 0.0075f); break;
-                case Clase.Rizo: e.largo = R.Entre(0.06f, 0.11f); e.cae = R.Entre(0.2f, 0.6f); e.firme = R.Entre(0.15f, 0.28f); e.rizo = R.Entre(0.014f, 0.028f); e.grueso = R.Entre(0.0045f, 0.006f); break;
-                case Clase.Pua: e.largo = R.Entre(0.05f, 0.1f); e.cae = 0.02f; e.firme = R.Entre(0.5f, 0.7f); e.grueso = R.Entre(0.008f, 0.012f); e.densidad = 0.5f; break;
-                case Clase.Pluma: e.largo = R.Entre(0.12f, 0.2f); e.cae = R.Entre(0.25f, 0.55f); e.firme = R.Entre(0.2f, 0.34f); e.grueso = R.Entre(0.016f, 0.026f); e.densidad = 0.2f; break;
-                default: e.largo = R.Entre(0.16f, 0.26f); e.cae = 1.5f; e.firme = R.Entre(0.03f, 0.07f); e.grueso = R.Entre(0.005f, 0.008f); e.densidad = 0.65f; break;
-            }
-            return e;
+            var T = entidad.pelaje ?? new Pelajes(); var t = (k == Clase.Pelo ? T.pelo : k == Clase.Rizo ? T.rizo : k == Clase.Pua ? T.pua : k == Clase.Pluma ? T.pluma : T.fleco) ?? new ClaseDePelaje();
+            return new Estilo { clase = k, raiz = par.Item1, punta = par.Item2, densidad = t.densidad, largo = R.Entre(t.largoMin, t.largoMax), cae = t.caida * R.Entre(0.6f, 1.4f), firme = t.firmeza * R.Entre(0.7f, 1.3f),
+                grueso = t.grosor * R.Entre(0.82f, 1.18f), rizo = t.radio * R.Entre(0.7f, 1.3f) };
         }
         void Pelaje()
         {

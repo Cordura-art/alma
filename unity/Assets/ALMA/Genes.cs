@@ -25,7 +25,10 @@ namespace Alma
     [Serializable] public class Medidas { public float alto = 1, ancho = 1, miembro = 1, cabeza = 1, cadera = 0.48f, panza = 0.8f, mano = 1, pie = 1, hombros = 1; public bool anguloso; }
     [Serializable] public class Andar { public float paso = 28, brazos = 20, rodilla = 50, desfase, inclina = -5, peso = 0.4f, cojera, rebote = 0.02f, balanceo = 4, ritmo = 1.2f; public string pataCoja = "I"; }
     [Serializable] public class Cuerpo { public Medidas medidas; public Andar andar; }
-    [Serializable] public class Entidad { public string id, nombre; public Genes genes; public Cuerpo personaje; public string[] nombres; }
+    // ALMA's coat tokens (family `pelaje`): what each kind of coat is like. Lengths are in heights of a plain character.
+    [Serializable] public class ClaseDePelaje { public float largoMin = 0.07f, largoMax = 0.14f, caida = 0.7f, firmeza = 0.11f, grosor = 0.006f, densidad = 1f, radio; }
+    [Serializable] public class Pelajes { public ClaseDePelaje pelo, rizo, pua, pluma, fleco; }
+    [Serializable] public class Entidad { public string id, nombre; public Genes genes; public Cuerpo personaje; public Pelajes pelaje; public string[] nombres; }
 
     public static class Lector
     {

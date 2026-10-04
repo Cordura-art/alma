@@ -183,6 +183,83 @@
    "pataCoja": "D"
   }
  },
+ "materiales": {
+  "arcilla": {
+   "aspereza": 0.55,
+   "capa": 0,
+   "luzInterior": 0.12,
+   "brilloDeBorde": 0.25,
+   "pasoDeLuz": 0,
+   "relieve": 0.12
+  },
+  "laca": {
+   "aspereza": 0.16,
+   "capa": 1,
+   "luzInterior": 0.2,
+   "brilloDeBorde": 0,
+   "pasoDeLuz": 0,
+   "relieve": 0
+  },
+  "acrilico": {
+   "aspereza": 0.06,
+   "capa": 1,
+   "luzInterior": 0.9,
+   "brilloDeBorde": 0,
+   "pasoDeLuz": 0.12,
+   "relieve": 0
+  },
+  "tela": {
+   "aspereza": 0.9,
+   "capa": 0,
+   "luzInterior": 0,
+   "brilloDeBorde": 1,
+   "pasoDeLuz": 0,
+   "relieve": 0.7
+  }
+ },
+ "pelaje": {
+  "pelo": {
+   "largoMin": 0.07,
+   "largoMax": 0.14,
+   "caida": 0.7,
+   "firmeza": 0.11,
+   "grosor": 0.006,
+   "densidad": 1
+  },
+  "rizo": {
+   "largoMin": 0.06,
+   "largoMax": 0.11,
+   "caida": 0.4,
+   "firmeza": 0.21,
+   "grosor": 0.005,
+   "densidad": 1,
+   "radio": 0.021
+  },
+  "pua": {
+   "largoMin": 0.05,
+   "largoMax": 0.1,
+   "caida": 0.02,
+   "firmeza": 0.6,
+   "grosor": 0.01,
+   "densidad": 0.5
+  },
+  "pluma": {
+   "largoMin": 0.12,
+   "largoMax": 0.2,
+   "caida": 0.4,
+   "firmeza": 0.27,
+   "grosor": 0.021,
+   "densidad": 0.2
+  },
+  "fleco": {
+   "largoMin": 0.16,
+   "largoMax": 0.26,
+   "caida": 1.5,
+   "firmeza": 0.05,
+   "grosor": 0.0065,
+   "densidad": 0.65
+  }
+ },
  "nombres": [
   "Ana Rojas",
   "Luis Soto",

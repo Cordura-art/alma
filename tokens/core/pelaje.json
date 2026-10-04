@@ -1,0 +1,160 @@
+{
+  "pelaje": {
+    "$description": "Las clases de pelaje de un personaje. Cada zona del cuerpo lleva una; el color siempre es de la entidad.",
+    "pelaje-pelo-largo-min": {
+      "$type": "number",
+      "$value": 0.07,
+      "$description": "Pelo fino que cae. Largo más corto, en alturas de un personaje llano (1 es su alto)."
+    },
+    "pelaje-pelo-largo-max": {
+      "$type": "number",
+      "$value": 0.14,
+      "$description": "Largo más largo, en alturas de un personaje llano."
+    },
+    "pelaje-pelo-caida": {
+      "$type": "number",
+      "$value": 0.7,
+      "$description": "Cuánto cae por su peso: 0 sale recto del cuerpo, sobre 1 cuelga."
+    },
+    "pelaje-pelo-firmeza": {
+      "$type": "number",
+      "$value": 0.11,
+      "$description": "Cuánto vuelve a su lugar: bajo se balancea suelto, alto casi no se mueve."
+    },
+    "pelaje-pelo-grosor": {
+      "$type": "number",
+      "$value": 0.006,
+      "$description": "Medio ancho de la hebra en su raíz, en alturas de un personaje llano."
+    },
+    "pelaje-pelo-densidad": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Cuántas lleva frente al pelo: 1 es un pelaje tupido."
+    },
+    "pelaje-rizo-largo-min": {
+      "$type": "number",
+      "$value": 0.06,
+      "$description": "Pelo que se riza. Largo más corto, en alturas de un personaje llano (1 es su alto)."
+    },
+    "pelaje-rizo-largo-max": {
+      "$type": "number",
+      "$value": 0.11,
+      "$description": "Largo más largo, en alturas de un personaje llano."
+    },
+    "pelaje-rizo-caida": {
+      "$type": "number",
+      "$value": 0.4,
+      "$description": "Cuánto cae por su peso: 0 sale recto del cuerpo, sobre 1 cuelga."
+    },
+    "pelaje-rizo-firmeza": {
+      "$type": "number",
+      "$value": 0.21,
+      "$description": "Cuánto vuelve a su lugar: bajo se balancea suelto, alto casi no se mueve."
+    },
+    "pelaje-rizo-grosor": {
+      "$type": "number",
+      "$value": 0.005,
+      "$description": "Medio ancho de la hebra en su raíz, en alturas de un personaje llano."
+    },
+    "pelaje-rizo-densidad": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Cuántas lleva frente al pelo: 1 es un pelaje tupido."
+    },
+    "pelaje-rizo-radio": {
+      "$type": "number",
+      "$value": 0.021,
+      "$description": "Radio del rizo, en alturas de un personaje llano."
+    },
+    "pelaje-pua-largo-min": {
+      "$type": "number",
+      "$value": 0.05,
+      "$description": "Púa corta, gruesa y tiesa, que termina en punta. Largo más corto, en alturas de un personaje llano (1 es su alto)."
+    },
+    "pelaje-pua-largo-max": {
+      "$type": "number",
+      "$value": 0.1,
+      "$description": "Largo más largo, en alturas de un personaje llano."
+    },
+    "pelaje-pua-caida": {
+      "$type": "number",
+      "$value": 0.02,
+      "$description": "Cuánto cae por su peso: 0 sale recto del cuerpo, sobre 1 cuelga."
+    },
+    "pelaje-pua-firmeza": {
+      "$type": "number",
+      "$value": 0.6,
+      "$description": "Cuánto vuelve a su lugar: bajo se balancea suelto, alto casi no se mueve."
+    },
+    "pelaje-pua-grosor": {
+      "$type": "number",
+      "$value": 0.01,
+      "$description": "Medio ancho de la hebra en su raíz, en alturas de un personaje llano."
+    },
+    "pelaje-pua-densidad": {
+      "$type": "number",
+      "$value": 0.5,
+      "$description": "Cuántas lleva frente al pelo: 1 es un pelaje tupido."
+    },
+    "pelaje-pluma-largo-min": {
+      "$type": "number",
+      "$value": 0.12,
+      "$description": "Pluma: pocas hojas anchas, planas contra el cuerpo. Largo más corto, en alturas de un personaje llano (1 es su alto)."
+    },
+    "pelaje-pluma-largo-max": {
+      "$type": "number",
+      "$value": 0.2,
+      "$description": "Largo más largo, en alturas de un personaje llano."
+    },
+    "pelaje-pluma-caida": {
+      "$type": "number",
+      "$value": 0.4,
+      "$description": "Cuánto cae por su peso: 0 sale recto del cuerpo, sobre 1 cuelga."
+    },
+    "pelaje-pluma-firmeza": {
+      "$type": "number",
+      "$value": 0.27,
+      "$description": "Cuánto vuelve a su lugar: bajo se balancea suelto, alto casi no se mueve."
+    },
+    "pelaje-pluma-grosor": {
+      "$type": "number",
+      "$value": 0.021,
+      "$description": "Medio ancho de la hebra en su raíz, en alturas de un personaje llano."
+    },
+    "pelaje-pluma-densidad": {
+      "$type": "number",
+      "$value": 0.2,
+      "$description": "Cuántas lleva frente al pelo: 1 es un pelaje tupido."
+    },
+    "pelaje-fleco-largo-min": {
+      "$type": "number",
+      "$value": 0.16,
+      "$description": "Fleco: tiras largas y planas que cuelgan y se balancean. Largo más corto, en alturas de un personaje llano (1 es su alto)."
+    },
+    "pelaje-fleco-largo-max": {
+      "$type": "number",
+      "$value": 0.26,
+      "$description": "Largo más largo, en alturas de un personaje llano."
+    },
+    "pelaje-fleco-caida": {
+      "$type": "number",
+      "$value": 1.5,
+      "$description": "Cuánto cae por su peso: 0 sale recto del cuerpo, sobre 1 cuelga."
+    },
+    "pelaje-fleco-firmeza": {
+      "$type": "number",
+      "$value": 0.05,
+      "$description": "Cuánto vuelve a su lugar: bajo se balancea suelto, alto casi no se mueve."
+    },
+    "pelaje-fleco-grosor": {
+      "$type": "number",
+      "$value": 0.0065,
+      "$description": "Medio ancho de la hebra en su raíz, en alturas de un personaje llano."
+    },
+    "pelaje-fleco-densidad": {
+      "$type": "number",
+      "$value": 0.65,
+      "$description": "Cuántas lleva frente al pelo: 1 es un pelaje tupido."
+    }
+  }
+}

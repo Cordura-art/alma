@@ -273,12 +273,14 @@ def con(modificador, nombre, valor):
     s = next(x for x in modificador.node_group.interface.items_tree if getattr(x, 'name', '') == nombre and getattr(x, 'in_out', '') == 'INPUT')
     getattr(modificador.properties.inputs, s.identifier).value = valor
 
-# ---------- Materials. Four ways of taking light; the color always comes from the entity's tokens.
+# ---------- Materials. Four ways of taking light; the color always comes from the entity's tokens, and how each one
+# takes light comes from ALMA's material tokens (family `material`), which travel in the genes file.
+MATERIALES = {}
 def material(nombre, clase, hex, hex2=None):
     m = bpy.data.materials.new(nombre); m.use_nodes = True; T = m.node_tree; N, K = T.nodes, T.links; p = N['Principled BSDF']; p.inputs['Base Color'].default_value = lineal(hex)
     def pon(entrada, valor):
         if entrada in p.inputs: p.inputs[entrada].default_value = valor
-    lugar = N.new('ShaderNodeNewGeometry')
+    V = MATERIALES.get(clase, {}); lugar = N.new('ShaderNodeNewGeometry')
     def relieve(altura, fuerza, hondo):
         b = N.new('ShaderNodeBump'); b.inputs['Strength'].default_value = fuerza; b.inputs['Distance'].default_value = hondo; K.new(altura, b.inputs['Height']); K.new(b.outputs['Normal'], p.inputs['Normal'])
     def sombrea(factor, cuanto):
@@ -288,7 +290,7 @@ def material(nombre, clase, hex, hex2=None):
     if clase == 'arcilla':
         # Matte and soft to the touch, with a very fine grain.
         pon('Roughness', 0.55); pon('Sheen Weight', 0.25); pon('Sheen Roughness', 0.5); pon('Subsurface Weight', 0.12); pon('Subsurface Radius', (0.02, 0.02, 0.02))
-        g = N.new('ShaderNodeTexNoise'); g.inputs['Scale'].default_value = 420; g.inputs['Detail'].default_value = 3; K.new(lugar.outputs['Position'], g.inputs['Vector']); relieve(g.outputs['Fac'], 0.12, 0.001)
+        g = N.new('ShaderNodeTexNoise'); g.inputs['Scale'].default_value = 420; g.inputs['Detail'].default_value = 3; K.new(lugar.outputs['Position'], g.inputs['Vector']); relieve(g.outputs['Fac'], V.get('relieve', 0.12), 0.001)
         if hex2:
             # Two clays kneaded together: wide veins of the second color, with a clean edge between them.
             veta, corte, dos = N.new('ShaderNodeTexNoise'), N.new('ShaderNodeMapRange'), N.new('ShaderNodeMix'); dos.data_type = 'RGBA'
@@ -327,7 +329,10 @@ def material(nombre, clase, hex, hex2=None):
         lejos = cuenta('SQRT', cuenta('ADD', cuenta('MULTIPLY', u, u), cuenta('MULTIPLY', v, v)))
         alto = cuenta('SUBTRACT', 1.0, cuenta('MULTIPLY', lejos, 1.6))
         rampa = N.new('ShaderNodeMapRange'); rampa.inputs['From Min'].default_value = 0.1; rampa.inputs['From Max'].default_value = 0.75; K.new(alto, rampa.inputs['Value'])
-        relieve(alto, 0.85, 0.003); sombrea(rampa.outputs['Result'], 0.66)
+        relieve(alto, V.get('relieve', 0.7), 0.003); sombrea(rampa.outputs['Result'], 0.66)
+    # What the system's tokens say about this material goes last, over the recipe above.
+    for entrada, token in (('Roughness', 'aspereza'), ('Coat Weight', 'capa'), ('Subsurface Weight', 'luzInterior'), ('Sheen Weight', 'brilloDeBorde'), ('Transmission Weight', 'pasoDeLuz')):
+        if token in V: pon(entrada, V[token])
     return m
 # The authority says which material leads (the plates wear it) and which one follows (the centers wear it).
 MATERIAL_DE = {'emocional': ('tela', 'laca'), 'sacral': ('arcilla', 'laca'), 'espl': ('laca', 'arcilla'), 'ego': ('laca', 'tela'), 'coraz': ('laca', 'tela'),
@@ -347,6 +352,7 @@ for o in list(bpy.data.objects): bpy.data.objects.remove(o, do_unlink=True)
 E = bpy.context.scene; E.render.engine = 'BLENDER_EEVEE'
 DATOS = [json.load(open(f, encoding='utf-8')) for f in ARCHIVOS]
 for D in DATOS: D['genes']['id'] = D['id']
+MATERIALES.update(DATOS[0].get('materiales', {}))
 FONDO = DATOS[0]['genes']['pieza']['base'] if TEMA == 'dark' else DATOS[0]['genes']['fondo']['light']['base']
 def arcilla(nombre, hex, aspereza=0.62):
     m = bpy.data.materials.new(nombre); m.use_nodes = True; p = m.node_tree.nodes['Principled BSDF']; p.inputs['Base Color'].default_value = lineal(hex); p.inputs['Roughness'].default_value = aspereza; return m

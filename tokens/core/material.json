@@ -1,0 +1,125 @@
+{
+  "material": {
+    "$description": "Cómo recibe la luz una pieza con volumen. El color nunca va aquí: siempre es un color de la entidad.",
+    "material-arcilla-aspereza": {
+      "$type": "number",
+      "$value": 0.55,
+      "$description": "Mate y suave al tacto, con un grano muy fino. El cuerpo de un personaje. Qué tan mate es: 0 es un espejo, 1 no brilla."
+    },
+    "material-arcilla-capa": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Barniz transparente encima: 0 no tiene, 1 es una capa completa."
+    },
+    "material-arcilla-luz-interior": {
+      "$type": "number",
+      "$value": 0.12,
+      "$description": "Cuánta luz entra y se esparce dentro antes de salir: 0 nada, 1 casi toda."
+    },
+    "material-arcilla-brillo-de-borde": {
+      "$type": "number",
+      "$value": 0.25,
+      "$description": "Luz suave en los bordes, como la de una tela: 0 nada, 1 completa."
+    },
+    "material-arcilla-paso-de-luz": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Cuánta luz lo atraviesa: 0 es opaco."
+    },
+    "material-arcilla-relieve": {
+      "$type": "number",
+      "$value": 0.12,
+      "$description": "Qué tan marcado es el grano o el tejido de su superficie: 0 es liso."
+    },
+    "material-laca-aspereza": {
+      "$type": "number",
+      "$value": 0.16,
+      "$description": "Juguete lacado: brillo limpio sobre un color con algo de fondo. Centros y detalles. Qué tan mate es: 0 es un espejo, 1 no brilla."
+    },
+    "material-laca-capa": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Barniz transparente encima: 0 no tiene, 1 es una capa completa."
+    },
+    "material-laca-luz-interior": {
+      "$type": "number",
+      "$value": 0.2,
+      "$description": "Cuánta luz entra y se esparce dentro antes de salir: 0 nada, 1 casi toda."
+    },
+    "material-laca-brillo-de-borde": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Luz suave en los bordes, como la de una tela: 0 nada, 1 completa."
+    },
+    "material-laca-paso-de-luz": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Cuánta luz lo atraviesa: 0 es opaco."
+    },
+    "material-laca-relieve": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Qué tan marcado es el grano o el tejido de su superficie: 0 es liso."
+    },
+    "material-acrilico-aspereza": {
+      "$type": "number",
+      "$value": 0.06,
+      "$description": "Sólido pulido al que le entra la luz: brilla desde dentro donde es delgado y conserva su color. Canales y placas. Qué tan mate es: 0 es un espejo, 1 no brilla."
+    },
+    "material-acrilico-capa": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Barniz transparente encima: 0 no tiene, 1 es una capa completa."
+    },
+    "material-acrilico-luz-interior": {
+      "$type": "number",
+      "$value": 0.9,
+      "$description": "Cuánta luz entra y se esparce dentro antes de salir: 0 nada, 1 casi toda."
+    },
+    "material-acrilico-brillo-de-borde": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Luz suave en los bordes, como la de una tela: 0 nada, 1 completa."
+    },
+    "material-acrilico-paso-de-luz": {
+      "$type": "number",
+      "$value": 0.12,
+      "$description": "Cuánta luz lo atraviesa: 0 es opaco."
+    },
+    "material-acrilico-relieve": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Qué tan marcado es el grano o el tejido de su superficie: 0 es liso."
+    },
+    "material-tela-aspereza": {
+      "$type": "number",
+      "$value": 0.9,
+      "$description": "Tejido de punto: filas de puntadas que se ven, áspero, con luz suave en los bordes. Placas. Qué tan mate es: 0 es un espejo, 1 no brilla."
+    },
+    "material-tela-capa": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Barniz transparente encima: 0 no tiene, 1 es una capa completa."
+    },
+    "material-tela-luz-interior": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Cuánta luz entra y se esparce dentro antes de salir: 0 nada, 1 casi toda."
+    },
+    "material-tela-brillo-de-borde": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Luz suave en los bordes, como la de una tela: 0 nada, 1 completa."
+    },
+    "material-tela-paso-de-luz": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Cuánta luz lo atraviesa: 0 es opaco."
+    },
+    "material-tela-relieve": {
+      "$type": "number",
+      "$value": 0.7,
+      "$description": "Qué tan marcado es el grano o el tejido de su superficie: 0 es liso."
+    }
+  }
+}

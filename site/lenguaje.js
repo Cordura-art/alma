@@ -408,6 +408,7 @@
   function GenPersonaje() {
     var K = L.personaje, M = K.medidas, W = K.andar, R = K.retratos || {}, c = G.centros || [];
     var tiene = function (x) { return c.indexOf(x) >= 0; }, dos = function (v) { return String(Math.round(v * 100) / 100).replace('.', ','); }, veces = function (v) { return dos(v) + ' veces'; };
+    var NOMBRE = { arcilla: 'Arcilla', laca: 'Laca', acrilico: 'Acrílico', tela: 'Tela', pelo: 'Pelo', rizo: 'Rizo', pua: 'Púa', pluma: 'Pluma', fleco: 'Fleco' };
     var peso = W.peso < 0.34 ? 'Liviano' : W.peso < 0.6 ? 'Medio' : 'Pesado', arriba = ['cabeza', 'ajna', 'garganta'].filter(tiene).length;
     var filas = [
       ['Contextura', G.tipo.charAt(0).toUpperCase() + G.tipo.slice(1) + ': ' + veces(M.alto) + ' el alto, ' + veces(M.ancho) + ' el ancho y ' + veces(M.miembro) + ' el grosor de brazos y piernas de un personaje llano.', 'Nuestro tipo da la contextura; nuestra fecha de nacimiento, la medida exacta.'],
@@ -425,7 +426,9 @@
         R.pelaje ? h('figure', { className: 'gen-fig' }, h('img', { src: R.pelaje, loading: 'lazy', alt: 'Personaje de ' + L.nombre + ' cubierto de pelaje: pelo, plumas y flecos en nuestros colores, a medio paso.' }),
           h('figcaption', { className: 'web-body-s cap' }, 'Con pelaje. Cada zona del cuerpo lleva el suyo: pelo, rizo, púa, pluma o fleco. Se mueve al caminar.')) : null) : null,
       h(Tbl, { title: 'Su cuerpo y su andar', columns: [{ key: 'r', label: 'Rasgo' }, { key: 'v', label: 'Cómo es' }, { key: 'o', label: 'De dónde sale' }], rows: filas.map(function (f, i) { return { id: i, r: f[0], v: f[1], o: f[2] }; }) }),
-      h('p', { className: 'web-body-s cap note' }, 'El personaje se arma fuera de esta página: con piezas en Blender y con pelaje, en vivo, en Unity. Los dos leen el mismo archivo, que escribe el comando «npm run genes». Sus materiales con luz todavía no son tokens de ALMA.'));
+      K.materiales ? h(Tbl, { title: 'Sus materiales', columns: [{ key: 'm', label: 'Material' }, { key: 'd', label: 'Cómo es y dónde va' }], rows: Object.keys(K.materiales).map(function (k, i) { return { id: i, m: NOMBRE[k] || k, d: K.materiales[k] }; }) }) : null,
+      K.pelajes ? h(Tbl, { title: 'Su pelaje', columns: [{ key: 'm', label: 'Clase' }, { key: 'd', label: 'Cómo es' }], rows: Object.keys(K.pelajes).map(function (k, i) { return { id: i, m: NOMBRE[k] || k, d: K.pelajes[k] }; }) }) : null,
+      h('p', { className: 'web-body-s cap note' }, 'El personaje se arma fuera de esta página: con piezas en Blender y con pelaje, en vivo, en Unity. Los dos leen el mismo archivo, que escribe el comando «npm run genes». Los materiales y las clases de pelaje son tokens de ALMA (familias material y pelaje): el color siempre es nuestro; el material solo dice cómo recibe la luz.'));
   }
   // The sheets: twelve drawings made only of strokes, ready for a pen plotter. Each is drawn when it nears the
   // screen, one after another, so the page does not stop to draw them all.
