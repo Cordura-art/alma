@@ -403,6 +403,58 @@
         h(A.Button, { variant: 'tinted', iconBefore: mece[0] ? 'pause' : 'play', onClick: function () { mece[1](!mece[0]); } }, mece[0] ? 'Pausar' : 'Reproducir'),
         h('span', { className: 'web-body-s cap' }, QUIETO ? 'Parte en pausa porque pediste menos movimiento.' : 'Se detiene solo cuando sale de la pantalla.')));
   }
+  // The character: the creature with a whole body. Its measures and its walk are worked out from the genes by the
+  // build (entidades/personaje.mjs), the same ones Blender and Unity read; its portraits are pictures made there.
+  function GenPersonaje() {
+    var K = L.personaje, M = K.medidas, W = K.andar, R = K.retratos || {}, c = G.centros || [];
+    var tiene = function (x) { return c.indexOf(x) >= 0; }, dos = function (v) { return String(Math.round(v * 100) / 100).replace('.', ','); }, veces = function (v) { return dos(v) + ' veces'; };
+    var peso = W.peso < 0.34 ? 'Liviano' : W.peso < 0.6 ? 'Medio' : 'Pesado', arriba = ['cabeza', 'ajna', 'garganta'].filter(tiene).length;
+    var filas = [
+      ['Contextura', G.tipo.charAt(0).toUpperCase() + G.tipo.slice(1) + ': ' + veces(M.alto) + ' el alto, ' + veces(M.ancho) + ' el ancho y ' + veces(M.miembro) + ' el grosor de brazos y piernas de un personaje llano.', 'Nuestro tipo da la contextura; nuestra fecha de nacimiento, la medida exacta.'],
+      ['Forma', M.anguloso ? 'De bloques: cajas en vez de bolas.' : 'Redonda: bultos que se funden en una sola piel.', 'La redondez de nuestra carta.'],
+      ['Piezas', 'Una masa por cada centro definido (' + c.length + '), un tubo por cada canal (' + (G.canales || []).length + ') y un detalle por cada puerta (' + (G.puertas || []).length + ').', 'Lo que nuestra carta tiene definido.'],
+      ['Peso', peso + '. ' + (W.peso >= 0.6 ? 'Pasos cortos y lentos, con balanceo amplio.' : W.peso < 0.34 ? 'Pasos largos y rápidos, con rebote.' : 'Pasos parejos, con algo de rebote.'), 'Su ancho y su grosor' + (tiene('sacral') ? ', y el centro sacral definido.' : '.')],
+      ['Postura', 'Se inclina ' + Math.round(-W.inclina) + '° hacia adelante.', arriba ? 'Tenemos ' + arriba + (arriba === 1 ? ' centro definido' : ' centros definidos') + ' entre cabeza y garganta: cada uno lo echa hacia adelante.' : 'No tenemos centros definidos en cabeza ni garganta: va casi erguido.'],
+      ['Cojera', W.cojera < 0.12 ? 'No cojea.' : 'Cojea de la pierna ' + (W.pataCoja === 'I' ? 'izquierda' : 'derecha') + '.', tiene('raiz') ? (tiene('plexo') !== tiene('bazo') ? 'La raíz definida lo afirma, pero carga hacia el lado del ' + (tiene('plexo') ? 'plexo' : 'bazo') + ', que no tiene su par.' : 'La raíz definida lo afirma.') : 'Sin raíz definida, cojea.'],
+      ['Ritmo', 'Un paso de cada pie cada ' + dos(W.ritmo) + ' segundos.', 'El ritmo de nuestra carta, más lento cuanto más pesa.']];
+    return h(Sec, { title: 'Personaje' },
+      h(Para, null, 'Nuestra criatura, de cuerpo entero. Tiene huesos, camina, y nada en ella se dibuja a mano: sus medidas, sus piezas y su manera de andar salen de nuestra carta. La misma carta da siempre el mismo personaje.'),
+      R.piezas || R.pelaje ? h('div', { className: 'gen-retratos' },
+        R.piezas ? h('figure', { className: 'gen-fig' }, h('img', { src: R.piezas, loading: 'lazy', alt: 'Personaje de ' + L.nombre + ' hecho de piezas: un cuerpo de arcilla con masas brillantes, tubos, botones y púas en nuestros colores.' }),
+          h('figcaption', { className: 'web-body-s cap' }, 'Con piezas. El cuerpo es de arcilla; encima van masas, placas, tubos y detalles en laca, acrílico y tela.')) : null,
+        R.pelaje ? h('figure', { className: 'gen-fig' }, h('img', { src: R.pelaje, loading: 'lazy', alt: 'Personaje de ' + L.nombre + ' cubierto de pelaje: pelo, plumas y flecos en nuestros colores, a medio paso.' }),
+          h('figcaption', { className: 'web-body-s cap' }, 'Con pelaje. Cada zona del cuerpo lleva el suyo: pelo, rizo, púa, pluma o fleco. Se mueve al caminar.')) : null) : null,
+      h(Tbl, { title: 'Su cuerpo y su andar', columns: [{ key: 'r', label: 'Rasgo' }, { key: 'v', label: 'Cómo es' }, { key: 'o', label: 'De dónde sale' }], rows: filas.map(function (f, i) { return { id: i, r: f[0], v: f[1], o: f[2] }; }) }),
+      h('p', { className: 'web-body-s cap note' }, 'El personaje se arma fuera de esta página: con piezas en Blender y con pelaje, en vivo, en Unity. Los dos leen el mismo archivo, que escribe el comando «npm run genes». Sus materiales con luz todavía no son tokens de ALMA.'));
+  }
+  // The sheets: twelve drawings made only of strokes, ready for a pen plotter. Each is drawn when it nears the
+  // screen, one after another, so the page does not stop to draw them all.
+  function Lamina(p) {
+    var ref = React.useRef(null), st = useState(null), aviso = useState(''), Lm = st[0];
+    React.useEffect(function () {
+      st[1](null);
+      var el = ref.current, t = 0, hecho = false, hacer = function () { if (hecho) return; hecho = true; t = setTimeout(function () { st[1](GEN.lamina(G, p.l.id, { hoja: p.hoja, nombres: GV.nombres })); }, 30 + p.i * 40); };
+      if (!window.IntersectionObserver) { hacer(); return function () { clearTimeout(t); }; }
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); hacer(); } }, { rootMargin: '300px' }); io.observe(el);
+      return function () { io.disconnect(); clearTimeout(t); };
+    }, [p.hoja]);
+    function copiar() { var si = function () { aviso[1]('SVG copiado.'); }, no = function () { aviso[1]('No se pudo copiar aquí.'); }; try { navigator.clipboard.writeText(GEN.laminaSvg(Lm)).then(si, no); } catch (e) { no(); } }
+    var c = Lm && Lm.cuenta, m = function (mm) { return coma(Math.round(mm / 100) / 10); };
+    return h('li', { ref: ref, className: 'gen-lamina' },
+      h('span', { className: 'gen-lamina__hoja' + (Lm ? '' : ' gen-lamina__hoja--espera'), dangerouslySetInnerHTML: Lm ? { __html: GEN.laminaSvg(Lm, { papel: G.pieza.base, nombre: p.l.titulo + ' de ' + L.nombre + ', dibujada solo con líneas.' }) } : undefined }),
+      h('span', { className: 'web-label-l' }, p.l.titulo),
+      h('span', { className: 'web-body-s cap' }, p.l.nota),
+      Lm ? h('span', { className: 'web-body-s cap' }, c.trazos + ' trazos · ' + m(c.tinta) + ' m de tinta · ' + m(c.aire) + ' m en el aire · ' + Lm.capas.length + (Lm.capas.length === 1 ? ' pluma' : ' plumas') + ' · unos ' + Math.max(1, Math.round(c.minutos)) + ' min') : h('span', { className: 'web-body-s cap' }, 'Dibujando…'),
+      h('span', { className: 'gen-row' }, h(A.Button, { variant: 'tinted', iconBefore: 'copy', disabled: !Lm, onClick: copiar }, 'Copiar SVG'), h('span', { className: 'web-body-s cap', role: 'status' }, aviso[0])));
+  }
+  function GenLaminas() {
+    var hoja = useState('A4');
+    return h(Sec, { title: 'Láminas' },
+      h(Para, null, 'Doce dibujos de nuestro mundo hechos solo de trazos, para una pluma: sin rellenos, y sin dibujar lo que otra cosa tapa. Seis muestran nuestro terreno (como malla, en cubos, como ciudad, de frente, como maqueta y como mapa), una nuestra carta, una la dirección de nuestro campo y dos nuestras criaturas.'),
+      h(Para, null, 'Cada lámina sale lista para un plotter: en milímetros, con una capa por pluma y los trazos unidos, simplificados y ordenados para que la pluma viaje poco. El tiempo es una estimación. Con `npm run laminas` se escriben las doce como archivos.'),
+      h('div', { className: 'gen-row' }, h(A.SegmentedControl, { label: 'Hoja', options: Object.keys(GEN.HOJAS), value: hoja[0], onChange: hoja[1] })),
+      h('ul', { className: 'gen-laminas' }, GEN.LAMINAS.map(function (l, i) { return h(Lamina, { key: l.id, l: l, i: i, hoja: hoja[0] }); })));
+  }
   // The relief: the still texture. Two lands as pieces and the same two as grounds, with text on top.
   function GenRelieve() {
     var tema = useTema();
@@ -539,11 +591,11 @@
 
   function Ilustracion() {
     var X = L.ilustracion;
-    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(PERS ? ['Criaturas', 'Colonia'] : [], GV ? ['Relieve', 'Emblemas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
+    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(PERS ? ['Criaturas', 'Colonia'] : [], PERS && L.personaje ? ['Personaje'] : [], GV ? ['Relieve', 'Emblemas', 'Láminas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
       GV ? null : h(A.InlineNotification, { kind: 'callout', status: 'info', title: 'Reglas antes que piezas', message: 'ALMA todavía no tiene ilustraciones. Estas son las reglas que van a seguir cuando existan.' }),
       h(Sec, { title: 'Punto de vista' }, h(Para, null, X.puntoDeVista)),
       h(Sec, { title: 'Estilos' }, X.estilos.map(function (x) { return h(Sub, { key: x.t, title: x.t }, h(Para, null, x.p)); })),
-      PERS ? h(GenCriaturas) : null, PERS ? h(GenColonia) : null, GV ? h(GenRelieve) : null, GV ? h(GenEmblemas) : null, GV ? h(GenCaras) : null,
+      PERS ? h(GenCriaturas) : null, PERS ? h(GenColonia) : null, PERS && L.personaje ? h(GenPersonaje) : null, GV ? h(GenRelieve) : null, GV ? h(GenEmblemas) : null, GV ? h(GenLaminas) : null, GV ? h(GenCaras) : null,
       h(Sec, { title: 'Personas' }, h(Para, null, X.personas)),
       h(Sec, { title: 'Color' }, h(Para, null, X.color)),
       h(Avoid, { items: X.avoid }));

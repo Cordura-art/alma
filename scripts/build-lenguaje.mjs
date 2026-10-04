@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { sistema } from './lib/documentacion.mjs';
 import { genesDe, generadorNavegador } from './lib/generativo.mjs';
+import { personajeParaPagina } from './lib/personaje.mjs';
 
 const read = (p) => readFileSync(p, 'utf8');
 const DIR = 'entidades/lenguajes';
@@ -15,7 +16,7 @@ for (const id of ids) {
   // An entity that declares generative illustration gets its genes and the generator (creatures, colonies, emblems
   // and card faces) for the Ilustración page.
   const gen = !!L.ilustracion.generativa;
-  if (gen) L.genes = genesDe(await sistema(id));
+  if (gen) { L.genes = genesDe(await sistema(id)); L.personaje = personajeParaPagina(id, L.genes); }
   let html = base.replace('<title>Entidades ALMA</title>', `<title>Entidad ${L.nombre}</title>`).replace('</style>', read('site/lenguaje.css') + '</style>');
   // Engine only: the Entidades app exposes window.__ENGINE and returns before rendering.
   html = html.replace('<script>window.__DATA', '<script>window.__ENGINE_ONLY = true;</script>\n<script>window.__DATA');

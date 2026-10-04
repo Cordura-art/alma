@@ -4,6 +4,26 @@
 
 Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detalle de cada cambio está en el historial del repositorio.
 
+### 4 de octubre de 2026
+
+#### Personaje de cada entidad
+
+- **Un personaje de cuerpo entero por entidad.** Sus medidas y su andar salen de la carta y se calculan una sola vez (`entidades/personaje.mjs`): contextura por tipo, medida exacta por fecha de nacimiento, peso, postura y cojera según los centros definidos. `npm run genes -- <id>` los escribe para otros programas.
+- **Con piezas, en Blender** (`blender/personaje.py`): 18 huesos, un cuerpo fundido con geometry nodes, una masa por centro, un tubo por canal, un detalle por puerta (botón, aro o púa), placas, cabello y ojos. Cuatro materiales con luz: arcilla, laca, acrílico y tela, siempre con los colores de la entidad. Una entidad sin redondez es de bloques.
+- **Con pelaje, en vivo, en Unity** (`unity/`): el mismo cuerpo cubierto de pelo, rizo, púa, pluma y fleco, que se mueve al caminar, con luz y sombra. Los tres personajes desfilan de perfil sobre negro, cada uno con su andar, a más de 80 cuadros por segundo.
+- **En el lenguaje de cada entidad**, Ilustración suma «Personaje»: sus dos retratos y una tabla que dice cómo es su cuerpo, cómo camina y de qué parte de la carta sale cada rasgo.
+- Pendiente: los materiales con luz todavía no son tokens de ALMA; el rótulo con nombre y número de cada personaje; los andares nuevos (postura, peso, cojera) solo están en Unity.
+
+### 3 de octubre de 2026
+
+- **Láminas para plotter.** Cada entidad tiene ahora doce dibujos de su mundo hechos solo de trazos, para una pluma: sin rellenos, y sin dibujar lo que otra cosa tapa. Seis muestran su terreno (como malla densa, en cubos, como ciudad de torres, de frente, como maqueta y como mapa de curvas de nivel), tres lo recorren hacia el horizonte (filas, surcos y malla), una es su carta en cajas con lo oculto punteado, una la dirección de su campo como remolino, y dos sus criaturas (en línea y cubiertas de anillos). Salen listas para un plotter: en milímetros, en A4 o A3, con una capa por pluma y los trazos unidos, simplificados y ordenados para que la pluma viaje poco. `npm run laminas -- <id>` las escribe como archivos (con `--vpype`, vpype las repasa y deja la pluma viajando menos todavía), y están en la página Ilustración de cada lenguaje, con un botón para copiar el SVG. La técnica de las líneas ocultas sigue la idea de fogleman/ln, y el preparado, la de vpype; no se usa código de ninguno.
+
+#### Puente a Blender
+
+- `npm run genes -- <id>` escribe `build/blender/<id>.json`: los genes de la entidad y sus criaturas ya resueltas (cuerpos, ojos, anillos, colores), para que otro programa dibuje las mismas sin conocer la carta.
+- `blender/criatura.py` lee ese archivo y arma la criatura en Blender, sin ventana, con la misma cámara que la página y los colores exactos de los tokens (sin luz ni sombra). Con `--fundida` los dos cuerpos pasan a ser una sola piel; con `--giro` la cámara rodea a la criatura.
+- Comparada con la página punto por punto: mismos colores y misma silueta. La diferencia que queda es el contorno, que la página traza por fuera de los cuerpos llenos.
+
 ### 2 de octubre de 2026
 
 - **Criaturas con volumen.** Las criaturas de una entidad ahora también existen con cuerpo: las mismas dos formas redondas y los dos ojos, dibujadas con líneas y vistas desde una cámara que se mece. El mismo nombre da la misma criatura, plana o con volumen, y de frente las dos coinciden. Llevan anillos (uno de los números de la entidad) y van llenas o en línea como sus emblemas. Están en la página Ilustración de cada lenguaje, con su control de pausa; como avatar se sigue usando la plana (`entidades/volumen.mjs`). La idea de dibujar volumen solo con líneas viene de fogleman/ln; no se usa su código.

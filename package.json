@@ -28,6 +28,8 @@
     "entidad": "node scripts/entidad.mjs",
     "entidad:nueva": "node scripts/nueva-entidad.mjs",
     "sistemas": "node scripts/build-selector.mjs",
+    "laminas": "node scripts/laminas.mjs",
+    "genes": "node scripts/genes.mjs",
     "documentacion": "node scripts/build-site.mjs --entidad",
     "documentacion:imagenes": "node scripts/build-images.mjs --entidad",
     "ejemplo": "node ejemplos/ensayo-cafe/build.mjs",

@@ -40,6 +40,11 @@ npm run entidades   # arma build/entidades-alma.html: crear entidades y ver ALMA
 npm run lenguaje    # arma también build/lenguaje-<id>.html: el lenguaje de diseño de cada entidad en entidades/lenguajes/
 npm run entidad:nueva -- --nombre Ensayo --fecha 2026-10-01 --hora 12:00 --zona America/Santiago   # entidad nueva: escribe el borrador de su lenguaje desde su fecha
 npm run entidad -- automata    # todo lo de una entidad en un paso: lenguaje, documentación (build/documentacion-automata/), pruebas, capturas para revisar y la página que se publica
+npm run laminas -- ensayo # escribe build/laminas-ensayo/: doce dibujos de la entidad hechos solo de trazos, listos para plotter (--hoja A3, --una-pluma; con --vpype los repasa vpype, si está instalado)
+npm run genes -- ensayo   # escribe build/blender/ensayo.json: los genes y las criaturas de la entidad para otros programas; Blender los dibuja con `blender --background --factory-startup --python blender/criatura.py -- build/blender/ensayo.json criatura.png` (--nombre, --giro, --lado, --fundida)
+# El personaje de una entidad: con piezas en Blender → `blender --background --factory-startup --python blender/personaje.py -- salida.png build/blender/ensayo.json [--tema dark] [--camina --video paso.mp4]`;
+# con pelaje, en vivo, en Unity → abrir `unity/` con Unity 6.3 y pulsar Play (lee `unity/Assets/StreamingAssets/genes/`, que `npm run genes` también escribe).
+# Sus retratos para el sitio van en `entidades/retratos/<id>-piezas.jpg` y `<id>-pelaje.jpg`.
 npm run sistemas          # arma build/documentacion-sistemas/: ALMA y sus entidades en un solo sitio, con su documentación y su lenguaje de diseño
 npm run ejemplo           # arma build/ejemplos/ensayo-cafe.html: un landing hecho con la Entidad Ensayo
 npm run buscar-fecha -- --anios 1911,1924 --zona America/New_York --tipo proyector --perfil 1/3 --centros cabeza,ajna,garganta --color '#0F62FE'   # fechas cuya carta da esa entidad

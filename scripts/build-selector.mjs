@@ -14,6 +14,7 @@ import { join } from 'node:path';
 import { datos, motor } from './lib/entidades.mjs';
 import { sistema } from './lib/documentacion.mjs';
 import { genesDe, generadorNavegador } from './lib/generativo.mjs';
+import { personajeParaPagina } from './lib/personaje.mjs';
 import { delta, aplicarDelta } from './lib/delta.mjs';
 
 const read = (p) => readFileSync(p, 'utf8');
@@ -65,7 +66,7 @@ for (const id of ids) {
   styles.push(`<style data-sistema="${id}" media="not all">\n${read(join(tmp, id, `entidad-${id}.css`))}</style>`);
   sistemas.push({ id, nombre: `Entidad ${L.nombre}` });
   // Generative illustration: the entity's genes travel with its language (see build-lenguaje.mjs).
-  if (L.ilustracion.generativa) L.genes = genesDe(await sistema(id));
+  if (L.ilustracion.generativa) { L.genes = genesDe(await sistema(id)); L.personaje = personajeParaPagina(id, L.genes); }
   lenguajes[id] = L;
 }
 // The language template and what it runs on: the chart engine, the token data and Entidades ALMA in engine-only mode.
