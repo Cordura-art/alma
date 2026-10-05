@@ -163,6 +163,11 @@
  },
  "personaje": {
   "numero": "68247246",
+  "piel": {
+   "id": "punto",
+   "arriba": 0,
+   "abajo": 4
+  },
   "medidas": {
    "alto": 1.1393,
    "ancho": 0.9383,
@@ -192,6 +197,28 @@
    "ritmo": 1.2224,
    "pataCoja": "D"
   }
+ },
+ "patron": {
+  "modos": [
+   {
+    "n": 4,
+    "m": 5,
+    "a": 1,
+    "s": -1
+   },
+   {
+    "n": 5,
+    "m": 6,
+    "a": 0.467,
+    "s": -1
+   },
+   {
+    "n": 6,
+    "m": 4,
+    "a": 0.165,
+    "s": -1
+   }
+  ]
  },
  "materiales": {
   "arcilla": {

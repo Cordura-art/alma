@@ -39,4 +39,10 @@ export function andarDe(G, M) {
 }
 // Its number: eight digits that are its own, from its date of birth. It goes with its name wherever the character is shown.
 export function numeroDe(G) { return String(hash(G.semilla + '|numero') % 100000000).padStart(8, '0'); }
-export function personajeDe(G) { const medidas = medidasDe(G); return { numero: numeroDe(G), medidas, andar: andarDe(G, medidas) }; }
+// Its skin: the one material its character wears, chosen by where the weight of its chart is. Most of its defined
+// centers in the head and throat: blown vinyl. Most in the body: a chunky knit. Half and half: ribbed cloth.
+export function pielDe(G) {
+  const c = G.centros || [], arriba = c.filter((x) => ['cabeza', 'ajna', 'garganta'].includes(x)).length, abajo = c.length - arriba;
+  return { id: arriba > abajo ? 'vinilo' : abajo > arriba ? 'punto' : 'pana', arriba, abajo };
+}
+export function personajeDe(G) { const medidas = medidasDe(G); return { numero: numeroDe(G), piel: pielDe(G), medidas, andar: andarDe(G, medidas) }; }

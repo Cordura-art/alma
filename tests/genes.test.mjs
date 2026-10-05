@@ -37,6 +37,7 @@ test('el personaje de una entidad tiene las mismas medidas y el mismo andar cada
     assert.ok(a.peso >= 0 && a.peso <= 1 && a.cojera >= 0 && a.cojera <= 0.7 && a.inclina < 0 && a.paso > 15 && a.ritmo > 0.3);
     assert.ok(['I', 'D'].includes(a.pataCoja));
     assert.match(D.personaje.numero, /^\d{8}$/, 'su número: ocho cifras');
+    assert.ok(['vinilo', 'punto', 'pana'].includes(D.personaje.piel.id), 'su piel');
   }
   assert.ok(C.personaje.andar.cojera > A.personaje.andar.cojera * 0 && C.personaje.andar.cojera >= 0.25, 'sin raíz definida, cojea');
 });
@@ -52,4 +53,17 @@ test('los materiales y el pelaje que viajan con los genes son los tokens de ALMA
   const py = readFileSync('blender/personaje.py', 'utf8'), cs = readFileSync('unity/Assets/ALMA/Genes.cs', 'utf8');
   for (const k of ['aspereza', 'capa', 'luzInterior', 'brilloDeBorde', 'pasoDeLuz', 'relieve']) assert.ok(py.includes("'" + k + "'"), 'Blender lee ' + k);
   for (const k of ['largoMin', 'largoMax', 'caida', 'firmeza', 'grosor', 'densidad', 'radio']) assert.ok(cs.includes(k), 'Unity lee ' + k);
+});
+
+test('el patrón de una entidad sale de sus números y es siempre el mismo', async () => {
+  const { patronDe, patron } = await import('../entidades/patron.mjs');
+  const A = await genesParaFuera('ensayo'), B = await genesParaFuera('cordura');
+  assert.deepEqual(A.patron, patronDe(A.genes));
+  assert.notDeepEqual(A.patron, B.patron);
+  for (const D of [A, B]) {
+    assert.ok(D.patron.modos.length >= 1 && D.patron.modos.length <= 3);
+    for (const m of D.patron.modos) { assert.ok(D.genes.numeros.includes(m.n) && D.genes.numeros.includes(m.m) && m.n !== m.m, 'sus modos usan sus números'); assert.ok(m.a > 0 && Math.abs(m.s) === 1); }
+    let mas = 0, menos = 0; for (let i = 0; i < 400; i++) { const v = patron(D.patron, (i % 20 + 0.5) / 20, (Math.floor(i / 20) + 0.5) / 20); if (v > 0) mas++; else menos++; }
+    assert.ok(mas > 60 && menos > 60, 'tiene de los dos lados');
+  }
 });

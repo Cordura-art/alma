@@ -4,6 +4,16 @@
 
 Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detalle de cada cambio está en el historial del repositorio.
 
+### 5 de octubre de 2026
+
+#### Patrón, materia y piel
+
+- **Un patrón propio por entidad.** Una figura de Chladni (la que traza la arena sobre una placa que vibra) hecha con los números de su carta (`entidades/patron.mjs`). Pesa unas pocas cifras, viaja con los genes y se dibuja en vivo en la página.
+- **El patrón decide la materia.** Cuatro probetas por entidad (`blender/probetas.py`): tejido de dos hilos, dos capas con la de arriba recortada, resina que crece sobre sus líneas y goma con surcos. Dos colores de la entidad y no más.
+- **Una piel por personaje.** El personaje ya no muestra su cuerpo: lo viste una nube de almohadas de tela simulada, que se inflan, se aprietan y se fruncen entre sí (`blender/piloto.py`). Hay una almohada por cada centro definido; las más grandes llevan el patrón. La piel sale de dónde pesa la carta (`pielDe`): vinilo inflado, tejido de punto grueso o tela acanalada. Abajo asoman piernas y zapatos, distintos para cada piel, en un instante de su propia caminata.
+- En el lenguaje de cada entidad, Ilustración suma «Patrón y materia», y Personaje muestra el retrato con su piel.
+- Pendiente: estas imágenes tardan de 6 a 8 minutos cada una y todavía no hay video con esta piel; el personaje de piezas de arcilla y laca queda como etapa anterior.
+
 ### 4 de octubre de 2026
 
 #### Personaje de cada entidad

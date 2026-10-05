@@ -158,6 +158,11 @@
  },
  "personaje": {
   "numero": "99420263",
+  "piel": {
+   "id": "vinilo",
+   "arriba": 3,
+   "abajo": 0
+  },
   "medidas": {
    "alto": 1.1216,
    "ancho": 0.977,
@@ -187,6 +192,28 @@
    "ritmo": 1.3412,
    "pataCoja": "D"
   }
+ },
+ "patron": {
+  "modos": [
+   {
+    "n": 3,
+    "m": 4,
+    "a": 1,
+    "s": 1
+   },
+   {
+    "n": 4,
+    "m": 5,
+    "a": 0.312,
+    "s": 1
+   },
+   {
+    "n": 5,
+    "m": 3,
+    "a": 0.218,
+    "s": 1
+   }
+  ]
  },
  "materiales": {
   "arcilla": {

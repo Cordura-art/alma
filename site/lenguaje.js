@@ -409,11 +409,13 @@
     var K = L.personaje, M = K.medidas, W = K.andar, R = K.retratos || {}, c = G.centros || [];
     var tiene = function (x) { return c.indexOf(x) >= 0; }, dos = function (v) { return String(Math.round(v * 100) / 100).replace('.', ','); }, veces = function (v) { return dos(v) + ' veces'; };
     var NOMBRE = { arcilla: 'Arcilla', laca: 'Laca', acrilico: 'Acrílico', tela: 'Tela', pelo: 'Pelo', rizo: 'Rizo', pua: 'Púa', pluma: 'Pluma', fleco: 'Fleco' };
+    var PIEL = { vinilo: ['vinilo inflado', 'La mayoría de nuestros centros definidos está en la cabeza y la garganta.'], punto: ['tejido de punto grueso', 'La mayoría de nuestros centros definidos está en el cuerpo.'], pana: ['tela acanalada', 'Nuestros centros definidos se reparten por igual entre la cabeza y el cuerpo.'] };
     var peso = W.peso < 0.34 ? 'Liviano' : W.peso < 0.6 ? 'Medio' : 'Pesado', arriba = ['cabeza', 'ajna', 'garganta'].filter(tiene).length;
     var filas = [
       ['Contextura', G.tipo.charAt(0).toUpperCase() + G.tipo.slice(1) + ': ' + veces(M.alto) + ' el alto, ' + veces(M.ancho) + ' el ancho y ' + veces(M.miembro) + ' el grosor de brazos y piernas de un personaje llano.', 'Nuestro tipo da la contextura; nuestra fecha de nacimiento, la medida exacta.'],
       ['Forma', M.anguloso ? 'De bloques: cajas en vez de bolas.' : 'Redonda: bultos que se funden en una sola piel.', 'La redondez de nuestra carta.'],
       ['Piezas', 'Una masa por cada centro definido (' + c.length + '), un tubo por cada canal (' + (G.canales || []).length + ') y un detalle por cada puerta (' + (G.puertas || []).length + ').', 'Lo que nuestra carta tiene definido.'],
+      ['Piel', K.piel ? PIEL[K.piel.id][0].charAt(0).toUpperCase() + PIEL[K.piel.id][0].slice(1) + '.' : '', K.piel ? PIEL[K.piel.id][1] : ''],
       ['Peso', peso + '. ' + (W.peso >= 0.6 ? 'Pasos cortos y lentos, con balanceo amplio.' : W.peso < 0.34 ? 'Pasos largos y rápidos, con rebote.' : 'Pasos parejos, con algo de rebote.'), 'Su ancho y su grosor' + (tiene('sacral') ? ', y el centro sacral definido.' : '.')],
       ['Postura', 'Se inclina ' + Math.round(-W.inclina) + '° hacia adelante.', arriba ? 'Tenemos ' + arriba + (arriba === 1 ? ' centro definido' : ' centros definidos') + ' entre cabeza y garganta: cada uno lo echa hacia adelante.' : 'No tenemos centros definidos en cabeza ni garganta: va casi erguido.'],
       ['Cojera', W.cojera < 0.12 ? 'No cojea.' : 'Cojea de la pierna ' + (W.pataCoja === 'I' ? 'izquierda' : 'derecha') + '.', tiene('raiz') ? (tiene('plexo') !== tiene('bazo') ? 'La raíz definida lo afirma, pero carga hacia el lado del ' + (tiene('plexo') ? 'plexo' : 'bazo') + ', que no tiene su par.' : 'La raíz definida lo afirma.') : 'Sin raíz definida, cojea.'],
@@ -421,9 +423,9 @@
       ['Ritmo', 'Un paso de cada pie cada ' + dos(W.ritmo) + ' segundos.', 'El ritmo de nuestra carta, más lento cuanto más pesa.']];
     return h(Sec, { title: 'Personaje' },
       h(Para, null, 'Nuestra criatura, de cuerpo entero. Tiene huesos, camina, y nada en ella se dibuja a mano: sus medidas, sus piezas y su manera de andar salen de nuestra carta. La misma carta da siempre el mismo personaje.'),
-      R.piezas || R.pelaje ? h('div', { className: 'gen-retratos' },
-        R.piezas ? h('figure', { className: 'gen-fig' }, h('img', { src: R.piezas, loading: 'lazy', alt: 'Personaje de ' + L.nombre + ' hecho de piezas: un cuerpo de arcilla con masas brillantes, tubos, botones y púas en nuestros colores.' }),
-          h('figcaption', { className: 'web-body-s cap' }, 'Con piezas. El cuerpo es de arcilla; encima van masas, placas, tubos y detalles en laca, acrílico y tela.')) : null,
+      R.piel || R.pelaje ? h('div', { className: 'gen-retratos' },
+        R.piel ? h('figure', { className: 'gen-fig' }, h('img', { src: R.piel, loading: 'lazy', alt: 'Personaje de ' + L.nombre + ' a mitad de un paso: una nube de almohadas infladas de ' + PIEL[K.piel.id][0] + ', en nuestros colores, que tapa su cuerpo; abajo asoman sus piernas y sus zapatos.' }),
+          h('figcaption', { className: 'web-body-s cap' }, 'Con su piel. Su cuerpo no se ve: lo viste una nube de almohadas de ' + PIEL[K.piel.id][0] + ', una por cada centro definido de nuestra carta. Las más grandes llevan nuestro patrón.')) : null,
         R.pelaje ? h('figure', { className: 'gen-fig' }, h('img', { src: R.pelaje, loading: 'lazy', alt: 'Personaje de ' + L.nombre + ' cubierto de pelaje: pelo, plumas y flecos en nuestros colores, a medio paso.' }),
           h('figcaption', { className: 'web-body-s cap' }, 'Con pelaje. Cada zona del cuerpo lleva el suyo: pelo, rizo, púa, pluma o fleco. Se mueve al caminar.')) : null) : null,
       window.__DESFILE ? h('figure', { className: 'gen-fig gen-video' },
@@ -433,6 +435,32 @@
       K.materiales ? h(Tbl, { title: 'Sus materiales', columns: [{ key: 'm', label: 'Material' }, { key: 'd', label: 'Cómo es y dónde va' }], rows: Object.keys(K.materiales).map(function (k, i) { return { id: i, m: NOMBRE[k] || k, d: K.materiales[k] }; }) }) : null,
       K.pelajes ? h(Tbl, { title: 'Su pelaje', columns: [{ key: 'm', label: 'Clase' }, { key: 'd', label: 'Cómo es' }], rows: Object.keys(K.pelajes).map(function (k, i) { return { id: i, m: NOMBRE[k] || k, d: K.pelajes[k] }; }) }) : null,
       h('p', { className: 'web-body-s cap note' }, 'El personaje se arma fuera de esta página: con piezas en Blender y con pelaje, en vivo, en Unity. Los dos leen el mismo archivo, que escribe el comando «npm run genes». Los materiales y las clases de pelaje son tokens de ALMA (familias material y pelaje): el color siempre es nuestro; el material solo dice cómo recibe la luz.'));
+  }
+  // The pattern: the entity's own drawing, made with its numbers, that decides its materials. It is drawn here, live,
+  // from the same few numbers Blender reads; the samples under it are pictures made there.
+  function Patron(p) {
+    var ref = React.useRef(null);
+    React.useEffect(function () {
+      var cv = ref.current; if (!cv) return; var n = 280; cv.width = cv.height = n; var ctx = cv.getContext('2d'), im = ctx.createImageData(n, n), d = im.data;
+      var rgb = function (hex) { return [1, 3, 5].map(function (i) { return parseInt(hex.slice(i, i + 2), 16); }); }, a = rgb(p.uno), b = rgb(p.dos);
+      for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) { var c = GEN.patron(p.patron, (x + 0.5) / n * p.zoom, (1 - (y + 0.5) / n) * p.zoom) > 0 ? a : b, k = (y * n + x) * 4; d[k] = c[0]; d[k + 1] = c[1]; d[k + 2] = c[2]; d[k + 3] = 255; }
+      ctx.putImageData(im, 0, 0);
+    }, [p.zoom]);
+    return h('canvas', { ref: ref, className: 'gen-patron__tela', role: 'img', 'aria-label': p.label });
+  }
+  function GenMateria() {
+    var K = L.personaje, P = K.patron, R = K.retratos || {}, zoom = useState('Cerca');
+    var modos = P.modos.map(function (m) { return m.n + ' y ' + m.m; }), lista = modos.length > 1 ? modos.slice(0, -1).join(', ') + ' y luego ' + modos[modos.length - 1] : modos[0];
+    return h(Sec, { title: 'Patrón y materia' },
+      h(Para, null, 'Tenemos un dibujo propio que decide de qué estamos hechos. Es la figura que traza la arena sobre una placa que vibra, y la nuestra se hace con nuestros números: ' + lista + '. Cabe en unas pocas cifras y da siempre el mismo dibujo.'),
+      h(Para, null, 'El patrón no se pinta encima de un material: lo decide. En un tejido dice qué hilo va en cada puntada; en dos capas, dónde se abre la de arriba; en una resina, por dónde crece; en una goma, cómo corren sus surcos. Siempre con dos de nuestros colores y no más.'),
+      h('div', { className: 'gen-patron' },
+        h('figure', { className: 'gen-fig' },
+          h(Patron, { patron: P, uno: G.pieza.barras[1], dos: G.pieza.barras[2], zoom: zoom[0] === 'Cerca' ? 0.62 : 1, label: 'Patrón de ' + L.nombre + ': manchas curvas de dos colores, hechas con sus números.' }),
+          h('figcaption', { className: 'web-body-s cap' }, 'Nuestro patrón, dibujado aquí mismo. De cerca es como va en una muestra; entero es la figura completa.')),
+        h(A.SegmentedControl, { label: 'Vista', options: ['Cerca', 'Entero'], value: zoom[0], onChange: zoom[1] })),
+      R.probetas ? h('figure', { className: 'gen-fig gen-probetas' }, h('img', { src: R.probetas, loading: 'lazy', alt: 'Cuatro muestras de material de ' + L.nombre + ' cortadas por su patrón: un tejido de dos hilos, dos capas con la de arriba recortada, una resina que crece sobre sus líneas y una goma con surcos.' }),
+        h('figcaption', { className: 'web-body-s cap' }, 'Cuatro muestras cortadas por el mismo patrón: tejido, recorte, resina y goma.')) : null);
   }
   // The sheets: twelve drawings made only of strokes, ready for a pen plotter. Each is drawn when it nears the
   // screen, one after another, so the page does not stop to draw them all.
@@ -598,11 +626,11 @@
 
   function Ilustracion() {
     var X = L.ilustracion;
-    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(PERS ? ['Criaturas', 'Colonia'] : [], PERS && L.personaje ? ['Personaje'] : [], GV ? ['Relieve', 'Emblemas', 'Láminas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
+    return h('div', { className: 'page' }, h(Head, { id: 'ilustracion', lede: X.lede, index: ['Punto de vista', 'Estilos'].concat(PERS ? ['Criaturas', 'Colonia'] : [], PERS && L.personaje ? ['Personaje', 'Patrón y materia'] : [], GV ? ['Relieve', 'Emblemas', 'Láminas', 'Caras de tarjeta'] : [], ['Personas', 'Color']) }),
       GV ? null : h(A.InlineNotification, { kind: 'callout', status: 'info', title: 'Reglas antes que piezas', message: 'ALMA todavía no tiene ilustraciones. Estas son las reglas que van a seguir cuando existan.' }),
       h(Sec, { title: 'Punto de vista' }, h(Para, null, X.puntoDeVista)),
       h(Sec, { title: 'Estilos' }, X.estilos.map(function (x) { return h(Sub, { key: x.t, title: x.t }, h(Para, null, x.p)); })),
-      PERS ? h(GenCriaturas) : null, PERS ? h(GenColonia) : null, PERS && L.personaje ? h(GenPersonaje) : null, GV ? h(GenRelieve) : null, GV ? h(GenEmblemas) : null, GV ? h(GenLaminas) : null, GV ? h(GenCaras) : null,
+      PERS ? h(GenCriaturas) : null, PERS ? h(GenColonia) : null, PERS && L.personaje ? h(GenPersonaje) : null, PERS && L.personaje && L.personaje.patron ? h(GenMateria) : null, GV ? h(GenRelieve) : null, GV ? h(GenEmblemas) : null, GV ? h(GenLaminas) : null, GV ? h(GenCaras) : null,
       h(Sec, { title: 'Personas' }, h(Para, null, X.personas)),
       h(Sec, { title: 'Color' }, h(Para, null, X.color)),
       h(Avoid, { items: X.avoid }));
