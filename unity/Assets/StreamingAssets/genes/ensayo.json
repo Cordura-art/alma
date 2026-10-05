@@ -175,6 +175,10 @@
    "mano": 0.9868,
    "pie": 1.2277,
    "hombros": 1.1554,
+   "brazo": 1.3353,
+   "antebrazo": 1.2372,
+   "muslo": 0.9787,
+   "pierna": 1.7442,
    "anguloso": false
   },
   "andar": {

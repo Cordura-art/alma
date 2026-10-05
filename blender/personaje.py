@@ -97,21 +97,28 @@ def esqueleto(nombre, J, donde):
 
 # ---------- 2. Lumps, by piece: {piece: [(place, radius, bone)]}.
 def bultos(G, J, C):
-    R = random.Random(G['semilla'] + '|bultos'); numeros = G.get('numeros') or [4]; P = {'cuerpo': []}; B = P['cuerpo']
+    R = random.Random(G['semilla'] + '|bultos'); numeros = G.get('numeros') or [4]; P = {'cuerpo': []}; B = P['cuerpo']; TODO = []
     a, m = C['ancho'], C['miembro']
-    def tramo(hueso, r0, r1, panza=0.0):
-        # Close lumps along a bone, so they read as one limb and not as a string of beads; it swells in the middle.
-        p0, p1 = J[HUESOS[hueso][0]], J[HUESOS[hueso][1]]; n = max(3, math.ceil((p1 - p0).length / (0.3 * min(r0, r1))))
+    def tramo(hueso, r0, r1, panza=0.0, suelto=False):
+        # Close lumps along a bone, so they read as one limb and not as a string of beads. In the trunk they swell in
+        # the middle and melt into each other. A stretch of arm or leg is a piece of its own (`suelto`): fat in the
+        # middle and narrow at its two ends, so that it meets the next one at a joint, like a jointed toy.
+        p0, p1 = J[HUESOS[hueso][0]], J[HUESOS[hueso][1]]; n = max(3, math.ceil((p1 - p0).length / (0.3 * min(r0, r1)))); L = P.setdefault('miembro-' + hueso, []) if suelto else B
+        g = C.get(hueso.split('.')[0], 1.0) if suelto else 1.0
         for i in range(n + 1):
-            t = i / n; r = (r0 + r1) / 2 if C['anguloso'] else mezcla(r0, r1, t) * (1 + panza * C['panza'] * math.sin(math.pi * t) ** 2)     # blocks: one clean bar per bone
-            B.append((p0.lerp(p1, t), r, hueso))
+            t = i / n
+            if C['anguloso']: r = (r0 + r1) / 2 * g                                                     # blocks: one clean bar per bone
+            elif suelto: r = mezcla(r0, r1, t) * g * (0.62 + (0.38 + panza * C['panza']) * math.sin(math.pi * t) ** 0.8)
+            else: r = mezcla(r0, r1, t) * (1 + panza * C['panza'] * math.sin(math.pi * t) ** 2)
+            L.append((p0.lerp(p1, t), r, hueso)); TODO.append((p0.lerp(p1, t), r, hueso))
     cintura = 0.092 * a if G.get('grupos', 1) == 1 else 0.066 * a        # two groups: a waist between chest and hips
     tramo('cadera', 0.105 * a, cintura); tramo('columna', cintura, 0.1 * a); tramo('pecho', 0.112 * a * C['hombros'], 0.07 * a, 0.15)
-    B.append((J['cuello'].lerp(J['coronilla'], 0.58), 0.108 * C['cabeza'], 'cabeza')); B.append((J['cuello'].lerp(J['coronilla'], 0.1), 0.05, 'cabeza'))
+    for x in ((J['cuello'].lerp(J['coronilla'], 0.58), 0.108 * C['cabeza'], 'cabeza'), (J['cuello'].lerp(J['coronilla'], 0.1), 0.05, 'cabeza')): B.append(x); TODO.append(x)
     for L in ('I', 'D'):
-        tramo('hombro.' + L, 0.058 * m, 0.056 * m); tramo('brazo.' + L, 0.044 * m, 0.04 * m, 0.35); tramo('antebrazo.' + L, 0.036 * m, 0.04 * m, 0.6)
-        B.append((J['dedos.' + L], 0.045 * m * C['mano'], 'mano.' + L))
-        tramo('muslo.' + L, 0.07 * m, 0.05 * m, 0.4); tramo('pierna.' + L, 0.044 * m, 0.05 * m, 0.75); tramo('pie.' + L, 0.05 * m * C['pie'], 0.046 * m * C['pie'])
+        tramo('hombro.' + L, 0.058 * m, 0.056 * m); tramo('brazo.' + L, 0.05 * m, 0.046 * m, 0.35, True); tramo('antebrazo.' + L, 0.042 * m, 0.046 * m, 0.6, True)
+        mano = (J['dedos.' + L], 0.045 * m * C['mano'], 'mano.' + L); P['miembro-mano.' + L] = [mano]; TODO.append(mano)
+        tramo('muslo.' + L, 0.078 * m, 0.058 * m, 0.4, True); tramo('pierna.' + L, 0.05 * m, 0.056 * m, 0.75, True)
+        pie = [(J['tobillo.' + L].lerp(J['punta.' + L], t), mezcla(0.05, 0.046, t) * m * C['pie'], 'pie.' + L) for t in (0, 0.25, 0.5, 0.75, 1)]; P['miembro-pie.' + L] = pie; TODO.extend(pie)
     en = lambda p: Vector((p[0] * a, p[1] * a, altura(C, p[2])))
     def fuera(p, cuanto):
         # Push a point of the trunk out to `cuanto` from its upright axis, toward where it already leans (the front, if nowhere).
@@ -130,7 +137,7 @@ def bultos(G, J, C):
         p0, p1 = en(CENTROS[c0][0]), en(CENTROS[c1][0]); n = max(8, math.ceil((p0 - p1).length / 0.008)); lado = (0.02 if k % 2 else -0.02) * (1 + k // 2)
         lado *= 2.2; P['canal-%d' % k] = [(fuera(p0.lerp(p1, i / n) + Vector((lado, 0, 0)), 0.125 * a * (1 + 0.55 * math.sin(math.pi * i / n))), 0.028, CENTROS[c0][1] if i < n / 2 else CENTROS[c1][1]) for i in range(n + 1)]
     # A button for each gate, on the surface of a lump of the body; the gate says where, its line says how big.
-    cuerpo = list(B); P['puertas'] = []; DETALLES = P['_detalles'] = []
+    cuerpo = list(TODO); P['puertas'] = []; DETALLES = P['_detalles'] = []
     # Two eyes on the front of the head.
     cc, cr = J['cuello'].lerp(J['coronilla'], 0.58), 0.108 * C['cabeza'] * (0.85 if C['anguloso'] else 1.0)
     P['ojos'] = [(cc + Vector((sx * cr * 0.42, -cr * (1.0 if C['anguloso'] else 0.88), -cr * 0.22)), 0.02 * C['cabeza'], 'cabeza') for sx in (-1, 1)]
@@ -341,8 +348,9 @@ def materiales(G):
     a = (G.get('autoridad') or '').lower(); manda, sigue = next((v for k, v in MATERIAL_DE.items() if a.startswith(k)), ('arcilla', 'laca')); T = G['pieza']; b = T['barras']; i = G['id']
     if ARCILLA:
         g, c = material(i + ' arcilla', 'arcilla', b[4]), material(i + ' arcilla clara', 'arcilla', T['tinta'])
-        return {'cuerpo': g, 'coraza': c, 'centro': [c], 'canal': g, 'puertas': c, 'cabello': c, 'ojos': g}, ('arcilla', 'arcilla')
-    return {'cuerpo': material(i + ' cuerpo', 'arcilla', b[1], b[0]), 'coraza': material(i + ' coraza', manda, b[0]),
+        return {'cuerpo': g, 'miembro': [g, c], 'coraza': c, 'centro': [c], 'canal': g, 'puertas': c, 'cabello': c, 'ojos': g}, ('arcilla', 'arcilla')
+    # The pieces of arm and leg take turns: the one nearer the trunk in the body's color, the next one in its lighter one.
+    return {'cuerpo': material(i + ' cuerpo', 'arcilla', b[1], b[0]), 'miembro': [material(i + ' miembro a', 'arcilla', b[1]), material(i + ' miembro b', 'arcilla', b[0])], 'coraza': material(i + ' coraza', manda, b[0]),
             'cabello': material(i + ' cabello', 'laca', T['acento']), 'ojos': material(i + ' ojos', 'laca', T['base']),
             'centro': [material(i + ' centro a', sigue, b[2]), material(i + ' centro b', sigue, b[3])],
             'canal': material(i + ' canal', 'acrilico', T['acento']), 'puertas': material(i + ' puertas', 'laca', T['tinta'])}, (manda, sigue)
@@ -370,10 +378,11 @@ for i, D in enumerate(DATOS):
     if V: malla_de(D['id'] + '-detalles', V, F, de, h, M['puertas'])
     for nombre, B in P.items():
         if not B: continue
-        clase = nombre.split('-')[0]; cubos = C['anguloso'] and clase in ('cuerpo', 'coraza', 'centro', 'ojos')
+        clase = nombre.split('-')[0]; cubos = C['anguloso'] and clase in ('cuerpo', 'miembro', 'coraza', 'centro', 'ojos')
         o = pieza_de(D['id'] + '-' + nombre, B, h, giros, cubos); m = o.modifiers.new('piel', 'NODES'); m.node_group = GRUPOS[cubos]
-        fusion, suave = {'cuerpo': (int(round(3 + 6 * red)), 3), 'coraza': (int(round(2 + 5 * red)), 3), 'centro': (int(round(1 + 4 * red)), 2), 'canal': (0, 2), 'puertas': (0, 1), 'ojos': (0, 1)}[clase]
+        fusion, suave = {'cuerpo': (int(round(3 + 6 * red)), 3), 'miembro': (int(round(2 + 5 * red)), 3), 'coraza': (int(round(2 + 5 * red)), 3), 'centro': (int(round(1 + 4 * red)), 2), 'canal': (0, 2), 'puertas': (0, 1), 'ojos': (0, 1)}[clase]
         mat = M[clase]
+        if clase == 'miembro': mat = mat[0 if nombre.split('-')[1].split('.')[0] in ('brazo', 'muslo', 'mano', 'pie') else 1]
         if clase == 'centro': mat = mat[centros % len(mat)]; centros += 1
         con(m, 'Fusión', 1 if cubos else fusion); con(m, 'Suavidad', 1 if cubos else suave); con(m, 'Material', mat)
     print(f"ALMA: {D['nombre']}: {len(P)} piezas ({', '.join(sorted(k for k in P if P[k]))}) · {'bloques' if C['anguloso'] else 'bolas'} · manda {manda}, sigue {sigue}")
@@ -383,24 +392,36 @@ for i, D in enumerate(DATOS):
 from mathutils import Quaternion
 FPS = 24
 def caminata(h, G, C, cuadros):
-    A = G['andar']; N = max(12, round(FPS * A['ritmo'])); desfase = A['desfase']
-    paso, brazos, rodilla = math.radians(A['paso']), math.radians(A['brazos']), math.radians(A['rodilla'])
+    # The walk ALMA worked out for this entity (entidades/personaje.mjs), the same one Unity plays:
+    #   weight   a heavy one rolls from side to side and sinks into each step; a light one bounces.
+    #   posture  it leans forward from the waist, more at the chest; the head lifts back a little to look ahead.
+    #   limp     the lame leg takes a short step and the body hurries off it, dipping to that side.
+    A = G['andar']; N = max(12, round(FPS * A['ritmo'])); g = math.radians
+    paso, brazos, rodilla, peso, cojera, lean = g(A['paso']), g(A['brazos']), g(A['rodilla']), A.get('peso', 0.4), A.get('cojera', 0.0), g(-A.get('inclina', -5))
+    coja = 0.0 if A.get('pataCoja', 'I') == 'I' else math.pi; signo = 1.0 if A.get('pataCoja', 'I') == 'I' else -1.0
     pierna_larga = C['cadera'] * C['alto']
     for b in h.pose.bones: b.rotation_mode = 'QUATERNION'
-    def gira(hueso, eje, angulo):
-        b = h.pose.bones[hueso]; r = b.bone.matrix_local.to_quaternion(); b.rotation_quaternion = r.inverted() @ Quaternion(eje, angulo) @ r
-    X, Z = (1, 0, 0), (0, 0, 1)
+    X, Y, Z = (1, 0, 0), (0, 1, 0), (0, 0, 1)                     # its side; where it faces (it looks toward -y); upright
+    def gira(hueso, *giros):
+        # Turns given around the character's own axes, one after another, handed to the bone in the bone's own terms.
+        q = Quaternion()
+        for eje, angulo in giros: q = q @ Quaternion(eje, angulo)
+        b = h.pose.bones[hueso]; r = b.bone.matrix_local.to_quaternion(); b.rotation_quaternion = r.inverted() @ q @ r
     for f in range(1, cuadros + 1):
-        t = math.tau * (f - 1) / N + desfase
+        t0 = math.tau * (f - 1) / N + A['desfase']; t = t0 + 0.55 * cojera * math.cos(t0 + coja)      # time runs unevenly: quick over the lame leg
+        apoyo = max(0.0, math.sin(t + coja))                                                          # 1 while the lame leg carries the body
+        rueda = g(A.get('balanceo', 4)) * math.sin(t) + signo * g(7) * cojera * apoyo                 # roll: the sway of its weight, and the dip of the limp
+        c = h.pose.bones['cadera']
+        baja = pierna_larga * (1 - math.cos(paso * math.sin(t))) + 0.03 * peso * abs(math.sin(t)) + 0.03 * cojera * apoyo; sube = A.get('rebote', 0.02) * abs(math.cos(t))
+        c.location = c.bone.matrix_local.to_3x3().inverted() @ Vector((-0.02 * peso * math.sin(t), 0, sube - baja)); c.keyframe_insert('location', frame=f)
+        gira('cadera', (Y, rueda)); gira('columna', (Z, g(5) * math.sin(t)), (X, lean * 0.5)); gira('pecho', (X, lean * 0.5))
+        gira('cabeza', (Z, -g(4) * math.sin(t)), (Y, -rueda * 0.6), (X, -lean * 0.55 + g(2) * math.sin(2 * t)))
         for L, s in (('I', 0.0), ('D', math.pi)):
-            a = t + s; muslo = -paso * math.sin(a); dobla = rodilla * max(0.0, math.cos(a)) ** 1.5 + math.radians(4)
-            gira('muslo.' + L, X, muslo); gira('pierna.' + L, X, dobla); gira('pie.' + L, X, -0.5 * dobla - muslo * 0.6)
-            gira('brazo.' + L, X, brazos * math.sin(a)); gira('antebrazo.' + L, X, -math.radians(14) - brazos * 0.5 * max(0.0, -math.sin(a)))
-        gira('columna', Z, math.radians(5) * math.sin(t)); gira('cabeza', Z, -math.radians(4) * math.sin(t)); gira('pecho', X, -math.radians(3))
-        # The hips drop when the legs are apart, so the foot on the ground stays on it.
-        c = h.pose.bones['cadera']; baja = pierna_larga * (1 - math.cos(paso * math.sin(t)))
-        c.location = c.bone.matrix_local.to_3x3().inverted() @ Vector((0, 0, -baja))
-        c.keyframe_insert('location', frame=f)
+            a = t + s; corto = 1 - 0.5 * cojera if (s == coja) else 1.0
+            muslo = -paso * corto * math.sin(a) - g(6) * peso; dobla = rodilla * corto * max(0.0, math.cos(a)) ** 1.5 + g(4) + g(10) * peso
+            gira('muslo.' + L, (Y, -rueda), (X, muslo)); gira('pierna.' + L, (X, dobla)); gira('pie.' + L, (X, -0.5 * dobla - 0.6 * muslo - g(4)))      # the legs stay upright while the hips roll
+            brazo = brazos * math.sin(a); codo = -g(14) - g(16) * peso - brazos * 0.5 * max(0.0, -math.sin(a))
+            gira('brazo.' + L, (X, brazo - lean * 0.7)); gira('antebrazo.' + L, (X, codo))                                                              # the arms hang straight down from a leaning chest
         for b in h.pose.bones: b.keyframe_insert('rotation_quaternion', frame=f)
     return N
 E.render.fps = FPS; E.frame_start = 1
@@ -454,7 +475,7 @@ if MOTOR == 'cycles':
 
 ancho_escena = PASO * n + 0.3; cam = bpy.data.objects.new('camara', bpy.data.cameras.new('camara')); E.collection.objects.link(cam); E.camera = cam
 cam.data.lens = 85; cam.data.sensor_fit = 'HORIZONTAL'; mitad = math.atan(18 / 85); lejos = (ancho_escena / 2) / math.tan(mitad)
-E.render.resolution_x = ANCHO; E.render.resolution_y = max(480, int(ANCHO * max(0.5, 1.6 / ancho_escena))); E.render.resolution_percentage = 100
+E.render.resolution_x = ANCHO; E.render.resolution_x = ANCHO - ANCHO % 2; E.render.resolution_y = max(480, int(ANCHO * max(0.5, 1.6 / ancho_escena))) // 2 * 2; E.render.resolution_percentage = 100      # even: a video needs it
 cam.location = (math.sin(GIRO) * lejos, -math.cos(GIRO) * lejos, 0.75); cam.rotation_euler = (Vector((0, 0, 0.6)) - cam.location).to_track_quat('-Z', 'Y').to_euler()
 E.render.image_settings.file_format = 'PNG'; E.render.filepath = SALIDA
 bpy.ops.render.render(write_still=True); print('ALMA: imagen →', SALIDA)

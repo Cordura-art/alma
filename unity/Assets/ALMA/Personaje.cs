@@ -89,9 +89,9 @@ namespace Alma
             bultos.Add(new Bulto { p = Vector3.Lerp(J["cuello"], J["coronilla"], 0.58f), r = 0.108f * C.cabeza, hueso = "cabeza" }); bultos.Add(new Bulto { p = Vector3.Lerp(J["cuello"], J["coronilla"], 0.1f), r = 0.05f, hueso = "cabeza" });
             foreach (var L in new[] { "I", "D" })
             {
-                Tramo("hombro." + L, 0.058f * m, 0.056f * m); Tramo("brazo." + L, 0.044f * m, 0.04f * m, 0.35f); Tramo("antebrazo." + L, 0.036f * m, 0.04f * m, 0.6f);
+                Tramo("hombro." + L, 0.058f * m, 0.056f * m); Tramo("brazo." + L, 0.05f * m * C.brazo, 0.046f * m * C.brazo, 0.35f); Tramo("antebrazo." + L, 0.042f * m * C.antebrazo, 0.046f * m * C.antebrazo, 0.6f);
                 bultos.Add(new Bulto { p = J["dedos." + L], r = 0.045f * m * C.mano, hueso = "mano." + L });
-                Tramo("muslo." + L, 0.07f * m, 0.05f * m, 0.4f); Tramo("pierna." + L, 0.044f * m, 0.05f * m, 0.75f); Tramo("pie." + L, 0.05f * m * C.pie, 0.046f * m * C.pie);
+                Tramo("muslo." + L, 0.078f * m * C.muslo, 0.058f * m * C.muslo, 0.4f); Tramo("pierna." + L, 0.05f * m * C.pierna, 0.056f * m * C.pierna, 0.75f); Tramo("pie." + L, 0.05f * m * C.pie, 0.046f * m * C.pie);
             }
             for (int i = 0; i < G.centros.Length; i++)          // a mass on each defined center
             {
@@ -256,6 +256,7 @@ namespace Alma
         //   limp     the lame leg takes a short step and the body hurries off it, dipping to that side.
         void Camina(float t)
         {
+            float inclina = -A.inclina;      // the file says how far it leans forward as a negative angle; here a positive turn around its side leans it forward
             float f0 = 6.2832f * t / Mathf.Max(0.4f, A.ritmo) + A.desfase, coja = A.pataCoja == "I" ? 0f : Mathf.PI;
             float f = f0 + 0.55f * A.cojera * Mathf.Cos(f0 + coja);                                  // time runs unevenly: quick over the lame leg
             float apoyoCojo = Mathf.Max(0, Mathf.Sin(f + coja));                                      // 1 while the lame leg carries the body
@@ -265,8 +266,8 @@ namespace Alma
             var c = huesos["cadera"];
             float baja = piernaLarga * (1 - Mathf.Cos(A.paso * Mathf.Deg2Rad * Mathf.Sin(f))) + 0.03f * A.peso * Mathf.Abs(Mathf.Sin(f)) + 0.03f * A.cojera * apoyoCojo, sube = A.rebote * Mathf.Abs(Mathf.Cos(f));
             c.localPosition = caderaEnReposo + Vector3.up * (sube - baja) + Vector3.right * (0.02f * A.peso * Mathf.Sin(f));
-            c.rotation = cuerpo; huesos["columna"].rotation = cuerpo * giro * Quaternion.AngleAxis(A.inclina * 0.5f, lado); var pecho = cuerpo * giro * Quaternion.AngleAxis(A.inclina, lado); huesos["pecho"].rotation = pecho;
-            huesos["cabeza"].rotation = transform.rotation * Quaternion.AngleAxis(rueda * 0.4f, frente) * Quaternion.AngleAxis(A.inclina * 0.45f + 2f * Mathf.Sin(2 * f), lado);
+            c.rotation = cuerpo; huesos["columna"].rotation = cuerpo * giro * Quaternion.AngleAxis(inclina * 0.5f, lado); var pecho = cuerpo * giro * Quaternion.AngleAxis(inclina, lado); huesos["pecho"].rotation = pecho;
+            huesos["cabeza"].rotation = transform.rotation * Quaternion.AngleAxis(rueda * 0.4f, frente) * Quaternion.AngleAxis(inclina * 0.45f + 2f * Mathf.Sin(2 * f), lado);
             foreach (var (L, s) in new[] { ("I", 0f), ("D", Mathf.PI) })
             {
                 float a = f + s, corto = (L == A.pataCoja) ? 1f - 0.5f * A.cojera : 1f;
@@ -274,7 +275,7 @@ namespace Alma
                 float brazo = A.brazos * Mathf.Sin(a), codo = -14f - 16f * A.peso - A.brazos * 0.5f * Mathf.Max(0, -Mathf.Sin(a));
                 huesos["muslo." + L].rotation = transform.rotation * Quaternion.AngleAxis(muslo - 6f * A.peso, lado); huesos["pierna." + L].rotation = transform.rotation * Quaternion.AngleAxis(muslo + dobla - 6f * A.peso, lado);
                 huesos["pie." + L].rotation = transform.rotation * Quaternion.AngleAxis(0.4f * muslo + 0.5f * dobla - 4f, lado);
-                huesos["hombro." + L].rotation = pecho; huesos["brazo." + L].rotation = cuerpo * giro * Quaternion.AngleAxis(brazo + A.inclina * 0.3f, lado);
+                huesos["hombro." + L].rotation = pecho; huesos["brazo." + L].rotation = cuerpo * giro * Quaternion.AngleAxis(brazo + inclina * 0.3f, lado);
                 huesos["antebrazo." + L].rotation = huesos["mano." + L].rotation = cuerpo * giro * Quaternion.AngleAxis(brazo + codo, lado);
             }
         }

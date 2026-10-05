@@ -33,7 +33,7 @@ test('el personaje de una entidad tiene las mismas medidas y el mismo andar cada
   assert.equal(C.personaje.medidas.anguloso, true, 'una entidad sin redondez es de bloques');
   for (const D of [A, C]) {
     const { medidas: m, andar: a } = D.personaje;
-    for (const k of ['alto', 'ancho', 'miembro', 'cabeza', 'cadera', 'panza', 'mano', 'pie', 'hombros']) assert.ok(m[k] > 0 && m[k] < 3, k);
+    for (const k of ['alto', 'ancho', 'miembro', 'cabeza', 'cadera', 'panza', 'mano', 'pie', 'hombros', 'brazo', 'antebrazo', 'muslo', 'pierna']) assert.ok(m[k] > 0 && m[k] < 3, k);
     assert.ok(a.peso >= 0 && a.peso <= 1 && a.cojera >= 0 && a.cojera <= 0.7 && a.inclina < 0 && a.paso > 15 && a.ritmo > 0.3);
     assert.ok(['I', 'D'].includes(a.pataCoja));
     assert.match(D.personaje.numero, /^\d{8}$/, 'su número: ocho cifras');

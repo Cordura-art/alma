@@ -13,7 +13,9 @@ export function medidasDe(G) {
   const t = (G.tipo || '').toLowerCase(), base = (Object.entries(CONTEXTURA).find(([k]) => t.includes(k)) || [0, [1, 1, 1, 1]])[1];
   const R = azar(hash(G.semilla + '|forma')), red = G.redondez ?? 0.5;
   const m = { alto: base[0] * R.f(0.92, 1.08), ancho: base[1] * R.f(0.85, 1.3), miembro: base[2] * R.f(0.85, 1.35), cabeza: base[3] * R.f(0.8, 1.3), cadera: R.f(0.38, 0.52),
-    panza: 0.25 + 1.1 * red, mano: R.f(0.9, 1.6), pie: R.f(1.0, 1.6), hombros: R.f(0.9, 1.35) };
+    panza: 0.25 + 1.1 * red, mano: R.f(0.9, 1.6), pie: R.f(1.0, 1.6), hombros: R.f(0.9, 1.35),
+    // Each stretch of arm and leg has its own girth: one entity has heavy forearms, another thick thighs.
+    brazo: R.f(0.8, 1.5), antebrazo: R.f(0.8, 1.8), muslo: R.f(0.85, 1.6), pierna: R.f(0.8, 1.8) };
   for (const k in m) m[k] = dec(m[k]);
   return { ...m, anguloso: red < 0.25 };
 }

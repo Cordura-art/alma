@@ -12,7 +12,9 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 - **En el lenguaje de cada entidad**, Ilustración suma «Personaje»: sus dos retratos y una tabla que dice cómo es su cuerpo, cómo camina y de qué parte de la carta sale cada rasgo.
 - **Materiales y pelaje son tokens de ALMA.** Dos familias nuevas en `tokens/`: `material` (arcilla, laca, acrílico y tela: aspereza, capa, luz interior, brillo de borde, paso de luz y relieve) y `pelaje` (pelo, rizo, púa, pluma y fleco: largo, caída, firmeza, grosor y densidad). Viajan con los genes, y Blender y Unity los leen: cambiar un token cambia el material en los dos. El color nunca va ahí; siempre es de la entidad.
 - **Desfile ordenado y con rótulo.** En Unity los personajes caminan con separación pareja, sin alcanzarse, y cada uno lleva debajo su número (ocho cifras que salen de su fecha de nacimiento) y su nombre, en Roboto Flex con los ejes de ALMA. Un video corto del desfile va en la sección Personaje de cada entidad.
-- Pendiente: los andares nuevos (postura, peso, cojera) solo están en Unity; la receta de cada textura (el grano de la arcilla, las puntadas de la tela) sigue en el código de Blender.
+- **Piezas como un juguete articulado.** En Blender cada tramo de brazo y pierna es una pieza propia, gorda al medio y angosta en sus extremos, que se junta con la siguiente en una articulación; alternan dos colores de la entidad. Cada tramo tiene su propio grosor, que sale de la fecha de nacimiento (medidas `brazo`, `antebrazo`, `muslo`, `pierna`): una entidad tiene antebrazos pesados, otra piernas gruesas.
+- **Los mismos andares en Blender y Unity:** peso, postura y cojera. En Unity la inclinación estaba al revés (se echaban hacia atrás); corregido.
+- Pendiente: la receta de cada textura (el grano de la arcilla, las puntadas de la tela) sigue en el código de Blender.
 
 ## 3 de octubre de 2026
 
