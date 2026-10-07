@@ -464,6 +464,30 @@
       R.probetas ? h('figure', { className: 'gen-fig gen-probetas' }, h('img', { src: R.probetas, loading: 'lazy', alt: 'Cuatro muestras de material de ' + L.nombre + ' cortadas por su patrón: un tejido de dos hilos, dos capas con la de arriba recortada, una resina que crece sobre sus líneas y una goma con surcos.' }),
         h('figcaption', { className: 'web-body-s cap' }, 'Cuatro muestras cortadas por el mismo patrón: tejido, recorte, resina y goma.')) : null);
   }
+  // The line figures: objects drawn in thin line that answer the pointer and the arrow keys (figuras/). Each is
+  // mounted when the page shows it and let go when it leaves; what it says goes under it.
+  function Figura(p) {
+    var ref = React.useRef(null), viva = React.useRef(null), dice = useState('En reposo');
+    React.useEffect(function () {
+      viva.current = window.AlmaFigura.monta(ref.current, p.nombre, { intensidad: p.intensidad, etiqueta: p.etiqueta, alLeer: dice[1] });
+      return function () { viva.current.suelta(); viva.current = null; };
+    }, [p.nombre]);
+    React.useEffect(function () { if (viva.current) viva.current.pon({ intensidad: p.intensidad }); }, [p.intensidad]);
+    return h('figure', { className: 'gen-fig' }, h('div', { ref: ref }),
+      h('figcaption', { className: 'web-body-s cap' }, h('span', { className: 'web-label-l' }, p.titulo), ' ', p.nota, ' ', h('span', { className: 'gen-figura__dice', 'aria-hidden': 'true' }, dice[0])));
+  }
+  function GenFiguras() {
+    var fuerza = useState('Media'), I = { Suave: 0.15, Media: 0.5, Fuerte: 1 }[fuerza[0]];
+    var lista = [['terreno', 'Terreno.', 'Una colina sigue al puntero.', 'Un terreno de dunas en línea fina; una colina sigue al puntero.'],
+      ['pila', 'Pila.', 'Señala una ficha y la pila se abre sobre ella.', 'Una pila de fichas de esquinas redondas en línea fina; se abre en abanico sobre la que se señala.'],
+      ['portatil', 'Portátil.', 'Arriba se abre, abajo se cierra.', 'Un portátil en línea fina; su tapa se abre y se cierra con el puntero.']].filter(function (x) { return window.AlmaFigura.figuras[x[0]]; });
+    return h(Sec, { title: 'Figuras de línea' },
+      h(Para, null, 'También dibujamos objetos con una sola línea fina, vistos desde arriba y de lado. No llevan relleno ni palabras: la forma dice qué son, y una sola marca lleva nuestro color. Están vivos: responden al puntero y a las flechas del teclado, y vuelven solos a su reposo.'),
+      h(Para, null, 'Sirven para explicar una idea con un objeto: algo continuo que responde a dónde estás, elegir una cosa entre muchas iguales, algo que se abre y se cierra. Usan nuestros tonos de texto para la línea y nuestro fondo, así que cambian con el tema.'),
+      h(A.SegmentedControl, { label: 'Fuerza de la respuesta', options: ['Suave', 'Media', 'Fuerte'], value: fuerza[0], onChange: fuerza[1] }),
+      h('div', { className: 'gen-figuras' }, lista.map(function (x) { return h(Figura, { key: x[0], nombre: x[0], titulo: x[1], nota: x[2], etiqueta: x[3], intensidad: I }); })),
+      h(Para, null, 'Con el teclado: entra en una figura con el tabulador y usa las flechas; Escape la deja en reposo.'));
+  }
   // The sheets: twelve drawings made only of strokes, ready for a pen plotter. Each is drawn when it nears the
   // screen, one after another, so the page does not stop to draw them all.
   function Lamina(p) {
@@ -632,7 +656,7 @@
       GV ? null : h(A.InlineNotification, { kind: 'callout', status: 'info', title: 'Reglas antes que piezas', message: 'ALMA todavía no tiene ilustraciones. Estas son las reglas que van a seguir cuando existan.' }),
       h(Sec, { title: 'Punto de vista' }, h(Para, null, X.puntoDeVista)),
       h(Sec, { title: 'Estilos' }, X.estilos.map(function (x) { return h(Sub, { key: x.t, title: x.t }, h(Para, null, x.p)); })),
-      PERS ? h(GenCriaturas) : null, PERS ? h(GenColonia) : null, PERS && L.personaje ? h(GenPersonaje) : null, PERS && L.personaje && L.personaje.patron ? h(GenMateria) : null, GV ? h(GenRelieve) : null, GV ? h(GenEmblemas) : null, GV ? h(GenLaminas) : null, GV ? h(GenCaras) : null,
+      PERS ? h(GenCriaturas) : null, PERS ? h(GenColonia) : null, PERS && L.personaje ? h(GenPersonaje) : null, PERS && L.personaje && L.personaje.patron ? h(GenMateria) : null, PERS && window.AlmaFigura ? h(GenFiguras) : null, GV ? h(GenRelieve) : null, GV ? h(GenEmblemas) : null, GV ? h(GenLaminas) : null, GV ? h(GenCaras) : null,
       h(Sec, { title: 'Personas' }, h(Para, null, X.personas)),
       h(Sec, { title: 'Color' }, h(Para, null, X.color)),
       h(Avoid, { items: X.avoid }));

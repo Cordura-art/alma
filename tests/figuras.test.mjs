@@ -6,7 +6,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { paginaDeFigura } from '../scripts/build-figura.mjs';
 
 const require = createRequire(import.meta.url);
-const M = require('../figuras/motor.js'), T = require('../figuras/terreno.js'), P = require('../figuras/pila.js');
+const M = require('../figuras/motor.js'), T = require('../figuras/terreno.js'), P = require('../figuras/pila.js'), L = require('../figuras/portatil.js');
 
 test('la cámara va y vuelve: del suelo al cuadro y del cuadro al suelo', () => {
   const C = M.camara({ alza: 34, escala: 80 });
@@ -55,6 +55,27 @@ test('pila: nada sale del cuadro, se elija la ficha que se elija; y en reposo no
   }
   const giros = new Set(); for (let i = 0; i < P.FICHAS; i++) giros.add(P.poseDe(i, -1, 0.5).giro); assert.equal(giros.size, P.FICHAS);
   for (let i = 0; i < 3; i++) assert.deepEqual(P.poseDe(i, 3, 1), P.poseDe(i, -1, 1));      // the tiles under the chosen one stay where they are
+});
+
+test('un sólido inclinado: de pie es el mismo de antes; al girar en su bisagra conserva su forma y muestra la cara que toca', () => {
+  const C = M.camara(), anillo = M.redondo(1.6, 1.1, 0.13), cerca = (a, b) => Math.abs(a - b) < 1e-9;
+  const A = M.silueta(C, anillo, { x: 0.2, y: -0.1, z: 0.3, giro: 0.4 }, 0.07), B = M.silueta(C, anillo, M.lugar(0.2, -0.1, 0.3, 0.4), 0.07);
+  assert.equal(A.casco.length, B.casco.length); A.casco.forEach((q, i) => assert.ok(cerca(q[0], B.casco[i][0]) && cerca(q[1], B.casco[i][1])));
+  const T = L.tapaEn(90);      // straight up: its far edge stays on the hinge, its near edge is a lid's depth above it
+  assert.ok(cerca(T.o[1] + T.R[1][1] * (-L.FONDO / 2), -L.FONDO / 2) && cerca(T.o[2] + T.R[2][1] * (L.FONDO / 2), L.BASE + L.FONDO));
+  for (let j = 0; j < 3; j++) assert.ok(cerca(Math.hypot(T.R[0][j], T.R[1][j], T.R[2][j]), 1));
+  const gira = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  for (const g of [0, 20, 60, 104, 134]) { const S = M.silueta(C, anillo, L.tapaEn(g), L.TAPA), n = S.casco.length; for (let i = 0; i < n; i++) assert.ok(gira(S.casco[i], S.casco[(i + 1) % n], S.casco[(i + 2) % n]) > 0); }
+  // Nearly shut, the camera sees the lid's back and not its screen; open, its screen and not its back.
+  assert.equal(M.silueta(C, anillo, L.tapaEn(10), L.TAPA).deArriba, true); assert.equal(M.lamina(C, anillo, L.tapaEn(10), 0, true).visible, false);
+  assert.equal(M.silueta(C, anillo, L.tapaEn(100), L.TAPA).deArriba, false); assert.equal(M.lamina(C, anillo, L.tapaEn(100), 0, true).visible, true);
+});
+
+test('portátil: nada sale del cuadro de cerrado a abierto del todo; arriba abre, abajo cierra', () => {
+  const C = L.camaraDe(), anillo = M.redondo(L.ANCHO, L.FONDO, L.RADIO);
+  for (let g = 0; g <= L.tope(1); g += 2) for (const q of M.silueta(C, anillo, L.tapaEn(g), L.TAPA).casco) assert.ok(q[0] >= 10 && q[0] <= M.ANCHO - 10 && q[1] >= 10 && q[1] <= M.ALTO - 10, `a ${g}° cae en ${q.map((v) => v.toFixed(0))}`);
+  for (const q of M.silueta(C, anillo, M.lugar(0, 0, 0, 0), L.BASE).casco) assert.ok(q[0] >= 10 && q[0] <= M.ANCHO - 10 && q[1] >= 10 && q[1] <= M.ALTO - 10);
+  assert.equal(L.pedido(320, 0.5), 0); assert.equal(L.pedido(0, 1), L.tope(1)); assert.ok(L.pedido(100, 0.5) > L.pedido(200, 0.5)); assert.ok(L.REPOSO <= L.tope(0));
 });
 
 test('las figuras no traen colores sueltos ni palabras dentro del dibujo: solo tokens de ALMA', () => {

@@ -38,7 +38,7 @@
       // Bottom to top: each tile hides what is under it.
       for (let i = 0; i < FICHAS; i++) {
         const r = poseDe(i, -1, 0.5), S = f.solido(anillo, GRUESO);
-        fichas.push({ S, z: f.resorte(r.z), giro: f.resorte(r.giro), sale: f.resorte(r.sale), cuando: -1, meta: r, y: C.a(0, 0, r.z + GRUESO / 2)[1] });
+        fichas.push({ S, z: f.resorte(r.z), giro: f.resorte(r.giro, { fino: 0.02 }), sale: f.resorte(r.sale), cuando: -1, meta: r, y: C.a(0, 0, r.z + GRUESO / 2)[1] });
       }
       const punto = f.nodo('path', { class: 'acento' }, f.svg);
       let reloj = 0, llave = '', elegida = FICHAS - 1, clara = -1;

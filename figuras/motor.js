@@ -22,7 +22,7 @@
   function camara(o) {
     o = o || {}; const a = (o.giro == null ? 45 : o.giro) * Math.PI / 180, e = (o.alza == null ? 30 : o.alza) * Math.PI / 180;
     const ca = Math.cos(a), sa = Math.sin(a), se = Math.sin(e), ce = Math.cos(e);
-    const C = { escala: o.escala || 100, cx: o.cx == null ? ANCHO / 2 : o.cx, cy: o.cy == null ? ALTO / 2 : o.cy, mira: [sa, ca] };      // `mira`: the way to the camera, along the ground
+    const C = { escala: o.escala || 100, cx: o.cx == null ? ANCHO / 2 : o.cx, cy: o.cy == null ? ALTO / 2 : o.cy, mira: [sa, ca], ojo: [sa * ce, ca * ce, se] };      // `mira`: the way to the camera, along the ground; `ojo`: the way to it through the air
     C.a = function (x, y, z) { return [C.cx + (x * ca - y * sa) * C.escala, C.cy + ((x * sa + y * ca) * se - (z || 0) * ce) * C.escala]; };
     // From the picture back to the ground (z = 0): where the pointer is, in the figure's own measures.
     C.alSuelo = function (px, py) { const u = (px - C.cx) / C.escala, w = (py - C.cy) / C.escala / se; return [u * ca + w * sa, -u * sa + w * ca]; };
@@ -38,12 +38,12 @@
 
   // ---------- A spring: a value that follows its goal, overshoots a little and settles. `paso` moves it on by `dt`
   // seconds and says whether it is still moving.
-  function resorte(valor, o) { o = o || {}; return { x: valor, v: 0, meta: valor, k: o.k || 120, c: o.c || 20 }; }
+  function resorte(valor, o) { o = o || {}; return { x: valor, v: 0, meta: valor, k: o.k || 120, c: o.c || 20, fino: o.fino || 0.0005 }; }      // `fino`: how near its goal counts as there, in its own measure
   function paso(r, dt, quieto) {
     if (quieto) { r.x = r.meta; r.v = 0; return false; }
     const n = Math.max(1, Math.ceil(dt / 0.008)), h = dt / n;
     for (let i = 0; i < n; i++) { r.v += (-(r.x - r.meta) * r.k - r.v * r.c) * h; r.x += r.v * h; }
-    if (Math.abs(r.x - r.meta) < 0.0005 && Math.abs(r.v) < 0.0005) { r.x = r.meta; r.v = 0; return false; }
+    if (Math.abs(r.x - r.meta) < r.fino && Math.abs(r.v) < r.fino * 10) { r.x = r.meta; r.v = 0; return false; }
     return true;
   }
   // An easing curve of ALMA's (`cubic-bezier(a, b, c, d)`, as its motion tokens give it) as a function of time 0–1.
@@ -76,18 +76,38 @@
     const p = puntos.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]), gira = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]), mitad = (lista) => { const h = []; for (const q of lista) { while (h.length >= 2 && gira(h[h.length - 2], h[h.length - 1], q) <= 0) h.pop(); h.push(q); } h.pop(); return h; };
     return mitad(p).concat(mitad(p.reverse()));
   }
-  // A solid where it stands (`pose`: x, y, z of its base, and `giro`, its turn around its own upright, in radians),
-  // `alto` high: its silhouette, the crease of its top, and its top itself, in the picture.
-  function silueta(C, anillo, pose, alto) {
-    const c = Math.cos(pose.giro || 0), s = Math.sin(pose.giro || 0), n = anillo.length, abajo = [], arriba = [], mira = [];
-    for (const p of anillo) {
-      const x = pose.x + p.x * c - p.y * s, y = pose.y + p.x * s + p.y * c; abajo.push(C.a(x, y, pose.z)); arriba.push(C.a(x, y, pose.z + alto));
-      mira.push((p.nx * c - p.ny * s) * C.mira[0] + (p.nx * s + p.ny * c) * C.mira[1] > 1e-9);
-    }
-    let k = -1; for (let i = 0; i < n; i++) if (mira[i] && !mira[(i + n - 1) % n]) k = i;
-    const pliegue = []; if (k >= 0) { pliegue.push(arriba[(k + n - 1) % n]); let i = k, cuenta = 0; for (; mira[i % n] && cuenta < n; i++, cuenta++) pliegue.push(arriba[i % n]); pliegue.push(arriba[i % n]); }
-    return { casco: casco(abajo.concat(arriba)), pliegue, arriba };
+  // Where a solid stands. Plainly: its base at (x, y, z), turned `giro` radians around its own upright. Or leaning:
+  // `bisagra` swings a standing thing around any line of the world (a point on it, the way it runs, an angle), as a
+  // lid swings on its hinge. Either way it is a place `o` and three axes `R`.
+  function lugar(x, y, z, giro) { const c = Math.cos(giro || 0), s = Math.sin(giro || 0); return { o: [x, y, z], R: [[c, -s, 0], [s, c, 0], [0, 0, 1]] }; }
+  function bisagra(P, punto, eje, angulo) {
+    const l = Math.hypot(eje[0], eje[1], eje[2]), x = eje[0] / l, y = eje[1] / l, z = eje[2] / l, c = Math.cos(angulo), s = Math.sin(angulo), t = 1 - c;
+    const K = [[t * x * x + c, t * x * y - s * z, t * x * z + s * y], [t * x * y + s * z, t * y * y + c, t * y * z - s * x], [t * x * z - s * y, t * y * z + s * x, t * z * z + c]];
+    const por = (A, v) => [A[0][0] * v[0] + A[0][1] * v[1] + A[0][2] * v[2], A[1][0] * v[0] + A[1][1] * v[1] + A[1][2] * v[2], A[2][0] * v[0] + A[2][1] * v[1] + A[2][2] * v[2]];
+    const d = por(K, [P.o[0] - punto[0], P.o[1] - punto[1], P.o[2] - punto[2]]), col = (j) => por(K, [P.R[0][j], P.R[1][j], P.R[2][j]]), a = col(0), b = col(1), e = col(2);
+    return { o: [punto[0] + d[0], punto[1] + d[1], punto[2] + d[2]], R: [[a[0], b[0], e[0]], [a[1], b[1], e[1]], [a[2], b[2], e[2]]] };
   }
+  const postura = (p) => p.R ? p : lugar(p.x, p.y, p.z, p.giro);
+  const gira = (P, x, y, z) => [P.R[0][0] * x + P.R[0][1] * y + P.R[0][2] * z, P.R[1][0] * x + P.R[1][1] * y + P.R[1][2] * z, P.R[2][0] * x + P.R[2][1] * y + P.R[2][2] * z];
+  const lleva = (P, x, y, z) => { const g = gira(P, x, y, z); return [P.o[0] + g[0], P.o[1] + g[1], P.o[2] + g[2]]; };
+  const ve = (C, v) => v[0] * C.ojo[0] + v[1] * C.ojo[1] + v[2] * C.ojo[2] > 1e-9;
+  // A solid where it stands, `alto` thick: its silhouette, and its crease: the edge of the face it shows the camera
+  // (its top, or its underside when it leans far enough), where that face meets a side that is also seen.
+  function silueta(C, anillo, pose, alto) {
+    const P = postura(pose), n = anillo.length, abajo = [], arriba = [], mira = [];
+    for (const p of anillo) { abajo.push(C.a.apply(C, lleva(P, p.x, p.y, 0))); arriba.push(C.a.apply(C, lleva(P, p.x, p.y, alto))); mira.push(ve(C, gira(P, p.nx, p.ny, 0))); }
+    const deArriba = ve(C, gira(P, 0, 0, 1)), cara = deArriba ? arriba : abajo;
+    let k = -1; for (let i = 0; i < n; i++) if (mira[i] && !mira[(i + n - 1) % n]) k = i;
+    const pliegue = []; if (k >= 0) { pliegue.push(cara[(k + n - 1) % n]); let i = k, cuenta = 0; for (; mira[i % n] && cuenta < n; i++, cuenta++) pliegue.push(cara[i % n]); pliegue.push(cara[i % n]); }
+    return { casco: casco(abajo.concat(arriba)), pliegue, arriba, abajo, deArriba };
+  }
+  // A flat shape lying on a solid, at height `z` of it, facing up from it (or down: `haciaAbajo`): its outline in
+  // the picture, and whether the camera sees that side at all.
+  function lamina(C, anillo, pose, z, haciaAbajo) {
+    const P = postura(pose); return { puntos: anillo.map((p) => C.a.apply(C, lleva(P, p.x, p.y, z))), visible: ve(C, gira(P, 0, 0, haciaAbajo ? -1 : 1)) };
+  }
+  // The same shape, moved aside on its solid.
+  const corre = (anillo, dx, dy) => anillo.map((p) => ({ x: p.x + dx, y: p.y + dy, nx: p.nx, ny: p.ny }));
 
   // ---------- From here on, the page. (What is above also runs without one, so that it can be tested.)
   const figuras = {};
@@ -130,7 +150,7 @@
     const menos = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
     const estilos = getComputedStyle(donde); let dicho = '', turno = 0;
     const ctx = {
-      svg, nodo, linea, camara, resorte, paso, redondo, silueta, ANCHO, ALTO,
+      svg, nodo, linea, camara, resorte, paso, redondo, silueta, lugar, bisagra, corre, ANCHO, ALTO,
       puntero: { dentro: false, tecla: false, x: ANCHO / 2, y: ALTO / 2 },
       get intensidad() { return o.intensidad; }, get quieto() { return menos.matches; },
       // ALMA's own clock for changes that are not the pointer's: its slow duration and its expressive curve.
@@ -140,15 +160,20 @@
       despierta() { despierta(yo); },
       // A solid on the page: its silhouette, which hides what is behind it, and its crease. `pon` draws it where it stands,
       // through the figure's camera (`ctx.camara`, which the figure sets to its own).
-      solido(anillo, alto) {
-        const g = nodo('g', {}, svg), fuera = nodo('path', { class: 'tapa borde' }, g), dentro = nodo('path', {}, g);
+      solido(anillo, alto, padre) {
+        const g = nodo('g', {}, padre || svg), fuera = nodo('path', { class: 'tapa borde' }, g), dentro = nodo('path', {}, g);
         return { g, fuera, pon(pose) { const S = silueta(ctx.camara, anillo, pose, alto); fuera.setAttribute('d', linea(S.casco, true)); dentro.setAttribute('d', linea(S.pliegue)); return S; } };
+      },
+      // A flat shape on a solid, drawn only from the side it faces.
+      lamina(anillo, clase, padre) {
+        const p = nodo('path', clase ? { class: clase } : {}, padre || svg);
+        return { p, pon(pose, z, haciaAbajo) { const L = lamina(ctx.camara, anillo, pose, z, haciaAbajo); p.setAttribute('d', L.visible ? linea(L.puntos, true) : ''); return L; } };
       },
     };
     const figura = F.monta(ctx);
     const yo = { visible: true, cuadro: (dt) => figura.cuadro(dt) };
-    const lugar = (e) => { const r = svg.getBoundingClientRect(); ctx.puntero.x = (e.clientX - r.left) / r.width * ANCHO; ctx.puntero.y = (e.clientY - r.top) / r.height * ALTO; };
-    const entra = (e) => { lugar(e); ctx.puntero.dentro = true; ctx.puntero.tecla = false; despierta(yo); }, sale = () => { ctx.puntero.dentro = false; ctx.puntero.tecla = false; despierta(yo); };
+    const situa = (e) => { const r = svg.getBoundingClientRect(); ctx.puntero.x = (e.clientX - r.left) / r.width * ANCHO; ctx.puntero.y = (e.clientY - r.top) / r.height * ALTO; };
+    const entra = (e) => { situa(e); ctx.puntero.dentro = true; ctx.puntero.tecla = false; despierta(yo); }, sale = () => { ctx.puntero.dentro = false; ctx.puntero.tecla = false; despierta(yo); };
     // The arrow keys are a pointer too: they carry it across the picture; Escape lets go.
     const tecla = (e) => {
       const d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key];
@@ -167,5 +192,5 @@
       get enMovimiento() { return vivas.has(yo); },
     };
   }
-  return { ANCHO, ALTO, camara, resorte, paso, curva, linea, redondo, casco, silueta, define, monta, figuras };
+  return { ANCHO, ALTO, camara, resorte, paso, curva, linea, redondo, casco, silueta, lamina, lugar, bisagra, corre, define, monta, figuras };
 });

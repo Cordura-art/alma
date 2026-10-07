@@ -5,6 +5,7 @@ import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { sistema } from './lib/documentacion.mjs';
 import { genesDe, generadorNavegador } from './lib/generativo.mjs';
 import { personajeParaPagina, desfileParaPagina } from './lib/personaje.mjs';
+import { figurasNavegador } from './lib/figuras.mjs';
 
 const read = (p) => readFileSync(p, 'utf8');
 const DIR = 'entidades/lenguajes';
@@ -20,7 +21,7 @@ for (const id of ids) {
   let html = base.replace('<title>Entidades ALMA</title>', `<title>Entidad ${L.nombre}</title>`).replace('</style>', read('site/lenguaje.css') + '</style>');
   // Engine only: the Entidades app exposes window.__ENGINE and returns before rendering.
   html = html.replace('<script>window.__DATA', '<script>window.__ENGINE_ONLY = true;</script>\n<script>window.__DATA');
-  if (gen) html += `<script>${esc(generadorNavegador())}</script>\n`;
+  if (gen) html += `<script>${esc(generadorNavegador())}</script>\n<script>${esc(figurasNavegador())}</script>\n`;
   if (gen && desfileParaPagina()) html += `<script>window.__DESFILE = ${JSON.stringify(desfileParaPagina())};</script>\n`;
   html += `<script>window.__LENGUAJE = ${JSON.stringify(L)};</script>\n<script>${esc(read('site/lenguaje.js'))}</script>\n`;
   writeFileSync(`build/lenguaje-${id}.html`, html);

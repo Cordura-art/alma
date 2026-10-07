@@ -15,6 +15,7 @@ import { datos, motor } from './lib/entidades.mjs';
 import { sistema } from './lib/documentacion.mjs';
 import { genesDe, generadorNavegador } from './lib/generativo.mjs';
 import { personajeParaPagina, desfileParaPagina } from './lib/personaje.mjs';
+import { figurasNavegador } from './lib/figuras.mjs';
 import { delta, aplicarDelta } from './lib/delta.mjs';
 
 const read = (p) => readFileSync(p, 'utf8');
@@ -75,7 +76,7 @@ const lenguaje = [
   `<script>${esc(motor())}</script>`,
   `<script>window.__ENGINE_ONLY = true; window.__DATA = ${JSON.stringify(datos()).replace(/</g, '\\u003c')};</script>`,
   `<script>${esc(read('site/entidades.js'))}</script>`,
-  ...(Object.values(lenguajes).some((L) => L.genes) ? [`<script>${esc(generadorNavegador())}</script>`] : []),
+  ...(Object.values(lenguajes).some((L) => L.genes) ? [`<script>${esc(generadorNavegador())}</script>`, `<script>${esc(figurasNavegador())}</script>`] : []),
   // The parade's video, once for every entity that has a character.
   ...(Object.values(lenguajes).some((L) => L.personaje) && desfileParaPagina() ? [`<script>window.__DESFILE = ${JSON.stringify(desfileParaPagina())};</script>`] : []),
   `<script>window.__LENGUAJES = ${JSON.stringify(lenguajes).replace(/</g, '\\u003c')};</script>`,
