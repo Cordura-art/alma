@@ -46,6 +46,7 @@
   var W = 0, H = 0, escala = 1, foco = 1, imagen = null, pixeles = null, claro = false, FONDO = 0, TINTAS = new Uint32Array(96), NIVELES = 32;
   var avance = 0, giro = 0, alza = 0, quiereGiro = 0, quiereAlza = 0, px = -1e4, py = -1e4, brio = 0, suelta = menos.matches ? 0 : 1, pedido = 0, antes = 0, anchoPalabra = 0, altoPalabra = 0;
   escena.classList.add('recorrido--vivo');
+  if (palabra && window.AlmaPalabra) window.AlmaPalabra.monta(palabra, { genes: window.__PALABRA, oye: escena, mide: false });      // (the word is a piece of its own, site/palabra.js; its size here is the way's)
 
   // A color of the page, whatever way it is written, as the three numbers it is.
   var prueba = document.createElement('canvas'); prueba.width = prueba.height = 1; var gota = prueba.getContext('2d', { willReadFrequently: true });

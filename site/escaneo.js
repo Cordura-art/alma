@@ -15,6 +15,7 @@
 (function () {
   var D = window.__ESCANEO, escena = document.querySelector('.escaneo'), fija = escena.querySelector('.escaneo__fija'), lienzo = escena.querySelector('canvas');
   var palabra = escena.querySelector('.escaneo__palabra'), entrada = escena.querySelector('.escaneo__entrada'), datos = [].slice.call(escena.querySelectorAll('.escaneo__dato'));
+  if (palabra && window.AlmaPalabra) window.AlmaPalabra.monta(palabra, { genes: window.__PALABRA, oye: escena, mide: false });      // (the word is a piece of its own, site/palabra.js; its size here is the cover's)
   var ctx = lienzo.getContext('2d'), menos = matchMedia('(prefers-reduced-motion: reduce)'), bytes = atob(D.puntos), ANCHO = D.alma === 3 ? 10 : 7, N = bytes.length / ANCHO, K = Math.max(1, datos.length);
   // Chance that is always the same: the same thing comes apart the same way every time.
   var s = 2166136261; function azar() { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 1000000) / 1000000; }

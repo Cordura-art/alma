@@ -36,6 +36,7 @@ ${css(S)}
 /* The three colors of the dots, top to bottom: the entity's own, as its genes give them. */
 .escaneo { --escaneo-1: ${G.pieza.acento}; --escaneo-2: ${G.pieza.tinta}; --escaneo-3: ${G.pieza.barras[2]}; }
 [data-theme="light"] .escaneo { --escaneo-1: ${G.pieza.barras[1]}; --escaneo-2: ${G.fondo.light.tinta}; --escaneo-3: ${G.pieza.barras[3]}; }      /* on a light page: its deeper colors and its ink, which are seen on white */
+${readFileSync('site/palabra.css', 'utf8')}
 ${readFileSync('site/escaneo.css', 'utf8')}
 ${anda ? readFileSync('site/recorrido.css', 'utf8') : ''}</style>
 <button class="escaneo__tema" type="button" aria-label="Usar tema claro"><span class="escaneo__de-oscuro">${icono('light')}</span><span class="escaneo__de-claro">${icono('asleep')}</span></button>
@@ -63,7 +64,10 @@ ${L.voz.atributos.map((a) => `      <li><strong>${esc(a[0])}, ${esc(a[1])}</stro
     <p class="nota">${esc(L.aviso)}</p>
   </section>
 </main>
-<script>window.__ESCANEO = ${JSON.stringify(trama)};</script>
+<script>window.__ESCANEO = ${JSON.stringify(trama)}; window.__PALABRA = ${JSON.stringify({ numeros: G.numeros, ritmo: G.ritmo, direccion: G.direccion, redondez: G.redondez, puntas: G.puntas })};</script>
+<script>
+${readFileSync('site/palabra.js', 'utf8')}
+</script>
 <script>
 ${readFileSync(anda ? 'site/recorrido.js' : 'site/escaneo.js', 'utf8')}
 </script>
