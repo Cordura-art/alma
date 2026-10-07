@@ -2499,6 +2499,36 @@
       "$type": "color",
       "$value": "{color.text-03}",
       "$description": "DatePicker: días del mes anterior o siguiente. Token de componente: alias de text-03."
+    },
+    "figura-fondo": {
+      "$type": "color",
+      "$value": "{color.ui-02}",
+      "$description": "Figura de línea: el fondo, que también tapa lo que queda detrás. Token de componente: alias de ui-02."
+    },
+    "figura-realce": {
+      "$type": "color",
+      "$value": "{color.text-01}",
+      "$description": "Figura de línea: la línea de lo elegido. Token de componente: alias de text-01."
+    },
+    "figura-borde": {
+      "$type": "color",
+      "$value": "{color.text-02}",
+      "$description": "Figura de línea: el contorno de cada objeto. Token de componente: alias de text-02."
+    },
+    "figura-medio": {
+      "$type": "color",
+      "$value": "{color.text-03}",
+      "$description": "Figura de línea: los pliegues y las líneas interiores. Token de componente: alias de text-03."
+    },
+    "figura-lejos": {
+      "$type": "color",
+      "$value": "{color.border-control}",
+      "$description": "Figura de línea: lo que queda al fondo. Token de componente: alias de border-control."
+    },
+    "figura-acento": {
+      "$type": "color",
+      "$value": "{color.interactive-01}",
+      "$description": "Figura de línea: su única marca de color. Token de componente: alias de interactive-01."
     }
   }
 }

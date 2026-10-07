@@ -500,7 +500,13 @@ export const themes = {
     "date-picker-day-selected-bg": "#2667F2",
     "date-picker-day-selected-text": "#FFFFFF",
     "date-picker-day-today-border": "#7EAAFD",
-    "date-picker-day-outside-text": "#919191"
+    "date-picker-day-outside-text": "#919191",
+    "figura-fondo": "#000000",
+    "figura-realce": "#FAFAFA",
+    "figura-borde": "#BDBDBD",
+    "figura-medio": "#919191",
+    "figura-lejos": "#676767",
+    "figura-acento": "#2667F2"
   },
   "light": {
     "brand-lime": "#2667F2",
@@ -1002,7 +1008,13 @@ export const themes = {
     "date-picker-day-selected-bg": "#2667F2",
     "date-picker-day-selected-text": "#FFFFFF",
     "date-picker-day-today-border": "#2667F2",
-    "date-picker-day-outside-text": "#676767"
+    "date-picker-day-outside-text": "#676767",
+    "figura-fondo": "#FAFAFA",
+    "figura-realce": "#464646",
+    "figura-borde": "#5C5C5C",
+    "figura-medio": "#676767",
+    "figura-lejos": "#676767",
+    "figura-acento": "#2667F2"
   },
   "dark-hc": {
     "brand-lime": "#A6C5FD",
@@ -1504,7 +1516,13 @@ export const themes = {
     "date-picker-day-selected-bg": "#A6C5FD",
     "date-picker-day-selected-text": "#191919",
     "date-picker-day-today-border": "#C9DCFD",
-    "date-picker-day-outside-text": "#CDCDCD"
+    "date-picker-day-outside-text": "#CDCDCD",
+    "figura-fondo": "#000000",
+    "figura-realce": "#FAFAFA",
+    "figura-borde": "#E7E7E7",
+    "figura-medio": "#CDCDCD",
+    "figura-lejos": "#BDBDBD",
+    "figura-acento": "#A6C5FD"
   },
   "light-hc": {
     "brand-lime": "#0032A3",
@@ -2006,7 +2024,13 @@ export const themes = {
     "date-picker-day-selected-bg": "#0032A3",
     "date-picker-day-selected-text": "#FFFFFF",
     "date-picker-day-today-border": "#0032A3",
-    "date-picker-day-outside-text": "#464646"
+    "date-picker-day-outside-text": "#464646",
+    "figura-fondo": "#FAFAFA",
+    "figura-realce": "#191919",
+    "figura-borde": "#464646",
+    "figura-medio": "#464646",
+    "figura-lejos": "#464646",
+    "figura-acento": "#0032A3"
   }
 };
 export const core = {

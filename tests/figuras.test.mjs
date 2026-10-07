@@ -83,10 +83,50 @@ test('las figuras no traen colores sueltos ni palabras dentro del dibujo: solo t
     const s = readFileSync('figuras/' + f, 'utf8'); assert.equal(/#[0-9a-fA-F]{3,8}\b/.test(s), false, f + ' trae un color suelto'); assert.equal(/rgba?\(|hsla?\(/.test(s), false, f); assert.equal(/'text'|"text"|<text/.test(s), false, f + ' escribe dentro del dibujo');
   }
   const motor = readFileSync('figuras/motor.js', 'utf8');
-  for (const t of ['--ui-02', '--text-01', '--text-02', '--text-03', '--border-subtle', '--interactive-01', '--focus', '--duration-slow-02', '--easing-standard-expressive']) assert.ok(motor.includes(`var(${t})`) || motor.includes(`'${t}'`), 'falta el token ' + t);
+  for (const t of ['--figura-fondo', '--figura-realce', '--figura-borde', '--figura-medio', '--figura-lejos', '--figura-acento', '--focus', '--duration-slow-02', '--easing-standard-expressive']) assert.ok(motor.includes(`var(${t})`) || motor.includes(`'${t}'`), 'falta el token ' + t);
 });
 
 test('la página de una figura se arma sola, con motor y figura dentro', () => {
   const html = paginaDeFigura('terreno'); assert.ok(html.includes("define('terreno'")); assert.ok(html.includes('AlmaFigura.monta(')); assert.ok(html.includes('prefers-reduced-motion'));
   assert.throws(() => paginaDeFigura('no-existe'));
+});
+
+// ---------- Each entity's own figures: the same engine, decided by its chart.
+const { genesParaFuera } = await import('../scripts/genes.mjs'), { rasgosDe, nombresDeFiguras } = await import('../scripts/lib/figuras.mjs');
+const ENTIDADES = {}; for (const id of ['ensayo', 'cordura', 'automata']) ENTIDADES[id] = rasgosDe(await genesParaFuera(id));
+const dentro = (q) => q[0] >= 8 && q[0] <= M.ANCHO - 8 && q[1] >= 8 && q[1] <= M.ALTO - 8;
+
+test('figuras propias: la misma carta da siempre la misma figura, y cartas distintas dan figuras distintas', () => {
+  const huella = (R) => JSON.stringify([T.modelo(R).DUNAS, T.modelo(R).FILAS, T.modelo(R).terrazas, P.modelo(R).FICHAS, P.modelo(R).RADIO, P.modelo(R).poseDe(1, -1, 0.5).giro, L.modelo(R).REPOSO, L.modelo(R).RADIO, L.modelo(R).GRUPOS]);
+  const hs = Object.values(ENTIDADES).map(huella); assert.equal(new Set(hs).size, 3); assert.equal(huella(ENTIDADES.cordura), huella(rasgosDe({ genes: JSON.parse(JSON.stringify(ENTIDADES.cordura)) }) ));
+  assert.notEqual(huella(ENTIDADES.cordura), huella(null));
+});
+
+test('figuras propias: lo que toman de la carta es lo que dicen tomar', () => {
+  for (const [id, R] of Object.entries(ENTIDADES)) {
+    const t = T.modelo(R), p = P.modelo(R), l = L.modelo(R);
+    assert.equal(t.DUNAS.length, R.centros.length, id + ': una duna por centro definido'); assert.equal(t.terrazas, !!R.anguloso);
+    assert.equal(p.FICHAS, Math.max(4, Math.min(9, R.puntas)), id + ': tantas fichas como puntas'); assert.equal(l.GRUPOS, Math.max(1, Math.min(3, R.grupos)));
+    assert.ok(l.REPOSO >= 96 && l.REPOSO <= 122 && l.REPOSO <= l.tope(0));
+  }
+  assert.ok(P.modelo(ENTIDADES.automata).RADIO < P.modelo(ENTIDADES.cordura).RADIO, 'la de bloques tiene esquinas más rectas');
+});
+
+test('figuras propias: nada sale del cuadro en ninguna entidad', () => {
+  for (const [id, R] of Object.entries(ENTIDADES)) {
+    const t = T.modelo(R), Ct = t.camaraDe();
+    for (const I of [0, 1]) for (let a = -t.LEJOS; a <= t.LEJOS + 1e-9; a += t.LEJOS / 3) for (let b = -t.LEJOS; b <= t.LEJOS + 1e-9; b += t.LEJOS / 3) for (let i = 0; i < t.PUNTOS; i++) for (let j = 0; j < t.FILAS; j++) {
+      const x = -1 + 2 * i / (t.PUNTOS - 1), y = -1 + 2 * j / (t.FILAS - 1), h = t.altura(x, y, a, b, 1, I); assert.ok(h >= 0 && h <= t.TOPE); assert.ok(dentro(Ct.a(x, y, h)), id + ': terreno');
+    }
+    const p = P.modelo(R), Cp = p.camaraDe(), ficha = M.redondo(p.ANCHO, p.FONDO, p.RADIO);
+    for (const I of [0, 1]) for (let a = -1; a < p.FICHAS; a++) for (let i = 0; i < p.FICHAS; i++) for (const q of M.silueta(Cp, ficha, p.lugarDe(p.poseDe(i, a, I), Cp.mira), p.GRUESO).casco) assert.ok(dentro(q), id + ': pila');
+    const l = L.modelo(R), Cl = l.camaraDe(), cuerpo = M.redondo(l.ANCHO, l.FONDO, l.RADIO);
+    for (let g = 0; g <= l.tope(1); g += 3) for (const q of M.silueta(Cl, cuerpo, l.tapaEn(g), l.TAPA).casco) assert.ok(dentro(q), id + ': portátil a ' + g + '°');
+    for (const q of M.silueta(Cl, cuerpo, M.lugar(0, 0, 0, 0), l.BASE).casco) assert.ok(dentro(q), id + ': base del portátil');
+  }
+});
+
+test('la página de una figura propia lleva los genes de su entidad y su color', () => {
+  const html = paginaDeFigura('pila', ENTIDADES.cordura, 'Cordura'); assert.ok(html.includes('Pila de Cordura')); assert.ok(html.includes('"semilla"')); assert.ok(html.includes('--figura-acento: ' + ENTIDADES.cordura.pieza.barras[1]));
+  assert.deepEqual(nombresDeFiguras(), ['pila', 'portatil', 'terreno']);
 });

@@ -147,3 +147,8 @@ Capas|texto secundario sobre ui-04|text-02|ui-04|4.5
 Capas|borde de control sobre ui-04|border-control|ui-04|3
 Pendiente|texto de la marca|pending-text|pending-bg|4.5
 Pendiente|borde de la marca|pending-border|pending-bg|3
+Figura|la línea de lo elegido|figura-realce|figura-fondo|3
+Figura|el contorno de cada objeto|figura-borde|figura-fondo|3
+Figura|los pliegues y las líneas interiores|figura-medio|figura-fondo|3
+Figura|lo que queda al fondo|figura-lejos|figura-fondo|3
+Figura|su única marca de color|figura-acento|figura-fondo|3

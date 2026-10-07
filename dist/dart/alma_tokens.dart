@@ -512,6 +512,12 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     required this.datePickerDaySelectedText,
     required this.datePickerDayTodayBorder,
     required this.datePickerDayOutsideText,
+    required this.figuraFondo,
+    required this.figuraRealce,
+    required this.figuraBorde,
+    required this.figuraMedio,
+    required this.figuraLejos,
+    required this.figuraAcento,
   });
 
   /// Azul ALMA: el color de la acción principal y de los acentos. El token conserva el nombre que tenía cuando el acento era lima.
@@ -1514,6 +1520,18 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   final Color datePickerDayTodayBorder;
   /// DatePicker: días del mes anterior o siguiente. Token de componente: alias de text-03.
   final Color datePickerDayOutsideText;
+  /// Figura de línea: el fondo, que también tapa lo que queda detrás. Token de componente: alias de ui-02.
+  final Color figuraFondo;
+  /// Figura de línea: la línea de lo elegido. Token de componente: alias de text-01.
+  final Color figuraRealce;
+  /// Figura de línea: el contorno de cada objeto. Token de componente: alias de text-02.
+  final Color figuraBorde;
+  /// Figura de línea: los pliegues y las líneas interiores. Token de componente: alias de text-03.
+  final Color figuraMedio;
+  /// Figura de línea: lo que queda al fondo. Token de componente: alias de border-control.
+  final Color figuraLejos;
+  /// Figura de línea: su única marca de color. Token de componente: alias de interactive-01.
+  final Color figuraAcento;
 
   static const AlmaColors dark = AlmaColors(
     brandLime: Color(0xFF2667F2),
@@ -2016,6 +2034,12 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     datePickerDaySelectedText: Color(0xFFFFFFFF),
     datePickerDayTodayBorder: Color(0xFF7EAAFD),
     datePickerDayOutsideText: Color(0xFF919191),
+    figuraFondo: Color(0xFF000000),
+    figuraRealce: Color(0xFFFAFAFA),
+    figuraBorde: Color(0xFFBDBDBD),
+    figuraMedio: Color(0xFF919191),
+    figuraLejos: Color(0xFF676767),
+    figuraAcento: Color(0xFF2667F2),
   );
 
   static const AlmaColors light = AlmaColors(
@@ -2519,6 +2543,12 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     datePickerDaySelectedText: Color(0xFFFFFFFF),
     datePickerDayTodayBorder: Color(0xFF2667F2),
     datePickerDayOutsideText: Color(0xFF676767),
+    figuraFondo: Color(0xFFFAFAFA),
+    figuraRealce: Color(0xFF464646),
+    figuraBorde: Color(0xFF5C5C5C),
+    figuraMedio: Color(0xFF676767),
+    figuraLejos: Color(0xFF676767),
+    figuraAcento: Color(0xFF2667F2),
   );
 
   static const AlmaColors darkHc = AlmaColors(
@@ -3022,6 +3052,12 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     datePickerDaySelectedText: Color(0xFF191919),
     datePickerDayTodayBorder: Color(0xFFC9DCFD),
     datePickerDayOutsideText: Color(0xFFCDCDCD),
+    figuraFondo: Color(0xFF000000),
+    figuraRealce: Color(0xFFFAFAFA),
+    figuraBorde: Color(0xFFE7E7E7),
+    figuraMedio: Color(0xFFCDCDCD),
+    figuraLejos: Color(0xFFBDBDBD),
+    figuraAcento: Color(0xFFA6C5FD),
   );
 
   static const AlmaColors lightHc = AlmaColors(
@@ -3525,6 +3561,12 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     datePickerDaySelectedText: Color(0xFFFFFFFF),
     datePickerDayTodayBorder: Color(0xFF0032A3),
     datePickerDayOutsideText: Color(0xFF464646),
+    figuraFondo: Color(0xFFFAFAFA),
+    figuraRealce: Color(0xFF191919),
+    figuraBorde: Color(0xFF464646),
+    figuraMedio: Color(0xFF464646),
+    figuraLejos: Color(0xFF464646),
+    figuraAcento: Color(0xFF0032A3),
   );
 
   static AlmaColors of(AlmaTheme theme) {
@@ -4042,6 +4084,12 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     Color? datePickerDaySelectedText,
     Color? datePickerDayTodayBorder,
     Color? datePickerDayOutsideText,
+    Color? figuraFondo,
+    Color? figuraRealce,
+    Color? figuraBorde,
+    Color? figuraMedio,
+    Color? figuraLejos,
+    Color? figuraAcento,
   }) {
     return AlmaColors(
       brandLime: brandLime ?? this.brandLime,
@@ -4544,6 +4592,12 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
       datePickerDaySelectedText: datePickerDaySelectedText ?? this.datePickerDaySelectedText,
       datePickerDayTodayBorder: datePickerDayTodayBorder ?? this.datePickerDayTodayBorder,
       datePickerDayOutsideText: datePickerDayOutsideText ?? this.datePickerDayOutsideText,
+      figuraFondo: figuraFondo ?? this.figuraFondo,
+      figuraRealce: figuraRealce ?? this.figuraRealce,
+      figuraBorde: figuraBorde ?? this.figuraBorde,
+      figuraMedio: figuraMedio ?? this.figuraMedio,
+      figuraLejos: figuraLejos ?? this.figuraLejos,
+      figuraAcento: figuraAcento ?? this.figuraAcento,
     );
   }
 
@@ -5051,6 +5105,12 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
       datePickerDaySelectedText: Color.lerp(datePickerDaySelectedText, other.datePickerDaySelectedText, t)!,
       datePickerDayTodayBorder: Color.lerp(datePickerDayTodayBorder, other.datePickerDayTodayBorder, t)!,
       datePickerDayOutsideText: Color.lerp(datePickerDayOutsideText, other.datePickerDayOutsideText, t)!,
+      figuraFondo: Color.lerp(figuraFondo, other.figuraFondo, t)!,
+      figuraRealce: Color.lerp(figuraRealce, other.figuraRealce, t)!,
+      figuraBorde: Color.lerp(figuraBorde, other.figuraBorde, t)!,
+      figuraMedio: Color.lerp(figuraMedio, other.figuraMedio, t)!,
+      figuraLejos: Color.lerp(figuraLejos, other.figuraLejos, t)!,
+      figuraAcento: Color.lerp(figuraAcento, other.figuraAcento, t)!,
     );
   }
 }

@@ -500,6 +500,12 @@
   --date-picker-day-selected-text: var(--text-on-interactive);
   --date-picker-day-today-border: var(--control-on);
   --date-picker-day-outside-text: var(--text-03);
+  --figura-fondo: var(--ui-02);
+  --figura-realce: var(--text-01);
+  --figura-borde: var(--text-02);
+  --figura-medio: var(--text-03);
+  --figura-lejos: var(--border-control);
+  --figura-acento: var(--interactive-01);
   color-scheme: dark;
 }
 [data-theme="light"] {
@@ -1003,6 +1009,12 @@
   --date-picker-day-selected-text: var(--text-on-interactive);
   --date-picker-day-today-border: var(--control-on);
   --date-picker-day-outside-text: var(--text-03);
+  --figura-fondo: var(--ui-02);
+  --figura-realce: var(--text-01);
+  --figura-borde: var(--text-02);
+  --figura-medio: var(--text-03);
+  --figura-lejos: var(--border-control);
+  --figura-acento: var(--interactive-01);
   color-scheme: light;
 }
 [data-theme="dark-hc"] {
@@ -1506,6 +1518,12 @@
   --date-picker-day-selected-text: var(--text-on-interactive);
   --date-picker-day-today-border: var(--control-on);
   --date-picker-day-outside-text: var(--text-03);
+  --figura-fondo: var(--ui-02);
+  --figura-realce: var(--text-01);
+  --figura-borde: var(--text-02);
+  --figura-medio: var(--text-03);
+  --figura-lejos: var(--border-control);
+  --figura-acento: var(--interactive-01);
   color-scheme: dark;
 }
 [data-theme="light-hc"] {
@@ -2009,6 +2027,12 @@
   --date-picker-day-selected-text: var(--text-on-interactive);
   --date-picker-day-today-border: var(--control-on);
   --date-picker-day-outside-text: var(--text-03);
+  --figura-fondo: var(--ui-02);
+  --figura-realce: var(--text-01);
+  --figura-borde: var(--text-02);
+  --figura-medio: var(--text-03);
+  --figura-lejos: var(--border-control);
+  --figura-acento: var(--interactive-01);
   color-scheme: light;
 }
 :root {

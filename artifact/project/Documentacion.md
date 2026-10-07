@@ -4,6 +4,25 @@
 
 Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detalle de cada cambio está en el historial del repositorio.
 
+### 7 de octubre de 2026
+
+#### Figuras de línea
+
+- **Un motor propio** (`figuras/motor.js`): figuras en línea fina, vistas desde arriba y de lado, que responden al puntero y al teclado. Cámara sin perspectiva, resortes, un solo reloj que se detiene cuando nada se mueve, y sólidos redondeados que se dibujan como una silueta y un pliegue.
+- **Atado a ALMA.** Los tonos de línea, el fondo, el acento, el foco y los tiempos son tokens por nombre; sirve en tema oscuro y claro, y respeta el movimiento reducido.
+- **Sólidos que se inclinan.** Un sólido puede girar en una bisagra, como una tapa, y el motor muestra la cara que corresponde (el lomo o la pantalla) y lo que lleva dibujado encima.
+- **Propias de cada entidad.** Con los genes de una entidad, cada figura toma de su carta cuántas piezas tiene, qué tan redondas son sus esquinas, sus proporciones y cómo descansa: Autómata sube en terrazas y tiene esquinas rectas; Ensayo apila nueve fichas; Cordura, cinco. `npm run figura -- pila cordura`.
+- **Parte de ALMA.** Los tonos de línea son tokens (`figura-fondo`, `figura-borde`, `figura-medio`, `figura-lejos`, `figura-realce`, `figura-acento`), con su contraste medido en los cuatro temas, y la guía de ilustración las describe.
+- **En el lenguaje de cada entidad**, Ilustración suma «Figuras de línea»: sus tres figuras vivas, con la marca en su color y un mando para la fuerza de la respuesta.
+- **Tres figuras:** `terreno` (dunas y una colina que sigue al puntero), `pila` (fichas que se abren en abanico sobre la que eliges) y `portatil` (su tapa se abre y se cierra con el puntero). `npm run figura -- <nombre>` arma cada una en un solo archivo.
+
+#### Piel y pelaje, juntos en el desfile
+
+- **Un personaje con las dos cosas.** Las almohadas que Blender infla (`blender/piloto.py --exporta`) viajan a Unity con sus piernas y sus zapatos (`unity/Assets/StreamingAssets/pieles/`), y allí caminan en el desfile con el andar de cada entidad.
+- **La carta reparte.** Las almohadas de los centros definidos van desnudas: se ve su tela (punto, vinilo o pana) y el patrón de la entidad. Las de sus puertas llevan pelaje.
+- **Se mueve.** Las piernas doblan en la rodilla, las almohadas rebotan un poco a cada paso y el pelaje las sigue.
+- En el lenguaje de cada entidad, Personaje suma el retrato «Vestido para el desfile», y el video del desfile es el nuevo. El desfile anterior, solo con pelaje, sigue en Unity (`Desfile.vestidos`).
+
 ### 5 de octubre de 2026
 
 #### Patrón, materia y piel

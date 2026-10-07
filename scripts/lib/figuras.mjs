@@ -4,3 +4,9 @@ import { readFileSync, readdirSync } from 'node:fs';
 
 export const nombresDeFiguras = () => readdirSync('figuras').filter((f) => f.endsWith('.js') && f !== 'motor.js').map((f) => f.replace(/\.js$/, '')).sort();
 export function figurasNavegador() { return ['motor', ...nombresDeFiguras()].map((n) => readFileSync(`figuras/${n}.js`, 'utf8')).join('\n'); }
+
+// What a figure takes from an entity, from the file `npm run genes` writes (or the same things, however they come):
+// its genes, and from its character how wide, tall and heavy it is, how it leans, and whether it is made of blocks.
+export function rasgosDe(entidad) {
+  const K = entidad.personaje; return { ...entidad.genes, ...(K ? { anguloso: K.medidas.anguloso, ancho: K.medidas.ancho, alto: K.medidas.alto, peso: K.andar.peso, inclina: K.andar.inclina } : {}) };
+}

@@ -469,23 +469,26 @@
   function Figura(p) {
     var ref = React.useRef(null), viva = React.useRef(null), dice = useState('En reposo');
     React.useEffect(function () {
-      viva.current = window.AlmaFigura.monta(ref.current, p.nombre, { intensidad: p.intensidad, etiqueta: p.etiqueta, alLeer: dice[1] });
+      viva.current = window.AlmaFigura.monta(ref.current, p.nombre, { genes: p.genes, intensidad: p.intensidad, etiqueta: p.etiqueta, alLeer: dice[1] });
       return function () { viva.current.suelta(); viva.current = null; };
-    }, [p.nombre]);
+    }, [p.nombre, p.genes && p.genes.semilla]);
     React.useEffect(function () { if (viva.current) viva.current.pon({ intensidad: p.intensidad }); }, [p.intensidad]);
     return h('figure', { className: 'gen-fig' }, h('div', { ref: ref }),
       h('figcaption', { className: 'web-body-s cap' }, h('span', { className: 'web-label-l' }, p.titulo), ' ', p.nota, ' ', h('span', { className: 'gen-figura__dice', 'aria-hidden': 'true' }, dice[0])));
   }
   function GenFiguras() {
-    var fuerza = useState('Media'), I = { Suave: 0.15, Media: 0.5, Fuerte: 1 }[fuerza[0]];
-    var lista = [['terreno', 'Terreno.', 'Una colina sigue al puntero.', 'Un terreno de dunas en línea fina; una colina sigue al puntero.'],
-      ['pila', 'Pila.', 'Señala una ficha y la pila se abre sobre ella.', 'Una pila de fichas de esquinas redondas en línea fina; se abre en abanico sobre la que se señala.'],
-      ['portatil', 'Portátil.', 'Arriba se abre, abajo se cierra.', 'Un portátil en línea fina; su tapa se abre y se cierra con el puntero.']].filter(function (x) { return window.AlmaFigura.figuras[x[0]]; });
+    var fuerza = useState('Media'), I = { Suave: 0.15, Media: 0.5, Fuerte: 1 }[fuerza[0]], K = L.personaje, c = G.centros || [];
+    // What a figure takes from the entity: its genes, and from its character how wide, tall and heavy it is, how it leans, and whether it is made of blocks.
+    var rasgos = Object.assign({}, G, K ? { anguloso: K.medidas.anguloso, ancho: K.medidas.ancho, alto: K.medidas.alto, peso: K.andar.peso, inclina: K.andar.inclina } : null);
+    var bloques = rasgos.anguloso, fichas = Math.max(4, Math.min(9, G.puntas || 7)), grupos = Math.max(1, Math.min(3, G.grupos || 1));
+    var lista = [['terreno', 'Terreno.', 'Una colina sigue al puntero. Tiene ' + (c.length === 1 ? 'una duna, la de nuestro centro definido' : c.length + ' dunas, una por cada centro definido de nuestra carta') + (bloques ? ', y sube en terrazas porque estamos hechos de bloques.' : '.'), 'Terreno de ' + L.nombre + ' en línea fina, con ' + c.length + ' dunas; una colina sigue al puntero.'],
+      ['pila', 'Pila.', 'Señala una ficha y la pila se abre sobre ella. Son ' + fichas + ' fichas, como las puntas de nuestro signo, de esquinas ' + (bloques ? 'rectas.' : 'tan redondas como somos.'), 'Pila de ' + fichas + ' fichas de ' + L.nombre + ' en línea fina; se abre en abanico sobre la que se señala.'],
+      ['portatil', 'Portátil.', 'Arriba se abre, abajo se cierra. Sus teclas van en ' + (grupos === 1 ? 'un bloque' : grupos + ' bloques') + ', como los grupos de nuestra carta, y en reposo su tapa se inclina tanto como nosotros al caminar.', 'Portátil de ' + L.nombre + ' en línea fina; su tapa se abre y se cierra con el puntero.']].filter(function (x) { return window.AlmaFigura.figuras[x[0]]; });
     return h(Sec, { title: 'Figuras de línea' },
       h(Para, null, 'También dibujamos objetos con una sola línea fina, vistos desde arriba y de lado. No llevan relleno ni palabras: la forma dice qué son, y una sola marca lleva nuestro color. Están vivos: responden al puntero y a las flechas del teclado, y vuelven solos a su reposo.'),
-      h(Para, null, 'Sirven para explicar una idea con un objeto: algo continuo que responde a dónde estás, elegir una cosa entre muchas iguales, algo que se abre y se cierra. Usan nuestros tonos de texto para la línea y nuestro fondo, así que cambian con el tema.'),
+      h(Para, null, 'Son nuestras: cada una toma de nuestra carta cuántas piezas tiene, qué tan redondas son sus esquinas, sus proporciones y cómo descansa. La misma carta da siempre las mismas figuras. Usan nuestros tonos de línea y nuestro fondo, así que cambian con el tema.'),
       h(A.SegmentedControl, { label: 'Fuerza de la respuesta', options: ['Suave', 'Media', 'Fuerte'], value: fuerza[0], onChange: fuerza[1] }),
-      h('div', { className: 'gen-figuras' }, lista.map(function (x) { return h(Figura, { key: x[0], nombre: x[0], titulo: x[1], nota: x[2], etiqueta: x[3], intensidad: I }); })),
+      h('div', { className: 'gen-figuras' }, lista.map(function (x) { return h(Figura, { key: x[0], nombre: x[0], titulo: x[1], nota: x[2], etiqueta: x[3], intensidad: I, genes: rasgos }); })),
       h(Para, null, 'Con el teclado: entra en una figura con el tabulador y usa las flechas; Escape la deja en reposo.'));
   }
   // The sheets: twelve drawings made only of strokes, ready for a pen plotter. Each is drawn when it nears the
