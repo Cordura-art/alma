@@ -23,7 +23,8 @@
     function lee() {
       var cs = getComputedStyle(el), n = function (v, d) { var x = parseFloat(cs.getPropertyValue(v)); return isFinite(x) ? x : d; };
       reposo = n('--font-weight-display', 220); ancho = n('--font-width', 100); grado = n('--font-grade', 0);
-      tope = Math.max(reposo + 200, Math.min(1000, 500 + 50 * (G.puntas || 5))); ajusta(); pide();
+      // (a touch is felt, not shouted: a step or two of weight above its rest)
+      tope = Math.min(1000, reposo + 80 + 12 * (G.puntas || 5)); ajusta(); pide();
     }
     // As large as its place lets it be, measured at rest.
     function ajusta() {
@@ -33,7 +34,7 @@
       if (mide) { tam = Math.max(24, Math.min(100 * caja.width * 0.86 / w, caja.height * 0.62 || 1e4)); el.style.fontSize = tam.toFixed(1) + 'px'; } else tam = parseFloat(getComputedStyle(el).fontSize) || 100;
       // (where each letter is, as a part of the line: the page may move the word or make it larger, and they hold)
       var l = linea.getBoundingClientRect(), lw = l.width || 1, lh = l.height || 1; for (i = 0; i < letras.length; i++) { var r = letras[i].getBoundingClientRect(); E[i].cx = (r.left + r.width / 2 - l.left) / lw; E[i].cy = (r.top + r.height / 2 - l.top) / lh; }
-      alcance = Math.max(0.14, Math.min(0.3, 0.34 - 0.012 * (G.puntas || 5))); borroso = tam * (0.03 + 0.06 * (G.redondez == null ? 0.5 : G.redondez));
+      alcance = Math.max(0.18, Math.min(0.34, 0.4 - 0.012 * (G.puntas || 5))); borroso = tam * (0.03 + 0.06 * (G.redondez == null ? 0.5 : G.redondez));
       for (i = 0; i < letras.length; i++) viste(i);
     }
     // When each letter starts: in the entity's order, each one waiting its number of beats after the one before.
@@ -53,7 +54,7 @@
 
     function cuadro(ahora) {
       pedido = 0; var dt = Math.min(0.05, antes ? (ahora - antes) / 1000 : 0.016), quieto = menos.matches, sigue = false; antes = ahora; reloj += dt;
-      var l = linea.getBoundingClientRect(), lw = l.width || 1, k = 1 - Math.exp(-dt * 10);
+      var l = linea.getBoundingClientRect(), lw = l.width || 1, k = 1 - Math.exp(-dt * 6);
       for (var i = 0; i < E.length; i++) {
         var e = E[i], p = quieto ? 1 : Math.min(1, Math.max(0, (reloj - e.parte) / ENTRA)), q = quieto ? 1 : Math.min(1, Math.max(0, (reloj - e.parte) / PESA));
         e.ve = 1 - Math.pow(1 - p, 3);      // (it comes into focus quickly, and into its weight more slowly)

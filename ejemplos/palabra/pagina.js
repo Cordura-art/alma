@@ -43,7 +43,7 @@
               h(Rasgo, { nombre: 'Sus números', valor: G.numeros.join(' · '), hace: 'El ritmo de la escritura: cada letra espera ese número de pulsos después de la anterior.' }),
               h(Rasgo, { nombre: 'Su dirección', valor: G.direccion === 'foco' ? 'Foco' : 'Giro', hace: G.direccion === 'foco' ? 'Se escribe desde el centro hacia los lados.' : 'Se escribe de la primera letra a la última.' }),
               h(Rasgo, { nombre: 'Su redondez', valor: String(Math.round(G.redondez * 100) / 100).replace('.', ','), hace: 'Cuánto difuminado trae cada letra al entrar: más redonda, más suave.' }),
-              h(Rasgo, { nombre: 'Sus puntas', valor: G.puntas, hace: 'Hasta qué peso llega al tocarla (' + tokens[0].tope + ') y qué tan angosto es el toque.' }),
+              h(Rasgo, { nombre: 'Sus puntas', valor: G.puntas, hace: 'Cuánto peso gana al tocarla (llega a ' + tokens[0].tope + ') y qué tan angosto es el toque.' }),
               h(Rasgo, { nombre: 'Peso en reposo', valor: tokens[0].reposo, hace: 'Su token font-weight-display. Cada letra entra en 100, el más liviano, y sube hasta aquí.' }),
               h(Rasgo, { nombre: 'Ancho y grado', valor: tokens[0].ancho + ' · ' + tokens[0].grado, hace: 'Sus tokens font-width y font-grade, los mismos de todo su texto.' }))))));
   }
