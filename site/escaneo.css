@@ -17,7 +17,8 @@ body { margin: 0; background: var(--ui-02); color: var(--text-01); font-family: 
 .escaneo__palabra { align-self: center; justify-self: center; margin: 0; font-size: clamp(5rem, 27vw, 30rem); line-height: 0.8; font-weight: var(--font-weight-display); letter-spacing: -0.03em; white-space: nowrap; color: var(--text-01); user-select: none; }
 .escaneo__lienzo { width: 100%; height: 100%; display: block; }
 .escaneo__figura { margin: 0; min-width: 0; min-height: 0; }
-.escaneo__entrada { align-self: end; justify-self: start; box-sizing: border-box; max-width: min(100%, 26rem); padding: var(--space-48) var(--space-16) var(--space-64) clamp(var(--space-16), 9vw, 10rem); display: grid; gap: var(--space-24); justify-items: start; }
+/* What is said at the entrance, on the page's own ground: it is read over the word and over the dots. */
+.escaneo__entrada { align-self: end; justify-self: start; box-sizing: border-box; max-width: min(100% - 2 * var(--space-16), 24rem); margin: var(--space-16) var(--space-16) var(--space-48) clamp(var(--space-16), 7vw, 8rem); padding: var(--space-24); background: var(--ui-02); border: 1px solid var(--border-subtle); border-radius: var(--radius-tag); display: grid; gap: var(--space-24); justify-items: start; }
 .escaneo__frase { margin: 0; font-size: 1.25rem; line-height: 1.3; font-weight: var(--font-weight-heading); text-wrap: balance; }
 .escaneo__frase span { display: block; }
 .escaneo__accion { display: inline-flex; align-items: center; min-height: var(--space-48); padding: 0 var(--space-24); border-radius: var(--radius-button); background: var(--button-filled-bg); color: var(--text-on-interactive); font-weight: var(--font-weight-emphasis); text-decoration: none; transition: background-color var(--duration-fast-02) var(--easing-standard-productive); }
@@ -41,7 +42,7 @@ body { margin: 0; background: var(--ui-02); color: var(--text-01); font-family: 
 .oficio li span { color: var(--text-02); }
 .oficio .nota { font-size: 0.875rem; color: var(--text-03); }
 @media (max-width: 44rem) {
-  .escaneo__entrada { padding: var(--space-24) var(--space-16) var(--space-40); }
+  .escaneo__entrada { margin: var(--space-16) var(--space-16) var(--space-24); }
   .escaneo__datos { padding: var(--space-64) var(--space-16) var(--space-24); grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr auto; }
   .escaneo__dato { font-size: 0.9375rem; }
   .escaneo__dato:nth-child(1) { grid-area: 1 / 1; align-self: start; } .escaneo__dato:nth-child(2) { grid-area: 1 / 2; align-self: start; }
