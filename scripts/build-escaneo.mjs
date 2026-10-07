@@ -16,7 +16,7 @@ const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 export async function paginaDeEscaneo(id) {
   const archivo = `entidades/escaneos/${id}.json`; if (!existsSync(archivo)) throw new Error(`No hay una página de escaneo para «${id}» en entidades/escaneos/.`);
   const T = JSON.parse(readFileSync(archivo, 'utf8')), E = JSON.parse(readFileSync(`entidades/escaneos/${T.escaneo}.json`, 'utf8')), S = await sistema(id), G = genesDe(S), L = JSON.parse(readFileSync(`entidades/lenguajes/${id}.json`, 'utf8'));
-  const trama = { columnas: E.columnas, filas: E.filas, puntos: E.puntos }, puntos = Buffer.from(E.puntos, 'base64').length / 4;
+  const trama = { columnas: E.columnas, filas: E.filas, hondos: E.hondos, puntos: E.puntos }, puntos = Buffer.from(E.puntos, 'base64').length / 7;
   const dice = (s) => esc(s.replace('{puntos}', miles(puntos)).replace('{pesoOrigen}', peso(E.peso || 0)).replace('{pesoTrama}', peso(JSON.stringify(trama).length)));
   return `<!doctype html>
 <html lang="es" data-theme="dark">

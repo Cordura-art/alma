@@ -8,8 +8,9 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 #### Un escaneo al centro de una página
 
-- **De un escaneo a una trama de puntos.** `blender/escaneo.py` mira un objeto escaneado (un `.glb`) de frente a través de una rejilla y deja un punto donde lo toca, con su lugar, su hondura y cuán clara es su superficie ahí. Un busto de 32 MB quedó en 11.766 puntos y 63 KB.
-- **Una portada con el objeto al centro.** `npm run escaneo -- ensayo` arma una página de un solo archivo: una palabra grande detrás, el objeto hecho de puntos en tres colores de la entidad, y al desplazar se deshace en grupos, uno junto a cada cosa que la página dice. Gira un poco con el puntero. Con movimiento reducido aparece armado y quieto.
+- **De un escaneo a una trama de puntos.** `blender/escaneo.py` mira un objeto escaneado (un `.glb`) desde ocho lados a través de una rejilla y deja un punto donde lo toca, con su lugar, su tono y hacia dónde mira su superficie. Un busto de 32 MB quedó en 20.278 puntos y 189 KB.
+- **Una portada con el objeto al centro.** `npm run escaneo -- ensayo` arma una página de un solo archivo: una palabra grande detrás, el objeto hecho de puntos en tres colores de la entidad, y al desplazar se deshace en grupos, uno junto a cada cosa que la página dice. Gira unos 60° a cada lado con el puntero, con la luz fija, y tapa la palabra que tiene detrás. Con movimiento reducido aparece armado y quieto.
+- **Puntos con peso.** Cada punto tiene velocidad propia: el puntero los arrastra y arremolina como una mano por el humo, se estiran en hilos y vuelven solos a su lugar. Señalar un dato, o llegar a él con el teclado, junta su racimo y dispersa los otros.
 - **El contenido va aparte**, en `entidades/escaneos/<entidad>.json`; el archivo original del escaneo no entra al repositorio.
 
 #### Figuras de línea
