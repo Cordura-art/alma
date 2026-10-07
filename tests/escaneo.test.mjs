@@ -4,12 +4,12 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { paginaDeEscaneo, paraArtefacto, entidadesConEscaneo, peso } from '../scripts/build-escaneo.mjs';
 
-test('un escaneo es una trama de puntos: siete bytes por punto, todos dentro de su trama y con su cara de largo uno', () => {
+test('un escaneo es una trama de puntos: siete bytes por punto (diez si la trama pasa de 255 pasos por lado), todos dentro de su trama y con su cara de largo uno', () => {
   for (const f of readdirSync('entidades/escaneos')) {
     const E = JSON.parse(readFileSync('entidades/escaneos/' + f, 'utf8')); if (!E.puntos) continue;
-    const b = Buffer.from(E.puntos, 'base64'); assert.equal(E.alma, 2); assert.equal(b.length % 7, 0); assert.ok(b.length / 7 > 1000 && b.length / 7 < 40000, f + ': ' + b.length / 7 + ' puntos');
-    for (let i = 0; i < b.length; i += 7) { assert.ok(b[i] < E.columnas && b[i + 1] < E.filas && b[i + 2] < E.hondos, f + ': un punto cae fuera de la trama'); const l = Math.hypot(b[i + 4] - 128, b[i + 5] - 128, b[i + 6] - 128) / 127; assert.ok(l > 0.9 && l < 1.1, f + ': una cara de largo ' + l.toFixed(2)); }
-    assert.ok(Math.max(E.columnas, E.filas, E.hondos) <= 255 && E.peso > 0);
+    const b = Buffer.from(E.puntos, 'base64'), ancho = E.alma === 3 ? 10 : 7, c = ancho - 4, lugar = (i, k) => c === 6 ? b[i + 2 * k] | b[i + 2 * k + 1] << 8 : b[i + k]; assert.ok(E.alma === 2 || E.alma === 3); assert.equal(b.length % ancho, 0); assert.ok(b.length / ancho > 1000 && b.length / ancho < 40000, f + ': ' + b.length / ancho + ' puntos');
+    for (let i = 0; i < b.length; i += ancho) { assert.ok(lugar(i, 0) < E.columnas && lugar(i, 1) < E.filas && lugar(i, 2) < E.hondos, f + ': un punto cae fuera de la trama'); const l = Math.hypot(b[i + c + 1] - 128, b[i + c + 2] - 128, b[i + c + 3] - 128) / 127; assert.ok(l > 0.9 && l < 1.1, f + ': una cara de largo ' + l.toFixed(2)); }
+    assert.equal(Math.max(E.columnas, E.filas, E.hondos) > 255, E.alma === 3); assert.ok(E.peso > 0);
   }
 });
 

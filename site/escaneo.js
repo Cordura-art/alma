@@ -15,7 +15,7 @@
 (function () {
   var D = window.__ESCANEO, escena = document.querySelector('.escaneo'), fija = escena.querySelector('.escaneo__fija'), lienzo = escena.querySelector('canvas');
   var palabra = escena.querySelector('.escaneo__palabra'), entrada = escena.querySelector('.escaneo__entrada'), datos = [].slice.call(escena.querySelectorAll('.escaneo__dato'));
-  var ctx = lienzo.getContext('2d'), menos = matchMedia('(prefers-reduced-motion: reduce)'), bytes = atob(D.puntos), N = bytes.length / 7, K = Math.max(1, datos.length);
+  var ctx = lienzo.getContext('2d'), menos = matchMedia('(prefers-reduced-motion: reduce)'), bytes = atob(D.puntos), ANCHO = D.alma === 3 ? 10 : 7, N = bytes.length / ANCHO, K = Math.max(1, datos.length);
   // Chance that is always the same: the same thing comes apart the same way every time.
   var s = 2166136261; function azar() { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 1000000) / 1000000; }
   function campana() { return (azar() + azar() + azar() + azar() - 2) / 1.2; }
@@ -25,9 +25,9 @@
   var CHORROS = [[0.55, -0.95, 0.05], [-1, -0.3, 0.4], [1, 0.05, 0.3]];
   var P = [], cara = function (v) { return (v - 128) / 127; };
   for (var i = 0; i < N; i++) {
-    var col = bytes.charCodeAt(7 * i), fila = bytes.charCodeAt(7 * i + 1), x = col + 0.5 - D.columnas / 2, y = fila + 0.5 - D.filas / 2, alto = fila / D.filas, borde = alto + (azar() - 0.5) * 0.09;
+    var o = ANCHO * i, c = ANCHO - 4, lugar = function (k) { return c === 6 ? bytes.charCodeAt(o + 2 * k) | bytes.charCodeAt(o + 2 * k + 1) << 8 : bytes.charCodeAt(o + k); }, col = lugar(0), fila = lugar(1), x = col + 0.5 - D.columnas / 2, y = fila + 0.5 - D.filas / 2, alto = fila / D.filas, borde = alto + (azar() - 0.5) * 0.09;
     var grupo = Math.min(K - 1, K === 1 ? 0 : (x < 0 ? 0 : 1) + (K > 2 && y > 0 ? 2 : 0)), nido = nidos[grupo][Math.floor(azar() * 6) % 6], a = campana() * nido[3], b = campana() * nido[4];
-    P.push({ col: col, fila: fila, x: x, y: y, z: D.hondos / 2 - bytes.charCodeAt(7 * i + 2) - 0.5, tono: bytes.charCodeAt(7 * i + 3) / 255, nx: cara(bytes.charCodeAt(7 * i + 4)), nu: cara(bytes.charCodeAt(7 * i + 5)), nf: cara(bytes.charCodeAt(7 * i + 6)), tinta: borde < 0.21 ? 0 : borde < 0.64 ? 1 : 2, grupo: grupo,
+    P.push({ col: col, fila: fila, x: x, y: y, z: D.hondos / 2 - lugar(2) - 0.5, tono: bytes.charCodeAt(o + c) / 255, nx: cara(bytes.charCodeAt(o + c + 1)), nu: cara(bytes.charCodeAt(o + c + 2)), nf: cara(bytes.charCodeAt(o + c + 3)), tinta: borde < 0.21 ? 0 : borde < 0.64 ? 1 : 2, grupo: grupo,
       antes: azar(), despues: azar(), px: azar() * 2 - 1, py: azar() * 2 - 1,
       gx: nido[0] + a * Math.cos(nido[2]) - b * Math.sin(nido[2]), gy: nido[1] + a * Math.sin(nido[2]) + b * Math.cos(nido[2]),
       // In its cluster: mostly that cluster's color, some of the others; a few large, most small. Only some stay in it: the rest go back to dust.
