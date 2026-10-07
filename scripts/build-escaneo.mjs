@@ -15,7 +15,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 export const peso = (bytes) => (bytes >= 1e6 ? Math.round(bytes / 1e6) + ' MB' : Math.max(1, Math.round(bytes / 1e3)) + ' KB');
 // An icon of ALMA's (IBM Carbon), as the drawing it is.
 const ICONOS = JSON.parse(readFileSync('artifact/project/assets/Icons/carbon-icons.json', 'utf8'));
-const icono = (nombre) => `<svg viewBox="${ICONOS.viewBox}" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false">${(ICONOS.icons || ICONOS)[nombre]}</svg>`;
+const icono = (nombre) => `<svg viewBox="${ICONOS.viewBox}" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false">${(ICONOS.icons || ICONOS)[nombre]}</svg>`;
 const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
 export async function paginaDeEscaneo(id) {

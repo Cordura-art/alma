@@ -1,11 +1,14 @@
 /* A page with a scanned thing at its middle, drawn in dots, and what the entity says laid out around it. */
 html { color-scheme: dark; scroll-behavior: smooth; } html[data-theme="light"] { color-scheme: light; }
 body { margin: 0; background: var(--ui-02); color: var(--text-01); font-family: var(--font-flex), system-ui, sans-serif; font-weight: var(--font-weight-body); font-variation-settings: 'wdth' var(--font-width), 'GRAD' var(--font-grade); line-height: 1.5; }
-/* Its one control: the theme, light or dark. It stays at the top corner of the page. */
-.escaneo__tema { position: fixed; top: calc(var(--space-16) + env(safe-area-inset-top, 0px)); right: var(--space-16); z-index: 3; display: inline-flex; align-items: center; justify-content: center; width: var(--space-48); height: var(--space-48); padding: 0; color: var(--text-01); background: var(--ui-02); border: 1px solid var(--border-control); border-radius: var(--radius-button); cursor: pointer; transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
-.escaneo__tema:hover { border-color: var(--text-01); }
+/* Its one control: the theme, light or dark. It stays at the top corner of the page. It is ALMA's Button, plain and icon
+   only: a circle with no outline and one icon, the sun on a dark page and the moon on a light one. It sits on the page's
+   own ground, so that it is read over the dots. */
+.escaneo__tema { position: fixed; top: calc(var(--space-16) + env(safe-area-inset-top, 0px)); right: var(--space-16); z-index: 3; display: inline-flex; align-items: center; justify-content: center; width: var(--size-touch-min); height: var(--size-touch-min); padding: 0; color: var(--button-plain-text); background-color: var(--ui-02); border: 0; border-radius: var(--radius-pill); cursor: pointer; transition: box-shadow var(--duration-fast-02) var(--easing-standard-productive); }
+.escaneo__tema:hover { background-image: linear-gradient(var(--button-plain-bg-hover), var(--button-plain-bg-hover)); }
+.escaneo__tema:active { background-image: linear-gradient(var(--button-plain-bg-active), var(--button-plain-bg-active)); box-shadow: inset 0 0 0 2px var(--button-plain-text); }
 .escaneo__tema:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.escaneo__tema span { display: inline-flex; } .escaneo__de-claro, [data-theme="light"] .escaneo__de-oscuro { display: none; } [data-theme="light"] .escaneo__de-claro { display: inline-flex; }
+.escaneo__tema .escaneo__de-oscuro { display: inline-flex; } .escaneo__tema .escaneo__de-claro, [data-theme="light"] .escaneo__tema .escaneo__de-oscuro { display: none; } [data-theme="light"] .escaneo__tema .escaneo__de-claro { display: inline-flex; }
 .escaneo { position: relative; height: 320vh; }
 .escaneo__fija { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; }
 .escaneo__fija > * { grid-area: 1 / 1; position: relative; }

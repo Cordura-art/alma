@@ -141,7 +141,7 @@
   // Its one control: the theme, light or dark, kept for the next visit.
   var raiz = document.documentElement, boton = document.querySelector('.escaneo__tema'), LLAVE = 'alma-portada-tema';
   function guardado() { try { return localStorage.getItem(LLAVE); } catch (e) { return null; } }
-  function nombra() { if (boton) boton.setAttribute('aria-label', raiz.getAttribute('data-theme') === 'light' ? 'Usar tema oscuro' : 'Usar tema claro'); }
+  function nombra() { if (!boton) return; var dice = raiz.getAttribute('data-theme') === 'light' ? 'Usar tema oscuro' : 'Usar tema claro'; boton.setAttribute('aria-label', dice); boton.title = dice; }
   function pone(t) { raiz.setAttribute('data-theme', t); raiz.style.colorScheme = t; nombra(); }
   var elegido = guardado(); pone(elegido === 'light' || elegido === 'dark' ? elegido : raiz.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
   if (boton) boton.addEventListener('click', function () { var t = raiz.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; try { localStorage.setItem(LLAVE, t); } catch (e) {} pone(t); });

@@ -19,7 +19,7 @@ test('la página de un escaneo lleva los colores y la voz de la entidad, su cont
   assert.equal((html.match(/class="escaneo__dato"/g) || []).length, T.datos.length); assert.equal(/\{(puntos|pesoOrigen|pesoTrama)\}/.test(html), false, 'quedó un dato sin llenar');
   assert.ok(/--escaneo-1: #[0-9A-Fa-f]{6}; --escaneo-2: #[0-9A-Fa-f]{6}; --escaneo-3: #[0-9A-Fa-f]{6};/.test(html)); assert.ok(html.includes('role="img"') && html.includes('prefers-reduced-motion'));
   assert.ok(html.includes('id="oficio"') && html.includes(T.accion.destino));
-  assert.ok(/<button class="escaneo__tema" type="button" aria-label="Usar tema claro">.*<svg[^>]*aria-hidden="true"/.test(html), 'falta el botón de tema, con su icono'); assert.ok(html.length < 500000, 'la página pesa ' + html.length);
+  assert.ok(/<button class="escaneo__tema" type="button" aria-label="Usar tema claro">.*<svg[^>]*aria-hidden="true"/.test(html), 'falta el botón de tema, con su icono'); assert.ok(html.includes('.escaneo__tema .escaneo__de-claro, [data-theme="light"] .escaneo__tema .escaneo__de-oscuro { display: none; }') && html.includes('border-radius: var(--radius-pill)') && html.includes('color: var(--button-plain-text)'), 'el botón de tema es el Button plano de solo ícono de ALMA, con un ícono a la vez'); assert.ok(html.length < 500000, 'la página pesa ' + html.length);
   const a = paraArtefacto(html); assert.ok(a.startsWith('<meta charset') && !/<\/?html|<!doctype/i.test(a) && a.includes('[data-theme="light"] .escaneo'));
   await assert.rejects(() => paginaDeEscaneo('no-existe'));
 });
