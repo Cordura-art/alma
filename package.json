@@ -33,7 +33,8 @@
     "documentacion": "node scripts/build-site.mjs --entidad",
     "documentacion:imagenes": "node scripts/build-images.mjs --entidad",
     "ejemplo": "node ejemplos/ensayo-cafe/build.mjs",
-    "ejemplo:generativo": "node ejemplos/ensayo-generativo/build.mjs"
+    "ejemplo:generativo": "node ejemplos/ensayo-generativo/build.mjs",
+    "figura": "node scripts/build-figura.mjs"
   },
   "engines": {
     "node": ">=20"

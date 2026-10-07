@@ -4,6 +4,12 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 7 de octubre de 2026
 
+### Figuras de línea
+
+- **Un motor propio** (`figuras/motor.js`): figuras en línea fina, vistas desde arriba y de lado, que responden al puntero y al teclado. Cámara sin perspectiva, resortes, un solo reloj que se detiene cuando nada se mueve, y sólidos redondeados que se dibujan como una silueta y un pliegue.
+- **Atado a ALMA.** Los tonos de línea, el fondo, el acento, el foco y los tiempos son tokens por nombre; sirve en tema oscuro y claro, y respeta el movimiento reducido.
+- **Dos figuras:** `terreno` (dunas y una colina que sigue al puntero) y `pila` (fichas que se abren en abanico sobre la que eliges). `npm run figura -- <nombre>` arma cada una en un solo archivo.
+
 ### Piel y pelaje, juntos en el desfile
 
 - **Un personaje con las dos cosas.** Las almohadas que Blender infla (`blender/piloto.py --exporta`) viajan a Unity con sus piernas y sus zapatos (`unity/Assets/StreamingAssets/pieles/`), y allí caminan en el desfile con el andar de cada entidad.
