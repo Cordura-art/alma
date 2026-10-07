@@ -772,5 +772,6 @@
    "title": "La fecha manda; el color se hereda",
    "message": "Para una marca nueva, manda su fecha real. Un color que la marca ya tenía se puede heredar: reemplaza el tono de la carta y la armonía sigue saliendo de ella."
   }
- }
+ },
+ "ejemplos": {"lede":"Páginas hechas con nuestro lenguaje, para verlo trabajar fuera de este manual. Cada una es una página propia.","lista":[{"titulo":"Portada de Cordura","texto":"Una portada con un busto escaneado al centro, dibujado con veinte mil puntos en nuestros colores. Gira con el puntero, se revuelve como humo y, al desplazar, se deshace en datos.","url":"https://claude.ai/artifact/JvgQDsGfmxgkTvVo1nKorw","imagen":"cordura-portada","alt":"Portada de Cordura: la palabra Cordura en grande y, delante, un busto romano hecho de puntos lima, blancos y verdes."}]}
 }

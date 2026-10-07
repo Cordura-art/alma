@@ -65,7 +65,8 @@
     { id: 'componentes', group: 'Galería', title: 'Componentes', icon: 'settings' },
     { id: 'carta', group: 'Origen', title: 'La carta', icon: 'compass' },
     { id: 'fecha', group: 'Origen', title: 'La fecha', icon: 'time' }
-  ].concat(L.calibracion ? [{ id: 'calibracion', group: 'Origen', title: 'Calibración', icon: 'checkmark--outline' }] : []);
+  ].concat(L.calibracion ? [{ id: 'calibracion', group: 'Origen', title: 'Calibración', icon: 'checkmark--outline' }] : [])
+    .concat(L.ejemplos ? [{ id: 'ejemplos', group: 'Galería', title: 'Ejemplos', icon: 'launch' }] : []);
   var GROUPS = ['Filosofía', 'Lenguaje', 'Elementos', 'Galería', 'Origen'];
   function byId(id) { return PAGES.filter(function (p) { return p.id === id; })[0]; }
   function route() { var r = (location.hash || '').replace('#', ''); return byId(r) ? r : 'inicio'; }
@@ -714,6 +715,18 @@
   }
 
   // ---------- Galería
+  // The examples: pages made with the entity's language, each its own page, opened from here.
+  function Ejemplos() {
+    var X = L.ejemplos;
+    return h('div', { className: 'page' }, h(Head, { id: 'ejemplos', lede: X.lede }),
+      h('ul', { className: 'ejemplos' }, X.lista.map(function (e) {
+        return h('li', { key: e.url, className: 'ejemplo' },
+          e.foto ? h('img', { className: 'ejemplo__foto', src: e.foto, alt: e.alt || '', loading: 'lazy', width: 960, height: 600 }) : null,
+          h('h2', { className: 'web-h3 ejemplo__titulo' }, e.titulo), h('p', { className: 'web-body-m ejemplo__texto' }, e.texto),
+          h(A.Link, { href: e.url, external: true, standalone: true }, 'Abrir ' + e.titulo));
+      })),
+      h('p', { className: 'web-body-s cap' }, 'Se abren en una pestaña nueva.'));
+  }
   function Producto() {
     var X = L.producto, S = X.pantalla;
     return h('div', { className: 'page' }, h(Head, { id: 'producto', lede: X.lede }),
@@ -787,7 +800,7 @@
       h('p', { className: 'web-body-s cap note' }, T(X.nota)));
   }
 
-  var VIEWS = { inicio: Inicio, 'punto-de-vista': PuntoDeVista, principios: Principios, prisma: Prisma, voz: Voz, tono: Tono, escritura: Escritura, firma: VG ? FirmaGenerativa : Firma, tipografia: Tipografia, fundamentos: Fundamentos, color: Color, grilla: Grilla, iconografia: Iconografia, ilustracion: Ilustracion, fotografia: Fotografia, datos: Datos, movimiento: Movimiento, producto: Producto, comunicacion: Comunicacion, componentes: Componentes, carta: Carta, fecha: Fecha, calibracion: Calibracion };
+  var VIEWS = { inicio: Inicio, 'punto-de-vista': PuntoDeVista, principios: Principios, prisma: Prisma, voz: Voz, tono: Tono, escritura: Escritura, firma: VG ? FirmaGenerativa : Firma, tipografia: Tipografia, fundamentos: Fundamentos, color: Color, grilla: Grilla, iconografia: Iconografia, ilustracion: Ilustracion, fotografia: Fotografia, datos: Datos, movimiento: Movimiento, producto: Producto, ejemplos: Ejemplos, comunicacion: Comunicacion, componentes: Componentes, carta: Carta, fecha: Fecha, calibracion: Calibracion };
 
   function App() {
     var r = useState(route()), th = useState(hostTheme());

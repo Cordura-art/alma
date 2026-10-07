@@ -1,0 +1,15 @@
+{
+  "escaneo": "meleagro",
+  "titulo": "Portada de Autómata",
+  "palabra": "Autómata",
+  "frase": ["Diseñar es", "poner nombre."],
+  "accion": { "texto": "Lee cómo trabajamos", "destino": "#oficio" },
+  "pista": "Desplaza para comprobarlo",
+  "descripcion": "Un busto romano de mármol dibujado con miles de puntos en nuestros colores. Gira con el puntero. Al desplazar la página, los puntos se separan en cuatro grupos, uno junto a cada dato.",
+  "datos": [
+    "Preguntamos {puntos} veces dónde estaba el busto. Cada punto es una respuesta.",
+    "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Se puede comprobar.",
+    "El mármol tenía su color. Aquí lleva los nuestros, cada uno con su nombre.",
+    "Dudar es cuidar."
+  ]
+}

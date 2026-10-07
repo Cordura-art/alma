@@ -1,6 +1,11 @@
 /* A page with a scanned thing at its middle, drawn in dots, and what the entity says laid out around it. */
 html { color-scheme: dark; scroll-behavior: smooth; } html[data-theme="light"] { color-scheme: light; }
 body { margin: 0; background: var(--ui-02); color: var(--text-01); font-family: var(--font-flex), system-ui, sans-serif; font-weight: var(--font-weight-body); font-variation-settings: 'wdth' var(--font-width), 'GRAD' var(--font-grade); line-height: 1.5; }
+/* Its one control: the theme, light or dark. It stays at the top corner of the page. */
+.escaneo__tema { position: fixed; top: calc(var(--space-16) + env(safe-area-inset-top, 0px)); right: var(--space-16); z-index: 3; display: inline-flex; align-items: center; justify-content: center; width: var(--space-48); height: var(--space-48); padding: 0; color: var(--text-01); background: var(--ui-02); border: 1px solid var(--border-control); border-radius: var(--radius-button); cursor: pointer; transition: border-color var(--duration-fast-02) var(--easing-standard-productive); }
+.escaneo__tema:hover { border-color: var(--text-01); }
+.escaneo__tema:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.escaneo__tema span { display: inline-flex; } .escaneo__de-claro, [data-theme="light"] .escaneo__de-oscuro { display: none; } [data-theme="light"] .escaneo__de-claro { display: inline-flex; }
 .escaneo { position: relative; height: 320vh; }
 .escaneo__fija { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; }
 .escaneo__fija > * { grid-area: 1 / 1; position: relative; }
@@ -39,4 +44,4 @@ body { margin: 0; background: var(--ui-02); color: var(--text-01); font-family: 
   .escaneo__dato:nth-child(1) { grid-area: 1 / 1; align-self: start; } .escaneo__dato:nth-child(2) { grid-area: 1 / 2; align-self: start; }
   .escaneo__dato:nth-child(3) { grid-area: 3 / 1; align-self: end; } .escaneo__dato:nth-child(4) { grid-area: 3 / 2; align-self: end; }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .escaneo__accion { transition: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .escaneo__accion, .escaneo__tema { transition: none; } }

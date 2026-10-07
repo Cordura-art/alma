@@ -4,7 +4,7 @@
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { sistema } from './lib/documentacion.mjs';
 import { genesDe, generadorNavegador } from './lib/generativo.mjs';
-import { personajeParaPagina, desfileParaPagina } from './lib/personaje.mjs';
+import { personajeParaPagina, desfileParaPagina, ejemplosParaPagina } from './lib/personaje.mjs';
 import { figurasNavegador } from './lib/figuras.mjs';
 
 const read = (p) => readFileSync(p, 'utf8');
@@ -16,7 +16,7 @@ for (const id of ids) {
   const L = JSON.parse(read(`${DIR}/${id}.json`));
   // An entity that declares generative illustration gets its genes and the generator (creatures, colonies, emblems
   // and card faces) for the Ilustración page.
-  const gen = !!L.ilustracion.generativa;
+  const gen = !!L.ilustracion.generativa; if (L.ejemplos) L.ejemplos = ejemplosParaPagina(L);
   if (gen) { L.genes = genesDe(await sistema(id)); L.personaje = personajeParaPagina(id, L.genes); }
   let html = base.replace('<title>Entidades ALMA</title>', `<title>Entidad ${L.nombre}</title>`).replace('</style>', read('site/lenguaje.css') + '</style>');
   // Engine only: the Entidades app exposes window.__ENGINE and returns before rendering.

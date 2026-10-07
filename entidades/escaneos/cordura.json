@@ -1,0 +1,15 @@
+{
+  "escaneo": "meleagro",
+  "titulo": "Portada de Cordura",
+  "palabra": "Cordura",
+  "frase": ["La cordura es", "emoción con tiempo."],
+  "accion": { "texto": "Lee cómo decidimos", "destino": "#oficio" },
+  "pista": "Desplaza, y dale tiempo",
+  "descripcion": "Un busto romano de mármol dibujado con miles de puntos en nuestros colores. Gira con el puntero. Al desplazar la página, los puntos se separan en cuatro grupos, uno junto a cada dato.",
+  "datos": [
+    "Lo miramos hasta la raíz: {puntos} puntos de un mismo busto.",
+    "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Lo que sobra se va cuando la emoción se asienta.",
+    "El mármol tenía su color. Aquí lleva los nuestros, y ninguno llegó apurado.",
+    "Sentir, esperar, decidir."
+  ]
+}

@@ -6,6 +6,12 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 7 de octubre de 2026
 
+#### Ejemplos dentro de cada entidad
+
+- **Una portada por entidad.** Cordura, Ensayo y Autómata tienen cada una su portada con el busto escaneado, con su palabra, su frase y sus colores (`entidades/escaneos/<entidad>.json`; `npm run escaneo` las arma todas).
+- **Tema claro en las portadas.** Un botón arriba a la derecha cambia entre oscuro y claro, y la elección se recuerda. En claro los puntos son tinta, grandes donde el busto es oscuro.
+- **Página «Ejemplos» en el lenguaje de cada entidad**, dentro de Galería: las páginas hechas con ese lenguaje, cada una con su imagen, una línea que la explica y el enlace para abrirla. En Ensayo están su portada y Ensayo Café. Lo que una entidad muestra va en la clave `ejemplos` de su lenguaje.
+
 #### Un escaneo al centro de una página
 
 - **De un escaneo a una trama de puntos.** `blender/escaneo.py` mira un objeto escaneado (un `.glb`) desde ocho lados a través de una rejilla y deja un punto donde lo toca, con su lugar, su tono y hacia dónde mira su superficie. Un busto de 32 MB quedó en 20.278 puntos y 189 KB.

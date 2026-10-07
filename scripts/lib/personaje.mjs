@@ -18,3 +18,10 @@ export function desfileParaPagina() {
   const v = 'entidades/retratos/desfile.mp4', p = 'entidades/retratos/desfile.jpg'; if (!existsSync(v)) return null;
   return { video: 'data:video/mp4;base64,' + readFileSync(v).toString('base64'), portada: existsSync(p) ? 'data:image/jpeg;base64,' + readFileSync(p).toString('base64') : null };
 }
+
+// An entity's examples for its language page: what its language says of each (entidades/lenguajes/<id>.json, `ejemplos`),
+// each with its picture (entidades/ejemplos/<imagen>.jpg) as data the page carries.
+export function ejemplosParaPagina(L) {
+  if (!L.ejemplos) return undefined;
+  return { ...L.ejemplos, lista: L.ejemplos.lista.map((e) => { const f = `entidades/ejemplos/${e.imagen}.jpg`; return { ...e, foto: existsSync(f) ? 'data:image/jpeg;base64,' + readFileSync(f).toString('base64') : null }; }) };
+}

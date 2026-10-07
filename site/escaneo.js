@@ -143,8 +143,15 @@
     el.addEventListener('pointerenter', function () { deTexto = m; pide(); }); el.addEventListener('pointerleave', function () { if (deTexto === m) deTexto = -1; pide(); });
     el.addEventListener('focus', function () { deTexto = m; pide(); }); el.addEventListener('blur', function () { if (deTexto === m) deTexto = -1; pide(); });
   });
+  // Its theme: dark unless the page it is in, or the person, says light. The person's choice is kept for the next visit.
+  var raiz = document.documentElement, boton = document.querySelector('.escaneo__tema'), LLAVE = 'alma-portada-tema';
+  function guardado() { try { return localStorage.getItem(LLAVE); } catch (e) { return null; } }
+  function nombra() { if (boton) boton.setAttribute('aria-label', raiz.getAttribute('data-theme') === 'light' ? 'Usar tema oscuro' : 'Usar tema claro'); }
+  function viste(t) { raiz.setAttribute('data-theme', t); raiz.style.colorScheme = t; nombra(); }
+  var elegido = guardado(); viste(elegido === 'light' || elegido === 'dark' ? elegido : raiz.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+  if (boton) boton.addEventListener('click', function () { var t = raiz.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; try { localStorage.setItem(LLAVE, t); } catch (e) { /* it is simply not kept */ } viste(t); });
   // If the page changes theme, its dots take the colors of the new one.
-  if (window.MutationObserver) new MutationObserver(function () { mide(); pide(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (window.MutationObserver) new MutationObserver(function () { nombra(); mide(); pide(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { mide(); pide(); });
   window.__escaneo = { get enMovimiento() { return !!pedido; }, get elegido() { return deTexto >= 0 ? deTexto : dePuntero; }, puntos: N };
 })();

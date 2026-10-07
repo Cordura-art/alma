@@ -968,5 +968,6 @@
    ]
   ],
   "nota": "Diferencia de color medida en OKLab: {deltaE}. Bajo 0,02 el ojo no distingue. Semilla: la de la fecha, sin variaciones."
- }
+ },
+ "ejemplos": {"lede":"Páginas hechas con nuestro lenguaje, para verlo trabajar fuera de este manual. Cada una es una página propia.","lista":[{"titulo":"Portada de Autómata","texto":"Una portada con un busto escaneado al centro, dibujado con veinte mil puntos en nuestros colores. Gira con el puntero, se revuelve como humo y, al desplazar, se deshace en datos.","url":"https://claude.ai/artifact/SujujNFPRiAFjhPHHZs223","imagen":"automata-portada","alt":"Portada de Autómata: la palabra Autómata en grande y, delante, un busto romano hecho de puntos azules, blancos y lilas."}]}
 }
