@@ -6,6 +6,12 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 7 de octubre de 2026
 
+#### Un lugar escaneado, recorrido por dentro
+
+- El escaneo ya sirve para lugares, no solo para objetos: la trama no tiene tope de tamaño, se mira también desde arriba y desde abajo, y cada parte usa su propia textura. Opciones nuevas: `--pasos` (detalle según el lado más largo) y `--dentro` (deja puntos en todas las superficies).
+- Hay una segunda clase de portada, el recorrido: al desplazar la página se avanza por el lugar a la altura de los ojos, y el nombre de la entidad espera en la salida. El puntero gira la mirada. Lo que se dice aparece de a una cosa por vez, a los lados.
+- Cada entidad tiene su túnel, y está en sus «Ejemplos»: un paso bajo nivel de 36 metros en 81.587 puntos, con bóveda, paredes y suelo en sus tres colores. El contenido de cada uno está en `entidades/escaneos/<entidad>-tunel.json` y se arma con `npm run escaneo -- <entidad>-tunel`.
+
 #### Ejemplos dentro de cada entidad
 
 - **Una portada por entidad.** Cordura, Ensayo y Autómata tienen cada una su portada con el busto escaneado, con su palabra, su frase y sus colores (`entidades/escaneos/<entidad>.json`; `npm run escaneo` las arma todas).

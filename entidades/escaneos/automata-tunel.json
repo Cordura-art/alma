@@ -1,0 +1,17 @@
+{
+  "modo": "recorrido",
+  "entidad": "automata",
+  "escaneo": "tunel",
+  "titulo": "Túnel de Autómata",
+  "palabra": "Autómata",
+  "frase": ["Un sistema no se entiende desde fuera.", "Se recorre."],
+  "accion": { "texto": "Lee cómo trabajamos", "destino": "#oficio" },
+  "pista": "Desplaza para comprobarlo",
+  "descripcion": "Un paso bajo nivel cubierto de grafitis, dibujado con miles de puntos en nuestros colores y visto desde dentro. Al desplazar la página se avanza por él hasta la salida, donde está nuestro nombre. Con el puntero se mira hacia los lados.",
+  "datos": [
+    "Preguntamos {puntos} veces dónde estaba la pared, a lo largo de {largo} metros.",
+    "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Se puede comprobar.",
+    "Las paredes tenían sus colores. Aquí llevan los nuestros, cada uno con su nombre.",
+    "Al fondo hay una salida. Dudar es cuidar el camino."
+  ]
+}

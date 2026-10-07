@@ -1,0 +1,17 @@
+{
+  "modo": "recorrido",
+  "entidad": "cordura",
+  "escaneo": "tunel",
+  "titulo": "Túnel de Cordura",
+  "palabra": "Cordura",
+  "frase": ["Una emoción no se resuelve en la entrada.", "Se camina."],
+  "accion": { "texto": "Lee cómo decidimos", "destino": "#oficio" },
+  "pista": "Desplaza, y dale tiempo",
+  "descripcion": "Un paso bajo nivel cubierto de grafitis, dibujado con miles de puntos en nuestros colores y visto desde dentro. Al desplazar la página se avanza por él hasta la salida, donde está nuestro nombre. Con el puntero se mira hacia los lados.",
+  "datos": [
+    "Lo caminamos sin apuro: {puntos} puntos a lo largo de {largo} metros.",
+    "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Lo que sobra se va cuando la emoción se asienta.",
+    "Las paredes tenían sus colores. Aquí llevan los nuestros, y ninguno llegó apurado.",
+    "Sentir, esperar, decidir. La salida está al fondo."
+  ]
+}

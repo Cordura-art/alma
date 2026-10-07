@@ -1,6 +1,7 @@
 // A page of an entity with a scanned thing at its middle, drawn in dots, and what the entity says laid out around it.
 // The scan is the file blender/escaneo.py writes (entidades/escaneos/<escaneo>.json); what the page says is
 // entidades/escaneos/<entidad>.json; its colors are the entity's own. One file that needs nothing else.
+// A scanned place is walked into instead (`"modo": "recorrido"` in what the page says, which then names its `entidad`).
 //   node scripts/build-escaneo.mjs [entidad …]   →   build/escaneo/<entidad>.html (no names: every entity that has one), and <entidad>-artefacto.html: the same
 //   page without its outer tags, as a published artifact wants it.
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
@@ -18,9 +19,9 @@ const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
 export async function paginaDeEscaneo(id) {
   const archivo = `entidades/escaneos/${id}.json`; if (!existsSync(archivo)) throw new Error(`No hay una página de escaneo para «${id}» en entidades/escaneos/.`);
-  const T = JSON.parse(readFileSync(archivo, 'utf8')), E = JSON.parse(readFileSync(`entidades/escaneos/${T.escaneo}.json`, 'utf8')), S = await sistema(id), G = genesDe(S), L = JSON.parse(readFileSync(`entidades/lenguajes/${id}.json`, 'utf8'));
-  const trama = { alma: E.alma, columnas: E.columnas, filas: E.filas, hondos: E.hondos, puntos: E.puntos }, puntos = Buffer.from(E.puntos, 'base64').length / (E.alma === 3 ? 10 : 7);
-  const dice = (s) => esc(s.replace('{puntos}', miles(puntos)).replace('{pesoOrigen}', peso(E.peso || 0)).replace('{pesoTrama}', peso(JSON.stringify(trama).length)));
+  const T = JSON.parse(readFileSync(archivo, 'utf8')), E = JSON.parse(readFileSync(`entidades/escaneos/${T.escaneo}.json`, 'utf8')), de = T.entidad || id, anda = T.modo === 'recorrido', S = await sistema(de), G = genesDe(S), L = JSON.parse(readFileSync(`entidades/lenguajes/${de}.json`, 'utf8'));
+  const trama = { alma: E.alma, columnas: E.columnas, filas: E.filas, hondos: E.hondos, alto: E.alto, puntos: E.puntos }, puntos = Buffer.from(E.puntos, 'base64').length / (E.alma === 3 ? 10 : 7);
+  const dice = (s) => esc(s.replace('{puntos}', miles(puntos)).replace('{largo}', Math.round(Math.max(E.columnas, E.hondos) * E.alto / E.filas)).replace('{pesoOrigen}', peso(E.peso || 0)).replace('{pesoTrama}', peso(JSON.stringify(trama).length)));
   return `<!doctype html>
 <html lang="es" data-theme="dark">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,10 +36,10 @@ ${css(S)}
 .escaneo { --escaneo-1: ${G.pieza.acento}; --escaneo-2: ${G.pieza.tinta}; --escaneo-3: ${G.pieza.barras[2]}; }
 [data-theme="light"] .escaneo { --escaneo-1: ${G.pieza.barras[1]}; --escaneo-2: ${G.fondo.light.tinta}; --escaneo-3: ${G.pieza.barras[3]}; }      /* on a light page: its deeper colors and its ink, which are seen on white */
 ${readFileSync('site/escaneo.css', 'utf8')}
-</style>
+${anda ? readFileSync('site/recorrido.css', 'utf8') : ''}</style>
 <button class="escaneo__tema" type="button" aria-label="Usar tema claro"><span class="escaneo__de-oscuro">${icono('light')}</span><span class="escaneo__de-claro">${icono('asleep')}</span></button>
 <main>
-  <section class="escaneo" aria-label="${esc(L.nombre)}">
+  <section class="escaneo${anda ? ' recorrido' : ''}" aria-label="${esc(L.nombre)}">
     <div class="escaneo__fija">
       <h1 class="escaneo__palabra">${esc(T.palabra)}</h1>
       <figure class="escaneo__figura" role="img" aria-label="${esc(T.descripcion)}"><canvas class="escaneo__lienzo" aria-hidden="true"></canvas></figure>
@@ -63,20 +64,23 @@ ${L.voz.atributos.map((a) => `      <li><strong>${esc(a[0])}, ${esc(a[1])}</stro
 </main>
 <script>window.__ESCANEO = ${JSON.stringify(trama)};</script>
 <script>
-${readFileSync('site/escaneo.js', 'utf8')}
+${readFileSync(anda ? 'site/recorrido.js' : 'site/escaneo.js', 'utf8')}
 </script>
 </html>
 `;
 }
 
 // The entities that have such a page: those whose file says what it says (a scan's own file has no words).
-export const entidadesConEscaneo = () => readdirSync('entidades/escaneos').filter((f) => f.endsWith('.json') && JSON.parse(readFileSync('entidades/escaneos/' + f, 'utf8')).palabra).map((f) => f.replace(/\.json$/, '')).sort();
+const paginas = (anda) => readdirSync('entidades/escaneos').filter((f) => { const T = f.endsWith('.json') && JSON.parse(readFileSync('entidades/escaneos/' + f, 'utf8')); return T && T.palabra && (T.modo === 'recorrido') === anda; }).map((f) => f.replace(/\.json$/, '')).sort();
+export const entidadesConEscaneo = () => paginas(false);
+// And the pages that walk into a scanned place.
+export const recorridos = () => paginas(true);
 
 // The page as a published artifact wants it: what goes inside the document, without the document's own tags.
 export const paraArtefacto = (html) => html.replace(/^<!doctype html>\n<html[^>]*>\n/, '').replace(/<\/html>\n?$/, '');
 
 if (process.argv[1] && process.argv[1].endsWith('build-escaneo.mjs')) {
-  const ids = process.argv.slice(2).length ? process.argv.slice(2) : entidadesConEscaneo(); mkdirSync('build/escaneo', { recursive: true });
+  const ids = process.argv.slice(2).length ? process.argv.slice(2) : [...entidadesConEscaneo(), ...recorridos()]; mkdirSync('build/escaneo', { recursive: true });
   for (const id of ids) {
     const html = await paginaDeEscaneo(id); writeFileSync(`build/escaneo/${id}.html`, html); writeFileSync(`build/escaneo/${id}-artefacto.html`, paraArtefacto(html));
     console.log(`Escaneo: build/escaneo/${id}.html (${Math.round(html.length / 1024)} KB, un solo archivo)`);

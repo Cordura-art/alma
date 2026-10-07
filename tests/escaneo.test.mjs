@@ -2,12 +2,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
-import { paginaDeEscaneo, paraArtefacto, entidadesConEscaneo, peso } from '../scripts/build-escaneo.mjs';
+import { paginaDeEscaneo, paraArtefacto, entidadesConEscaneo, recorridos, peso } from '../scripts/build-escaneo.mjs';
 
 test('un escaneo es una trama de puntos: siete bytes por punto (diez si la trama pasa de 255 pasos por lado), todos dentro de su trama y con su cara de largo uno', () => {
   for (const f of readdirSync('entidades/escaneos')) {
     const E = JSON.parse(readFileSync('entidades/escaneos/' + f, 'utf8')); if (!E.puntos) continue;
-    const b = Buffer.from(E.puntos, 'base64'), ancho = E.alma === 3 ? 10 : 7, c = ancho - 4, lugar = (i, k) => c === 6 ? b[i + 2 * k] | b[i + 2 * k + 1] << 8 : b[i + k]; assert.ok(E.alma === 2 || E.alma === 3); assert.equal(b.length % ancho, 0); assert.ok(b.length / ancho > 1000 && b.length / ancho < 40000, f + ': ' + b.length / ancho + ' puntos');
+    const b = Buffer.from(E.puntos, 'base64'), ancho = E.alma === 3 ? 10 : 7, c = ancho - 4, lugar = (i, k) => c === 6 ? b[i + 2 * k] | b[i + 2 * k + 1] << 8 : b[i + k]; assert.ok(E.alma === 2 || E.alma === 3); assert.equal(b.length % ancho, 0); assert.ok(b.length / ancho > 1000 && b.length / ancho < (E.alma === 3 ? 150000 : 40000), f + ': ' + b.length / ancho + ' puntos');
     for (let i = 0; i < b.length; i += ancho) { assert.ok(lugar(i, 0) < E.columnas && lugar(i, 1) < E.filas && lugar(i, 2) < E.hondos, f + ': un punto cae fuera de la trama'); const l = Math.hypot(b[i + c + 1] - 128, b[i + c + 2] - 128, b[i + c + 3] - 128) / 127; assert.ok(l > 0.9 && l < 1.1, f + ': una cara de largo ' + l.toFixed(2)); }
     assert.equal(Math.max(E.columnas, E.filas, E.hondos) > 255, E.alma === 3); assert.ok(E.peso > 0);
   }
@@ -25,7 +25,7 @@ test('la página de un escaneo lleva los colores y la voz de la entidad, su cont
 });
 
 test('el motor y los estilos de la página no traen colores sueltos', () => {
-  for (const f of ['site/escaneo.js', 'site/escaneo.css']) { const s = readFileSync(f, 'utf8'); assert.equal(/#[0-9a-fA-F]{3,8}\b/.test(s), false, f); assert.equal(/rgba?\(|hsla?\(/.test(s), false, f); }
+  for (const f of ['site/escaneo.js', 'site/escaneo.css', 'site/recorrido.js', 'site/recorrido.css']) { const s = readFileSync(f, 'utf8'); assert.equal(/#[0-9a-fA-F]{3,8}\b/.test(s), false, f); assert.equal(/rgba?\(|hsla?\(/.test(s), false, f); }
   assert.equal(peso(31959628), '32 MB'); assert.equal(peso(63000), '63 KB');
 });
 
@@ -37,4 +37,12 @@ test('cada entidad tiene su portada: su palabra, su voz y sus colores, y ninguna
     assert.equal(T.datos.length, 4, id + ': la página reparte el objeto en cuatro'); colores.add(/--escaneo-1: (#[0-9A-Fa-f]{6})/.exec(html)[1]); frases.add(T.frase.join(' '));
   }
   assert.equal(colores.size, 3); assert.equal(frases.size, 3);
+});
+
+test('un lugar escaneado se recorre: su página es de una entidad, lleva su palabra, sus datos llenos y el mismo botón de tema', async () => {
+  assert.deepEqual(recorridos(), ['automata-tunel', 'cordura-tunel', 'ensayo-tunel']); for (const r of recorridos()) assert.equal(/\{(puntos|pesoOrigen|pesoTrama|largo)\}/.test(await paginaDeEscaneo(r)), false, r); const T = JSON.parse(readFileSync('entidades/escaneos/ensayo-tunel.json', 'utf8')), html = await paginaDeEscaneo('ensayo-tunel');
+  assert.equal(T.entidad, 'ensayo'); assert.ok(html.includes('<section class="escaneo recorrido"') && html.includes('<h1 class="escaneo__palabra">' + T.palabra + '</h1>'));
+  assert.equal((html.match(/class="escaneo__dato"/g) || []).length, T.datos.length); assert.equal(/\{(puntos|pesoOrigen|pesoTrama|largo)\}/.test(html), false, 'quedó un dato sin llenar'); assert.ok(/a lo largo de \d+ metros/.test(html));
+  assert.ok(html.includes('class="escaneo__tema"') && html.includes('role="img"') && html.includes('prefers-reduced-motion') && html.includes('"alma":3')); assert.ok(html.length < 1500000, 'la página pesa ' + html.length);
+  assert.ok(/--escaneo-1: (#[0-9A-Fa-f]{6})/.exec(html)[1] === /--escaneo-1: (#[0-9A-Fa-f]{6})/.exec(await paginaDeEscaneo('ensayo'))[1], 'sus colores son los de Ensayo');
 });
