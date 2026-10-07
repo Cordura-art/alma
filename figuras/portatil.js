@@ -55,6 +55,7 @@
   }
 
   if (AlmaFigura.define) AlmaFigura.define('portatil', {
+    titulo: 'Portátil', nota: (R) => 'Arriba se abre, abajo se cierra. Sus teclas van en ' + (AlmaFigura.entre(R.grupos, 1, 3) === 1 ? 'un bloque' : AlmaFigura.entre(R.grupos, 1, 3) + ' bloques') + ', como los grupos de nuestra carta, y en reposo su tapa se inclina tanto como nosotros al caminar.',
     describe: 'Un portátil dibujado en línea fina. Su tapa se abre y se cierra con el puntero.',
     monta(f) { return modelo(f.genes).monta(f); },
   });

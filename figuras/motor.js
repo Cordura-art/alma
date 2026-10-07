@@ -110,6 +110,21 @@
   // The same shape, moved aside on its solid.
   const corre = (anillo, dx, dy) => anillo.map((p) => ({ x: p.x + dx, y: p.y + dy, nx: p.nx, ny: p.ny }));
 
+  // The points of a solid in the world (both its faces), for a camera to be fitted around it.
+  function cuerpo(anillo, pose, alto) { const P = postura(pose), p = []; for (const q of anillo) p.push(lleva(P, q.x, q.y, 0), lleva(P, q.x, q.y, alto)); return p; }
+  // A place whose own flat faces the camera's left, standing: for what is drawn on the front of an upright thing.
+  // Across it is x; up it is -y of the shape.
+  function frente(x, y, z) { return { o: [x, y, z], R: [[1, 0, 0], [0, 0, 1], [0, -1, 0]] }; }
+  const entre = (v, a, b) => Math.max(a, Math.min(b, v));
+  // What a figure may take from an entity, in plain numbers, with ALMA's own when there is none: how round it is (0 for
+  // an entity of blocks), how many centers, points, groups and numbers its chart has, how heavy, wide and tall it is,
+  // and how it leans.
+  function rasgos(G) {
+    G = G || {}; const bloques = !!G.anguloso;
+    return { propia: !!G.semilla, bloques, redondo: bloques ? 0 : (G.redondez == null ? 0.55 : G.redondez), centros: (G.centros || []).length || 4, puntas: G.puntas || 7, grupos: G.grupos || 1,
+      numeros: G.numeros && G.numeros.length ? G.numeros : [3, 5, 4, 6], complejidad: G.complejidad || 3, peso: G.peso == null ? 0.4 : G.peso, ancho: G.ancho || 1, alto: G.alto || 1.1, inclina: G.inclina == null ? -5 : G.inclina };
+  }
+
   // ---------- From here on, the page. (What is above also runs without one, so that it can be tested.)
   const figuras = {};
   function define(nombre, figura) { figuras[nombre] = figura; }
@@ -151,7 +166,7 @@
     const menos = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
     const estilos = getComputedStyle(donde); let dicho = '', turno = 0;
     const ctx = {
-      svg, nodo, linea, camara, resorte, paso, redondo, silueta, lugar, bisagra, corre, ANCHO, ALTO,
+      svg, nodo, linea, camara, resorte, paso, redondo, silueta, lugar, bisagra, corre, frente, entre, ANCHO, ALTO,
       puntero: { dentro: false, tecla: false, x: ANCHO / 2, y: ALTO / 2 }, genes: o.genes || null,
       get intensidad() { return o.intensidad; }, get quieto() { return menos.matches; },
       // ALMA's own clock for changes that are not the pointer's: its slow duration and its expressive curve.
@@ -159,11 +174,14 @@
       // What the figure says. Those who listen hear it once it has stopped changing, not at every step.
       lee(texto) { if (texto === dicho) return; dicho = texto; if (o.alLeer) o.alLeer(texto); clearTimeout(turno); turno = setTimeout(() => { lee.textContent = texto; }, 400); },
       despierta() { despierta(yo); },
+      // Which of these heights of the picture the pointer is nearest: how a figure picks one of its parts as they stand at rest.
+      cerca(ys) { let k = 0; for (let i = 1; i < ys.length; i++) if (Math.abs(ys[i] - ctx.puntero.y) < Math.abs(ys[k] - ctx.puntero.y)) k = i; return k; },
       // A solid on the page: its silhouette, which hides what is behind it, and its crease. `pon` draws it where it stands,
       // through the figure's camera (`ctx.camara`, which the figure sets to its own).
       solido(anillo, alto, padre) {
+        // (a solid may change its height or its shape as it moves: `pon` takes the new ones)
         const g = nodo('g', {}, padre || svg), fuera = nodo('path', { class: 'tapa borde' }, g), dentro = nodo('path', {}, g);
-        return { g, fuera, pon(pose) { const S = silueta(ctx.camara, anillo, pose, alto); fuera.setAttribute('d', linea(S.casco, true)); dentro.setAttribute('d', linea(S.pliegue)); return S; } };
+        return { g, fuera, pon(pose, otroAlto, otroAnillo) { const S = silueta(ctx.camara, otroAnillo || anillo, pose, otroAlto == null ? alto : otroAlto); fuera.setAttribute('d', linea(S.casco, true)); dentro.setAttribute('d', linea(S.pliegue)); return S; } };
       },
       // A flat shape on a solid, drawn only from the side it faces.
       lamina(anillo, clase, padre) {
@@ -193,5 +211,5 @@
       get enMovimiento() { return vivas.has(yo); },
     };
   }
-  return { ANCHO, ALTO, camara, resorte, paso, curva, linea, redondo, casco, silueta, lamina, lugar, bisagra, corre, define, monta, figuras };
+  return { ANCHO, ALTO, camara, resorte, paso, curva, linea, redondo, casco, silueta, lamina, lugar, bisagra, corre, cuerpo, frente, entre, rasgos, define, monta, figuras };
 });

@@ -85,6 +85,7 @@
   }
 
   if (AlmaFigura.define) AlmaFigura.define('pila', {
+    titulo: 'Pila', nota: (R) => 'Señala una ficha y la pila se abre sobre ella. Son ' + AlmaFigura.entre(R.puntas, 4, 9) + ' fichas, como las puntas de nuestro signo, de esquinas ' + (R.bloques ? 'rectas.' : 'tan redondas como somos.'),
     describe: 'Una pila de fichas de esquinas redondas, en línea fina. Al señalar una, la pila se abre en abanico sobre ella y la ficha sale hacia ti.',
     monta(f) { return modelo(f.genes).monta(f); },
   });

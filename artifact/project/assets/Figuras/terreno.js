@@ -77,7 +77,8 @@
   }
 
   if (AlmaFigura.define) AlmaFigura.define('terreno', {
-    describe: 'Un terreno de dunas dibujado en línea fina. Una colina sigue al puntero.',
+    titulo: 'Terreno', describe: 'Un terreno de dunas dibujado en línea fina. Una colina sigue al puntero.',
+    nota: (R) => 'Una colina sigue al puntero. Tiene ' + (R.centros === 1 ? 'una duna' : R.centros + ' dunas') + ', una por cada centro definido de nuestra carta' + (R.bloques ? ', y sube en terrazas porque estamos hechos de bloques.' : '.'),
     monta(f) { return modelo(f.genes).monta(f); },
   });
   return Object.assign(modelo(null), { modelo });

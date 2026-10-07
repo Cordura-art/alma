@@ -128,5 +128,17 @@ test('figuras propias: nada sale del cuadro en ninguna entidad', () => {
 
 test('la página de una figura propia lleva los genes de su entidad y su color', () => {
   const html = paginaDeFigura('pila', ENTIDADES.cordura, 'Cordura'); assert.ok(html.includes('Pila de Cordura')); assert.ok(html.includes('"semilla"')); assert.ok(html.includes('--figura-acento: ' + ENTIDADES.cordura.pieza.barras[1]));
-  assert.deepEqual(nombresDeFiguras(), ['pila', 'portatil', 'terreno']);
+  assert.deepEqual(nombresDeFiguras().slice(0, 3), ['terreno', 'pila', 'portatil']);
+});
+
+test('todas las figuras: se definen con su título, lo que son y lo que toman de la carta; y su cámara las contiene en cada entidad', () => {
+  const nombres = nombresDeFiguras(); assert.ok(nombres.length >= 8);
+  for (const n of nombres) {
+    const F = require('../figuras/' + n + '.js'), D = M.figuras[n]; assert.ok(D, n + ' no se define'); assert.equal(typeof F.modelo, 'function');
+    assert.ok(D.titulo && D.describe && typeof D.nota === 'function' && typeof D.monta === 'function', n + ': le falta título, descripción o nota');
+    for (const R of [null, ...Object.values(ENTIDADES)]) {
+      const m = F.modelo(R), C = m.camaraDe(); assert.ok(C.escala > 40 && C.escala < 400 && Number.isFinite(C.cx) && Number.isFinite(C.cy), n + ': cámara rara');
+      const texto = D.nota(M.rasgos(R)); assert.ok(texto.length > 20 && !/undefined|NaN/.test(texto), n + ': ' + texto);
+    }
+  }
 });
