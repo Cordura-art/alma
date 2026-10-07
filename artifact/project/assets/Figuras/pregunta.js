@@ -9,11 +9,12 @@
   const A = AlmaFigura, entre = A.entre;
 
   function modelo(G) {
-    const R = A.rasgos(G), GRUESO = 0.06 + 0.035 * R.peso, BOLA = 0.13, CENTRO = 1.02, RADIO = 0.28, G2 = Math.PI / 180, cuanto = (I) => (20 + 35 * I) * G2;
+    const R = A.rasgos(G), GRUESO = (0.06 + 0.035 * R.peso) * (A.rasgos(G).bloques ? 0.72 : 1),      // a hook in straight runs is drawn with a thinner bar, so that its corners read as corners
+       BOLA = 0.13, CENTRO = 1.02, RADIO = 0.28, G2 = Math.PI / 180, cuanto = (I) => (20 + 35 * I) * G2;
     // Its hook, in its own flat: across and up. Round, or in straight runs.
     // (a bar cannot turn a corner tighter than it is thick: each corner of the straight one is eased into a short curve)
     const esquinas = (pts, ro) => { const sale = [pts[0]]; for (let i = 1; i < pts.length - 1; i++) { const a = pts[i - 1], b = pts[i], c = pts[i + 1], la = Math.hypot(a[0] - b[0], a[1] - b[1]), lc = Math.hypot(c[0] - b[0], c[1] - b[1]), p = [b[0] + (a[0] - b[0]) / la * ro, b[1] + (a[1] - b[1]) / la * ro], q = [b[0] + (c[0] - b[0]) / lc * ro, b[1] + (c[1] - b[1]) / lc * ro]; for (let k = 0; k <= 5; k++) { const t = k / 5, u = 1 - t; sale.push([u * u * p[0] + 2 * u * t * b[0] + t * t * q[0], u * u * p[1] + 2 * u * t * b[1] + t * t * q[1]]); } } sale.push(pts[pts.length - 1]); return sale; };
-    const plano = []; if (R.bloques) plano.push(...esquinas([[0, 0.46], [0, 0.82], [RADIO, 0.82], [RADIO, 1.3], [-RADIO, 1.3], [-RADIO, 1.04]], GRUESO * 1.9));
+    const plano = []; if (R.bloques) plano.push(...esquinas([[0, 0.46], [0, 0.82], [RADIO, 0.82], [RADIO, 1.3], [-RADIO, 1.3], [-RADIO, 1.04]], GRUESO * 1.35));
     else {
       // Up its stem, in one easy turn into its hook, and around over the top.
       const e = [RADIO * Math.cos(-35 * G2), CENTRO + RADIO * Math.sin(-35 * G2)]; plano.push([0, 0.46], [0, 0.5]);

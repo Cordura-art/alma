@@ -18,7 +18,7 @@
     function monta(f) {
       const C = f.camara = camaraDe(), L0 = A.lugar(0, 0, 0, 0), B = f.solido(pie, 0.07); B.pon(L0); f.lamina(f.corre(f.redondo(0.08, 0.08, 0.04), 0.2, 0.2), 'acento', B.g).pon(L0, 0.07); f.solido(palo, ALTURA).pon(L0);
       const P = f.solido(plato, GRUESO), aros = []; for (let k = 1; k <= AROS; k++) { const r = PLATO * (1 - k / (AROS + 0.6)); aros.push(f.lamina(f.redondo(2 * r, 2 * r, r, 48), '', P.g)); }
-      const tirantes = f.nodo('path', {}, f.svg), H = f.solido(bocina, 0.07), ax = f.resorte(REPOSO[0], { k: 70, c: 9, fino: 0.002 }), ay = f.resorte(REPOSO[1], { k: 70, c: 9, fino: 0.002 });
+      const brazo = f.tubo(), H = f.solido(bocina, 0.07), ax = f.resorte(REPOSO[0], { k: 70, c: 9, fino: 0.002 }), ay = f.resorte(REPOSO[1], { k: 70, c: 9, fino: 0.002 });
       const base = C.a(0, 0, ALTURA); let porTecla = REPOSO.slice(), deFrente = null;
       return {
         // The arrows lean it a step each way.
@@ -29,10 +29,10 @@
           const l = Math.hypot(quiere[0], quiere[1]); if (l > m) quiere = [quiere[0] / l * m, quiere[1] / l * m];
           ax.meta = quiere[0]; ay.meta = quiere[1]; let mueve = f.paso(ax, dt, f.quieto); mueve = f.paso(ay, dt, f.quieto) || mueve;
           const L = lugar(ax.x, ay.x), S = P.pon(L), foco = A.desde(L, 0, 0, FOCO); aros.forEach((a) => a.pon(L, GRUESO)); H.pon(foco);
-          // Its struts: from its rim to its horn. What the dish shows the camera decides what is in front of what.
-          const borde = [0.5, 2.6, 4.7].map((t) => ({ x: PLATO * 0.92 * Math.cos(t), y: PLATO * 0.92 * Math.sin(t) })), punta = A.lamina(C, [{ x: 0, y: 0 }], foco, 0).puntos[0];
-          tirantes.setAttribute('d', A.lamina(C, borde, L, GRUESO).puntos.map((q) => f.linea([q, punta])).join(''));
-          if (S.deArriba !== deFrente) { deFrente = S.deArriba; (deFrente ? [P.g, tirantes, H.g] : [H.g, tirantes, P.g]).forEach((n) => f.svg.appendChild(n)); }
+          // Its one arm: from its low rim, out and over to its horn. What the dish shows the camera decides what is in front of what.
+          const hacia = Math.atan2(ay.x, ax.x), bx = PLATO * 0.9 * Math.cos(hacia), by = PLATO * 0.9 * Math.sin(hacia);
+          brazo.pon([A.punto(L, bx, by, GRUESO), A.punto(L, bx * 0.72, by * 0.72, FOCO * 0.55), A.punto(L, bx * 0.3, by * 0.3, FOCO * 0.95), A.punto(L, 0, 0, FOCO + 0.035)], 0.014);
+          if (S.deArriba !== deFrente) { deFrente = S.deArriba; (deFrente ? [P.g, brazo.p, H.g] : [H.g, brazo.p, P.g]).forEach((n) => f.svg.appendChild(n)); }
           P.fuera.setAttribute('class', p.dentro ? 'tapa realce' : 'tapa borde');
           const el = Math.hypot(ax.meta, ay.meta) / G2, az = ((Math.atan2(ay.meta, ax.meta) / G2) % 360 + 360) % 360; f.lee(!p.dentro ? 'En reposo' : 'Apunta a ' + Math.round(az) + '°, inclinada ' + Math.round(el) + '°'); return mueve;
         },

@@ -17,14 +17,14 @@
       const C = f.camara = camaraDe(), pisos = [];
       for (let i = 0; i < N; i++) { const S = f.solido(losa, LOSA), L = A.lugar(X0, 0, i * SUBE, 0); S.pon(L); pisos.push({ S, y: C.a(X0, 0, i * SUBE + LOSA)[1] }); }
       // The shaft stands nearer than the floors: its far posts, the car, then its near post.
-      postes.slice(0, 3).forEach((q) => f.solido(poste, ALTO).pon(q)); const S = f.solido(carro, 0.27), punto = f.lamina(f.redondo(0.1, 0.1, 0.05), 'acento', S.g); f.solido(poste, ALTO).pon(postes[3]);
+      postes.slice(0, 3).forEach((q) => f.solido(poste, ALTO).pon(q)); const S = f.solido(carro, 0.27), punto = f.lamina(f.redondo(0.1, 0.1, 0.05), 'acento', S.g), hoja = f.redondo(0.115, 0.19, 0.012), puertas = [f.lamina(f.corre(hoja, -0.062, 0), '', S.g), f.lamina(f.corre(hoja, 0.062, 0), '', S.g)];      // its two doors, on the side it shows f.solido(poste, ALTO).pon(postes[3]);
       const sube = f.resorte(SUBE + LOSA, { k: 90, c: 17 }); let piso = 1, claro = -1;
       return {
         tecla(dx, dy) { if (!dy) return false; piso = entre(piso - dy, 0, N - 1); return true; },
         cuadro(dt) {
           const p = f.puntero; if (!p.dentro) piso = 1; else if (!p.tecla) piso = f.cerca(pisos.map((q) => q.y));
           sube.k = 40 + 180 * f.intensidad; sube.c = 2 * Math.sqrt(sube.k) * 0.86; sube.meta = piso * SUBE + LOSA;      // a stronger answer is a quicker car
-          const mueve = f.paso(sube, dt, f.quieto), L = A.lugar(X1, 0, Math.max(LOSA, sube.x), 0); S.pon(L); punto.pon(L, 0.27);
+          const mueve = f.paso(sube, dt, f.quieto), L = A.lugar(X1, 0, Math.max(LOSA, sube.x), 0); S.pon(L); punto.pon(L, 0.27); puertas.forEach((d) => d.pon(A.frente(X1, 0.2, L.o[2] + 0.125), 0));
           if (piso !== claro) { if (claro >= 0) pisos[claro].S.fuera.setAttribute('class', 'tapa borde'); pisos[piso].S.fuera.setAttribute('class', 'tapa realce'); claro = piso; }
           f.lee(!p.dentro ? 'En reposo' : 'Piso ' + (piso + 1) + ' de ' + N); return mueve;
         },

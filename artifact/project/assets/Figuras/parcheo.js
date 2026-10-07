@@ -14,7 +14,7 @@
     const xDe = (j) => (j - (PUERTOS - 1) / 2) * PASO, en = []; for (let k = 0, j = R.numeros[0] % PUERTOS; en.length < K; k++, j = (j + 3 + R.numeros[k % R.numeros.length]) % PUERTOS) { while (en.includes(j)) j = (j + 1) % PUERTOS; en.push(j); } en.sort((a, b) => a - b);
     const alto0 = (k) => 0.2 + 0.035 * (R.numeros[k % R.numeros.length] % 3), sube = (I) => 0.12 + 0.3 * I;
     // A cable: up out of its port, over, and down to the floor behind the panel.
-    const cable = (k, alto, lado) => { const x = xDe(en[k]), a = [x, 0.08, H], b = [x + lado, -0.16, H + 2 * alto], c = [x + 1.6 * lado, -0.72, 0], p = []; for (let s = 0; s <= 14; s++) { const t = s / 14, u = 1 - t; p.push([u * u * a[0] + 2 * u * t * b[0] + t * t * c[0], u * u * a[1] + 2 * u * t * b[1] + t * t * c[1], u * u * a[2] + 2 * u * t * b[2] + t * t * c[2]]); } return p; };
+    const cable = (k, alto, lado) => { const x = xDe(en[k]), a = [x, 0.08, H], b = [x + 1.2 * lado, -0.2, H + 2 * alto], c = [x + 2.4 * lado, -0.72, 0], p = []; for (let s = 0; s <= 26; s++) { const t = s / 26, u = 1 - t; p.push([u * u * a[0] + 2 * u * t * b[0] + t * t * c[0], u * u * a[1] + 2 * u * t * b[1] + t * t * c[1], u * u * a[2] + 2 * u * t * b[2] + t * t * c[2]]); } return p; };
     function camaraDe() { const C = A.camara({ alza: 30 }), p = A.cuerpo(panel, A.lugar(0, 0, 0, 0), H); for (const k of [0, K - 1]) for (const l of [-0.2, 0.2]) p.push(...cable(k, 0.26 + sube(1), l).map((q) => [q[0], q[1], q[2] + BARRA])); return C.encuadra(p, 20); }
     function monta(f) {
       const C = f.camara = camaraDe(), S = f.solido(panel, H), L0 = A.lugar(0, 0, 0, 0), bocas = []; S.pon(L0);
@@ -27,7 +27,7 @@
           const p = f.puntero, I = f.intensidad; if (!p.dentro) elegido = CASA; else if (!p.tecla) { let m = 1e9; cables.forEach((c, k) => { const d = Math.abs(c.x - p.x); if (d < m) { m = d; elegido = k; } }); }
           const ancho = 0.5 + 1.2 * I; let mueve = false;
           cables.forEach((c, k) => {
-            const d = k - elegido; c.alto.meta = alto0(k) + (p.dentro ? sube(I) : 0.05) * Math.exp(-(d * d) / (2 * ancho * ancho)); c.lado.meta = !p.dentro || !d ? 0 : Math.sign(d) * 0.13 * Math.exp(-((Math.abs(d) - 1) ** 2) / (2 * ancho * ancho));
+            const d = k - elegido; c.alto.meta = alto0(k) + (p.dentro ? sube(I) : 0.05) * Math.exp(-(d * d) / (2 * ancho * ancho)); c.lado.meta = !p.dentro || !d ? 0 : Math.sign(d) * 0.1 * Math.exp(-((Math.abs(d) - 1) ** 2) / (2 * ancho * ancho));
             mueve = f.paso(c.alto, dt, f.quieto) || mueve; mueve = f.paso(c.lado, dt, f.quieto) || mueve; c.T.pon(cable(k, c.alto.x, c.lado.x), BARRA);
           });
           if (elegido !== claro) { if (claro >= 0) { cables[claro].T.p.setAttribute('class', 'tapa borde'); bocas[en[claro]].p.setAttribute('class', ''); } cables[elegido].T.p.setAttribute('class', 'tapa realce'); bocas[en[elegido]].p.setAttribute('class', 'acento'); claro = elegido; }
