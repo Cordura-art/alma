@@ -1,0 +1,15 @@
+{
+  "escaneo": "meleagro",
+  "titulo": "Portada de Ensayo",
+  "palabra": "Ensayo",
+  "frase": ["Un primer borrador", "nunca es el texto.", "Es el material."],
+  "accion": { "texto": "Lee cómo corregimos", "destino": "#oficio" },
+  "pista": "Desplaza para leerlo de cerca",
+  "descripcion": "Un busto romano de mármol, visto de frente y dibujado con miles de puntos en nuestros colores. Al desplazar la página, los puntos se separan en cuatro grupos, uno junto a cada dato.",
+  "datos": [
+    "Lo leímos punto por punto: {puntos} lecturas de un mismo busto.",
+    "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Corregir también es quitar.",
+    "El mármol tenía su color. Aquí habla con los nuestros, y con ninguno más.",
+    "Corregir es una forma de cuidar."
+  ]
+}

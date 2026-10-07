@@ -45,6 +45,9 @@ npm run genes -- ensayo   # escribe build/blender/ensayo.json: los genes y las c
 # El personaje de una entidad: con piezas en Blender → `blender --background --factory-startup --python blender/personaje.py -- salida.png build/blender/ensayo.json [--tema dark] [--camina --video paso.mp4]`;
 # con pelaje, en vivo, en Unity → abrir `unity/` con Unity 6.3 y pulsar Play (lee `unity/Assets/StreamingAssets/genes/`, que `npm run genes` también escribe).
 # Una figura de línea (las hay en figuras/: terreno, pila, portatil, capas, teclado, ascensor, cajonera, tamices, telefono, rack, casilleros, terminal, grafico, enchufe, tornamesa, boveda, antena, cinta, matriz, candado, perchero, canasto, pregunta, router, parcheo, ramas, lupa, sello; npm run figuras:revisar las prueba en un navegador), en un solo archivo: npm run figura -- terreno   → build/figuras/terreno.html   (con una entidad, la suya: npm run figura -- pila cordura)
+# Una portada con un objeto escaneado al centro: primero la trama, después la página.
+#   blender --background --factory-startup --python blender/escaneo.py -- <archivo.glb> entidades/escaneos/<nombre>.json [--frente -x] [--desde 0.18]
+#   npm run escaneo -- ensayo   → build/escaneo/ensayo.html   (lo que dice va en entidades/escaneos/ensayo.json)
 # Sus retratos para el sitio van en `entidades/retratos/<id>-piel.jpg`, `<id>-pelaje.jpg` y `<id>-vestido.jpg`.
 # Su piel para Unity (almohadas, piernas y zapatos): blender --background --factory-startup --python blender/piloto.py -- build/blender/<id>.json - --exporta unity/Assets/StreamingAssets/pieles/<id>.json
 npm run sistemas          # arma build/documentacion-sistemas/: ALMA y sus entidades en un solo sitio, con su documentación y su lenguaje de diseño

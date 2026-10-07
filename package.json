@@ -35,7 +35,8 @@
     "ejemplo": "node ejemplos/ensayo-cafe/build.mjs",
     "ejemplo:generativo": "node ejemplos/ensayo-generativo/build.mjs",
     "figura": "node scripts/build-figura.mjs",
-    "figuras:revisar": "node scripts/revisar-figuras.mjs"
+    "figuras:revisar": "node scripts/revisar-figuras.mjs",
+    "escaneo": "node scripts/build-escaneo.mjs"
   },
   "engines": {
     "node": ">=20"
