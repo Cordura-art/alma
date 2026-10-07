@@ -4,6 +4,13 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 7 de octubre de 2026
 
+### La palabra de una entidad, como pieza propia
+
+- La palabra grande de las portadas tiene ahora su propio motor (`site/palabra.js`) y su página de trabajo, Palabra (`npm run palabra`), con las tres entidades.
+- Aprovecha que la tipografía es variable: se escribe letra por letra, cada una entra en el peso más liviano (100) y con un pequeño difuminado, y sube hasta el peso de títulos de la entidad. Al pasar el puntero, o con las flechas del teclado, las letras cercanas ganan peso.
+- No tiene ajustes propios: los números de la entidad son el ritmo de la escritura, su dirección dice por dónde empieza (desde el centro o desde la primera letra), su redondez cuánto difuminado trae y sus puntas hasta qué peso llega al tocarla. Peso en reposo, ancho y grado son sus tokens de tipografía.
+- Con movimiento reducido aparece escrita, sin entrada. Todavía no está puesta en las portadas.
+
 ### Arena bajo una línea
 
 - El sobrevuelo tiene un efecto opcional (`"arena": true`): lo que queda bajo una línea de la pantalla se deshace en arena que flota, cada grano a su tiempo, y vuelve a armarse al retroceder. Está escrito en el motor propio, sin librerías. Con movimiento reducido no hay arena.

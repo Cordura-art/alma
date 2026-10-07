@@ -1,0 +1,17 @@
+/* Palabra: the page where an entity's word is worked on. Layout only: every color, space, radius and type value is an ALMA token. */
+html { background: var(--ui-02); }
+body { margin: 0; background: var(--ui-02); color: var(--text-01); font-family: var(--font-flex); font-stretch: calc(var(--font-width, 130) * 1%); font-variation-settings: "wdth" var(--font-width, 130), "GRAD" var(--font-grade, 0); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.wrap { box-sizing: border-box; width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: var(--space-16); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ui-02); border-bottom: 1px solid var(--border-subtle); }
+.top__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); min-height: var(--space-64); }
+.top__in p { margin: 0; }
+.escena { display: grid; place-items: center; height: clamp(16rem, 52vh, 34rem); overflow: hidden; border-bottom: 1px solid var(--border-subtle); }
+.pista { margin: 0; padding-block: var(--space-16); color: var(--text-02); text-align: center; }
+.mesa { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-24); padding-block: var(--space-24); }
+.mesa > * { min-width: 0; } .mesa__campo { flex: 1 1 14rem; max-width: 22rem; }
+.sec { padding-block: var(--space-48); display: grid; gap: var(--space-24); }
+.sec h2, .sec p { margin: 0; } .sec > p { max-width: 62ch; color: var(--text-02); }
+.rasgos { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: var(--space-24); }
+.rasgo { border-top: 1px solid var(--border-subtle); padding-top: var(--space-16); display: grid; gap: var(--space-8); align-content: start; }
+.rasgo dt { color: var(--text-02); } .rasgo dd { margin: 0; } .rasgo .valor { font-variant-numeric: tabular-nums; }
+.rasgo .hace { color: var(--text-02); }
