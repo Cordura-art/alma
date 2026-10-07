@@ -2,6 +2,8 @@
 // and whoever reads goes along it, at the height of the eyes, from one end to the way out, where the entity's word is.
 // The pointer turns the head. Each dot is a small square, stronger and a little larger where the place is lighter (on
 // a light page, where it is darker), in one of the entity's three colors: the vault, the walls, the ground. What is far fades.
+// A scanned ground with no walls (`vuelo`: a sea of clouds, say) is flown over instead, low and looking a little down: its
+// three colors are its heights, its edges thin out into nothing, and the word is on the horizon.
 (function () {
   var D = window.__ESCANEO, escena = document.querySelector('.recorrido'), lienzo = document.querySelector('.escaneo__lienzo');
   if (!D || !escena || !lienzo || !lienzo.getContext) return;
@@ -30,8 +32,14 @@
     MEDIO[col] = n ? q[0] / n : comun[0]; SUELO[col] = n ? q[1] / n : comun[1]; TECHO[col] = n ? q[2] / n : comun[2]; ANCHURA[col] = n ? q[3] / n : comun[3];
   }
   for (col = 0; col < C; col++) for (i = INICIO[col]; i < INICIO[col + 1]; i++) { var banda = (FIL[i] - TECHO[col]) / Math.max(1, SUELO[col] - TECHO[col]) + AZX[i] / 127 * 0.05; TIN[i] = banda < 0.34 ? 0 : banda < 0.86 ? 1 : 2; }
+  var VUELO = !!D.vuelo, HM = D.hondos / 2;
+  if (VUELO) {      // (flown over: its middle is the lattice's, and what counts is how high its tops are and how low its hollows)
+    var alturas = new Uint32Array(D.filas + 1), cima = 0, hoya = D.filas, van = 0, alta = 0, media = 0; for (i = 0; i < N; i++) alturas[FIL[i]]++;
+    for (i = 0; i <= D.filas; i++) { van += alturas[i]; if (van < N * 0.02) cima = i; if (van < N * 0.3) alta = i + 1; if (van < N * 0.72) media = i + 1; if (van < N * 0.98) hoya = i + 1; }
+    for (col = 0; col < C; col++) { MEDIO[col] = HM; ANCHURA[col] = D.hondos * 0.8; SUELO[col] = cima; TECHO[col] = cima - C * 0.1; for (i = INICIO[col]; i < INICIO[col + 1]; i++) { var nivel = FIL[i] + AZX[i] / 127 * Math.max(1, (hoya - cima) * 0.04); TIN[i] = nivel < alta ? 0 : nivel < media ? 1 : 2; } }
+  }
   var en = function (A, x) { var k = Math.min(C - 1, Math.max(0, x)), e = Math.floor(k), f = Math.min(C - 1, e + 1); return A[e] + (A[f] - A[e]) * (k - e); };
-  var OJOS = Math.min(1.55 / ((D.alto || D.filas) / D.filas), (comun[1] - comun[2]) * 0.62), DESDE = C * 0.06, HASTA = C * 0.9, CERCA = 3;
+  var OJOS = VUELO ? Math.max(8, C * 0.045) : Math.min(1.55 / ((D.alto || D.filas) / D.filas), (comun[1] - comun[2]) * 0.62), DESDE = VUELO ? -C * 0.04 : C * 0.06, HASTA = VUELO ? C * 0.4 : C * 0.9, CERCA = 3, BAJA = VUELO ? 0.22 : 0;
 
   var W = 0, H = 0, escala = 1, foco = 1, imagen = null, pixeles = null, claro = false, FONDO = 0, TINTAS = new Uint32Array(96), NIVELES = 32;
   var avance = 0, giro = 0, alza = 0, quiereGiro = 0, quiereAlza = 0, px = -1e4, py = -1e4, brio = 0, suelta = menos.matches ? 0 : 1, pedido = 0, antes = 0, anchoPalabra = 0, altoPalabra = 0;
@@ -69,15 +77,16 @@
       if (suelta > 0) suelta = Math.max(0, suelta - dt / 1.6); brio *= Math.exp(-dt / 0.5); if (brio < 0.01) brio = 0;
       sigue = Math.abs(meta - avance) > 0.0004 || Math.abs(quiereGiro - giro) > 0.001 || Math.abs(quiereAlza - alza) > 0.001 || suelta > 0 || brio > 0;
     }
-    var cx = DESDE + (HASTA - DESDE) * avance, cz = en(MEDIO, cx), cy = en(SUELO, cx) - OJOS, cg = Math.cos(giro), sg = Math.sin(giro), ca = Math.cos(alza), sa = Math.sin(alza), mx = W / 2, my = H / 2;
+    var cx = DESDE + (HASTA - DESDE) * avance, cz = en(MEDIO, cx), cy = en(SUELO, cx) - OJOS, cg = Math.cos(giro), sg = Math.sin(giro), ca = Math.cos(alza + BAJA), sa = Math.sin(alza + BAJA), mx = W / 2, my = H / 2;
     var polvo = suelta * suelta * (3 - 2 * suelta), vuela = polvo * H * 0.9 / 127, alcance = H * 0.17, alcance2 = alcance * alcance, qx = px * escala, qy = py * escala, lejos = C * 0.22, fondoLejos = C * 0.75;
     pixeles.fill(0);
     for (var col = C - 1; col >= 0; col--) {
-      var u = col + 0.5 - cx; if (u < -30) break;
+      var u = col + 0.5 - cx; if (u < -30) break; var alFondo = VUELO && col > C * 0.86 ? (C - col) / (C * 0.14) : 1;
       for (var i = INICIO[col], fin = INICIO[col + 1]; i < fin; i++) {
         var w = cz - HON[i] - 0.5, v = FIL[i] + 0.5 - cy, ade = u * cg + w * sg, hondo = ade * ca + v * sa; if (hondo < CERCA) continue;
         var k = foco / hondo, x = mx + (w * cg - u * sg) * k, y = my + (v * ca - ade * sa) * k; if (x < -k || x > W + k || y < -k || y > H + k) continue;
         var niebla = hondo < CERCA * 3 ? (hondo - CERCA) / (CERCA * 2) : hondo > lejos ? Math.max(0.3, 1 - 0.7 * (hondo - lejos) / fondoLejos) : 1, t = claro ? 1 - 0.9 * TON[i] : TON[i], macizo = polvo < 0.02 && hondo >= CERCA * 3;
+        if (VUELO) { var orilla = Math.abs(HON[i] + 0.5 - HM) / HM + AZY[i] / 127 * 0.05, queda = (orilla > 0.7 ? Math.max(0, (1 - orilla) / 0.3) : 1) * alFondo; if (queda <= 0) continue; niebla *= queda; if (queda < 0.75) macizo = false; }
         if (polvo > 0) { x += AZX[i] * vuela; y += AZY[i] * vuela; }
         if (brio > 0) { var ex = x - qx, ey = y - qy, e2 = ex * ex + ey * ey; if (e2 < alcance2) { var e = Math.sqrt(e2) || 1, empuje = (1 - e / alcance); empuje = empuje * empuje * brio * alcance * 0.55; x += ex / e * empuje + AZX[i] * empuje * 0.004; y += ey / e * empuje + AZY[i] * empuje * 0.004; macizo = false; } }
         var medio = k / 2;

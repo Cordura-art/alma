@@ -1,0 +1,17 @@
+{
+  "modo": "sobrevuelo",
+  "entidad": "cordura",
+  "escaneo": "nubes",
+  "titulo": "Nubes de Cordura",
+  "palabra": "Cordura",
+  "frase": ["Desde arriba,", "toda emoción es clima."],
+  "accion": { "texto": "Lee cómo decidimos", "destino": "#oficio" },
+  "pista": "Desplaza, y dale tiempo",
+  "descripcion": "Un mar de nubes visto desde un avión, dibujado con miles de puntos en nuestros colores. Al desplazar la página se vuela sobre él hacia el horizonte, donde está nuestro nombre. Con el puntero se mira hacia los lados.",
+  "datos": [
+    "Las miramos desde 35.000 pies: {puntos} puntos de un mismo cielo.",
+    "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Lo que sobra se va cuando la emoción se asienta.",
+    "Las nubes eran blancas. Aquí llevan los nuestros, y ninguno llegó apurado.",
+    "Sentir, esperar, decidir. Arriba siempre está despejado."
+  ]
+}

@@ -4,6 +4,12 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 7 de octubre de 2026
 
+### Un suelo escaneado, sobrevolado
+
+- Tercera clase de portada, el sobrevuelo (`"modo": "sobrevuelo"`): para un escaneo sin paredes, como un mar de nubes. Al desplazar se vuela bajo sobre él, sus tres colores son sus alturas, sus orillas se deshacen y el nombre de la entidad está en el horizonte.
+- La primera es Nubes de Cordura (`entidades/escaneos/cordura-nubes.json`, `npm run escaneo -- cordura-nubes`), con 74.523 puntos.
+- El escaneo tiene una opción nueva, `--relieve`, que hace el objeto tantas veces más alto: sin ella, las alturas de algo visto desde muy arriba se pierden entre un paso de la trama y el siguiente.
+
 ### Un lugar escaneado, recorrido por dentro
 
 - El escaneo ya sirve para lugares, no solo para objetos: la trama no tiene tope de tamaño, se mira también desde arriba y desde abajo, y cada parte usa su propia textura. Opciones nuevas: `--pasos` (detalle según el lado más largo) y `--dentro` (deja puntos en todas las superficies).

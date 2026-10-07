@@ -49,6 +49,7 @@ npm run genes -- ensayo   # escribe build/blender/ensayo.json: los genes y las c
 #   blender --background --factory-startup --python blender/escaneo.py -- <archivo.glb> entidades/escaneos/<nombre>.json [--frente -x] [--desde 0.18]
 #   npm run escaneo -- ensayo   → build/escaneo/ensayo.html   (lo que dice va en entidades/escaneos/ensayo.json)
 #   Un lugar se escanea con --pasos 480 --dentro, y su página se recorre por dentro: npm run escaneo -- ensayo-tunel
+#   Un suelo sin paredes se escanea con --pasos 300 --relieve 3, y su página lo sobrevuela: npm run escaneo -- cordura-nubes
 # Sus retratos para el sitio van en `entidades/retratos/<id>-piel.jpg`, `<id>-pelaje.jpg` y `<id>-vestido.jpg`.
 # Su piel para Unity (almohadas, piernas y zapatos): blender --background --factory-startup --python blender/piloto.py -- build/blender/<id>.json - --exporta unity/Assets/StreamingAssets/pieles/<id>.json
 npm run sistemas          # arma build/documentacion-sistemas/: ALMA y sus entidades en un solo sitio, con su documentación y su lenguaje de diseño

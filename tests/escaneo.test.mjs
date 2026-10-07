@@ -40,7 +40,7 @@ test('cada entidad tiene su portada: su palabra, su voz y sus colores, y ninguna
 });
 
 test('un lugar escaneado se recorre: su página es de una entidad, lleva su palabra, sus datos llenos y el mismo botón de tema', async () => {
-  assert.deepEqual(recorridos(), ['automata-tunel', 'cordura-tunel', 'ensayo-tunel']); for (const r of recorridos()) assert.equal(/\{(puntos|pesoOrigen|pesoTrama|largo)\}/.test(await paginaDeEscaneo(r)), false, r); const T = JSON.parse(readFileSync('entidades/escaneos/ensayo-tunel.json', 'utf8')), html = await paginaDeEscaneo('ensayo-tunel');
+  assert.deepEqual(recorridos(), ['automata-tunel', 'cordura-nubes', 'cordura-tunel', 'ensayo-tunel']); assert.ok((await paginaDeEscaneo('cordura-nubes')).includes('"vuelo":true') && !(await paginaDeEscaneo('cordura-tunel')).includes('"vuelo"'), 'solo lo que no tiene paredes se sobrevuela'); for (const r of recorridos()) assert.equal(/\{(puntos|pesoOrigen|pesoTrama|largo)\}/.test(await paginaDeEscaneo(r)), false, r); const T = JSON.parse(readFileSync('entidades/escaneos/ensayo-tunel.json', 'utf8')), html = await paginaDeEscaneo('ensayo-tunel');
   assert.equal(T.entidad, 'ensayo'); assert.ok(html.includes('<section class="escaneo recorrido"') && html.includes('<h1 class="escaneo__palabra">' + T.palabra + '</h1>'));
   assert.equal((html.match(/class="escaneo__dato"/g) || []).length, T.datos.length); assert.equal(/\{(puntos|pesoOrigen|pesoTrama|largo)\}/.test(html), false, 'quedó un dato sin llenar'); assert.ok(/a lo largo de \d+ metros/.test(html));
   assert.ok(html.includes('class="escaneo__tema"') && html.includes('role="img"') && html.includes('prefers-reduced-motion') && html.includes('"alma":3')); assert.ok(html.length < 1500000, 'la página pesa ' + html.length);

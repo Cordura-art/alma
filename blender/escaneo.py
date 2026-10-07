@@ -3,7 +3,7 @@
 # knows its place, how light the thing's own color is there, and which way its surface faces. A page can then draw
 # the thing with some thousands of small marks, in its own colors, light it, turn it, and take it apart.
 #
-#   blender --background --factory-startup --python blender/escaneo.py -- <archivo.glb> <salida.json> [--filas 150 | --pasos 400] [--frente -y|+y|-x|+x] [--desde 0.18] [--vueltas 8] [--dentro]
+#   blender --background --factory-startup --python blender/escaneo.py -- <archivo.glb> <salida.json> [--filas 150 | --pasos 400] [--frente -y|+y|-x|+x] [--desde 0.18] [--vueltas 8] [--dentro] [--relieve 3]
 #
 # `--frente` says which way the thing's front looks in the file; `--desde` leaves out that much of its height from
 # the bottom (a plinth, say); `--vueltas` is from how many sides it is looked at, besides from above and from below.
@@ -13,6 +13,8 @@
 # The file it writes: { alma: 2, nombre, columnas, filas, hondos, alto, peso (how many bytes the scan weighed), puntos },
 # where `puntos` is seven bytes a dot, as base64: its column (left to right), its row (from the top), its depth (from
 # the front), its tone 0–255, and the way its surface faces (to the right, up, to the front), each -127–127 plus 128.
+# `--relieve` makes it that many times taller than it is: for a ground scanned from far above, whose heights would
+# otherwise be lost between one step of the lattice and the next.
 # A lattice of more than 255 steps a side is written as `alma: 3`: the same, with column, row and depth in two bytes
 # each (the low one first), ten bytes a dot.
 import bpy, sys, os, json, base64, math
@@ -26,8 +28,8 @@ def opcion(nombre, defecto):
     i = argv.index(nombre); v = argv[i + 1]; del argv[i:i + 2]; return v
 DENTRO = '--dentro' in argv
 if DENTRO: argv.remove('--dentro')
-FILAS, PASOS, FRENTE, DESDE, VUELTAS = int(opcion('--filas', 150)), int(opcion('--pasos', 0)), opcion('--frente', '-y'), float(opcion('--desde', 0)), int(opcion('--vueltas', 8))
-if len(argv) < 2: sys.exit('Uso: blender --background --factory-startup --python blender/escaneo.py -- <archivo.glb> <salida.json> [--filas 150 | --pasos 400] [--frente -y|+y|-x|+x] [--desde 0.18] [--vueltas 8] [--dentro]')
+FILAS, PASOS, FRENTE, DESDE, VUELTAS, RELIEVE = int(opcion('--filas', 150)), int(opcion('--pasos', 0)), opcion('--frente', '-y'), float(opcion('--desde', 0)), int(opcion('--vueltas', 8)), float(opcion('--relieve', 1))
+if len(argv) < 2: sys.exit('Uso: blender --background --factory-startup --python blender/escaneo.py -- <archivo.glb> <salida.json> [--filas 150 | --pasos 400] [--frente -y|+y|-x|+x] [--desde 0.18] [--vueltas 8] [--dentro] [--relieve 3]')
 ARCHIVO, SALIDA = argv[0], argv[1]
 
 for o in list(bpy.data.objects): bpy.data.objects.remove(o, do_unlink=True)
@@ -53,6 +55,7 @@ for o in mallas:
 giro = {'-y': 0, '+x': -90, '+y': 180, '-x': 90}.get(FRENTE, 0)
 if giro:
     c, s = math.cos(math.radians(giro)), math.sin(math.radians(giro)); vertices = [Vector((v.x * c - v.y * s, v.x * s + v.y * c, v.z)) for v in vertices]
+if RELIEVE != 1: vertices = [Vector((v.x, v.y, v.z * RELIEVE)) for v in vertices]
 xs, ys, zs = [v.x for v in vertices], [v.y for v in vertices], [v.z for v in vertices]
 x0, x1, y0, y1, z0, z1 = min(xs), max(xs), min(ys), max(ys), min(zs), max(zs)
 z0 += DESDE * (z1 - z0); ALTO = z1 - z0
