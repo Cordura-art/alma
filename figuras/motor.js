@@ -10,6 +10,7 @@
 //   reposo    at rest it is already a composed thing, not flat and not blank
 //   orden     far things are painted first; what is near hides what is behind it
 //   descanso  it moves only while something changes; out of sight, or asked for less motion, it is still
+//             (a figure that moves on its own, like a belt, says so: `propio`; it too is still when asked)
 //   silencio  no words in the drawing: what it says goes to its caption
 //   redondo   a solid is its outline and one soft crease where its top turns; its upright corners are never drawn
 (function (raiz, fabrica) {
@@ -116,6 +117,8 @@
   // Across it is x; up it is -y of the shape.
   function frente(x, y, z) { return { o: [x, y, z], R: [[1, 0, 0], [0, 0, 1], [0, -1, 0]] }; }
   const entre = (v, a, b) => Math.max(a, Math.min(b, v));
+  // A place carried along its own axes: what rides on a thing that leans.
+  function desde(P, x, y, z) { P = postura(P); return { o: lleva(P, x, y, z), R: P.R }; }
   // What a figure may take from an entity, in plain numbers, with ALMA's own when there is none: how round it is (0 for
   // an entity of blocks), how many centers, points, groups and numbers its chart has, how heavy, wide and tall it is,
   // and how it leans.
@@ -139,7 +142,7 @@
   position: relative; display: block; width: 100%; aspect-ratio: 5 / 4; }
 .alma-figura svg { display: block; width: 100%; height: 100%; background: var(--figura-fondo); border-radius: var(--radius-card); touch-action: pan-y; cursor: crosshair; }
 .alma-figura svg:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.alma-figura path, .alma-figura line { fill: none; stroke: var(--figura-medio); stroke-width: var(--figura-trazo); stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.alma-figura path, .alma-figura line, .alma-figura ellipse { fill: none; stroke: var(--figura-medio); stroke-width: var(--figura-trazo); stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .alma-figura .tapa { fill: var(--figura-fondo); stroke: none; } .alma-figura .tapa.borde, .alma-figura .tapa.realce { stroke-width: var(--figura-trazo); }
 .alma-figura .lejos { stroke: var(--figura-lejos); } .alma-figura .borde { stroke: var(--figura-borde); } .alma-figura .realce { stroke: var(--figura-realce); }
 .alma-figura .acento { fill: var(--figura-acento); stroke: var(--figura-fondo); }
@@ -166,7 +169,7 @@
     const menos = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
     const estilos = getComputedStyle(donde); let dicho = '', turno = 0;
     const ctx = {
-      svg, nodo, linea, camara, resorte, paso, redondo, silueta, lugar, bisagra, corre, frente, entre, ANCHO, ALTO,
+      svg, nodo, linea, camara, resorte, paso, redondo, silueta, lugar, bisagra, corre, frente, entre, desde, ANCHO, ALTO,
       puntero: { dentro: false, tecla: false, x: ANCHO / 2, y: ALTO / 2 }, genes: o.genes || null,
       get intensidad() { return o.intensidad; }, get quieto() { return menos.matches; },
       // ALMA's own clock for changes that are not the pointer's: its slow duration and its expressive curve.
@@ -211,5 +214,5 @@
       get enMovimiento() { return vivas.has(yo); },
     };
   }
-  return { ANCHO, ALTO, camara, resorte, paso, curva, linea, redondo, casco, silueta, lamina, lugar, bisagra, corre, cuerpo, frente, entre, rasgos, define, monta, figuras };
+  return { ANCHO, ALTO, camara, resorte, paso, curva, linea, redondo, casco, silueta, lamina, lugar, bisagra, corre, cuerpo, frente, entre, desde, rasgos, define, monta, figuras };
 });

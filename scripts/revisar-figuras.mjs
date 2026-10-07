@@ -20,12 +20,13 @@ for (const n of nombres) {
   await foto('a'); await p.mouse.move(caja.x + caja.width * 0.62, caja.y + caja.height * 0.42); await p.waitForTimeout(1500); await foto('b'); const dice = await p.textContent('#dice');
   await p.fill('#intensidad', '1'); for (const [fx, fy] of [[0.85, 0.75], [0.15, 0.2], [0.5, 0.9]]) { await p.mouse.move(caja.x + caja.width * fx, caja.y + caja.height * fy); await p.waitForTimeout(700); }
   await p.waitForTimeout(1300);
-  const r = await p.evaluate(() => ({ quieta: !window.__figura.enMovimiento, fuera: [...document.querySelectorAll('#figura svg path, #figura svg circle')].filter((e) => { const c = e.getBBox(); return c.width && (c.x < 0 || c.y < 0 || c.x + c.width > 400 || c.y + c.height > 320); }).length,
-    acentos: [...document.querySelectorAll('#figura svg .acento')].filter((e) => e.getAttribute('d') || e.getAttribute('r')).length, trazos: document.querySelectorAll('#figura svg path').length }));
+  const propio = await p.evaluate((n) => !!window.AlmaFigura.figuras[n].propio, n);      // one that moves on its own never comes to rest
+  const r = await p.evaluate(() => ({ quieta: !window.__figura.enMovimiento, fuera: [...document.querySelectorAll('#figura svg path, #figura svg circle, #figura svg ellipse')].filter((e) => { const c = e.getBBox(); return c.width && (c.x < 0 || c.y < 0 || c.x + c.width > 400 || c.y + c.height > 320); }).length,
+    acentos: [...document.querySelectorAll('#figura svg .acento')].filter((e) => e.getAttribute('d') || e.getAttribute('r') || e.getAttribute('rx')).length, trazos: document.querySelectorAll('#figura svg path').length }));
   await p.locator('#figura svg').focus(); await p.keyboard.press('ArrowUp'); await p.keyboard.press('ArrowRight'); await p.waitForTimeout(900); const tecla = await p.textContent('#dice');
   await p.keyboard.press('Escape'); await p.waitForTimeout(1600); const reposo = await p.textContent('#dice'), quieta = await p.evaluate(() => !window.__figura.enMovimiento);
-  const bien = !err.length && r.quieta && quieta && !r.fuera && r.acentos === 1 && reposo === 'En reposo'; if (!bien) malas++;
-  console.log((bien ? '✔ ' : '✖ ') + n.padEnd(12), dice.padEnd(30), '| flechas:', tecla.padEnd(30), `| ${r.trazos} trazos, ${r.fuera} fuera, ${r.acentos} acento(s)` + (r.quieta && quieta ? '' : ', NO SE DETIENE') + (reposo === 'En reposo' ? '' : ', no vuelve al reposo'), err.join(' | '));
+  const bien = !err.length && (propio || (r.quieta && quieta)) && !r.fuera && r.acentos === 1 && reposo === 'En reposo'; if (!bien) malas++;
+  console.log((bien ? '✔ ' : '✖ ') + n.padEnd(12), dice.padEnd(30), '| flechas:', tecla.padEnd(30), `| ${r.trazos} trazos, ${r.fuera} fuera, ${r.acentos} acento(s)` + (propio ? ', se mueve sola' : r.quieta && quieta ? '' : ', NO SE DETIENE') + (reposo === 'En reposo' ? '' : ', no vuelve al reposo'), err.join(' | '));
   await p.close();
 }
 await b.close(); console.log(malas ? `${malas} con problemas` : `Las ${nombres.length} bien`); process.exit(malas ? 1 : 0);

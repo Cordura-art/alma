@@ -10,7 +10,7 @@
 
   function modelo(G) {
     const R = A.rasgos(G), N = entre(R.numeros.length, 3, 5), ANCHO = 1.1, ARO = 0.19, FUENTE = 0.11, redondez = R.bloques ? 0.14 : R.propia ? 0.6 + 0.4 * R.redondo : 1;      // ALMA's own are plain circles
-    const aro = A.redondo(ANCHO, ANCHO, ANCHO / 2 * redondez), boca = A.redondo(ANCHO - 0.14, ANCHO - 0.14, (ANCHO - 0.14) / 2 * redondez), sube = (I) => 0.08 + 0.26 * I, zDe = (i) => FUENTE + 0.012 + i * (ARO + 0.012);
+    const aro = A.redondo(ANCHO, ANCHO, ANCHO / 2 * redondez, 64), boca = A.redondo(ANCHO - 0.14, ANCHO - 0.14, (ANCHO - 0.14) / 2 * redondez, 64), sube = (I) => 0.08 + 0.26 * I, zDe = (i) => FUENTE + 0.012 + i * (ARO + 0.012);
     const alza = (i, a, I, cuanto) => a < 0 ? (i === N - 1 ? sube(I) * 0.4 : 0) : (i > a ? 2 : i === a ? 1 : 0) * sube(I) * cuanto;
     function camaraDe() { const C = A.camara({ alza: 30 }), p = A.cuerpo(aro, A.lugar(0, 0, 0, 0), FUENTE); p.push(...A.cuerpo(aro, A.lugar(0, 0, zDe(N - 1) + 2 * sube(1), 0), ARO)); return C.encuadra(p, 18); }
     function monta(f) {
