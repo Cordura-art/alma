@@ -13,16 +13,18 @@ namespace Alma
         {
             var d = Object.FindFirstObjectByType<Desfile>(); var cam = Camera.main; if (d == null || cam == null) return "no hay desfile: entra en modo juego primero";
             Personaje uno = null; foreach (var p in d.personajes) if (p.entidad.id == nombre || p.entidad.nombre == nombre) uno = p; if (uno == null) return "no hay un personaje " + nombre;
-            d.enVivo = false; foreach (var p in d.personajes) p.Muestra(p == uno);
+            d.enVivo = false; d.Rotulos(false); foreach (var p in d.personajes) p.Muestra(p == uno);
             Vector3 antes = cam.transform.position; Quaternion giro = cam.transform.rotation; float campo = cam.fieldOfView;
             var mueve = new Vector3(-0.1f - uno.transform.position.x, 0, -uno.transform.position.z); uno.transform.position += mueve; uno.Salta(mueve);
             for (int i = 0; i < 150; i++) { var q = uno.transform.position; uno.Avanza(1f / 60f); uno.transform.position = q; }      // it walks on the spot until its coat has settled into the walk
-            cam.transform.position = new Vector3(0.9f, 0.72f, -3.3f); cam.transform.LookAt(new Vector3(-0.1f, 0.6f, 0)); cam.fieldOfView = 24;
+            // The camera stands back as far as its height asks: dressed, it is taller.
+            float alto = uno.alto, lejos = Mathf.Max(3.3f, alto * 0.5f * 1.16f / Mathf.Tan(12f * Mathf.Deg2Rad));
+            cam.transform.position = new Vector3(0.27f * lejos, alto * 0.56f, -lejos); cam.transform.LookAt(new Vector3(-0.1f, alto * 0.48f, 0)); cam.fieldOfView = 24;
             var rt = new RenderTexture(lado, lado, 24, RenderTextureFormat.ARGB32) { antiAliasing = 4 }; var tex = new Texture2D(lado, lado, TextureFormat.RGB24, false); var previa = cam.targetTexture;
             uno.Avanza(1f / 60f); cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt; tex.ReadPixels(new Rect(0, 0, lado, lado), 0, 0); tex.Apply();
             Directory.CreateDirectory(Path.GetDirectoryName(archivo)); File.WriteAllBytes(archivo, tex.EncodeToPNG());
             cam.targetTexture = previa; RenderTexture.active = null; Object.Destroy(rt); Object.Destroy(tex); cam.transform.position = antes; cam.transform.rotation = giro; cam.fieldOfView = campo;
-            foreach (var p in d.personajes) p.Muestra(true); d.enVivo = true;
+            foreach (var p in d.personajes) p.Muestra(true); d.Rotulos(true); d.enVivo = true;
             return archivo;
         }
 

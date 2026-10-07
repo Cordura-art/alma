@@ -2,6 +2,15 @@
 
 Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detalle de cada cambio está en el historial del repositorio.
 
+## 7 de octubre de 2026
+
+### Piel y pelaje, juntos en el desfile
+
+- **Un personaje con las dos cosas.** Las almohadas que Blender infla (`blender/piloto.py --exporta`) viajan a Unity con sus piernas y sus zapatos (`unity/Assets/StreamingAssets/pieles/`), y allí caminan en el desfile con el andar de cada entidad.
+- **La carta reparte.** Las almohadas de los centros definidos van desnudas: se ve su tela (punto, vinilo o pana) y el patrón de la entidad. Las de sus puertas llevan pelaje.
+- **Se mueve.** Las piernas doblan en la rodilla, las almohadas rebotan un poco a cada paso y el pelaje las sigue.
+- En el lenguaje de cada entidad, Personaje suma el retrato «Vestido para el desfile», y el video del desfile es el nuevo. El desfile anterior, solo con pelaje, sigue en Unity (`Desfile.vestidos`).
+
 ## 5 de octubre de 2026
 
 ### Patrón, materia y piel

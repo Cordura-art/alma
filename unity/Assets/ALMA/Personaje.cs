@@ -1,4 +1,6 @@
 // A character of an ALMA entity, alive: bones, a body of lumps on them, a coat that moves, and a walk of its own.
+// Dressed (when its skin has been made, see Piel.cs), it has no lumps: a cloud of blown pillows hides its trunk, some
+// bare in their cloth and its pattern, some under its coat, and its legs and shoes come out below.
 // Everything comes from the entity's genes; its measures and its walk are the ones ALMA worked out
 // (entidades/personaje.mjs), the same ones Blender reads. One unit is the height of a plain character; x is its
 // right, y is up and z is where it faces.
@@ -17,6 +19,7 @@ namespace Alma
     public class Personaje : MonoBehaviour
     {
         public Entidad entidad;
+        public float densidadVestido = 1.1f;  // dressed, how thick its coat grows on the pillows that wear it
         public int hebras = 44000;           // how many hairs a coat of plain hair would have (feathers and fringes are fewer)
         const int TRAMOS = 7;                // segments in each one
 
@@ -26,7 +29,14 @@ namespace Alma
         readonly List<Bulto> bultos = new List<Bulto>();
         static readonly Dictionary<string, string[]> HUESOS = Huesos();
         Vector3 caderaEnReposo; float piernaLarga, reloj;
+        // Its skin, when it has one: pillows that ride on its spine and lag a little behind it, legs that bend at the
+        // knee, and the loose things (the coat, the legs) that live in the world and not under a bone.
+        Piel ropa; float suelo;
+        class Almohada { public Transform t; public Vector3 reposo, lugar, vel, antes; public Vector3[] v, n; public int[] tri; public bool pelo; public Color color; public int k; }
+        class Flexible { public Mesh m; public Transform a, b; public Vector3[] va, vb, na, nb, v, n; public float[] w; }
+        readonly List<Almohada> almohadas = new List<Almohada>(); readonly List<Flexible> flexibles = new List<Flexible>(); readonly List<GameObject> sueltos = new List<GameObject>(); readonly List<Vector3> tapan = new List<Vector3>();
         public float velocidad { get; private set; }
+        public float alto { get; private set; } = 1.25f;      // how tall it stands, with whatever it wears
 
         // Where each center sits on a plain character, as the files give it (Blender's axes), its bone and its size.
         static readonly Dictionary<string, (Vector3 p, string hueso, float r)> CENTROS = new Dictionary<string, (Vector3, string, float)> {
@@ -63,6 +73,7 @@ namespace Alma
                 J["ingle." + L] = DeBlender(s * 0.07f * a, 0, Altura(0.47f)); J["rodilla." + L] = DeBlender(s * (0.07f * a + 0.015f), -0.015f, Altura(0.265f));
                 J["tobillo." + L] = DeBlender(s * (0.07f * a + 0.025f), 0.01f, 0.06f); J["punta." + L] = DeBlender(s * (0.07f * a + 0.035f), -0.11f * C.pie, 0.035f);
             }
+            if (suelo != 0) foreach (var k in new List<string>(J.Keys)) J[k] += Vector3.up * suelo;      // in shoes it stands a sole higher
         }
         void Esqueleto()
         {
@@ -116,6 +127,58 @@ namespace Alma
             }
         }
 
+        // ---------- Its skin. Each part hangs from its bone as it stood at rest; a pillow rides on the spine; a leg is
+        // kept loose, to be bent each moment between its thigh and its shin.
+        void Viste()
+        {
+            foreach (var p in ropa.partes)
+            {
+                var malla = Pieles.Malla(p, suelo, out var v, out var n, out var peso); var d = ropa.materiales[p.material]; var o = new GameObject(p.nombre + " de " + entidad.nombre);
+                o.AddComponent<MeshFilter>().sharedMesh = malla; var r = o.AddComponent<MeshRenderer>(); r.sharedMaterial = Pieles.Material(ropa, p); r.shadowCastingMode = ShadowCastingMode.On; r.receiveShadows = true;
+                if (!string.IsNullOrEmpty(p.hueso2) && peso.Length == v.Length)
+                {
+                    var f = new Flexible { m = malla, a = huesos[p.hueso], b = huesos[p.hueso2], w = peso, v = v, n = n, va = new Vector3[v.Length], vb = new Vector3[v.Length], na = new Vector3[v.Length], nb = new Vector3[v.Length] };
+                    for (int i = 0; i < v.Length; i++)
+                    {
+                        Vector3 q = transform.TransformPoint(v[i]), u = transform.TransformDirection(n[i]);
+                        f.va[i] = f.a.InverseTransformPoint(q); f.vb[i] = f.b.InverseTransformPoint(q); f.na[i] = f.a.InverseTransformDirection(u); f.nb[i] = f.b.InverseTransformDirection(u);
+                    }
+                    malla.MarkDynamic(); flexibles.Add(f); sueltos.Add(o); continue;
+                }
+                o.transform.SetParent(huesos[p.hueso], false); o.transform.position = transform.position; o.transform.rotation = transform.rotation;
+                // Which pillows go bare, in their cloth: its centers (and the one on top, where it has no center in its head), and the ones
+                // that wear its pattern. Its gates wear its coat.
+                if (p.almohada) almohadas.Add(new Almohada { t = o.transform, reposo = o.transform.localPosition, v = v, n = n, tri = malla.triangles, color = Pieles.Tinta(d.a), k = almohadas.Count,
+                    pelo = !p.oscura && !d.estampa && !p.centro && !p.nombre.EndsWith("arriba") });
+                else if (p.hueso == "columna") tapan.AddRange(v);
+                foreach (var q in v) alto = Mathf.Max(alto, q.y + 0.04f);
+            }
+        }
+        // The legs, bent: each point between where its thigh and where its shin would take it.
+        void Dobla()
+        {
+            foreach (var f in flexibles)
+            {
+                Matrix4x4 A_ = f.a.localToWorldMatrix, B_ = f.b.localToWorldMatrix;
+                for (int i = 0; i < f.v.Length; i++)
+                {
+                    f.v[i] = Vector3.LerpUnclamped(A_.MultiplyPoint3x4(f.va[i]), B_.MultiplyPoint3x4(f.vb[i]), f.w[i]); f.n[i] = Vector3.LerpUnclamped(A_.MultiplyVector(f.na[i]), B_.MultiplyVector(f.nb[i]), f.w[i]).normalized;
+                }
+                f.m.SetVertices(f.v); f.m.SetNormals(f.n); f.m.bounds = new Bounds(Vector3.zero, Vector3.one * 100);
+            }
+        }
+        // The pillows are soft things tied on: each follows its place on the spine a moment late and overshoots a little.
+        void Mece(float dt, bool enReposo)
+        {
+            foreach (var al in almohadas)
+            {
+                al.t.localPosition = al.reposo; var meta = al.t.position;
+                if (enReposo || dt <= 0) { al.lugar = al.antes = meta; al.vel = Vector3.zero; continue; }
+                var suya = (meta - al.antes) / dt; al.antes = meta; al.vel += ((meta - al.lugar) * (190f + 45f * (al.k % 4)) - (al.vel - suya) * 9f) * dt; al.lugar += al.vel * dt;
+                al.lugar = meta + Vector3.ClampMagnitude(al.lugar - meta, 0.03f); al.t.position = al.lugar;
+            }
+        }
+
         // ---------- The coat. Each strand is rooted on a lump and tied to that lump's bone. Each zone of the body wears
         // its own kind, in its own pair of the entity's colors:
         //   pelo   thin hair that falls            rizo   hair that curls
@@ -156,6 +219,7 @@ namespace Alma
             }
             float area = 0; foreach (var x in bultos) area += x.r * x.r;
             var nombres = new List<string>(huesos.Keys); huesoDe = new Transform[nombres.Count]; for (int i = 0; i < nombres.Count; i++) huesoDe[i] = huesos[nombres[i]]; matriz = new NativeArray<float4x4>(nombres.Count, Allocator.Persistent);
+            if (ropa != null) { huesoDe = almohadas.ConvertAll(x => x.t).ToArray(); matriz.Dispose(); matriz = new NativeArray<float4x4>(Mathf.Max(1, huesoDe.Length), Allocator.Persistent); }      // dressed, the coat is tied to its pillows
             var tintes = new Dictionary<Color, Material>();
             var hueso = new List<int>(); var lugar = new List<Vector3>(); var normal = new List<Vector3>(); var est = new List<Estilo>(); var R0 = new Azar(G.semilla + "|raices");
             for (int k = 0; k < bultos.Count; k++)
@@ -177,6 +241,39 @@ namespace Alma
                     for (int j = 0; j < bultos.Count && !tapado; j++) if (j != k && (p - bultos[j].p).sqrMagnitude < bultos[j].r * bultos[j].r * 0.97f) tapado = true;
                     if (tapado) continue;
                     hueso.Add(ih); lugar.Add(h.InverseTransformPoint(transform.TransformPoint(p))); normal.Add(h.InverseTransformDirection(transform.TransformDirection(d))); est.Add(e);
+                }
+            }
+            if (ropa != null)
+            {
+                // Dressed: the coat grows on some of its pillows, each a kind of its own in that pillow's color, evenly over
+                // its cloth, but not where another pillow (or the trunk) presses against it.
+                const float celda = 0.035f; var rejilla = new Dictionary<Vector3Int, List<(Vector3 p, int de)>>();
+                void Pon(Vector3 p, int de) { var c = Vector3Int.FloorToInt(p / celda); if (!rejilla.TryGetValue(c, out var l)) rejilla[c] = l = new List<(Vector3, int)>(); l.Add((p, de)); }
+                foreach (var al in almohadas) foreach (var p in al.v) Pon(p, al.k);
+                foreach (var p in tapan) Pon(p, -1);
+                float total = 0; var areas = new List<float[]>();
+                foreach (var al in almohadas)
+                {
+                    var ac = new float[al.tri.Length / 3]; float suma = 0;
+                    for (int t = 0; t < ac.Length; t++) { suma += Vector3.Cross(al.v[al.tri[3 * t + 1]] - al.v[al.tri[3 * t]], al.v[al.tri[3 * t + 2]] - al.v[al.tri[3 * t]]).magnitude * 0.5f; ac[t] = suma; }
+                    areas.Add(ac); total += suma;
+                }
+                foreach (var al in almohadas)
+                {
+                    if (!al.pelo) continue;
+                    var R = new Azar(G.semilla + "|pelo|almohada" + al.k); var par = pares[(int)(R.Uno() * pares.Length) % pares.Length];
+                    var e = EstiloDe(clases[al.k % clases.Count], R, (al.color, par.Item2)); var ac = areas[al.k]; float suya = ac[ac.Length - 1]; int n = Mathf.RoundToInt(hebras * densidadVestido * e.densidad * suya / total);
+                    for (int i = 0; i < n; i++)
+                    {
+                        int t = Array.BinarySearch(ac, R0.Uno() * suya); if (t < 0) t = ~t; t = Mathf.Min(t, ac.Length - 1); int a = al.tri[3 * t], b2 = al.tri[3 * t + 1], c2 = al.tri[3 * t + 2];
+                        float u = R0.Uno(), w = R0.Uno(); if (u + w > 1) { u = 1 - u; w = 1 - w; }
+                        var p = al.v[a] + (al.v[b2] - al.v[a]) * u + (al.v[c2] - al.v[a]) * w; var d = (al.n[a] + (al.n[b2] - al.n[a]) * u + (al.n[c2] - al.n[a]) * w).normalized;
+                        var q = p + d * 0.02f; var c0 = Vector3Int.FloorToInt(q / celda); bool tapado = false;
+                        for (int dx = -1; dx <= 1 && !tapado; dx++) for (int dy = -1; dy <= 1 && !tapado; dy++) for (int dz = -1; dz <= 1 && !tapado; dz++)
+                            if (rejilla.TryGetValue(c0 + new Vector3Int(dx, dy, dz), out var l)) foreach (var x in l) if (x.de != al.k && (x.p - q).sqrMagnitude < 0.03f * 0.03f) { tapado = true; break; }
+                        if (tapado) continue;
+                        hueso.Add(al.k); lugar.Add(p); normal.Add(d); est.Add(e);
+                    }
                 }
             }
             int N = hueso.Count, S = TRAMOS + 1; const Allocator siempre = Allocator.Persistent;
@@ -280,26 +377,28 @@ namespace Alma
             }
         }
 
-        public void Nace(Entidad e)
+        public void Nace(Entidad e, Piel piel = null)
         {
-            entidad = e; G = e.genes; C = e.personaje.medidas; A = e.personaje.andar; Articulaciones(); Esqueleto(); Bultos();
+            entidad = e; ropa = piel; suelo = piel != null ? piel.suelo : 0; G = e.genes; C = e.personaje.medidas; A = e.personaje.andar; Articulaciones(); Esqueleto(); if (ropa == null) Bultos();
             piernaLarga = C.cadera * C.alto; velocidad = 4f * piernaLarga * Mathf.Sin(A.paso * Mathf.Deg2Rad) * (1f - 0.3f * A.cojera) / Mathf.Max(0.4f, A.ritmo);
-            Cuerpo(Lector.Tinta(G.pieza.barras[1]) * 0.25f); Pelaje();      // the coat takes root while the body stands at rest
-            Camina(0); Hebras(0f, true);
+            if (ropa == null) Cuerpo(Lector.Tinta(G.pieza.barras[1]) * 0.25f); else Viste();
+            Pelaje();      // the coat takes root while the body stands at rest
+            Camina(0); Mece(0, true); Dobla(); Hebras(0f, true);
         }
         // One moment of its life: it takes a bit of its step and its coat follows.
         public void Avanza(float dt)
         {
             if (!P.IsCreated) return;
-            reloj += dt; Camina(reloj); Hebras(dt, false);
+            reloj += dt; Camina(reloj); Mece(dt, false); Dobla(); Hebras(dt, false);
         }
         // Seen or not: its body and its coat together.
-        public void Muestra(bool si) { gameObject.SetActive(si); if (peloObjeto) peloObjeto.SetActive(si); }
+        public void Muestra(bool si) { gameObject.SetActive(si); if (peloObjeto) peloObjeto.SetActive(si); foreach (var o in sueltos) o.SetActive(si); }
         // The character was moved at once (it left by one side of the stage and comes in by the other): its coat goes with it.
-        public void Salta(Vector3 cuanto) { if (!P.IsCreated) return; float3 c = cuanto; for (int i = 0; i < P.Length; i++) { P[i] += c; Antes[i] += c; } }
+        public void Salta(Vector3 cuanto) { if (!P.IsCreated) return; float3 c = cuanto; for (int i = 0; i < P.Length; i++) { P[i] += c; Antes[i] += c; } foreach (var al in almohadas) { al.lugar += cuanto; al.antes += cuanto; } }
         void OnDestroy()
         {
             if (peloObjeto) Destroy(peloObjeto);
+            foreach (var o in sueltos) if (o) Destroy(o);
             if (!P.IsCreated) return;
             matriz.Dispose(); raizHueso.Dispose(); raizLugar.Dispose(); raizNormal.Dispose(); P.Dispose(); Antes.Dispose(); vertices.Dispose(); normales.Dispose(); hebrasT.Dispose();
             largo.Dispose(); cae.Dispose(); firme.Dispose(); rizo.Dispose(); fase.Dispose(); grueso.Dispose(); clase.Dispose();

@@ -44,7 +44,8 @@ npm run laminas -- ensayo # escribe build/laminas-ensayo/: doce dibujos de la en
 npm run genes -- ensayo   # escribe build/blender/ensayo.json: los genes y las criaturas de la entidad para otros programas; Blender los dibuja con `blender --background --factory-startup --python blender/criatura.py -- build/blender/ensayo.json criatura.png` (--nombre, --giro, --lado, --fundida)
 # El personaje de una entidad: con piezas en Blender → `blender --background --factory-startup --python blender/personaje.py -- salida.png build/blender/ensayo.json [--tema dark] [--camina --video paso.mp4]`;
 # con pelaje, en vivo, en Unity → abrir `unity/` con Unity 6.3 y pulsar Play (lee `unity/Assets/StreamingAssets/genes/`, que `npm run genes` también escribe).
-# Sus retratos para el sitio van en `entidades/retratos/<id>-piezas.jpg` y `<id>-pelaje.jpg`.
+# Sus retratos para el sitio van en `entidades/retratos/<id>-piel.jpg`, `<id>-pelaje.jpg` y `<id>-vestido.jpg`.
+# Su piel para Unity (almohadas, piernas y zapatos): blender --background --factory-startup --python blender/piloto.py -- build/blender/<id>.json - --exporta unity/Assets/StreamingAssets/pieles/<id>.json
 npm run sistemas          # arma build/documentacion-sistemas/: ALMA y sus entidades en un solo sitio, con su documentación y su lenguaje de diseño
 npm run ejemplo           # arma build/ejemplos/ensayo-cafe.html: un landing hecho con la Entidad Ensayo
 npm run buscar-fecha -- --anios 1911,1924 --zona America/New_York --tipo proyector --perfil 1/3 --centros cabeza,ajna,garganta --color '#0F62FE'   # fechas cuya carta da esa entidad

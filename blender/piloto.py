@@ -6,6 +6,10 @@
 # It reads the file `npm run genes -- <id>` writes, and is drawn with Cycles (slow and true) unless told otherwise.
 #
 #   blender --background --factory-startup --python blender/piloto.py -- <genes.json> <salida.png> [--motor cycles|eevee] [--alto 2000] [--muestras 160] [--giro 0.7] [--blend f]
+#
+# With `--exporta <piel.json>` it draws nothing: it stands at rest, blows its pillows up, and writes its skin (the
+# pillows, its legs, its shoes, what each is made of and which bone carries it) for Unity, where it walks in the parade
+# (unity/Assets/StreamingAssets/pieles/<id>.json, read by unity/Assets/ALMA/Piel.cs).
 import bpy, json, math, random, sys, os
 from mathutils import Vector, Quaternion, Matrix
 
@@ -13,7 +17,7 @@ argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 def opcion(nombre, defecto):
     if nombre not in argv: return defecto
     i = argv.index(nombre); v = argv[i + 1]; del argv[i:i + 2]; return v
-MOTOR, ALTO, MUESTRAS, GIRO, BLEND = opcion('--motor', 'cycles'), int(opcion('--alto', 2000)), int(opcion('--muestras', 160)), float(opcion('--giro', 1.05)), opcion('--blend', '')
+MOTOR, ALTO, MUESTRAS, GIRO, BLEND = opcion('--motor', 'cycles'), int(opcion('--alto', 2000)), int(opcion('--muestras', 160)), float(opcion('--giro', 1.05)), opcion('--blend', ''); EXPORTA = opcion('--exporta', '')
 if len(argv) < 2: sys.exit('Uso: blender --background --factory-startup --python blender/piloto.py -- <genes.json> <salida.png> [--motor cycles|eevee] [--alto 2000] [--muestras 160] [--giro 0.7] [--blend f]')
 D = json.load(open(argv[0], encoding='utf-8')); SALIDA = argv[1]; G = D['genes']; C = D['personaje']['medidas']; AND = D['personaje']['andar']; MODOS = D['patron']['modos']; TOK = D.get('materiales', {})
 R = random.Random(G['semilla'] + '|cojines'); centros = set(G.get('centros', []))
@@ -40,13 +44,13 @@ def gira(nombres, pivote, grados, eje=X):
     q = Quaternion(eje, g(grados)); p = J[pivote].copy()
     for n in nombres: J[n] = p + q @ (J[n] - p)
 tronco = ['cintura', 'pecho', 'cuello', 'coronilla'] + [k + L for L in ('.I', '.D') for k in ('hombro', 'codo', 'muneca', 'dedos')]
-gira(tronco, 'cadera', min(16, -AND.get('inclina', -8)) * 0.8); gira(['coronilla'], 'cuello', -8)
+if not EXPORTA: gira(tronco, 'cadera', min(16, -AND.get('inclina', -8)) * 0.8); gira(['coronilla'], 'cuello', -8)
 # One instant of its own walk (the same rules as its walk in Blender and Unity, a little larger than life): which
 # foot leads is its own, its stride and the bend of its knee are its own, the lame leg takes the short step, and a
 # heavy one walks lower.
 paso, rod, peso, coj, coja = AND.get('paso', 28), AND.get('rodilla', 50), AND.get('peso', 0.4), AND.get('cojera', 0.0), AND.get('pataCoja', 'I')
 fase = random.Random(G['semilla'] + '|pose').choice([0.42, 0.58, 1.42, 1.58]) * math.pi
-for L, s in (('I', 0.0), ('D', math.pi)):
+for L, s in (() if EXPORTA else (('I', 0.0), ('D', math.pi))):      # at rest when it is being sent to Unity: there it walks
     an_ = fase + s; corto = 1 - 0.5 * coj if L == coja else 1.0
     muslo = -paso * 1.3 * corto * math.sin(an_) - 6 * peso; dobla = rod * 1.15 * corto * max(0.0, math.cos(an_)) ** 1.5 + 5 + 12 * peso + (26 if math.sin(an_) < 0 else 0)
     gira(['rodilla.' + L, 'tobillo.' + L, 'punta.' + L], 'ingle.' + L, muslo); gira(['tobillo.' + L, 'punta.' + L], 'rodilla.' + L, dobla)
@@ -57,7 +61,7 @@ for L, s in (('I', 0.0), ('D', math.pi)):
 COJINES = []
 def cojin(nombre, centro, giro, medios, p, material, clase='cojin', nudo=None, forma=None):
     # `nudo`: where the pillow is tied (a direction of its own), how deep, and how many pleats run from the knot.
-    U, V = (176, 112) if nudo else (112, 72); v, caras, uv, norma = [], [], [], []
+    U, V = (40, 26) if EXPORTA and clase == 'zapato' else (176, 112) if nudo else (112, 72); v, caras, uv, norma = [], [], [], []
     if nudo:
         kd = Vector(nudo[0]).normalized(); e1 = kd.cross(Vector((0.3, 0.5, 0.8))).normalized(); e2 = kd.cross(e1)
     ax, ay, az = medios; ancho = math.pi * (ax + ay); alto = 2 * az * 1.25
@@ -78,7 +82,7 @@ def cojin(nombre, centro, giro, medios, p, material, clase='cojin', nudo=None, f
         capa = me.uv_layers.new(name=nombre_uv)
         for l in me.loops: capa.data[l.index].uv = datos[l.vertex_index]
     for f in me.polygons: f.use_smooth = True
-    o = bpy.data.objects.new(nombre, me); bpy.context.scene.collection.objects.link(o); o.location = centro; o.rotation_mode = 'QUATERNION'; o.rotation_quaternion = giro; me.materials.append(material)
+    o = bpy.data.objects.new(nombre, me); bpy.context.scene.collection.objects.link(o); o.location = centro; o.rotation_mode = 'QUATERNION'; o.rotation_quaternion = giro; me.materials.append(material); o['medida'] = (ancho, alto)
     COJINES.append((o, Vector(centro), giro, Vector(medios), p, clase)); return o
 def a_lo_largo(desde, hasta, frente=Vector((0, -1, 0))):
     # A turn that lays a cushion's long axis along a stretch, keeping its face toward the front.
@@ -96,6 +100,7 @@ def cuenta(A, op, x, y=None):
         if isinstance(w, (int, float)): n.inputs[i].default_value = w
         else: A.links.new(w, n.inputs[i])
     return n.outputs[0]
+REG = {}      # what each material is, in a few words, for those who cannot read its nodes: its kind, its two colors, whether it wears the pattern
 def nuevo(nombre):
     mt = bpy.data.materials.new(nombre); mt.use_nodes = True; return mt, mt.node_tree, mt.node_tree.nodes['Principled BSDF']
 def pon(p, **k):
@@ -115,7 +120,7 @@ def patron(A, u, v):
         t = cuenta(A, 'MULTIPLY', t, mo['a']); total = t if total is None else cuenta(A, 'ADD', total, t)
     return total
 def tejido(nombre, color, otro, grueso=1.0):
-    mt, A, p = nuevo(nombre); V = TOK.get('tela', {}); pon(p, Roughness=V.get('aspereza', 0.9), Sheen_Weight=V.get('brilloDeBorde', 1.0), Sheen_Roughness=0.45, Specular_IOR_Level=0.25)
+    mt, A, p = nuevo(nombre); REG[nombre] = ('punto', color, otro, True); V = TOK.get('tela', {}); pon(p, Roughness=V.get('aspereza', 0.9), Sheen_Weight=V.get('brilloDeBorde', 1.0), Sheen_Roughness=0.45, Specular_IOR_Level=0.25)
     u, v = mapa(A, 'medida'); ancho, alto = 0.0042 * grueso, 0.003 * grueso
     fila = cuenta(A, 'DIVIDE', v, alto); col = cuenta(A, 'ADD', cuenta(A, 'DIVIDE', u, ancho), cuenta(A, 'MULTIPLY', cuenta(A, 'FLOOR', fila), 0.5))
     du, dv = cuenta(A, 'SUBTRACT', cuenta(A, 'FRACT', col), 0.5), cuenta(A, 'SUBTRACT', cuenta(A, 'FRACT', fila), 0.5)
@@ -130,21 +135,21 @@ def tejido(nombre, color, otro, grueso=1.0):
     costura = cuenta(A, 'MINIMUM', cuenta(A, 'MULTIPLY', cuenta(A, 'ABSOLUTE', cuenta(A, 'SUBTRACT', eu, 0.25)), 160.0), 1.0); relieve(A, p, costura, 0.8, 0.004)                               # the second yarn stands a little prouder, like a rib
     return mt
 def gamuza(nombre, color):
-    mt, A, p = nuevo(nombre); V = TOK.get('arcilla', {}); pon(p, Roughness=0.82, Sheen_Weight=0.7, Sheen_Roughness=0.5, Specular_IOR_Level=0.2)
+    mt, A, p = nuevo(nombre); REG[nombre] = ('gamuza', color, color, False); V = TOK.get('arcilla', {}); pon(p, Roughness=0.82, Sheen_Weight=0.7, Sheen_Roughness=0.5, Specular_IOR_Level=0.2)
     gr = A.nodes.new('ShaderNodeTexNoise'); gr.inputs['Scale'].default_value = 700; gr.inputs['Detail'].default_value = 4; relieve(A, p, gr.outputs['Fac'], 0.25, 0.0012)
     man = A.nodes.new('ShaderNodeTexNoise'); man.inputs['Scale'].default_value = 9; c = A.nodes.new('ShaderNodeMix'); c.data_type = 'RGBA'; c.inputs['A'].default_value = mezcla(color, (0, 0, 0, 1), 0.12); c.inputs['B'].default_value = mezcla(color, (1, 1, 1, 1), 0.08)
     A.links.new(man.outputs['Fac'], c.inputs['Factor']); A.links.new(c.outputs['Result'], p.inputs['Base Color']); return mt
 def goma(nombre, color):
-    mt, A, p = nuevo(nombre); p.inputs['Base Color'].default_value = color; pon(p, Roughness=0.42, Subsurface_Weight=0.15, Subsurface_Radius=(0.02, 0.02, 0.02), Coat_Weight=0.15); return mt
+    mt, A, p = nuevo(nombre); REG[nombre] = ('goma', color, color, False); p.inputs['Base Color'].default_value = color; pon(p, Roughness=0.42, Subsurface_Weight=0.15, Subsurface_Radius=(0.02, 0.02, 0.02), Coat_Weight=0.15); return mt
 def vidrio(nombre, color):
-    mt, A, p = nuevo(nombre); p.inputs['Base Color'].default_value = color; pon(p, Roughness=0.03, Transmission_Weight=1.0, IOR=1.45, Coat_Weight=1.0, Coat_Roughness=0.02)
+    mt, A, p = nuevo(nombre); REG[nombre] = ('vinilo', color, color, False); p.inputs['Base Color'].default_value = color; pon(p, Roughness=0.03, Transmission_Weight=1.0, IOR=1.45, Coat_Weight=1.0, Coat_Roughness=0.02)
     if hasattr(mt, 'use_raytrace_refraction'): mt.use_raytrace_refraction = True
     return mt
 
 def tela(nombre, color, estampa=None):
     # Cloth with a fine rib and the soft creases of a stuffed thing. With `estampa`, it wears the entity's pattern as a
     # print: its second color where the pattern is high.
-    mt, A, p = nuevo(nombre); V = TOK.get('tela', {}); pon(p, Roughness=0.78, Sheen_Weight=V.get('brilloDeBorde', 1.0) * 0.8, Sheen_Roughness=0.5, Specular_IOR_Level=0.3)
+    mt, A, p = nuevo(nombre); REG[nombre] = ('pana', color, estampa or color, bool(estampa)); V = TOK.get('tela', {}); pon(p, Roughness=0.78, Sheen_Weight=V.get('brilloDeBorde', 1.0) * 0.8, Sheen_Roughness=0.5, Specular_IOR_Level=0.3)
     u, v = mapa(A, 'medida'); eu, ev = mapa(A, 'entero')
     canal = cuenta(A, 'ABSOLUTE', cuenta(A, 'SINE', cuenta(A, 'MULTIPLY', v, math.pi / 0.0052))); relieve(A, p, canal, 0.55, 0.0016)
     ar = A.nodes.new('ShaderNodeTexNoise'); ar.inputs['Scale'].default_value = 7.0; ar.inputs['Detail'].default_value = 2.5; est = A.nodes.new('ShaderNodeMapping'); est.inputs['Scale'].default_value = (1.0, 5.0, 1.0)
@@ -157,7 +162,7 @@ def tela(nombre, color, estampa=None):
     else: p.inputs['Base Color'].default_value = color
     return mt
 def vinilo(nombre, color, estampa=None):
-    mt, A, p = nuevo(nombre); p.inputs['Base Color'].default_value = color
+    mt, A, p = nuevo(nombre); REG[nombre] = ('vinilo', color, estampa or color, bool(estampa)); p.inputs['Base Color'].default_value = color
     if estampa:
         eu, ev = mapa(A, 'entero'); lado_ = A.nodes.new('ShaderNodeMapRange'); lado_.inputs['From Min'].default_value = -0.02; lado_.inputs['From Max'].default_value = 0.02
         A.links.new(patron(A, cuenta(A, 'MULTIPLY', eu, 2.0), cuenta(A, 'MULTIPLY', ev, 0.9)), lado_.inputs['Value']); c_ = A.nodes.new('ShaderNodeMix'); c_.data_type = 'RGBA'; c_.inputs['A'].default_value = color; c_.inputs['B'].default_value = estampa
@@ -180,7 +185,7 @@ arriba_n = sum(1 for c_ in centros if c_ in ('cabeza', 'ajna', 'garganta')); aba
 PIEL = (D['personaje'].get('piel') or {}).get('id') or ('vinilo' if arriba_n > abajo_n else 'punto' if abajo_n > arriba_n else 'pana')      # the rule lives in entidades/personaje.mjs (pielDe)
 def de_piel(nombre, color, estampa=None):
     if PIEL == 'vinilo': return vinilo(nombre, color, estampa)
-    if PIEL == 'punto': return tejido(nombre, color, estampa or mezcla(color, CLARO, 0.16), 2.4)
+    if PIEL == 'punto': mt_ = tejido(nombre, color, estampa or mezcla(color, CLARO, 0.16), 2.4); REG[nombre] = REG[nombre][:3] + (bool(estampa),); return mt_      # knit always has a second yarn; only two pillows wear the print
     return tela(nombre, color, estampa)
 TELAS = [de_piel('piel manda', MANDA), de_piel('piel clara', CLARO2), de_piel('piel acento', ACENTO), de_piel('piel durazno', DURAZNO), de_piel('estampa', MANDA, mezcla(OSCURO, MANDA, 0.1)), de_piel('estampa clara', CLARO2, CARMIN)]
 ORDEN = [4, 2, 5, 0, 3, 1, 0, 2, 4, 1, 3]        # the first pillows, the big ones of its centers, wear its pattern
@@ -201,6 +206,7 @@ nube.append(('falda delante', Vector((0.05, -0.12, -0.2)), 0.13, False)); nube.a
 # all of them grow and fill with air at once, and as they meet they press, crease and pucker against one another and
 # against the body they hide. Nothing is cut: it is the cloth that gives way.
 import bmesh
+RANGOS = []      # which points of the cloud are each pillow's
 def nube_de_tela(lista, cuadros=40):
     V_, F_, UVm, UVe, MAT, ANCLA, CHICO = [], [], [], [], [], [], []; mats = []
     for k, (nombre, donde, radio, oscuro) in enumerate(lista):
@@ -227,6 +233,7 @@ def nube_de_tela(lista, cuadros=40):
             for jj in range(1, W - 1): cara((anillo(jj, i), anillo(jj, i + 1), anillo(jj + 1, i + 1), anillo(jj + 1, i)), [(i / U, jj / W), ((i + 1) / U, jj / W), ((i + 1) / U, (jj + 1) / W), (i / U, (jj + 1) / W)])
         for q in range(base, len(V_)):
             CHICO.append(centro + (V_[q] - centro) * 0.2); ANCLA.append(1.0 if (V_[q] - centro).normalized().dot(hacia) > 0.93 else 0.0)
+        RANGOS.append((nombre, base, len(V_), oscuro, mat.name, ancho, alto))
     me = bpy.data.meshes.new('nube'); me.from_pydata(V_, [], F_); me.update()
     # Every face must look outward, or the air would push the cloth in instead of out.
     bm = bmesh.new(); bm.from_mesh(me); bmesh.ops.recalc_face_normals(bm, faces=bm.faces); volteadas = [f.index for f in bm.faces if False]; bm.to_mesh(me); bm.free(); me.update()
@@ -273,7 +280,8 @@ def tubo(nombre, camino, radios, material, lados=22):
     caras.append(tuple(range(lados - 1, -1, -1))); caras.append(tuple((n - 1) * lados + k for k in range(lados)))
     me = bpy.data.meshes.new(nombre); me.from_pydata(v, [], caras); me.update()
     for f in me.polygons: f.use_smooth = True
-    o = bpy.data.objects.new(nombre, me); E.collection.objects.link(o); me.materials.append(material); o.modifiers.new('fina', 'SUBSURF').render_levels = 2; return o
+    o = bpy.data.objects.new(nombre, me); E.collection.objects.link(o); me.materials.append(material); o.modifiers.new('fina', 'SUBSURF').render_levels = 2
+    o['lados'] = lados; o['medida'] = (math.tau * sum(radios) / len(radios), sum((camino[i + 1] - camino[i]).length for i in range(n - 1))); return o
 def curva(puntos, pasos=10):
     # A smooth path through the points (Catmull-Rom), so that a knee is a bend and not a corner.
     P_ = [puntos[0]] + list(puntos) + [puntos[-1]]; sale = []
@@ -295,7 +303,7 @@ PIERNA = {'vinilo': 'malla', 'punto': 'media', 'pana': 'pantalon'}[PIEL]
 MALLA = gamuza('malla', mezcla(MANDA, OSCURO, 0.3)) if PIERNA != 'media' else goma('pierna', mezcla(mezcla(MANDA, CLARO, 0.55), GRIS, 0.2)); PANTALON = tela('pantalon', mezcla(MANDA, OSCURO, 0.42))
 ZAPATO = goma('zapato', mezcla(CLARO, CLARO2, 0.06)) if PIEL == 'vinilo' else goma('zapato', ACENTO if PIEL == 'punto' else mezcla(OSCURO, MANDA, 0.25)); SUELA = goma('suela', CLARO if PIEL != 'pana' else mezcla(OSCURO, MANDA, 0.1)); RIBETE = goma('ribete', ACENTO if PIEL == 'vinilo' else CLARO)
 for o_ in bpy.data.objects:
-    if o_.name == 'tronco': o_.data.materials.clear(); o_.data.materials.append(PANTALON if PIERNA == 'pantalon' else MALLA)
+    if o_.name == 'tronco': o_.data.materials.clear(); o_.data.materials.append(PANTALON if PIERNA == 'pantalon' else MALLA if PIERNA == 'malla' else gamuza('tronco', mezcla(MANDA, OSCURO, 0.5)))      # bare legs, but a dark body where the cloud opens
 def perfil(t):
     claves = [(0, 0.052), (0.22, 0.05), (0.47, 0.034), (0.53, 0.033), (0.68, 0.038), (0.86, 0.025), (1, 0.021)]
     for (t0, r0), (t1, r1) in zip(claves, claves[1:]):
@@ -329,6 +337,46 @@ PARES = 0
 bajo = min((o.matrix_world @ v.co).z for o, *_ in COJINES if o.name.startswith('pie') for v in o.data.vertices) if any(o.name.startswith('pie') for o, *_ in COJINES) else 0
 bpy.context.view_layer.update()
 bajo = min((o.matrix_world @ v.co).z for o, *_ in COJINES if o.name.startswith('pie') for v in o.data.vertices)
+# ---------- For Unity: the same skin as plain numbers. Each part says which bone carries it (a leg bends between two:
+# each of its points says how much it belongs to the shin), what it is made of, and its map; the pillows say which
+# are its centers. Places are Blender's, before the step down to the floor (`suelo` says how far up the floor is).
+if EXPORTA:
+    import base64, struct
+    def paquete(letra, datos): return base64.b64encode(struct.pack('<%d%s' % (len(datos), letra), *datos)).decode('ascii')
+    nombres_mat = list(REG); partes = []
+    def parte(o, hueso, nombre=None, solo=None, material=None, medida=None, hueso2='', **mas):
+        me = o.data; me.calc_loop_triangles(); capa = me.uv_layers.get('entero'); mundo = o.matrix_world; giro_ = mundo.to_3x3(); lados = o.get('lados'); anillos = len(me.vertices) // lados if lados else 0
+        clave, V, N, UV, PESO, TRI = {}, [], [], [], [], []
+        for t in me.loop_triangles:
+            if solo and not (solo[0] <= t.vertices[0] < solo[1]): continue
+            ks = [vi % lados for vi in t.vertices] if lados else None; cruza = bool(lados) and max(ks) - min(ks) > lados / 2
+            for n_, (l, vi) in enumerate(zip(t.loops, t.vertices)):
+                # a tube has no map of its own: around it and along it
+                uv = ((ks[n_] + (lados if cruza and ks[n_] < lados / 2 else 0)) / lados, (vi // lados) / max(1, anillos - 1)) if lados else tuple(capa.data[l].uv)
+                k = (vi, round(uv[0], 5), round(uv[1], 5))
+                if k not in clave:
+                    clave[k] = len(V) // 3; V += list(mundo @ me.vertices[vi].co); N += list((giro_ @ me.vertices[vi].normal).normalized()); UV += list(uv)
+                    if hueso2: u_ = min(1.0, max(0.0, ((vi // lados) - 15) / 10)); PESO.append(u_ * u_ * (3 - 2 * u_))      # the knee is the twentieth ring of a leg
+                TRI.append(clave[k])
+        partes.append(dict(nombre=nombre or o.name, hueso=hueso, hueso2=hueso2, material=nombres_mat.index(material or me.materials[0].name), medida=list(medida or o.get('medida') or (1, 1)), n=len(V) // 3,
+                           v=paquete('f', V), nor=paquete('f', N), uv=paquete('f', UV), peso=paquete('f', PESO) if PESO else '', tri=paquete('H', TRI), **mas))
+    # Unity draws the cloth as it is, with no finer surface over it: its sharpest creases are eased first.
+    bm = bmesh.new(); bm.from_mesh(NUBE.data)
+    for _ in range(3): bmesh.ops.smooth_vert(bm, verts=bm.verts, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+    bm.to_mesh(NUBE.data); bm.free(); NUBE.data.update()
+    for nombre, base, fin, oscuro, de_que, ancho, alto in RANGOS:
+        parte(NUBE, 'columna', nombre='almohada ' + nombre, solo=(base, fin), material=de_que, medida=(ancho, alto), almohada=True, centro=nombre in LUGAR, oscura=bool(oscuro))
+    for o in bpy.data.objects:
+        if o.type != 'MESH' or o is NUBE: continue
+        bm = bmesh.new(); bm.from_mesh(o.data); bmesh.ops.recalc_face_normals(bm, faces=bm.faces); bm.to_mesh(o.data); bm.free(); o.data.update(); L = o.name[-1]      # every face outward: Unity only draws the outside
+        if o.name == 'tronco': parte(o, 'columna')
+        elif o.name.startswith(('pierna', 'pantalon')): parte(o, 'muslo.' + L, hueso2='pierna.' + L)
+        elif o.name.startswith(('pie caña', 'pie cuello')): parte(o, 'pierna.' + L)
+        elif o.name.startswith('pie'): parte(o, 'pie.' + L)
+    os.makedirs(os.path.dirname(os.path.abspath(EXPORTA)), exist_ok=True)
+    json.dump(dict(alma=1, id=D['id'], piel=PIEL, suelo=-bajo, patron=[dict(n=mo['n'], m=mo['m'], a=mo['a'], s=mo['s']) for mo in MODOS],
+                   materiales=[dict(nombre=k, clase=w[0], a=list(w[1][:3]), b=list(w[2][:3]), estampa=w[3]) for k, w in REG.items()], partes=partes), open(EXPORTA, 'w', encoding='utf-8'))
+    print(f"ALMA: piel de {D['nombre']} ({PIEL}) para Unity: {len(partes)} partes, {sum(p_['n'] for p_ in partes)} puntos → {EXPORTA}"); sys.exit(0)
 for o in bpy.data.objects:
     if o.type == 'MESH' and o.name != 'fondo': o.location.z -= bajo
 

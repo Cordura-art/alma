@@ -13,6 +13,7 @@ namespace Alma
         public float separacion = 1.7f;      // how far apart they walk
         public float margen = 0.45f;          // how far past the edge of the picture one goes before it comes back in by the other side
         float medio;                         // half the length of the path: as many gaps as characters
+        public bool vestidos = true;         // each in its skin of pillows, when it has one (see Piel.cs); false: in its coat alone, as before
         public bool enVivo = true;           // false while frames are being taken one by one (see Captura)
         public readonly List<Personaje> personajes = new List<Personaje>();
         readonly List<Transform> rotulos = new List<Transform>();
@@ -46,7 +47,7 @@ namespace Alma
             for (int i = 0; i < entidades.Count; i++)
             {
                 var o = new GameObject(entidades[i].nombre); o.transform.position = new Vector3(-medio + 2f * medio * (i + 0.5f) / entidades.Count, 0, 0);
-                o.transform.rotation = Quaternion.Euler(0, 90, 0); var p = o.AddComponent<Personaje>(); p.Nace(entidades[i]); personajes.Add(p);
+                o.transform.rotation = Quaternion.Euler(0, 90, 0); var p = o.AddComponent<Personaje>(); p.Nace(entidades[i], vestidos ? Piel.Lee(entidades[i].id) : null); personajes.Add(p);
                 rotulos.Add(Rotulo(entidades[i], cam));
             }
         }
@@ -65,6 +66,7 @@ namespace Alma
             Linea(e.nombre, 0.04f, 0.012f, Lector.Tinta(e.genes.pieza.tinta).gamma); Linea("#" + e.personaje.numero, 0.026f, 0.064f, Lector.Tinta(e.genes.pieza.barras[4]).gamma);
             return raiz;
         }
+        public void Rotulos(bool si) { foreach (var r in rotulos) r.gameObject.SetActive(si); }
         void Update() { if (enVivo) Avanza(Mathf.Min(Time.deltaTime, 1f / 30f)); }
         // One moment of the parade. Each character has its own walk and its own speed, and yet they keep their places:
         // each one's time runs a little faster or slower, so that all advance at the pace of the group, and one that
