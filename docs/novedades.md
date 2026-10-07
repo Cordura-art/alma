@@ -4,6 +4,11 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 7 de octubre de 2026
 
+### Arena bajo una línea
+
+- El sobrevuelo tiene un efecto opcional (`"arena": true`): lo que queda bajo una línea de la pantalla se deshace en arena que flota, cada grano a su tiempo, y vuelve a armarse al retroceder. Está escrito en el motor propio, sin librerías. Con movimiento reducido no hay arena.
+- Lo usan las nubes de las tres entidades (`entidades/escaneos/<entidad>-nubes.json`), cada una en sus Ejemplos.
+
 ### Un suelo escaneado, sobrevolado
 
 - Tercera clase de portada, el sobrevuelo (`"modo": "sobrevuelo"`): para un escaneo sin paredes, como un mar de nubes. Al desplazar se vuela bajo sobre él, sus tres colores son sus alturas, sus orillas se deshacen y el nombre de la entidad está en el horizonte.

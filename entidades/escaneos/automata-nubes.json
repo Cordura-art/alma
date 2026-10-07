@@ -1,0 +1,18 @@
+{
+  "modo": "sobrevuelo",
+  "arena": true,
+  "entidad": "automata",
+  "escaneo": "nubes",
+  "titulo": "Nubes de Autómata",
+  "palabra": "Autómata",
+  "frase": ["Todo sistema empieza disperso.", "Nombrar lo ordena."],
+  "accion": { "texto": "Lee cómo trabajamos", "destino": "#oficio" },
+  "pista": "Desplaza para comprobarlo",
+  "descripcion": "Un mar de nubes visto desde un avión, dibujado con miles de puntos en nuestros colores. Al desplazar la página se vuela sobre él hacia el horizonte, donde está nuestro nombre. Lo que queda cerca se deshace en arena que flota, y vuelve a armarse al retroceder. Con el puntero se mira hacia los lados.",
+  "datos": [
+    "Preguntamos {puntos} veces dónde estaba la nube. Cada punto es una respuesta.",
+    "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Se puede comprobar.",
+    "Las nubes eran blancas. Aquí llevan los nuestros, cada uno con su nombre.",
+    "De cerca, todo es grano suelto. Dudar es cuidarlo hasta que toma forma."
+  ]
+}

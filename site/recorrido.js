@@ -4,6 +4,8 @@
 // a light page, where it is darker), in one of the entity's three colors: the vault, the walls, the ground. What is far fades.
 // A scanned ground with no walls (`vuelo`: a sea of clouds, say) is flown over instead, low and looking a little down: its
 // three colors are its heights, its edges thin out into nothing, and the word is on the horizon.
+// With `arena`, whatever is below a line of the screen comes apart into sand that drifts, each grain a little late or a
+// little early, and comes together again, grain by grain, when the page is scrolled back and it rises past that line.
 (function () {
   var D = window.__ESCANEO, escena = document.querySelector('.recorrido'), lienzo = document.querySelector('.escaneo__lienzo');
   if (!D || !escena || !lienzo || !lienzo.getContext) return;
@@ -32,7 +34,7 @@
     MEDIO[col] = n ? q[0] / n : comun[0]; SUELO[col] = n ? q[1] / n : comun[1]; TECHO[col] = n ? q[2] / n : comun[2]; ANCHURA[col] = n ? q[3] / n : comun[3];
   }
   for (col = 0; col < C; col++) for (i = INICIO[col]; i < INICIO[col + 1]; i++) { var banda = (FIL[i] - TECHO[col]) / Math.max(1, SUELO[col] - TECHO[col]) + AZX[i] / 127 * 0.05; TIN[i] = banda < 0.34 ? 0 : banda < 0.86 ? 1 : 2; }
-  var VUELO = !!D.vuelo, HM = D.hondos / 2;
+  var VUELO = !!D.vuelo, ARENA = !!D.arena, HM = D.hondos / 2, reloj = 0, aLaVista = true;
   if (VUELO) {      // (flown over: its middle is the lattice's, and what counts is how high its tops are and how low its hollows)
     var alturas = new Uint32Array(D.filas + 1), cima = 0, hoya = D.filas, van = 0, alta = 0, media = 0; for (i = 0; i < N; i++) alturas[FIL[i]]++;
     for (i = 0; i <= D.filas; i++) { van += alturas[i]; if (van < N * 0.02) cima = i; if (van < N * 0.3) alta = i + 1; if (van < N * 0.72) media = i + 1; if (van < N * 0.98) hoya = i + 1; }
@@ -61,7 +63,8 @@
     if (palabra) { palabra.style.transform = 'none'; anchoPalabra = palabra.offsetWidth; altoPalabra = palabra.offsetHeight; }
     viste(); pide();
   }
-  function lee() { var r = escena.getBoundingClientRect(), largo = r.height - window.innerHeight; return largo > 0 ? Math.min(1, Math.max(0, -r.top / largo)) : 0; }
+  function lee() { var r = escena.getBoundingClientRect(), largo = r.height - window.innerHeight; aLaVista = r.bottom > 0 && r.top < window.innerHeight;      // (the sand drifts only while it is seen)
+    return largo > 0 ? Math.min(1, Math.max(0, -r.top / largo)) : 0; }
   function pide() { if (!pedido) pedido = requestAnimationFrame(cuadro); }
   function cubre(x0, y0, x1, y1, tinta) {
     x0 = x0 < 0 ? 0 : x0 | 0; y0 = y0 < 0 ? 0 : y0 | 0; x1 = x1 > W ? W : x1 | 0; y1 = y1 > H ? H : y1 | 0; if (x1 <= x0) return;
@@ -74,11 +77,12 @@
     if (quieto) { avance = meta; giro = alza = 0; suelta = 0; brio = 0; }
     else {
       avance += (meta - avance) * (1 - Math.exp(-dt * 6)); giro += (quiereGiro - giro) * (1 - Math.exp(-dt * 5)); alza += (quiereAlza - alza) * (1 - Math.exp(-dt * 5));
-      if (suelta > 0) suelta = Math.max(0, suelta - dt / 1.6); brio *= Math.exp(-dt / 0.5); if (brio < 0.01) brio = 0;
-      sigue = Math.abs(meta - avance) > 0.0004 || Math.abs(quiereGiro - giro) > 0.001 || Math.abs(quiereAlza - alza) > 0.001 || suelta > 0 || brio > 0;
+      reloj += dt; if (suelta > 0) suelta = Math.max(0, suelta - dt / 1.6); brio *= Math.exp(-dt / 0.5); if (brio < 0.01) brio = 0;
+      sigue = Math.abs(meta - avance) > 0.0004 || Math.abs(quiereGiro - giro) > 0.001 || Math.abs(quiereAlza - alza) > 0.001 || suelta > 0 || brio > 0 || (ARENA && aLaVista && !document.hidden);
     }
     var cx = DESDE + (HASTA - DESDE) * avance, cz = en(MEDIO, cx), cy = en(SUELO, cx) - OJOS, cg = Math.cos(giro), sg = Math.sin(giro), ca = Math.cos(alza + BAJA), sa = Math.sin(alza + BAJA), mx = W / 2, my = H / 2;
     var polvo = suelta * suelta * (3 - 2 * suelta), vuela = polvo * H * 0.9 / 127, alcance = H * 0.17, alcance2 = alcance * alcance, qx = px * escala, qy = py * escala, lejos = C * 0.22, fondoLejos = C * 0.75;
+    var arena = ARENA && !quieto, raya = H * 0.86, franja = H * 0.2, vuelo = H * 0.2, grano = Math.max(1, 1.9 * escala);
     pixeles.fill(0);
     for (var col = C - 1; col >= 0; col--) {
       var u = col + 0.5 - cx; if (u < -30) break; var alFondo = VUELO && col > C * 0.86 ? (C - col) / (C * 0.14) : 1;
@@ -89,6 +93,15 @@
         if (VUELO) { var orilla = Math.abs(HON[i] + 0.5 - HM) / HM + AZY[i] / 127 * 0.05, queda = (orilla > 0.7 ? Math.max(0, (1 - orilla) / 0.3) : 1) * alFondo; if (queda <= 0) continue; niebla *= queda; if (queda < 0.75) macizo = false; }
         if (polvo > 0) { x += AZX[i] * vuela; y += AZY[i] * vuela; }
         if (brio > 0) { var ex = x - qx, ey = y - qy, e2 = ex * ex + ey * ey; if (e2 < alcance2) { var e = Math.sqrt(e2) || 1, empuje = (1 - e / alcance); empuje = empuje * empuje * brio * alcance * 0.55; x += ex / e * empuje + AZX[i] * empuje * 0.004; y += ey / e * empuje + AZY[i] * empuje * 0.004; macizo = false; } }
+        if (arena && y > raya - franja) {      // (below the line: sand. How much of a grain it is, and where the wind has it)
+          var tarda = (AZX[i] + 127) / 254 * 0.55, sube = Math.min(1, Math.max(0, ((raya - y) / franja - tarda) / (1 - tarda))), hecho = sube * sube * (3 - 2 * sube), suelto = 1 - hecho;
+          if (suelto > 0.004) {
+            var fase = AZX[i] * 0.21 + AZY[i] * 0.13, lado0 = AZY[i] / 127;
+            x += (lado0 * vuelo + Math.sin(reloj * 0.55 + fase) * vuelo * 0.16) * suelto + Math.sin(hecho * 3.1416) * vuelo * 0.28 * (AZX[i] > 0 ? 1 : -1);
+            y += ((AZX[i] / 127 * 0.75 + 0.12) * vuelo + Math.cos(reloj * 0.45 + fase * 1.3) * vuelo * 0.14) * suelto;
+            macizo = false; k = grano + (k - grano) * hecho * hecho; niebla *= 0.8 + 0.2 * hecho;
+          }
+        }
         var medio = k / 2;
         if (k < 3.5) { cubre(x - medio, y - medio, x - medio + Math.max(1, k), y - medio + Math.max(1, k), TINTAS[TIN[i] * NIVELES + Math.round((0.1 + 0.9 * t) * niebla * (NIVELES - 1))]); continue; }
         if (macizo) cubre(x - medio, y - medio, x + medio + 1, y + medio + 1, FONDO);      // (what is behind it is not seen through it: the word waits at the way out)
@@ -121,6 +134,7 @@
   // (whoever reaches the entrance's link with the keyboard is taken back to the entrance, where it is seen)
   if (entrada) entrada.addEventListener('focusin', function () { if (lee() > 0.04) window.scrollTo(0, window.scrollY + escena.getBoundingClientRect().top); });
   if (menos.addEventListener) menos.addEventListener('change', pide);
+  document.addEventListener('visibilitychange', pide);
   new MutationObserver(function () { viste(); pide(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(mide);
 

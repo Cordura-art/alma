@@ -1,0 +1,18 @@
+{
+  "modo": "sobrevuelo",
+  "arena": true,
+  "entidad": "ensayo",
+  "escaneo": "nubes",
+  "titulo": "Nubes de Ensayo",
+  "palabra": "Ensayo",
+  "frase": ["Un borrador es niebla.", "Corregir es darle forma."],
+  "accion": { "texto": "Lee cómo corregimos", "destino": "#oficio" },
+  "pista": "Desplaza para sobrevolarlo",
+  "descripcion": "Un mar de nubes visto desde un avión, dibujado con miles de puntos en nuestros colores. Al desplazar la página se vuela sobre él hacia el horizonte, donde está nuestro nombre. Lo que queda cerca se deshace en arena que flota, y vuelve a armarse al retroceder. Con el puntero se mira hacia los lados.",
+  "datos": [
+    "Las leímos desde 35.000 pies: {puntos} lecturas de un mismo cielo.",
+    "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Corregir también es quitar.",
+    "Las nubes eran blancas. Aquí hablan con los nuestros, y con ninguno más.",
+    "Lo que está cerca todavía es polvo. Con distancia, se lee."
+  ]
+}
