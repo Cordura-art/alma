@@ -117,6 +117,20 @@
   // Across it is x; up it is -y of the shape.
   function frente(x, y, z) { return { o: [x, y, z], R: [[1, 0, 0], [0, 0, 1], [0, -1, 0]] }; }
   const entre = (v, a, b) => Math.max(a, Math.min(b, v));
+  // A point of a thing that stands somewhere, in the world.
+  function punto(P, x, y, z) { return lleva(postura(P), x, y, z); }
+  // A round bar along a path through the world (a hook, a handle, a rail): its outline in the picture. A round bar is as
+  // wide from wherever it is seen, so its outline runs at one distance on either side of its middle, with round ends.
+  function tubo(C, camino, radio) {
+    const p = camino.map((q) => C.a(q[0], q[1], q[2])), n = p.length, r = radio * C.escala, izq = [], der = [], dir = [];
+    for (let i = 0; i < n; i++) { const a = p[Math.max(i - 1, 0)], b = p[Math.min(i + 1, n - 1)], l = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, t = [(b[0] - a[0]) / l, (b[1] - a[1]) / l]; dir.push(t); izq.push([p[i][0] - t[1] * r, p[i][1] + t[0] * r]); der.push([p[i][0] + t[1] * r, p[i][1] - t[0] * r]); }
+    const tapa = (i, s) => { const t = dir[i], sale = []; for (let k = 1; k < 6; k++) { const a = Math.PI * k / 6, c = Math.cos(a) * s, d = Math.sin(a) * s; sale.push([p[i][0] + r * (-t[1] * c + t[0] * d), p[i][1] + r * (t[0] * c + t[1] * d)]); } return sale; };
+    // Where the bar turns tighter than it is thick, the inside of its outline would cross itself: those points, which
+    // fall inside the bar, are left out.
+    const lejos = (q) => { let m = Infinity; for (let i = 0; i < n - 1; i++) { const a = p[i], b = p[i + 1], dx = b[0] - a[0], dy = b[1] - a[1], l2 = dx * dx + dy * dy || 1, t = Math.max(0, Math.min(1, ((q[0] - a[0]) * dx + (q[1] - a[1]) * dy) / l2)); m = Math.min(m, Math.hypot(q[0] - a[0] - t * dx, q[1] - a[1] - t * dy)); } return m; };
+    const limpia = (lado) => lado.filter((q) => lejos(q) > r * 0.985);
+    return limpia(izq).concat(tapa(n - 1, 1), limpia(der).reverse(), tapa(0, -1));
+  }
   // A place carried along its own axes: what rides on a thing that leans.
   function desde(P, x, y, z) { P = postura(P); return { o: lleva(P, x, y, z), R: P.R }; }
   // What a figure may take from an entity, in plain numbers, with ALMA's own when there is none: how round it is (0 for
@@ -142,7 +156,7 @@
   position: relative; display: block; width: 100%; aspect-ratio: 5 / 4; }
 .alma-figura svg { display: block; width: 100%; height: 100%; background: var(--figura-fondo); border-radius: var(--radius-card); touch-action: pan-y; cursor: crosshair; }
 .alma-figura svg:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.alma-figura path, .alma-figura line, .alma-figura ellipse { fill: none; stroke: var(--figura-medio); stroke-width: var(--figura-trazo); stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.alma-figura path, .alma-figura line, .alma-figura ellipse, .alma-figura circle { fill: none; stroke: var(--figura-medio); stroke-width: var(--figura-trazo); stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .alma-figura .tapa { fill: var(--figura-fondo); stroke: none; } .alma-figura .tapa.borde, .alma-figura .tapa.realce { stroke-width: var(--figura-trazo); }
 .alma-figura .lejos { stroke: var(--figura-lejos); } .alma-figura .borde { stroke: var(--figura-borde); } .alma-figura .realce { stroke: var(--figura-realce); }
 .alma-figura .acento { fill: var(--figura-acento); stroke: var(--figura-fondo); }
@@ -169,7 +183,7 @@
     const menos = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
     const estilos = getComputedStyle(donde); let dicho = '', turno = 0;
     const ctx = {
-      svg, nodo, linea, camara, resorte, paso, redondo, silueta, lugar, bisagra, corre, frente, entre, desde, ANCHO, ALTO,
+      svg, nodo, linea, camara, resorte, paso, redondo, silueta, lugar, bisagra, corre, frente, entre, desde, punto, ANCHO, ALTO,
       puntero: { dentro: false, tecla: false, x: ANCHO / 2, y: ALTO / 2 }, genes: o.genes || null,
       get intensidad() { return o.intensidad; }, get quieto() { return menos.matches; },
       // ALMA's own clock for changes that are not the pointer's: its slow duration and its expressive curve.
@@ -186,6 +200,8 @@
         const g = nodo('g', {}, padre || svg), fuera = nodo('path', { class: 'tapa borde' }, g), dentro = nodo('path', {}, g);
         return { g, fuera, pon(pose, otroAlto, otroAnillo) { const S = silueta(ctx.camara, otroAnillo || anillo, pose, otroAlto == null ? alto : otroAlto); fuera.setAttribute('d', linea(S.casco, true)); dentro.setAttribute('d', linea(S.pliegue)); return S; } };
       },
+      // A round bar: it hides what is behind it, as a solid does. `pon` draws it along a path through the world.
+      tubo(clase, padre) { const p = nodo('path', { class: clase || 'tapa borde' }, padre || svg); return { p, pon(camino, radio) { p.setAttribute('d', linea(tubo(ctx.camara, camino, radio), true)); } }; },
       // A flat shape on a solid, drawn only from the side it faces.
       lamina(anillo, clase, padre) {
         const p = nodo('path', clase ? { class: clase } : {}, padre || svg);
@@ -214,5 +230,5 @@
       get enMovimiento() { return vivas.has(yo); },
     };
   }
-  return { ANCHO, ALTO, camara, resorte, paso, curva, linea, redondo, casco, silueta, lamina, lugar, bisagra, corre, cuerpo, frente, entre, desde, rasgos, define, monta, figuras };
+  return { ANCHO, ALTO, camara, resorte, paso, curva, linea, redondo, casco, silueta, lamina, lugar, bisagra, corre, cuerpo, frente, entre, desde, punto, tubo, rasgos, define, monta, figuras };
 });

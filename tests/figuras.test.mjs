@@ -142,3 +142,13 @@ test('todas las figuras: se definen con su título, lo que son y lo que toman de
     }
   }
 });
+
+test('una barra curva: su contorno queda a su grueso del camino, lo rodea entero y no se cruza en los giros cerrados', () => {
+  const C = M.camara({ escala: 100 }), camino = []; for (let a = 0; a <= 180; a += 15) camino.push([0.3 * Math.cos(a * Math.PI / 180), 0, 0.3 * Math.sin(a * Math.PI / 180)]);
+  const T = M.tubo(C, camino, 0.05), centro = camino.map((q) => C.a(q[0], q[1], q[2])); assert.ok(T.length > camino.length * 2);
+  for (const q of T) { const d = Math.min(...centro.map((c) => Math.hypot(c[0] - q[0], c[1] - q[1]))); assert.ok(d > 4.5 && d < 5.6, 'a ' + d.toFixed(2)); }
+  // A turn with corners sharper than the bar is thick (its legs well apart): nothing of its outline is left inside the bar.
+  const horquilla = [[0, 0, 0], [0, 0, 0.5], [0.18, 0, 0.6], [0.36, 0, 0.5], [0.36, 0, 0]], H = M.tubo(C, horquilla, 0.08), eje = horquilla.map((q) => C.a(q[0], q[1], q[2]));
+  const aSegmento = (q, a, b) => { const dx = b[0] - a[0], dy = b[1] - a[1], t = Math.max(0, Math.min(1, ((q[0] - a[0]) * dx + (q[1] - a[1]) * dy) / (dx * dx + dy * dy))); return Math.hypot(q[0] - a[0] - t * dx, q[1] - a[1] - t * dy); };
+  for (const q of H) assert.ok(Math.min(...eje.slice(1).map((b, i) => aSegmento(q, eje[i], b))) > 8 * 0.97);
+});

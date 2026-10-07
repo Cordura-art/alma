@@ -1,6 +1,6 @@
 // Looks at line figures in a real browser, one by one: builds each one's page (for an entity, if one is given), moves
 // the pointer over it, presses the arrows, and says what it found: errors, strokes out of the picture, how many accent
-// marks, whether it came to rest. It leaves two pictures of each in build/figuras/ (at rest, and with the pointer).
+// marks, whether it came to rest, and whether it keeps still (and still answers) when less motion is asked for. It leaves two pictures of each in build/figuras/ (at rest, and with the pointer).
 //   node scripts/revisar-figuras.mjs [--entidad <id>] [nombre …]      (no names: every figure)
 import { chromium } from 'playwright';
 import { pathToFileURL } from 'node:url';
@@ -25,8 +25,12 @@ for (const n of nombres) {
     acentos: [...document.querySelectorAll('#figura svg .acento')].filter((e) => e.getAttribute('d') || e.getAttribute('r') || e.getAttribute('rx')).length, trazos: document.querySelectorAll('#figura svg path').length }));
   await p.locator('#figura svg').focus(); await p.keyboard.press('ArrowUp'); await p.keyboard.press('ArrowRight'); await p.waitForTimeout(900); const tecla = await p.textContent('#dice');
   await p.keyboard.press('Escape'); await p.waitForTimeout(1600); const reposo = await p.textContent('#dice'), quieta = await p.evaluate(() => !window.__figura.enMovimiento);
-  const bien = !err.length && (propio || (r.quieta && quieta)) && !r.fuera && r.acentos === 1 && reposo === 'En reposo'; if (!bien) malas++;
-  console.log((bien ? '✔ ' : '✖ ') + n.padEnd(12), dice.padEnd(30), '| flechas:', tecla.padEnd(30), `| ${r.trazos} trazos, ${r.fuera} fuera, ${r.acentos} acento(s)` + (propio ? ', se mueve sola' : r.quieta && quieta ? '' : ', NO SE DETIENE') + (reposo === 'En reposo' ? '' : ', no vuelve al reposo'), err.join(' | '));
+  // Asked for less motion: it answers the pointer at once and does not keep moving, not even one that moves on its own.
+  const q = await b.newPage({ viewport: { width: 620, height: 900 }, reducedMotion: 'reduce' }); q.on('pageerror', (e) => err.push('quieto: ' + e.message)); await q.goto(pathToFileURL(archivo).href); await q.waitForTimeout(500);
+  const cq = await q.locator('#figura svg').boundingBox(); await q.mouse.move(cq.x + cq.width * 0.62, cq.y + cq.height * 0.42); await q.waitForTimeout(350);
+  const menos = await q.evaluate(() => ({ quieta: !window.__figura.enMovimiento, dice: document.getElementById('dice').textContent })); await q.close(); const calma = menos.quieta && menos.dice !== 'En reposo';
+  const bien = calma && !err.length && (propio || (r.quieta && quieta)) && !r.fuera && r.acentos === 1 && reposo === 'En reposo'; if (!bien) malas++;
+  console.log((bien ? '✔ ' : '✖ ') + n.padEnd(12), dice.padEnd(30), '| flechas:', tecla.padEnd(30), `| ${r.trazos} trazos, ${r.fuera} fuera, ${r.acentos} acento(s)` + (propio ? ', se mueve sola' : r.quieta && quieta ? '' : ', NO SE DETIENE') + (reposo === 'En reposo' ? '' : ', no vuelve al reposo') + (calma ? '' : ', CON MENOS MOVIMIENTO ' + (menos.quieta ? 'no responde' : 'sigue moviéndose')), err.join(' | '));
   await p.close();
 }
 await b.close(); console.log(malas ? `${malas} con problemas` : `Las ${nombres.length} bien`); process.exit(malas ? 1 : 0);
