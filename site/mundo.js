@@ -4,8 +4,8 @@
 // together; twice as far, half as many and twice as large: on the page they are always about as dense. A piece that
 // has just been asked about arrives as dust and settles. The dots are round, in the entity's three colors, all of
 // one size on the ground (so that how small they are says how far), stronger where the sun is on them, with loose
-// specks in the air; what is behind the ground is not seen; and where the pointer passes they come apart, as the
-// dots of a scanned thing do (site/escaneo.js), and come back.
+// specks in the air; what is behind the ground is not seen; and where the pointer passes each has a life of its own,
+// as the dots of a scanned thing do (site/escaneo.js): stirred, carried off, drawn out when it goes fast, and back.
 // One walks with the arrows or W A S D, flies with F (Q and E, down and up), and the pointer turns the head.
 (function () {
   // (this same script is run again off the page, as many times as there are hands to spare: there it only answers what
@@ -77,7 +77,7 @@
 
   // ── The lattice ─────────────────────────────────────────────────────────────────────────────────────────────────
   // The planet is a cube blown into a ball; each face has a lattice of places, and one of every two of them, and so on.
-  var N0 = 16384, NIVELES = 8, TROZO = 32, PASO = Math.PI / 2 * RADIO / N0, DENSA = M.densidad || 160, TAM = 1, LUZ = 0.8, MOTAS = 1, REACCION = 1, ALCANCE = 1, CERCANO = PASO * DENSA, TOPE = NIVELES - 1, DECOSAS = TOPE;
+  var N0 = 16384, NIVELES = 8, TROZO = 64, PASO = Math.PI / 2 * RADIO / N0, DENSA = M.densidad || 160, TAM = 1, LUZ = 0.8, MOTAS = 1, REACCION = 1, ALCANCE = 1, CERCANO = PASO * DENSA, TOPE = NIVELES - 1, DECOSAS = TOPE;
   var EJE = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]], LADO = [[0, 1, 0], [0, 1, 0], [0, 0, 1], [0, 0, 1], [1, 0, 0], [1, 0, 0]], ALTO = [[0, 0, 1], [0, 0, 1], [1, 0, 0], [1, 0, 0], [0, 1, 0], [0, 1, 0]], DX = 0, DY = 0, DZ = 0;
   function hacia(cara, a, b) { var ta = Math.tan(a * 0.7853981634), tb = Math.tan(b * 0.7853981634), A = EJE[cara], U = LADO[cara], V = ALTO[cara], x = A[0] + U[0] * ta + V[0] * tb, y = A[1] + U[1] * ta + V[1] * tb, z = A[2] + U[2] * ta + V[2] * tb, l = raiz2(x * x + y * y + z * z); DX = x / l; DY = y / l; DZ = z / l; }
 
@@ -97,7 +97,8 @@
   // (the sun is over the land one arrives at, a little to one side, so that the ground there has shadows)
   (function () { var L = LLEGADA, tx = L[2], tz = -L[0], tl = raiz2(tx * tx + tz * tz) || 1, c = Math.cos(0.66), s = Math.sin(0.66); SOL = [L[0] * c + tx / tl * s, L[1] * c, L[2] * c + tz / tl * s]; })();
 
-  // A piece of the lattice: thirty-two by thirty-two places of one level, asked about once and kept while it is near.
+  // A piece of the lattice: sixty-four by sixty-four places of one level (few and large: what costs is how many pieces
+  // are handed to the drawing in a frame, not how many dots they hold), asked about once and kept while it is near.
   // What is asked comes back ready for the drawing: for each place, where it is (counted from the piece's middle),
   // which way its ground faces, its color, how lit it is and its chance; with one more row and column, so that the
   // grounds of the pieces meet. And what grows and lies there, and a few of its places to count by.
@@ -123,7 +124,7 @@
       var llano = nx * dx + ny * dy + nz * dz; if (llano < 0) { nx = -nx; ny = -ny; nz = -nz; llano = -llano; }
       // (the same chance for a place at every level it belongs to: it is the place's, not the piece's)
       var gi = (i0 + ii) << t.nivel, gj = (j0 + jj) << t.nivel, a1 = suerte(gi, gj, 1, s0), a2 = suerte(gi, gj, 2, s0), luz = Math.max(0, nx * SOL[0] + ny * SOL[1] + nz * SOL[2]), dia = suave(dx * SOL[0] + dy * SOL[1] + dz * SOL[2], -0.25, 0.3), tinta, tono, par = ((i0 + ii) & 1) === 0 && ((j0 + jj) & 1) === 0 ? 1 : 0;
-      if ((ii & 7) === 4 && (jj & 7) === 4) { MU[mu++] = x; MU[mu++] = y; MU[mu++] = z; }
+      if ((ii & 15) === 8 && (jj & 15) === 8) { MU[mu++] = x; MU[mu++] = y; MU[mu++] = z; }
       if (HM[k]) { tinta = 0; tono = (0.2 + 0.3 * (1 + HA[k])) * (0.25 + 0.75 * dia) + a1 * 0.06; par |= 2; }
       else {
         var alt = HA[k]; clima(dx, dy, dz, alt); var frio = suave(CALOR, 0.3, 0.14), alto = suave(alt + (a2 - 0.5) * 0.08, 0.42, 0.6), verde = suave(HUMEDAD + (a1 - 0.5) * 0.16, 0.36, 0.6) * (1 - suave(llano, 0.9, 0.72)), orilla = alt < 0.02 + a2 * 0.012;
@@ -197,35 +198,73 @@
     '    o += (v / (dd + 1.0) * 0.5 + azar * 0.7 + vec2(sin(uReloj * 2.1 + azar.x * 37.0), cos(uReloj * 1.7 + azar.y * 41.0)) * 0.22) * c * uAlcance; o.y -= c * c * uAlcance * 0.35; cuanto += c; }',
     '  return o; }'].join('\n');
   var VISTA = 'uniform vec3 uOjo, uDer, uArr, uAde; uniform vec2 uFoco, uLienzo; uniform float uFocoPx, uCerca, uTam, uLuz, uClaro, uGrande; uniform vec3 uTinta[3]; uniform vec3 uFondo;\n';
-  var programa = function (vs, fs) {
+  var programa = function (vs, fs, guarda) {
     var p = gl.createProgram(), hace1 = function (tipo, texto) { var s = gl.createShader(tipo); gl.shaderSource(s, '#version 300 es\nprecision highp float;\n' + texto); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); gl.attachShader(p, s); };
-    hace1(gl.VERTEX_SHADER, vs); hace1(gl.FRAGMENT_SHADER, fs); gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+    hace1(gl.VERTEX_SHADER, vs); hace1(gl.FRAGMENT_SHADER, fs); if (guarda) gl.transformFeedbackVaryings(p, guarda, gl.INTERLEAVED_ATTRIBS); gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
     var u = { p: p }; for (var i = 0, n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS); i < n; i++) { var nombre = gl.getActiveUniform(p, i).name.replace(/\[0\]$/, ''); u[nombre] = gl.getUniformLocation(p, nombre); } return u;
   };
   // The ground of a piece and its dots.
-  var G = programa(VISTA + REVUELVE + [
-    'layout(location=0) in vec3 aPos; layout(location=1) in vec3 aNor; layout(location=2) in float aBan; layout(location=3) in vec4 aDat;',
-    'uniform vec4 uTrozo, uNivel; uniform float uTope, uPaso, uPolvo, uVuelo, uCrece;',
+  var G = programa(VISTA + [
+    'layout(location=0) in vec3 aPos; layout(location=1) in vec3 aNor; layout(location=2) in float aBan; layout(location=3) in vec4 aDat; layout(location=4) in vec4 aOff; layout(location=5) in vec4 aVel;',
+    'uniform vec4 uTrozo, uNivel; uniform float uTope, uPaso, uPolvo, uVuelo, uCrece, uVivo, uEsc;',
     'out vec3 vColor; out float vLejos, vChato;',
     'void main() {',
-    '  vec3 d = uTrozo.xyz + aPos * uTrozo.w - uOjo; float l = length(d), hondo = dot(d, uAde), z = log2(max(hondo, 0.001) / 0.3) / 18.0 * 2.0 - 1.0; vLejos = l; vChato = 1.0; vColor = uFondo;',
+    '  vec3 casa = uTrozo.xyz + aPos * uTrozo.w - uOjo, d = casa; float l = length(casa), hondo = dot(d, uAde), z = log2(max(hondo, 0.001) / 0.3) / 18.0 * 2.0 - 1.0; vLejos = l; vChato = 1.0; vColor = uFondo;',
     '  if (uPaso < 0.5) { gl_Position = vec4(vec2(dot(d, uDer), dot(d, uArr)) * uFoco, (z + 0.004) * hondo, hondo); return; }',
-    '  if (aBan > 3.5 || l >= uNivel.y || l < uNivel.x || hondo < uCerca) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); gl_PointSize = 1.0; return; }',
+    '  gl_Position = vec4(2.0, 2.0, 2.0, 1.0); gl_PointSize = 1.0; if (aBan > 3.5 || l >= uNivel.y || l < uNivel.x) return;',
+    // (a piece that is alive: each dot is where its own weight has it, and going fast it is drawn out behind itself)
+    '  float cola = 0.0, ag = 0.0;',
+    '  if (uVivo > 0.5) { d += aOff.xyz; ag = aVel.w; cola = float(gl_VertexID); hondo = dot(d, uAde);',
+    '    if (cola > 0.5) { float rap = length(vec2(dot(aVel.xyz, uDer), dot(aVel.xyz, uArr))) / max(hondo, 0.5) * uFocoPx; if (rap < 50.0 * uEsc || ag < 0.3) return; d -= aVel.xyz * 0.045 * min(1.0, 22.0 * uEsc / (rap * 0.045)) * cola / 3.0; hondo = dot(d, uAde); }',
+    '    z = log2(max(hondo, 0.001) / 0.3) / 18.0 * 2.0 - 1.0; }',
+    '  if (hondo < uCerca) return;',
     '  float par = mod(aBan, 2.0), mar = step(1.5, aBan), talla = 1.0;',
     // (toward the far edge of its level, one of every two grows to the next level's size and the rest go)
-    '  if (uTope < 0.5 && l > uNivel.z) { float m = smoothstep(uNivel.z, uNivel.y, l); talla = par > 0.5 ? 1.0 + m : 1.0 - m; if (talla < 0.04) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); gl_PointSize = 1.0; return; } }',
+    '  if (uTope < 0.5 && l > uNivel.z) { float m = smoothstep(uNivel.z, uNivel.y, l); talla = par > 0.5 ? 1.0 + m : 1.0 - m; if (talla < 0.04) return; }',
     '  if (hondo < uCerca * 3.0) talla *= 0.35 + 0.65 * (hondo - uCerca) / (uCerca * 2.0);',
     '  float tono = aDat.y / 255.0; if (uClaro > 0.5) tono = 1.0 - 0.6 * tono; vColor = mix(uFondo, uTinta[int(aDat.x + 0.5)], 1.0 - uLuz + uLuz * tono);',
-    '  float lado = uNivel.w * uFocoPx / hondo, tam = min(uGrande, lado * talla * uCrece * 0.4 * uTam * (mar > 0.5 ? 0.8 : 1.0));',
-    '  vChato = uPolvo > 0.02 ? 1.0 : min(1.0, 0.5 + 1.6 * abs(dot(d, aNor)) / l);',
-    '  vec2 azar = (aDat.zw - 127.5) / 127.5, pix = (vec2(dot(d, uDer), dot(d, uArr)) / hondo * uFoco * 0.5 + 0.5) * uLienzo + azar * uVuelo; float cuanto; pix += revuelve(pix, azar, cuanto);',
-    '  gl_Position = vec4(pix / uLienzo * 2.0 - 1.0, z - min(cuanto, 1.0) * 0.2, 1.0); gl_PointSize = max(tam, 1.0);',
+    '  float lado = uNivel.w * uFocoPx / hondo, tam = min(uGrande, lado * talla * uCrece * 0.4 * uTam * (mar > 0.5 ? 0.8 : 1.0)) * (1.0 - 0.2 * cola);',
+    '  vChato = uPolvo > 0.02 ? 1.0 : mix(min(1.0, 0.5 + 1.6 * abs(dot(casa, aNor)) / l), 1.0, min(1.0, ag * 3.0));',
+    '  vec2 azar = (aDat.zw - 127.5) / 127.5, pix = (vec2(dot(d, uDer), dot(d, uArr)) / hondo * uFoco * 0.5 + 0.5) * uLienzo + azar * uVuelo;',
+    '  gl_Position = vec4(pix / uLienzo * 2.0 - 1.0, z - min(ag, 1.0) * 0.2, 1.0); gl_PointSize = max(tam, 1.0);',
     '}'].join('\n'),
     ['uniform float uPaso; uniform vec4 uNivel; uniform vec3 uFondo; in vec3 vColor; in float vLejos, vChato; out vec4 sale;',
     'void main() {',
     '  if (uPaso < 0.5) { if (vLejos < uNivel.x * 0.96 || vLejos >= uNivel.y * 1.04) discard; sale = vec4(uFondo, 1.0); return; }',
     '  vec2 q = gl_PointCoord - 0.5; q.y /= vChato; if (dot(q, q) > 0.25) discard; sale = vec4(vColor, 1.0);',
     '}'].join('\n'));
+  // The life of a piece's dots: where each is from its place and how fast it goes, worked out from where it was the
+  // frame before and kept. It is the scanned thing's own (site/escaneo.js): a dot is drawn to its place by a spring,
+  // slack while it is stirred; carried by currents as much as it is stirred; and dragged and turned by the pointer as
+  // it passes near. Here it is in the world, not on the page: a dot keeps its weight as one walks past it.
+  var T = programa([
+    'layout(location=0) in vec3 aPos; layout(location=2) in float aBan; layout(location=3) in vec4 aDat; layout(location=4) in vec4 aOff; layout(location=5) in vec4 aVel;',
+    'uniform vec4 uTrozo, uMano; uniform vec3 uOjo, uDer, uArr, uAde, uManoV; uniform vec2 uFoco, uLienzo; uniform float uFocoPx, uEsc, uAlcance, uDt, uReloj, uViva;',
+    'out vec4 vOff; out vec4 vVel;',
+    'void main() {',
+    '  vec3 q = uTrozo.xyz + aPos * uTrozo.w + aOff.xyz - uOjo, vel = aVel.xyz; float hondo = max(dot(q, uAde), 0.5), mpp = hondo / uFocoPx, ag = aVel.w;',
+    '  vec2 pix = (vec2(dot(q, uDer), dot(q, uArr)) / hondo * uFoco * 0.5 + 0.5) * uLienzo;',
+    '  if (uManoV.z > 0.0) { vec2 m = uMano.zw - uMano.xy, u = pix - uMano.xy; float t = clamp(dot(u, m) / max(dot(m, m), 1.0), 0.0, 1.0); vec2 e = u - t * m; float d2 = dot(e, e);',
+    '    if (d2 < uAlcance * uAlcance) { float c = 1.0 - sqrt(d2) / uAlcance; c *= c; vec2 empuje = (uManoV.xy * 0.55 + vec2(-e.y, e.x) * length(uManoV.xy) * 0.012) * c * uDt * 9.0; vel += (uDer * empuje.x + uArr * empuje.y) * mpp; ag = min(1.0, ag + c * uManoV.z * uDt * 9.0); } }',
+    '  vec2 azar = (aDat.zw - 127.5) / 127.5, p = pix / uEsc; float th = 3.1 * sin(p.x * 0.0058 + uReloj * 0.55 + sin(p.y * 0.0041 + azar.x * 6.0)) + 2.7 * cos(p.y * 0.0066 - uReloj * 0.43 + azar.y * 2.0), K = 46.0 * (1.0 - 0.93 * ag) + 1.5;',
+    '  vec2 corriente = vec2(cos(th), sin(th)) * 330.0 * uEsc * ag * uViva;',
+    '  vel += (-aOff.xyz * K + (uDer * corriente.x + uArr * corriente.y) * mpp) * uDt; vel *= exp(-uDt * 4.2); vec3 off = aOff.xyz + vel * uDt; ag *= exp(-uDt * 0.95);',
+    '  if (aBan > 3.5) { off = vec3(0.0); vel = vec3(0.0); ag = 0.0; }',
+    '  vOff = vec4(off, 0.0); vVel = vec4(vel, ag);',
+    '}'].join('\n'), 'out vec4 sale; void main() { sale = vec4(0.0); }', ['vOff', 'vVel']);
+  var vivos = new Map(), mano = { x: 0, y: 0, ax: 0, ay: 0, vx: 0, vy: 0, cuando: 0, dentro: false };
+  // (how fast the pointer goes: from where it was the last time it was heard of, eased so that one jump does not throw everything)
+  function tienta(x, y) { var t = performance.now(), ms = Math.max(8, t - (mano.cuando || t - 16)); if (!mano.dentro) { mano.ax = x; mano.ay = y; mano.vx = mano.vy = 0; } else { mano.vx += ((x - mano.x) / ms * 1000 - mano.vx) * 0.5; mano.vy += ((y - mano.y) / ms * 1000 - mano.vy) * 0.5; } mano.x = x; mano.y = y; mano.cuando = t; mano.dentro = true; }
+  function aviva(t, ahora) {
+    t.tocado = ahora; if (t.e0 || vivos.size >= 96) return;
+    var estado = function () { var b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, NV * 32, gl.DYNAMIC_COPY); return b; }, suyo = function (cada) { gl.bindBuffer(gl.ARRAY_BUFFER, t.e0); for (var a = 4; a < 6; a++) { gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 4, gl.FLOAT, false, 32, (a - 4) * 16); if (cada) gl.vertexAttribDivisor(a, 1); } };
+    t.e0 = estado(); t.e1 = estado(); t.cual = 0;
+    t.vsim = gl.createVertexArray(); gl.bindVertexArray(t.vsim); gl.bindBuffer(gl.ARRAY_BUFFER, t.vb); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.SHORT, false, 16, 0); gl.enableVertexAttribArray(2); gl.vertexAttribPointer(2, 1, gl.UNSIGNED_BYTE, false, 16, 9); gl.enableVertexAttribArray(3); gl.vertexAttribPointer(3, 4, gl.UNSIGNED_BYTE, false, 16, 10); suyo(false);
+    // (drawn, each dot is four: itself and what it leaves behind when it goes fast)
+    t.vvivo = gl.createVertexArray(); gl.bindVertexArray(t.vvivo); gl.bindBuffer(gl.ARRAY_BUFFER, t.vb); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.SHORT, false, 16, 0); gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 3, gl.BYTE, true, 16, 6); gl.enableVertexAttribArray(2); gl.vertexAttribPointer(2, 1, gl.UNSIGNED_BYTE, false, 16, 9); gl.enableVertexAttribArray(3); gl.vertexAttribPointer(3, 4, gl.UNSIGNED_BYTE, false, 16, 10); for (var a = 0; a < 4; a++) gl.vertexAttribDivisor(a, 1); suyo(true);
+    gl.bindVertexArray(null); gl.bindBuffer(gl.ARRAY_BUFFER, null); vivos.set(t.llave, t);
+  }
+  function apaga(t) { if (!t.e0) return; gl.deleteBuffer(t.e0); gl.deleteBuffer(t.e1); gl.deleteVertexArray(t.vsim); gl.deleteVertexArray(t.vvivo); t.e0 = t.e1 = t.vsim = t.vvivo = null; vivos.delete(t.llave); }
   // What is loose: the trees and stones, the clouds, the specks in the air, and the stars.
   var S = programa(VISTA + REVUELVE + [
     'layout(location=0) in vec3 aPos; layout(location=1) in vec3 aDat;',
@@ -234,7 +273,7 @@
     '  vec3 d; float hondo, z, tam, tono = aDat.z;',
     '  if (uModo > 0.5) { d = aPos; hondo = dot(d, uAde); z = 0.9999; tam = aDat.x * uEscalaPx; tono *= uNoche; if (hondo < 0.2) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); gl_PointSize = 1.0; return; } }',
     '  else { d = uGiro * aPos - uOjo; hondo = dot(d, uAde); z = log2(max(hondo, 0.001) / 0.3) / 18.0 * 2.0 - 1.0; tam = aDat.x * uFocoPx / max(hondo, 0.001) * uTam * uCrece * (1.0 - smoothstep(uFunde.x, uFunde.y, hondo)); if (uSuave > 0.0) tam *= min(1.0, hondo / uSuave + 0.25);',
-    '    if (hondo < uCerca || tam < 0.4) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); gl_PointSize = 1.0; return; } tam = min(max(tam, 1.0), uGrande * 2.0); if (uClaro > 0.5) tono = 1.0 - 0.6 * tono; tono = 1.0 - uLuz + uLuz * tono; }',
+    '    if (hondo < uCerca || tam < 0.4) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); gl_PointSize = 1.0; return; } tam = min(max(tam, 1.0), uGrande * 0.6); if (uClaro > 0.5) tono = 1.0 - 0.6 * tono; tono = 1.0 - uLuz + uLuz * tono; }',
     '  vColor = mix(uFondo, uTinta[int(aDat.y + 0.5)], tono);',
     '  vec2 azar = fract(aPos.xy * vec2(12.9898, 78.233)) * 2.0 - 1.0, pix = (vec2(dot(d, uDer), dot(d, uArr)) / hondo * uFoco * 0.5 + 0.5) * uLienzo; float cuanto; pix += revuelve(pix, azar, cuanto);',
     '  gl_Position = vec4(pix / uLienzo * 2.0 - 1.0, z - min(cuanto, 1.0) * 0.2, 1.0); gl_PointSize = tam;',
@@ -251,7 +290,7 @@
     if (d.Q) { var q = sueltos(d.Q); t.qb = q.b; t.qvao = q.v; t.cosas = q.n; }
     t.M = d.M; t.hecho = true; t.pedido = false; t.nace = performance.now(); hechos++;
   }
-  function suelta(t) { if (t.vb) { gl.deleteBuffer(t.vb); gl.deleteVertexArray(t.vao); } if (t.qb) { gl.deleteBuffer(t.qb); gl.deleteVertexArray(t.qvao); } }
+  function suelta(t) { apaga(t); if (t.vb) { gl.deleteBuffer(t.vb); gl.deleteVertexArray(t.vao); } if (t.qb) { gl.deleteBuffer(t.qb); gl.deleteVertexArray(t.qvao); } }
   var estrellas = (function () { var D = new Float32Array(420 * 6); for (var i = 0; i < 420; i++) { D[i * 6] = ESTRELLAS[i * 4]; D[i * 6 + 1] = ESTRELLAS[i * 4 + 1]; D[i * 6 + 2] = ESTRELLAS[i * 4 + 2]; D[i * 6 + 3] = 1 + ESTRELLAS[i * 4 + 3] * 1.6; D[i * 6 + 4] = 1; D[i * 6 + 5] = 0.15 + 0.6 * ESTRELLAS[i * 4 + 3]; } return sueltos(D); })();
   var nubes = null, MOTA = new Float32Array(1331 * 6), motas = sueltos(MOTA, gl.DYNAMIC_DRAW);
 
@@ -333,6 +372,7 @@
     var rx = hy * P[2] - hz * P[1], ry = hz * P[0] - hx * P[2], rz = hx * P[1] - hy * P[0], cb = Math.cos(baja), sb = Math.sin(baja), fx = hx * cb - P[0] * sb, fy = hy * cb - P[1] * sb, fz = hz * cb - P[2] * sb, ux = P[0] * cb + hx * sb, uy = P[1] * cb + hy * sb, uz = P[2] * cb + hz * sb;
     var CERCA = Math.max(0.5, Math.min(60, alto * 0.05)), ancho = W / 2 / foco, largo = H / 2 / foco, cima = RADIO * (1 + RELIEVE) + 20, horizonte = Math.acos(Math.min(1, RMAR * 0.985 / radioDelOjo)) + Math.acos(Math.min(1, RMAR * 0.985 / cima)), cosHorizonte = Math.cos(Math.min(3.1416, horizonte));
     var i, t, x, y, z, pendientes = 0; van = 0; visibles.length = 0;
+    var rapidez = Math.hypot(mano.vx, mano.vy), alcanceM = H * 0.16 * ALCANCE, caliente = !quieto && REACCION > 0 && mano.dentro && ahora - mano.cuando < 250 && rapidez > 15 * escala;
 
     // The ground: of each level, the pieces within its reach and in sight. Those not asked about yet wait their turn.
     for (var nivel = TOPE; nivel >= 0; nivel--) {
@@ -355,22 +395,47 @@
           // (a piece that has just arrived is dust that settles; a contained entity's simply grows into place)
           var edad = (ahora - t.nace) / 1000 / ENTRADA, suelto = quieto || edad >= 1 ? 0 : 1 - edad; t.polvo = suelto * suelto * (3 - 2 * suelto); if (t.polvo > 0) sigue = true; t.cerca = tl; visibles.push(t);
           // (how many of its dots are in the view, counted by a few of them)
-          for (var M4 = t.M, m = 0; m < 48; m += 3) { x = M4[m] - ox; y = M4[m + 1] - oy; z = M4[m + 2] - oz; var l2 = x * x + y * y + z * z; if (l2 < hasta2 && l2 >= desde2) { var mh = x * fx + y * fy + z * fz; if (mh > CERCA && Math.abs(x * rx + y * ry + z * rz) < mh * ancho && Math.abs(x * ux + y * uy + z * uz) < mh * largo) van += 64; } }
+          // (and whether the pointer, passing, reaches it: then its dots have a life of their own for a while)
+          for (var M4 = t.M, m = 0, tocado = false; m < 48; m += 3) {
+            x = M4[m] - ox; y = M4[m + 1] - oy; z = M4[m + 2] - oz; var l2 = x * x + y * y + z * z; if (l2 >= hasta2 || l2 < desde2) continue; var mh = x * fx + y * fy + z * fz; if (mh <= CERCA) continue;
+            var sx = (x * rx + y * ry + z * rz) / mh, sy = (x * ux + y * uy + z * uz) / mh; if (Math.abs(sx) < ancho && Math.abs(sy) < largo) van += 256;
+            if (caliente && !tocado) { var qx = W / 2 + sx * foco - mano.x, qy = H / 2 + sy * foco - mano.y, holgura = alcanceM + tam * TROZO / 4 * foco / mh; if (qx * qx + qy * qy < holgura * holgura) tocado = true; }
+          }
+          if (tocado) aviva(t, ahora);
         }
       }
     }
+
+    // The life of the pieces the pointer reached: a step of it, kept for the next frame. Six seconds after the last
+    // touch a piece is at rest again, and is only shown.
+    if (vivos.size) {
+      if (quieto) vivos.forEach(apaga);
+      else {
+        gl.useProgram(T.p); gl.uniform3f(T.uOjo, ox, oy, oz); gl.uniform3f(T.uDer, rx, ry, rz); gl.uniform3f(T.uArr, ux, uy, uz); gl.uniform3f(T.uAde, fx, fy, fz); gl.uniform2f(T.uFoco, foco / (W / 2), foco / (H / 2)); gl.uniform2f(T.uLienzo, W, H); gl.uniform1f(T.uFocoPx, foco); gl.uniform1f(T.uEsc, escala);
+        gl.uniform4f(T.uMano, mano.ax, mano.ay, mano.x, mano.y); gl.uniform3f(T.uManoV, mano.vx, mano.vy, caliente ? Math.min(1, rapidez / (700 * escala)) * REACCION * (CONT ? 0.4 : 1) : 0); gl.uniform1f(T.uAlcance, alcanceM); gl.uniform1f(T.uDt, dt); gl.uniform1f(T.uReloj, reloj); gl.uniform1f(T.uViva, CONT ? 0 : 1);
+        gl.enable(gl.RASTERIZER_DISCARD);
+        vivos.forEach(function (v) {
+          if (ahora - v.tocado > 6000) { apaga(v); return; } var de = v.cual ? v.e1 : v.e0, a = v.cual ? v.e0 : v.e1, pone = function () { gl.vertexAttribPointer(4, 4, gl.FLOAT, false, 32, 0); gl.vertexAttribPointer(5, 4, gl.FLOAT, false, 32, 16); };
+          gl.uniform4f(T.uTrozo, v.cx, v.cy, v.cz, v.escala); gl.bindVertexArray(v.vsim); gl.bindBuffer(gl.ARRAY_BUFFER, de); pone(); gl.bindBuffer(gl.ARRAY_BUFFER, null);
+          gl.bindBufferBase(gl.TRANSFORM_FEEDBACK_BUFFER, 0, a); gl.beginTransformFeedback(gl.POINTS); gl.drawArrays(gl.POINTS, 0, NV); gl.endTransformFeedback(); gl.bindBufferBase(gl.TRANSFORM_FEEDBACK_BUFFER, 0, null);
+          gl.bindVertexArray(v.vvivo); gl.bindBuffer(gl.ARRAY_BUFFER, a); pone(); gl.bindBuffer(gl.ARRAY_BUFFER, null); v.cual ^= 1;
+        });
+        gl.disable(gl.RASTERIZER_DISCARD); gl.bindVertexArray(null); if (vivos.size) sigue = true;
+      }
+    }
+    mano.ax = mano.x; mano.ay = mano.y; if (ahora - mano.cuando > 60) { mano.vx *= 0.7; mano.vy *= 0.7; }
 
     gl.viewport(0, 0, W, H); gl.clearColor(0, 0, 0, 0); gl.clearDepth(1); gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL); gl.depthMask(true); gl.disable(gl.BLEND); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     // First the ground alone, as what it hides; then the dots.
     vista(G, CERCA, rx, ry, rz, ux, uy, uz, fx, fy, fz, ox, oy, oz, quieto);
     for (var paso = 0; paso < 2; paso++) {
-      gl.uniform1f(G.uPaso, paso); var deNivel = -1;
+      gl.uniform1f(G.uPaso, paso); gl.uniform1f(G.uVivo, 0); gl.uniform1f(G.uEsc, escala); var deNivel = -1;
       for (i = 0; i < visibles.length; i++) {
         t = visibles[i]; if (!paso && t.polvo > 0.02) continue;
         if (t.nivel !== deNivel) { deNivel = t.nivel; var h1 = deNivel === TOPE ? 1e9 : CERCANO * (1 << deNivel); gl.uniform4f(G.uNivel, deNivel ? CERCANO * (1 << (deNivel - 1)) : 0, h1, h1 * 0.72, PASO * (1 << deNivel)); gl.uniform1f(G.uTope, deNivel === TOPE ? 1 : 0); }
         gl.uniform4f(G.uTrozo, t.cx, t.cy, t.cz, t.escala); gl.bindVertexArray(t.vao);
         if (!paso) gl.drawElements(gl.TRIANGLES, NI, gl.UNSIGNED_SHORT, 0);
-        else { gl.uniform1f(G.uPolvo, t.polvo); gl.uniform1f(G.uVuelo, CONT ? 0 : t.polvo * H * 0.5); gl.uniform1f(G.uCrece, CONT ? 1 - t.polvo : 1); gl.drawArrays(gl.POINTS, 0, NV); }
+        else { gl.uniform1f(G.uPolvo, t.polvo); gl.uniform1f(G.uVuelo, CONT ? 0 : t.polvo * H * 0.5); gl.uniform1f(G.uCrece, CONT ? 1 - t.polvo : 1); if (t.e0) { gl.uniform1f(G.uVivo, 1); gl.bindVertexArray(t.vvivo); gl.drawArraysInstanced(gl.POINTS, 0, 4, NV); gl.uniform1f(G.uVivo, 0); } else gl.drawArrays(gl.POINTS, 0, NV); }
       }
     }
     // What is loose: the stars behind everything, the trees and stones of the pieces, the clouds, the specks.
@@ -413,7 +478,7 @@
       else { var fin = performance.now() + (hechos < 12 ? 14 : 7); while (cola.length && performance.now() < fin) { t = cola.pop(); t.pedido = false; if (t.visto >= cuadro0 - 2) recibe(t, hace(t)); } sigue = true; }
     }
     if (trozos.size > Math.max(2400, visibles.length * 2.5)) trozos.forEach(function (v, llave) { if (v.visto < cuadro0 - 180 && !v.pedido) { suelta(v); trozos.delete(llave); } });
-    hito.puntos = van; hito.pendientes = pendientes + cola.length + enCurso; hito.piezas = visibles.length;
+    hito.puntos = van; hito.pendientes = pendientes + cola.length + enCurso; hito.piezas = visibles.length; hito.vivas = vivos.size;
     if (sigue || (pendientes && !manos.length) || (nubes && !quieto && !CONT && !document.hidden)) pide();
   }
 
@@ -447,12 +512,13 @@
     var caja = lienzo.getBoundingClientRect(), px = ev.clientX - caja.left, py = ev.clientY - caja.top;
     // (the faster it passes, the more the dots come apart; a contained entity's, less than half as much)
     if (!menos.matches && REACCION > 0) { if (rastro) remueve(px * escala, H - py * escala, Math.min(1, Math.hypot(px - rastro[0], py - rastro[1]) / 90) * REACCION * (CONT ? 0.4 : 1)); rastro = [px, py]; }
+    tienta(px * escala, H - py * escala);
     if (arrastre && arrastre.id === ev.pointerId) { tuerce((ev.clientX - arrastre.x) / caja.width * 2.2); arrastre.x = ev.clientX; }
     else if (ev.pointerType !== 'touch' && !menos.matches) { var cuanto = CONT ? 0.4 : 1; quiereGiro = ((ev.clientX - caja.left) / caja.width - 0.5) * 0.7 * cuanto; quiereAlza = ((ev.clientY - caja.top) / caja.height - 0.5) * 0.3 * cuanto; }
     pide();
   });
   var sueltaPuntero = function () { arrastre = null; }; lienzo.addEventListener('pointerup', sueltaPuntero); lienzo.addEventListener('pointercancel', sueltaPuntero);
-  escena.addEventListener('pointerleave', function () { quiereGiro = quiereAlza = 0; rastro = null; pide(); });
+  escena.addEventListener('pointerleave', function () { quiereGiro = quiereAlza = 0; rastro = null; mano.dentro = false; pide(); });
   window.addEventListener('resize', mide); if (window.ResizeObserver) new ResizeObserver(mide).observe(lienzo);
   if (menos.addEventListener) menos.addEventListener('change', pide);
   document.addEventListener('visibilitychange', pide);
@@ -485,7 +551,7 @@
   if (tema) tema.addEventListener('click', function () { var t = raiz.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; try { localStorage.setItem(LLAVE, t); } catch (e) {} pone(t); });
 
   // (what a test asks: about how many dots a frame has, what is still to come, and the rule itself)
-  var hito = window.__mundo = { puntos: 0, pendientes: 0, piezas: 0, ms: 0, get enMovimiento() { return !!pedido; }, get trozos() { return hechos; }, get altura() { return radioDelOjo - piso0; }, get lugar() { return P.slice(); },
+  var hito = window.__mundo = { puntos: 0, pendientes: 0, piezas: 0, vivas: 0, ms: 0, get falla() { return gl.getError(); }, get enMovimiento() { return !!pedido; }, get trozos() { return hechos; }, get altura() { return radioDelOjo - piso0; }, get lugar() { return P.slice(); },
     get manos() { return manos.length; }, get maquina() { var x = gl.getExtension('WEBGL_debug_renderer_info'); return x ? gl.getParameter(x.UNMASKED_RENDERER_WEBGL) : ''; },
     ajusta: function (que, v) { ajusta(que, v, document.querySelector('[data-ajuste="' + que + '"]')); }, remueve: function (x, y, c) { remueve(x * escala, H - y * escala, c == null ? 1 : c); pide(); },
     regla: { sube: function (x, y, z) { return sube(x, y, z); }, semilla: SEMILLA, relieve: RELIEVE, mar: MAR, llegada: LLEGADA },
