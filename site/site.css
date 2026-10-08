@@ -95,10 +95,11 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .efecto__escena { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); background: var(--ui-02); overflow: hidden; }
 .efecto__ajustes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: var(--space-24) var(--space-32); }
 .efecto__nota { margin: 0; color: var(--text-02); }
-.efecto__escena--prueba { display: grid; place-items: center; aspect-ratio: auto; min-height: calc(var(--space-80) * 4); padding: var(--space-24); }
+.efecto__escena--prueba { display: grid; place-items: center; align-content: center; gap: var(--space-24); aspect-ratio: auto; min-height: calc(var(--space-80) * 4); padding: var(--space-24); }
 .efecto__pista { margin: 0; color: var(--text-02); }
 .efecto__envoltorio { display: inline-block; }
 .efecto__tarjeta { width: min(100%, 320px); padding: var(--space-24); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--ui-01); }
 .efecto__tarjeta:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .efecto__tarjeta p { margin: 0; color: var(--text-01); }
 .efecto__tarjeta p + p { margin-top: var(--space-8); color: var(--text-02); }
+.efecto__cambio { width: min(100%, 320px); border-radius: var(--radius-card); overflow: hidden; }

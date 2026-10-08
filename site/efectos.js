@@ -7,6 +7,7 @@
 //   AlmaEfectos.pon({ id, familia, nombre, colores: { nombre: token }, ajustes: [{ id, nombre, min, max, paso, valor }], crea(lienzo, V) })
 //     crea → { medida(ancho, alto), cuadro(dt, t, puntero), color(nombre, [r, g, b]), quita() }
 //   A reaction lives on an element instead of on a canvas of its own: it gives pone(el, V) → { ajusta(id, valor), quita() }.
+//   A transition is a reaction with one more thing to give: pasa(), which plays it when whoever uses it says so.
 //   AlmaEfectos.monta(id, el, valores) → { ajusta(id, valor), valores, quieto(), quita() }
 (function () {
   if (window.AlmaEfectos) return;
@@ -27,7 +28,7 @@
     if (def.pone) {
       var W = {}; def.ajustes.forEach(function (a) { W[a.id] = valores && valores[a.id] != null ? valores[a.id] : a.valor; });
       var o = def.pone(el, W);
-      return { valores: W, quieto: quieto, ajusta: function (k, v) { W[k] = v; if (o.ajusta) o.ajusta(k, v); }, quita: o.quita };
+      return { valores: W, quieto: quieto, ajusta: function (k, v) { W[k] = v; if (o.ajusta) o.ajusta(k, v); }, pasa: o.pasa || function () {}, quita: o.quita };
     }
     var R = window.AlmaReloj, V = {}, lienzo = document.createElement('canvas'), vivo = true, aLaVista = false, quita = null, t = 0, cuenta = 0, puntero = { x: 0, y: 0, dentro: false };
     def.ajustes.forEach(function (a) { V[a.id] = valores && valores[a.id] != null ? valores[a.id] : a.valor; });

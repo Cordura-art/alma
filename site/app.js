@@ -330,8 +330,13 @@
         !def.muestra ? h('div', { ref: caja, className: 'efecto__escena', role: 'img', 'aria-label': ef.name + ': ' + ef.summary })
           : def.muestra === 'zona' ? h('div', { ref: caja, className: 'efecto__escena efecto__escena--prueba' }, h('p', { className: 'web-body-m efecto__pista' }, 'Haz clic en cualquier parte'))
           : h('div', { ref: caja, className: 'efecto__escena efecto__escena--prueba' },
-            def.muestra === 'boton' ? h('span', { className: 'efecto__envoltorio' }, h(A.Button, { variant: 'filled' }, 'Acerca el puntero'))
-              : h('div', { className: 'efecto__tarjeta', tabIndex: 0 }, h('p', { className: 'web-h6' }, ef.name), h('p', { className: 'web-body-s' }, 'Pasa el puntero, o llega con el teclado.'))),
+            def.muestra === 'cambio' ? h('div', { className: 'efecto__cambio' },
+                h('div', { className: 'efecto__tarjeta' }, h('p', { className: 'web-h6' }, 'Antes'), h('p', { className: 'web-body-s' }, 'Lo que hay ahora.')),
+                h('div', { className: 'efecto__tarjeta', hidden: true }, h('p', { className: 'web-h6' }, 'Después'), h('p', { className: 'web-body-s' }, 'Lo que viene.')))
+              : def.muestra === 'entrada' ? h('div', { className: 'efecto__tarjeta' }, h('p', { className: 'web-h6' }, ef.name), h('p', { className: 'web-body-s' }, 'Una pieza que toma forma al entrar a la vista.'))
+              : def.muestra === 'boton' ? h('span', { className: 'efecto__envoltorio' }, h(A.Button, { variant: 'filled' }, 'Acerca el puntero'))
+              : h('div', { className: 'efecto__tarjeta', tabIndex: 0 }, h('p', { className: 'web-h6' }, ef.name), h('p', { className: 'web-body-s' }, 'Pasa el puntero, o llega con el teclado.')),
+            def.muestra === 'cambio' || def.muestra === 'entrada' ? h(A.Button, { variant: 'tinted', onClick: function () { if (obra.current) obra.current.pasa(); } }, def.muestra === 'cambio' ? 'Cambiar' : 'Repetir') : null),
         sin[0] ? h('p', { className: 'web-body-s efecto__nota' }, 'Este navegador no puede dibujar el efecto.') : null,
         h('div', { className: 'efecto__ajustes' }, def.ajustes.map(function (aj) {
           return h(A.Slider, { key: aj.id, label: aj.nombre, min: aj.min, max: aj.max, step: aj.paso, defaultValue: aj.valor, onChange: function (v) { if (obra.current) obra.current.ajusta(aj.id, v); } });
