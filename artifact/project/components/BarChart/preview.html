@@ -1,0 +1,11 @@
+<!-- @dsCard group="Datos" height=720 subtitle="Cuál es mayor · un énfasis · también como tabla" -->
+<div id="root" style="padding:24px;display:grid;gap:48px;max-width:720px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  var destinos = [{ label: 'Talca', value: 1840 }, { label: 'Chillán', value: 1420 }, { label: 'Temuco', value: 1260 }, { label: 'Valdivia', value: 940 }, { label: 'Osorno', value: 610 }];
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(A.BarChart, { title: 'Talca fue el destino más vendido en marzo', description: 'Pasajes vendidos por destino · marzo de 2026', data: destinos, highlight: 'Talca', unit: 'pasajes', labelHeader: 'Destino' }),
+    h(A.BarChart, { title: 'Pasajes vendidos por destino', description: 'Marzo de 2026', data: destinos, orientation: 'horizontal', categorical: true, unit: 'pasajes', labelHeader: 'Destino' })));
+</script>

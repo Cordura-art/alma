@@ -704,3 +704,351 @@ Una portada es el único lugar, junto con la firma, donde vale el movimiento de 
 - No uses colores que no sean los tres de la entidad.
 - No hagas que algo avance solo: quien lee marca el paso.
 - No uses una portada para mostrar un escaneo que no dice nada de la entidad.
+
+## Bienvenida
+
+La primera vez de alguien en un producto: cuánto decirle antes de dejarlo empezar.
+
+### Cuándo
+
+Solo la primera vez, y solo si el producto no se explica al usarlo. La mejor bienvenida es la que no hace falta: una primera pantalla clara, con un estado vacío que dice qué hacer.
+
+Antes de diseñar una, prueba sin ella. Si la gente llega sola a su primera tarea, no la pongas.
+
+### Tres formas
+
+Elige la más liviana que alcance.
+
+| Forma | Qué es | Cuándo |
+|---|---|---|
+| Sin bienvenida | El estado vacío hace el trabajo: dice qué falta y ofrece el primer paso. | Casi siempre. |
+| Pistas en contexto | Un `Tip` junto a lo que explica, la primera vez que hace falta. | Una función que no se descubre sola. |
+| Recorrido | De una a tres pantallas antes de empezar. | Algo que hay que entender o decidir antes del primer uso. |
+
+### Principios
+
+1. **Empezar haciendo.** Se aprende más con la primera tarea que leyendo sobre ella. Lleva a la persona a hacer algo real cuanto antes.
+2. **Breve.** Tres pantallas como máximo, una idea por pantalla.
+3. **Siempre se puede saltar.** «Saltar» está a la vista desde la primera pantalla, y saltar no quita nada.
+4. **Pedir cuando se necesita.** Un permiso o un dato se pide en el momento en que sirve, no todo junto al inicio.
+5. **Mostrar antes de pedir cuenta.** Deja ver para qué sirve el producto antes de exigir registro.
+6. **Una sola vez.** No vuelve en cada visita. Lo que enseña queda al alcance después, en Ayuda.
+
+### Anatomía de un recorrido
+
+1. **Figura** (opcional): una ilustración o una captura que muestre la idea.
+2. **Título:** qué se puede hacer, en pocas palabras. «Compra tu pasaje en un minuto».
+3. **Una frase:** lo que hay que saber, y nada más.
+4. **`PageControl`:** dónde va y cuánto falta.
+5. **Acción principal** `filled`: «Continuar», y en la última, la primera tarea: «Buscar pasajes».
+6. **«Saltar»** `plain`, siempre en el mismo lugar.
+
+> **Imagen pendiente:** las tres pantallas de un recorrido en un teléfono, con su figura, título, frase, `PageControl`, «Continuar» y «Saltar»; la última con «Buscar pasajes».
+
+### Permisos y datos
+
+| Qué se pide | Cuándo pedirlo | Cómo |
+|---|---|---|
+| Notificaciones | Después de la primera compra, cuando hay algo que avisar. | Di antes para qué: «Te avisamos si cambia tu salida». |
+| Ubicación | Al tocar «Cerca de mí». | Ofrece seguir sin darla: escribir la ciudad. |
+| Cuenta | Al guardar o pagar. | Deja mirar y buscar sin cuenta. |
+| Datos personales | En el formulario que los usa. | Solo los que ese paso necesita. |
+
+Si la persona dice que no, el producto sigue funcionando, y la opción queda en Ajustes.
+
+### Contenido
+
+- Habla de lo que la persona logra, no de las funciones: «Lleva tu pasaje en el teléfono», no «Billetera digital integrada».
+- Sin signos de exclamación ni bienvenidas largas.
+- El último botón nombra la primera tarea, no dice «Empezar».
+
+### Accesibilidad
+
+- Un lector de pantalla anuncia la posición: «Paso 1 de 3».
+- Al pasar de pantalla, el foco va al título nuevo.
+- Nada avanza solo ni tiene tiempo límite.
+- Con movimiento reducido, las pantallas cambian sin deslizarse.
+
+### No hagas
+
+- Un recorrido que repite lo que la interfaz ya dice.
+- Pedir todos los permisos de una vez al abrir.
+- Esconder «Saltar» o ponerlo solo al final.
+- Un video o una animación que no se puede detener.
+
+### Relacionados
+
+`PageControl` · `Tip` · `EmptyState` · Estados vacíos · Inicio de sesión · Ajustes.
+
+## Ajustes
+
+Dónde van las preferencias de una persona, cuántas ofrecer y cuándo se aplican.
+
+### Cuándo
+
+Para lo que una persona decide una vez y deja así: idioma, tema, avisos, privacidad, cuenta.
+
+Un ajuste es una decisión que el diseño no tomó. Antes de agregar uno, busca un buen valor por defecto. Mientras menos ajustes, mejor.
+
+### Dónde va cada cosa
+
+| Qué es | Dónde va |
+|---|---|
+| Algo que se cambia mientras se hace una tarea (ordenar, filtrar, ver como lista). | Ahí mismo, junto a la tarea. No en Ajustes. |
+| Una preferencia general, que se cambia rara vez. | En Ajustes. |
+| Lo que el sistema ya sabe (tema claro u oscuro, idioma, movimiento reducido). | Se sigue al sistema. Se ofrece como ajuste solo para cambiarlo aquí. |
+
+### Estructura
+
+- **Grupos con nombre**, de lo más usado a lo menos usado: Cuenta, Avisos, Apariencia, Privacidad.
+- **Una fila por ajuste**, en `List`: el nombre a la izquierda y el control o el valor actual a la derecha.
+- **Con muchos ajustes**, navegación propia: `Sidebar` desde `bp-lg`, una lista que lleva a cada grupo en el teléfono. Y un `SearchField` arriba.
+- **Lo peligroso, al final** y separado: cerrar sesión, eliminar la cuenta.
+
+> **Imagen pendiente:** una página de Ajustes en escritorio, con `Sidebar` de grupos y filas con `Switch`, `PopUpButton` y valores; y la misma en teléfono, como lista de grupos.
+
+### Qué control usar
+
+| El ajuste es | Control |
+|---|---|
+| Sí o no | `Switch` |
+| Una de dos a cuatro opciones cortas | `SegmentedControl` |
+| Una de muchas | `PopUpButton` |
+| Un valor en un rango | `Slider` |
+| Un texto (nombre, correo) | Una fila que abre un formulario |
+| Varias opciones a la vez | `Checkbox` en lista |
+
+### Cuándo se aplica
+
+- **Al tiro, sin «Guardar»:** un `Switch`, una opción, un `Slider`. El cambio se ve de inmediato y se deshace volviendo a tocar.
+- **Con «Guardar»:** lo que se escribe (nombre, correo, clave) y lo que tiene consecuencias (cambiar de plan). Ahí va un formulario, con «Guardar» y «Cancelar».
+- No mezcles las dos formas en un mismo grupo.
+
+Si un cambio no se puede aplicar, dilo en la fila y vuelve el control a donde estaba.
+
+### Contenido
+
+- El nombre dice qué pasa cuando está activo: «Avisarme si cambia mi salida», no «Notificaciones de itinerario».
+- Una línea de ayuda bajo el nombre solo si el nombre no alcanza.
+- La fila muestra el valor actual: «Idioma · Español».
+
+### Accesibilidad
+
+- Cada control tiene su nombre asociado: al enfocarlo, un lector lee el nombre del ajuste y su estado.
+- Los grupos son encabezados, para saltar entre ellos.
+- Toda la fila responde al toque, no solo el control.
+- Un cambio que se aplica solo se anuncia: «Tema oscuro activado».
+
+### No hagas
+
+- Un ajuste para algo que casi nadie cambia.
+- Esconder en Ajustes lo que se necesita durante una tarea.
+- Pedir confirmación para un cambio que se deshace con un toque.
+- Un «Restablecer todo» sin decir qué se pierde.
+
+### Relacionados
+
+`List` · `Switch` · `SegmentedControl` · `PopUpButton` · `Sidebar` · Formularios · Diálogos · Temas.
+
+## Arrastrar y soltar
+
+Mover algo tomándolo, y la manera de hacer lo mismo sin arrastrar.
+
+### Cuándo
+
+Para reordenar una lista, mover algo de un grupo a otro o traer archivos a la página. Es rápido para quien usa mouse o el dedo, y directo: se mueve lo que se toca.
+
+Nunca es la única manera. Todo lo que se hace arrastrando se puede hacer también con un botón o un menú.
+
+### Estados
+
+| Momento | Qué se ve |
+|---|---|
+| En reposo | Un asa (ícono `draggable`) dice que la fila se puede mover. |
+| Tomado | La pieza se levanta: toma `shadow-floating` y sigue al puntero. Su lugar queda marcado. |
+| Sobre un destino válido | Una línea en `interactive-01` muestra dónde va a caer, o el destino se resalta. |
+| Sobre un lugar donde no puede caer | El destino no cambia y el cursor lo indica. |
+| Soltado | La pieza llega a su lugar y las demás se acomodan. |
+| Cancelado | La pieza vuelve a donde estaba. |
+
+> **Imagen pendiente:** una lista de cuatro filas con asa, en tres momentos: en reposo, una fila tomada con su lugar marcado y la línea de destino, y la lista ya reordenada.
+
+### La alternativa sin arrastrar
+
+Cada cosa que se puede arrastrar tiene además una de estas:
+
+- **Botones «Subir» y «Bajar»** en la fila, para reordenar.
+- **Un menú «Mover a…»** con los destinos posibles.
+- **«Elegir archivos»**, junto a la zona donde se sueltan: es lo que hace `FileUploader`.
+
+No es un respaldo escondido: está a la vista o a un toque.
+
+### Con teclado
+
+| Tecla | Qué hace |
+|---|---|
+| Tab | Llega al asa. |
+| Espacio | Toma la pieza. |
+| Flechas | La mueve un lugar. |
+| Espacio | La suelta. |
+| Esc | Cancela y la devuelve. |
+
+### Reglas
+
+- **Se actúa al soltar**, no al tomar: hasta ese momento se puede cancelar.
+- **Esc cancela** siempre, y soltar fuera de un destino también.
+- **Lo movido se puede deshacer** (ver **Deshacer**).
+- En una lista larga, la página se desplaza sola al acercar la pieza al borde.
+- Al tocar, se toma manteniendo el dedo un momento, para no confundirlo con desplazar.
+- Solo se mueve en la dirección que tiene sentido: una lista, hacia arriba y abajo.
+
+### Accesibilidad
+
+- Un lector anuncia cada paso: «Tomaste Salida 8:30. Posición 2 de 4», «Movida a posición 1», «Soltada en posición 1».
+- El asa tiene nombre: «Mover Salida 8:30».
+- El destino no se distingue solo por color: lleva además la línea o un borde.
+- Con movimiento reducido, las filas cambian de lugar sin deslizarse.
+
+### No hagas
+
+- Arrastrar como única forma de hacer algo.
+- Hacer arrastrable toda la fila si dentro hay texto que se quiere seleccionar o botones.
+- Un destino que no avisa que lo es hasta que se suelta encima.
+- Mover al tiro, sin poder cancelar ni deshacer.
+
+### Relacionados
+
+`List` · `FileUploader` · `Table` · Deshacer · Acciones.
+
+## Deshacer
+
+Dejar que una persona se arrepienta, en vez de preguntarle antes si está segura.
+
+### Cuándo
+
+Siempre que una acción se pueda revertir. Dejar deshacer es mejor que pedir confirmación: no interrumpe a quien sabe lo que hace y salva a quien se equivocó.
+
+La confirmación queda para lo que de verdad no tiene vuelta.
+
+### Deshacer o confirmar
+
+| La acción | Qué hacer |
+|---|---|
+| Se puede revertir: archivar, mover, quitar de una lista, marcar como leído. | Se hace al tiro y se ofrece «Deshacer». |
+| No se puede revertir: eliminar una cuenta, enviar un pago, borrar para siempre. | Se confirma antes (ver **Diálogos**). |
+| Se puede revertir, pero toca a muchos elementos. | Se hace, se ofrece «Deshacer» y se dice cuántos fueron: «12 viajes archivados». |
+
+Si algo no se puede revertir hoy, considera hacerlo reversible: una papelera en vez de un borrado.
+
+### Cómo se ofrece
+
+Un aviso en `ToastRegion` con lo que pasó y una sola acción:
+
+1. **Qué pasó**, en pasado: «Viaje archivado».
+2. **«Deshacer»**, como acción del aviso.
+
+El aviso no tapa lo que la persona estaba haciendo, y deshacer devuelve todo exactamente a como estaba: mismo lugar, mismo orden, misma selección.
+
+> **Imagen pendiente:** una lista de viajes donde se acaba de archivar uno, con el aviso «Viaje archivado» y su acción «Deshacer», en tema oscuro y claro.
+
+### Cuánto dura
+
+- Un aviso con «Deshacer» se queda más que uno informativo: dale tiempo de sobra para leer y decidir, o déjalo fijo (`duration: 0`) hasta que se cierre.
+- El tiempo se detiene mientras el puntero o el foco están sobre el aviso.
+- Cuando el aviso se va, la acción sigue teniendo vuelta por otro camino: una sección «Archivados», una papelera.
+
+### En un editor
+
+Donde se escribe o se dibuja, deshacer es una historia de pasos:
+
+- **Deshacer** y **Rehacer** están a la vista, en la `Toolbar`, y responden a las teclas de siempre.
+- Cada paso es una acción completa de la persona, no cada letra.
+- Los botones se desactivan cuando no hay nada que deshacer o rehacer.
+- El nombre dice qué se va a deshacer cuando no es obvio: «Deshacer mover».
+
+### Accesibilidad
+
+- El aviso se anuncia sin quitar el foco de donde estaba.
+- «Deshacer» se alcanza con teclado, y hay otra manera de revertir cuando el aviso ya se fue.
+- Al deshacer, se anuncia el resultado: «Viaje restaurado».
+
+### No hagas
+
+- Preguntar «¿Estás seguro?» para algo que se deshace con un toque.
+- Un «Deshacer» que desaparece antes de que alcance a leerse.
+- Deshacer a medias: devolver el elemento, pero no a su lugar.
+- Ofrecer «Deshacer» para algo que ya no se puede revertir.
+
+### Relacionados
+
+`ToastRegion` · `Toolbar` · Notificaciones · Diálogos · Arrastrar y soltar.
+
+## Compartir
+
+Dar a otra persona acceso a algo, saber quién lo tiene y poder quitarlo.
+
+### Cuándo
+
+Cuando algo de una persona puede verlo o editarlo otra: un viaje, un documento, una billetera, un tablero.
+
+Lo que alguien crea es privado hasta que decide lo contrario.
+
+### Dos maneras
+
+| Manera | Qué es | Para |
+|---|---|---|
+| Invitar a personas | Se nombra a quién y con qué permiso. | Trabajo con gente conocida; lo que es delicado. |
+| Compartir un enlace | Quien tenga el enlace entra, con el permiso que el enlace da. | Mostrar algo rápido, a varios o a quien no tiene cuenta. |
+
+Ofrece las dos solo si las dos hacen falta. La invitación es la más segura; el enlace, la más cómoda.
+
+### Anatomía
+
+En un `Modal`, o en una `Sheet` en el teléfono:
+
+1. **Título:** qué se comparte. «Compartir Viaje a Talca».
+2. **Invitar:** un campo para escribir a quién, su permiso y «Invitar».
+3. **Quién tiene acceso:** la lista de personas, cada una con su permiso. Quien comparte aparece primero, como dueño.
+4. **Enlace:** si está activo, quién puede entrar con él y un botón «Copiar enlace».
+
+> **Imagen pendiente:** el diálogo de compartir en escritorio, con el campo de invitar, tres personas con sus permisos y la sección de enlace con «Copiar enlace».
+
+### Permisos
+
+Pocos y con nombres claros, de menos a más:
+
+| Permiso | Qué puede hacer |
+|---|---|
+| Ver | Mirar, y nada más. |
+| Comentar | Mirar y dejar comentarios. |
+| Editar | Cambiar el contenido. |
+| Administrar | Editar, y además invitar o quitar a otros. |
+
+El permiso por defecto al invitar es el más bajo que sirva: «Ver».
+
+### Reglas
+
+- **Decir qué va a ver la otra persona** antes de compartir, sobre todo si hay datos personales.
+- **Confirmar con un aviso**, no con un diálogo: «Enlace copiado», «Invitación enviada a Ana».
+- **Quitar el acceso es tan fácil como darlo**: desde la misma lista, y se puede deshacer.
+- **Un enlace se puede apagar**, y apagarlo deja sin acceso a quien lo tenía.
+- **El estado se ve desde fuera**: lo compartido lleva una señal (un `Tag` «Compartido», las personas con acceso).
+- **Copiar siempre funciona.** No dependas de que se abra el correo u otra aplicación: muestra el enlace y deja copiarlo.
+
+### Accesibilidad
+
+- El campo de invitar tiene etiqueta, y sus sugerencias se recorren con las flechas.
+- Cada persona de la lista se lee con su nombre y su permiso.
+- «Enlace copiado» se anuncia.
+- Al cerrar, el foco vuelve al botón «Compartir».
+
+### No hagas
+
+- Compartir por defecto, o con el permiso más alto.
+- Un enlace público sin decir que cualquiera con él puede entrar.
+- Esconder quién tiene acceso.
+- Enviar la invitación sin mostrar a quién ni con qué permiso.
+
+### Relacionados
+
+`Modal` · `Sheet` · `Combobox` · `PopUpButton` · `Tag` · `ToastRegion` · Diálogos · Deshacer.

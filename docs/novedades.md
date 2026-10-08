@@ -4,6 +4,19 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 8 de octubre de 2026
 
+### Dos gráficos: BarChart y LineChart
+
+- `BarChart` compara cantidades entre categorías; `LineChart` muestra cómo cambia una o varias series. Están en el grupo «Datos» de los componentes.
+- Los dos traen sus datos también como tabla, se recorren con el teclado y anuncian cada valor. Un gráfico es una sola parada de Tab.
+- Toman un solo color por defecto, el acento, y dejan destacar una barra o una serie. `BarChart` pasa solo a horizontal cuando no hay ancho.
+- Son la primera versión: faltan barras apiladas, áreas y puntos.
+
+### Cinco patrones y tres fundamentos nuevos
+
+- Patrones: **Bienvenida**, **Ajustes**, **Arrastrar y soltar**, **Deshacer** y **Compartir**. Con ellos son 21.
+- Fundamentos: **Gráficos de datos** (cuándo graficar, qué gráfico elegir, color, anatomía y accesibilidad), **Diseño adaptable** (los tres anchos y cómo responde cada pieza) y **Entradas** (puntero, toque, teclado y voz, y los gestos con su alternativa). Con ellos son 9.
+- Parten de lo que dicen nuestros referentes (IBM Carbon, Apple y Material) y están escritos para ALMA, con sus componentes y sus tokens. Son una primera versión para iterar: sus imágenes están pendientes.
+
 ### Las portadas con busto laten
 
 - La portada con busto puede llevar fondos de la colección en dos momentos: detrás de la figura, y en su lugar cuando se deshace. Las de Cordura, Ensayo y Autómata entran sin fondo; cuando el busto se deshizo y sus datos ya se fueron, baja el Velo y aparece el Halo al centro, con los colores de cada entidad.
@@ -14,7 +27,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### Efectos: una colección propia
 
-- ALMA tiene una sección nueva, «Efectos», para lo que se mueve detrás, entre y debajo de las cosas. Parte con dieciocho, en cuatro familias: fondos (Halo, Velo, Hilos), reacciones (Chispa, Imán, Destello, Foco, Inclinar), transiciones (Trama, Aparecer, Cortina, Fundido) y textos (Descifrar, Contar, Escalonar, Brillo, Rotar, Desvelar).
+- ALMA tiene una sección nueva, «Efectos», para lo que se mueve detrás, entre y debajo de las cosas. Parte con veintidós, en cuatro familias: fondos (Halo, Velo, Hilos, Retícula, Grano, Rayos, Ondas), reacciones (Chispa, Imán, Destello, Foco, Inclinar), transiciones (Trama, Aparecer, Cortina, Fundido) y textos (Descifrar, Contar, Escalonar, Brillo, Rotar, Desvelar).
 - Todos están escritos aquí, sin librerías, y cumplen lo mismo: colores y tiempos por token, el reloj de ALMA, trabajo solo a la vista y respeto por el movimiento reducido. En una entidad toman sus colores sin tocarlos.
 - Cada efecto tiene su página en la documentación, con el efecto en vivo y sus ajustes, y se usa con una línea: `AlmaEfectos.monta('halo', elemento)`.
 

@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"AlmaDS","components":[{"name":"Button"},{"name":"TextInput"},{"name":"Icon"},{"name":"Pictogram"},{"name":"SegmentedControl"},{"name":"Stepper"},{"name":"ProductCard"},{"name":"PaymentCard"},{"name":"ProgressLine"},{"name":"Switch"},{"name":"Checkbox"},{"name":"RadioGroup"},{"name":"PopUpButton"},{"name":"PullDownButton"},{"name":"Alert"},{"name":"Tabs"},{"name":"TabBar"},{"name":"Sidebar"},{"name":"Toolbar"},{"name":"SearchField"},{"name":"Tooltip"},{"name":"Tip"},{"name":"Table"},{"name":"Slider"},{"name":"ProgressBar"},{"name":"ActivityIndicator"},{"name":"PageControl"},{"name":"InlineNotification"},{"name":"ToastRegion"},{"name":"Pagination"},{"name":"FileUploader"},{"name":"Skeleton"},{"name":"Link"},{"name":"Tag"},{"name":"Textarea"},{"name":"Card"},{"name":"List"},{"name":"EmptyState"},{"name":"Breadcrumb"},{"name":"Accordion"},{"name":"ProgressIndicator"},{"name":"Popover"},{"name":"Modal"},{"name":"Sheet"},{"name":"Combobox"},{"name":"DatePicker"},{"name":"TimePicker"}]} */
+/* @ds-bundle: {"format":4,"namespace":"AlmaDS","components":[{"name":"Button"},{"name":"TextInput"},{"name":"Icon"},{"name":"Pictogram"},{"name":"SegmentedControl"},{"name":"Stepper"},{"name":"ProductCard"},{"name":"PaymentCard"},{"name":"ProgressLine"},{"name":"Switch"},{"name":"Checkbox"},{"name":"RadioGroup"},{"name":"PopUpButton"},{"name":"PullDownButton"},{"name":"Alert"},{"name":"Tabs"},{"name":"TabBar"},{"name":"Sidebar"},{"name":"Toolbar"},{"name":"SearchField"},{"name":"Tooltip"},{"name":"Tip"},{"name":"Table"},{"name":"Slider"},{"name":"ProgressBar"},{"name":"ActivityIndicator"},{"name":"PageControl"},{"name":"InlineNotification"},{"name":"ToastRegion"},{"name":"Pagination"},{"name":"FileUploader"},{"name":"Skeleton"},{"name":"Link"},{"name":"Tag"},{"name":"Textarea"},{"name":"Card"},{"name":"List"},{"name":"EmptyState"},{"name":"Breadcrumb"},{"name":"Accordion"},{"name":"ProgressIndicator"},{"name":"Popover"},{"name":"Modal"},{"name":"Sheet"},{"name":"Combobox"},{"name":"DatePicker"},{"name":"TimePicker"},{"name":"BarChart"},{"name":"LineChart"}]} */
 (function () {
   var h = window.React.createElement;
   var useState = window.React.useState;
@@ -1487,5 +1487,141 @@ function pictograma(G, clave, o = {}) {
     return pick();
   }
 
-  window.AlmaDS = { applyTheme: applyTheme, Link: Link, Tag: Tag, Textarea: Textarea, Card: Card, List: List, EmptyState: EmptyState, Breadcrumb: Breadcrumb, Accordion: Accordion, ProgressIndicator: ProgressIndicator, Popover: Popover, Modal: Modal, Sheet: Sheet, Combobox: Combobox, DatePicker: DatePicker, TimePicker: TimePicker, registerIcons: registerIcons, iconNames: iconNames, Table: Table, Slider: Slider, ProgressBar: ProgressBar, ActivityIndicator: ActivityIndicator, PageControl: PageControl, InlineNotification: InlineNotification, ToastRegion: ToastRegion, toast: toast, Pagination: Pagination, FileUploader: FileUploader, Skeleton: Skeleton, Tabs: Tabs, TabBar: TabBar, Sidebar: Sidebar, Toolbar: Toolbar, SearchField: SearchField, Tooltip: Tooltip, Tip: Tip, Switch: Switch, Checkbox: Checkbox, RadioGroup: RadioGroup, PopUpButton: PopUpButton, PullDownButton: PullDownButton, Alert: Alert, Button: Button, TextInput: TextInput, Icon: AlmaIcon, Pictogram: Pictogram, pictogramDrawings: pictogramDrawings, configurePictograms: configurePictograms, SegmentedControl: SegmentedControl, Stepper: Stepper, ProductCard: ProductCard, PaymentCard: PaymentCard, ProgressLine: ProgressLine };
+
+  // ---------- Charts: BarChart and LineChart (docs/elements/datos) ----------
+  // A chart is drawn to the width it has, so its text is always the size text is. It is one stop for the keyboard:
+  // inside it the arrows go from value to value. What it shows is also there as a table, a button away.
+  var useEffect = window.React.useEffect, useRef = window.React.useRef;
+  var nfChart = function (n) { return n.toLocaleString('es-CL'); };
+  // Numbers an axis can show in little room: 12 mil, 1,2 M.
+  function chartShort(n) { var a = Math.abs(n); return a >= 1e6 ? (n / 1e6).toLocaleString('es-CL', { maximumFractionDigits: 1 }) + ' M' : a >= 1e4 ? Math.round(n / 1e3).toLocaleString('es-CL') + ' mil' : n.toLocaleString('es-CL'); }
+  // About four round steps from lo to hi.
+  function chartTicks(lo, hi) {
+    if (!(hi > lo)) hi = lo + 1;
+    var raw = (hi - lo) / 4, p = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10)), m = raw / p, step = (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * p, out = [];
+    for (var v = Math.floor(lo / step) * step; v < hi + step * 0.999; v += step) out.push(+v.toPrecision(12));
+    return out;
+  }
+  function useChartWidth(ref) {
+    var w = useState(640);
+    useEffect(function () {
+      var el = ref.current; if (!el) return;
+      var mide = function () { var x = el.getBoundingClientRect().width; if (x > 0) w[1](Math.round(x)); };
+      mide(); if (!window.ResizeObserver) return; var ro = new ResizeObserver(mide); ro.observe(el); return function () { ro.disconnect(); };
+    }, []);
+    return w[0];
+  }
+  function chartCut(s, max) { s = String(s); return max < 2 ? '' : s.length > max ? s.slice(0, Math.max(1, max - 1)) + '…' : s; }
+  // The frame every chart has: its title (what it says), its note, and the way to its table.
+  function ChartFrame(props) {
+    var tabla = useState(false), T = props.table;
+    return h('figure', { className: 'alma-chart' + (props.className ? ' ' + props.className : '') },
+      h('figcaption', { className: 'alma-chart__head' },
+        h('div', { className: 'alma-chart__titles' }, h('p', { className: 'alma-chart__title' }, props.title), props.description ? h('p', { className: 'alma-chart__desc' }, props.description) : null),
+        h(Button, { variant: 'plain', size: 'sm', 'aria-pressed': tabla[0], onClick: function () { tabla[1](!tabla[0]); } }, tabla[0] ? 'Ver como gráfico' : 'Ver como tabla')),
+      tabla[0] ? h('div', { className: 'alma-chart__tablewrap' }, h('table', { className: 'alma-chart__table' },
+        h('thead', null, h('tr', null, T.columns.map(function (c, i) { return h('th', { key: i, scope: 'col' }, c); }))),
+        h('tbody', null, T.rows.map(function (r, i) { return h('tr', { key: i }, r.map(function (c, j) { return j === 0 ? h('th', { key: j, scope: 'row' }, c) : h('td', { key: j }, c); })); })))) : props.children);
+  }
+  // Going through a chart's values with the keyboard: series by series (up, down), value by value (left, right).
+  function useChartNav(nSeries, nPoints) {
+    var act = useState(null), a = act[0];
+    function on(ev) {
+      var k = ev.key, s = a ? a.s : 0, i = a ? a.i : 0;
+      if (k === 'Escape') { act[1](null); return; }
+      if (k === 'ArrowRight') i = Math.min(nPoints - 1, i + (a ? 1 : 0)); else if (k === 'ArrowLeft') i = Math.max(0, i - 1);
+      else if (k === 'ArrowDown') s = Math.min(nSeries - 1, s + 1); else if (k === 'ArrowUp') s = Math.max(0, s - 1);
+      else if (k === 'Home') i = 0; else if (k === 'End') i = nPoints - 1; else return;
+      ev.preventDefault(); act[1]({ s: s, i: i });
+    }
+    return { act: a, set: act[1], props: { tabIndex: 0, onKeyDown: on, onFocus: function (ev) { if (!a && ev.target === ev.currentTarget && ev.target.matches(':focus-visible')) act[1]({ s: 0, i: 0 }); }, onBlur: function () { act[1](null); }, onMouseLeave: function () { act[1](null); } } };
+  }
+  function chartTip(x, y, W, lines) {
+    return h('div', { className: 'alma-chart__tip', role: 'presentation', style: { left: Math.max(72, Math.min(W - 72, x)) + 'px', top: y + 'px' } }, lines.map(function (l, i) { return h('span', { key: i, className: i ? 'alma-chart__tipvalue' : 'alma-chart__tiplabel' }, l); }));
+  }
+
+  // BarChart: which is larger. data: [{ label, value }]. One colour by default (the accent); `highlight` names the one bar
+  // that keeps it while the rest go neutral; `categorical` gives each bar a colour of its own.
+  function BarChart(props) {
+    var D = props.data || [], n = D.length, ref = useRef(null), W = useChartWidth(ref), fmt = props.format || nfChart, unit = props.unit ? ' ' + props.unit : '';
+    var max = Math.max.apply(null, D.map(function (d) { return d.value; }).concat([props.max || 0, 0])), ticks = chartTicks(0, max), top = ticks[ticks.length - 1];
+    var padL = Math.max.apply(null, ticks.map(function (t) { return chartShort(t).length; })) * 7 + 16, band = (W - padL - 8) / Math.max(1, n);
+    var horizontal = props.orientation ? props.orientation === 'horizontal' : band < 56, nav = useChartNav(1, n), a = nav.act;
+    var clase = function (d, i) { return 'alma-chart__mark ' + (props.highlight != null ? (d.label === props.highlight ? 'is-accent' : 'is-neutral') : props.categorical ? 'is-cat-' + (i % 8 + 1) : 'is-accent') + (a && a.i === i ? ' is-active' : ''); };
+    var mayor = D.reduce(function (m, d) { return !m || d.value > m.value ? d : m; }, null), menor = D.reduce(function (m, d) { return !m || d.value < m.value ? d : m; }, null);
+    var resumen = props.summary || (n ? n + ' barras. La mayor es ' + mayor.label + ', con ' + fmt(mayor.value) + unit + '. La menor es ' + menor.label + ', con ' + fmt(menor.value) + unit + '.' : 'Sin datos.');
+    var H, cuerpo, tip = null;
+    if (horizontal) {
+      var fila = 32, labW = Math.min(W * 0.4, Math.max.apply(null, D.map(function (d) { return String(d.label).length; }).concat([4])) * 7.5 + 16), valW = Math.max.apply(null, D.map(function (d) { return (fmt(d.value) + unit).length; }).concat([2])) * 7.5 + 16, largo = Math.max(8, W - labW - valW);
+      H = n * fila;
+      cuerpo = D.map(function (d, i) {
+        var w = top ? largo * d.value / top : 0, y = i * fila;
+        return h('g', { key: i, onMouseEnter: function () { nav.set({ s: 0, i: i }); } },
+          h('rect', { x: 0, y: y, width: W, height: fila, className: 'alma-chart__hit' }),
+          h('text', { x: labW - 8, y: y + fila / 2, className: 'alma-chart__axis', textAnchor: 'end', dominantBaseline: 'central' }, chartCut(d.label, Math.floor((labW - 8) / 7.5))),
+          h('rect', { x: labW, y: y + 8, width: Math.max(0, w), height: 16, className: clase(d, i) + ' is-horizontal' }),
+          h('text', { x: labW + w + 8, y: y + fila / 2, className: 'alma-chart__value', dominantBaseline: 'central' }, fmt(d.value) + unit));
+      });
+    } else {
+      H = props.height || 240;
+      var padT = props.showValues ? 24 : 8, padB = 28, alto = H - padT - padB, yDe = function (v) { return padT + alto * (1 - v / top); }, bw = Math.min(band * 0.62, 64);
+      cuerpo = ticks.map(function (t, i) { return h('g', { key: 't' + i }, h('line', { x1: padL, x2: W - 8, y1: yDe(t), y2: yDe(t), className: 'alma-chart__grid' + (t === 0 ? ' is-base' : '') }), h('text', { x: padL - 8, y: yDe(t), className: 'alma-chart__axis', textAnchor: 'end', dominantBaseline: 'central' }, chartShort(t))); })
+        .concat(D.map(function (d, i) {
+          var x = padL + band * i + (band - bw) / 2, y = yDe(d.value);
+          return h('g', { key: i, onMouseEnter: function () { nav.set({ s: 0, i: i }); } },
+            h('rect', { x: padL + band * i, y: padT, width: band, height: alto, className: 'alma-chart__hit' }),
+            h('rect', { x: x, y: y, width: bw, height: Math.max(0, yDe(0) - y), className: clase(d, i) }),
+            props.showValues ? h('text', { x: x + bw / 2, y: y - 8, className: 'alma-chart__value', textAnchor: 'middle' }, fmt(d.value)) : null,
+            h('text', { x: padL + band * i + band / 2, y: H - 8, className: 'alma-chart__axis', textAnchor: 'middle' }, chartCut(d.label, Math.floor(band / 7))));
+        }));
+      if (a && D[a.i]) tip = chartTip(padL + band * a.i + band / 2, yDe(D[a.i].value) - 8, W, [D[a.i].label, fmt(D[a.i].value) + unit]);
+    }
+    return h(ChartFrame, { title: props.title, description: props.description, table: { columns: [props.labelHeader || 'Categoría', props.valueHeader || ('Valor' + (props.unit ? ' (' + props.unit + ')' : ''))], rows: D.map(function (d) { return [d.label, fmt(d.value)]; }) } },
+      h('div', Object.assign({ ref: ref, className: 'alma-chart__plot', role: 'group', 'aria-roledescription': 'gráfico de barras', 'aria-label': props.title + '. ' + resumen }, nav.props),
+        h('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, 'aria-hidden': 'true', focusable: 'false' }, cuerpo), tip,
+        h('div', { className: 'alma-chart__sr', 'aria-live': 'polite' }, a && D[a.i] ? D[a.i].label + ': ' + fmt(D[a.i].value) + unit + '. ' + (a.i + 1) + ' de ' + n : '')));
+  }
+
+  // LineChart: how something changed. labels: what runs along (dates, months); series: [{ name, values }]. One series takes
+  // the accent; several take the categorical colours in order, or, with `highlight`, one the accent and the rest neutral.
+  function LineChart(props) {
+    var S = props.series || [], L = props.labels || [], n = L.length, ref = useRef(null), W = useChartWidth(ref), fmt = props.format || nfChart, unit = props.unit ? ' ' + props.unit : '', H = props.height || 240;
+    var todos = []; S.forEach(function (s) { s.values.forEach(function (v) { if (v != null) todos.push(v); }); });
+    var lo = props.min !== undefined ? props.min : Math.min.apply(null, todos.concat([0])), hi = Math.max.apply(null, todos.concat([lo + 1])), ticks = chartTicks(lo, hi), base = ticks[0], top = ticks[ticks.length - 1];
+    var directo = S.length > 1 && W >= 480, padL = Math.max.apply(null, ticks.map(function (t) { return chartShort(t).length; })) * 7 + 16, padR = directo ? Math.max.apply(null, S.map(function (s) { return s.name.length; })) * 7 + 20 : 12, padT = 8, padB = 28;
+    var ancho = Math.max(8, W - padL - padR), alto = H - padT - padB, xDe = function (i) { return padL + (n > 1 ? ancho * i / (n - 1) : ancho / 2); }, yDe = function (v) { return padT + alto * (1 - (v - base) / (top - base)); };
+    var nav = useChartNav(S.length, n), a = nav.act, cada = Math.max(1, Math.ceil(n / Math.max(1, Math.floor(ancho / 64))));
+    var clase = function (s, k) { return S.length === 1 ? 'is-accent' : props.highlight != null ? (s.name === props.highlight ? 'is-accent' : 'is-neutral') : 'is-cat-' + (k % 8 + 1); };
+    function mueve(ev) {
+      var r = ev.currentTarget.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top, i = n > 1 ? Math.max(0, Math.min(n - 1, Math.round((mx - padL) / ancho * (n - 1)))) : 0, mejor = -1, d = Infinity;
+      S.forEach(function (s, k) { var v = s.values[i]; if (v == null) return; var e = Math.abs(yDe(v) - my); if (e < d) { d = e; mejor = k; } });
+      if (mejor >= 0 && (!a || a.s !== mejor || a.i !== i)) nav.set({ s: mejor, i: i });
+    }
+    var ultimo = function (s) { for (var i = s.values.length - 1; i >= 0; i--) if (s.values[i] != null) return i; return -1; }, primero = function (s) { for (var i = 0; i < s.values.length; i++) if (s.values[i] != null) return i; return -1; };
+    var resumen = props.summary || (n ? 'De ' + L[0] + ' a ' + L[n - 1] + '. ' + S.map(function (s) { var p = primero(s), u = ultimo(s); return p < 0 ? '' : s.name + ': de ' + fmt(s.values[p]) + ' a ' + fmt(s.values[u]) + unit + '.'; }).join(' ') : 'Sin datos.');
+    var v = a && S[a.s] ? S[a.s].values[a.i] : null;
+    // The names at the ends of the lines: each beside its own, moved apart where two would sit on one another.
+    var nombres = {}; S.map(function (s, k) { var u = ultimo(s); return u < 0 ? null : { k: k, y: yDe(s.values[u]) }; }).filter(Boolean).sort(function (p, q) { return p.y - q.y; }).forEach(function (e, j, lista) { if (j && e.y - lista[j - 1].y < 16) e.y = lista[j - 1].y + 16; nombres[e.k] = e.y; });
+    return h(ChartFrame, { title: props.title, description: props.description, table: { columns: [props.labelHeader || 'Periodo'].concat(S.map(function (s) { return s.name + (props.unit ? ' (' + props.unit + ')' : ''); })), rows: L.map(function (l, i) { return [l].concat(S.map(function (s) { return s.values[i] == null ? '—' : fmt(s.values[i]); })); }) } },
+      !directo && S.length > 1 ? h('ul', { className: 'alma-chart__legend' }, S.map(function (s, k) { return h('li', { key: k }, h('span', { className: 'alma-chart__swatch ' + clase(s, k) }), s.name); })) : null,
+      h('div', Object.assign({ ref: ref, className: 'alma-chart__plot', role: 'group', 'aria-roledescription': 'gráfico de líneas', 'aria-label': props.title + '. ' + resumen, onMouseMove: mueve }, nav.props),
+        h('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, 'aria-hidden': 'true', focusable: 'false' },
+          ticks.map(function (t, i) { return h('g', { key: 't' + i }, h('line', { x1: padL, x2: W - padR, y1: yDe(t), y2: yDe(t), className: 'alma-chart__grid' + (t === base ? ' is-base' : '') }), h('text', { x: padL - 8, y: yDe(t), className: 'alma-chart__axis', textAnchor: 'end', dominantBaseline: 'central' }, chartShort(t))); }),
+          L.map(function (l, i) { return i % cada === 0 ? h('text', { key: 'l' + i, x: xDe(i), y: H - 8, className: 'alma-chart__axis', textAnchor: i === 0 ? 'start' : i === n - 1 && !directo ? 'end' : 'middle' }, l) : null; }),
+          a ? h('line', { x1: xDe(a.i), x2: xDe(a.i), y1: padT, y2: padT + alto, className: 'alma-chart__guide' }) : null,
+          S.map(function (s, k) {
+            // (a missing value is a gap in the line, never a fall to nothing)
+            var d = '', abre = true; s.values.forEach(function (val, i) { if (val == null) { abre = true; return; } d += (abre ? 'M' : 'L') + xDe(i).toFixed(1) + ' ' + yDe(val).toFixed(1); abre = false; });
+            var u = ultimo(s);
+            return h('g', { key: k, className: 'alma-chart__serie ' + clase(s, k) + (a && a.s === k ? ' is-active' : '') },
+              h('path', { d: d, className: 'alma-chart__line', pathLength: 1 }),
+              n <= 8 ? s.values.map(function (val, i) { return val == null ? null : h('circle', { key: i, cx: xDe(i), cy: yDe(val), r: 3, className: 'alma-chart__dot' }); }) : null,
+              directo && u >= 0 ? h('text', { x: xDe(u) + 8, y: nombres[k], className: 'alma-chart__name', dominantBaseline: 'central' }, s.name) : null);
+          }),
+          v != null ? h('circle', { cx: xDe(a.i), cy: yDe(v), r: 5, className: 'alma-chart__point ' + clase(S[a.s], a.s) }) : null),
+        v != null ? chartTip(xDe(a.i), yDe(v) - 12, W, [L[a.i] + (S.length > 1 ? ' · ' + S[a.s].name : ''), fmt(v) + unit]) : null,
+        h('div', { className: 'alma-chart__sr', 'aria-live': 'polite' }, a && S[a.s] ? (S.length > 1 ? S[a.s].name + ', ' : '') + L[a.i] + ': ' + (v == null ? 'sin dato' : fmt(v) + unit) + '. ' + (a.i + 1) + ' de ' + n : '')));
+  }
+
+  window.AlmaDS = { BarChart: BarChart, LineChart: LineChart, applyTheme: applyTheme, Link: Link, Tag: Tag, Textarea: Textarea, Card: Card, List: List, EmptyState: EmptyState, Breadcrumb: Breadcrumb, Accordion: Accordion, ProgressIndicator: ProgressIndicator, Popover: Popover, Modal: Modal, Sheet: Sheet, Combobox: Combobox, DatePicker: DatePicker, TimePicker: TimePicker, registerIcons: registerIcons, iconNames: iconNames, Table: Table, Slider: Slider, ProgressBar: ProgressBar, ActivityIndicator: ActivityIndicator, PageControl: PageControl, InlineNotification: InlineNotification, ToastRegion: ToastRegion, toast: toast, Pagination: Pagination, FileUploader: FileUploader, Skeleton: Skeleton, Tabs: Tabs, TabBar: TabBar, Sidebar: Sidebar, Toolbar: Toolbar, SearchField: SearchField, Tooltip: Tooltip, Tip: Tip, Switch: Switch, Checkbox: Checkbox, RadioGroup: RadioGroup, PopUpButton: PopUpButton, PullDownButton: PullDownButton, Alert: Alert, Button: Button, TextInput: TextInput, Icon: AlmaIcon, Pictogram: Pictogram, pictogramDrawings: pictogramDrawings, configurePictograms: configurePictograms, SegmentedControl: SegmentedControl, Stepper: Stepper, ProductCard: ProductCard, PaymentCard: PaymentCard, ProgressLine: ProgressLine };
 })();

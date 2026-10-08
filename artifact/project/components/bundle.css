@@ -707,6 +707,51 @@ button.alma-steps__btn:focus-visible { outline: 2px solid var(--focus); outline-
   [data-density="compact"] { --alma-control: var(--size-control-compact); --alma-field: var(--size-field-compact); --alma-row: var(--size-row-compact); }
 }
 
+/* ---------- Gráficos: BarChart y LineChart ---------- */
+.alma-chart { margin: 0; display: grid; gap: var(--space-16); min-width: 0; color: var(--text-01); }
+.alma-chart__head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-8) var(--space-16); }
+.alma-chart__titles { display: grid; gap: var(--space-4); min-width: 0; flex: 1 1 16rem; }
+.alma-chart__title { margin: 0; font-size: 1rem; line-height: 1.4; font-weight: var(--font-weight-emphasis); text-wrap: balance; }
+.alma-chart__desc { margin: 0; font-size: 0.875rem; line-height: 1.4; color: var(--text-02); }
+.alma-chart__plot { position: relative; min-width: 0; border-radius: var(--radius-chip); outline: none; }
+.alma-chart__plot:focus-visible { outline: 2px solid var(--focus); outline-offset: var(--space-4); }
+.alma-chart__plot svg { display: block; max-width: 100%; overflow: visible; font-family: inherit; font-variation-settings: inherit; }
+.alma-chart__axis, .alma-chart__value, .alma-chart__name { font-size: 12px; font-variant-numeric: tabular-nums; fill: var(--text-02); }
+.alma-chart__value, .alma-chart__name { fill: var(--text-01); }
+.alma-chart__grid { stroke: var(--border-subtle); stroke-width: 1; shape-rendering: crispEdges; }
+.alma-chart__grid.is-base { stroke: var(--text-03); }
+.alma-chart__guide { stroke: var(--text-03); stroke-width: 1; stroke-dasharray: 2 4; }
+.alma-chart__hit { fill: transparent; }
+/* A mark's colour: the accent, a neutral, or one of the eight of the categorical family. */
+.alma-chart .is-accent { --chart-mark: var(--interactive-01); } .alma-chart .is-neutral { --chart-mark: var(--text-03); }
+.alma-chart .is-cat-1 { --chart-mark: var(--viz-cat-01); } .alma-chart .is-cat-2 { --chart-mark: var(--viz-cat-02); } .alma-chart .is-cat-3 { --chart-mark: var(--viz-cat-03); } .alma-chart .is-cat-4 { --chart-mark: var(--viz-cat-04); }
+.alma-chart .is-cat-5 { --chart-mark: var(--viz-cat-05); } .alma-chart .is-cat-6 { --chart-mark: var(--viz-cat-06); } .alma-chart .is-cat-7 { --chart-mark: var(--viz-cat-07); } .alma-chart .is-cat-8 { --chart-mark: var(--viz-cat-08); }
+.alma-chart__mark { fill: var(--chart-mark); transform-box: fill-box; transform-origin: 50% 100%; animation: alma-chart-crece var(--duration-slow-01) var(--easing-entrance-expressive) backwards; }
+.alma-chart__mark.is-horizontal { transform-origin: 0 50%; animation-name: alma-chart-avanza; }
+.alma-chart__mark.is-active { stroke: var(--focus); stroke-width: 2; }
+.alma-chart__line { fill: none; stroke: var(--chart-mark); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1; animation: alma-chart-traza var(--duration-slow-02) var(--easing-entrance-expressive) backwards; }
+.alma-chart__serie.is-active .alma-chart__line { stroke-width: 3; }
+.alma-chart__dot { fill: var(--chart-mark); }
+.alma-chart__point { fill: var(--chart-mark); stroke: var(--ui-02); stroke-width: 2; }
+.alma-chart__name { fill: var(--text-01); }
+@keyframes alma-chart-crece { from { transform: scaleY(0); } }
+@keyframes alma-chart-avanza { from { transform: scaleX(0); } }
+@keyframes alma-chart-traza { from { stroke-dashoffset: 1; } }
+@media (prefers-reduced-motion: reduce) { .alma-chart__mark, .alma-chart__line { animation: none; } }
+.alma-chart__tip { position: absolute; z-index: var(--z-floating); transform: translate(-50%, -100%); display: grid; gap: var(--space-2); padding: var(--space-8) var(--space-16); border-radius: var(--radius-chip); background: var(--ui-03); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-floating); white-space: nowrap; pointer-events: none; font-size: 0.75rem; line-height: 1.3; }
+.alma-chart__tiplabel { color: var(--text-02); }
+.alma-chart__tipvalue { color: var(--text-01); font-size: 0.875rem; font-weight: var(--font-weight-emphasis); font-variant-numeric: tabular-nums; }
+.alma-chart__legend { display: flex; flex-wrap: wrap; gap: var(--space-8) var(--space-16); margin: 0; padding: 0; list-style: none; font-size: 0.75rem; color: var(--text-02); }
+.alma-chart__legend li { display: inline-flex; align-items: center; gap: var(--space-8); }
+.alma-chart__swatch { width: var(--space-16); height: 2px; background: var(--chart-mark); }
+.alma-chart__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.alma-chart__tablewrap { overflow-x: auto; }
+.alma-chart__table { width: 100%; border-collapse: collapse; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.alma-chart__table th, .alma-chart__table td { padding: var(--space-8) var(--space-16); text-align: left; border-bottom: 1px solid var(--border-subtle); }
+.alma-chart__table thead th { color: var(--text-02); font-weight: var(--font-weight-emphasis); }
+.alma-chart__table tbody th { font-weight: var(--font-weight-body); }
+.alma-chart__table td { text-align: right; } .alma-chart__table thead th:not(:first-child) { text-align: right; }
+
 /* ---------- Alto contraste: superficies que son claras en todos los temas ---------- */
 [data-theme$="-hc"] .alma-pcard__body { opacity: 1; }
 [data-theme$="-hc"] .alma-paycard__number { text-shadow: none; }

@@ -147,6 +147,156 @@ var hilos = AlmaEfectos.monta('hilos', elemento, { cuantos: 16, separa: 0.2 });
 hilos.quita();
 ```
 
+### Retícula
+
+Una grilla pareja de puntos chicos; los que quedan cerca del puntero crecen y toman el acento.
+
+#### Cuándo
+
+Para una apertura sobria, de aire técnico: una página de producto, una sección de documentación, el fondo de un titular. Es el fondo que menos compite con lo que lleva encima.
+
+No lo uses detrás de tablas, formularios o gráficos: sus puntos se confunden con los de ellos.
+
+#### Cómo funciona
+
+Los puntos están siempre en su lugar; lo que cambia es su tamaño y su color. Cada punto mira qué tan cerca está del puntero: mientras más cerca, más crece y más toma el acento. Sin puntero, cada tanto pasa sola una ola lenta que hace lo mismo.
+
+Los puntos en reposo toman el color del texto, muy apagado, sobre el fondo de la página.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Separación | La distancia entre un punto y el siguiente. |
+| Tamaño | El radio de un punto en reposo. |
+| Alcance | Hasta dónde llega la luz del puntero. |
+| Crece | Cuánto se agranda un punto encendido. En cero, solo cambia de color. |
+| Ola | Cuánto se nota la ola que pasa sola. En cero, solo responde al puntero. |
+| Velocidad | Qué tan rápido pasa la ola. |
+
+#### Con menos movimiento
+
+Queda la grilla quieta, con una ola detenida.
+
+#### Código
+
+```js
+var reticula = AlmaEfectos.monta('reticula', elemento, { paso: 32, ola: 0 });
+reticula.quita();
+```
+
+### Grano
+
+Manchas amplias de color que se mezclan despacio, bajo un grano fino y quieto como el del papel.
+
+#### Cuándo
+
+Para dar color y textura a una sección entera sin dibujar nada: una apertura, una pantalla de bienvenida, el fondo de una cita.
+
+Recuerda que el texto no va directo sobre un fondo vivo: aquí el color cambia de lugar y, con él, el contraste.
+
+#### Cómo funciona
+
+Un dibujo lento dice, en cada punto, cuál de los colores hay. Antes de leerlo, otro dibujo corre un poco el lugar donde se lee: eso hace que las manchas se enrosquen en vez de quedar como parches.
+
+El grano es un valor fijo para cada punto de la pantalla: no parpadea. Las manchas toman el acento y, en menor medida, el color del texto, sobre el fondo de la página.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Escala | El tamaño de las manchas. Más alto, manchas más chicas. |
+| Mezcla | Cuánto se enroscan unas en otras. En cero, son parches suaves. |
+| Fuerza | Cuánto color llevan. |
+| Grano | Cuánto se nota el grano. En cero, es un degradado limpio. |
+| Velocidad | Qué tan rápido se mueven. |
+
+#### Reacción
+
+Las manchas se corren apenas hacia donde va el puntero.
+
+#### Código
+
+```js
+var grano = AlmaEfectos.monta('grano', elemento, { escala: 0.8, grano: 0.06 });
+grano.quita();
+```
+
+### Rayos
+
+Haces de luz que bajan en abanico desde un punto sobre la imagen, unos más fuertes que otros, girando despacio.
+
+#### Cuándo
+
+Para una apertura con un foco claro: la luz señala hacia abajo, donde está lo que importa. Sirve detrás de un titular centrado o de una pieza que se presenta.
+
+No lo uses en secciones bajas y anchas: los rayos necesitan altura para verse como rayos.
+
+#### Cómo funciona
+
+Cada punto de la imagen mira en qué dirección queda la fuente de luz. Un dibujo que depende solo de esa dirección dice cuánta luz hay: por eso la luz es la misma a lo largo de una línea desde la fuente, y eso es un rayo. Son dos dibujos, uno fino y uno ancho, que giran en sentidos contrarios.
+
+La luz se queda dentro de un abanico y se apaga con la distancia. Toma el acento y, donde es más fuerte, el color del texto.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Origen | De dónde viene la luz, a lo ancho. En cero, del centro. |
+| Apertura | Qué tan abierto es el abanico. |
+| Largo | Hasta dónde llegan los rayos. |
+| Rayos | Cuántos haces se distinguen. |
+| Fuerza | Cuánta luz llevan. |
+| Velocidad | Qué tan rápido giran. |
+
+#### Reacción
+
+La fuente se inclina un poco hacia el puntero.
+
+#### Código
+
+```js
+var rayos = AlmaEfectos.monta('rayos', elemento, { origen: -0.4, apertura: 1 });
+rayos.quita();
+```
+
+### Ondas
+
+Un suelo de líneas visto desde abajo, una detrás de otra hasta el horizonte, por el que pasan lomas.
+
+#### Cuándo
+
+Para la parte baja de una apertura: da un suelo y una profundidad, y deja libre el cielo para el titular. Va bien con el Velo o los Rayos arriba, en secciones distintas.
+
+No lo confundas con los Hilos: los Hilos son un haz que cruza; las Ondas son un terreno. No los pongas juntos.
+
+#### Cómo funciona
+
+Cada línea es una altura que cambia a lo ancho. La línea siguiente lee el mismo dibujo un poco más allá, y entre todas dibujan un solo suelo. Las lomas avanzan hacia quien mira.
+
+Las líneas cercanas tapan a las lejanas, como un cerro tapa lo que tiene detrás. Las lejanas son más bajas, van más juntas y se apagan. Las cercanas toman el color del texto; las lejanas, el acento.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Cuántas | Cuántas líneas hay hasta el horizonte. |
+| Altura | Qué tan altas son las lomas. En cero, es un suelo plano. |
+| Horizonte | A qué altura de la imagen queda la última línea. |
+| Grosor | El ancho de la línea más cercana. |
+| Velocidad | Qué tan rápido avanzan las lomas. |
+
+#### Reacción
+
+Bajo el puntero, el suelo cercano se levanta un poco.
+
+#### Código
+
+```js
+var ondas = AlmaEfectos.monta('ondas', elemento, { horizonte: 0.5, altura: 1.4 });
+ondas.quita();
+```
+
 ## Reacción
 
 ### Chispa

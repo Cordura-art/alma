@@ -1,0 +1,11 @@
+<!-- @dsCard group="Datos" height=720 subtitle="Cómo cambió · rótulos directos · también como tabla" -->
+<div id="root" style="padding:24px;display:grid;gap:48px;max-width:720px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  var meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'];
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(A.LineChart, { title: 'Las ventas subieron de 40 a 62 millones, con una baja en abril', description: 'Ventas por mes, en millones de pesos · primer semestre de 2026', labels: meses, series: [{ name: 'Ventas', values: [40, 44, 52, 47, 58, 62] }], unit: 'M', labelHeader: 'Mes' }),
+    h(A.LineChart, { title: 'Talca se despegó del resto desde marzo', description: 'Pasajes vendidos por mes y destino', labels: meses, series: [{ name: 'Talca', values: [1210, 1300, 1840, 1900, 2050, 2240] }, { name: 'Chillán', values: [1180, 1240, 1420, 1390, null, 1460] }, { name: 'Temuco', values: [990, 1100, 1260, 1210, 1280, 1300] }], highlight: 'Talca', unit: 'pasajes', labelHeader: 'Mes' })));
+</script>

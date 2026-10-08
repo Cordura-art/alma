@@ -903,3 +903,204 @@
     }
   });
 })();
+// Retícula: an even grid of small dots; those near the pointer grow and take the accent, and now and then a slow
+// wave of the same passes through by itself. A background.
+// How it works: each point of the picture finds the cell of the grid it is in and asks how far it is from that
+// cell's centre: nearer than the dot's radius, it is dot. The radius and the colour of each dot come from how near
+// its centre is to the pointer, and from a slow noise that drifts across the grid.
+(function () {
+  var E = window.AlmaEfectos;
+  var FS = [
+    'precision highp float;',
+    'varying vec2 vUv; uniform vec2 uTam, uPuntero; uniform float uT, uPaso, uTamano, uAlcance, uCrece, uOla, uCerca; uniform vec3 uFondo, uUno, uDos;',
+    E.RUIDO,
+    'void main() {',
+    '  vec2 px = gl_FragCoord.xy, celda = floor(px / uPaso), centro = (celda + 0.5) * uPaso;',
+    '  float d = length((centro / uTam - uPuntero) * vec2(uTam.x / uTam.y, 1.0));',
+    '  float cerca = uCerca * (1.0 - smoothstep(0.0, uAlcance, d));',
+    '  float ola = uOla * smoothstep(0.55, 0.92, ruido(celda * 0.11 + vec2(uT * 0.13, -uT * 0.09)));',
+    '  float viva = max(cerca, ola), radio = uTamano * (1.0 + uCrece * viva);',
+    '  float punto = 1.0 - smoothstep(radio - 0.75, radio + 0.75, length(px - centro));',
+    '  gl_FragColor = vec4(mix(uFondo, mix(mix(uFondo, uDos, 0.3), uUno, viva), punto), 1.0);',
+    '}'
+  ].join('\n');
+  E.pon({
+    id: 'reticula', familia: 'fondo', nombre: 'Retícula',
+    colores: { fondo: 'ui-02', uno: 'interactive-01', dos: 'text-01' },
+    ajustes: [
+      { id: 'paso', nombre: 'Separación', min: 12, max: 56, paso: 4, valor: 24 },
+      { id: 'tamano', nombre: 'Tamaño', min: 0.5, max: 6, paso: 0.5, valor: 1.5 },
+      { id: 'alcance', nombre: 'Alcance', min: 0.05, max: 0.6, paso: 0.05, valor: 0.3 },
+      { id: 'crece', nombre: 'Crece', min: 0, max: 4, paso: 0.25, valor: 2 },
+      { id: 'ola', nombre: 'Ola', min: 0, max: 1, paso: 0.05, valor: 0.5 },
+      { id: 'velocidad', nombre: 'Velocidad', min: 0, max: 3, paso: 0.1, valor: 1 }
+    ],
+    crea: function (lienzo, V) {
+      var S = E.sombra(lienzo, FS, 1); if (!S) return null; var gl = S.gl, u = S.u, t = 0, cerca = 0, px = 0.5, py = 0.5;
+      return {
+        medida: S.medida, quita: S.quita,
+        color: function (k, v) { gl.uniform3fv(u[{ fondo: 'uFondo', uno: 'uUno', dos: 'uDos' }[k]], v); },
+        cuadro: function (dt, ahora, puntero, calla) {
+          t += dt * V.velocidad * 4;
+          // the pointer's light comes up when it comes in and goes down when it leaves, and follows it without a jump
+          var k = 1 - Math.exp(-dt * 10); cerca += ((puntero.dentro ? 1 : 0) - cerca) * (1 - Math.exp(-dt * 5));
+          if (puntero.dentro) { px += (puntero.x + 0.5 - px) * k; py += (puntero.y + 0.5 - py) * k; }
+          if (calla) return;
+          var d = Math.min(window.devicePixelRatio || 1, 2);
+          gl.uniform1f(u.uT, t); gl.uniform1f(u.uPaso, V.paso * d); gl.uniform1f(u.uTamano, V.tamano * d); gl.uniform1f(u.uAlcance, V.alcance); gl.uniform1f(u.uCrece, V.crece); gl.uniform1f(u.uOla, V.ola); gl.uniform1f(u.uCerca, cerca); gl.uniform2f(u.uPuntero, px, py);
+          S.dibuja();
+        }
+      };
+    }
+  });
+})();
+// Grano: broad stains of colour that drift slowly into one another, under a fine still grain like that of paper.
+// A background.
+// How it works: a slow noise says, at each point, which of the colours there is; before it is read, the place it
+// is read at is pushed aside by another noise, which is what makes the stains curl instead of sitting as blots.
+// The grain is one value for each point of the screen, always the same: it does not flicker.
+(function () {
+  var E = window.AlmaEfectos;
+  var FS = [
+    'precision highp float;',
+    'varying vec2 vUv; uniform vec2 uTam; uniform float uT, uEscala, uMezcla, uGrano, uFuerza, uCorre; uniform vec3 uFondo, uUno, uDos;',
+    E.RUIDO,
+    'void main() {',
+    '  vec2 p = vUv * vec2(uTam.x / uTam.y, 1.0) * uEscala + vec2(uCorre, 0.0);',
+    '  vec2 q = p + uMezcla * (vec2(ruido(p * 1.3 + vec2(uT * 0.05, 3.1)), ruido(p * 1.3 + vec2(7.7, -uT * 0.04))) - 0.5);',
+    '  float a = ruido(q * 1.1 + vec2(-uT * 0.03, uT * 0.02)), b = ruido(q * 0.8 + vec2(11.0 + uT * 0.02, 5.0));',
+    '  vec3 col = mix(uFondo, uUno, smoothstep(0.3, 0.72, a) * uFuerza);',
+    '  col = mix(col, uDos, smoothstep(0.62, 0.95, b) * 0.45 * uFuerza);',
+    // (the grain: a chance of its own for each point, worked twice over so that no weave shows)
+    '  vec2 g = floor(gl_FragCoord.xy); float fino = fract(sin(dot(g, vec2(12.9898, 78.233))) * 43758.5453); fino = fract(sin(fino * 91.3458 + dot(g, vec2(0.317, 0.729))) * 47453.5453);',
+    '  col += (fino - 0.5) * uGrano;',
+    '  gl_FragColor = vec4(col, 1.0);',
+    '}'
+  ].join('\n');
+  E.pon({
+    id: 'grano', familia: 'fondo', nombre: 'Grano',
+    colores: { fondo: 'ui-02', uno: 'interactive-01', dos: 'text-01' },
+    ajustes: [
+      { id: 'escala', nombre: 'Escala', min: 0.4, max: 3, paso: 0.1, valor: 1.2 },
+      { id: 'mezcla', nombre: 'Mezcla', min: 0, max: 3, paso: 0.1, valor: 1.4 },
+      { id: 'fuerza', nombre: 'Fuerza', min: 0.1, max: 1, paso: 0.05, valor: 0.7 },
+      { id: 'grano', nombre: 'Grano', min: 0, max: 0.3, paso: 0.02, valor: 0.1 },
+      { id: 'velocidad', nombre: 'Velocidad', min: 0, max: 3, paso: 0.1, valor: 1 }
+    ],
+    crea: function (lienzo, V) {
+      var S = E.sombra(lienzo, FS, 1); if (!S) return null; var gl = S.gl, u = S.u, t = 0, corre = 0;
+      return {
+        medida: S.medida, quita: S.quita,
+        color: function (k, v) { gl.uniform3fv(u[{ fondo: 'uFondo', uno: 'uUno', dos: 'uDos' }[k]], v); },
+        cuadro: function (dt, ahora, puntero, calla) {
+          t += dt * V.velocidad * 4; corre += ((puntero.dentro ? puntero.x * 0.25 : 0) - corre) * (1 - Math.exp(-dt * 1.5)); if (calla) return;
+          gl.uniform1f(u.uT, t); gl.uniform1f(u.uEscala, V.escala); gl.uniform1f(u.uMezcla, V.mezcla); gl.uniform1f(u.uGrano, V.grano); gl.uniform1f(u.uFuerza, V.fuerza); gl.uniform1f(u.uCorre, corre);
+          S.dibuja();
+        }
+      };
+    }
+  });
+})();
+// Rayos: shafts of light that fan down from a point above the picture, some brighter than others, turning slowly.
+// A background.
+// How it works: each point of the picture asks at what angle it is seen from the point the light comes from. A noise
+// that depends only on that angle says how bright that direction is, so the light is the same all along a line from
+// the source: a ray. Two such noises, one fine and one broad, turn against each other. The light is kept inside a
+// fan and thins out with distance.
+(function () {
+  var E = window.AlmaEfectos;
+  var FS = [
+    'precision highp float;',
+    'varying vec2 vUv; uniform vec2 uTam; uniform float uT, uOrigen, uApertura, uLargo, uRayos, uFuerza; uniform vec3 uFondo, uUno, uDos;',
+    E.RUIDO,
+    'void main() {',
+    '  vec2 p = (vUv - vec2(0.5 + uOrigen, 1.06)) * vec2(uTam.x / uTam.y, 1.0);',
+    '  float ang = atan(p.x, -p.y), d = length(p);',
+    '  float a = ruido(vec2(ang * uRayos + uT * 0.12, 1.7)), b = ruido(vec2(ang * uRayos * 2.3 - uT * 0.08, 9.2));',
+    '  float luz = (a * a * 0.75 + b * b * b * 0.6) * (1.0 - smoothstep(uApertura * 0.55, uApertura, abs(ang))) * (1.0 - smoothstep(0.0, uLargo, d)) * uFuerza;',
+    '  vec3 col = mix(uFondo, mix(uUno, uDos, clamp(luz * 0.7, 0.0, 1.0)), clamp(luz * 1.7, 0.0, 1.0));',
+    '  col += (azar(gl_FragCoord.xy * 0.731) - 0.5) / 255.0;',
+    '  gl_FragColor = vec4(col, 1.0);',
+    '}'
+  ].join('\n');
+  E.pon({
+    id: 'rayos', familia: 'fondo', nombre: 'Rayos',
+    colores: { fondo: 'ui-02', uno: 'interactive-01', dos: 'text-01' },
+    ajustes: [
+      { id: 'origen', nombre: 'Origen', min: -0.6, max: 0.6, paso: 0.05, valor: 0 },
+      { id: 'apertura', nombre: 'Apertura', min: 0.2, max: 1.5, paso: 0.05, valor: 0.8 },
+      { id: 'largo', nombre: 'Largo', min: 0.4, max: 2.5, paso: 0.1, valor: 1.3 },
+      { id: 'rayos', nombre: 'Rayos', min: 2, max: 24, paso: 1, valor: 9 },
+      { id: 'fuerza', nombre: 'Fuerza', min: 0.1, max: 1, paso: 0.05, valor: 0.7 },
+      { id: 'velocidad', nombre: 'Velocidad', min: 0, max: 3, paso: 0.1, valor: 1 }
+    ],
+    crea: function (lienzo, V) {
+      var S = E.sombra(lienzo, FS, 0.5); if (!S) return null; var gl = S.gl, u = S.u, t = 0, corre = 0;
+      return {
+        medida: S.medida, quita: S.quita,
+        color: function (k, v) { gl.uniform3fv(u[{ fondo: 'uFondo', uno: 'uUno', dos: 'uDos' }[k]], v); },
+        cuadro: function (dt, ahora, puntero, calla) {
+          // the source leans a little toward the pointer
+          t += dt * V.velocidad * 4; corre += ((puntero.dentro ? puntero.x * 0.2 : 0) - corre) * (1 - Math.exp(-dt * 2)); if (calla) return;
+          gl.uniform1f(u.uT, t); gl.uniform1f(u.uOrigen, V.origen + corre); gl.uniform1f(u.uApertura, V.apertura); gl.uniform1f(u.uLargo, V.largo); gl.uniform1f(u.uRayos, V.rayos); gl.uniform1f(u.uFuerza, V.fuerza);
+          S.dibuja();
+        }
+      };
+    }
+  });
+})();
+// Ondas: a ground of lines seen from low down, one behind another to the horizon; hills pass through it toward
+// whoever looks, and the near lines hide the far ones. A background.
+// How it works: each line is a height that changes along the width, read from a noise; the next line reads it a
+// little further on, so the lines together draw one ground. Each point of the picture goes through the lines from
+// the nearest: if it is on one, it is line; if it is under one, it is hidden by that hill and looks no further.
+// Far lines are lower in height, closer together and fainter.
+(function () {
+  var E = window.AlmaEfectos;
+  var FS = [
+    'precision highp float;',
+    'varying vec2 vUv; uniform vec2 uTam, uPuntero; uniform float uT, uCuantas, uAltura, uHorizonte, uGrosor, uCerca; uniform vec3 uFondo, uUno, uDos;',
+    E.RUIDO,
+    'void main() {',
+    '  float x = (vUv.x - 0.5) * uTam.x / uTam.y, tinta = 0.0, lejos = 0.0;',
+    '  for (int i = 0; i < 48; i++) {',
+    '    if (float(i) >= uCuantas) break;',
+    '    float z = float(i) / max(uCuantas - 1.0, 1.0), pie = mix(-0.04, uHorizonte, pow(z, 0.62));',
+    // (a far line sees more of the ground across: the same hills, narrower)
+    '    float sube = ruido(vec2(x * (1.3 + 2.6 * z) + 40.0, z * 5.0 + uT * 0.11)) + 0.35 * ruido(vec2(x * (4.0 + 6.0 * z) + 3.0, z * 14.0 + uT * 0.2));',
+    '    sube += uCerca * 0.9 * exp(-pow((vUv.x - uPuntero.x) * 5.0, 2.0)) * (1.0 - z);',
+    '    float y = pie + sube * uAltura * 0.2 * (1.0 - 0.72 * z);',
+    '    float ancho = uGrosor * (1.0 - 0.55 * z), dy = (vUv.y - y) * uTam.y;',
+    '    if (abs(dy) < ancho * 0.5 + 1.0) { tinta = (1.0 - smoothstep(ancho * 0.5, ancho * 0.5 + 1.0, abs(dy))) * (1.0 - 0.78 * z); lejos = z; break; }',
+    '    if (dy < 0.0) break;',
+    '  }',
+    '  gl_FragColor = vec4(mix(uFondo, mix(uDos, uUno, smoothstep(0.0, 0.8, lejos)), tinta), 1.0);',
+    '}'
+  ].join('\n');
+  E.pon({
+    id: 'ondas', familia: 'fondo', nombre: 'Ondas',
+    colores: { fondo: 'ui-02', uno: 'interactive-01', dos: 'text-01' },
+    ajustes: [
+      { id: 'cuantas', nombre: 'Cuántas', min: 8, max: 48, paso: 1, valor: 30 },
+      { id: 'altura', nombre: 'Altura', min: 0, max: 2.5, paso: 0.1, valor: 1 },
+      { id: 'horizonte', nombre: 'Horizonte', min: 0.3, max: 0.95, paso: 0.05, valor: 0.7 },
+      { id: 'grosor', nombre: 'Grosor', min: 0.5, max: 3, paso: 0.25, valor: 1.25 },
+      { id: 'velocidad', nombre: 'Velocidad', min: 0, max: 3, paso: 0.1, valor: 1 }
+    ],
+    crea: function (lienzo, V) {
+      var S = E.sombra(lienzo, FS, 1); if (!S) return null; var gl = S.gl, u = S.u, t = 0, cerca = 0, px = 0.5;
+      return {
+        medida: S.medida, quita: S.quita,
+        color: function (k, v) { gl.uniform3fv(u[{ fondo: 'uFondo', uno: 'uUno', dos: 'uDos' }[k]], v); },
+        cuadro: function (dt, ahora, puntero, calla) {
+          // under the pointer the near ground rises a little
+          t += dt * V.velocidad * 4; cerca += ((puntero.dentro ? 1 : 0) - cerca) * (1 - Math.exp(-dt * 3)); if (puntero.dentro) px += (puntero.x + 0.5 - px) * (1 - Math.exp(-dt * 6));
+          if (calla) return;
+          var d = Math.min(window.devicePixelRatio || 1, 2);
+          gl.uniform1f(u.uT, t); gl.uniform1f(u.uCuantas, V.cuantas); gl.uniform1f(u.uAltura, V.altura); gl.uniform1f(u.uHorizonte, V.horizonte); gl.uniform1f(u.uGrosor, V.grosor * d); gl.uniform1f(u.uCerca, cerca); gl.uniform2f(u.uPuntero, px, 0);
+          S.dibuja();
+        }
+      };
+    }
+  });
+})();

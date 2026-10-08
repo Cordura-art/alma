@@ -297,14 +297,18 @@
     espaciado: { slug: 'espaciado', icon: 'layers', tokens: function () { return h(SpaceTokens); } },
     movimiento: { slug: 'movimiento', icon: 'renew', preview: 'Motion', hint: 'Pasa el cursor o enfoca una fila', tokens: function () { return h(MotionTokens); } },
     iconos: { slug: 'iconos', icon: 'image', preview: 'Icon', tokens: function () { return h(IconTokens); } },
-    temas: { slug: 'temas', icon: 'asleep', tokens: function () { return h(ThemeTokens); } }
+    temas: { slug: 'temas', icon: 'asleep', tokens: function () { return h(ThemeTokens); } },
+    // (a foundation that is all guidance has no table of tokens of its own)
+    datos: { slug: 'datos', icon: 'dashboard' },
+    adaptable: { slug: 'adaptable', icon: 'grid' },
+    entradas: { slug: 'entradas', icon: 'flash' }
   };
   function Foundation(p) {
     var f = FUND[p.id], el = C.elements[f.slug];
     var mo = f.preview ? C.components.filter(function (c) { return c.name === f.preview; })[0] : null;
     var tab = useState(el.sections[0].title);
     var tabs = el.sections.map(function (s) { return { value: s.title, label: s.title, content: h(Md, { src: s.body, shift: true }) }; })
-      .concat([{ value: 'Tokens', label: 'Tokens', content: f.tokens(p) }]);
+      .concat(f.tokens ? [{ value: 'Tokens', label: 'Tokens', content: f.tokens(p) }] : []);
     return h(React.Fragment, null,
       h(Head, { eyebrow: 'Fundamentos', title: el.name, summary: el.summary }),
       mo ? h('p', { className: 'pv__label web-label-s' }, f.hint || mo.subtitle || 'Vista previa') : null,
@@ -381,7 +385,8 @@
   });
   var PATTERN_ICON = { 'formularios': 'list', 'estados-vacios': 'view', 'notificaciones': 'notification', 'carga': 'in-progress',
     'busqueda-y-filtros': 'search', 'dialogos': 'layers', 'acciones': 'flash', 'desactivado-y-solo-lectura': 'view', 'contenido-que-desborda': 'overflow-menu--horizontal',
-    'encabezado-global': 'menu', 'inicio-de-sesion': 'login', 'indicadores-de-estado': 'warning--alt', 'barra-de-texto': 'document', 'estilos-fluidos': 'list', 'divulgacion': 'view', 'portada': 'image' };
+    'encabezado-global': 'menu', 'inicio-de-sesion': 'login', 'indicadores-de-estado': 'warning--alt', 'barra-de-texto': 'document', 'estilos-fluidos': 'list', 'divulgacion': 'view', 'portada': 'image',
+    'bienvenida': 'home', 'ajustes': 'list', 'arrastrar-y-soltar': 'layers', 'deshacer': 'renew', 'compartir': 'launch' };
   (C.patterns || []).forEach(function (pt) {
     pages.push({ id: pt.slug, label: pt.name, icon: PATTERN_ICON[pt.slug] || 'grid', group: 'Patrones', render: function () { return h(Pattern, { pt: pt, key: pt.slug }); } });
   });
