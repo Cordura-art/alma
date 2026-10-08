@@ -103,7 +103,7 @@ Cerca de una de cada doce personas distingue mal algunos colores. Por eso:
 7. **Leyenda:** solo si no caben los rótulos directos. Arriba del área, en el mismo orden que las series.
 8. **Detalle al apuntar:** el valor exacto del punto, con su fecha y su serie.
 
-> **Imagen pendiente:** un gráfico de líneas con sus ocho partes numeradas: título con la conclusión, bajada con unidad y fuente, dos series rotuladas al final de su línea, eje con cuatro marcas, líneas de guía y el detalle abierto sobre un punto.
+![Las partes de un gráfico de líneas, numeradas como en la lista: el título con la conclusión (1), la bajada con la unidad y el periodo (2), el área de datos (3), el eje (4), las líneas de guía (5), el nombre de cada serie junto a su línea (6) y el detalle abierto sobre un punto (8). La leyenda (7) no aparece: los nombres caben junto a las líneas.](assets/Fundamentos/datos-anatomia.png)
 
 ### Marcas
 

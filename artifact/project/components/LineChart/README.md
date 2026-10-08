@@ -30,7 +30,7 @@ Antes de usarlo, lee **Gráficos de datos**.
 5. **Eje y líneas de guía.**
 6. **Guía vertical y detalle:** al apuntar o enfocar, marcan el punto y dan su valor.
 
-> **Imagen pendiente:** un `LineChart` con tres series, una en el color del acento y dos neutras, cada una rotulada al final, la guía vertical sobre marzo y el detalle abierto.
+![Un LineChart con tres series: Talca en el color del acento y Chillán y Temuco neutras, cada una con su nombre al final de su línea. Chillán tiene un hueco en mayo. Una guía vertical marca marzo y el detalle dice «Mar · Talca, 1.840 pasajes».](assets/Componentes/line-chart-series.png)
 
 ### Color
 

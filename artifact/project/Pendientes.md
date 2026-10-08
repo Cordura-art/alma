@@ -2,51 +2,9 @@
 
 Todo lo que falta crear en ALMA. Las imágenes y las pruebas con lectores de pantalla se listan solas desde los documentos del repositorio; esta página se actualiza en cada cambio. En el sitio, cada imagen pendiente se marca en magenta dentro de su página.
 
-**En resumen:** 9 imágenes por crear y 47 componentes por probar con lectores de pantalla.
+**En resumen:** 0 imágenes por crear y 47 componentes por probar con lectores de pantalla.
 
-## Imágenes por crear (9)
-
-### Fundamentos
-
-**[Diseño adaptable](#adaptable)**
-
-- Resumen: la misma pantalla de viajes en los tres anchos: un panel con `TabBar`; lista y detalle lado a lado; y `Sidebar`, lista y detalle.
-
-**[Gráficos de datos](#datos)**
-
-- Anatomía: un gráfico de líneas con sus ocho partes numeradas: título con la conclusión, bajada con unidad y fuente, dos series rotuladas al final de su línea, eje con cuatro marcas, líneas de guía y el detalle abierto sobre un punto.
-
-### Patrones
-
-**[Bienvenida](#bienvenida)**
-
-- las tres pantallas de un recorrido en un teléfono, con su figura, título, frase, `PageControl`, «Continuar» y «Saltar»; la última con «Buscar pasajes».
-
-**[Ajustes](#ajustes)**
-
-- una página de Ajustes en escritorio, con `Sidebar` de grupos y filas con `Switch`, `PopUpButton` y valores; y la misma en teléfono, como lista de grupos.
-
-**[Arrastrar y soltar](#arrastrar-y-soltar)**
-
-- una lista de cuatro filas con asa, en tres momentos: en reposo, una fila tomada con su lugar marcado y la línea de destino, y la lista ya reordenada.
-
-**[Deshacer](#deshacer)**
-
-- una lista de viajes donde se acaba de archivar uno, con el aviso «Viaje archivado» y su acción «Deshacer», en tema oscuro y claro.
-
-**[Compartir](#compartir)**
-
-- el diálogo de compartir en escritorio, con el campo de invitar, tres personas con sus permisos y la sección de enlace con «Copiar enlace».
-
-### Componentes
-
-**[BarChart](#barchart)**
-
-- Uso: un `BarChart` vertical con sus seis partes numeradas, una barra en el color del acento y las demás neutras, y el detalle abierto sobre una barra.
-
-**[LineChart](#linechart)**
-
-- Uso: un `LineChart` con tres series, una en el color del acento y dos neutras, cada una rotulada al final, la guía vertical sobre marzo y el detalle abierto.
+## Imágenes por crear (0)
 
 ## Pruebas con lectores de pantalla (47)
 

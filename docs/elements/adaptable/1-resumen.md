@@ -23,7 +23,7 @@ Los cinco puntos de quiebre de la grilla se leen como tres maneras de armar una 
 
 Desde `bp-max` (1584 px) el contenido deja de crecer y queda centrado: una línea de texto más larga no se lee mejor.
 
-> **Imagen pendiente:** la misma pantalla de viajes en los tres anchos: un panel con `TabBar`; lista y detalle lado a lado; y `Sidebar`, lista y detalle.
+![La misma pantalla de viajes en los tres anchos. Angosto: un panel con la lista y TabBar abajo. Medio: la lista y el detalle lado a lado, con TabBar abajo. Amplio: Sidebar a la izquierda, y la lista y el detalle lado a lado.](assets/Fundamentos/adaptable-anchos.png)
 
 ## Qué cambia
 

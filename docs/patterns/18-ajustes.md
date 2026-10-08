@@ -24,7 +24,7 @@ Un ajuste es una decisión que el diseño no tomó. Antes de agregar uno, busca 
 - **Con muchos ajustes**, navegación propia: `Sidebar` desde `bp-lg`, una lista que lleva a cada grupo en el teléfono. Y un `SearchField` arriba.
 - **Lo peligroso, al final** y separado: cerrar sesión, eliminar la cuenta.
 
-> **Imagen pendiente:** una página de Ajustes en escritorio, con `Sidebar` de grupos y filas con `Switch`, `PopUpButton` y valores; y la misma en teléfono, como lista de grupos.
+![La página de Ajustes en dos pantallas. En escritorio: Sidebar con los grupos Cuenta, Avisos, Apariencia y Privacidad, y al lado dos Switch de avisos, un SegmentedControl de tema y un PopUpButton de idioma. En el teléfono: los mismos grupos como una lista, cada uno con su valor actual.](assets/Patrones/ajustes-pagina.png)
 
 ## Qué control usar
 

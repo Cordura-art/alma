@@ -37,7 +37,7 @@ Elige la más liviana que alcance.
 5. **Acción principal** `filled`: «Continuar», y en la última, la primera tarea: «Buscar pasajes».
 6. **«Saltar»** `plain`, siempre en el mismo lugar.
 
-> **Imagen pendiente:** las tres pantallas de un recorrido en un teléfono, con su figura, título, frase, `PageControl`, «Continuar» y «Saltar»; la última con «Buscar pasajes».
+![Las tres pantallas de un recorrido de bienvenida en un teléfono. Cada una tiene «Saltar» arriba a la derecha, una figura, un título, una frase, el PageControl con el paso marcado y un botón: «Continuar» en las dos primeras y «Buscar pasajes» en la última.](assets/Patrones/bienvenida-recorrido.png)
 
 ## Permisos y datos
 

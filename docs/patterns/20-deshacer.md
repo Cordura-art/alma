@@ -28,7 +28,7 @@ Un aviso en `ToastRegion` con lo que pasó y una sola acción:
 
 El aviso no tapa lo que la persona estaba haciendo, y deshacer devuelve todo exactamente a como estaba: mismo lugar, mismo orden, misma selección.
 
-> **Imagen pendiente:** una lista de viajes donde se acaba de archivar uno, con el aviso «Viaje archivado» y su acción «Deshacer», en tema oscuro y claro.
+![La lista de viajes después de archivar uno, en tema oscuro y en tema claro: abajo, un aviso que dice «Viaje archivado» con la acción «Deshacer» y el botón de cerrar.](assets/Patrones/deshacer-aviso.png)
 
 ## Cuánto dura
 

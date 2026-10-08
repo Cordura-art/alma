@@ -743,7 +743,7 @@ Elige la más liviana que alcance.
 5. **Acción principal** `filled`: «Continuar», y en la última, la primera tarea: «Buscar pasajes».
 6. **«Saltar»** `plain`, siempre en el mismo lugar.
 
-> **Imagen pendiente:** las tres pantallas de un recorrido en un teléfono, con su figura, título, frase, `PageControl`, «Continuar» y «Saltar»; la última con «Buscar pasajes».
+![Las tres pantallas de un recorrido de bienvenida en un teléfono. Cada una tiene «Saltar» arriba a la derecha, una figura, un título, una frase, el PageControl con el paso marcado y un botón: «Continuar» en las dos primeras y «Buscar pasajes» en la última.](assets/Patrones/bienvenida-recorrido.png)
 
 ### Permisos y datos
 
@@ -805,7 +805,7 @@ Un ajuste es una decisión que el diseño no tomó. Antes de agregar uno, busca 
 - **Con muchos ajustes**, navegación propia: `Sidebar` desde `bp-lg`, una lista que lleva a cada grupo en el teléfono. Y un `SearchField` arriba.
 - **Lo peligroso, al final** y separado: cerrar sesión, eliminar la cuenta.
 
-> **Imagen pendiente:** una página de Ajustes en escritorio, con `Sidebar` de grupos y filas con `Switch`, `PopUpButton` y valores; y la misma en teléfono, como lista de grupos.
+![La página de Ajustes en dos pantallas. En escritorio: Sidebar con los grupos Cuenta, Avisos, Apariencia y Privacidad, y al lado dos Switch de avisos, un SegmentedControl de tema y un PopUpButton de idioma. En el teléfono: los mismos grupos como una lista, cada uno con su valor actual.](assets/Patrones/ajustes-pagina.png)
 
 ### Qué control usar
 
@@ -871,7 +871,7 @@ Nunca es la única manera. Todo lo que se hace arrastrando se puede hacer tambi�
 | Soltado | La pieza llega a su lugar y las demás se acomodan. |
 | Cancelado | La pieza vuelve a donde estaba. |
 
-> **Imagen pendiente:** una lista de cuatro filas con asa, en tres momentos: en reposo, una fila tomada con su lugar marcado y la línea de destino, y la lista ya reordenada.
+![Una lista de cuatro salidas con asa, en tres momentos. En reposo. Tomada: la fila de Temuco levantada, con sombra, su lugar marcado con un borde punteado y una línea que muestra dónde va a caer. Soltada: Temuco en la segunda posición.](assets/Patrones/arrastrar-momentos.png)
 
 ### La alternativa sin arrastrar
 
@@ -949,7 +949,7 @@ Un aviso en `ToastRegion` con lo que pasó y una sola acción:
 
 El aviso no tapa lo que la persona estaba haciendo, y deshacer devuelve todo exactamente a como estaba: mismo lugar, mismo orden, misma selección.
 
-> **Imagen pendiente:** una lista de viajes donde se acaba de archivar uno, con el aviso «Viaje archivado» y su acción «Deshacer», en tema oscuro y claro.
+![La lista de viajes después de archivar uno, en tema oscuro y en tema claro: abajo, un aviso que dice «Viaje archivado» con la acción «Deshacer» y el botón de cerrar.](assets/Patrones/deshacer-aviso.png)
 
 ### Cuánto dura
 
@@ -1011,7 +1011,7 @@ En un `Modal`, o en una `Sheet` en el teléfono:
 3. **Quién tiene acceso:** la lista de personas, cada una con su permiso. Quien comparte aparece primero, como dueño.
 4. **Enlace:** si está activo, quién puede entrar con él y un botón «Copiar enlace».
 
-> **Imagen pendiente:** el diálogo de compartir en escritorio, con el campo de invitar, tres personas con sus permisos y la sección de enlace con «Copiar enlace».
+![El diálogo «Compartir Viaje a Talca»: un campo para invitar por correo con el botón «Invitar», la lista «Quién tiene acceso» con tres personas (la dueña y dos invitados, cada uno con su permiso) y, abajo, la nota del enlace con el botón «Copiar enlace».](assets/Patrones/compartir-dialogo.png)
 
 ### Permisos
 

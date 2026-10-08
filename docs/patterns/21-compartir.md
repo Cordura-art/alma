@@ -27,7 +27,7 @@ En un `Modal`, o en una `Sheet` en el teléfono:
 3. **Quién tiene acceso:** la lista de personas, cada una con su permiso. Quien comparte aparece primero, como dueño.
 4. **Enlace:** si está activo, quién puede entrar con él y un botón «Copiar enlace».
 
-> **Imagen pendiente:** el diálogo de compartir en escritorio, con el campo de invitar, tres personas con sus permisos y la sección de enlace con «Copiar enlace».
+![El diálogo «Compartir Viaje a Talca»: un campo para invitar por correo con el botón «Invitar», la lista «Quién tiene acceso» con tres personas (la dueña y dos invitados, cada uno con su permiso) y, abajo, la nota del enlace con el botón «Copiar enlace».](assets/Patrones/compartir-dialogo.png)
 
 ## Permisos
 

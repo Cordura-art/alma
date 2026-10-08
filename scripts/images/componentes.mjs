@@ -743,5 +743,17 @@ export const componentScenes = [
   scene('product-card', 'style', 'anatomía acotada', 'product-card-medidas',
     'Medidas de ProductCard: relleno, botón para abrir y cerrar, separación entre encabezado y cuerpo, y radio.',
     { js: `mount(h('div', { style: { width: '22rem', padding: '56px 180px 56px 150px' } }, h(A.ProductCard, { title: 'Condiciones del pasaje', subtitle: 'Semicama', tone: 'red', defaultOpen: true }, 'Incluye una maleta de hasta 25 kg y un bolso de mano.')));`,
-      after: `var c = $('.alma-pcard'), hd = $('.alma-pcard__head'), bd = $('.alma-pcard__body'), tg = $('.alma-pcard__toggle'); padL(hd || c); if (tg) dimW(tg, 'top'); if (hd && bd) gapY(hd, bd, box(c).x + box(c).w + 16); rad(c, box(c).x + box(c).w + 16, box(c).y);` })
+      after: `var c = $('.alma-pcard'), hd = $('.alma-pcard__head'), bd = $('.alma-pcard__body'), tg = $('.alma-pcard__toggle'); padL(hd || c); if (tg) dimW(tg, 'top'); if (hd && bd) gapY(hd, bd, box(c).x + box(c).w + 16); rad(c, box(c).x + box(c).w + 16, box(c).y);` }),
+
+  // ---------- BarChart ----------
+  scene('bar-chart', 'usage', 'un `BarChart` vertical con sus seis partes numeradas', 'bar-chart-anatomia',
+    'Anatomía de BarChart: el título con la conclusión (1), la bajada (2), el botón «Ver como tabla» (3), las barras, con la de Talca en el color del acento y las demás neutras (4), las líneas de guía con su eje (5) y el detalle abierto sobre la barra de Temuco (6).',
+    { js: `mount(h('div', { style: { width: '38rem', padding: '24px 56px 8px' } }, h(A.BarChart, { title: 'Talca fue el destino más vendido en marzo', description: 'Pasajes vendidos por destino · marzo de 2026', data: [{ label: 'Talca', value: 1840 }, { label: 'Chillán', value: 1420 }, { label: 'Temuco', value: 1260 }, { label: 'Valdivia', value: 940 }, { label: 'Osorno', value: 610 }], highlight: 'Talca', unit: 'pasajes' })));`,
+      after: `var p = $('.alma-chart__plot'); for (var i = 0; i < 3; i++) { p.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true })); await sleep(80); } await sleep(200); num($('.alma-chart__title'), 1, 'left'); num($('.alma-chart__desc'), 2, 'left'); num($('.alma-chart__head .alma-btn'), 3, 'right'); num($('.alma-chart__mark'), 4, 'top'); num($('.alma-chart__grid'), 5, 'right', { outline: false }); num($('.alma-chart__tip'), 6, 'right');` }),
+
+  // ---------- LineChart ----------
+  scene('line-chart', 'usage', 'un `LineChart` con tres series', 'line-chart-series',
+    'Un LineChart con tres series: Talca en el color del acento y Chillán y Temuco neutras, cada una con su nombre al final de su línea. Chillán tiene un hueco en mayo. Una guía vertical marca marzo y el detalle dice «Mar · Talca, 1.840 pasajes».',
+    { js: `mount(h('div', { style: { width: '40rem', padding: '8px' } }, h(A.LineChart, { title: 'Talca se despegó del resto desde marzo', description: 'Pasajes vendidos por mes y destino', labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'], series: [{ name: 'Talca', values: [1210, 1300, 1840, 1900, 2050, 2240] }, { name: 'Chillán', values: [1180, 1240, 1420, 1390, null, 1460] }, { name: 'Temuco', values: [990, 1100, 1260, 1210, 1280, 1300] }], highlight: 'Talca', unit: 'pasajes' })));`,
+      after: `var p = $('.alma-chart__plot'); for (var i = 0; i < 3; i++) { p.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true })); await sleep(80); } await sleep(200);` }),
 ];

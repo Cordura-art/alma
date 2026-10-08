@@ -31,7 +31,7 @@ Antes de usarlo, lee **Gráficos de datos**: ahí está cuándo conviene un grá
 5. **Eje y líneas de guía**, con cuatro o cinco marcas. Las barras horizontales llevan el valor al final de cada una, sin eje.
 6. **Detalle:** el valor exacto de la barra que se apunta o se enfoca.
 
-> **Imagen pendiente:** un `BarChart` vertical con sus seis partes numeradas, una barra en el color del acento y las demás neutras, y el detalle abierto sobre una barra.
+![Anatomía de BarChart: el título con la conclusión (1), la bajada (2), el botón «Ver como tabla» (3), las barras, con la de Talca en el color del acento y las demás neutras (4), las líneas de guía con su eje (5) y el detalle abierto sobre la barra de Temuco (6).](assets/Componentes/bar-chart-anatomia.png)
 
 ## Color
 

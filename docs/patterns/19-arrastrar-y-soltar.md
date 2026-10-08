@@ -20,7 +20,7 @@ Nunca es la única manera. Todo lo que se hace arrastrando se puede hacer tambi�
 | Soltado | La pieza llega a su lugar y las demás se acomodan. |
 | Cancelado | La pieza vuelve a donde estaba. |
 
-> **Imagen pendiente:** una lista de cuatro filas con asa, en tres momentos: en reposo, una fila tomada con su lugar marcado y la línea de destino, y la lista ya reordenada.
+![Una lista de cuatro salidas con asa, en tres momentos. En reposo. Tomada: la fila de Temuco levantada, con sombra, su lugar marcado con un borde punteado y una línea que muestra dónde va a caer. Soltada: Temuco en la segunda posición.](assets/Patrones/arrastrar-momentos.png)
 
 ## La alternativa sin arrastrar
 
