@@ -18,7 +18,28 @@
   if (palabra && window.AlmaPalabra) window.AlmaPalabra.monta(palabra, { genes: window.__PALABRA, oye: escena, mide: false });      // (the word is a piece of its own, site/palabra.js; its size here is the cover's)
   // A contained entity: the pointer stirs nothing and the thing turns less. How long it takes to come together is two and
   // a half of ALMA's slowest steps, as the entity has them.
-  var CONT = !!D.contenida, lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ARMA = window.AlmaPartitura ? window.AlmaPartitura.tiempos(escena).armarse.objeto * 1000 : 2.5 * (/ms$/.test(lento) ? parseFloat(lento) : parseFloat(lento) * 1000) || 2200;
+  // (a contained page may still ask that the pointer stir the thing, as it stirs the ground of its planet)
+  var CONT = !!D.contenida, AGITA = !CONT || !!D.agita, lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ARMA = window.AlmaPartitura ? window.AlmaPartitura.tiempos(escena).armarse.objeto * 1000 : 2.5 * (/ms$/.test(lento) ? parseFloat(lento) : parseFloat(lento) * 1000) || 2200;
+  // Its grounds, if what the page says asks for them (site/efectos.js): those behind the thing while it is whole, and
+  // those that take its place once it has come apart. Each is a layer under the word, one over another in the order
+  // they are named, and only those that are seen work.
+  var capas = ['entrada', 'despues'].map(function (cual) {
+    return [].concat(D.efectos && window.AlmaEfectos && D.efectos[cual] || []).map(function (d) {
+      var capa = document.createElement('div'); capa.className = 'escaneo__efecto'; fija.insertBefore(capa, palabra);
+      if (!window.AlmaEfectos.monta(d.id, capa, d.valores)) { capa.remove(); return null; }
+      return capa;
+    }).filter(Boolean);
+  });
+  if (capas[0].length || capas[1].length) escena.classList.add('escaneo--con-efectos');
+  // Where something is said over a ground, the ground clears: a soft opening round each thing said, with no edge,
+  // as wide as its words need to be read. It opens as the words arrive and closes as they leave. (It is a mask: its
+  // black is not a colour that is seen, it is how much of the ground is let through.)
+  var huecos = [];
+  function despeja(suyas, cuanto) {
+    var m = huecos.map(function (h, i) { var k = Math.round(100 * (1 - Math.max(0, Math.min(1, cuanto[i])))), tapa = 'color-mix(in srgb, black ' + k + '%, transparent)'; return 'radial-gradient(ellipse ' + (h[2] * 2.4).toFixed(0) + 'px ' + (h[3] * 2.8).toFixed(0) + 'px at ' + h[0].toFixed(0) + 'px ' + h[1].toFixed(0) + 'px, ' + tapa + ' 0, ' + tapa + ' 58%, black 100%)'; }).join(', ');
+    suyas.forEach(function (capa) { capa.style.webkitMaskImage = capa.style.maskImage = m; capa.style.webkitMaskComposite = 'source-in'; capa.style.maskComposite = 'intersect'; });
+  }
+  function asoma(suyas, v) { suyas.forEach(function (capa) { capa.hidden = v < 0.01; capa.style.opacity = v.toFixed(3); }); }
   var ctx = lienzo.getContext('2d'), menos = matchMedia('(prefers-reduced-motion: reduce)'), bytes = atob(D.puntos), ANCHO = D.alma === 3 ? 10 : 7, N = bytes.length / ANCHO, K = Math.max(1, datos.length);
   // Chance that is always the same: the same thing comes apart the same way every time.
   var s = 2166136261; function azar() { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 1000000) / 1000000; }
@@ -53,6 +74,7 @@
     salto = celda < 3.4 ? 2 : 1;      // where a dot would be smaller than the eye can tell apart, every other one is drawn, twice as large
     radio = Math.min(W, H) * (chica ? 0.16 : 0.15);
     // Each cluster gathers beside what is said about it: between its words and the middle of the page.
+    huecos = datos.map(function (el) { var q = el.getBoundingClientRect(); return [q.left + q.width / 2 - r.left, q.top + q.height / 2 - r.top, q.width / 2, q.height / 2]; });
     centros = datos.map(function (el) { var q = el.getBoundingClientRect(), mx = q.left + q.width / 2 - r.left, my = q.top + q.height / 2 - r.top, dx = W / 2 - mx, dy = H / 2 - my, l = Math.hypot(dx, dy) || 1, sale = (Math.abs(dx) > Math.abs(dy) * 1.2 ? q.width / 2 : q.height / 2) + radio * 0.95; return [mx + dx / l * Math.min(sale, l * 0.8), my + dy / l * Math.min(sale, l * 0.8)]; });
     claro = /light/.test(document.documentElement.getAttribute('data-theme') || '');      // on a light page the dots are ink: large where the thing is dark
     fondo = getComputedStyle(document.body).backgroundColor;
@@ -65,7 +87,7 @@
     arma = quieto ? 1 : Math.min(1, (ahora - partio) / ARMA); abre += (meta - abre) * k; giro += (quiereGiro - giro) * k; alza += (quiereAlza - alza) * k;
     reloj += dt;
     // The pointer as it passed since the last moment: a stroke from where it was to where it is, and how fast.
-    var ahoraMs = performance.now(), pasa = !CONT && mano.dentro && ahoraMs - mano.cuando < 90, mx = mano.x - mano.ax, my = mano.y - mano.ay, ml = mx * mx + my * my || 1, rapidez = Math.min(1600, Math.hypot(mano.vx, mano.vy)), fuerza = Math.min(1, rapidez / 420);
+    var ahoraMs = performance.now(), pasa = AGITA && mano.dentro && ahoraMs - mano.cuando < 90, mx = mano.x - mano.ax, my = mano.y - mano.ay, ml = mx * mx + my * my || 1, rapidez = Math.min(1600, Math.hypot(mano.vx, mano.vy)), fuerza = Math.min(1, rapidez / 420);
     var alcance = Math.min(W, H) * 0.17 * (0.7 + 0.5 * fuerza), R2 = alcance * alcance, freno = Math.exp(-dt * 5.2), calma = Math.exp(-dt / 1.15), k2 = 1 - Math.exp(-dt * 9);
     // As the page is scrolled from one moment to the next, everything is stirred a little: it flows there, it is not slid.
     var revuelo = Math.min(0.22, Math.abs(abre - abreAntes) * 9); abreAntes = abre;
@@ -126,8 +148,15 @@
     }
     if (pasa) { mano.ax = mano.x; mano.ay = mano.y; }
     // Around it: the word behind stays, a little quieter once the thing is there; the way in leaves as the thing comes apart; each thing said arrives with its cluster.
+    asoma(capas[0], 1 - suave(abre * 2.4)); asoma(capas[1], suave((a - 0.4) * 2.2));
+    // Where a ground takes the thing's place, the dots go in the last stretch: what is left is the ground.
+    var queda = capas[1].length ? 1 - suave((abre - 0.72) * 4.5) : 1, ven = [];
+    if (capas[1].length) lienzo.style.opacity = queda.toFixed(3);
     palabra.style.opacity = (1 - 0.18 * suave(arma * 1.2) - 0.55 * a).toFixed(3); entrada.style.opacity = (1 - suave(abre * 4)).toFixed(3); entrada.style.visibility = abre > 0.3 ? 'hidden' : '';
-    datos.forEach(function (el, m) { var ve = suave((a - 0.5 - m * 0.06) * 3.2); el.style.opacity = (ve * (foco < 0 || m === foco ? 1 : 0.42)).toFixed(3); el.style.visibility = ve < 0.05 ? 'hidden' : ''; });
+    // (over a ground, what is said is never dimmed: its box has to stay solid to be read)
+    // (and there what is said leaves with the dots: at the end only the ground is left)
+    datos.forEach(function (el, m) { var ve = suave((a - 0.5 - m * 0.06) * 3.2) * queda; ven.push(ve); el.style.opacity = (ve * (foco < 0 || m === foco || capas[1].length ? 1 : 0.42)).toFixed(3); el.style.visibility = ve < 0.05 ? 'hidden' : ''; });
+    if (capas[1].length) despeja(capas[1], ven);
     if (!quieto && (sigue || arma < 1 || Math.abs(meta - abre) > 0.0005 || Math.abs(quiereGiro - giro) > 0.0005 || Math.abs(quiereAlza - alza) > 0.0005)) pide();
   }
   function pide() { if (pedido) return; pedido = window.AlmaReloj ? window.AlmaReloj.pide(cuadro) : requestAnimationFrame(cuadro); }

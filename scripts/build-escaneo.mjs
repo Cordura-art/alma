@@ -22,7 +22,7 @@ const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 export async function paginaDeEscaneo(id) {
   const archivo = `entidades/escaneos/${id}.json`; if (!existsSync(archivo)) throw new Error(`No hay una página de escaneo para «${id}» en entidades/escaneos/.`);
   const T = JSON.parse(readFileSync(archivo, 'utf8')), E = JSON.parse(readFileSync(`entidades/escaneos/${T.escaneo}.json`, 'utf8')), de = T.entidad || id, vuela = T.modo === 'sobrevuelo', anda = T.modo === 'recorrido' || vuela, S = await sistema(de), G = genesDe(S), L = JSON.parse(readFileSync(`entidades/lenguajes/${de}.json`, 'utf8'));
-  const trama = { alma: E.alma, ...(T.medida === 'contenida' ? { contenida: true } : {}), columnas: E.columnas, filas: E.filas, hondos: E.hondos, alto: E.alto, ...(vuela ? { vuelo: true } : {}), ...(T.arena ? { arena: true } : {}), puntos: E.puntos }, puntos = Buffer.from(E.puntos, 'base64').length / (E.alma === 3 ? 10 : 7);
+  const trama = { alma: E.alma, ...(T.medida === 'contenida' ? { contenida: true } : {}), ...(T.agita ? { agita: true } : {}), columnas: E.columnas, filas: E.filas, hondos: E.hondos, alto: E.alto, ...(vuela ? { vuelo: true } : {}), ...(T.arena ? { arena: true } : {}), ...(T.efectos ? { efectos: T.efectos } : {}), puntos: E.puntos }, puntos = Buffer.from(E.puntos, 'base64').length / (E.alma === 3 ? 10 : 7);
   const dice = (s) => esc(s.replace('{puntos}', miles(puntos)).replace('{largo}', Math.round(Math.max(E.columnas, E.hondos) * E.alto / E.filas)).replace('{pesoOrigen}', peso(E.peso || 0)).replace('{pesoTrama}', peso(JSON.stringify(trama).length)));
   return `<!doctype html>
 <html lang="es" data-theme="dark">
@@ -39,7 +39,7 @@ ${css(S)}
 [data-theme="light"] .escaneo { --escaneo-1: ${G.pieza.barras[1]}; --escaneo-2: ${G.fondo.light.tinta}; --escaneo-3: ${G.pieza.barras[3]}; }      /* on a light page: its deeper colors and its ink, which are seen on white */
 ${readFileSync('site/palabra.css', 'utf8')}
 ${readFileSync('site/escaneo.css', 'utf8')}
-${anda ? readFileSync('site/recorrido.css', 'utf8') : ''}</style>
+${T.efectos ? readFileSync('site/escaneo-efectos.css', 'utf8') : ''}${anda ? readFileSync('site/recorrido.css', 'utf8') : ''}</style>
 <button class="escaneo__tema" type="button" aria-label="Usar tema claro"><span class="escaneo__de-oscuro">${icono('light')}</span><span class="escaneo__de-claro">${icono('asleep')}</span></button>
 <main>
   <section class="escaneo${anda ? ' recorrido' : ''}" aria-label="${esc(L.nombre)}">
@@ -70,6 +70,7 @@ ${L.voz.atributos.map((a) => `      <li><strong>${esc(a[0])}, ${esc(a[1])}</stro
 ${readFileSync('site/reloj.js', 'utf8')}
 ${readFileSync('site/partitura.js', 'utf8')}
 ${readFileSync('site/palabra.js', 'utf8')}
+${T.efectos ? [readFileSync('site/efectos.js', 'utf8'), ...[...new Set(Object.values(T.efectos).flat().map((e) => e.id))].map((e) => readFileSync(`site/efectos/${e}.js`, 'utf8'))].join('\n') : ''}
 </script>
 <script>
 ${readFileSync(anda ? 'site/recorrido.js' : 'site/escaneo.js', 'utf8')}

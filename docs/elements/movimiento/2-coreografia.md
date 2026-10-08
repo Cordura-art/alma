@@ -78,4 +78,6 @@ La llegada a un planeta es una partitura: la palabra se escribe y el suelo se as
 
 Una entidad puede pedir la medida contenida cuando su lenguaje dice que lo que está en pantalla se queda donde está. Entonces nada llega volando, el puntero no revuelve nada, los granos no flotan y la mirada gira menos de la mitad. Se escribe con `"medida": "contenida"` en el contenido de su portada. Hoy la usa Autómata.
 
+Una portada contenida puede pedir, aun así, que el puntero revuelva la figura, con `"agita": true`. Lo demás sigue contenido. La portada de Autómata con busto lo pide: sus puntos se apartan al paso del puntero, como el suelo de su planeta.
+
 La palabra como pieza está en `site/palabra.js` y se trabaja en la página Palabra (`npm run palabra`).

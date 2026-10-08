@@ -46,7 +46,7 @@ No lo uses detrás de un formulario, una tabla o un texto largo. Ahí distrae.
 
 No se dibuja de nuevo en cada cuadro. Cada cuadro toma el anterior, lo agranda apenas desde el centro, lo deja apagarse un poco y le suma un anillo fino. La luz vieja se abre hacia afuera y se enrosca: esa es la estela.
 
-Usa dos luces, que toman el acento y el color del texto, sobre el fondo de la página. Al cambiar de tema o de entidad, cambian solas.
+Usa dos luces, que toman el acento y el color del texto. Donde no hay luz es transparente: va sobre el fondo de la página, o sobre otro fondo, como el Velo. Al cambiar de tema o de entidad, cambian solas.
 
 #### Ajustes
 
@@ -58,6 +58,7 @@ Usa dos luces, que toman el acento y el color del texto, sobre el fondo de la p�
 | Estela | Cuánto dura la luz que queda. |
 | Giro | Cuánto se enrosca la estela, y hacia qué lado. |
 | Velocidad | Qué tan rápido respira. |
+| Latido | Cuánto se ensancha el anillo con cada latido: dos golpes y una pausa, como un corazón. En cero, no late. |
 | Centro | Dónde está el anillo. Puede quedar fuera de la vista y dejar ver solo la estela. |
 
 #### Reacción
@@ -231,7 +232,7 @@ No lo pongas sobre texto que hay que leer con calma. La franja pasa por encima.
 
 La franja es un degradado inclinado, mucho más grande que la superficie, que espera fuera de la vista a un lado. Al llegar el puntero se desliza al otro lado; al salir, vuelve.
 
-Toma el color del texto, a medias con transparente. Cruza en `duration-slow-02`.
+Toma el color del acento, a medias con transparente: el mismo del Foco. Cruza en `duration-slow-02`.
 
 #### Ajustes
 
@@ -614,4 +615,77 @@ El efecto no se pone: la línea se ve como cualquier otra, en su color.
 ```js
 var aviso = AlmaEfectos.monta('brillo', linea);
 aviso.pasa();   // otra vez
+```
+
+### Rotar
+
+Una palabra de una frase deja su lugar a otras, de a una, y vuelve.
+
+#### Cuándo
+
+Para una frase de apertura donde una palabra tiene varias respuestas: «Un sistema claro», «simple», «propio». Al final de una línea, para que el cambio de ancho no mueva el resto.
+
+No lo uses en medio de un párrafo ni para decir algo que hay que alcanzar a leer: cada palabra se ve un momento y se va.
+
+#### Cómo funciona
+
+Se pone sobre un elemento cuyo texto son las palabras, separadas por una barra: `claro | simple | propio`. La primera es la verdadera. Cada palabra sale hacia arriba mientras la siguiente entra desde abajo.
+
+Las recorre una vez, la primera vez que entra a la vista, y se detiene en la primera. No sigue sola: un texto que cambia sin parar distrae, y nadie puede detenerlo.
+
+Cada palabra se queda tantas veces `duration-slow-02` como diga el ajuste; el cambio toma `duration-moderate-02`.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Pausa en cada palabra | Cuánto se queda cada una antes de dar paso a la siguiente. |
+| Subida | Cuánto recorre cada palabra al entrar y al salir, en proporción al tamaño de la letra. |
+
+#### Accesibilidad
+
+Un lector de pantalla lee solo la primera palabra, la verdadera: la frase tiene que tener sentido con ella. Con menos movimiento, se ve solo esa.
+
+#### Código
+
+```js
+// <p>Un sistema <span id="como">claro | simple | propio</span></p>
+var como = AlmaEfectos.monta('rotar', document.getElementById('como'));
+como.pasa();   // otra vuelta
+```
+
+### Desvelar
+
+Las palabras de un pasaje pasan de tenues a plenas, una tras otra, a medida que se avanza por la página.
+
+#### Cuándo
+
+Para un pasaje corto que se lee al paso, en una página larga de presentación: una declaración, una cita, el cierre de una sección.
+
+No lo uses en lo primero que se ve al abrir, donde no hay nada que desplazar, ni en texto de un producto.
+
+#### Cómo funciona
+
+Aquí nada corre con el tiempo. Cuántas palabras están plenas depende de cuánto ha subido el pasaje por la ventana: empieza cuando asoma por abajo y termina cuando llega al medio. Al volver atrás, se atenúan de nuevo.
+
+Es la receta «avanzar» del movimiento de marca: sigue al desplazamiento, no al reloj.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Tenue | Qué tan apagada está una palabra antes de su turno. |
+| Palabras a la vez | Cuántas palabras están a medio camino al mismo tiempo. Más, el paso es más suave. |
+
+#### Accesibilidad
+
+El texto verdadero está siempre en la página, entero y fuera de la vista, para un lector de pantalla. Con menos movimiento, el pasaje está pleno desde el principio.
+
+Una palabra tenue no cumple el contraste por sí sola. Por eso el pasaje tiene que poder leerse entero con solo avanzar un poco: mantenlo corto, y no pongas nada importante únicamente ahí.
+
+#### Código
+
+```js
+var pasaje = AlmaEfectos.monta('desvelar', parrafo, { tenue: 0.3 });
+pasaje.pasa();   // lo recorre solo una vez, para probarlo
 ```

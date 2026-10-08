@@ -5,7 +5,7 @@
   var E = window.AlmaEfectos;
   E.pon({
     id: 'destello', familia: 'reaccion', nombre: 'Destello', muestra: 'tarjeta',
-    colores: { luz: 'text-01' },
+    colores: { luz: 'interactive-01' },
     ajustes: [
       { id: 'brillo', nombre: 'Brillo', min: 0.05, max: 0.6, paso: 0.05, valor: 0.3 },
       { id: 'angulo', nombre: 'Ángulo', min: -80, max: 80, paso: 5, valor: -45 },
@@ -15,7 +15,7 @@
       var luz = document.createElement('span');
       luz.setAttribute('aria-hidden', 'true');
       luz.style.cssText = 'position:absolute;inset:0;pointer-events:none;border-radius:inherit;background-repeat:no-repeat;background-size:250% 250%;background-position:-100% -100%;transition:background-position var(--duration-slow-02) var(--easing-standard-expressive)';
-      function pinta() { luz.style.backgroundImage = 'linear-gradient(' + V.angulo + 'deg, transparent ' + (50 - V.ancho) + '%, color-mix(in srgb, var(--text-01) ' + Math.round(V.brillo * 100) + '%, transparent) 50%, transparent ' + (50 + V.ancho) + '%)'; }
+      function pinta() { luz.style.backgroundImage = 'linear-gradient(' + V.angulo + 'deg, transparent ' + (50 - V.ancho) + '%, color-mix(in srgb, var(--interactive-01) ' + Math.round(V.brillo * 100) + '%, transparent) 50%, transparent ' + (50 + V.ancho) + '%)'; }
       function entra() { if (!E.quieto()) luz.style.backgroundPosition = '100% 100%'; }
       function sale() { luz.style.backgroundPosition = '-100% -100%'; }
       var cs = getComputedStyle(el), antes = { position: el.style.position, overflow: el.style.overflow };

@@ -1,12 +1,19 @@
 {
   "medida": "contenida",
+  "agita": true,
   "escaneo": "meleagro",
   "titulo": "Portada de Autómata",
   "palabra": "Autómata",
   "frase": ["Diseñar es", "poner nombre."],
   "accion": { "texto": "Lee cómo trabajamos", "destino": "#oficio" },
   "pista": "Desplaza para comprobarlo",
-  "descripcion": "Un busto romano de mármol dibujado con miles de puntos en nuestros colores. Gira con el puntero. Al desplazar la página, los puntos se separan en cuatro grupos, uno junto a cada dato.",
+  "descripcion": "Un busto romano de mármol dibujado con miles de puntos en nuestros colores. Gira con el puntero, y sus puntos se apartan a su paso. Al desplazar la página, los puntos se separan en cuatro grupos, uno junto a cada dato, y al final se desvanecen junto con los datos.",
+  "efectos": {
+    "despues": [
+      { "id": "velo", "valores": { "alto": 0.45, "amplitud": 1, "suave": 0.35, "fuerza": 0.7, "velocidad": 1 } },
+      { "id": "halo", "valores": { "tamano": 1.2, "pulso": 2, "petalos": 3, "estela": 0.8, "giro": 1, "velocidad": 1, "x": 0, "y": 0, "latido": 0.6 } }
+    ]
+  },
   "datos": [
     "Preguntamos {puntos} veces dónde estaba el busto. Cada punto es una respuesta.",
     "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Se puede comprobar.",

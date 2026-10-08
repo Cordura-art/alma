@@ -6,9 +6,17 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 8 de octubre de 2026
 
+#### La portada de Autómata late
+
+- La portada con busto puede llevar fondos de la colección en dos momentos: detrás de la figura, y en su lugar cuando se deshace. La de Autómata entra sin fondo; al desplazar, baja el Velo y aparece el Halo al centro. Al final los puntos y los datos se desvanecen y queda el Halo.
+- El Halo es transparente donde no hay luz, así que puede ir sobre otro fondo.
+- El busto de Autómata vuelve a responder al puntero: sus puntos se apartan a su paso, como el suelo de su planeta. Lo demás de su medida contenida sigue igual.
+- Con un fondo detrás, los cuatro datos se alinean como un marco y van sin recuadro: el fondo se despeja suavemente detrás de cada uno para que se lean. Salen junto con los puntos, y al final queda solo el fondo.
+- El Halo tiene un ajuste nuevo, «Latido»: el anillo se ensancha con dos golpes y una pausa, como un corazón.
+
 #### Efectos: una colección propia
 
-- ALMA tiene una sección nueva, «Efectos», para lo que se mueve detrás, entre y debajo de las cosas. Parte con dieciséis, en cuatro familias: fondos (Halo, Velo, Hilos), reacciones (Chispa, Imán, Destello, Foco, Inclinar), transiciones (Trama, Aparecer, Cortina, Fundido) y textos (Descifrar, Contar, Escalonar, Brillo).
+- ALMA tiene una sección nueva, «Efectos», para lo que se mueve detrás, entre y debajo de las cosas. Parte con dieciocho, en cuatro familias: fondos (Halo, Velo, Hilos), reacciones (Chispa, Imán, Destello, Foco, Inclinar), transiciones (Trama, Aparecer, Cortina, Fundido) y textos (Descifrar, Contar, Escalonar, Brillo, Rotar, Desvelar).
 - Todos están escritos aquí, sin librerías, y cumplen lo mismo: colores y tiempos por token, el reloj de ALMA, trabajo solo a la vista y respeto por el movimiento reducido. En una entidad toman sus colores sin tocarlos.
 - Cada efecto tiene su página en la documentación, con el efecto en vivo y sus ajustes, y se usa con una línea: `AlmaEfectos.monta('halo', elemento)`.
 

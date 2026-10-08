@@ -15,7 +15,7 @@ No lo pongas sobre texto que hay que leer con calma. La franja pasa por encima.
 
 La franja es un degradado inclinado, mucho más grande que la superficie, que espera fuera de la vista a un lado. Al llegar el puntero se desliza al otro lado; al salir, vuelve.
 
-Toma el color del texto, a medias con transparente. Cruza en `duration-slow-02`.
+Toma el color del acento, a medias con transparente: el mismo del Foco. Cruza en `duration-slow-02`.
 
 ## Ajustes
 

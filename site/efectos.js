@@ -88,13 +88,15 @@
     function mueve(e) { var r = el.getBoundingClientRect(); puntero.x = (e.clientX - r.left) / r.width - 0.5; puntero.y = 0.5 - (e.clientY - r.top) / r.height; puntero.dentro = Math.abs(puntero.x) <= 0.5 && Math.abs(puntero.y) <= 0.5; }
     var ojo = new IntersectionObserver(function (v) { aLaVista = v[v.length - 1].isIntersecting; anda(); }), regla = new ResizeObserver(mide);
     var dejaReloj = R ? R.alCambiar(anda) : null;
+    // (a still picture is not drawn again by itself: when the page changes theme, it is worked out anew)
+    var tema = window.MutationObserver ? new MutationObserver(function () { if (quieto()) fija(); }) : null; if (tema) tema.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     ojo.observe(el); regla.observe(el); window.addEventListener('pointermove', mueve, { passive: true }); document.addEventListener('visibilitychange', anda);
     colores(); mide();
     return {
       valores: V,
       ajusta: function (k, v) { V[k] = v; if (quieto()) fija(); },
       quieto: quieto,
-      quita: function () { vivo = false; if (quita) quita(); if (dejaReloj) dejaReloj(); ojo.disconnect(); regla.disconnect(); window.removeEventListener('pointermove', mueve); document.removeEventListener('visibilitychange', anda); obra.quita(); lienzo.remove(); }
+      quita: function () { vivo = false; if (quita) quita(); if (dejaReloj) dejaReloj(); ojo.disconnect(); regla.disconnect(); if (tema) tema.disconnect(); window.removeEventListener('pointermove', mueve); document.removeEventListener('visibilitychange', anda); obra.quita(); lienzo.remove(); }
     };
   }
   window.AlmaEfectos = { lista: LISTA, color: color, quieto: quieto, segundos: segundos, curva: curva, sombra: sombra, RUIDO: RUIDO, cada: cada, alVer: alVer, dosCaras: dosCaras, monta: monta, pon: function (def) { LISTA[def.id] = def; return def; } };

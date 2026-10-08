@@ -188,13 +188,15 @@
     function mueve(e) { var r = el.getBoundingClientRect(); puntero.x = (e.clientX - r.left) / r.width - 0.5; puntero.y = 0.5 - (e.clientY - r.top) / r.height; puntero.dentro = Math.abs(puntero.x) <= 0.5 && Math.abs(puntero.y) <= 0.5; }
     var ojo = new IntersectionObserver(function (v) { aLaVista = v[v.length - 1].isIntersecting; anda(); }), regla = new ResizeObserver(mide);
     var dejaReloj = R ? R.alCambiar(anda) : null;
+    // (a still picture is not drawn again by itself: when the page changes theme, it is worked out anew)
+    var tema = window.MutationObserver ? new MutationObserver(function () { if (quieto()) fija(); }) : null; if (tema) tema.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     ojo.observe(el); regla.observe(el); window.addEventListener('pointermove', mueve, { passive: true }); document.addEventListener('visibilitychange', anda);
     colores(); mide();
     return {
       valores: V,
       ajusta: function (k, v) { V[k] = v; if (quieto()) fija(); },
       quieto: quieto,
-      quita: function () { vivo = false; if (quita) quita(); if (dejaReloj) dejaReloj(); ojo.disconnect(); regla.disconnect(); window.removeEventListener('pointermove', mueve); document.removeEventListener('visibilitychange', anda); obra.quita(); lienzo.remove(); }
+      quita: function () { vivo = false; if (quita) quita(); if (dejaReloj) dejaReloj(); ojo.disconnect(); regla.disconnect(); if (tema) tema.disconnect(); window.removeEventListener('pointermove', mueve); document.removeEventListener('visibilitychange', anda); obra.quita(); lienzo.remove(); }
     };
   }
   window.AlmaEfectos = { lista: LISTA, color: color, quieto: quieto, segundos: segundos, curva: curva, sombra: sombra, RUIDO: RUIDO, cada: cada, alVer: alVer, dosCaras: dosCaras, monta: monta, pon: function (def) { LISTA[def.id] = def; return def; } };
@@ -232,19 +234,21 @@
   ].join('\n');
   var MUESTRA = [
     'precision highp float;',
-    'varying vec2 vUv; uniform sampler2D uAhora; uniform vec3 uFondo, uUno, uDos;',
+    'varying vec2 vUv; uniform sampler2D uAhora; uniform vec3 uUno, uDos;',
     'void main() {',
     '  vec2 e = texture2D(uAhora, vUv).rg;',
-    '  vec3 col = mix(uFondo, uUno, smoothstep(0.0, 0.9, e.r));',
-    '  col = mix(col, uDos, smoothstep(0.05, 1.0, e.g) * 0.9);',
+    // one light and then the other over it; where there is neither, nothing: what is behind the halo shows through,
+    // be it the page's ground or another background
+    '  float a = smoothstep(0.0, 0.9, e.r), b = smoothstep(0.05, 1.0, e.g) * 0.9, cubre = 1.0 - (1.0 - a) * (1.0 - b);',
+    '  vec3 col = uUno * a * (1.0 - b) + uDos * b;',
     // (a grain finer than the eye, so that slow fades do not show steps)
-    '  col += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 255.0;',
-    '  gl_FragColor = vec4(col, 1.0);',
+    '  col += cubre * (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 255.0;',
+    '  gl_FragColor = vec4(col, cubre);',
     '}'
   ].join('\n');
   window.AlmaEfectos.pon({
     id: 'halo', familia: 'fondo', nombre: 'Halo',
-    colores: { fondo: 'ui-02', uno: 'interactive-01', dos: 'text-01' },
+    colores: { uno: 'interactive-01', dos: 'text-01' },
     ajustes: [
       { id: 'tamano', nombre: 'Tamaño', min: 0.4, max: 2.4, paso: 0.05, valor: 1.2 },
       { id: 'pulso', nombre: 'Pulso', min: 0, max: 4, paso: 0.1, valor: 2 },
@@ -252,13 +256,14 @@
       { id: 'estela', nombre: 'Estela', min: 0, max: 1, paso: 0.02, valor: 0.8 },
       { id: 'giro', nombre: 'Giro', min: -3, max: 3, paso: 0.1, valor: 1 },
       { id: 'velocidad', nombre: 'Velocidad', min: 0.1, max: 2.5, paso: 0.1, valor: 1 },
+      { id: 'latido', nombre: 'Latido', min: 0, max: 1, paso: 0.05, valor: 0 },
       { id: 'x', nombre: 'Centro, a lo ancho', min: -0.5, max: 0.5, paso: 0.02, valor: 0 },
       { id: 'y', nombre: 'Centro, a lo alto', min: -0.5, max: 0.5, paso: 0.02, valor: 0 }
     ],
     crea: function (lienzo, V) {
       // The wake is kept in fine numbers where the machine can (so a faint light goes on fading instead of sticking);
       // where it cannot, in bytes, and then it fades a little sooner.
-      var o = { alpha: false, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: true }, gl = lienzo.getContext('webgl2', o), fino = !!gl && !!(gl.getExtension('EXT_color_buffer_half_float') || gl.getExtension('EXT_color_buffer_float'));
+      var o = { alpha: true, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: true }, gl = lienzo.getContext('webgl2', o), fino = !!gl && !!(gl.getExtension('EXT_color_buffer_half_float') || gl.getExtension('EXT_color_buffer_float'));
       if (!gl) gl = lienzo.getContext('webgl', o);
       if (!gl) return null;
       function programa(fs) {
@@ -268,9 +273,11 @@
         for (var i = 0; i < n; i++) { var nombre = gl.getActiveUniform(p, i).name; u[nombre] = gl.getUniformLocation(p, nombre); }
         return { p: p, u: u };
       }
-      var E = programa(ESTELA), M = programa(MUESTRA), hojas = [], w = 0, h = 0, t = 0, cx = 0, cy = 0, C = { fondo: [0, 0, 0], uno: [0, 0, 0], dos: [0, 0, 0] };
+      var E = programa(ESTELA), M = programa(MUESTRA), hojas = [], w = 0, h = 0, t = 0, cx = 0, cy = 0, C = { uno: [0, 0, 0], dos: [0, 0, 0] };
       gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
       gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+      // A heartbeat: two knocks, the second softer, and a rest; a little under one a second.
+      function late(t) { var f = (t * 0.9) % 1, a = (f - 0.08) / 0.045, b = (f - 0.3) / 0.06; return Math.exp(-a * a) + 0.6 * Math.exp(-b * b); }
       function hoja() {
         var tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx); gl.texImage2D(gl.TEXTURE_2D, 0, fino ? gl.RGBA16F : gl.RGBA, w, h, 0, gl.RGBA, fino ? gl.HALF_FLOAT : gl.UNSIGNED_BYTE, null);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -295,12 +302,12 @@
           cx += (hx - cx) * cede; cy += (hy - cy) * cede;
           gl.viewport(0, 0, w, h);
           gl.useProgram(E.p); gl.bindFramebuffer(gl.FRAMEBUFFER, hojas[1].fb); gl.bindTexture(gl.TEXTURE_2D, hojas[0].tx);
-          gl.uniform2f(E.u.uTam, w, h); gl.uniform2f(E.u.uCentro, cx, cy); gl.uniform1f(E.u.uT, t); gl.uniform1f(E.u.uTamano, V.tamano); gl.uniform1f(E.u.uPulso, V.pulso);
+          gl.uniform2f(E.u.uTam, w, h); gl.uniform2f(E.u.uCentro, cx, cy); gl.uniform1f(E.u.uT, t); gl.uniform1f(E.u.uTamano, V.tamano * (1 + 0.09 * (V.latido || 0) * late(t))); gl.uniform1f(E.u.uPulso, V.pulso);
           gl.uniform1f(E.u.uPetalos, V.petalos); gl.uniform1f(E.u.uGiro, V.giro); gl.uniform1f(E.u.uQueda, 0.96 + 0.0395 * V.estela); gl.uniform1f(E.u.uResta, fino ? 0.0004 : 0.0042);
           gl.drawArrays(gl.TRIANGLES, 0, 3); hojas.reverse();
           if (calla) return;
           gl.useProgram(M.p); gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.bindTexture(gl.TEXTURE_2D, hojas[0].tx);
-          gl.uniform3fv(M.u.uFondo, C.fondo); gl.uniform3fv(M.u.uUno, C.uno); gl.uniform3fv(M.u.uDos, C.dos);
+          gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.uniform3fv(M.u.uUno, C.uno); gl.uniform3fv(M.u.uDos, C.dos);
           gl.drawArrays(gl.TRIANGLES, 0, 3);
         },
         quita: function () { var x = gl.getExtension('WEBGL_lose_context'); if (x) x.loseContext(); }
@@ -384,7 +391,7 @@
   var E = window.AlmaEfectos;
   E.pon({
     id: 'destello', familia: 'reaccion', nombre: 'Destello', muestra: 'tarjeta',
-    colores: { luz: 'text-01' },
+    colores: { luz: 'interactive-01' },
     ajustes: [
       { id: 'brillo', nombre: 'Brillo', min: 0.05, max: 0.6, paso: 0.05, valor: 0.3 },
       { id: 'angulo', nombre: 'Ángulo', min: -80, max: 80, paso: 5, valor: -45 },
@@ -394,7 +401,7 @@
       var luz = document.createElement('span');
       luz.setAttribute('aria-hidden', 'true');
       luz.style.cssText = 'position:absolute;inset:0;pointer-events:none;border-radius:inherit;background-repeat:no-repeat;background-size:250% 250%;background-position:-100% -100%;transition:background-position var(--duration-slow-02) var(--easing-standard-expressive)';
-      function pinta() { luz.style.backgroundImage = 'linear-gradient(' + V.angulo + 'deg, transparent ' + (50 - V.ancho) + '%, color-mix(in srgb, var(--text-01) ' + Math.round(V.brillo * 100) + '%, transparent) 50%, transparent ' + (50 + V.ancho) + '%)'; }
+      function pinta() { luz.style.backgroundImage = 'linear-gradient(' + V.angulo + 'deg, transparent ' + (50 - V.ancho) + '%, color-mix(in srgb, var(--interactive-01) ' + Math.round(V.brillo * 100) + '%, transparent) 50%, transparent ' + (50 + V.ancho) + '%)'; }
       function entra() { if (!E.quieto()) luz.style.backgroundPosition = '100% 100%'; }
       function sale() { luz.style.backgroundPosition = '-100% -100%'; }
       var cs = getComputedStyle(el), antes = { position: el.style.position, overflow: el.style.overflow };
@@ -815,6 +822,84 @@
       }
       deja = E.alVer(el, pasa); el.addEventListener('pointerenter', pasa); el.addEventListener('focusin', pasa);
       return { pasa: pasa, ajusta: pinta, quita: function () { if (anda) anda.cancel(); deja(); el.removeEventListener('pointerenter', pasa); el.removeEventListener('focusin', pasa); if (antes == null) el.removeAttribute('style'); else el.setAttribute('style', antes); } };
+    }
+  });
+})();
+// Rotar: one word of a phrase gives way to others, one at a time, and comes back. A text.
+// It is put on an element whose text is the words, separated by a bar: "claro | simple | propio". The first is the
+// true one: the one read aloud, and the one left at the end. Each word goes out upward as the next comes in from
+// below. It goes through them once the first time it is seen, and stops; pasa() goes through them again.
+(function () {
+  var E = window.AlmaEfectos;
+  E.pon({
+    id: 'rotar', familia: 'texto', nombre: 'Rotar', muestra: 'texto', ejemplo: 'claro | simple | propio | nuestro',
+    colores: {},
+    ajustes: [
+      { id: 'veces', nombre: 'Pausa en cada palabra', min: 1, max: 4, paso: 0.5, valor: 2 },
+      { id: 'subida', nombre: 'Subida', min: 0, max: 1, paso: 0.1, valor: 0.4 }
+    ],
+    pone: function (el, V) {
+      var antes = el.innerHTML, palabras = el.textContent.split('|').map(function (t) { return t.trim(); }).filter(Boolean), real = document.createElement('span'), vista = document.createElement('span'), espera = 0, anda = null, deja = null, corre = false;
+      real.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap'; real.textContent = palabras[0] || '';
+      vista.setAttribute('aria-hidden', 'true'); vista.style.display = 'inline-block'; vista.textContent = palabras[0] || '';
+      el.textContent = ''; el.appendChild(real); el.appendChild(vista);
+      function para() { clearTimeout(espera); if (anda) anda.cancel(); anda = null; corre = false; }
+      function pon(i, sigue) {
+        var cs = getComputedStyle(el), d = E.segundos('duration-moderate-02', el) * 1000;
+        anda = vista.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(-' + V.subida + 'em)' }], { duration: d, easing: cs.getPropertyValue('--easing-exit-productive').trim() || 'ease-in' });
+        anda.onfinish = function () {
+          vista.textContent = palabras[i];
+          anda = vista.animate([{ opacity: 0, transform: 'translateY(' + V.subida + 'em)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: d, easing: cs.getPropertyValue('--easing-entrance-expressive').trim() || 'ease-out' });
+          anda.onfinish = function () { anda = null; sigue(); };
+        };
+      }
+      function pasa() {
+        if (corre) return; if (E.quieto() || palabras.length < 2 || !vista.animate) { vista.textContent = palabras[0] || ''; return; }
+        corre = true; var i = 0;
+        (function otra() {
+          espera = setTimeout(function () { i = (i + 1) % palabras.length; pon(i, function () { if (i === 0) corre = false; else otra(); }); }, E.segundos('duration-slow-02', el) * V.veces * 1000);
+        })();
+      }
+      if (!E.quieto() && palabras.length > 1) deja = E.alVer(el, pasa);
+      return { pasa: pasa, quita: function () { para(); if (deja) deja(); el.innerHTML = antes; } };
+    }
+  });
+})();
+// Desvelar: the words of a passage go from faint to full, one after another, as whoever reads scrolls past it. A text.
+// Nothing here runs on time: how many words are full is how far the passage has travelled up the window, from
+// entering near the bottom to reaching the middle. Scrolling back dims them again.
+// pasa() goes through it by itself once, to try it where there is nothing to scroll.
+(function () {
+  var E = window.AlmaEfectos;
+  E.pon({
+    id: 'desvelar', familia: 'texto', nombre: 'Desvelar', muestra: 'texto', ejemplo: 'Lo que se lee al paso de quien avanza, palabra por palabra.',
+    colores: {},
+    ajustes: [
+      { id: 'tenue', nombre: 'Tenue', min: 0.1, max: 0.6, paso: 0.05, valor: 0.25 },
+      { id: 'a_la_vez', nombre: 'Palabras a la vez', min: 1, max: 8, paso: 1, valor: 3 }
+    ],
+    pone: function (el, V) {
+      var C = E.dosCaras(el), piezas = [], pedido = 0, quita = null, R = window.AlmaReloj, solo = -1;
+      C.vista.textContent = '';
+      C.texto.split(/(\s+)/).forEach(function (t) {
+        if (!t) return; if (/^\s+$/.test(t)) { C.vista.appendChild(document.createTextNode(t)); return; }
+        var s = document.createElement('span'); s.textContent = t; C.vista.appendChild(s); piezas.push(s);
+      });
+      function pinta(k) { var n = piezas.length, ancho = V.a_la_vez; for (var i = 0; i < n; i++) piezas[i].style.opacity = String(V.tenue + (1 - V.tenue) * Math.min(1, Math.max(0, (k * (n + ancho) - i) / ancho))); }
+      // (how far along: 0 when its top comes to 85% of the window's height, 1 when its bottom reaches 45%)
+      function mide() {
+        pedido = 0; if (solo >= 0) return;
+        if (E.quieto()) { pinta(1); return; }
+        var r = el.getBoundingClientRect(), alto = window.innerHeight; pinta(Math.min(1, Math.max(0, (alto * 0.85 - r.top) / (alto * 0.4 + r.height))));
+      }
+      function pide() { if (!pedido) pedido = R ? R.pide(mide) : requestAnimationFrame(mide); }
+      function pasa() {
+        if (quita || E.quieto()) return; solo = 0; var dura = E.segundos('duration-slow-02', el) * 3;
+        quita = E.cada(function (dt) { solo += dt / dura; if (solo >= 1) { solo = -1; quita = null; mide(); return false; } pinta(solo); return true; });
+      }
+      window.addEventListener('scroll', pide, { capture: true, passive: true }); window.addEventListener('resize', pide);
+      mide();
+      return { pasa: pasa, ajusta: mide, quita: function () { window.removeEventListener('scroll', pide, { capture: true }); window.removeEventListener('resize', pide); if (quita) quita(); if (pedido) (R ? R.deja(pedido) : cancelAnimationFrame(pedido)); C.suelta(); } };
     }
   });
 })();

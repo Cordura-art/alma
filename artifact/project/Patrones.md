@@ -664,6 +664,18 @@ Toda portada tiene las mismas cinco partes, y ninguna más.
 
 Debajo de la portada va el contenido que sí se lee: la acción de la entrada lleva ahí.
 
+#### Fondos
+
+Una portada con objeto puede llevar, bajo todo lo demás, fondos de la colección de Efectos en dos momentos: detrás de la figura mientras está entera, y en su lugar cuando ya se deshizo. Los del primer momento se apagan al empezar a desplazar; los del segundo asoman cuando llegan los datos. En un mismo momento caben dos, uno sobre otro, si el de arriba deja ver el de abajo.
+
+Cuando un fondo toma el lugar de la figura, los puntos se desvanecen en el último tramo: al final queda el fondo.
+
+La portada de Autómata entra sin fondo. Cuando el busto se deshace, baja el Velo desde lo alto y aparece el Halo al centro, latiendo. Al final los puntos y los datos se van, y queda el Halo.
+
+Con un fondo detrás, los cuatro datos forman un marco: los de arriba alineados por arriba, los de abajo por abajo, y ninguno se atenúa cuando se señala otro. Van directo sobre el fondo, sin recuadro. Para que se lean, el fondo se despeja detrás de cada uno: una abertura suave, sin borde, que se abre cuando el dato llega y se cierra cuando se va. Así el texto mantiene su contraste (medido en la portada de Autómata: 9 a 1 en tema claro y 20 a 1 en oscuro).
+
+Los datos salen junto con los puntos: al final del recorrido queda solo el fondo.
+
 ### Contenido
 
 - **La frase dice una idea**, no describe la figura. «Un primer borrador nunca es el texto. Es el material.»

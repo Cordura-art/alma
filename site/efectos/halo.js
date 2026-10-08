@@ -31,19 +31,21 @@
   ].join('\n');
   var MUESTRA = [
     'precision highp float;',
-    'varying vec2 vUv; uniform sampler2D uAhora; uniform vec3 uFondo, uUno, uDos;',
+    'varying vec2 vUv; uniform sampler2D uAhora; uniform vec3 uUno, uDos;',
     'void main() {',
     '  vec2 e = texture2D(uAhora, vUv).rg;',
-    '  vec3 col = mix(uFondo, uUno, smoothstep(0.0, 0.9, e.r));',
-    '  col = mix(col, uDos, smoothstep(0.05, 1.0, e.g) * 0.9);',
+    // one light and then the other over it; where there is neither, nothing: what is behind the halo shows through,
+    // be it the page's ground or another background
+    '  float a = smoothstep(0.0, 0.9, e.r), b = smoothstep(0.05, 1.0, e.g) * 0.9, cubre = 1.0 - (1.0 - a) * (1.0 - b);',
+    '  vec3 col = uUno * a * (1.0 - b) + uDos * b;',
     // (a grain finer than the eye, so that slow fades do not show steps)
-    '  col += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 255.0;',
-    '  gl_FragColor = vec4(col, 1.0);',
+    '  col += cubre * (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 255.0;',
+    '  gl_FragColor = vec4(col, cubre);',
     '}'
   ].join('\n');
   window.AlmaEfectos.pon({
     id: 'halo', familia: 'fondo', nombre: 'Halo',
-    colores: { fondo: 'ui-02', uno: 'interactive-01', dos: 'text-01' },
+    colores: { uno: 'interactive-01', dos: 'text-01' },
     ajustes: [
       { id: 'tamano', nombre: 'Tamaño', min: 0.4, max: 2.4, paso: 0.05, valor: 1.2 },
       { id: 'pulso', nombre: 'Pulso', min: 0, max: 4, paso: 0.1, valor: 2 },
@@ -51,13 +53,14 @@
       { id: 'estela', nombre: 'Estela', min: 0, max: 1, paso: 0.02, valor: 0.8 },
       { id: 'giro', nombre: 'Giro', min: -3, max: 3, paso: 0.1, valor: 1 },
       { id: 'velocidad', nombre: 'Velocidad', min: 0.1, max: 2.5, paso: 0.1, valor: 1 },
+      { id: 'latido', nombre: 'Latido', min: 0, max: 1, paso: 0.05, valor: 0 },
       { id: 'x', nombre: 'Centro, a lo ancho', min: -0.5, max: 0.5, paso: 0.02, valor: 0 },
       { id: 'y', nombre: 'Centro, a lo alto', min: -0.5, max: 0.5, paso: 0.02, valor: 0 }
     ],
     crea: function (lienzo, V) {
       // The wake is kept in fine numbers where the machine can (so a faint light goes on fading instead of sticking);
       // where it cannot, in bytes, and then it fades a little sooner.
-      var o = { alpha: false, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: true }, gl = lienzo.getContext('webgl2', o), fino = !!gl && !!(gl.getExtension('EXT_color_buffer_half_float') || gl.getExtension('EXT_color_buffer_float'));
+      var o = { alpha: true, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: true }, gl = lienzo.getContext('webgl2', o), fino = !!gl && !!(gl.getExtension('EXT_color_buffer_half_float') || gl.getExtension('EXT_color_buffer_float'));
       if (!gl) gl = lienzo.getContext('webgl', o);
       if (!gl) return null;
       function programa(fs) {
@@ -67,9 +70,11 @@
         for (var i = 0; i < n; i++) { var nombre = gl.getActiveUniform(p, i).name; u[nombre] = gl.getUniformLocation(p, nombre); }
         return { p: p, u: u };
       }
-      var E = programa(ESTELA), M = programa(MUESTRA), hojas = [], w = 0, h = 0, t = 0, cx = 0, cy = 0, C = { fondo: [0, 0, 0], uno: [0, 0, 0], dos: [0, 0, 0] };
+      var E = programa(ESTELA), M = programa(MUESTRA), hojas = [], w = 0, h = 0, t = 0, cx = 0, cy = 0, C = { uno: [0, 0, 0], dos: [0, 0, 0] };
       gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
       gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+      // A heartbeat: two knocks, the second softer, and a rest; a little under one a second.
+      function late(t) { var f = (t * 0.9) % 1, a = (f - 0.08) / 0.045, b = (f - 0.3) / 0.06; return Math.exp(-a * a) + 0.6 * Math.exp(-b * b); }
       function hoja() {
         var tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx); gl.texImage2D(gl.TEXTURE_2D, 0, fino ? gl.RGBA16F : gl.RGBA, w, h, 0, gl.RGBA, fino ? gl.HALF_FLOAT : gl.UNSIGNED_BYTE, null);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -94,12 +99,12 @@
           cx += (hx - cx) * cede; cy += (hy - cy) * cede;
           gl.viewport(0, 0, w, h);
           gl.useProgram(E.p); gl.bindFramebuffer(gl.FRAMEBUFFER, hojas[1].fb); gl.bindTexture(gl.TEXTURE_2D, hojas[0].tx);
-          gl.uniform2f(E.u.uTam, w, h); gl.uniform2f(E.u.uCentro, cx, cy); gl.uniform1f(E.u.uT, t); gl.uniform1f(E.u.uTamano, V.tamano); gl.uniform1f(E.u.uPulso, V.pulso);
+          gl.uniform2f(E.u.uTam, w, h); gl.uniform2f(E.u.uCentro, cx, cy); gl.uniform1f(E.u.uT, t); gl.uniform1f(E.u.uTamano, V.tamano * (1 + 0.09 * (V.latido || 0) * late(t))); gl.uniform1f(E.u.uPulso, V.pulso);
           gl.uniform1f(E.u.uPetalos, V.petalos); gl.uniform1f(E.u.uGiro, V.giro); gl.uniform1f(E.u.uQueda, 0.96 + 0.0395 * V.estela); gl.uniform1f(E.u.uResta, fino ? 0.0004 : 0.0042);
           gl.drawArrays(gl.TRIANGLES, 0, 3); hojas.reverse();
           if (calla) return;
           gl.useProgram(M.p); gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.bindTexture(gl.TEXTURE_2D, hojas[0].tx);
-          gl.uniform3fv(M.u.uFondo, C.fondo); gl.uniform3fv(M.u.uUno, C.uno); gl.uniform3fv(M.u.uDos, C.dos);
+          gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.uniform3fv(M.u.uUno, C.uno); gl.uniform3fv(M.u.uDos, C.dos);
           gl.drawArrays(gl.TRIANGLES, 0, 3);
         },
         quita: function () { var x = gl.getExtension('WEBGL_lose_context'); if (x) x.loseContext(); }
