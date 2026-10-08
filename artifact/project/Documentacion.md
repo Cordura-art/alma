@@ -8,7 +8,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 #### Efectos: una colección propia
 
-- ALMA tiene una sección nueva, «Efectos», para lo que se mueve detrás, entre y debajo de las cosas. Parte con doce, en cuatro familias: fondos (Halo, Velo, Hilos), reacciones (Chispa, Imán, Destello, Foco, Inclinar), transiciones (Trama, Aparecer) y textos (Descifrar, Contar).
+- ALMA tiene una sección nueva, «Efectos», para lo que se mueve detrás, entre y debajo de las cosas. Parte con catorce, en cuatro familias: fondos (Halo, Velo, Hilos), reacciones (Chispa, Imán, Destello, Foco, Inclinar), transiciones (Trama, Aparecer, Cortina, Fundido) y textos (Descifrar, Contar).
 - Todos están escritos aquí, sin librerías, y cumplen lo mismo: colores y tiempos por token, el reloj de ALMA, trabajo solo a la vista y respeto por el movimiento reducido. En una entidad toman sus colores sin tocarlos.
 - Cada efecto tiene su página en la documentación, con el efecto en vivo y sus ajustes, y se usa con una línea: `AlmaEfectos.monta('halo', elemento)`.
 

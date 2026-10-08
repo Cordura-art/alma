@@ -393,6 +393,80 @@ var entrada = AlmaEfectos.monta('aparecer', pieza, { subida: 24 });
 entrada.pasa();   // otra vez
 ```
 
+### Cortina
+
+Un paño liso cruza de lado a lado y, al pasar, lo que había es otra cosa.
+
+#### Cuándo
+
+Para un cambio grande y decidido: de una escena de portada a la siguiente, de una imagen a otra en una pieza destacada.
+
+No la uses para cambios chicos o frecuentes, como pasar de una pestaña a otra. Tapa todo por un momento, y repetida cansa.
+
+#### Cómo funciona
+
+Se pone sobre un elemento que tiene las dos cosas: la que está y la que viene, escondida. Al pedirle el paso, el paño entra por un lado hasta taparlo todo, cambia una cosa por la otra detrás de él y sale por el lado contrario, sin detenerse.
+
+El paño toma el color del acento. Entrar toma `duration-slow-01`, con la curva de entrada expresiva; salir, lo mismo con la de salida.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Dirección | Hacia dónde cruza: 0 es hacia la derecha, 90 hacia abajo, 180 hacia la izquierda, 270 hacia arriba. Nunca en diagonal. |
+
+#### Quién la dispara
+
+Como la Trama, no decide cuándo pasar: lo decide quien la usa. Avanzar y volver deberían cruzar en sentidos contrarios.
+
+#### Con menos movimiento
+
+Cambia de una vez, sin paño.
+
+#### Código
+
+```js
+var cortina = AlmaEfectos.monta('cortina', elemento, { giro: 90 });
+boton.addEventListener('click', cortina.pasa);
+```
+
+### Fundido
+
+Una cosa se desenfoca y se apaga mientras la otra toma foco en su lugar.
+
+#### Cuándo
+
+Para cambiar una imagen por otra sin llamar la atención: una galería que avanza sola, el antes y el después de una misma pieza. Es la transición más callada de la colección.
+
+No lo uses entre dos textos largos: por un momento se leen los dos encima.
+
+#### Cómo funciona
+
+Se pone sobre un elemento que tiene las dos cosas: la que está y la que viene, escondida. Las deja una sobre la otra, en el mismo lugar. Al pedirle el paso, la que está se desenfoca y se apaga, y la que viene hace el camino contrario, al mismo tiempo.
+
+Toma `duration-slow-02` y la curva estándar expresiva.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Desenfoque | Cuánto se desenfocan al cruzarse. En cero, es un fundido simple. |
+
+#### Quién lo dispara
+
+No decide cuándo pasar: lo decide quien lo usa. Si avanza solo, tiene que poder detenerse.
+
+#### Con menos movimiento
+
+Cambia de una vez.
+
+#### Código
+
+```js
+var fundido = AlmaEfectos.monta('fundido', elemento, { desenfoque: 12 });
+boton.addEventListener('click', fundido.pasa);
+```
+
 ## Texto
 
 ### Descifrar
