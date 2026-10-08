@@ -22,8 +22,8 @@ namespace Alma
         public int hondoDeCosas = 4;         // from this depth on, a piece carries its trees and rocks
         public int cuadricula = 7;           // the planet's own lattice of places for them: 2^7 along a face, some twelve meters each
         public Entidad entidad; public Relieve regla; public Color aire;
-        public int trozosALaVista, triangulosALaVista, trozosHechos;
-        Material suelo, agua, cosas; Color[] rampa; Color colorDeArbol, colorDeRoca, colorSeco, colorDeNieve, colorDeOrilla; float bosque; public int cosasALaVista; float[] paradas; Color fondoDelMar, colorDelMar; float radioDelMar;
+        public int trozosALaVista, triangulosALaVista, trozosHechos; public float nubes = 0.5f, radioDelAire, radioDeNubes; public Color calido, claro;
+        Material suelo, agua, cosas, senales; Color[] rampa; public Material MaterialDeCosas => cosas; public Material MaterialDeSenales => senales; Color colorDeArbol, colorDeRoca, colorSeco, colorDeNieve, colorDeOrilla; float bosque; public int cosasALaVista; float[] paradas; Color fondoDelMar, colorDelMar; float radioDelMar;
         readonly List<Trozo> raices = new List<Trozo>(); readonly List<Trozo> porHacer = new List<Trozo>(); readonly List<Trozo> haciendo = new List<Trozo>();
         static readonly Vector3[] N = { Vector3.right, Vector3.left, Vector3.up, Vector3.down, Vector3.forward, Vector3.back };
         static readonly Vector3[] U = { Vector3.forward, Vector3.back, Vector3.right, Vector3.left, Vector3.up, Vector3.down };
@@ -56,13 +56,42 @@ namespace Alma
             // Its climates wear its colors too: dry land its warm one, cold land its lightest; the sea is lighter by the shore.
             colorSeco = Color.Lerp(Lector.Tinta(b[3]), tinta, 0.35f); colorDeNieve = Color.Lerp(tinta, Lector.Tinta(b[0]), 0.12f); colorDeOrilla = Color.Lerp(colorDelMar, Lector.Tinta(b[1]), 0.22f);
             colorDeArbol = Color.Lerp(Lector.Tinta(b[2]), fondo, 0.2f); colorDeRoca = Color.Lerp(Lector.Tinta(b[4]), fondo, 0.4f); bosque = Mathf.Clamp01(0.22f * g.focos);
-            var sh = Shader.Find("ALMA/Planeta"); suelo = new Material(sh); agua = new Material(sh); agua.SetFloat("_Agua", 1); cosas = new Material(sh); cosas.SetFloat("_Caras", 0);
-            suelo.SetFloat("_Grano", 1); suelo.SetFloat("_Mar", radioDelMar); suelo.SetVector("_Roca", colorDeRoca); suelo.SetVector("_Arena", Color.Lerp(Lector.Tinta(b[4]), tinta, 0.45f));
-            foreach (var m in new[] { suelo, agua, cosas }) { m.SetVector("_Aire", aire); m.SetFloat("_Lejos", radio * 2.5f); }
+            var sh = Shader.Find("ALMA/Planeta"); suelo = new Material(sh); agua = new Material(sh); agua.SetFloat("_Agua", 1); cosas = new Material(sh); cosas.SetFloat("_Caras", 0); senales = new Material(sh); senales.SetFloat("_Caras", 0); senales.SetFloat("_Luz", 0.85f);
+            // The sea lets what is under it be seen by the shore: it is drawn after the ground, mixed over it.
+            agua.SetFloat("_Pone", (float)BlendMode.SrcAlpha); agua.SetFloat("_Deja", (float)BlendMode.OneMinusSrcAlpha); agua.renderQueue = 3000; agua.SetVector("_Tinta", tinta);
+            // Its sky: the air reaches a third of a radius up, the clouds lie just over the highest ground; a wet entity has more of them.
+            radioDelAire = radio * 1.3f; radioDeNubes = radio * (1 + regla.relieve * 1.25f); nubes = Mathf.Clamp01(0.1f + 0.06f * g.focos); calido = Color.Lerp(Lector.Tinta(b[3]), tinta, 0.2f); claro = tinta;
+            foreach (var m in new[] { suelo, agua, cosas, senales }) { m.SetFloat("_Techo", radioDeNubes); m.SetFloat("_Nubes", nubes); }
+            var cielo = Shader.Find("ALMA/Cielo"); var bola = Bola(24);
+            Capa("Aire", bola, cielo, 1, radioDelAire, 1, 2990);
+            for (int k = 0; k < 3; k++) Capa("Nubes " + k, bola, cielo, 2, radioDeNubes + (k - 1) * radio * 0.011f, 0, 3010 + k).SetFloat("_Capa", k / 2f);
+            suelo.SetFloat("_Grano", 1); suelo.SetFloat("_Mar", radioDelMar); suelo.SetVector("_Roca", colorDeRoca); suelo.SetVector("_Arena", Color.Lerp(Lector.Tinta(b[4]), tinta, 0.22f));
+            foreach (var m in new[] { suelo, agua, cosas, senales }) { m.SetVector("_Aire", aire); m.SetFloat("_Lejos", radio * 2.5f); }
             int r = lado + 3; var t = new List<int>();
             for (int j = 0; j < r - 1; j++) for (int i = 0; i < r - 1; i++) { int a = j * r + i; t.Add(a); t.Add(a + 1); t.Add(a + r); t.Add(a + 1); t.Add(a + r + 1); t.Add(a + r); }      // (turned so that each faces outward, as Unity counts it)
             triangulos = t.ToArray();
             for (int c = 0; c < 6; c++) { var raiz = Nuevo(c, 0, -1, -1, 2); raices.Add(raiz); Hecho(raiz, Trabaja(raiz)); }
+            // (it is turned so that where one comes down is its top: what lives there stands upright in the world, and its coat hangs down)
+            transform.rotation = Quaternion.FromToRotation(UnLugar(), Vector3.up);
+        }
+        // A plain ball of radius one: a cube blown out, `n` quads along each side of each face.
+        public static Mesh Bola(int n)
+        {
+            var p = new List<Vector3>(); var t = new List<int>();
+            for (int c = 0; c < 6; c++)
+            {
+                Vector3 nn = N[c], u = U[c], v = Vector3.Cross(nn, u); int i0 = p.Count;
+                for (int j = 0; j <= n; j++) for (int i = 0; i <= n; i++) { double a = -1 + 2.0 * i / n, b = -1 + 2.0 * j / n; p.Add(Esfera(nn.x + u.x * a + v.x * b, nn.y + u.y * a + v.y * b, nn.z + u.z * a + v.z * b).V); }
+                for (int j = 0; j < n; j++) for (int i = 0; i < n; i++) { int a = i0 + j * (n + 1) + i; t.Add(a); t.Add(a + 1); t.Add(a + n + 1); t.Add(a + 1); t.Add(a + n + 2); t.Add(a + n + 1); }
+            }
+            var m = new Mesh { vertices = p.ToArray(), triangles = t.ToArray() }; m.RecalculateBounds(); return m;
+        }
+        // A layer of its sky (Cielo.shader): the air, or the clouds.
+        public Material Capa(string nombre, Mesh bola, Shader sh, int modo, float tamano, int caras, int turno)
+        {
+            var o = new GameObject(nombre); o.transform.SetParent(transform, false); o.transform.localScale = Vector3.one * tamano; o.AddComponent<MeshFilter>().sharedMesh = bola;
+            var m = new Material(sh); m.SetFloat("_Modo", modo); m.SetVector("_Aire", aire); m.SetVector("_Calido", calido); m.SetVector("_Claro", claro); m.SetFloat("_Radio", radio); m.SetFloat("_Tope", radioDelAire); m.SetFloat("_Nubes", nubes); m.SetFloat("_Caras", caras); m.renderQueue = turno;
+            var mr = o.AddComponent<MeshRenderer>(); mr.sharedMaterial = m; mr.shadowCastingMode = ShadowCastingMode.Off; mr.receiveShadows = false; return m;
         }
         Trozo Nuevo(int cara, int hondo, double x0, double y0, double tam)
         {
@@ -90,7 +119,7 @@ namespace Alma
                 if (Vector3.Dot(normal, dir) < 0) normal = -normal;
                 int k = j * r + i; d.normales[k] = normal; regla.Clima(h.x, h.y, h.z, altura, out float calor, out float humedad);
                 d.colores[k] = s > 0 ? Color_(altura, Vector3.Dot(normal, dir), calor, humedad) : Color.Lerp(fondoDelMar, rampa[0], Mathf.Clamp01(1 + s / (regla.relieve * 0.03f)));
-                d.coloresDelMar[k] = Color.Lerp(Color.Lerp(colorDeOrilla, colorDelMar, Mathf.Clamp01(-s / (regla.relieve * 0.025f))), colorDeNieve, Suave(calor, 0.16f, 0.06f));      // (lighter by the shore, frozen near the poles)
+                float helado = Suave(calor, 0.16f, 0.06f), hondura = Mathf.Clamp01(-s / (regla.relieve * 0.025f)); d.coloresDelMar[k] = Color.Lerp(Color.Lerp(colorDeOrilla, colorDelMar, hondura), colorDeNieve, helado); d.coloresDelMar[k].a = Mathf.Max(hondura, helado);      // (lighter by the shore, frozen near the poles)
                 d.puntos[k] = p - centro - (borde ? dir * falda : Vector3.zero); d.mar[k] = dir * radioDelMar - centro - (borde ? dir * falda : Vector3.zero);
                 if (radio * (1 + s) < radioDelMar) d.hayMar = true; else d.hayTierra = true;
             }
@@ -196,14 +225,33 @@ namespace Alma
             }
         }
         // How much the air covers what is far: nothing from space, all of it near the ground.
-        public void Niebla(float cuanta) { var a = aire; a.a = Mathf.Clamp01(cuanta); suelo.SetVector("_Aire", a); agua.SetVector("_Aire", a); cosas.SetVector("_Aire", a); }
+        public void Niebla(float cuanta) { var a = aire; a.a = Mathf.Clamp01(cuanta); suelo.SetVector("_Aire", a); agua.SetVector("_Aire", a); cosas.SetVector("_Aire", a); senales.SetVector("_Aire", a); }
+        // Where one comes down, in the world; the ground in a direction from its middle (its own, not the world's); whether
+        // that is dry land, how high and how level; and how far out the ground is toward a point of the world.
+        public Vector3 Llegada => transform.TransformDirection(UnLugar());
+        public Vector3 Suelo(Vector3 dir) { float s = regla.Sube(dir.x, dir.y, dir.z, out _); return dir * Mathf.Max(radio * (1 + s), radioDelMar); }
+        public bool EsTierra(Vector3 dir, out float altura, out float llano)
+        {
+            float s = regla.Sube(dir.x, dir.y, dir.z, out altura); llano = 0; if (radio * (1 + s) < radioDelMar + 0.5f) return false;
+            Vector3 t = Vector3.Cross(dir, Mathf.Abs(dir.y) < 0.9f ? Vector3.up : Vector3.right).normalized, u = Vector3.Cross(dir, t), a = (dir + t * 0.002f).normalized, b = (dir + u * 0.002f).normalized;
+            // (in meters: Unity takes a very short arrow for no arrow at all)
+            Vector3 p0 = dir * (radio * (1 + s)), pa = a * (radio * (1 + regla.Sube(a.x, a.y, a.z, out _))), pb = b * (radio * (1 + regla.Sube(b.x, b.y, b.z, out _))); llano = Mathf.Abs(Vector3.Dot(Vector3.Cross(pa - p0, pb - p0).normalized, dir)); return true;
+        }
+        public float RadioDelSuelo(Vector3 haciaElMundo) { Vector3 d = transform.InverseTransformDirection(haciaElMundo.normalized); return radio * (1 + Mathf.Max(0, regla.Sube(d.x, d.y, d.z, out _))); }
         public float Altitud(Vector3 enElMundo) { Vector3 p = transform.InverseTransformPoint(enElMundo); Vector3 d = p.normalized; float s = regla.Sube(d.x, d.y, d.z, out _); return p.magnitude - Mathf.Max(radio * (1 + s), radioDelMar); }
         // A place on dry land, to come down on: the first one found turning around from where the entity's chance starts.
         public Vector3 UnLugar()
         {
             var azar = new Azar(entidad.genes.semilla + "|lugar");
-            for (int i = 0; i < 4000; i++) { var d = new Vector3(azar.Entre(-1, 1), azar.Entre(-1, 1), azar.Entre(-1, 1)).normalized; regla.Sube(d.x, d.y, d.z, out float h); if (h > 0.18f && h < 0.4f) return d; }
-            return Vector3.up;
+            // (of many dry places at a middling height and not too cold, the most level one: there is room there for what stands by it)
+            Vector3 mejor = Vector3.up; float nivel = -1;
+            for (int i = 0, vistos = 0; i < 6000 && vistos < 160; i++)
+            {
+                var d = new Vector3(azar.Entre(-1, 1), azar.Entre(-1, 1), azar.Entre(-1, 1)); if (d.sqrMagnitude < 0.05f) continue; d.Normalize();
+                if (!EsTierra(d, out float h, out float llano) || h < 0.1f || h > 0.34f) continue; regla.Clima(d.x, d.y, d.z, h, out float calor, out _); if (calor < 0.42f) continue;
+                vistos++; if (llano > nivel) { nivel = llano; mejor = d; }
+            }
+            return mejor;
         }
         void Update() { var cam = Camera.main; if (cam != null && EscenaPlaneta.enVivo) Mira(cam.transform.position); }
     }
@@ -214,8 +262,8 @@ namespace Alma
     // the entity's rule itself, asked where one stands (no physics engine: nothing to fall through).
     public class EscenaPlaneta : MonoBehaviour
     {
-        public static bool enVivo = true; public Planeta planeta; public Camera cam; Vector3 mira;
-        public bool aPie; public Vector3 frente = Vector3.forward; public float inclina, caida; const float OJOS = 1.7f;
+        public static bool enVivo = true; public Planeta planeta; public Camera cam; public Hitos hitos; Vector3 mira;
+        public bool aPie; public Vector3 frente = Vector3.forward; public float inclina, caida; const float OJOS = 1.7f; Transform estrellas;
         void Start()
         {
             Application.runInBackground = true;
@@ -224,9 +272,14 @@ namespace Alma
             foreach (var v in FindObjectsByType<Volume>(FindObjectsSortMode.None)) v.gameObject.SetActive(false);
             var id = PlayerPrefs.GetString("alma.planeta", "cordura");
             planeta = new GameObject("Planeta").AddComponent<Planeta>(); planeta.Nace(Lector.Lee(id));
-            var sol = new GameObject("Sol").AddComponent<Light>(); sol.type = LightType.Directional; sol.intensity = 1.5f; sol.transform.rotation = Quaternion.Euler(38, 48, 0); sol.shadows = LightShadows.None;
+            var sol = new GameObject("Sol").AddComponent<Light>(); sol.type = LightType.Directional; sol.intensity = 1.5f; sol.shadows = LightShadows.None;
             cam = new GameObject("Ojo").AddComponent<Camera>(); cam.tag = "MainCamera"; cam.clearFlags = CameraClearFlags.SolidColor; cam.backgroundColor = Color.black; cam.fieldOfView = 50;
-            Vector3 lugar = planeta.UnLugar(); cam.transform.position = lugar * planeta.radio * 3.2f; mira = -lugar; Acomoda();
+            estrellas = new GameObject("Estrellas").transform; estrellas.gameObject.AddComponent<MeshFilter>().sharedMesh = Planeta.Bola(8);
+            var me = new Material(Shader.Find("ALMA/Cielo")); me.SetFloat("_Modo", 0); me.SetVector("_Claro", planeta.claro); me.SetFloat("_Caras", 1); me.renderQueue = 2980; estrellas.gameObject.AddComponent<MeshRenderer>().sharedMaterial = me;
+            Vector3 lugar = planeta.Llegada; cam.transform.position = lugar * planeta.radio * 3.2f; mira = -lugar; Acomoda();
+            // (the sun stands over the place one comes down on, at mid-morning: nobody arrives at night)
+            sol.transform.rotation = Quaternion.LookRotation(-Vector3.Slerp(lugar, Vector3.Cross(lugar, Vector3.forward).normalized, 0.42f));
+            hitos = planeta.gameObject.AddComponent<Hitos>(); hitos.Nace(planeta);
         }
         // The eye's near and far, its sky and its level, from how high it is: black in space, the air's color near the ground.
         public void Acomoda()
@@ -239,7 +292,8 @@ namespace Alma
         public void Ambiente(float alto)
         {
             cam.nearClipPlane = Mathf.Clamp(alto * 0.05f, 0.15f, 60f); cam.farClipPlane = Mathf.Max(planeta.radio * 0.6f, cam.transform.position.magnitude + planeta.radio * 1.5f);
-            float cerca = Mathf.Exp(-alto / (planeta.radio * 0.08f)); cam.backgroundColor = Color.Lerp(Color.black, planeta.aire.gamma * 0.8f, cerca); planeta.Niebla(cerca);
+            planeta.Niebla(Mathf.Exp(-alto / (planeta.radio * 0.08f)));      // (the sky itself is the air's to paint: see Cielo.shader)
+            if (estrellas != null) { estrellas.position = cam.transform.position; estrellas.localScale = Vector3.one * cam.farClipPlane * 0.9f; }
         }
         // One moment on foot: `mando` is where the legs want to go (x to the side, y ahead).
         public void Camina(float dt, Vector2 mando, bool corre, bool salta)

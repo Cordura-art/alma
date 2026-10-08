@@ -3,7 +3,7 @@
 // same ones. Blender reads this file (blender/criatura.py).
 // Usage: npm run genes -- <id> [archivo.json]      (run after `npm run build`; default build/blender/<id>.json)
 // The Unity project (unity/), when it is there, gets its own copy of the same file.
-import { mkdirSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { sistema } from './lib/documentacion.mjs';
 import { genesDe } from './lib/generativo.mjs';
@@ -33,6 +33,8 @@ if (process.argv[1] && process.argv[1].endsWith('genes.mjs')) {
   const file = process.argv[3] || `build/blender/${id}.json`, datos = await genesParaFuera(id);
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, JSON.stringify(datos, null, 1) + '\n');
-  if (!process.argv[3] && existsSync('unity/Assets')) { mkdirSync('unity/Assets/StreamingAssets/genes', { recursive: true }); writeFileSync(`unity/Assets/StreamingAssets/genes/${id}.json`, JSON.stringify(datos, null, 1) + '\n'); }
+  if (!process.argv[3] && existsSync('unity/Assets')) { mkdirSync('unity/Assets/StreamingAssets/genes', { recursive: true }); writeFileSync(`unity/Assets/StreamingAssets/genes/${id}.json`, JSON.stringify(datos, null, 1) + '\n');
+    // (and the scans a planet stands as landmarks: the same files the covers draw)
+    mkdirSync('unity/Assets/StreamingAssets/escaneos', { recursive: true }); for (const e of ['meleagro', 'tunel']) if (existsSync(`entidades/escaneos/${e}.json`)) writeFileSync(`unity/Assets/StreamingAssets/escaneos/${e}.json`, readFileSync(`entidades/escaneos/${e}.json`)); }
   console.log(`${file} · genes de la Entidad ${datos.nombre} y ${datos.criaturas.length} criaturas`);
 }

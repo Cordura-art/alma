@@ -52,15 +52,15 @@ namespace Alma
             var e = Object.FindFirstObjectByType<EscenaPlaneta>(); if (e == null) return "no hay planeta: elige ALMA > Planeta y entra en modo juego";
             var p = e.planeta; var cam = e.cam; EscenaPlaneta.enVivo = false; Directory.CreateDirectory(carpeta); string dice = p.id + ":";
             var rt = new RenderTexture(ancho, alto, 24, RenderTextureFormat.ARGB32) { antiAliasing = 4 }; var tex = new Texture2D(ancho, alto, TextureFormat.RGB24, false); var previa = cam.targetTexture;
-            Vector3 lugar = p.UnLugar(), lado = Vector3.Cross(lugar, Vector3.up).normalized; float[] alturas = { 2.4f, 0.7f, 0.16f, 0.03f, 0.004f };
+            Vector3 lugar = p.Llegada, lado = Vector3.Cross(lugar, Vector3.forward).normalized; float[] alturas = { 2.4f, 0.7f, 0.16f, 0.03f, 0.004f };
             for (int i = 0; i < alturas.Length; i++)
             {
                 // (it comes down leaning: from straight above in space to nearly level with the ground at the end)
-                float t = i / (alturas.Length - 1f); Vector3 arriba = Quaternion.AngleAxis(-t * 2.5f, lado) * lugar; float suelo = p.radio * (1 + Mathf.Max(0, p.regla.Sube(arriba.x, arriba.y, arriba.z, out _)));
+                float t = i / (alturas.Length - 1f); Vector3 arriba = Quaternion.AngleAxis(-t * 2.5f, lado) * lugar; float suelo = p.RadioDelSuelo(arriba);
                 cam.transform.position = arriba * (suelo + p.radio * alturas[i]); Vector3 mira = Vector3.Slerp(-arriba, Vector3.Cross(lado, arriba).normalized, t * 0.86f);
                 cam.transform.rotation = Quaternion.LookRotation(mira, arriba); float alt = Mathf.Max(0.5f, p.Altitud(cam.transform.position));
-                cam.nearClipPlane = Mathf.Clamp(alt * 0.05f, 0.2f, 60f); cam.farClipPlane = cam.transform.position.magnitude + p.radio * 1.5f; float cerca = Mathf.Exp(-alt / (p.radio * 0.08f)); cam.backgroundColor = Color.Lerp(Color.black, p.aire.gamma * 0.8f, cerca); p.Niebla(cerca);
-                var reloj = System.Diagnostics.Stopwatch.StartNew(); p.Mira(cam.transform.position, true); reloj.Stop();
+                e.Ambiente(alt);
+                var reloj = System.Diagnostics.Stopwatch.StartNew(); p.Mira(cam.transform.position, true); reloj.Stop(); if (e.hitos != null) e.hitos.Avanza(0);
                 cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt; tex.ReadPixels(new Rect(0, 0, ancho, alto), 0, 0); tex.Apply();
                 File.WriteAllBytes(Path.Combine(carpeta, p.id + "-" + i + ".png"), tex.EncodeToPNG());
                 dice += " [a " + Mathf.Round(alt) + " m: " + p.trozosALaVista + " trozos, " + p.triangulosALaVista + " triángulos, " + reloj.ElapsedMilliseconds + " ms]";
@@ -76,18 +76,37 @@ namespace Alma
             var e = Object.FindFirstObjectByType<EscenaPlaneta>(); if (e == null) return "no hay planeta: elige ALMA > Planeta y entra en modo juego";
             var p = e.planeta; var cam = e.cam; EscenaPlaneta.enVivo = false; Directory.CreateDirectory(carpeta); string dice = p.id + " a pie:";
             var rt = new RenderTexture(ancho, alto, 24, RenderTextureFormat.ARGB32) { antiAliasing = 4 }; var tex = new Texture2D(ancho, alto, TextureFormat.RGB24, false); var previa = cam.targetTexture;
-            Vector3 lugar = p.UnLugar(); cam.transform.position = lugar * (p.radio * (1 + Mathf.Max(0, p.regla.Sube(lugar.x, lugar.y, lugar.z, out _))) + 30f); cam.transform.rotation = Quaternion.LookRotation(Vector3.Cross(lugar, Vector3.up).normalized, lugar);
+            Vector3 lugar = p.Llegada; cam.transform.position = lugar * (p.RadioDelSuelo(lugar) + 30f); cam.transform.rotation = Quaternion.LookRotation(Vector3.Cross(lugar, Vector3.forward).normalized, lugar);
             e.APie(true); Vector3 partida = cam.transform.position; float dt = 1f / 30f; int caidaEn = 0; for (int i = 0; i < 300 && p.Altitud(cam.transform.position) > 1.75f; i++) { e.Camina(dt, Vector2.zero, false, false); caidaEn++; }
             for (int f = 0; f < fotos; f++)
             {
                 if (f > 0) for (float t = 0; t < segundos; t += dt) { e.Camina(dt, Vector2.up, true, false); p.Mira(cam.transform.position); }
-                e.inclina = -4f; e.Camina(0f, Vector2.zero, false, false); p.Mira(cam.transform.position, true);
+                e.inclina = -4f; e.Camina(0f, Vector2.zero, false, false); p.Mira(cam.transform.position, true); if (e.hitos != null) e.hitos.Avanza(0);
                 cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt; tex.ReadPixels(new Rect(0, 0, ancho, alto), 0, 0); tex.Apply();
                 File.WriteAllBytes(Path.Combine(carpeta, p.id + "-paseo-" + f + ".png"), tex.EncodeToPNG());
                 dice += " [ojos a " + p.Altitud(cam.transform.position).ToString("0.00") + " m, " + Mathf.Round(Vector3.Angle(partida, cam.transform.position) * Mathf.Deg2Rad * p.radio) + " m andados, " + p.trozosALaVista + " trozos, " + p.triangulosALaVista + " triángulos de suelo, " + p.cosasALaVista + " árboles y rocas]";
             }
             cam.targetTexture = previa; RenderTexture.active = null; Object.Destroy(rt); Object.Destroy(tex); EscenaPlaneta.enVivo = true;
             return dice + " · cayó en " + (caidaEn * dt).ToString("0.0") + " s";
+        }
+
+        // What stands on the planet that is ALMA's own, each from where someone would look at it: the bust, the
+        // underpass, a figure, and its character after it has walked a while.
+        public static string Hitos(string carpeta, int ancho = 1600, int alto = 900)
+        {
+            var e = Object.FindFirstObjectByType<EscenaPlaneta>(); if (e == null || e.hitos == null) return "no hay planeta con hitos: elige ALMA > Planeta y entra en modo juego";
+            var p = e.planeta; var h = e.hitos; var cam = e.cam; EscenaPlaneta.enVivo = false; Directory.CreateDirectory(carpeta); string dice = p.id + ": " + h.figurasPuestas + " figuras puestas;";
+            var rt = new RenderTexture(ancho, alto, 24, RenderTextureFormat.ARGB32) { antiAliasing = 4 }; var tex = new Texture2D(ancho, alto, TextureFormat.RGB24, false); var previa = cam.targetTexture;
+            void Foto(string nombre, Vector3 dirSuya, float lejos, float sube, float mira)
+            {
+                Vector3 arriba = p.transform.TransformDirection(dirSuya).normalized, punto = arriba * p.RadioDelSuelo(arriba), lado = Vector3.Cross(arriba, Vector3.forward).normalized, desde = (punto + lado * lejos).normalized;
+                cam.transform.position = desde * (p.RadioDelSuelo(desde) + sube); cam.transform.rotation = Quaternion.LookRotation(punto + arriba * mira - cam.transform.position, cam.transform.position.normalized); e.Ambiente(Mathf.Max(0.5f, p.Altitud(cam.transform.position)));
+                p.Mira(cam.transform.position, true); h.Avanza(0); cam.targetTexture = rt; cam.Render(); RenderTexture.active = rt; tex.ReadPixels(new Rect(0, 0, ancho, alto), 0, 0); tex.Apply();
+                File.WriteAllBytes(Path.Combine(carpeta, p.id + "-" + nombre + ".png"), tex.EncodeToPNG()); dice += " " + nombre + " (" + h.aLaVista + " hitos a la vista)";
+            }
+            Foto("busto", h.busto, 34f, 9f, 7f); Foto("tunel", h.tunel, 34f, 6f, 1.5f); Foto("figura", h.unaFigura, 8f, 2.4f, 2f); Foto("llegada", p.UnLugar(), 45f, 22f, 2f);
+            if (h.habitante != null) { for (int i = 0; i < 240; i++) h.Avanza(1f / 30f); Foto("habitante", p.transform.InverseTransformPoint(h.habitante.transform.position).normalized, 4.5f, 1.2f, 0.7f); dice += " habitante a " + p.Altitud(h.habitante.transform.position).ToString("0.00") + " m del suelo"; } else dice += " SIN habitante";
+            cam.targetTexture = previa; RenderTexture.active = null; Object.Destroy(rt); Object.Destroy(tex); EscenaPlaneta.enVivo = true; return dice;
         }
     }
 }
