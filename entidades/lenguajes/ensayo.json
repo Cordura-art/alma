@@ -193,6 +193,14 @@
    "Etiquetas y controles",
    "Notas, fuentes y leyendas."
   ],
+  "viva": {
+   "p": "Roboto Flex es variable, y en una portada lo aprovechamos: nuestro nombre se escribe letra por letra y su peso responde a quien se acerca. Es la única letra nuestra que se mueve.",
+   "reglas": [
+    ["Peso.","Es el eje que usamos. Cada letra entra en el más liviano, sube a nuestro peso de titulares y gana uno o dos pasos al tocarla."],
+    ["Ancho y grado.","No se mueven. Son nuestra forma, y una forma que cambia deja de reconocerse."],
+    ["Solo en la portada.","En la interfaz ninguna letra cambia de peso al pasar el puntero. El texto que alguien está leyendo se queda quieto."]
+   ]
+  },
   "origen": "Línea consciente 5 (letra extendida) · autoridad emocional (pesos {pesos}) · línea 2 (grado más liviano)."
  },
  "fundamentos": {
@@ -314,7 +322,18 @@
    "No uses rebotes ni escalas exageradas.",
    "No muevas el texto que la persona está leyendo."
   ],
-  "origen": "Proyector · autoridad emocional: la claridad llega con el tiempo."
+  "origen": "Proyector · autoridad emocional: la claridad llega con el tiempo.",
+  "portadas": {
+   "lede": "En una portada nos permitimos un momento de carácter. Son pocas recetas, y todas hacen lo que hacemos al corregir: algo disperso toma forma.",
+   "recetas": [
+    ["Escribirse.","Nuestro nombre se escribe letra por letra. Cada letra llega liviana y fuera de foco, y toma su peso al asentarse."],
+    ["Armarse.","Lo que mostramos llega como polvo y se arma. Una sola vez, al entrar."],
+    ["Deshacerse.","En un sobrevuelo, lo que queda cerca se suelta en arena y vuelve a armarse al retroceder. Lo cercano todavía es borrador; con distancia, se lee."],
+    ["Responder.","Al acercar el puntero, las letras ganan uno o dos pasos de peso. Se nota, no se grita."],
+    ["Avanzar.","La página avanza con quien la lee. Si la persona se detiene, todo se detiene."],
+    ["Descansar.","Fuera de la pantalla nada se mueve. Y si alguien pidió menos movimiento, mostramos todo armado desde el principio."]
+   ]
+  }
  },
  "producto": {
   "lede": "Una pantalla de borradores con nuestro lenguaje. Solo componentes de ALMA: lo que cambia son los tokens y las palabras.",

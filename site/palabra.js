@@ -1,7 +1,9 @@
 // An entity's word, as a piece of its own: the large word of a cover, set in the variable face (Roboto Flex) and alive
 // in its axes. It is written letter by letter, each one arriving light and out of focus and then taking its weight; and
 // its weight answers the pointer (or the arrow keys), heavier where it is touched.
-// How it is written is the entity's: its numbers are the rhythm of the letters, its `ritmo` the beat, its `direccion`
+// Its times are ALMA's motion tokens as the entity has them (a letter comes into focus in `duration-slow-02`, and a beat
+// is two `duration-stagger`), so an entity that moves slower writes slower.
+// How it is written is the entity's: its numbers are the rhythm of the letters, its `direccion`
 // where the writing starts (`foco`: from the middle outward; otherwise from the first letter), its `redondez` how soft
 // the blur, its `puntas` how heavy and how narrow the touch. Its weight at rest, its width and its grade are the
 // entity's type tokens (`font-weight-display`, `font-width`, `font-grade`).
@@ -10,21 +12,23 @@
 // to instead of its own, and `mide: false` leaves its size as the page set it.
 (function (raiz) {
   'use strict';
-  var LIVIANO = 100, ENTRA = 0.7, PESA = 1.25;      // the lightest the face goes; seconds a letter takes to come into focus, and to take its weight
+  var LIVIANO = 100;      // the lightest the face goes
 
   function monta(el, op) {
     op = op || {};
     var G = op.genes || {}, menos = matchMedia('(prefers-reduced-motion: reduce)'), linea = document.createElement('span'), letras = [], E = [], oye = op.oye || el, mide = op.mide !== false;
-    var reposo = 220, ancho = 100, grado = 0, tope = 800, alcance = 1, borroso = 0, pedido = 0, antes = 0, reloj = 0, puntero = null, tecla = -1, tam = 100;
+    var reposo = 220, ancho = 100, grado = 0, tope = 800, ENTRA = 0.7, PESA = 1.2, pulso = 0.04, alcance = 1, borroso = 0, pedido = 0, antes = 0, reloj = 0, puntero = null, tecla = -1, tam = 100;
     linea.className = 'palabra__linea'; el.classList.add('palabra'); if (!el.hasAttribute('tabindex')) el.tabIndex = 0;
 
     function viste(i) { var e = E[i], s = letras[i].style; s.fontVariationSettings = "'wght' " + e.peso.toFixed(1) + ", 'wdth' " + ancho + ", 'GRAD' " + grado; s.opacity = e.ve.toFixed(3); s.filter = e.ve < 0.999 ? 'blur(' + ((1 - e.ve) * borroso).toFixed(2) + 'px)' : ''; }
     // The entity's own values, as the page has them now.
     function lee() {
       var cs = getComputedStyle(el), n = function (v, d) { var x = parseFloat(cs.getPropertyValue(v)); return isFinite(x) ? x : d; };
+      var seg = function (v, d) { var t = cs.getPropertyValue(v).trim(), x = parseFloat(t); return isFinite(x) && x > 0 ? (/ms$/.test(t) ? x / 1000 : x) : d; };
       reposo = n('--font-weight-display', 220); ancho = n('--font-width', 100); grado = n('--font-grade', 0);
+      ENTRA = seg('--duration-slow-02', 0.7); PESA = ENTRA * 1.75; pulso = seg('--duration-stagger', 0.02) * 2;
       // (a touch is felt, not shouted: a step or two of weight above its rest)
-      tope = Math.min(1000, reposo + 80 + 12 * (G.puntas || 5)); ajusta(); pide();
+      tope = Math.min(1000, reposo + 80 + 12 * (G.puntas || 5)); ordena(); ajusta(); pide();
     }
     // As large as its place lets it be, measured at rest.
     function ajusta() {
@@ -39,7 +43,7 @@
     }
     // When each letter starts: in the entity's order, each one waiting its number of beats after the one before.
     function ordena() {
-      var n = letras.length, orden = [], numeros = G.numeros && G.numeros.length ? G.numeros : [3, 4, 5], pulso = 0.046 / (G.ritmo || 1), t = 0, medio = (n - 1) / 2;
+      var n = letras.length, orden = [], numeros = G.numeros && G.numeros.length ? G.numeros : [3, 4, 5], t = 0, medio = (n - 1) / 2;
       for (var i = 0; i < n; i++) orden.push(i);
       if (G.direccion === 'foco') orden.sort(function (a, b) { return Math.abs(a - medio) - Math.abs(b - medio) || a - b; });
       for (var k = 0; k < n; k++) { t += numeros[k % numeros.length] * pulso; E[orden[k]].parte = t; }
@@ -47,7 +51,7 @@
     function arma(t) {
       el.textContent = ''; el.setAttribute('aria-label', t); linea.textContent = ''; letras = []; E = [];
       Array.from(t).forEach(function (c) { var s = document.createElement('span'); s.className = 'palabra__letra'; s.setAttribute('aria-hidden', 'true'); s.textContent = c === ' ' ? ' ' : c; linea.appendChild(s); letras.push(s); E.push({ peso: LIVIANO, ve: 0, parte: 0, cx: 0, cy: 0 }); });
-      el.appendChild(linea); ordena(); lee();
+      el.appendChild(linea); lee();
     }
     function escribe() { reloj = 0; antes = 0; for (var i = 0; i < E.length; i++) { E[i].ve = 0; E[i].peso = LIVIANO; } pide(); }
     function pide() { if (!pedido) pedido = requestAnimationFrame(cuadro); }
@@ -83,7 +87,7 @@
     return {
       escribe: escribe, lee: lee,
       texto: function (t) { arma(t); escribe(); },
-      genes: function (g) { G = g || {}; ordena(); lee(); },
+      genes: function (g) { G = g || {}; lee(); },
       deja: function () { cancelAnimationFrame(pedido); if (mira) mira.disconnect(); oye.removeEventListener('pointermove', mueve); oye.removeEventListener('pointerdown', mueve); oye.removeEventListener('pointerleave', suelta); oye.removeEventListener('pointercancel', suelta); el.removeEventListener('keydown', teclea); el.removeEventListener('blur', sale); },
       get estado() { return { pesos: E.map(function (e) { return Math.round(e.peso); }), ve: E.map(function (e) { return +e.ve.toFixed(2); }), parte: E.map(function (e) { return +e.parte.toFixed(3); }), reposo: reposo, tope: tope, tam: tam, enMovimiento: !!pedido }; }
     };

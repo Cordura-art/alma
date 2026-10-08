@@ -18,11 +18,12 @@ for (const id of ids) {
   // and card faces) for the Ilustración page.
   const gen = !!L.ilustracion.generativa; if (L.ejemplos) L.ejemplos = ejemplosParaPagina(L);
   if (gen) { L.genes = genesDe(await sistema(id)); L.personaje = personajeParaPagina(id, L.genes); }
-  let html = base.replace('<title>Entidades ALMA</title>', `<title>Entidad ${L.nombre}</title>`).replace('</style>', read('site/lenguaje.css') + '</style>');
+  let html = base.replace('<title>Entidades ALMA</title>', `<title>Entidad ${L.nombre}</title>`).replace('</style>', read('site/lenguaje.css') + read('site/palabra.css') + '</style>');
   // Engine only: the Entidades app exposes window.__ENGINE and returns before rendering.
   html = html.replace('<script>window.__DATA', '<script>window.__ENGINE_ONLY = true;</script>\n<script>window.__DATA');
   if (gen) html += `<script>${esc(generadorNavegador())}</script>\n<script>${esc(figurasNavegador())}</script>\n`;
   if (gen && desfileParaPagina()) html += `<script>window.__DESFILE = ${JSON.stringify(desfileParaPagina())};</script>\n`;
+  html += `<script>${esc(read('site/palabra.js'))}</script>\n`;
   html += `<script>window.__LENGUAJE = ${JSON.stringify(L)};</script>\n<script>${esc(read('site/lenguaje.js'))}</script>\n`;
   writeFileSync(`build/lenguaje-${id}.html`, html);
   console.log(`build/lenguaje-${id}.html · ${(html.length / 1024) | 0} KB`);

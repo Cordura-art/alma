@@ -1,6 +1,7 @@
 {
   "modo": "recorrido",
   "entidad": "automata",
+  "medida": "contenida",
   "escaneo": "tunel",
   "titulo": "Túnel de Autómata",
   "palabra": "Autómata",

@@ -34,6 +34,7 @@
     MEDIO[col] = n ? q[0] / n : comun[0]; SUELO[col] = n ? q[1] / n : comun[1]; TECHO[col] = n ? q[2] / n : comun[2]; ANCHURA[col] = n ? q[3] / n : comun[3];
   }
   for (col = 0; col < C; col++) for (i = INICIO[col]; i < INICIO[col + 1]; i++) { var banda = (FIL[i] - TECHO[col]) / Math.max(1, SUELO[col] - TECHO[col]) + AZX[i] / 127 * 0.05; TIN[i] = banda < 0.34 ? 0 : banda < 0.86 ? 1 : 2; }
+  var CONT = !!D.contenida;      // (a contained entity: nothing arrives flying, nothing is stirred, the sand lies still, and the head turns less)
   var VUELO = !!D.vuelo, ARENA = !!D.arena, HM = D.hondos / 2, reloj = 0, aLaVista = true;
   if (VUELO) {      // (flown over: its middle is the lattice's, and what counts is how high its tops are and how low its hollows)
     var alturas = new Uint32Array(D.filas + 1), cima = 0, hoya = D.filas, van = 0, alta = 0, media = 0; for (i = 0; i < N; i++) alturas[FIL[i]]++;
@@ -44,7 +45,7 @@
   var OJOS = VUELO ? Math.max(8, C * 0.045) : Math.min(1.55 / ((D.alto || D.filas) / D.filas), (comun[1] - comun[2]) * 0.62), DESDE = VUELO ? -C * 0.04 : C * 0.06, HASTA = VUELO ? C * 0.4 : C * 0.9, CERCA = 3, BAJA = VUELO ? 0.22 : 0;
 
   var W = 0, H = 0, escala = 1, foco = 1, imagen = null, pixeles = null, claro = false, FONDO = 0, TINTAS = new Uint32Array(96), NIVELES = 32;
-  var avance = 0, giro = 0, alza = 0, quiereGiro = 0, quiereAlza = 0, px = -1e4, py = -1e4, brio = 0, suelta = menos.matches ? 0 : 1, pedido = 0, antes = 0, anchoPalabra = 0, altoPalabra = 0;
+  var avance = 0, giro = 0, alza = 0, quiereGiro = 0, quiereAlza = 0, px = -1e4, py = -1e4, brio = 0, suelta = menos.matches || CONT ? 0 : 1, ENTRADA = 1.6, pedido = 0, antes = 0, anchoPalabra = 0, altoPalabra = 0;
   escena.classList.add('recorrido--vivo');
   if (palabra && window.AlmaPalabra) window.AlmaPalabra.monta(palabra, { genes: window.__PALABRA, oye: escena, mide: false });      // (the word is a piece of its own, site/palabra.js; its size here is the way's)
 
@@ -54,6 +55,7 @@
   function junta(r, g, b) { return (255 << 24 | b << 16 | g << 8 | r) >>> 0; }
   function viste() {
     claro = /light/.test(document.documentElement.getAttribute('data-theme') || '');
+    var lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ls = parseFloat(lento); if (isFinite(ls) && ls > 0) ENTRADA = 2 * (/ms$/.test(lento) ? ls / 1000 : ls);      // (the dust settles in two of ALMA's slowest steps, as the entity has them)
     var f = color(getComputedStyle(document.body).backgroundColor), e = getComputedStyle(escena); FONDO = junta(f[0], f[1], f[2]);
     for (var t = 0; t < 3; t++) { var k = color(e.getPropertyValue('--escaneo-' + (t + 1)).trim()); for (var n = 0; n < NIVELES; n++) { var p = n / (NIVELES - 1); TINTAS[t * NIVELES + n] = junta(Math.round(f[0] + (k[0] - f[0]) * p), Math.round(f[1] + (k[1] - f[1]) * p), Math.round(f[2] + (k[2] - f[2]) * p)); } }
   }
@@ -78,12 +80,12 @@
     if (quieto) { avance = meta; giro = alza = 0; suelta = 0; brio = 0; }
     else {
       avance += (meta - avance) * (1 - Math.exp(-dt * 6)); giro += (quiereGiro - giro) * (1 - Math.exp(-dt * 5)); alza += (quiereAlza - alza) * (1 - Math.exp(-dt * 5));
-      reloj += dt; if (suelta > 0) suelta = Math.max(0, suelta - dt / 1.6); brio *= Math.exp(-dt / 0.5); if (brio < 0.01) brio = 0;
-      sigue = Math.abs(meta - avance) > 0.0004 || Math.abs(quiereGiro - giro) > 0.001 || Math.abs(quiereAlza - alza) > 0.001 || suelta > 0 || brio > 0 || (ARENA && aLaVista && !document.hidden);
+      reloj += dt; if (suelta > 0) suelta = Math.max(0, suelta - dt / ENTRADA); brio *= Math.exp(-dt / 0.5); if (brio < 0.01) brio = 0;
+      sigue = Math.abs(meta - avance) > 0.0004 || Math.abs(quiereGiro - giro) > 0.001 || Math.abs(quiereAlza - alza) > 0.001 || suelta > 0 || brio > 0 || (ARENA && !CONT && aLaVista && !document.hidden);
     }
     var cx = DESDE + (HASTA - DESDE) * avance, cz = en(MEDIO, cx), cy = en(SUELO, cx) - OJOS, cg = Math.cos(giro), sg = Math.sin(giro), ca = Math.cos(alza + BAJA), sa = Math.sin(alza + BAJA), mx = W / 2, my = H / 2;
     var polvo = suelta * suelta * (3 - 2 * suelta), vuela = polvo * H * 0.9 / 127, alcance = H * 0.17, alcance2 = alcance * alcance, qx = px * escala, qy = py * escala, lejos = C * 0.22, fondoLejos = C * 0.75;
-    var arena = ARENA && !quieto, raya = H * 0.86, franja = H * 0.2, vuelo = H * 0.2, grano = Math.max(1, 1.9 * escala);
+    var arena = ARENA && !quieto, raya = H * 0.86, franja = H * 0.2, vuelo = H * (CONT ? 0.1 : 0.2), viva = CONT ? 0 : 1, grano = Math.max(1, 1.9 * escala);
     pixeles.fill(0);
     for (var col = C - 1; col >= 0; col--) {
       var u = col + 0.5 - cx; if (u < -30) break; var alFondo = VUELO && col > C * 0.86 ? (C - col) / (C * 0.14) : 1;
@@ -98,8 +100,8 @@
           var tarda = (AZX[i] + 127) / 254 * 0.55, sube = Math.min(1, Math.max(0, ((raya - y) / franja - tarda) / (1 - tarda))), hecho = sube * sube * (3 - 2 * sube), suelto = 1 - hecho;
           if (suelto > 0.004) {
             var fase = AZX[i] * 0.21 + AZY[i] * 0.13, lado0 = AZY[i] / 127;
-            x += (lado0 * vuelo + Math.sin(reloj * 0.55 + fase) * vuelo * 0.16) * suelto + Math.sin(hecho * 3.1416) * vuelo * 0.28 * (AZX[i] > 0 ? 1 : -1);
-            y += ((AZX[i] / 127 * 0.75 + 0.12) * vuelo + Math.cos(reloj * 0.45 + fase * 1.3) * vuelo * 0.14) * suelto;
+            x += (lado0 * vuelo + Math.sin(reloj * 0.55 + fase) * vuelo * 0.16 * viva) * suelto + Math.sin(hecho * 3.1416) * vuelo * 0.28 * viva * (AZX[i] > 0 ? 1 : -1);
+            y += ((AZX[i] / 127 * 0.75 + 0.12) * vuelo + Math.cos(reloj * 0.45 + fase * 1.3) * vuelo * 0.14 * viva) * suelto;
             macizo = false; k = grano + (k - grano) * hecho * hecho; niebla *= 0.8 + 0.2 * hecho;
           }
         }
@@ -128,8 +130,8 @@
   if (window.ResizeObserver) new ResizeObserver(mide).observe(lienzo);
   escena.addEventListener('pointermove', function (ev) {
     var caja = lienzo.getBoundingClientRect(), x = ev.clientX - caja.left, y = ev.clientY - caja.top; if (menos.matches) return;
-    if (px > -1e3) brio = Math.min(1, brio + Math.hypot(x - px, y - py) / 220); px = x; py = y;
-    if (ev.pointerType !== 'touch') { quiereGiro = (x / caja.width - 0.5) * 1.1; quiereAlza = (y / caja.height - 0.5) * 0.36; } pide();
+    if (px > -1e3 && !CONT) brio = Math.min(1, brio + Math.hypot(x - px, y - py) / 220); px = x; py = y;
+    if (ev.pointerType !== 'touch') { var cuanto = CONT ? 0.4 : 1; quiereGiro = (x / caja.width - 0.5) * 1.1 * cuanto; quiereAlza = (y / caja.height - 0.5) * 0.36 * cuanto; } pide();
   });
   escena.addEventListener('pointerleave', function () { quiereGiro = quiereAlza = 0; px = py = -1e4; pide(); });
   // (whoever reaches the entrance's link with the keyboard is taken back to the entrance, where it is seen)

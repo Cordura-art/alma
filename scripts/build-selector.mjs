@@ -81,12 +81,13 @@ const lenguaje = [
   // The parade's video, once for every entity that has a character.
   ...(Object.values(lenguajes).some((L) => L.personaje) && desfileParaPagina() ? [`<script>window.__DESFILE = ${JSON.stringify(desfileParaPagina())};</script>`] : []),
   `<script>window.__LENGUAJES = ${JSON.stringify(lenguajes).replace(/</g, '\\u003c')};</script>`,
+  `<script>${esc(read('site/palabra.js'))}</script>`,
   `<script>${esc(read('site/lenguaje.js'))}</script>`
 ].join('\n');
 const html = shell.replace(siteCss, () => siteScoped)
   .replace(/<title>[^<]*<\/title>/, '<title>Sistemas ALMA</title>')
   .replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="ALMA y sus entidades en un solo lugar: la documentación y el lenguaje de diseño de cada una, con un selector de sistema.">')
-  .replace('<div id="app"></div>', () => `<style>\n${scope(read('site/entidades.css') + '\n' + read('site/lenguaje.css'))}\n</style>\n${styles.join('\n')}\n<div id="app"></div>`)
+  .replace('<div id="app"></div>', () => `<style>\n${scope(read('site/entidades.css') + '\n' + read('site/lenguaje.css') + '\n' + read('site/palabra.css'))}\n</style>\n${styles.join('\n')}\n<div id="app"></div>`)
   .replace(CONTENT, () => `${blocks.join('\n')}\n<script>window.__SISTEMAS = ${JSON.stringify(sistemas)};</script>\n${lenguaje}`);
 writeFileSync(`${OUT}/index.html`, html);
 console.log(`Sitio con selector: ${OUT}/index.html (${(html.length / 1024).toFixed(0)} KB, ${sistemas.map((s) => s.nombre).join(', ')}; un solo archivo, con las imágenes en vivo; el contenido de cada entidad pesa ${pesos.map((p) => Math.round(p / 1024)).join(", ")} KB)`);

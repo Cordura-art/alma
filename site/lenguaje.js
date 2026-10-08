@@ -265,12 +265,14 @@
   }
   function Tipografia() {
     var X = L.tipografia, CLS = ['web-display-m', 'web-h1', 'web-h2', 'web-h3', 'web-h4', 'web-h5', 'web-body-l', 'web-body-m', 'web-label-m', 'web-body-s'];
-    return h('div', { className: 'page' }, h(Head, { id: 'tipografia', lede: X.lede, index: ['La letra', 'Pesos', 'Escala'] }),
+    return h('div', { className: 'page' }, h(Head, { id: 'tipografia', lede: X.lede, index: ['La letra', 'Pesos', 'Escala'].concat(X.viva ? ['Letra viva'] : []) }),
       h(Sec, { title: 'La letra' }, h(Para, null, X.letra), h('p', { className: 'web-display-m type-sample' }, 'Aa Bb Cc 0123456789 ¿¡«»—')),
       h(Sec, { title: 'Pesos' }, h(Tbl, { title: 'Cuatro pesos', columns: [{ key: 'r', label: 'Rol' }, { key: 'w', label: 'Peso' }, { key: 'n', label: 'Uso' }], rows: [['Display', P.weights.display], ['Títulos', P.weights.heading], ['Texto', P.weights.body], ['Énfasis', P.weights.emphasis]].map(function (r, i) { return { id: i, r: r[0], w: String(r[1]), n: T(X.pesos[i]) }; }) })),
       h(Sec, { title: 'Escala' },
         h('div', { className: 'specimen' }, CLS.map(function (k, i) { return h(SpecRow, { key: k, k: k, t: X.escala[i] }); })),
         h(Para, null, 'Los valores se miden en vivo desde los tokens de ALMA. La escala es la misma de ALMA; lo que cambia es el ancho y el peso.')),
+      X.viva ? h(Sec, { title: 'Letra viva' }, h(Para, null, X.viva.p), h(PalabraViva),
+        h(Para, null, 'Peso al entrar: 100. En reposo: ' + P.weights.display + '. Al tocarla: hasta ' + Math.min(1000, P.weights.display + 80 + 12 * ((G && G.puntas) || 5)) + '.'), h(Bullets, { items: X.viva.reglas })) : null,
       h(Origin, null, X.origen));
   }
 
@@ -700,13 +702,24 @@
       h(Origin, null, X.origen));
   }
 
+  // The entity's word, alive (site/palabra.js): written with its genes, and its weight answering the pointer.
+  function PalabraViva() {
+    var caja = React.useRef(null), pieza = React.useRef(null);
+    React.useEffect(function () { if (!window.AlmaPalabra) return; pieza.current = window.AlmaPalabra.monta(caja.current, { genes: G || {}, texto: L.nombre }); return function () { pieza.current.deja(); }; }, []);
+    return h('div', { className: 'palabra-viva' },
+      h('div', { className: 'palabra-viva__caja' }, h('p', { ref: caja, role: 'img' })),
+      h('div', { className: 'palabra-viva__pie' },
+        h(A.Button, { variant: 'gray', iconBefore: 'renew', onClick: function () { if (pieza.current) pieza.current.escribe(); } }, 'Volver a escribir'),
+        h('span', { className: 'web-body-s cap' }, (G && G.numeros ? 'Ritmo: ' + G.numeros.join(' · ') + '. Empieza ' + (G.direccion === 'foco' ? 'desde el centro' : 'por la primera letra') + '. ' : '') + 'Pasa el puntero por la palabra, o enfócala y usa las flechas.')));
+  }
   function Movimiento() {
     var X = L.movimiento, D = ['duration-fast-01', 'duration-fast-02', 'duration-moderate-01', 'duration-moderate-02', 'duration-slow-01', 'duration-slow-02'];
     var ms = function (v) { var n = parseFloat(v); return /ms/.test(v) ? n : n * 1000; };
     var rows = D.map(function (t) { var b = ms(cssVar('--' + t)); return { id: t, t: t, a: isNaN(b) ? '—' : b + ' ms', e: isNaN(b) ? '—' : Math.round(b * P.motion.speed) + ' ms' }; });
-    return h('div', { className: 'page' }, h(Head, { id: 'movimiento', lede: X.lede, index: ['Enfoque', 'Productivo y expresivo', 'Duraciones', 'Movimiento reducido', 'Aplicaciones'] }),
+    return h('div', { className: 'page' }, h(Head, { id: 'movimiento', lede: X.lede, index: ['Enfoque', 'Productivo y expresivo'].concat(X.portadas ? ['En portadas'] : [], ['Duraciones', 'Movimiento reducido', 'Aplicaciones']) }),
       h(Sec, { title: 'Enfoque' }, X.enfoque.map(function (x) { return h(Sub, { key: x.t, title: x.t }, h(Para, null, x.p)); })),
       h(Sec, { title: 'Productivo y expresivo' }, h('div', { className: 'motion' }, h('div', { className: 'motion__track', 'aria-hidden': 'true' }, h('span', { className: 'motion__bar' }))), h(Para, null, X.curvas)),
+      X.portadas ? h(Sec, { title: 'En portadas' }, h(Para, null, X.portadas.lede), h(PalabraViva), h(Bullets, { items: X.portadas.recetas }), X.portadas.medida ? h(Para, null, X.portadas.medida) : null) : null,
       h(Sec, { title: 'Duraciones' }, h(Tbl, { title: 'Duraciones de ALMA y las nuestras (× ' + VALS.velocidad + ')', columns: [{ key: 't', label: 'Token' }, { key: 'a', label: 'ALMA' }, { key: 'e', label: 'Nuestra' }], rows: rows })),
       h(Sec, { title: 'Movimiento reducido' }, h(Para, null, 'Si la persona pidió menos movimiento, no animamos: mostramos el estado final de inmediato. Ningún contenido depende de una animación para entenderse.')),
       h(Sec, { title: 'Aplicaciones' }, h(Bullets, { items: X.aplicaciones })),

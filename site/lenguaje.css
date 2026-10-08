@@ -220,3 +220,8 @@ a.card .alma-ico { color: var(--nav-selected); align-self: end; }
 .gen-lamina__hoja { display: block; overflow: hidden; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--brand-ink); }
 .gen-lamina__hoja--espera { aspect-ratio: 297 / 210; }
 .gen-lamina__hoja svg { display: block; width: 100%; height: auto; }
+
+/* The entity's word, alive, on its Movimiento page (site/palabra.js). */
+.palabra-viva { display: grid; gap: var(--space-16); }
+.palabra-viva__caja { display: grid; place-items: center; height: clamp(10rem, 28vw, 18rem); overflow: hidden; border: 1px solid var(--border-subtle); border-radius: var(--radius-tag); }
+.palabra-viva__pie { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16); }

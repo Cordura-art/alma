@@ -25,7 +25,7 @@ test('el borrador de cualquier fecha tiene la forma de un lenguaje escrito a man
     const suya = forma(L);
     // Everything a hand-written language has, except what only some have: the second colour section and its table rows,
     // and its examples, which an entity has once pages have been made with it.
-    for (const k of modelo) if (!/^\.fecha\.secciones\[\]\.(bullets|parrafos)|^\.ejemplos/.test(k)) assert.ok(suya.has(k), `${donde}: falta ${k}`);
+    for (const k of modelo) if (!/^\.fecha\.secciones\[\]\.(bullets|parrafos)|^\.ejemplos|^\.movimiento\.portadas|^\.tipografia\.viva/.test(k)) assert.ok(suya.has(k), `${donde}: falta ${k}`);
     assert.equal(L.principios.items.length, generarPrincipios(C).length, donde);
     for (const p of L.principios.items) assert.ok(p.t && p.p && p.q.length >= 3, donde);
     assert.equal(L.voz.atributos.length, 3); assert.equal(L.prisma.caras.length, 6); assert.equal(L.tipografia.escala.length, 10); assert.equal(L.tipografia.pesos.length, 4);

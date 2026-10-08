@@ -25,7 +25,6 @@
   ["título 14 px Medium, mensaje 14 px Regular, hora 11 px.", "título y mensaje de 14 px, hora de 11 px."],
   ["un borde de 2 px y el texto en Medium.", "un borde de 2 px y el texto en peso de énfasis."],
   ["themes.dark['interactive-01'];   // '#2667F2'", "themes.dark['interactive-01'];   // '{token:interactive-01}'"],
-  ["Las propias de Cordura se iterarán desde aquí, sobre la misma base de tokens.", "Las propias de la entidad se iterarán desde aquí, sobre la misma base de tokens.", "!cordura"],
   ["entran separados por 20 ms", "entran separados por {token:duration-stagger}"],
   ["La línea azul que termina en verde.", "La línea {v:acento} que termina en verde."],
   ["son píldoras con la etiqueta flotante.", "llevan la etiqueta flotante.", "!pildora"],

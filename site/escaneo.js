@@ -16,6 +16,9 @@
   var D = window.__ESCANEO, escena = document.querySelector('.escaneo'), fija = escena.querySelector('.escaneo__fija'), lienzo = escena.querySelector('canvas');
   var palabra = escena.querySelector('.escaneo__palabra'), entrada = escena.querySelector('.escaneo__entrada'), datos = [].slice.call(escena.querySelectorAll('.escaneo__dato'));
   if (palabra && window.AlmaPalabra) window.AlmaPalabra.monta(palabra, { genes: window.__PALABRA, oye: escena, mide: false });      // (the word is a piece of its own, site/palabra.js; its size here is the cover's)
+  // A contained entity: the pointer stirs nothing and the thing turns less. How long it takes to come together is two and
+  // a half of ALMA's slowest steps, as the entity has them.
+  var CONT = !!D.contenida, lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ARMA = 2.5 * (/ms$/.test(lento) ? parseFloat(lento) : parseFloat(lento) * 1000) || 2200;
   var ctx = lienzo.getContext('2d'), menos = matchMedia('(prefers-reduced-motion: reduce)'), bytes = atob(D.puntos), ANCHO = D.alma === 3 ? 10 : 7, N = bytes.length / ANCHO, K = Math.max(1, datos.length);
   // Chance that is always the same: the same thing comes apart the same way every time.
   var s = 2166136261; function azar() { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 1000000) / 1000000; }
@@ -59,10 +62,10 @@
   function cuadro(ahora) {
     pedido = 0; var dt = Math.min(0.05, antes ? (ahora - antes) / 1000 : 0.016); antes = ahora; if (!partio) partio = ahora;
     var quieto = menos.matches, meta = lee(), k = quieto ? 1 : 1 - Math.exp(-dt * 7), sigue = false;
-    arma = quieto ? 1 : Math.min(1, (ahora - partio) / 2200); abre += (meta - abre) * k; giro += (quiereGiro - giro) * k; alza += (quiereAlza - alza) * k;
+    arma = quieto ? 1 : Math.min(1, (ahora - partio) / ARMA); abre += (meta - abre) * k; giro += (quiereGiro - giro) * k; alza += (quiereAlza - alza) * k;
     reloj += dt;
     // The pointer as it passed since the last moment: a stroke from where it was to where it is, and how fast.
-    var ahoraMs = performance.now(), pasa = mano.dentro && ahoraMs - mano.cuando < 90, mx = mano.x - mano.ax, my = mano.y - mano.ay, ml = mx * mx + my * my || 1, rapidez = Math.min(1600, Math.hypot(mano.vx, mano.vy)), fuerza = Math.min(1, rapidez / 420);
+    var ahoraMs = performance.now(), pasa = !CONT && mano.dentro && ahoraMs - mano.cuando < 90, mx = mano.x - mano.ax, my = mano.y - mano.ay, ml = mx * mx + my * my || 1, rapidez = Math.min(1600, Math.hypot(mano.vx, mano.vy)), fuerza = Math.min(1, rapidez / 420);
     var alcance = Math.min(W, H) * 0.17 * (0.7 + 0.5 * fuerza), R2 = alcance * alcance, freno = Math.exp(-dt * 5.2), calma = Math.exp(-dt / 1.15), k2 = 1 - Math.exp(-dt * 9);
     // As the page is scrolled from one moment to the next, everything is stirred a little: it flows there, it is not slid.
     var revuelo = Math.min(0.22, Math.abs(abre - abreAntes) * 9); abreAntes = abre;
@@ -136,7 +139,8 @@
     // How fast it goes: from where it was the last time it was heard of, eased so that one jump does not throw everything.
     var t = performance.now(), ms = Math.max(8, t - (mano.cuando || t - 16)); if (!mano.dentro) { mano.ax = px; mano.ay = py; mano.vx = mano.vy = 0; } else { mano.vx += ((px - mano.x) / ms * 1000 - mano.vx) * 0.5; mano.vy += ((py - mano.y) / ms * 1000 - mano.vy) * 0.5; }
     mano.x = px; mano.y = py; mano.cuando = t; mano.dentro = true;
-    if (!menos.matches) { quiereGiro = (px / r.width - 0.5) * 2.1; quiereAlza = (py / r.height - 0.5) * 0.2; }      // from one side of the page to the other: a sixth of a turn each way pide();
+    // (from one side of the page to the other: a sixth of a turn each way; a contained entity turns less than half of that)
+    if (!menos.matches) { quiereGiro = (px / r.width - 0.5) * 2.1 * (CONT ? 0.4 : 1); quiereAlza = (py / r.height - 0.5) * 0.2 * (CONT ? 0.4 : 1); } pide();
   });
   fija.addEventListener('pointerleave', function () { quiereGiro = quiereAlza = 0; dePuntero = -1; mano.dentro = false; pide(); });
   datos.forEach(function (el, m) {

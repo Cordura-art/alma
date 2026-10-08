@@ -140,7 +140,7 @@ Cordura es un estudio de lenguajes de movimiento, y ALMA usa el lenguaje de movi
 
 ### Movimiento de marca
 
-La base son nuestros referentes; las recetas propias de Cordura se iterarán desde aquí.
+La base son nuestros referentes. Las recetas de marca (escribirse, armarse, deshacerse, responder, avanzar y descansar) están en Movimiento › Coreografía; viven en las portadas y la firma, nunca en la interfaz.
 
 **IBM Carbon (movimiento expresivo y coreografía)**
 - Expresivo solo en momentos importantes: abrir una página nueva, la acción principal, alertas y notificaciones del sistema, o cuando el movimiento mismo comunica algo. El resto es productivo.

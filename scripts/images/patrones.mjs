@@ -160,5 +160,25 @@ export const patternScenes = [
   scene('15-divulgacion', 'una pantalla de pasaje', 'divulgacion',
     'Una pantalla de pasaje en el teléfono: el resumen a la vista (ruta, fecha, asiento y total) y, debajo, las condiciones del pasaje en un Accordion con la sección Cambios abierta.',
     { js: `var s = "mount(h('div', null, h(A.Toolbar, { title: 'Tu pasaje', onBack: function () {}, backLabel: 'Volver' }), h('main', { style: { padding: '16px', display: 'grid', gap: '24px' } }, h(A.Card, { headingLevel: 2, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14 · Total $7.000' }), h('div', { style: { display: 'grid', gap: '8px' } }, h('h2', { className: 'web-h6', style: { margin: 0 } }, 'Condiciones del pasaje'), h(A.Accordion, { headingLevel: 3, defaultOpen: ['cambio'], items: [{ id: 'cambio', title: 'Cambios', content: 'Puedes cambiar la fecha una vez, sin costo, hasta 4 horas antes de la salida.' }, { id: 'dev', title: 'Devoluciones', content: 'Te devolvemos el 85 % si anulas hasta 4 horas antes.' }, { id: 'eq', title: 'Equipaje', content: 'Una maleta de hasta 25 kg en la bodega y un bolso de mano.' }] })))));";
-      mount(device({ w: 390, h: 720, js: s }));` })
+      mount(device({ w: 390, h: 720, js: s }));` }),
+
+  // ---------- Portada ----------
+  scene('16-portada', 'anatomía de una portada', 'portada-anatomia',
+    'Anatomía de una portada: el nombre grande detrás (1), la figura de puntos al centro (2), la entrada con su frase, su botón y su pista abajo a la izquierda (3), un dato sobre su recuadro a la derecha (4) y el botón de tema arriba a la derecha (5).',
+    { css: `.pt { position: relative; width: 54rem; height: 32rem; background: var(--ui-02); border: 1px solid var(--border-subtle); overflow: hidden; }
+      .pt__palabra { position: absolute; left: 0; right: 0; top: 16%; display: grid; place-items: center; margin: 0; }
+      .pt__palabra span { font-size: 11rem; line-height: 1; font-weight: var(--font-weight-display); letter-spacing: -0.03em; color: var(--text-01); }
+      .pt__figura { position: absolute; left: 50%; top: 44%; width: 10rem; height: 14rem; transform: translate(-50%, -50%); border-radius: 46% 46% 38% 38%; background-color: var(--ui-02); background-image: radial-gradient(circle, var(--text-01) 1.3px, transparent 1.7px); background-size: 8px 8px; }
+      .pt__entrada { position: absolute; left: var(--space-24); bottom: var(--space-24); width: 13rem; gap: var(--space-16); padding: var(--space-16); }
+      .pt__entrada p { margin: 0; }
+      .pt__dato { position: absolute; right: var(--space-24); bottom: var(--space-24); width: 12rem; padding: var(--space-16); }
+      .pt__dato p { margin: 0; }
+      .pt__tema { position: absolute; right: var(--space-16); top: var(--space-16); }`,
+      js: `mount(h('div', { style: { padding: '48px 56px' } }, h('div', { className: 'pt' },
+        h('p', { className: 'pt__palabra' }, h('span', null, 'Nombre')),
+        h('div', { className: 'pt__figura' }),
+        h('div', { className: 'pane col pt__entrada' }, h('p', { className: 'web-body-l' }, 'Una idea, en dos líneas.'), h('div', null, h(A.Button, { variant: 'filled', size: 'sm' }, 'Una sola acción')), h('p', { className: 'cap web-body-s' }, 'Una pista de qué hacer')),
+        h('div', { className: 'pane pt__dato' }, h('p', { className: 'web-body-m' }, 'Un dato, en una frase completa.')),
+        h('div', { className: 'pt__tema' }, h(A.Button, { variant: 'plain', icon: 'light', 'aria-label': 'Usar tema claro' })))));`,
+      after: `num($('.pt__palabra span'), 1, 'left', { outline: false }); num($('.pt__figura'), 2, 'bottom', { outline: false }); num($('.pt__entrada'), 3, 'left'); num($('.pt__dato'), 4, 'right'); num($('.pt__tema'), 5, 'right');` })
 ];

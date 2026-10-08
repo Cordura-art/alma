@@ -6,6 +6,18 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 7 de octubre de 2026
 
+#### La portada como patrón, y la letra viva de cada entidad
+
+- Patrones tiene uno nuevo, Portada: cuándo usarla, sus tres clases (con objeto, recorrido y sobrevuelo), sus cinco partes, contenido, color y accesibilidad, con su imagen de anatomía.
+- Cada entidad tiene en su página de Tipografía la sección «Letra viva»: su palabra en vivo, sus pesos (al entrar, en reposo y al tocarla) y la regla de que el peso solo se mueve en la portada, nunca en la interfaz.
+
+#### Movimiento de marca, escrito
+
+- ALMA › Movimiento › «Movimiento de marca» ya no es un pendiente: tiene las seis recetas que usan las portadas (escribirse, armarse, deshacerse, responder, avanzar y descansar), con sus tiempos en tokens.
+- Cada entidad tiene en su página de Movimiento la sección «En portadas», con su palabra en vivo y sus recetas en su propia voz.
+- Los tiempos de los motores salen ahora de los tokens tal como los tiene cada entidad: quien se mueve un 25 % más lento también se escribe y se arma más lento.
+- Medida contenida (`"medida": "contenida"`): nada llega volando, el puntero no revuelve, los granos no flotan y la mirada gira menos de la mitad. La usa Autómata en sus tres portadas.
+
 #### La palabra de una entidad, como pieza propia
 
 - La palabra grande de las portadas tiene ahora su propio motor (`site/palabra.js`) y su página de trabajo, Palabra (`npm run palabra`), con las tres entidades.

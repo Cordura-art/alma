@@ -351,7 +351,7 @@
   });
   var PATTERN_ICON = { 'formularios': 'list', 'estados-vacios': 'view', 'notificaciones': 'notification', 'carga': 'in-progress',
     'busqueda-y-filtros': 'search', 'dialogos': 'layers', 'acciones': 'flash', 'desactivado-y-solo-lectura': 'view', 'contenido-que-desborda': 'overflow-menu--horizontal',
-    'encabezado-global': 'menu', 'inicio-de-sesion': 'login', 'indicadores-de-estado': 'warning--alt', 'barra-de-texto': 'document', 'estilos-fluidos': 'list', 'divulgacion': 'view' };
+    'encabezado-global': 'menu', 'inicio-de-sesion': 'login', 'indicadores-de-estado': 'warning--alt', 'barra-de-texto': 'document', 'estilos-fluidos': 'list', 'divulgacion': 'view', 'portada': 'image' };
   (C.patterns || []).forEach(function (pt) {
     pages.push({ id: pt.slug, label: pt.name, icon: PATTERN_ICON[pt.slug] || 'grid', group: 'Patrones', render: function () { return h(Pattern, { pt: pt, key: pt.slug }); } });
   });

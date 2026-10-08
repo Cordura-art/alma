@@ -2,6 +2,7 @@
   "modo": "sobrevuelo",
   "arena": true,
   "entidad": "automata",
+  "medida": "contenida",
   "escaneo": "nubes",
   "titulo": "Nubes de Autómata",
   "palabra": "Autómata",

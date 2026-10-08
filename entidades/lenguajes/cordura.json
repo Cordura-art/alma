@@ -413,6 +413,14 @@
    "Etiquetas y controles",
    "Notas, fuentes y leyendas."
   ],
+  "viva": {
+   "p": "Roboto Flex es variable, y en una portada lo dejamos ver: nuestro nombre se escribe letra por letra y su peso acompaña a quien se acerca. Es la única letra nuestra que se mueve.",
+   "reglas": [
+    ["Peso.","Es el eje que usamos. Cada letra llega en el más liviano, se asienta en nuestro peso de titulares y gana uno o dos pasos al tocarla."],
+    ["Ancho y grado.","No se mueven. Son nuestra forma, y lo que da calma es que no cambie."],
+    ["Solo en la portada.","En la interfaz ninguna letra cambia de peso al pasar el puntero. El texto que alguien está leyendo se queda quieto."]
+   ]
+  },
   "origen": "Línea consciente 1 (ancho natural) · autoridad emocional (pesos {pesos}) · línea 4 (grado más firme)."
  },
  "fundamentos": {
@@ -633,7 +641,18 @@
    "No uses rebotes ni escalas exageradas.",
    "No muevas elementos que la persona está leyendo."
   ],
-  "origen": "Proyector · autoridad emocional: la claridad llega en olas y con el tiempo."
+  "origen": "Proyector · autoridad emocional: la claridad llega en olas y con el tiempo.",
+  "portadas": {
+   "lede": "En una portada dejamos que la emoción se vea. Son pocas recetas, y todas hacen lo mismo que una ola: llegan, se asientan y dejan todo en calma.",
+   "recetas": [
+    ["Escribirse.","Nuestro nombre se escribe letra por letra. Cada letra llega liviana y suave, y toma su peso sin apuro."],
+    ["Armarse.","Lo que mostramos llega como polvo y se asienta. Una sola vez, al entrar."],
+    ["Deshacerse.","En un sobrevuelo, lo que queda cerca se suelta en arena que flota, y vuelve a armarse al retroceder. Lo que está muy cerca todavía no se ve claro."],
+    ["Responder.","Al acercar el puntero, las letras ganan uno o dos pasos de peso. Acompañan, no reaccionan de golpe."],
+    ["Avanzar.","La página avanza con quien la lee. Si la persona se detiene, todo se detiene: darle tiempo es parte del gesto."],
+    ["Descansar.","Fuera de la pantalla nada se mueve. Y si alguien pidió menos movimiento, mostramos todo en calma desde el principio."]
+   ]
+  }
  },
  "producto": {
   "lede": "Una pantalla de propuestas con nuestro lenguaje. Solo componentes de ALMA: lo que cambia son los tokens y las palabras.",

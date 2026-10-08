@@ -2,6 +2,7 @@
 // The scan is the file blender/escaneo.py writes (entidades/escaneos/<escaneo>.json); what the page says is
 // entidades/escaneos/<entidad>.json; its colors are the entity's own. One file that needs nothing else.
 // A scanned place is walked into instead (`"modo": "recorrido"` in what the page says, which then names its `entidad`),
+// `"medida": "contenida"` is for an entity that holds back: nothing arrives flying, nothing is stirred, it turns less.
 // and a scanned ground with no walls is flown over (`"modo": "sobrevuelo"`); with `"arena": true`, what is near comes apart into sand.
 //   node scripts/build-escaneo.mjs [entidad …]   →   build/escaneo/<entidad>.html (no names: every entity that has one), and <entidad>-artefacto.html: the same
 //   page without its outer tags, as a published artifact wants it.
@@ -21,7 +22,7 @@ const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 export async function paginaDeEscaneo(id) {
   const archivo = `entidades/escaneos/${id}.json`; if (!existsSync(archivo)) throw new Error(`No hay una página de escaneo para «${id}» en entidades/escaneos/.`);
   const T = JSON.parse(readFileSync(archivo, 'utf8')), E = JSON.parse(readFileSync(`entidades/escaneos/${T.escaneo}.json`, 'utf8')), de = T.entidad || id, vuela = T.modo === 'sobrevuelo', anda = T.modo === 'recorrido' || vuela, S = await sistema(de), G = genesDe(S), L = JSON.parse(readFileSync(`entidades/lenguajes/${de}.json`, 'utf8'));
-  const trama = { alma: E.alma, columnas: E.columnas, filas: E.filas, hondos: E.hondos, alto: E.alto, ...(vuela ? { vuelo: true } : {}), ...(T.arena ? { arena: true } : {}), puntos: E.puntos }, puntos = Buffer.from(E.puntos, 'base64').length / (E.alma === 3 ? 10 : 7);
+  const trama = { alma: E.alma, ...(T.medida === 'contenida' ? { contenida: true } : {}), columnas: E.columnas, filas: E.filas, hondos: E.hondos, alto: E.alto, ...(vuela ? { vuelo: true } : {}), ...(T.arena ? { arena: true } : {}), puntos: E.puntos }, puntos = Buffer.from(E.puntos, 'base64').length / (E.alma === 3 ? 10 : 7);
   const dice = (s) => esc(s.replace('{puntos}', miles(puntos)).replace('{largo}', Math.round(Math.max(E.columnas, E.hondos) * E.alto / E.filas)).replace('{pesoOrigen}', peso(E.peso || 0)).replace('{pesoTrama}', peso(JSON.stringify(trama).length)));
   return `<!doctype html>
 <html lang="es" data-theme="dark">
