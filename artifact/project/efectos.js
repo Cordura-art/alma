@@ -760,3 +760,61 @@
     }
   });
 })();
+// Escalonar: the words of a line come in one after another, each rising a little into its place. A text.
+// Each word is its own piece, so each can start a beat after the one before; the spaces between them stay spaces,
+// so the line still breaks where it would. It plays the first time it is seen; pasa() plays it again.
+(function () {
+  var E = window.AlmaEfectos;
+  E.pon({
+    id: 'escalonar', familia: 'texto', nombre: 'Escalonar', muestra: 'texto', ejemplo: 'Cada palabra a su tiempo',
+    colores: {},
+    ajustes: [
+      { id: 'pulsos', nombre: 'Pulsos entre palabras', min: 1, max: 8, paso: 1, valor: 3 },
+      { id: 'subida', nombre: 'Subida', min: 0, max: 1, paso: 0.1, valor: 0.4 }
+    ],
+    pone: function (el, V) {
+      var C = E.dosCaras(el), piezas = [], andan = [], deja = null;
+      C.vista.textContent = '';
+      C.texto.split(/(\s+)/).forEach(function (t) {
+        if (!t) return; if (/^\s+$/.test(t)) { C.vista.appendChild(document.createTextNode(t)); return; }
+        var s = document.createElement('span'); s.style.display = 'inline-block'; s.textContent = t; C.vista.appendChild(s); piezas.push(s);
+      });
+      function para() { andan.forEach(function (a) { a.cancel(); }); andan = []; }
+      function pasa() {
+        para(); if (E.quieto() || !piezas.length || !piezas[0].animate) return;
+        var cs = getComputedStyle(el), paso = E.segundos('duration-stagger', el) * V.pulsos * 1000, o = { duration: E.segundos('duration-slow-01', el) * 1000, easing: cs.getPropertyValue('--easing-entrance-expressive').trim() || 'ease-out', fill: 'backwards' };
+        andan = piezas.map(function (s, i) { return s.animate([{ opacity: 0, transform: 'translateY(' + V.subida + 'em)' }, { opacity: 1, transform: 'translateY(0)' }], Object.assign({ delay: i * paso }, o)); });
+      }
+      if (!E.quieto()) { piezas.forEach(function (s) { s.style.opacity = '0'; }); deja = E.alVer(el, function () { piezas.forEach(function (s) { s.style.opacity = ''; }); pasa(); }); }
+      return { pasa: pasa, quita: function () { para(); if (deja) deja(); C.suelta(); } };
+    }
+  });
+})();
+// Brillo: a band of light runs once along a line of text. A text.
+// The line is painted with a gradient instead of a flat colour: the secondary text colour all along, and a band of
+// the primary one, wider than the line and kept out of sight to one side. Seeing the line, pointing at it or
+// reaching it with the keyboard slides the band across, once. It does not go on by itself.
+(function () {
+  var E = window.AlmaEfectos;
+  E.pon({
+    id: 'brillo', familia: 'texto', nombre: 'Brillo', muestra: 'texto', ejemplo: 'Algo nuevo llegó',
+    colores: { base: 'text-02', luz: 'text-01' },
+    ajustes: [
+      { id: 'ancho', nombre: 'Ancho', min: 4, max: 20, paso: 2, valor: 10 },
+      { id: 'veces', nombre: 'Duración', min: 1, max: 4, paso: 0.5, valor: 2 }
+    ],
+    pone: function (el, V) {
+      var puede = window.CSS && (CSS.supports('background-clip', 'text') || CSS.supports('-webkit-background-clip', 'text')), anda = null, deja = null, antes = el.getAttribute('style');
+      if (!puede || E.quieto() || !el.animate) return { pasa: function () {}, quita: function () {} };
+      function pinta() { el.style.backgroundImage = 'linear-gradient(100deg, var(--text-02) ' + (50 - V.ancho) + '%, var(--text-01) 50%, var(--text-02) ' + (50 + V.ancho) + '%)'; }
+      pinta(); el.style.backgroundSize = '250% 100%'; el.style.backgroundPosition = '100% 0'; el.style.webkitBackgroundClip = 'text'; el.style.backgroundClip = 'text'; el.style.color = 'transparent';
+      function pasa() {
+        if (anda || E.quieto()) return;
+        anda = el.animate([{ backgroundPosition: '100% 0' }, { backgroundPosition: '0% 0' }], { duration: E.segundos('duration-slow-02', el) * V.veces * 1000, easing: getComputedStyle(el).getPropertyValue('--easing-standard-expressive').trim() || 'ease-in-out' });
+        anda.onfinish = anda.oncancel = function () { anda = null; };
+      }
+      deja = E.alVer(el, pasa); el.addEventListener('pointerenter', pasa); el.addEventListener('focusin', pasa);
+      return { pasa: pasa, ajusta: pinta, quita: function () { if (anda) anda.cancel(); deja(); el.removeEventListener('pointerenter', pasa); el.removeEventListener('focusin', pasa); if (antes == null) el.removeAttribute('style'); else el.setAttribute('style', antes); } };
+    }
+  });
+})();

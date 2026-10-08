@@ -537,3 +537,81 @@ El valor verdadero está siempre en la página, fuera de la vista: un lector de 
 var cifra = AlmaEfectos.monta('contar', elemento);   // <p>$ 12.480</p>
 cifra.pasa();   // otra vez
 ```
+
+### Escalonar
+
+Las palabras de una línea entran una tras otra, cada una subiendo un poco hasta su lugar.
+
+#### Cuándo
+
+Para un titular o una frase de apertura que merece llegar con calma. Una por pantalla.
+
+No lo uses en párrafos ni en texto de un producto. Tampoco en el nombre de una entidad: ese tiene su propia manera de escribirse.
+
+#### Cómo funciona
+
+Cada palabra es una pieza aparte, y cada una parte unos pulsos después de la anterior. Los espacios siguen siendo espacios: la línea se corta donde se cortaría sin el efecto.
+
+El pulso es `duration-stagger`. Cada palabra tarda `duration-slow-01`, con la curva de entrada expresiva. Pasa la primera vez que entra a la vista.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Pulsos entre palabras | Cuánto espera cada palabra a la anterior. |
+| Subida | Desde cuánto más abajo llega cada palabra, en proporción al tamaño de la letra. |
+
+#### Cuánto dura
+
+En una frase larga, el total crece con cada palabra. Mantén la frase corta o baja los pulsos: sobre medio segundo de espera, la última palabra llega tarde.
+
+#### Accesibilidad
+
+El texto verdadero está siempre en la página, entero y fuera de la vista: un lector de pantalla lee la frase de una vez, no palabra por palabra. Con menos movimiento, la frase está completa desde el principio.
+
+#### Código
+
+```js
+var frase = AlmaEfectos.monta('escalonar', titular, { pulsos: 2 });
+frase.pasa();   // otra vez
+```
+
+### Brillo
+
+Una franja de luz recorre una vez una línea de texto.
+
+#### Cuándo
+
+Para una línea corta que anuncia algo: una novedad, un estado, una invitación a seguir.
+
+No lo uses en texto que hay que leer con atención ni en más de una línea a la vez.
+
+#### Cómo funciona
+
+La línea se pinta con un degradado en vez de un color parejo: el color de texto secundario a lo largo, y una franja del color principal que espera fuera de la vista. Al ver la línea, la franja la cruza una vez. Vuelve a cruzar al pasar el puntero o al llegar con el teclado.
+
+No se repite sola: un brillo que no para distrae, y nadie puede detenerlo.
+
+Dura tantas veces `duration-slow-02` como diga el ajuste.
+
+#### Ajustes
+
+| Ajuste | Qué cambia |
+|---|---|
+| Ancho | El grosor de la franja. |
+| Duración | Cuántas veces `duration-slow-02` tarda en cruzar. |
+
+#### Ten en cuenta
+
+Mientras tiene el efecto, la línea se ve en el color de texto secundario, no en el principal. Los dos cumplen el contraste, pero el texto queda un tono más bajo.
+
+#### Con menos movimiento
+
+El efecto no se pone: la línea se ve como cualquier otra, en su color.
+
+#### Código
+
+```js
+var aviso = AlmaEfectos.monta('brillo', linea);
+aviso.pasa();   // otra vez
+```
