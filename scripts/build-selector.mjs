@@ -81,7 +81,7 @@ const lenguaje = [
   // The parade's video, once for every entity that has a character.
   ...(Object.values(lenguajes).some((L) => L.personaje) && desfileParaPagina() ? [`<script>window.__DESFILE = ${JSON.stringify(desfileParaPagina())};</script>`] : []),
   `<script>window.__LENGUAJES = ${JSON.stringify(lenguajes).replace(/</g, '\\u003c')};</script>`,
-  `<script>${esc(read('site/palabra.js'))}</script>`,
+  `<script>${esc(read('site/reloj.js') + '\n' + read('site/partitura.js') + '\n' + read('site/palabra.js'))}</script>`,
   `<script>${esc(read('site/lenguaje.js'))}</script>`
 ].join('\n');
 const html = shell.replace(siteCss, () => siteScoped)

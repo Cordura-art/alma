@@ -69,6 +69,8 @@ ${AJUSTES.map(([q, dice, min, max, paso, v]) => `          <div class="alma-slid
 </main>
 <script>window.__MUNDO = ${JSON.stringify(genesDeMundo(G, T))}; window.__PALABRA = ${JSON.stringify({ numeros: G.numeros, ritmo: G.ritmo, direccion: G.direccion, redondez: G.redondez, puntas: G.puntas })};</script>
 <script>
+${readFileSync('site/reloj.js', 'utf8')}
+${readFileSync('site/partitura.js', 'utf8')}
 ${readFileSync('site/palabra.js', 'utf8')}
 </script>
 <script>

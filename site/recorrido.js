@@ -55,7 +55,7 @@
   function junta(r, g, b) { return (255 << 24 | b << 16 | g << 8 | r) >>> 0; }
   function viste() {
     claro = /light/.test(document.documentElement.getAttribute('data-theme') || '');
-    var lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ls = parseFloat(lento); if (isFinite(ls) && ls > 0) ENTRADA = 2 * (/ms$/.test(lento) ? ls / 1000 : ls);      // (the dust settles in two of ALMA's slowest steps, as the entity has them)
+    var lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ls = parseFloat(lento); if (isFinite(ls) && ls > 0) ENTRADA = 2 * (/ms$/.test(lento) ? ls / 1000 : ls); if (window.AlmaPartitura) ENTRADA = window.AlmaPartitura.tiempos(escena).armarse.recorrido;      // (the dust settles in two of ALMA's slowest steps, as the entity has them)
     var f = color(getComputedStyle(document.body).backgroundColor), e = getComputedStyle(escena); FONDO = junta(f[0], f[1], f[2]);
     for (var t = 0; t < 3; t++) { var k = color(e.getPropertyValue('--escaneo-' + (t + 1)).trim()); for (var n = 0; n < NIVELES; n++) { var p = n / (NIVELES - 1); TINTAS[t * NIVELES + n] = junta(Math.round(f[0] + (k[0] - f[0]) * p), Math.round(f[1] + (k[1] - f[1]) * p), Math.round(f[2] + (k[2] - f[2]) * p)); } }
   }
@@ -66,9 +66,10 @@
     if (palabra) { palabra.style.transform = 'none'; anchoPalabra = palabra.offsetWidth; altoPalabra = palabra.offsetHeight; }
     viste(); pide();
   }
-  function lee() { var r = escena.getBoundingClientRect(), largo = r.height - window.innerHeight; aLaVista = r.bottom > 0 && r.top < window.innerHeight;      // (the sand drifts only while it is seen)
+  // (how far the page has been scrolled is the clock's to read, once a frame, when the page has it: site/reloj.js)
+  function lee() { if (window.AlmaReloj) { var a = window.AlmaReloj.avance(escena); aLaVista = a.aLaVista; return a.v; } var r = escena.getBoundingClientRect(), largo = r.height - window.innerHeight; aLaVista = r.bottom > 0 && r.top < window.innerHeight;      // (the sand drifts only while it is seen)
     return largo > 0 ? Math.min(1, Math.max(0, -r.top / largo)) : 0; }
-  function pide() { if (!pedido) pedido = requestAnimationFrame(cuadro); }
+  function pide() { if (pedido) return; pedido = window.AlmaReloj ? window.AlmaReloj.pide(cuadro) : requestAnimationFrame(cuadro); }
   function cubre(x0, y0, x1, y1, tinta) {
     x0 = x0 < 0 ? 0 : x0 | 0; y0 = y0 < 0 ? 0 : y0 | 0; x1 = x1 > W ? W : x1 | 0; y1 = y1 > H ? H : y1 | 0; if (x1 <= x0) return;
     for (var y = y0; y < y1; y++) pixeles.fill(tinta, y * W + x0, y * W + x1);

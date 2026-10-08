@@ -67,6 +67,8 @@ ${L.voz.atributos.map((a) => `      <li><strong>${esc(a[0])}, ${esc(a[1])}</stro
 </main>
 <script>window.__ESCANEO = ${JSON.stringify(trama)}; window.__PALABRA = ${JSON.stringify({ numeros: G.numeros, ritmo: G.ritmo, direccion: G.direccion, redondez: G.redondez, puntas: G.puntas })};</script>
 <script>
+${readFileSync('site/reloj.js', 'utf8')}
+${readFileSync('site/partitura.js', 'utf8')}
 ${readFileSync('site/palabra.js', 'utf8')}
 </script>
 <script>

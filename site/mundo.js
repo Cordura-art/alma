@@ -7,6 +7,8 @@
 // specks in the air; what is behind the ground is not seen; and where the pointer passes each has a life of its own,
 // as the dots of a scanned thing do (site/escaneo.js): stirred, carried off, drawn out when it goes fast, and back.
 // One walks with the arrows or W A S D, flies with F (Q and E, down and up), and the pointer turns the head.
+// Nothing is drawn while nothing changes; what only drifts rests a while after the last sign of whoever looks; and
+// the amount of dots follows what the machine holds.
 (function () {
   // (this same script is run again off the page, as many times as there are hands to spare: there it only answers what
   // the ground of a piece is, so that asking never holds a frame back)
@@ -301,7 +303,7 @@
   function color(css) { gota.clearRect(0, 0, 1, 1); gota.fillStyle = css; gota.fillRect(0, 0, 1, 1); return gota.getImageData(0, 0, 1, 1).data; }
   function viste() {
     claro = /light/.test(document.documentElement.getAttribute('data-theme') || '');
-    var lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ls = parseFloat(lento); if (isFinite(ls) && ls > 0) ENTRADA = 2 * (/ms$/.test(lento) ? ls / 1000 : ls);
+    var lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ls = parseFloat(lento); if (isFinite(ls) && ls > 0) ENTRADA = 2 * (/ms$/.test(lento) ? ls / 1000 : ls); if (window.AlmaPartitura) ENTRADA = window.AlmaPartitura.tiempos(escena).armarse.mundo;
     var f = color(getComputedStyle(document.body).backgroundColor), e = getComputedStyle(escena); FONDO = [f[0] / 255, f[1] / 255, f[2] / 255];
     for (var t = 0; t < 3; t++) { var k = color(e.getPropertyValue('--escaneo-' + (t + 1)).trim()); TINTAS[t * 3] = k[0] / 255; TINTAS[t * 3 + 1] = k[1] / 255; TINTAS[t * 3 + 2] = k[2] / 255; }
   }
@@ -311,7 +313,7 @@
     if (palabra) { palabra.style.transform = 'none'; anchoPalabra = palabra.offsetWidth; altoPalabra = palabra.offsetHeight; }
     viste(); pide();
   }
-  function pide() { if (!pedido) pedido = requestAnimationFrame(cuadro); }
+  function pide() { if (pedido) return; pedido = window.AlmaReloj ? window.AlmaReloj.pide(cuadro) : requestAnimationFrame(cuadro); }
   // (if the machine takes its drawing hand away and gives it back, every piece is asked about again)
   lienzo.addEventListener('webglcontextlost', function (ev) { ev.preventDefault(); });
   lienzo.addEventListener('webglcontextrestored', function () { location.reload(); });
@@ -349,35 +351,63 @@
   }
   function vuela(si) { enVuelo = si; quiereAltura = si ? Math.max(40, altura) : OJOS; escena.classList.toggle('mundo--en-vuelo', si); for (var i = 0; i < mandos.length; i++) if (mandos[i].getAttribute('data-mando') === 'volar') mandos[i].setAttribute('aria-pressed', si ? 'true' : 'false'); pide(); }
 
-  // Where the pointer has just been: a few places, each fading, that the dots come apart around.
+  // Where the pointer has just been: a few places, each fading, that what is loose comes apart around.
   var ESTELA = new Float32Array(24), ultima = 0;
   function remueve(x, y, cuanto) {
     var o = ultima * 3, lejos = Math.hypot(x - ESTELA[o], y - ESTELA[o + 1]); if (ESTELA[o + 2] < 0.02 || lejos > H * 0.16 * ALCANCE * 0.3) { ultima = (ultima + 1) % 8; o = ultima * 3; ESTELA[o + 2] = 0; }
     ESTELA[o] = x; ESTELA[o + 1] = y; ESTELA[o + 2] = Math.min(1, ESTELA[o + 2] + cuanto);
   }
-  function vista(u, CERCA, rx, ry, rz, ux, uy, uz, fx, fy, fz, ox, oy, oz, quieto) {
-    gl.useProgram(u.p); gl.uniform3f(u.uOjo, ox, oy, oz); gl.uniform3f(u.uDer, rx, ry, rz); gl.uniform3f(u.uArr, ux, uy, uz); gl.uniform3f(u.uAde, fx, fy, fz); gl.uniform2f(u.uFoco, foco / (W / 2), foco / (H / 2)); gl.uniform2f(u.uLienzo, W, H);
-    gl.uniform1f(u.uFocoPx, foco); gl.uniform1f(u.uCerca, CERCA); gl.uniform1f(u.uTam, TAM); gl.uniform1f(u.uLuz, LUZ); gl.uniform1f(u.uClaro, claro ? 1 : 0); gl.uniform1f(u.uGrande, H * 0.03 * TAM); gl.uniform3fv(u.uTinta, TINTAS); gl.uniform3f(u.uFondo, FONDO[0], FONDO[1], FONDO[2]);
-    gl.uniform3fv(u.uEstela, ESTELA); gl.uniform1f(u.uAlcance, quieto ? 0 : H * 0.16 * ALCANCE); gl.uniform1f(u.uReloj, CONT ? 0 : reloj);
+  function vista(u, c) {
+    gl.useProgram(u.p); gl.uniform3f(u.uOjo, c.ox, c.oy, c.oz); gl.uniform3f(u.uDer, c.rx, c.ry, c.rz); gl.uniform3f(u.uArr, c.ux, c.uy, c.uz); gl.uniform3f(u.uAde, c.fx, c.fy, c.fz); gl.uniform2f(u.uFoco, foco / (W / 2), foco / (H / 2)); gl.uniform2f(u.uLienzo, W, H);
+    gl.uniform1f(u.uFocoPx, foco); gl.uniform1f(u.uCerca, c.CERCA); gl.uniform1f(u.uTam, TAM); gl.uniform1f(u.uLuz, LUZ); gl.uniform1f(u.uClaro, claro ? 1 : 0); gl.uniform1f(u.uGrande, H * 0.03 * TAM); gl.uniform3fv(u.uTinta, TINTAS); gl.uniform3f(u.uFondo, FONDO[0], FONDO[1], FONDO[2]);
+    gl.uniform3fv(u.uEstela, ESTELA); gl.uniform1f(u.uAlcance, c.quieto ? 0 : H * 0.16 * ALCANCE); gl.uniform1f(u.uReloj, CONT ? 0 : reloj);
   }
 
+  // ── The frame ───────────────────────────────────────────────────────────────────────────────────────────────────
+  // Whatever happens in the world each frame is on one list, in the order it happens. Each thing on it is told the
+  // frame (how long since the last, where the eye is, what the pointer does) and answers whether it needs another:
+  // when none does, nothing is drawn until something changes. To add a thing to the world is to add it to the list;
+  // what it gets back takes it off again.
+  var marcha = [], C = { dt: 0, ahora: 0, quieto: false, ambiente: false, pendientes: 0, suelto: false };
+  function cada(nombre, paso) { var p = { nombre: nombre, paso: paso }; marcha.push(p); return function () { var i = marcha.indexOf(p); if (i >= 0) marcha.splice(i, 1); }; }
+  // (what only drifts, the clouds and the specks, does not keep the page awake by itself: a while after the last
+  // sign of whoever looks, it rests, and takes up again at the next one. The sign is the clock's to keep, when the
+  // page has it: site/reloj.js)
+  var sena = performance.now(), DESCANSO = 12000;
+  ['pointermove', 'pointerdown', 'keydown', 'wheel', 'input', 'focusin'].forEach(function (que) { window.addEventListener(que, function () { sena = performance.now(); }, { capture: true, passive: true }); });
+  // How much of what is asked for the machine holds: the amount of dots is brought down when frames are being lost,
+  // and back up, a little at a time, when they are not. What whoever looks sets with the slider is the most there is.
+  var CALIDAD = 1, techo = 1, techoHasta = 0, cuenta0 = 0, suma0 = 0, holgadas = 0, lentas = 0, anterior = 0, hechos0 = 0;
+  function alcanza() { CERCANO = PASO * DENSA * CALIDAD; }
   function cuadro(ahora) {
-    pedido = 0; var dt = Math.min(0.05, antes ? (ahora - antes) / 1000 : 0.016), empieza = performance.now(); antes = ahora; cuadro0++;
-    var quieto = menos.matches, sigue = mueve(dt); reloj += dt;
-    if (quieto) { giro = quiereGiro; alza = quiereAlza; } else { giro += (quiereGiro - giro) * (1 - Math.exp(-dt * 5)); alza += (quiereAlza - alza) * (1 - Math.exp(-dt * 5)); if (Math.abs(quiereGiro - giro) > 0.001 || Math.abs(quiereAlza - alza) > 0.001) sigue = true; }
-    for (var e = 0; e < 8; e++) { ESTELA[e * 3 + 2] *= Math.exp(-dt / 1.5); if (ESTELA[e * 3 + 2] > 0.004) sigue = true; else ESTELA[e * 3 + 2] = 0; }
-    // The eye: at its height over the place, looking ahead and a little down; from high up, down at the planet.
-    var ox = P[0] * radioDelOjo, oy = P[1] * radioDelOjo, oz = P[2] * radioDelOjo, alto = radioDelOjo - piso0, caida = Math.acos(Math.min(1, RADIO / radioDelOjo)), baja = 0.07 + caida * 0.9 + (1.5708 - caida * 0.9 - 0.07) * suave(alto, RADIO * 0.25, RADIO * 1.6) + alza;
-    var cg = Math.cos(giro), sg = Math.sin(giro), rx0 = F[1] * P[2] - F[2] * P[1], ry0 = F[2] * P[0] - F[0] * P[2], rz0 = F[0] * P[1] - F[1] * P[0], hx = F[0] * cg + rx0 * sg, hy = F[1] * cg + ry0 * sg, hz = F[2] * cg + rz0 * sg;
-    var rx = hy * P[2] - hz * P[1], ry = hz * P[0] - hx * P[2], rz = hx * P[1] - hy * P[0], cb = Math.cos(baja), sb = Math.sin(baja), fx = hx * cb - P[0] * sb, fy = hy * cb - P[1] * sb, fz = hz * cb - P[2] * sb, ux = P[0] * cb + hx * sb, uy = P[1] * cb + hy * sb, uz = P[2] * cb + hz * sb;
-    var CERCA = Math.max(0.5, Math.min(60, alto * 0.05)), ancho = W / 2 / foco, largo = H / 2 / foco, cima = RADIO * (1 + RELIEVE) + 20, horizonte = Math.acos(Math.min(1, RMAR * 0.985 / radioDelOjo)) + Math.acos(Math.min(1, RMAR * 0.985 / cima)), cosHorizonte = Math.cos(Math.min(3.1416, horizonte));
-    var i, t, x, y, z, pendientes = 0; van = 0; visibles.length = 0;
-    var rapidez = Math.hypot(mano.vx, mano.vy), alcanceM = H * 0.16 * ALCANCE, caliente = !quieto && REACCION > 0 && mano.dentro && ahora - mano.cuando < 250 && rapidez > 15 * escala;
+    pedido = 0; var empieza = performance.now(), c = C; c.crudo = antes ? ahora - antes : 16; c.dt = Math.min(0.05, c.crudo / 1000); c.ahora = ahora; c.quieto = menos.matches; c.ambiente = false; c.suelto = false; antes = ahora; cuadro0++; reloj += c.dt;
+    for (var i = 0, sigue = false; i < marcha.length; i++) if (marcha[i].paso(c)) sigue = true;
+    hito.ms = performance.now() - empieza; hito.descansa = !sigue && !(c.ambiente && !document.hidden && ahora - (window.AlmaReloj ? window.AlmaReloj.sena : sena) < DESCANSO);
+    if (!hito.descansa) pide(); else antes = 0;
+  }
 
-    // The ground: of each level, the pieces within its reach and in sight. Those not asked about yet wait their turn.
+  cada('quien camina', function (c) {
+    var sigue = mueve(c.dt), dt = c.dt;
+    if (c.quieto) { giro = quiereGiro; alza = quiereAlza; } else { giro += (quiereGiro - giro) * (1 - Math.exp(-dt * 5)); alza += (quiereAlza - alza) * (1 - Math.exp(-dt * 5)); if (Math.abs(quiereGiro - giro) > 0.001 || Math.abs(quiereAlza - alza) > 0.001) sigue = true; }
+    for (var e = 0; e < 8; e++) { ESTELA[e * 3 + 2] *= Math.exp(-dt / 1.5); if (ESTELA[e * 3 + 2] > 0.004) sigue = true; else ESTELA[e * 3 + 2] = 0; }
+    return sigue;
+  });
+
+  // The eye: at its height over the place, looking ahead and a little down; from high up, down at the planet.
+  cada('el ojo', function (c) {
+    c.ox = P[0] * radioDelOjo; c.oy = P[1] * radioDelOjo; c.oz = P[2] * radioDelOjo; c.alto = radioDelOjo - piso0; var caida = Math.acos(Math.min(1, RADIO / radioDelOjo)), baja = 0.07 + caida * 0.9 + (1.5708 - caida * 0.9 - 0.07) * suave(c.alto, RADIO * 0.25, RADIO * 1.6) + alza;
+    var cg = Math.cos(giro), sg = Math.sin(giro), rx0 = F[1] * P[2] - F[2] * P[1], ry0 = F[2] * P[0] - F[0] * P[2], rz0 = F[0] * P[1] - F[1] * P[0], hx = F[0] * cg + rx0 * sg, hy = F[1] * cg + ry0 * sg, hz = F[2] * cg + rz0 * sg, cb = Math.cos(baja), sb = Math.sin(baja);
+    c.rx = hy * P[2] - hz * P[1]; c.ry = hz * P[0] - hx * P[2]; c.rz = hx * P[1] - hy * P[0]; c.fx = hx * cb - P[0] * sb; c.fy = hy * cb - P[1] * sb; c.fz = hz * cb - P[2] * sb; c.ux = P[0] * cb + hx * sb; c.uy = P[1] * cb + hy * sb; c.uz = P[2] * cb + hz * sb;
+    c.CERCA = Math.max(0.5, Math.min(60, c.alto * 0.05)); c.ancho = W / 2 / foco; c.largo = H / 2 / foco; var cima = RADIO * (1 + RELIEVE) + 20; c.horizonte = Math.acos(Math.min(1, RMAR * 0.985 / radioDelOjo)) + Math.acos(Math.min(1, RMAR * 0.985 / cima)); c.cosHorizonte = Math.cos(Math.min(3.1416, c.horizonte));
+    c.rapidez = Math.hypot(mano.vx, mano.vy); c.alcanceM = H * 0.16 * ALCANCE; c.caliente = !c.quieto && REACCION > 0 && mano.dentro && c.ahora - mano.cuando < 250 && c.rapidez > 15 * escala;
+  });
+
+  // The ground: of each level, the pieces within its reach and in sight. Those not asked about yet wait their turn.
+  cada('el suelo a la vista', function (c) {
+    var ox = c.ox, oy = c.oy, oz = c.oz, rx = c.rx, ry = c.ry, rz = c.rz, ux = c.ux, uy = c.uy, uz = c.uz, fx = c.fx, fy = c.fy, fz = c.fz, CERCA = c.CERCA, ancho = c.ancho, largo = c.largo, t, x, y, z, sigue = false; van = 0; visibles.length = 0; c.pendientes = 0;
     for (var nivel = TOPE; nivel >= 0; nivel--) {
       var n = N0 >> nivel, cuantos = n / TROZO, hasta = nivel === TOPE ? 1e9 : CERCANO * (1 << nivel), desde = nivel ? CERCANO * (1 << (nivel - 1)) : 0, hasta2 = hasta * hasta, desde2 = desde * desde, alcance = hasta * 1.18, tam = PASO * (1 << nivel);
-      if (alto - RADIO * RELIEVE > alcance) continue;
+      if (c.alto - RADIO * RELIEVE > alcance) continue;
       for (var cara = 0; cara < 6; cara++) {
         var A = EJE[cara], pa = P[0] * A[0] + P[1] * A[1] + P[2] * A[2], c0 = 0, c1 = cuantos - 1, d0 = 0, d1 = cuantos - 1;
         if (cuantos > 8) {
@@ -388,89 +418,107 @@
         for (var cj = d0; cj <= d1; cj++) for (var ci = c0; ci <= c1; ci++) {
           t = trozo(cara, nivel, ci, cj); var tx = t.cx - ox, ty = t.cy - oy, tz = t.cz - oz, tl = raiz2(tx * tx + ty * ty + tz * tz);
           if (tl - t.radio > alcance || tl + t.radio < desde * 0.9) continue;
-          if ((t.cx * P[0] + t.cy * P[1] + t.cz * P[2]) / RADIO < Math.cos(Math.min(3.1416, horizonte + t.radio / RADIO))) continue;
+          if ((t.cx * P[0] + t.cy * P[1] + t.cz * P[2]) / RADIO < Math.cos(Math.min(3.1416, c.horizonte + t.radio / RADIO))) continue;
           var th = tx * fx + ty * fy + tz * fz; if (th + t.radio < CERCA) continue; var orilla = Math.max(0, th) + t.radio;
           if (Math.abs(tx * rx + ty * ry + tz * rz) > orilla * ancho + t.radio * 1.5 || Math.abs(tx * ux + ty * uy + tz * uz) > orilla * largo + t.radio * 1.5) continue;
-          t.visto = cuadro0; if (!t.hecho) { if (!t.pedido) { t.pedido = true; cola.push(t); } t.lejos = tl - nivel * 1e6; pendientes++; continue; }
+          t.visto = cuadro0; if (!t.hecho) { if (!t.pedido) { t.pedido = true; cola.push(t); } t.lejos = tl - nivel * 1e6; c.pendientes++; continue; }
           // (a piece that has just arrived is dust that settles; a contained entity's simply grows into place)
-          var edad = (ahora - t.nace) / 1000 / ENTRADA, suelto = quieto || edad >= 1 ? 0 : 1 - edad; t.polvo = suelto * suelto * (3 - 2 * suelto); if (t.polvo > 0) sigue = true; t.cerca = tl; visibles.push(t);
-          // (how many of its dots are in the view, counted by a few of them)
-          // (and whether the pointer, passing, reaches it: then its dots have a life of their own for a while)
+          var edad = (c.ahora - t.nace) / 1000 / ENTRADA, suelto = c.quieto || edad >= 1 ? 0 : 1 - edad; t.polvo = suelto * suelto * (3 - 2 * suelto); if (t.polvo > 0) sigue = true; t.cerca = tl; visibles.push(t);
+          // (how many of its dots are in the view, counted by a few of them; and whether the pointer, passing,
+          // reaches it: then its dots have a life of their own for a while)
           for (var M4 = t.M, m = 0, tocado = false; m < 48; m += 3) {
             x = M4[m] - ox; y = M4[m + 1] - oy; z = M4[m + 2] - oz; var l2 = x * x + y * y + z * z; if (l2 >= hasta2 || l2 < desde2) continue; var mh = x * fx + y * fy + z * fz; if (mh <= CERCA) continue;
             var sx = (x * rx + y * ry + z * rz) / mh, sy = (x * ux + y * uy + z * uz) / mh; if (Math.abs(sx) < ancho && Math.abs(sy) < largo) van += 256;
-            if (caliente && !tocado) { var qx = W / 2 + sx * foco - mano.x, qy = H / 2 + sy * foco - mano.y, holgura = alcanceM + tam * TROZO / 4 * foco / mh; if (qx * qx + qy * qy < holgura * holgura) tocado = true; }
+            if (c.caliente && !tocado) { var qx = W / 2 + sx * foco - mano.x, qy = H / 2 + sy * foco - mano.y, holgura = c.alcanceM + tam * TROZO / 4 * foco / mh; if (qx * qx + qy * qy < holgura * holgura) tocado = true; }
           }
-          if (tocado) aviva(t, ahora);
+          if (tocado) aviva(t, c.ahora);
         }
       }
     }
+    return sigue;
+  });
 
-    // The life of the pieces the pointer reached: a step of it, kept for the next frame. Six seconds after the last
-    // touch a piece is at rest again, and is only shown.
+  // The life of the pieces the pointer reached: a step of it, kept for the next frame. Six seconds after the last
+  // touch a piece is at rest again, and is only shown.
+  cada('la vida de las partículas', function (c) {
     if (vivos.size) {
-      if (quieto) vivos.forEach(apaga);
+      if (c.quieto) vivos.forEach(apaga);
       else {
-        gl.useProgram(T.p); gl.uniform3f(T.uOjo, ox, oy, oz); gl.uniform3f(T.uDer, rx, ry, rz); gl.uniform3f(T.uArr, ux, uy, uz); gl.uniform3f(T.uAde, fx, fy, fz); gl.uniform2f(T.uFoco, foco / (W / 2), foco / (H / 2)); gl.uniform2f(T.uLienzo, W, H); gl.uniform1f(T.uFocoPx, foco); gl.uniform1f(T.uEsc, escala);
-        gl.uniform4f(T.uMano, mano.ax, mano.ay, mano.x, mano.y); gl.uniform3f(T.uManoV, mano.vx, mano.vy, caliente ? Math.min(1, rapidez / (700 * escala)) * REACCION * (CONT ? 0.4 : 1) : 0); gl.uniform1f(T.uAlcance, alcanceM); gl.uniform1f(T.uDt, dt); gl.uniform1f(T.uReloj, reloj); gl.uniform1f(T.uViva, CONT ? 0 : 1);
+        gl.useProgram(T.p); gl.uniform3f(T.uOjo, c.ox, c.oy, c.oz); gl.uniform3f(T.uDer, c.rx, c.ry, c.rz); gl.uniform3f(T.uArr, c.ux, c.uy, c.uz); gl.uniform3f(T.uAde, c.fx, c.fy, c.fz); gl.uniform2f(T.uFoco, foco / (W / 2), foco / (H / 2)); gl.uniform2f(T.uLienzo, W, H); gl.uniform1f(T.uFocoPx, foco); gl.uniform1f(T.uEsc, escala);
+        gl.uniform4f(T.uMano, mano.ax, mano.ay, mano.x, mano.y); gl.uniform3f(T.uManoV, mano.vx, mano.vy, c.caliente ? Math.min(1, c.rapidez / (700 * escala)) * REACCION * (CONT ? 0.4 : 1) : 0); gl.uniform1f(T.uAlcance, c.alcanceM); gl.uniform1f(T.uDt, c.dt); gl.uniform1f(T.uReloj, reloj); gl.uniform1f(T.uViva, CONT ? 0 : 1);
         gl.enable(gl.RASTERIZER_DISCARD);
         vivos.forEach(function (v) {
-          if (ahora - v.tocado > 6000) { apaga(v); return; } var de = v.cual ? v.e1 : v.e0, a = v.cual ? v.e0 : v.e1, pone = function () { gl.vertexAttribPointer(4, 4, gl.FLOAT, false, 32, 0); gl.vertexAttribPointer(5, 4, gl.FLOAT, false, 32, 16); };
+          if (c.ahora - v.tocado > 6000) { apaga(v); return; } var de = v.cual ? v.e1 : v.e0, a = v.cual ? v.e0 : v.e1, pone = function () { gl.vertexAttribPointer(4, 4, gl.FLOAT, false, 32, 0); gl.vertexAttribPointer(5, 4, gl.FLOAT, false, 32, 16); };
           gl.uniform4f(T.uTrozo, v.cx, v.cy, v.cz, v.escala); gl.bindVertexArray(v.vsim); gl.bindBuffer(gl.ARRAY_BUFFER, de); pone(); gl.bindBuffer(gl.ARRAY_BUFFER, null);
           gl.bindBufferBase(gl.TRANSFORM_FEEDBACK_BUFFER, 0, a); gl.beginTransformFeedback(gl.POINTS); gl.drawArrays(gl.POINTS, 0, NV); gl.endTransformFeedback(); gl.bindBufferBase(gl.TRANSFORM_FEEDBACK_BUFFER, 0, null);
           gl.bindVertexArray(v.vvivo); gl.bindBuffer(gl.ARRAY_BUFFER, a); pone(); gl.bindBuffer(gl.ARRAY_BUFFER, null); v.cual ^= 1;
         });
-        gl.disable(gl.RASTERIZER_DISCARD); gl.bindVertexArray(null); if (vivos.size) sigue = true;
+        gl.disable(gl.RASTERIZER_DISCARD); gl.bindVertexArray(null);
       }
     }
-    mano.ax = mano.x; mano.ay = mano.y; if (ahora - mano.cuando > 60) { mano.vx *= 0.7; mano.vy *= 0.7; }
+    mano.ax = mano.x; mano.ay = mano.y; if (c.ahora - mano.cuando > 60) { mano.vx *= 0.7; mano.vy *= 0.7; }
+    return vivos.size > 0;
+  });
 
+  // First the ground alone, as what it hides; then its dots.
+  cada('el suelo', function (c) {
     gl.viewport(0, 0, W, H); gl.clearColor(0, 0, 0, 0); gl.clearDepth(1); gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL); gl.depthMask(true); gl.disable(gl.BLEND); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    // First the ground alone, as what it hides; then the dots.
-    vista(G, CERCA, rx, ry, rz, ux, uy, uz, fx, fy, fz, ox, oy, oz, quieto);
+    vista(G, c);
     for (var paso = 0; paso < 2; paso++) {
       gl.uniform1f(G.uPaso, paso); gl.uniform1f(G.uVivo, 0); gl.uniform1f(G.uEsc, escala); var deNivel = -1;
-      for (i = 0; i < visibles.length; i++) {
-        t = visibles[i]; if (!paso && t.polvo > 0.02) continue;
+      for (var i = 0; i < visibles.length; i++) {
+        var t = visibles[i]; if (!paso && t.polvo > 0.02) continue;
         if (t.nivel !== deNivel) { deNivel = t.nivel; var h1 = deNivel === TOPE ? 1e9 : CERCANO * (1 << deNivel); gl.uniform4f(G.uNivel, deNivel ? CERCANO * (1 << (deNivel - 1)) : 0, h1, h1 * 0.72, PASO * (1 << deNivel)); gl.uniform1f(G.uTope, deNivel === TOPE ? 1 : 0); }
         gl.uniform4f(G.uTrozo, t.cx, t.cy, t.cz, t.escala); gl.bindVertexArray(t.vao);
         if (!paso) gl.drawElements(gl.TRIANGLES, NI, gl.UNSIGNED_SHORT, 0);
         else { gl.uniform1f(G.uPolvo, t.polvo); gl.uniform1f(G.uVuelo, CONT ? 0 : t.polvo * H * 0.5); gl.uniform1f(G.uCrece, CONT ? 1 - t.polvo : 1); if (t.e0) { gl.uniform1f(G.uVivo, 1); gl.bindVertexArray(t.vvivo); gl.drawArraysInstanced(gl.POINTS, 0, 4, NV); gl.uniform1f(G.uVivo, 0); } else gl.drawArrays(gl.POINTS, 0, NV); }
       }
     }
-    // What is loose: the stars behind everything, the trees and stones of the pieces, the clouds, the specks.
-    vista(S, CERCA, rx, ry, rz, ux, uy, uz, fx, fy, fz, ox, oy, oz, quieto);
-    var UNO = [1, 0, 0, 0, 1, 0, 0, 0, 1]; gl.uniformMatrix3fv(S.uGiro, false, UNO); gl.uniform1f(S.uCrece, 1); gl.uniform1f(S.uSuave, 0);
-    gl.uniform1f(S.uModo, 1); gl.uniform1f(S.uEscalaPx, escala); gl.uniform1f(S.uNoche, claro ? 0.5 : 1); gl.bindVertexArray(estrellas.v); gl.drawArrays(gl.POINTS, 0, estrellas.n);
-    gl.uniform1f(S.uModo, 0); gl.uniform2f(S.uFunde, 320, 460);
-    for (i = 0; i < visibles.length; i++) { t = visibles[i]; if (!t.cosas || t.cerca - t.radio > 460) continue; gl.uniform1f(S.uCrece, 1 - t.polvo); gl.bindVertexArray(t.qvao); gl.drawArrays(gl.POINTS, 0, t.cosas); van += 0; }
-    gl.uniform1f(S.uCrece, 1);
-    // (the clouds drift slowly round the planet; a contained entity's stay where they are)
-    if (nubes) { var deriva = quieto || CONT ? 0 : reloj * 0.0035, cn = Math.cos(deriva), sn = Math.sin(deriva); gl.uniformMatrix3fv(S.uGiro, false, [cn, 0, -sn, 0, 1, 0, sn, 0, cn]); gl.uniform2f(S.uFunde, 1e9, 2e9); gl.uniform1f(S.uSuave, 220); gl.bindVertexArray(nubes.v); gl.drawArrays(gl.POINTS, 0, nubes.n); gl.uniformMatrix3fv(S.uGiro, false, UNO); gl.uniform1f(S.uSuave, 0); }
-    // Loose specks in the air around whoever is there: the planet's own places for them, a few meters apart, each
-    // drifting a little about its place (a contained entity's are still).
-    if (alto < 600 && MOTAS > 0) {
-      var celda = 7, cuantasM = Math.min(0.95, 0.3 * MOTAS), vaga = quieto || CONT ? 0 : 1.3, m0x = piso(ox / celda), m0y = piso(oy / celda), m0z = piso(oz / celda), nm = 0;
-      for (var mk = -5; mk <= 5; mk++) for (var mj = -5; mj <= 5; mj++) for (var mi = -5; mi <= 5; mi++) {
-        var ax = m0x + mi, ay = m0y + mj, az0 = m0z + mk, su = suerte(ax, ay, az0, 77); if (su > cuantasM) continue; var fase = su * 400;
-        x = (ax + suerte(ax, ay, az0, 78)) * celda + Math.sin(reloj * 0.21 + fase) * vaga; y = (ay + suerte(ax, ay, az0, 79)) * celda + Math.cos(reloj * 0.17 + fase * 1.3) * vaga; z = (az0 + suerte(ax, ay, az0, 80)) * celda + Math.sin(reloj * 0.13 + fase * 0.7) * vaga;
-        if (x * P[0] + y * P[1] + z * P[2] < piso0 + 0.3) continue; MOTA[nm++] = x; MOTA[nm++] = y; MOTA[nm++] = z; MOTA[nm++] = 0.07; MOTA[nm++] = mezcla(ax, ay, az0, 81) % 3; MOTA[nm++] = 0.9;
-      }
-      if (nm) { gl.bindBuffer(gl.ARRAY_BUFFER, motas.b); gl.bufferSubData(gl.ARRAY_BUFFER, 0, MOTA, 0, nm); gl.uniform2f(S.uFunde, 24, 36); gl.bindVertexArray(motas.v); gl.drawArrays(gl.POINTS, 0, nm / 6); if (vaga) sigue = true; }
-    }
     gl.bindVertexArray(null);
+  });
 
-    // The word, standing where one arrived: the ground hides its foot, and it is gone when the planet is in the way.
-    if (palabra && anchoPalabra) {
-      var wx = ANCLA[0] - ox, wy = ANCLA[1] - oy, wz = ANCLA[2] - oz, wh = wx * fx + wy * fy + wz * fz, seVe = wh > 4 && (ANCLA[0] * P[0] + ANCLA[1] * P[1] + ANCLA[2] * P[2]) / raiz2(ANCLA[0] * ANCLA[0] + ANCLA[1] * ANCLA[1] + ANCLA[2] * ANCLA[2]) > cosHorizonte;
-      if (seVe) { var kf = foco / wh / escala, tamP = 150 * kf / anchoPalabra, xf = W / 2 / escala + (wx * rx + wy * ry + wz * rz) * kf, yf = H / 2 / escala - (wx * ux + wy * uy + wz * uz) * kf; palabra.style.transform = 'translate(' + (xf - anchoPalabra * tamP / 2).toFixed(1) + 'px,' + (yf - altoPalabra * tamP / 2).toFixed(1) + 'px) scale(' + tamP.toFixed(4) + ')'; }
-      palabra.style.visibility = seVe ? 'visible' : 'hidden';
+  // What is loose is drawn with one hand, made ready by the first loose thing of the frame.
+  var UNO = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+  function loSuelto(c) { if (!c.suelto) { c.suelto = true; vista(S, c); } gl.uniformMatrix3fv(S.uGiro, false, UNO); gl.uniform1f(S.uCrece, 1); gl.uniform1f(S.uSuave, 0); gl.uniform1f(S.uModo, 0); }
+  cada('las estrellas', function (c) { loSuelto(c); gl.uniform1f(S.uModo, 1); gl.uniform1f(S.uEscalaPx, escala); gl.uniform1f(S.uNoche, claro ? 0.5 : 1); gl.bindVertexArray(estrellas.v); gl.drawArrays(gl.POINTS, 0, estrellas.n); });
+  cada('los árboles y las piedras', function (c) {
+    loSuelto(c); gl.uniform2f(S.uFunde, 320, 460);
+    for (var i = 0; i < visibles.length; i++) { var t = visibles[i]; if (!t.cosas || t.cerca - t.radio > 460) continue; gl.uniform1f(S.uCrece, 1 - t.polvo); gl.bindVertexArray(t.qvao); gl.drawArrays(gl.POINTS, 0, t.cosas); }
+  });
+  // (the clouds drift slowly round the planet; a contained entity's stay where they are)
+  cada('las nubes', function (c) {
+    if (!nubes) return; loSuelto(c); var vaga = !(c.quieto || CONT), deriva = vaga ? reloj * 0.0035 : 0, cn = Math.cos(deriva), sn = Math.sin(deriva);
+    gl.uniformMatrix3fv(S.uGiro, false, [cn, 0, -sn, 0, 1, 0, sn, 0, cn]); gl.uniform2f(S.uFunde, 1e9, 2e9); gl.uniform1f(S.uSuave, 220); gl.bindVertexArray(nubes.v); gl.drawArrays(gl.POINTS, 0, nubes.n); if (vaga) c.ambiente = true;
+  });
+  // Loose specks in the air around whoever is there: the planet's own places for them, a few meters apart, each
+  // drifting a little about its place (a contained entity's are still).
+  cada('las motas', function (c) {
+    if (c.alto >= 600 || MOTAS <= 0) return; loSuelto(c);
+    var celda = 7, cuantasM = Math.min(0.95, 0.3 * MOTAS), vaga = c.quieto || CONT ? 0 : 1.3, m0x = piso(c.ox / celda), m0y = piso(c.oy / celda), m0z = piso(c.oz / celda), nm = 0, x, y, z;
+    for (var mk = -5; mk <= 5; mk++) for (var mj = -5; mj <= 5; mj++) for (var mi = -5; mi <= 5; mi++) {
+      var ax = m0x + mi, ay = m0y + mj, az0 = m0z + mk, su = suerte(ax, ay, az0, 77); if (su > cuantasM) continue; var fase = su * 400;
+      x = (ax + suerte(ax, ay, az0, 78)) * celda + Math.sin(reloj * 0.21 + fase) * vaga; y = (ay + suerte(ax, ay, az0, 79)) * celda + Math.cos(reloj * 0.17 + fase * 1.3) * vaga; z = (az0 + suerte(ax, ay, az0, 80)) * celda + Math.sin(reloj * 0.13 + fase * 0.7) * vaga;
+      if (x * P[0] + y * P[1] + z * P[2] < piso0 + 0.3) continue; MOTA[nm++] = x; MOTA[nm++] = y; MOTA[nm++] = z; MOTA[nm++] = 0.07; MOTA[nm++] = mezcla(ax, ay, az0, 81) % 3; MOTA[nm++] = 0.9;
     }
-    if (entrada) { var oe = Math.min(1, Math.max(0, 1 - (andado - 6) / 18)) * (enVuelo ? 0 : 1); entrada.style.opacity = oe.toFixed(3); entrada.style.pointerEvents = oe < 0.5 ? 'none' : ''; }
-    if (estado) { var dice = enVuelo || alto > OJOS + 1 ? 'En vuelo, a ' + (alto < 1000 ? Math.round(alto / 5) * 5 + ' m' : (alto / 1000).toFixed(1).replace('.', ',') + ' km') + ' del suelo' : 'A pie'; if (dice !== dicho) { dicho = dice; estado.textContent = dice; } }
-    hito.ms = performance.now() - empieza; cuentaPuntos(ahora);
+    if (nm) { gl.bindBuffer(gl.ARRAY_BUFFER, motas.b); gl.bufferSubData(gl.ARRAY_BUFFER, 0, MOTA, 0, nm); gl.uniform2f(S.uFunde, 24, 36); gl.bindVertexArray(motas.v); gl.drawArrays(gl.POINTS, 0, nm / 6); if (vaga) c.ambiente = true; }
+  });
 
-    // What is still to be asked about: the widest pieces first, then the nearest.
+  // The word, standing where one arrived: the ground hides its foot, and it is gone when the planet is in the way.
+  cada('la palabra', function (c) {
+    gl.bindVertexArray(null); if (!palabra || !anchoPalabra) return;
+    var wx = ANCLA[0] - c.ox, wy = ANCLA[1] - c.oy, wz = ANCLA[2] - c.oz, wh = wx * c.fx + wy * c.fy + wz * c.fz, seVe = wh > 4 && (ANCLA[0] * P[0] + ANCLA[1] * P[1] + ANCLA[2] * P[2]) / raiz2(ANCLA[0] * ANCLA[0] + ANCLA[1] * ANCLA[1] + ANCLA[2] * ANCLA[2]) > c.cosHorizonte;
+    if (seVe) { var kf = foco / wh / escala, tamP = 150 * kf / anchoPalabra, xf = W / 2 / escala + (wx * c.rx + wy * c.ry + wz * c.rz) * kf, yf = H / 2 / escala - (wx * c.ux + wy * c.uy + wz * c.uz) * kf; palabra.style.transform = 'translate(' + (xf - anchoPalabra * tamP / 2).toFixed(1) + 'px,' + (yf - altoPalabra * tamP / 2).toFixed(1) + 'px) scale(' + tamP.toFixed(4) + ')'; }
+    palabra.style.visibility = seVe ? 'visible' : 'hidden';
+  });
+  cada('lo que se dice', function (c) {
+    if (entrada) { var oe = Math.min(1, Math.max(0, 1 - (andado - 6) / 18)) * (enVuelo ? 0 : 1) * llega; entrada.style.opacity = oe.toFixed(3); entrada.style.pointerEvents = oe < 0.5 ? 'none' : ''; }
+    if (estado) { var dice = enVuelo || c.alto > OJOS + 1 ? 'En vuelo, a ' + (c.alto < 1000 ? Math.round(c.alto / 5) * 5 + ' m' : (c.alto / 1000).toFixed(1).replace('.', ',') + ' km') + ' del suelo' : 'A pie'; if (dice !== dicho) { dicho = dice; estado.textContent = dice; } }
+    cuentaPuntos(c.ahora);
+  });
+
+  // What is still to be asked about: the widest pieces first, then the nearest. And what is far behind is let go.
+  cada('lo que falta', function (c) {
+    var sigue = false, t, i;
     if (nubesHechas < 6) { nubla(); if (NUBE) { var D = new Float32Array(NUBE.length / 5 * 6); for (i = 0; i < NUBE.length / 5; i++) { D[i * 6] = NUBE[i * 5]; D[i * 6 + 1] = NUBE[i * 5 + 1]; D[i * 6 + 2] = NUBE[i * 5 + 2]; D[i * 6 + 3] = NUBE[i * 5 + 3] * 0.7; D[i * 6 + 4] = 1; D[i * 6 + 5] = NUBE[i * 5 + 4]; } nubes = sueltos(D); } sigue = true; }
     if (cola.length) {
       cola.sort(function (a, b) { return b.lejos - a.lejos; });
@@ -478,9 +526,20 @@
       else { var fin = performance.now() + (hechos < 12 ? 14 : 7); while (cola.length && performance.now() < fin) { t = cola.pop(); t.pedido = false; if (t.visto >= cuadro0 - 2) recibe(t, hace(t)); } sigue = true; }
     }
     if (trozos.size > Math.max(2400, visibles.length * 2.5)) trozos.forEach(function (v, llave) { if (v.visto < cuadro0 - 180 && !v.pedido) { suelta(v); trozos.delete(llave); } });
-    hito.puntos = van; hito.pendientes = pendientes + cola.length + enCurso; hito.piezas = visibles.length; hito.vivas = vivos.size;
-    if (sigue || (pendientes && !manos.length) || (nubes && !quieto && !CONT && !document.hidden)) pide();
-  }
+    hito.puntos = van; hito.pendientes = c.pendientes + cola.length + enCurso; hito.piezas = visibles.length; hito.vivas = vivos.size;
+    return sigue || (c.pendientes > 0 && !manos.length);
+  });
+
+  // The measure: frames are counted forty at a time, only while they follow one another.
+  // Losing them (under forty-five a second, two counts running), the amount comes down a step, and that step is remembered as too much
+  // for a while. Holding them for three counts in a row, it goes back up a little.
+  cada('la medida', function (c) {
+    var llego = hechos !== hechos0, seguido = anterior && c.crudo < 250; anterior = 1; hechos0 = hechos; if (!seguido) { cuenta0 = suma0 = 0; return; }
+    // (a frame in which a piece arrives is not counted: handing it to the drawing takes a moment of its own)
+    if (llego) return; suma0 += c.crudo; if (++cuenta0 < 40) return; var media = suma0 / cuenta0; cuenta0 = suma0 = 0; hito.cuadros = Math.round(1000 / media);
+    if (media > 22 && CALIDAD > 0.45) { holgadas = 0; if (++lentas < 2) return; lentas = 0; techo = CALIDAD; techoHasta = c.ahora + 20000; CALIDAD = Math.max(0.45, CALIDAD * 0.85); holgadas = 0; alcanza(); return true; }
+    lentas = 0; if (media < 17.6 && CALIDAD < 1) { if (++holgadas >= 3) { var mas = Math.min(1, CALIDAD * 1.08); if (mas < techo || c.ahora > techoHasta) { CALIDAD = mas; alcanza(); } holgadas = 0; return true; } } else holgadas = 0;
+  });
 
   // Its controls: the keys, the buttons that are the keys for whoever has none, the wheel, and the pointer.
   var TECLAS = { ArrowUp: 'adelante', KeyW: 'adelante', ArrowDown: 'atras', KeyS: 'atras', ArrowLeft: 'izquierda', KeyA: 'izquierda', ArrowRight: 'derecha', KeyD: 'derecha', KeyE: 'subir', KeyQ: 'bajar', ShiftLeft: 'prisa', ShiftRight: 'prisa' };
@@ -532,7 +591,7 @@
   var ajustes = document.querySelectorAll('[data-ajuste]'), cuenta = document.querySelector('.mundo__cuenta'), abre = document.querySelector('.mundo__abre'), panel = document.querySelector('.mundo__panel'), LLAVE2 = 'alma-mundo-particulas', contado = 0;
   function ajusta(que, v, campo) {
     v = +v; if (!isFinite(v)) return; if (campo) v = Math.min(+campo.max, Math.max(+campo.min, v));
-    if (que === 'densidad') { DENSA = Math.min(256, Math.max(64, v)); CERCANO = PASO * DENSA; } else if (que === 'tamano') TAM = v / 100; else if (que === 'luz') LUZ = v / 100; else if (que === 'motas') MOTAS = v / 100; else if (que === 'reaccion') REACCION = v / 100; else if (que === 'alcance') ALCANCE = v / 100;
+    if (que === 'densidad') { DENSA = Math.min(256, Math.max(64, v)); CALIDAD = techo = 1; holgadas = 0; alcanza(); } else if (que === 'tamano') TAM = v / 100; else if (que === 'luz') LUZ = v / 100; else if (que === 'motas') MOTAS = v / 100; else if (que === 'reaccion') REACCION = v / 100; else if (que === 'alcance') ALCANCE = v / 100;
     if (campo) { campo.value = v; campo.style.setProperty('--alma-fill', ((campo.value - campo.min) / (campo.max - campo.min) * 100) + '%'); var dice = campo.parentNode.parentNode.querySelector('.alma-slider__value'); if (dice && que !== 'densidad') { dice.textContent = Math.round(campo.value) + ' %'; campo.setAttribute('aria-valuetext', dice.textContent); } }
     pide();
   }
@@ -550,8 +609,16 @@
   var elegido = guardado(); pone(elegido === 'light' || elegido === 'dark' ? elegido : raiz.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
   if (tema) tema.addEventListener('click', function () { var t = raiz.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; try { localStorage.setItem(LLAVE, t); } catch (e) {} pone(t); });
 
+  // The arrival, as a score (site/partitura.js): the word is being written and the ground is settling; what is said
+  // comes once the first letters are in focus, and what one walks with a little after. Once, on arriving.
+  var llega = 1, barras = [escena.querySelector('.mundo__mandos'), escena.querySelector('.mundo__ajuste')].filter(Boolean);
+  if (window.AlmaPartitura) window.AlmaPartitura.toca([
+    { en: ['duration-slow-02', 1], dura: ['duration-slow-01', 1], curva: 'easing-entrance-expressive', paso: function (k) { llega = k; pide(); } },
+    { en: 'sigue', dura: ['duration-slow-01', 1], curva: 'easing-entrance-expressive', paso: function (k) { barras.forEach(function (b) { b.style.opacity = k >= 1 ? '' : k.toFixed(3); }); } }
+  ], { el: escena });
+
   // (what a test asks: about how many dots a frame has, what is still to come, and the rule itself)
-  var hito = window.__mundo = { puntos: 0, pendientes: 0, piezas: 0, vivas: 0, ms: 0, get falla() { return gl.getError(); }, get enMovimiento() { return !!pedido; }, get trozos() { return hechos; }, get altura() { return radioDelOjo - piso0; }, get lugar() { return P.slice(); },
+  var hito = window.__mundo = { puntos: 0, pendientes: 0, piezas: 0, vivas: 0, ms: 0, cuadros: 0, descansa: false, get calidad() { return CALIDAD; }, get marcha() { return marcha.map(function (p) { return p.nombre; }); }, cada: cada, get falla() { return gl.getError(); }, get enMovimiento() { return !!pedido; }, get trozos() { return hechos; }, get altura() { return radioDelOjo - piso0; }, get lugar() { return P.slice(); },
     get manos() { return manos.length; }, get maquina() { var x = gl.getExtension('WEBGL_debug_renderer_info'); return x ? gl.getParameter(x.UNMASKED_RENDERER_WEBGL) : ''; },
     ajusta: function (que, v) { ajusta(que, v, document.querySelector('[data-ajuste="' + que + '"]')); }, remueve: function (x, y, c) { remueve(x * escala, H - y * escala, c == null ? 1 : c); pide(); },
     regla: { sube: function (x, y, z) { return sube(x, y, z); }, semilla: SEMILLA, relieve: RELIEVE, mar: MAR, llegada: LLEGADA },

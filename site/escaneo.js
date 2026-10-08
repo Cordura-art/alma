@@ -18,7 +18,7 @@
   if (palabra && window.AlmaPalabra) window.AlmaPalabra.monta(palabra, { genes: window.__PALABRA, oye: escena, mide: false });      // (the word is a piece of its own, site/palabra.js; its size here is the cover's)
   // A contained entity: the pointer stirs nothing and the thing turns less. How long it takes to come together is two and
   // a half of ALMA's slowest steps, as the entity has them.
-  var CONT = !!D.contenida, lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ARMA = 2.5 * (/ms$/.test(lento) ? parseFloat(lento) : parseFloat(lento) * 1000) || 2200;
+  var CONT = !!D.contenida, lento = getComputedStyle(escena).getPropertyValue('--duration-slow-02').trim(), ARMA = window.AlmaPartitura ? window.AlmaPartitura.tiempos(escena).armarse.objeto * 1000 : 2.5 * (/ms$/.test(lento) ? parseFloat(lento) : parseFloat(lento) * 1000) || 2200;
   var ctx = lienzo.getContext('2d'), menos = matchMedia('(prefers-reduced-motion: reduce)'), bytes = atob(D.puntos), ANCHO = D.alma === 3 ? 10 : 7, N = bytes.length / ANCHO, K = Math.max(1, datos.length);
   // Chance that is always the same: the same thing comes apart the same way every time.
   var s = 2166136261; function azar() { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 1000000) / 1000000; }
@@ -58,7 +58,7 @@
     fondo = getComputedStyle(document.body).backgroundColor;
     var e = getComputedStyle(escena); tintas = [e.getPropertyValue('--escaneo-1').trim(), e.getPropertyValue('--escaneo-2').trim(), e.getPropertyValue('--escaneo-3').trim()];
   }
-  function lee() { var r = escena.getBoundingClientRect(), largo = r.height - innerHeight; return largo > 0 ? Math.min(1, Math.max(0, -r.top / largo)) : 0; }
+  function lee() { if (window.AlmaReloj) return window.AlmaReloj.avance(escena).v; var r = escena.getBoundingClientRect(), largo = r.height - innerHeight; return largo > 0 ? Math.min(1, Math.max(0, -r.top / largo)) : 0; }
   function cuadro(ahora) {
     pedido = 0; var dt = Math.min(0.05, antes ? (ahora - antes) / 1000 : 0.016); antes = ahora; if (!partio) partio = ahora;
     var quieto = menos.matches, meta = lee(), k = quieto ? 1 : 1 - Math.exp(-dt * 7), sigue = false;
@@ -130,7 +130,7 @@
     datos.forEach(function (el, m) { var ve = suave((a - 0.5 - m * 0.06) * 3.2); el.style.opacity = (ve * (foco < 0 || m === foco ? 1 : 0.42)).toFixed(3); el.style.visibility = ve < 0.05 ? 'hidden' : ''; });
     if (!quieto && (sigue || arma < 1 || Math.abs(meta - abre) > 0.0005 || Math.abs(quiereGiro - giro) > 0.0005 || Math.abs(quiereAlza - alza) > 0.0005)) pide();
   }
-  function pide() { if (!pedido) pedido = requestAnimationFrame(cuadro); }
+  function pide() { if (pedido) return; pedido = window.AlmaReloj ? window.AlmaReloj.pide(cuadro) : requestAnimationFrame(cuadro); }
   escena.classList.add('escaneo--viva'); mide(); pide();
   addEventListener('scroll', pide, { passive: true }); addEventListener('resize', function () { mide(); pide(); });
   fija.addEventListener('pointermove', function (e) {

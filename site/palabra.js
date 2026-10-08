@@ -26,7 +26,8 @@
       var cs = getComputedStyle(el), n = function (v, d) { var x = parseFloat(cs.getPropertyValue(v)); return isFinite(x) ? x : d; };
       var seg = function (v, d) { var t = cs.getPropertyValue(v).trim(), x = parseFloat(t); return isFinite(x) && x > 0 ? (/ms$/.test(t) ? x / 1000 : x) : d; };
       reposo = n('--font-weight-display', 220); ancho = n('--font-width', 100); grado = n('--font-grade', 0);
-      ENTRA = seg('--duration-slow-02', 0.7); PESA = ENTRA * 1.75; pulso = seg('--duration-stagger', 0.02) * 2;
+      // (its times are the recipe's, as the score has it: site/partitura.js. Without it, the same ones, worked out here)
+      var TP = window.AlmaPartitura ? window.AlmaPartitura.tiempos(el).escribirse : null; ENTRA = TP ? TP.enfoca : seg('--duration-slow-02', 0.7); PESA = TP ? TP.pesa : ENTRA * 1.75; pulso = TP ? TP.pulso : seg('--duration-stagger', 0.02) * 2;
       // (a touch is felt, not shouted: a step or two of weight above its rest)
       tope = Math.min(1000, reposo + 80 + 12 * (G.puntas || 5)); ordena(); ajusta(); pide();
     }
@@ -54,7 +55,8 @@
       el.appendChild(linea); lee();
     }
     function escribe() { reloj = 0; antes = 0; for (var i = 0; i < E.length; i++) { E[i].ve = 0; E[i].peso = LIVIANO; } pide(); }
-    function pide() { if (!pedido) pedido = requestAnimationFrame(cuadro); }
+    // (its frames are ALMA's clock's, site/reloj.js, when the page has it)
+    function pide() { if (pedido) return; pedido = window.AlmaReloj ? window.AlmaReloj.pide(cuadro) : requestAnimationFrame(cuadro); }
 
     function cuadro(ahora) {
       pedido = 0; var dt = Math.min(0.05, antes ? (ahora - antes) / 1000 : 0.016), quieto = menos.matches, sigue = false; antes = ahora; reloj += dt;
@@ -88,7 +90,7 @@
       escribe: escribe, lee: lee,
       texto: function (t) { arma(t); escribe(); },
       genes: function (g) { G = g || {}; lee(); },
-      deja: function () { cancelAnimationFrame(pedido); if (mira) mira.disconnect(); oye.removeEventListener('pointermove', mueve); oye.removeEventListener('pointerdown', mueve); oye.removeEventListener('pointerleave', suelta); oye.removeEventListener('pointercancel', suelta); el.removeEventListener('keydown', teclea); el.removeEventListener('blur', sale); },
+      deja: function () { if (window.AlmaReloj) window.AlmaReloj.deja(pedido); else cancelAnimationFrame(pedido); if (mira) mira.disconnect(); oye.removeEventListener('pointermove', mueve); oye.removeEventListener('pointerdown', mueve); oye.removeEventListener('pointerleave', suelta); oye.removeEventListener('pointercancel', suelta); el.removeEventListener('keydown', teclea); el.removeEventListener('blur', sale); },
       get estado() { return { pesos: E.map(function (e) { return Math.round(e.peso); }), ve: E.map(function (e) { return +e.ve.toFixed(2); }), parte: E.map(function (e) { return +e.parte.toFixed(3); }), reposo: reposo, tope: tope, tam: tam, enMovimiento: !!pedido }; }
     };
   }

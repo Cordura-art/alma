@@ -6,6 +6,8 @@
 window.__GENERADOR_VISTAS = function (G) {
   'use strict';
   var h = React.createElement, useEffect = React.useEffect, useRef = React.useRef, GEN = window.__GENERADOR;
+  // (frames are asked of ALMA's clock, site/reloj.js, when the page has it)
+  var pideCuadro = function (f) { return window.AlmaReloj ? window.AlmaReloj.pide(f) : requestAnimationFrame(f); }, dejaCuadro = function (id) { if (window.AlmaReloj) window.AlmaReloj.deja(id); else cancelAnimationFrame(id); };
 
   // The emblems of the entity's first twelve gates, as pictures without their ground, for the field's particles.
   // They load a moment after the page; `listos()` gives them once all are drawn, and `avisar(fn)` calls back then.
@@ -26,15 +28,15 @@ window.__GENERADOR_VISTAS = function (G) {
       var cv = ref.current, ctx = cv.getContext('2d'), tela = document.createElement('canvas'), K = GEN.criatura3d(G, p.clave), raf = 0, visto = false, ultimo = 0, t = 0, lado = 0;
       function medir() { var box = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1); if (!box.width) return false; lado = box.width; cv.width = cv.height = Math.round(lado * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return true; }
       function una() { if (lado || medir()) GEN.pintarCriatura(ctx, K, lado, S.current.anda ? GEN.vaivenCriatura(t, G.ritmo) : 0, { tela: tela }); }
-      function cuadro(ahora) { raf = 0; if (!S.current.anda || !visto || document.hidden) return; t += Math.min(0.05, (ahora - (ultimo || ahora)) / 1000); ultimo = ahora; una(); raf = requestAnimationFrame(cuadro); }
-      function seguir() { ultimo = 0; if (!visto) return; una(); if (!raf && S.current.anda) raf = requestAnimationFrame(cuadro); }
+      function cuadro(ahora) { raf = 0; if (!S.current.anda || !visto || document.hidden) return; t += Math.min(0.05, (ahora - (ultimo || ahora)) / 1000); ultimo = ahora; una(); raf = pideCuadro(cuadro); }
+      function seguir() { ultimo = 0; if (!visto) return; una(); if (!raf && S.current.anda) raf = pideCuadro(cuadro); }
       S.current.seguir = seguir;
       var io = window.IntersectionObserver ? new IntersectionObserver(function (es) { visto = es[0].isIntersecting; seguir(); }, { rootMargin: '100px' }) : null;
       if (io) io.observe(cv); else { visto = true; seguir(); }
       var ro = window.ResizeObserver ? new ResizeObserver(function () { var w = cv.getBoundingClientRect().width; if (Math.abs(w - lado) > 1) { medir(); una(); } }) : null;
       if (ro) ro.observe(cv);
       document.addEventListener('visibilitychange', seguir);
-      return function () { cancelAnimationFrame(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); document.removeEventListener('visibilitychange', seguir); S.current.seguir = function () {}; };
+      return function () { dejaCuadro(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); document.removeEventListener('visibilitychange', seguir); S.current.seguir = function () {}; };
     }, [p.clave]);
     useEffect(function () { S.current.anda = p.anda; S.current.seguir(); }, [p.anda]);
     return h('canvas', { ref: ref, className: 'gen-vol', role: 'img', 'aria-label': p.label });
@@ -63,9 +65,9 @@ window.__GENERADOR_VISTAS = function (G) {
         while (resto >= PASO && pasos < 3) { F.avanzar(); resto -= PASO; pasos++; }
         if (pasos === 3) resto = 0;
         if (pasos) GEN.pintarCampo(ctx, F, SELLOS.listos());
-        raf = requestAnimationFrame(cuadro);
+        raf = pideCuadro(cuadro);
       }
-      function seguir() { ultimo = 0; if (!raf && S.current.anda) raf = requestAnimationFrame(cuadro); }
+      function seguir() { ultimo = 0; if (!raf && S.current.anda) raf = pideCuadro(cuadro); }
       S.current.seguir = seguir;
       armar(); seguir();
       // Drawn again, settled, once the emblems are ready (a still field would otherwise keep its dots).
@@ -75,7 +77,7 @@ window.__GENERADOR_VISTAS = function (G) {
       var ro = window.ResizeObserver ? new ResizeObserver(function () { var w = cv.getBoundingClientRect().width; if (Math.abs(w - ancho) > 1) armar(); }) : null;
       if (ro) ro.observe(cv);
       document.addEventListener('visibilitychange', seguir);
-      return function () { cancelAnimationFrame(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); document.removeEventListener('visibilitychange', seguir); S.current.seguir = function () {}; };
+      return function () { dejaCuadro(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); document.removeEventListener('visibilitychange', seguir); S.current.seguir = function () {}; };
     }, [p.clave]);
     useEffect(function () { S.current.anda = p.anda; S.current.seguir(); }, [p.anda]);
     return h('canvas', { ref: ref, className: 'gen-campo', role: 'img', 'aria-label': p.label });
@@ -104,9 +106,9 @@ window.__GENERADOR_VISTAS = function (G) {
         t = Math.min(t + dt, M.crece + M.sostiene); reloj += dt;
         // The tilt has weight: it follows the sway with a little lag, as in the original.
         var v = GEN.vaivenMicelio(reloj), k = 1 - Math.exp(-dt * 9); tx += (v[0] - tx) * k; ty += (v[1] - ty) * k;
-        pintar(); raf = requestAnimationFrame(cuadro);
+        pintar(); raf = pideCuadro(cuadro);
       }
-      function seguir() { ultimo = 0; if (!raf && S.current.anda) raf = requestAnimationFrame(cuadro); }
+      function seguir() { ultimo = 0; if (!raf && S.current.anda) raf = pideCuadro(cuadro); }
       S.current.seguir = seguir;
       if (medir()) pintar();
       seguir();
@@ -115,7 +117,7 @@ window.__GENERADOR_VISTAS = function (G) {
       var ro = window.ResizeObserver ? new ResizeObserver(function () { if (Math.abs(cv.getBoundingClientRect().width - ancho) > 1 && medir()) pintar(); }) : null;
       if (ro) ro.observe(cv);
       document.addEventListener('visibilitychange', seguir);
-      return function () { cancelAnimationFrame(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); document.removeEventListener('visibilitychange', seguir); S.current.seguir = function () {}; };
+      return function () { dejaCuadro(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); document.removeEventListener('visibilitychange', seguir); S.current.seguir = function () {}; };
     }, [p.clave]);
     useEffect(function () { S.current.anda = p.anda; S.current.seguir(); }, [p.anda]);
     return h('canvas', { ref: ref, className: 'gen-micelio', role: 'img', 'aria-label': p.label });
@@ -148,9 +150,9 @@ window.__GENERADOR_VISTAS = function (G) {
         raf = 0;
         if (!S.current.anda || !visto || document.hidden) return;
         t += Math.min(50, ahora - (ultimo || ahora)) / 1000; ultimo = ahora;
-        poner(); raf = requestAnimationFrame(cuadro);
+        poner(); raf = pideCuadro(cuadro);
       }
-      function seguir() { ultimo = 0; if (!raf && S.current.anda) raf = requestAnimationFrame(cuadro); }
+      function seguir() { ultimo = 0; if (!raf && S.current.anda) raf = pideCuadro(cuadro); }
       S.current.seguir = seguir;
       poner(); seguir();
       var io = window.IntersectionObserver ? new IntersectionObserver(function (es) { visto = es[0].isIntersecting; if (visto) seguir(); }) : null;
@@ -158,7 +160,7 @@ window.__GENERADOR_VISTAS = function (G) {
       var ro = window.ResizeObserver ? new ResizeObserver(poner) : null;
       if (ro) ro.observe(st);
       document.addEventListener('visibilitychange', seguir);
-      return function () { cancelAnimationFrame(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); document.removeEventListener('visibilitychange', seguir); S.current.seguir = function () {}; };
+      return function () { dejaCuadro(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); document.removeEventListener('visibilitychange', seguir); S.current.seguir = function () {}; };
     }, []);
     useEffect(function () { S.current.anda = p.anda; S.current.seguir(); }, [p.anda]);
     return h('div', { ref: ref, className: 'gen-ring', role: 'img', 'aria-label': p.label }, p.caras.map(function (cara, i) { return h('span', { key: i, className: 'gen-ring__card', style: cara.estilo }); }));

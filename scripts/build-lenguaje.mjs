@@ -23,7 +23,7 @@ for (const id of ids) {
   html = html.replace('<script>window.__DATA', '<script>window.__ENGINE_ONLY = true;</script>\n<script>window.__DATA');
   if (gen) html += `<script>${esc(generadorNavegador())}</script>\n<script>${esc(figurasNavegador())}</script>\n`;
   if (gen && desfileParaPagina()) html += `<script>window.__DESFILE = ${JSON.stringify(desfileParaPagina())};</script>\n`;
-  html += `<script>${esc(read('site/palabra.js'))}</script>\n`;
+  html += `<script>${esc(read('site/reloj.js') + '\n' + read('site/partitura.js') + '\n' + read('site/palabra.js'))}</script>\n`;
   html += `<script>window.__LENGUAJE = ${JSON.stringify(L)};</script>\n<script>${esc(read('site/lenguaje.js'))}</script>\n`;
   writeFileSync(`build/lenguaje-${id}.html`, html);
   console.log(`build/lenguaje-${id}.html · ${(html.length / 1024) | 0} KB`);

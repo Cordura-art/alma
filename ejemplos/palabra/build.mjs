@@ -14,7 +14,7 @@ export async function paginaDePalabra() {
   const entidades = {};
   for (const id of IDS) { const S = await sistema(id), G = genesDe(S); entidades[id] = { nombre: G.nombre, css: cssEntidad(S), genes: { numeros: G.numeros, ritmo: G.ritmo, direccion: G.direccion, redondez: G.redondez, puntas: G.puntas } }; }
   const css = [read('dist/css/alma.css'), read(`${P}/components/bundle.css`), read('site/palabra.css'), read(join(here, 'pagina.css'))].join('\n');
-  const bundle = read(`${P}/components/bundle.js`), pieza = read('site/palabra.js'), app = read(join(here, 'pagina.js')), datos = JSON.stringify(entidades).replace(/</g, '\\u003c');
+  const bundle = read(`${P}/components/bundle.js`), pieza = read('site/reloj.js') + '\n' + read('site/partitura.js') + '\n' + read('site/palabra.js'), app = read(join(here, 'pagina.js')), datos = JSON.stringify(entidades).replace(/</g, '\\u003c');
   for (const [name, text, bad] of [['bundle.js', bundle, /<\/script|<!--/i], ['palabra.js', pieza, /<\/script|<!--/i], ['pagina.js', app, /<\/script|<!--/i], ['CSS', css + Object.values(entidades).map((e) => e.css).join(''), /<\/style/i]]) if (bad.test(text)) throw new Error(`${name} cerraría su etiqueta`);
   return `<title>Palabra</title>
 <meta name="description" content="La palabra de una entidad, como pieza propia: se escribe letra por letra con los parámetros de la entidad y su peso responde al puntero.">

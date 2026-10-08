@@ -1,6 +1,8 @@
 // Entidades ALMA: create entities from a birth date, read their Human Design chart and see ALMA worn with their
 // parameters (type axes, weights, radii, palette, voice and principles). Also the engine for the IBM study and the date search.
 (function () {
+  // (frames are asked of ALMA's clock, site/reloj.js, when the page has it)
+  var pideCuadro = function (f) { return window.AlmaReloj ? window.AlmaReloj.pide(f) : requestAnimationFrame(f); }, dejaCuadro = function (id) { if (window.AlmaReloj) window.AlmaReloj.deja(id); else cancelAnimationFrame(id); };
   var h = React.createElement, A = window.AlmaDS, useState = React.useState, useEffect = React.useEffect, useRef = React.useRef, useMemo = React.useMemo;
   var D = window.__DATA; // { ramps, brand, base: { fontAxis, weights, radius, accent } }
   var root = document.documentElement;
@@ -369,7 +371,7 @@
       var cyc = CENTERS.map(function (c) { return ramp(c.ramp, 300); });
       function frame(now) {
         var box = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1, W = box.width, H = box.height;
-        if (!W || !H) { raf = requestAnimationFrame(frame); return; }
+        if (!W || !H) { raf = pideCuadro(frame); return; }
         if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         var L = layout(p.entity, p.P, W, H), t = reduce ? 1e9 : now - t0;
@@ -383,10 +385,10 @@
         });
         ctx.fillStyle = D.brand['secondary-700'];
         L.sparks.forEach(function (s, i) { var k = Math.max(0, Math.min(1, (t - (L.pills.length + i) * stagger) / dur)); if (k > 0) { sparkle(ctx, s.x, s.y, s.s * ease(k)); ctx.fill(); } });
-        if (!reduce) raf = requestAnimationFrame(frame);
+        if (!reduce) raf = pideCuadro(frame);
       }
-      raf = requestAnimationFrame(frame);
-      return function () { cancelAnimationFrame(raf); };
+      raf = pideCuadro(frame);
+      return function () { dejaCuadro(raf); };
     }, [p.entity, p.P, fmt]);
     var e = p.entity;
     return h('figure', { className: 'sig sig--' + fmt },

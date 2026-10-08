@@ -6,6 +6,17 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 8 de octubre de 2026
 
+#### Un reloj y una partitura para todo lo que se mueve
+
+- Todas las piezas que se mueven (la palabra, las portadas, los planetas y las ilustraciones vivas de la documentación) usan un mismo reloj, `site/reloj.js`. Es el único lugar que sabe cuánto pasó desde el cuadro anterior, cuánto se desplazó la página, si se pidió menos movimiento y cuándo fue la última seña de quien mira.
+- Las seis recetas del movimiento de marca están escritas una sola vez, en `site/partitura.js`, y cada pieza pide ahí sus tiempos. Movimiento tiene un apartado nuevo, «La partitura», y una prueba compara su tabla con lo que el código hace.
+- Una secuencia se escribe como una lista de pasos con sus tiempos en tokens. La llegada a un planeta es la primera: la palabra se escribe, el suelo se asienta, y lo que se dice y los controles entran después.
+
+#### El planeta: partículas con vida propia
+
+- Cada partícula del suelo tiene su resorte, su inercia y su estela: el puntero la arrastra y la agita, y vuelve sola a su lugar, como en la portada del busto.
+- El planeta deja de dibujar doce segundos después de la última seña, y baja por sí solo la cantidad de partículas cuando el equipo pierde cuadros.
+
 #### Un planeta por entidad, en partículas
 
 - Cada entidad tiene su planeta en la web: una página que se recorre a pie o en vuelo, dibujada con más de cien mil puntos en sus tres colores. Está en los Ejemplos de su sistema.

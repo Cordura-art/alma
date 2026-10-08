@@ -35,4 +35,6 @@ test('la regla del planeta es la del planeta de Unity: los mismos números, escr
   for (const n of ['374761393', '668265263', '2246822519', '3266489917']) assert.ok(js.includes(n) && cs.includes(n), 'falta ' + n);
   assert.ok(js.includes("M.semilla + '|planeta'") && cs.includes('g.semilla + "|planeta"')); assert.ok(js.includes('0.08 + 0.012 * M.puntas') && cs.includes('0.08f + 0.012f * g.puntas'));
   assert.equal(/<\/script|<!--/i.test(js), false);
+  // (whatever happens each frame is on one list, in order: the eye before what is seen, the ground before what is loose)
+  const pasos = [...js.matchAll(/^  cada\('([^']+)'/gm)].map((m) => m[1]); assert.deepEqual(pasos, ['quien camina', 'el ojo', 'el suelo a la vista', 'la vida de las partículas', 'el suelo', 'las estrellas', 'los árboles y las piedras', 'las nubes', 'las motas', 'la palabra', 'lo que se dice', 'lo que falta', 'la medida']);
 });
