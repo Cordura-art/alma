@@ -315,6 +315,29 @@
   function Pattern(p) {
     return h(React.Fragment, null, h(Head, { eyebrow: 'Patrones', title: p.pt.name, summary: p.pt.summary }), h(Md, { src: p.pt.body }));
   }
+  // ---- Effects: the effect live with the values of the system on screen, its settings, and its guide.
+  function Efecto(p) {
+    var ef = p.ef, def = ef.id && window.AlmaEfectos ? window.AlmaEfectos.lista[ef.id] : null, caja = useRef(null), obra = useRef(null), sin = useState(false);
+    useEffect(function () {
+      if (!def) return;
+      obra.current = window.AlmaEfectos.monta(ef.id, def.muestra && def.muestra !== 'zona' ? caja.current.firstElementChild : caja.current);
+      if (!obra.current) sin[1](true);
+      return function () { if (obra.current) obra.current.quita(); obra.current = null; };
+    }, [ef.id]);
+    return h(React.Fragment, null, h(Head, { eyebrow: ef.id ? 'Efectos · ' + ef.familia : 'Efectos', title: ef.name, summary: ef.summary }),
+      def ? h('div', { className: 'efecto' },
+        // A background is a picture; a reaction is shown on something to try it on: a zone, a button, a card.
+        !def.muestra ? h('div', { ref: caja, className: 'efecto__escena', role: 'img', 'aria-label': ef.name + ': ' + ef.summary })
+          : def.muestra === 'zona' ? h('div', { ref: caja, className: 'efecto__escena efecto__escena--prueba' }, h('p', { className: 'web-body-m efecto__pista' }, 'Haz clic en cualquier parte'))
+          : h('div', { ref: caja, className: 'efecto__escena efecto__escena--prueba' },
+            def.muestra === 'boton' ? h('span', { className: 'efecto__envoltorio' }, h(A.Button, { variant: 'filled' }, 'Acerca el puntero'))
+              : h('div', { className: 'efecto__tarjeta', tabIndex: 0 }, h('p', { className: 'web-h6' }, ef.name), h('p', { className: 'web-body-s' }, 'Pasa el puntero, o llega con el teclado.'))),
+        sin[0] ? h('p', { className: 'web-body-s efecto__nota' }, 'Este navegador no puede dibujar el efecto.') : null,
+        h('div', { className: 'efecto__ajustes' }, def.ajustes.map(function (aj) {
+          return h(A.Slider, { key: aj.id, label: aj.nombre, min: aj.min, max: aj.max, step: aj.paso, defaultValue: aj.valor, onChange: function (v) { if (obra.current) obra.current.ajusta(aj.id, v); } });
+        }))) : null,
+      h(Md, { src: ef.body }));
+  }
   function Guide(p) {
     var g = p.g, tab = useState(g.sections[0].title);
     return h(React.Fragment, null,
@@ -354,6 +377,9 @@
     'encabezado-global': 'menu', 'inicio-de-sesion': 'login', 'indicadores-de-estado': 'warning--alt', 'barra-de-texto': 'document', 'estilos-fluidos': 'list', 'divulgacion': 'view', 'portada': 'image' };
   (C.patterns || []).forEach(function (pt) {
     pages.push({ id: pt.slug, label: pt.name, icon: PATTERN_ICON[pt.slug] || 'grid', group: 'Patrones', render: function () { return h(Pattern, { pt: pt, key: pt.slug }); } });
+  });
+  (C.efectos || []).forEach(function (ef) {
+    pages.push({ id: 'efecto-' + ef.slug, label: ef.name, icon: ef.id ? 'flash' : 'grid', group: 'Efectos', render: function () { return h(Efecto, { ef: ef, key: ef.slug }); } });
   });
   var GUIDE_ICON = { accesibilidad: 'user', contenido: 'chat' };
   Object.keys(C.guides || {}).forEach(function (id) {

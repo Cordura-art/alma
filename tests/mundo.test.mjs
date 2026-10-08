@@ -38,3 +38,10 @@ test('la regla del planeta es la del planeta de Unity: los mismos números, escr
   // (whatever happens each frame is on one list, in order: the eye before what is seen, the ground before what is loose)
   const pasos = [...js.matchAll(/^  cada\('([^']+)'/gm)].map((m) => m[1]); assert.deepEqual(pasos, ['quien camina', 'el ojo', 'el suelo a la vista', 'la vida de las partículas', 'el suelo', 'las estrellas', 'los árboles y las piedras', 'las nubes', 'las motas', 'la palabra', 'lo que se dice', 'lo que falta', 'la medida']);
 });
+
+// (a name used twice in the engine once broke the lattice without any test noticing)
+test('en el motor del planeta ningún nombre se declara dos veces en su cuerpo', () => {
+  const js = readFileSync('site/mundo.js', 'utf8'), vistos = new Map();
+  for (const linea of js.split('\n')) { const m = /^  var (.*)$/.exec(linea); if (!m) continue; for (const n of m[1].replace(/\([^()]*\)|\[[^\[\]]*\]|\{[^{}]*\}/g, '').replace(/'[^']*'/g, '').split(',').map((x) => x.trim().split(/[ =]/)[0]).filter((x) => /^[A-Za-z_$][\w$]*$/.test(x))) vistos.set(n, (vistos.get(n) || 0) + 1); }
+  const repetidos = [...vistos].filter(([n, c]) => c > 1 && /^[A-Z][A-Z0-9_]+$/.test(n)).map(([n]) => n); assert.deepEqual(repetidos, [], 'constantes declaradas dos veces: ' + repetidos.join(', '));
+});

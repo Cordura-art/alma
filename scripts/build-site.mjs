@@ -109,6 +109,16 @@ for (const f of (await readdir('docs/patterns')).filter((f) => f.endsWith('.md')
   patterns.push({ slug: f.replace(/^\d+-|\.md$/g, ''), name: meta.pattern, summary: meta.summary, body: src.slice(m[0].length).trim() });
 }
 
+// Effects: one page each from docs/efectos; a page with an id shows that effect live (site/efectos/<id>.js).
+const efectos = [];
+for (const f of (await readdir('docs/efectos')).filter((f) => f.endsWith('.md')).sort((a, b) => parseInt(a) - parseInt(b))) {
+  const src = adapt(await read(`docs/efectos/${f}`));
+  const m = /^---\n([\s\S]*?)\n---\n/.exec(src), meta = {};
+  for (const line of m[1].split('\n')) { const i = line.indexOf(':'); if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim(); }
+  efectos.push({ slug: f.replace(/^\d+-|\.md$/g, ''), name: meta.efecto, id: meta.id || null, familia: meta.familia, summary: meta.summary, body: src.slice(m[0].length).trim() });
+}
+const motorEfectos = [await read('site/reloj.js'), await read('site/partitura.js'), await read('site/efectos.js'), ...(await Promise.all(efectos.filter((e) => e.id).map((e) => read(`site/efectos/${e.id}.js`))))].join('\n');
+
 const families = {};
 for (const [k, v] of Object.entries(tok)) if (k !== 'color' && v && Array.isArray(v.tokens)) families[k] = { note: v.note || '', tokens: v.tokens };
 
@@ -132,7 +142,8 @@ Object.assign(content, {
   components,
   elements,
   guides,
-  patterns
+  patterns,
+  efectos
 });
 if (S) {
   // Every replacement must still find its sentence in ALMA's guides, and no sentence may still describe Cordura's look.
@@ -143,6 +154,7 @@ if (S) {
   for (const c of components) textos.push([c.name, c.summary + '\n' + c.body + '\n' + c.subtitle]);
   for (const [k, e] of Object.entries({ ...elements, ...guides })) { textos.push([k, e.summary]); for (const sec of e.sections) textos.push([`${k} · ${sec.title}`, sec.body]); }
   for (const pt of patterns) textos.push([`Patrón ${pt.slug}`, pt.summary + '\n' + pt.body]);
+  for (const ef of efectos) textos.push([`Efecto ${ef.slug}`, ef.summary + '\n' + ef.body]);
   for (const t of tok.color.tokens) textos.push([`token ${t.name}`, t.usage]);
   const left = restos(textos, W.vigentes, W.aspecto);
   if (left.length) throw new Error(`${ENT}: ${left.length} textos todavía describen un aspecto que la entidad no tiene:\n  ${left.join('\n  ')}`);
@@ -173,6 +185,9 @@ ${bundle}
 </script>
 <script>
 ${campoPortada.replace(/^<\/script>\n<script>\n/, '')}${await read('site/escenas.js')}
+</script>
+<script>
+${motorEfectos}
 </script>
 <script type="application/json" id="alma-escenas">${escenas}</script>
 <script type="application/json" id="alma-content">${json}</script>
