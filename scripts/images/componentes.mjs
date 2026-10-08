@@ -886,5 +886,12 @@ export const componentScenes = [
   scene('rating', 'usage', 'para leer y para elegir', 'rating-usos',
     'Tres valoraciones. Para leer: cuatro estrellas y media con su cifra «4,5» y «(1.284)» entre paréntesis; y una chica de tres estrellas con «(12)». Para elegir: cinco estrellas más grandes y separadas, con tres marcadas.',
     { js: `function c(t, el) { return h('div', { className: 'col', style: { gap: 'var(--space-16)', justifyItems: 'start' } }, h('p', { className: 'cap web-label-m' }, t), el); }
-      mount(h('div', { className: 'row', style: { gap: 'var(--space-48)' } }, c('Para leer', h(A.Rating, { value: 4.5, showValue: true, count: 1284 })), c('Para leer, chica', h(A.Rating, { value: 3, size: 'sm', count: 12 })), c('Para elegir', h(A.Rating, { label: 'Valora tu viaje', value: 3, onChange: function () {} }))));` })
+      mount(h('div', { className: 'row', style: { gap: 'var(--space-48)' } }, c('Para leer', h(A.Rating, { value: 4.5, showValue: true, count: 1284 })), c('Para leer, chica', h(A.Rating, { value: 3, size: 'sm', count: 12 })), c('Para elegir', h(A.Rating, { label: 'Valora tu viaje', value: 3, onChange: function () {} }))));` }),
+
+  scene('list', 'usage', 'elegir, interruptores y edición', 'list-elegir-editar',
+    'Tres listas. «Ordenar mis viajes por», con un visto en «Fecha». «Avisos», con un interruptor encendido y otro apagado al final de cada fila. Y «Destinos favoritos» en edición: cada fila con un botón rojo de eliminar al inicio y dos flechas, subir y bajar, al final.',
+    { js: `mount(h('div', { className: 'row', style: { gap: 'var(--space-32)' } },
+        h('div', { style: { width: '18rem' } }, h(A.List, { header: 'Ordenar mis viajes por', selection: 'single', selectionStyle: 'check', selected: 'fecha', items: [{ id: 'fecha', title: 'Fecha' }, { id: 'precio', title: 'Precio' }, { id: 'destino', title: 'Destino' }] })),
+        h('div', { style: { width: '20rem' } }, h(A.List, { header: 'Avisos', items: [{ title: 'Cambios en mis viajes', subtitle: 'Hora, andén y atrasos', switch: { checked: true } }, { title: 'Ofertas', switch: { checked: false } }] })),
+        h('div', { style: { width: '20rem' } }, h(A.List, { header: 'Destinos favoritos', editing: true, onMove: function () {}, onDelete: function () {}, items: [{ id: 'v', title: 'Viña del Mar', subtitle: '120 km' }, { id: 't', title: 'Talca', subtitle: '255 km' }, { id: 'm', title: 'Temuco', subtitle: '680 km' }] }))));` })
 ];

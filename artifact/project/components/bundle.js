@@ -1159,25 +1159,50 @@ function pictograma(G, clave, o = {}) {
 
   // List (Apple inset grouped list): rows of 44 px, inset separators, chevron for navigation.
   function List(props) {
-    var id = useId(props.id);
-    return h('section', { className: 'alma-list', 'aria-labelledby': props.header ? id + '-h' : undefined },
+    var id = useId(props.id), items = props.items || [], multi = props.selection === 'multiple', single = props.selection === 'single';
+    var chosen = multi ? (props.selected || []) : props.selected, editing = !!props.editing, say = useState(''), root = R.useRef(null), after = R.useRef(null);
+    var check = multi || props.selectionStyle === 'check';
+    function isSel(it) { return multi ? chosen.indexOf(it.id) >= 0 : (chosen !== undefined && chosen !== null && chosen === it.id); }
+    function pick(it) { if (!props.onSelect) return; props.onSelect(multi ? (isSel(it) ? chosen.filter(function (x) { return x !== it.id; }) : chosen.concat([it.id])) : it.id); }
+    function move(it, i, d) { after.current = { id: it.id, d: d }; say[1](it.title + ': lugar ' + (i + 1 + d) + ' de ' + items.length); props.onMove(it.id, d); }
+    function del(it, i) { after.current = { next: i }; say[1]('Eliminaste ' + it.title); props.onDelete(it.id); }
+    // after a row moves or goes, the focus stays with the work: on the same button, or on the row that took its place
+    R.useEffect(function () {
+      var a = after.current, el = root.current; if (!a || !el) return; after.current = null;
+      var b = a.id !== undefined ? (el.querySelector('[data-mv="' + a.id + ':' + a.d + '"]:not(:disabled)') || el.querySelector('[data-mv="' + a.id + ':' + (-a.d) + '"]'))
+        : (el.querySelectorAll('[data-del]')[Math.min(a.next, items.length - 1)] || el);
+      if (b && b.focus) b.focus();
+    });
+    function ibtn(icon, label, fn, extra) { return h('button', Object.assign({ type: 'button', className: 'alma-list__ctl', 'aria-label': label, title: label, onClick: fn }, extra), h(AlmaIcon, { name: icon, size: 16 })); }
+    return h('section', { ref: root, tabIndex: -1, className: 'alma-list' + (editing ? ' is-editing' : '') + (props.className ? ' ' + props.className : ''), 'aria-labelledby': props.header ? id + '-h' : undefined },
       props.header ? h('h' + (props.headingLevel || 3), { id: id + '-h', className: 'alma-list__header' }, props.header) : null,
       h('ul', { className: 'alma-list__rows', 'aria-label': props.header ? undefined : props['aria-label'] },
-        (props.items || []).map(function (it, i) {
+        items.map(function (it, i) {
+          var sel = (single || multi) && isSel(it), tid = id + '-t' + i, sw = it.switch;
           var inner = [
+            editing && props.onDelete ? ibtn('trash-can', 'Eliminar ' + it.title, function () { del(it, i); }, { key: 'd', 'data-del': it.id, className: 'alma-list__ctl is-destructive' }) : null,
             it.icon ? h(AlmaIcon, { size: 16, key: 'i', name: it.icon, className: 'alma-list__icon' }) : null,
             h('span', { key: 't', className: 'alma-list__text' },
-              h('span', { className: 'alma-list__title' }, it.title),
+              h('span', { id: tid, className: 'alma-list__title' }, it.title),
               it.subtitle ? h('span', { className: 'alma-list__subtitle' }, it.subtitle) : null),
-            it.trailing !== undefined ? h('span', { key: 'r', className: 'alma-list__trailing' }, it.trailing) : null,
-            it.href || it.chevron ? h(AlmaIcon, { key: 'c', name: 'chevron--right', size: 16, className: 'alma-list__chevron' }) : null];
-          var cls = 'alma-list__row' + (it.icon ? ' has-icon' : '');
-          var row = it.href ? h('a', { href: it.href, className: cls + ' is-nav' }, inner)
+            it.trailing !== undefined && !editing ? h('span', { key: 'r', className: 'alma-list__trailing' }, it.trailing) : null,
+            sw && !editing ? h('button', { key: 's', type: 'button', role: 'switch', 'aria-checked': !!sw.checked, 'aria-labelledby': tid, disabled: sw.disabled, className: 'alma-switch' + (sw.checked ? ' is-on' : ''), onClick: function () { if (sw.onChange) sw.onChange(!sw.checked); } },
+              h('span', { className: 'alma-switch__thumb' }, sw.checked ? h(AlmaIcon, { name: 'checkmark', size: 16 }) : null)) : null,
+            check && !editing && (single || multi) ? h('span', { key: 'k', className: 'alma-list__check', 'aria-hidden': 'true' }, sel ? h(AlmaIcon, { name: 'checkmark', size: 16 }) : null) : null,
+            (it.href || it.chevron) && !editing ? h(AlmaIcon, { key: 'c', name: 'chevron--right', size: 16, className: 'alma-list__chevron' }) : null,
+            editing && props.onMove ? h('span', { key: 'm', className: 'alma-list__moves' },
+              ibtn('arrow--up', 'Subir ' + it.title, function () { move(it, i, -1); }, { disabled: i === 0, 'data-mv': it.id + ':-1' }),
+              ibtn('arrow--down', 'Bajar ' + it.title, function () { move(it, i, 1); }, { disabled: i === items.length - 1, 'data-mv': it.id + ':1' })) : null];
+          var cls = 'alma-list__row' + (it.icon ? ' has-icon' : '') + (sel && !check ? ' is-selected' : '');
+          var row = editing || sw ? h('div', { className: cls }, inner)
+            : (single || multi) ? h('button', { type: 'button', className: cls + ' is-nav', 'aria-pressed': check ? sel : undefined, 'aria-current': !check && sel ? 'true' : undefined, onClick: function () { pick(it); if (it.onClick) it.onClick(); } }, inner)
+            : it.href ? h('a', { href: it.href, className: cls + ' is-nav' }, inner)
             : it.onClick ? h('button', { type: 'button', className: cls + ' is-nav', onClick: it.onClick }, inner)
             : h('div', { className: cls }, inner);
           return h('li', { key: it.id || i, className: 'alma-list__item' }, row);
         })),
-      props.footer ? h('p', { className: 'alma-list__footer' }, props.footer) : null);
+      props.footer ? h('p', { className: 'alma-list__footer' }, props.footer) : null,
+      h('span', { className: 'alma-vh', role: 'status' }, say[0]));
   }
 
   // EmptyState: what is missing, why, and the one action that fixes it.
@@ -2072,8 +2097,8 @@ function pictograma(G, clave, o = {}) {
     R.useLayoutEffect(function () {
       var el = area.current; if (!el) return;
       el.style.height = 'auto';
-      var cs = getComputedStyle(el), line = parseFloat(cs.lineHeight) || 21, full = el.scrollHeight;
-      el.style.height = Math.min(full, line * maxRows) + 'px'; el.style.overflowY = full > line * maxRows + 1 ? 'auto' : 'hidden';
+      var cs = getComputedStyle(el), line = parseFloat(cs.lineHeight) || 21, pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom), full = el.scrollHeight, top = line * maxRows + pad;
+      el.style.height = Math.min(full, top) + 'px'; el.style.overflowY = full > top + 1 ? 'auto' : 'hidden';
     }, [value, maxRows]);
     function set(v, e) { s[1](v); if (props.onChange) props.onChange(v, e); }
     function send() { if (busy || empty || props.disabled) return; if (props.onSubmit) props.onSubmit(String(value).trim()); if (props.value === undefined) s[1](''); if (area.current) area.current.focus(); }

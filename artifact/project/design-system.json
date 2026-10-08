@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-10-08T21:14:28.290Z",
+    "at": "2026-10-08T23:47:48.913Z",
     "via": "Claude Code",
-    "note": "El botón gray pasa a ser un gris neutro y tenue, en ALMA y en todas las entidades"
+    "note": "List con selección, interruptor en fila y edición; botón de enviar alineado; ventanas inactivas atenuadas"
   },
   "layout": "files",
   "libraries": [

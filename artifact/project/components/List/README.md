@@ -58,6 +58,32 @@ Una lista agrupada de filas para navegar, actuar o mostrar datos.
 - Apple, Human Interface Guidelines: Lists and tables.
 - IBM, Carbon Design System: Contained list.
 
+### Filas que se eligen
+
+Hay dos maneras, y dicen cosas distintas. Es la regla de Apple.
+
+| Manera | Cómo se ve | Para |
+|---|---|---|
+| **Queda marcada** | La fila elegida conserva su fondo y su título gana peso. | Navegar: una lista a la izquierda y su detalle a la derecha. La marca dice dónde estás. |
+| **Lleva un visto** | Un visto al final de la fila. | Elegir entre opciones: «Ordenar por». Con `selection: 'multiple'`, varias a la vez. |
+
+No las mezcles en la misma lista.
+
+### Una fila con interruptor
+
+Una preferencia que se enciende o se apaga va en una fila, con su `Switch` al final. El título de la fila es el nombre del interruptor: no hace falta otro rótulo. Es el único lugar donde va un interruptor; fuera de una lista, usa un botón que queda marcado.
+
+### Editar una lista
+
+Con `editing`, las filas dejan de llevar a otra parte y muestran sus controles:
+
+- **Eliminar**, al inicio de la fila, en rojo.
+- **Subir y bajar**, al final. Reordenar no depende de arrastrar.
+
+Entra y sal de la edición con un botón a la vista: «Editar» y «Listo». Eliminar se puede deshacer: ofrece «Deshacer» en un aviso, como dice el patrón Deshacer.
+
+![Tres listas. «Ordenar mis viajes por», con un visto en «Fecha». «Avisos», con un interruptor encendido y otro apagado al final de cada fila. Y «Destinos favoritos» en edición: cada fila con un botón rojo de eliminar al inicio y dos flechas, subir y bajar, al final.](assets/Componentes/list-elegir-editar.png)
+
 ## Estilo
 
 ### Color
@@ -147,6 +173,31 @@ h(List, { header: 'Resumen del viaje', footer: 'El precio incluye la tasa de emb
   { title: 'Pasaje', trailing: '$7.000' }, { title: 'Seguro de viaje', trailing: '$990' }, { title: 'Total', trailing: '$7.990' }] })
 ```
 
+### Elegir, interruptores y edición
+
+```js
+// Una opción entre varias, con visto
+h(List, { header: 'Ordenar por', selection: 'single', selectionStyle: 'check', selected: orden, onSelect: setOrden,
+  items: [{ id: 'fecha', title: 'Fecha' }, { id: 'precio', title: 'Precio' }] })
+
+// Una preferencia
+h(List, { header: 'Avisos', items: [{ title: 'Ofertas', switch: { checked: ofertas, onChange: setOfertas } }] })
+
+// Editar
+h(List, { header: 'Destinos favoritos', editing: editando, items: favoritos, onMove: mover, onDelete: eliminar })
+```
+
+| Propiedad | Tipo | Uso |
+|---|---|---|
+| `selection` | `single`, `multiple` | Las filas se eligen. Cada ítem necesita `id`. |
+| `selected` | un `id`, o una lista con `multiple` | Lo elegido. |
+| `onSelect` | función | Recibe el `id`, o la lista. |
+| `selectionStyle` | `check` | Con `single`: un visto en vez de la fila marcada. `multiple` siempre lleva visto. |
+| `editing` | sí o no | Muestra los controles de edición. |
+| `onDelete` | `(id) => void` | Muestra «Eliminar» en cada fila. |
+| `onMove` | `(id, dirección) => void` | Muestra «Subir» y «Bajar». La dirección es -1 o 1. |
+| en un ítem, `switch` | `{ checked, onChange, disabled }` | Un interruptor al final de la fila. |
+
 ## Accesibilidad
 
 ### Qué ofrece ALMA
@@ -178,3 +229,12 @@ h(List, { header: 'Resumen del viaje', footer: 'El precio incluye la tasa de emb
 ### Verificación
 
 axe sin problemas en los cuatro temas. Pendiente: VoiceOver y NVDA.
+
+### Al elegir y al editar
+
+- **Una fila que queda marcada** se anuncia como la actual. **Una con visto**, como marcada o sin marcar.
+- **El interruptor de una fila toma el título de la fila** como nombre.
+- **Los controles de edición tienen nombre completo:** «Eliminar Talca», «Subir Talca».
+- **Cada movimiento se anuncia:** «Talca: lugar 1 de 3».
+- **El foco sigue al trabajo:** tras mover una fila, queda en el mismo botón; tras eliminarla, en la fila que tomó su lugar.
+- **Reordenar no pide arrastrar.**

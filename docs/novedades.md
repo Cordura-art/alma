@@ -4,6 +4,13 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 8 de octubre de 2026
 
+### Listas que se eligen y se editan, y tres ajustes
+
+- `List` gana lo que pide Apple: filas que se eligen (quedan marcadas al navegar, o llevan un visto al escoger una opción), un interruptor al final de una fila, y un modo de edición con eliminar, subir y bajar.
+- `PromptInput`: el botón de enviar queda centrado con el texto cuando hay una línea, con el mismo margen por los cuatro lados. Antes quedaba abajo y descuadrado.
+- `Window`: las ventanas inactivas quedan bajo un velo. Antes casi no se distinguían de la activa.
+- Los tamaños de los botones no cambian.
+
 ### El botón gray pasa a ser un gris tenue
 
 - **Cambio de color:** el botón `gray` deja de ser un relleno sólido y oscuro. Ahora es un gris neutro y tenue con el color del texto, como el de Apple. En el tema claro el anterior contrastaba 14:1 con el fondo, contra 4,9:1 del botón principal: pesaba más que la acción que debía destacar.

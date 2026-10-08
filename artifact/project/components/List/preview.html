@@ -1,17 +1,25 @@
-<!-- @dsCard group="Contenido" height=420 subtitle="Filas de 44 px · separador con sangría · flecha para navegar" -->
-<div id="root" style="padding:24px;display:grid;gap:24px;max-width:28rem;"></div>
+<!-- @dsCard group="Contenido" height=900 subtitle="Filas que llevan a otra parte, que se eligen, con interruptor, y que se editan" -->
+<div id="root" style="padding:24px;display:grid;gap:32px;max-width:28rem;"></div>
 <script>
   // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
   document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   function Demo() {
+    var orden = React.useState('fecha'), av = React.useState({ cambios: true, ofertas: false }), ed = React.useState(false);
+    var fav = React.useState([{ id: 'vina', title: 'Viña del Mar', subtitle: '120 km' }, { id: 'talca', title: 'Talca', subtitle: '255 km' }, { id: 'temuco', title: 'Temuco', subtitle: '680 km' }]);
+    function mover(id, d) { var l = fav[0].slice(), i = l.findIndex(function (x) { return x.id === id; }), x = l.splice(i, 1)[0]; l.splice(i + d, 0, x); fav[1](l); }
+    function sw(k) { return { checked: av[0][k], onChange: function (v) { var o = Object.assign({}, av[0]); o[k] = v; av[1](o); } }; }
     return h(React.Fragment, null,
       h(A.List, { headingLevel: 2, header: 'Cuenta', items: [
         { icon: 'user', title: 'Datos personales', href: '#perfil' },
-        { icon: 'wallet', title: 'Medios de pago', subtitle: '2 tarjetas', href: '#pagos' },
-        { icon: 'notification', title: 'Notificaciones', trailing: 'Activadas', href: '#avisos' }] }),
-      h(A.List, { headingLevel: 2, header: 'Resumen del viaje', footer: 'El precio incluye la tasa de embarque.', items: [
-        { title: 'Pasaje', trailing: '$7.000' }, { title: 'Seguro de viaje', trailing: '$990' }, { title: 'Total', trailing: '$7.990' }] }));
+        { icon: 'wallet', title: 'Medios de pago', subtitle: '2 tarjetas', href: '#pagos' }] }),
+      h(A.List, { headingLevel: 2, header: 'Ordenar mis viajes por', selection: 'single', selectionStyle: 'check', selected: orden[0], onSelect: orden[1], items: [
+        { id: 'fecha', title: 'Fecha' }, { id: 'precio', title: 'Precio' }, { id: 'destino', title: 'Destino' }] }),
+      h(A.List, { headingLevel: 2, header: 'Avisos', footer: 'Los cambios de hora y de andén llegan siempre.', items: [
+        { title: 'Cambios en mis viajes', subtitle: 'Hora, andén y atrasos', switch: sw('cambios') }, { title: 'Ofertas', switch: sw('ofertas') }] }),
+      h('div', { style: { display: 'grid', gap: '8px' } },
+        h('div', { style: { display: 'flex', justifyContent: 'flex-end' } }, h(A.Button, { variant: 'plain', onClick: function () { ed[1](!ed[0]); } }, ed[0] ? 'Listo' : 'Editar')),
+        h(A.List, { headingLevel: 2, header: 'Destinos favoritos', editing: ed[0], items: fav[0], onMove: mover, onDelete: function (id) { fav[1](fav[0].filter(function (x) { return x.id !== id; })); } })));
   }
   ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
 </script>

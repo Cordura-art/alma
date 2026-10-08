@@ -49,7 +49,7 @@ Antes de usarla, lee el patrón **Entorno**.
 | Estado | Qué es | Cómo se ve |
 |---|---|---|
 | **Activa** | La que está al frente y recibe el teclado. Una sola. | Barra de vidrio, borde marcado, título en `text-01`, controles en `icon-01`, sombra. |
-| **Inactiva** | Las demás. | Barra opaca, borde tenue, título en `text-02`, controles en `icon-02`, sin sombra. |
+| **Inactiva** | Las demás. | Toda la ventana bajo un velo. Barra opaca, borde tenue, título en `text-02`, controles en `icon-02`, sin sombra. |
 | **Ampliada** | Ocupa todo el escritorio. | Sin radio ni bordes laterales. |
 | **Minimizada** | No se ve. Vuelve desde el dock o el menú Ventana. | — |
 

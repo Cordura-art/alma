@@ -57,3 +57,29 @@ summary: Una lista agrupada de filas para navegar, actuar o mostrar datos.
 
 - Apple, Human Interface Guidelines: Lists and tables.
 - IBM, Carbon Design System: Contained list.
+
+## Filas que se eligen
+
+Hay dos maneras, y dicen cosas distintas. Es la regla de Apple.
+
+| Manera | Cómo se ve | Para |
+|---|---|---|
+| **Queda marcada** | La fila elegida conserva su fondo y su título gana peso. | Navegar: una lista a la izquierda y su detalle a la derecha. La marca dice dónde estás. |
+| **Lleva un visto** | Un visto al final de la fila. | Elegir entre opciones: «Ordenar por». Con `selection: 'multiple'`, varias a la vez. |
+
+No las mezcles en la misma lista.
+
+## Una fila con interruptor
+
+Una preferencia que se enciende o se apaga va en una fila, con su `Switch` al final. El título de la fila es el nombre del interruptor: no hace falta otro rótulo. Es el único lugar donde va un interruptor; fuera de una lista, usa un botón que queda marcado.
+
+## Editar una lista
+
+Con `editing`, las filas dejan de llevar a otra parte y muestran sus controles:
+
+- **Eliminar**, al inicio de la fila, en rojo.
+- **Subir y bajar**, al final. Reordenar no depende de arrastrar.
+
+Entra y sal de la edición con un botón a la vista: «Editar» y «Listo». Eliminar se puede deshacer: ofrece «Deshacer» en un aviso, como dice el patrón Deshacer.
+
+![Tres listas. «Ordenar mis viajes por», con un visto en «Fecha». «Avisos», con un interruptor encendido y otro apagado al final de cada fila. Y «Destinos favoritos» en edición: cada fila con un botón rojo de eliminar al inicio y dos flechas, subir y bajar, al final.](assets/Componentes/list-elegir-editar.png)

@@ -34,3 +34,12 @@ summary: Qué resuelve ALMA en la lista.
 ## Verificación
 
 axe sin problemas en los cuatro temas. Pendiente: VoiceOver y NVDA.
+
+## Al elegir y al editar
+
+- **Una fila que queda marcada** se anuncia como la actual. **Una con visto**, como marcada o sin marcar.
+- **El interruptor de una fila toma el título de la fila** como nombre.
+- **Los controles de edición tienen nombre completo:** «Eliminar Talca», «Subir Talca».
+- **Cada movimiento se anuncia:** «Talca: lugar 1 de 3».
+- **El foco sigue al trabajo:** tras mover una fila, queda en el mismo botón; tras eliminarla, en la fila que tomó su lugar.
+- **Reordenar no pide arrastrar.**

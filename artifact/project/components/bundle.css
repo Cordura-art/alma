@@ -803,9 +803,11 @@ button.alma-ailabel { font-family: inherit; }
 .alma-msg__actions .alma-btn { min-width: var(--alma-control); }
 
 .alma-prompt { display: grid; gap: var(--space-8); max-width: 48rem; margin: 0; }
-.alma-prompt .alma-field__box { align-items: flex-end; gap: var(--space-8); padding: var(--space-8) var(--space-8) var(--space-8) var(--space-16); }
+.alma-prompt .alma-field__box { align-items: flex-end; gap: var(--space-8); min-height: 0; padding: var(--space-8) var(--space-8) var(--space-8) var(--space-16); }
 .alma-prompt .alma-field__box:focus-within { padding: 7px 7px 7px 15px; }
-.alma-prompt__input { min-height: 0; resize: none; align-self: center; padding: var(--space-8) 0; line-height: 1.5; }
+/* one line of text is as tall as the button, so both sit on the same centre; the box has the same margin all round */
+.alma-prompt__input { min-height: var(--alma-control); box-sizing: border-box; resize: none; align-self: stretch; padding: calc((var(--alma-control) - 1.5em) / 2) 0; line-height: 1.5; }
+.alma-prompt__send { width: var(--alma-control); height: var(--alma-control); min-height: 0; }
 .alma-prompt .alma-field__box:not(:focus-within) .alma-prompt__input::placeholder { color: var(--field-placeholder); }
 .alma-prompt__send { flex: none; }
 .alma-prompt__note { margin: 0; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); }
@@ -860,6 +862,8 @@ button.alma-ailabel { font-family: inherit; }
 .alma-window { position: absolute; display: flex; flex-direction: column; min-width: 0; box-sizing: border-box; border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); background: var(--ui-02); color: var(--text-01); outline: none; }
 .alma-window.is-active { border-color: var(--border-control); box-shadow: var(--shadow-floating); }
 .alma-window.is-still { position: relative; }
+.alma-window:not(.is-active)::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; background: color-mix(in srgb, var(--ui-02) 36%, transparent); pointer-events: none; }
+.alma-window:not(.is-active) .alma-window__grip { z-index: 3; }
 .alma-window.is-full { inset: 0; border-radius: 0; border-width: 0; }
 .alma-desktop.has-dock .alma-window.is-full { bottom: 5rem; border-bottom-width: 1px; }
 .alma-window:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
@@ -1026,3 +1030,18 @@ button.alma-ailabel { font-family: inherit; }
 .alma-rating__btn { display: grid; place-items: center; width: var(--alma-control); height: var(--alma-control); padding: 0; border: 0; border-radius: var(--radius-chip); background: transparent; cursor: pointer; }
 .alma-rating__btn:hover .alma-rating__star { color: var(--text-01); }
 .alma-rating__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+
+/* ---------- List: chosen rows, a switch in a row, and editing (Apple HIG › Lists and tables) ---------- */
+.alma-list:focus { outline: none; }
+.alma-list__row.is-selected { background: var(--list-row-bg-hover); }
+.alma-list__row.is-selected .alma-list__title { font-weight: var(--font-weight-emphasis); }
+.alma-list__check { flex: none; width: 1rem; display: grid; place-items: center; color: var(--interactive-01); }
+.alma-list__row .alma-switch { flex: none; }
+.alma-list__ctl { flex: none; display: grid; place-items: center; width: var(--alma-control); height: var(--alma-control); padding: 0; border: 0; border-radius: var(--radius-nav); background: transparent; color: var(--icon-01); cursor: pointer; }
+.alma-list__ctl:hover:not(:disabled) { background: var(--list-row-bg-hover); }
+.alma-list__ctl:disabled { opacity: .45; cursor: not-allowed; }
+.alma-list__ctl:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-list__ctl.is-destructive { color: var(--button-destructive-text); }
+.alma-list__moves { flex: none; display: flex; }
+/* while editing, the controls reach the edge of the row: their touch area is the margin */
+.alma-list.is-editing .alma-list__row { padding-inline: var(--space-4); gap: var(--space-8); }
