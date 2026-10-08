@@ -1,5 +1,6 @@
-// ALMA's effects: the collection of what moves behind, between and under things. Three families: a background
-// (fondo), a change from one thing to another (transicion) and an answer to whoever touches (reaccion).
+// ALMA's effects: the collection of what moves behind, between and under things. Four families: a background
+// (fondo), a change from one thing to another (transicion), an answer to whoever touches (reaccion) and a text that
+// moves as it arrives (texto).
 // Every effect is written here, ours, and keeps the same promises: its colours are tokens, read from where it is
 // mounted (so an entity's effect is the entity's); it asks ALMA's clock (site/reloj.js) for its frames; it draws only
 // while it is seen and the page is shown; with less motion asked for it is one still picture; and it is decoration,
@@ -42,6 +43,18 @@
   // (a noise of our own for those programs: a value at each corner of a grid, eased between them; from 0 to 1)
   var RUIDO = 'float azar(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\n' +
     'float ruido(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(azar(i), azar(i + vec2(1.0, 0.0)), f.x), mix(azar(i + vec2(0.0, 1.0)), azar(i + vec2(1.0, 1.0)), f.x), f.y); }\n';
+  // Every frame while fn answers true, on ALMA's clock where there is one. → quita()
+  function cada(fn) { var R = window.AlmaReloj; if (R) return R.cada(function () { return fn(R.dt); }); var id = 0, paso = function () { if (fn(1 / 60) === true) id = requestAnimationFrame(paso); }; id = requestAnimationFrame(paso); return function () { cancelAnimationFrame(id); }; }
+  // Once, the first time a tenth of an element is seen. → deja()
+  function alVer(el, fn) { var ojo = new IntersectionObserver(function (v) { if (v[v.length - 1].isIntersecting) { ojo.disconnect(); fn(); } }, { threshold: 0.1 }); ojo.observe(el); return function () { ojo.disconnect(); }; }
+  // A text that moves has two faces: the true one, out of sight, for whoever has the page read to them, and the one
+  // that is seen and changes, which they are not told about.
+  function dosCaras(el) {
+    var texto = el.textContent, antes = el.innerHTML, real = document.createElement('span'), vista = document.createElement('span');
+    real.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap'; real.textContent = texto;
+    vista.setAttribute('aria-hidden', 'true'); vista.textContent = texto; el.textContent = ''; el.appendChild(real); el.appendChild(vista);
+    return { texto: texto, vista: vista, suelta: function () { el.innerHTML = antes; } };
+  }
   function monta(id, el, valores) {
     var def = LISTA[id]; if (!def) throw new Error('No hay un efecto «' + id + '»');
     if (def.pone) {
@@ -84,5 +97,5 @@
       quita: function () { vivo = false; if (quita) quita(); if (dejaReloj) dejaReloj(); ojo.disconnect(); regla.disconnect(); window.removeEventListener('pointermove', mueve); document.removeEventListener('visibilitychange', anda); obra.quita(); lienzo.remove(); }
     };
   }
-  window.AlmaEfectos = { lista: LISTA, color: color, quieto: quieto, segundos: segundos, curva: curva, sombra: sombra, RUIDO: RUIDO, monta: monta, pon: function (def) { LISTA[def.id] = def; return def; } };
+  window.AlmaEfectos = { lista: LISTA, color: color, quieto: quieto, segundos: segundos, curva: curva, sombra: sombra, RUIDO: RUIDO, cada: cada, alVer: alVer, dosCaras: dosCaras, monta: monta, pon: function (def) { LISTA[def.id] = def; return def; } };
 })();

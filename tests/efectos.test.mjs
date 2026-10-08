@@ -11,10 +11,10 @@ for (const f of archivos) vm.runInNewContext(readFileSync(`site/efectos/${f}`, '
 const lista = Object.values(w.AlmaEfectos.lista), tokens = readFileSync('dist/css/alma.css', 'utf8');
 const paginas = readdirSync('docs/efectos').map((f) => readFileSync(`docs/efectos/${f}`, 'utf8'));
 
-test('cada archivo de efecto pone un efecto, de una de las tres familias, y tiene su página', () => {
+test('cada archivo de efecto pone un efecto, de una de las cuatro familias, y tiene su página', () => {
   assert.equal(lista.length, archivos.length);
   for (const e of lista) {
-    assert.ok(['fondo', 'transicion', 'reaccion'].includes(e.familia), `${e.id}: familia ${e.familia}`);
+    assert.ok(['fondo', 'transicion', 'reaccion', 'texto'].includes(e.familia), `${e.id}: familia ${e.familia}`);
     assert.ok(archivos.includes(`${e.id}.js`), `${e.id}: su archivo lleva su nombre`);
     assert.ok(paginas.some((p) => new RegExp(`^id: ${e.id}$`, 'm').test(p)), `${e.id}: falta su página en docs/efectos`);
   }

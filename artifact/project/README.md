@@ -156,6 +156,10 @@ La base son nuestros referentes. Las recetas de marca (escribirse, armarse, desh
 - Breve y preciso en la respuesta a una acción; sin animaciones propias en interacciones frecuentes.
 - Se puede interrumpir: nadie espera a que termine una animación para seguir.
 
+### Efectos
+
+Lo que se mueve detrás, entre y debajo de las cosas está en una colección propia, sin librerías: fondos (Halo, Velo, Hilos), reacciones (Chispa, Imán, Destello), transiciones (Trama, Aparecer) y textos (Descifrar, Contar). Cada uno toma sus colores y sus tiempos de los tokens, trabaja solo mientras se ve y respeta el movimiento reducido. Como el movimiento de marca, viven en portadas y páginas de presentación, no en la interfaz de un producto. La guía de cada uno está en la sección Efectos, y el código en `efectos.js`: `AlmaEfectos.monta('halo', elemento)`.
+
 ## Imágenes e ilustración
 
 Sale de las piezas de marca de Figma (Brand Key, Behance y mockups). La marca junta naturaleza y tecnología: texturas reales de cerca y pantallas, píxeles y datos.

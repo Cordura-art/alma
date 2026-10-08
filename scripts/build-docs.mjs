@@ -69,6 +69,21 @@ for (const f of patFiles) {
 await writeFile('artifact/project/Patrones.md', pats);
 console.log(`Patrones: ${patFiles.length} en artifact/project/Patrones.md`);
 
+// Effects: docs/efectos/<n>-<slug>.md, single pages → one artifact section, Efectos.md, family by family; and their
+// code in one file, efectos.js, with the clock and the score they run on, to load in any page.
+const efFiles = (await readdir('docs/efectos')).filter((f) => f.endsWith('.md')).sort((a, b) => parseInt(a) - parseInt(b));
+const efs = []; for (const f of efFiles) efs.push(parse(await readFile(`docs/efectos/${f}`, 'utf8')));
+let efMd = '# Efectos\n\n' + efs[0].meta.summary + '\n\nEl código de todos está en `efectos.js`, junto a este archivo: se carga en una página y deja `window.AlmaEfectos`.\n\n' + efs[0].body.trim() + '\n';
+for (const fam of ['Fondo', 'Reacción', 'Transición', 'Texto']) {
+  const suyos = efs.filter((e) => e.meta.familia === fam); if (!suyos.length) continue;
+  efMd += `\n## ${fam}\n`;
+  for (const e of suyos) efMd += `\n### ${e.meta.efecto}\n\n${e.meta.summary}\n\n${demote(demote(e.body))}\n`;
+}
+await writeFile('artifact/project/Efectos.md', efMd);
+let efJs = ''; for (const f of ['site/reloj.js', 'site/partitura.js', 'site/efectos.js', ...efs.filter((e) => e.meta.id).map((e) => `site/efectos/${e.meta.id}.js`)]) efJs += (await readFile(f, 'utf8')).trimEnd() + '\n';
+await writeFile('artifact/project/efectos.js', efJs);
+console.log(`Efectos: ${efs.length - 1} en artifact/project/Efectos.md y efectos.js (${(efJs.length / 1024).toFixed(0)} KB)`);
+
 // Pending work: scan every doc for «> **Imagen pendiente:** …» markers and «Pendiente: VoiceOver…» test notes.
 // Links use the docs site's routes (#<id>); docs/README.md only shows the marker format, so it is left out.
 const MARK = /^> \*\*Imagen pendiente:\*\* (.+)$/gm;

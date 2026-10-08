@@ -4,6 +4,12 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 8 de octubre de 2026
 
+### Efectos: una colección propia
+
+- ALMA tiene una sección nueva, «Efectos», para lo que se mueve detrás, entre y debajo de las cosas. Parte con diez, en cuatro familias: fondos (Halo, Velo, Hilos), reacciones (Chispa, Imán, Destello), transiciones (Trama, Aparecer) y textos (Descifrar, Contar).
+- Todos están escritos aquí, sin librerías, y cumplen lo mismo: colores y tiempos por token, el reloj de ALMA, trabajo solo a la vista y respeto por el movimiento reducido. En una entidad toman sus colores sin tocarlos.
+- Cada efecto tiene su página en la documentación, con el efecto en vivo y sus ajustes, y se usa con una línea: `AlmaEfectos.monta('halo', elemento)`.
+
 ### Un reloj y una partitura para todo lo que se mueve
 
 - Todas las piezas que se mueven (la palabra, las portadas, los planetas y las ilustraciones vivas de la documentación) usan un mismo reloj, `site/reloj.js`. Es el único lugar que sabe cuánto pasó desde el cuadro anterior, cuánto se desplazó la página, si se pidió menos movimiento y cuándo fue la última seña de quien mira.
