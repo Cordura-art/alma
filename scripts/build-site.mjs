@@ -117,6 +117,9 @@ for (const f of (await readdir('docs/efectos')).filter((f) => f.endsWith('.md'))
   for (const line of m[1].split('\n')) { const i = line.indexOf(':'); if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim(); }
   efectos.push({ slug: f.replace(/^\d+-|\.md$/g, ''), name: meta.efecto, id: meta.id || null, familia: meta.familia, summary: meta.summary, body: src.slice(m[0].length).trim() });
 }
+// (in the menu: the collection first, then each family together)
+const FAMILIAS = ['Efectos', 'Fondo', 'Reacción', 'Transición'];
+efectos.sort((a, b) => FAMILIAS.indexOf(a.familia) - FAMILIAS.indexOf(b.familia));
 const motorEfectos = [await read('site/reloj.js'), await read('site/partitura.js'), await read('site/efectos.js'), ...(await Promise.all(efectos.filter((e) => e.id).map((e) => read(`site/efectos/${e.id}.js`))))].join('\n');
 
 const families = {};

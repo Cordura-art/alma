@@ -23,6 +23,25 @@
   // A motion token as an element has it: a duration in seconds, a curve as the function it is.
   function segundos(token, el) { var P = window.AlmaPartitura; if (P) return P.segundos(token, el); var t = getComputedStyle(el || document.documentElement).getPropertyValue('--' + token).trim(), x = parseFloat(t); return isFinite(x) ? (/ms$/.test(t) ? x / 1000 : x) : 0.24; }
   function curva(token, el) { var P = window.AlmaPartitura; return P ? P.curva(token, el) : function (k) { return 1 - (1 - k) * (1 - k); }; }
+  // A background that is one picture worked out point by point: a canvas, the program that colours each point, and
+  // its values by name. escala: how many of the screen's points it is drawn with (a soft picture needs fewer).
+  function sombra(lienzo, fs, escala) {
+    var gl = lienzo.getContext('webgl', { alpha: false, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: true }); if (!gl) return null;
+    var p = gl.createProgram();
+    [[gl.VERTEX_SHADER, 'attribute vec2 p; varying vec2 vUv; void main() { vUv = p * 0.5 + 0.5; gl_Position = vec4(p, 0.0, 1.0); }'], [gl.FRAGMENT_SHADER, fs]].forEach(function (x) { var s = gl.createShader(x[0]); gl.shaderSource(s, x[1]); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); gl.attachShader(p, s); });
+    gl.bindAttribLocation(p, 0, 'p'); gl.linkProgram(p); gl.useProgram(p);
+    var u = {}, n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS); for (var i = 0; i < n; i++) { var nombre = gl.getActiveUniform(p, i).name; u[nombre] = gl.getUniformLocation(p, nombre); }
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    return {
+      gl: gl, u: u,
+      medida: function (ancho, alto) { var d = Math.min(window.devicePixelRatio || 1, 2) * (escala || 1); lienzo.width = Math.max(2, Math.round(ancho * d)); lienzo.height = Math.max(2, Math.round(alto * d)); gl.viewport(0, 0, lienzo.width, lienzo.height); gl.uniform2f(u.uTam, lienzo.width, lienzo.height); },
+      dibuja: function () { gl.drawArrays(gl.TRIANGLES, 0, 3); },
+      quita: function () { var x = gl.getExtension('WEBGL_lose_context'); if (x) x.loseContext(); }
+    };
+  }
+  // (a noise of our own for those programs: a value at each corner of a grid, eased between them; from 0 to 1)
+  var RUIDO = 'float azar(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\n' +
+    'float ruido(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(azar(i), azar(i + vec2(1.0, 0.0)), f.x), mix(azar(i + vec2(0.0, 1.0)), azar(i + vec2(1.0, 1.0)), f.x), f.y); }\n';
   function monta(id, el, valores) {
     var def = LISTA[id]; if (!def) throw new Error('No hay un efecto «' + id + '»');
     if (def.pone) {
@@ -65,5 +84,5 @@
       quita: function () { vivo = false; if (quita) quita(); if (dejaReloj) dejaReloj(); ojo.disconnect(); regla.disconnect(); window.removeEventListener('pointermove', mueve); document.removeEventListener('visibilitychange', anda); obra.quita(); lienzo.remove(); }
     };
   }
-  window.AlmaEfectos = { lista: LISTA, color: color, quieto: quieto, segundos: segundos, curva: curva, monta: monta, pon: function (def) { LISTA[def.id] = def; return def; } };
+  window.AlmaEfectos = { lista: LISTA, color: color, quieto: quieto, segundos: segundos, curva: curva, sombra: sombra, RUIDO: RUIDO, monta: monta, pon: function (def) { LISTA[def.id] = def; return def; } };
 })();
