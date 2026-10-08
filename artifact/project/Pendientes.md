@@ -2,11 +2,11 @@
 
 Todo lo que falta crear en ALMA. Las imágenes y las pruebas con lectores de pantalla se listan solas desde los documentos del repositorio; esta página se actualiza en cada cambio. En el sitio, cada imagen pendiente se marca en magenta dentro de su página.
 
-**En resumen:** 0 imágenes por crear y 47 componentes por probar con lectores de pantalla.
+**En resumen:** 0 imágenes por crear y 52 componentes por probar con lectores de pantalla.
 
 ## Imágenes por crear (0)
 
-## Pruebas con lectores de pantalla (47)
+## Pruebas con lectores de pantalla (52)
 
 axe ya pasa en todos. Falta escuchar cada componente con un lector de pantalla real.
 
@@ -14,11 +14,13 @@ axe ya pasa en todos. Falta escuchar cada componente con un lector de pantalla r
 |---|---|
 | [Accordion](#accordion) | VoiceOver y NVDA |
 | [ActivityIndicator](#activityindicator) | VoiceOver y NVDA |
+| [AILabel](#ailabel) | VoiceOver y NVDA |
 | [Alert](#alert) | VoiceOver y NVDA |
 | [BarChart](#barchart) | VoiceOver y NVDA |
 | [Breadcrumb](#breadcrumb) | VoiceOver y NVDA |
 | [Button](#button) | VoiceOver y NVDA |
 | [Card](#card) | VoiceOver y NVDA |
+| [ChatMessage](#chatmessage) | VoiceOver y NVDA |
 | [Checkbox](#checkbox) | VoiceOver y NVDA |
 | [Combobox](#combobox) | VoiceOver y NVDA |
 | [DatePicker](#datepicker) | VoiceOver y NVDA |
@@ -38,14 +40,17 @@ axe ya pasa en todos. Falta escuchar cada componente con un lector de pantalla r
 | [ProgressBar](#progressbar) | VoiceOver y NVDA |
 | [ProgressIndicator](#progressindicator) | VoiceOver y NVDA |
 | [ProgressLine](#progressline) | VoiceOver y NVDA |
+| [PromptInput](#promptinput) | VoiceOver y NVDA |
 | [PullDownButton](#pulldownbutton) | VoiceOver y NVDA |
 | [RadioGroup](#radiogroup) | VoiceOver y NVDA |
+| [ScatterChart](#scatterchart) | VoiceOver y NVDA |
 | [SearchField](#searchfield) | VoiceOver y NVDA |
 | [SegmentedControl](#segmentedcontrol) | VoiceOver y NVDA |
 | [Sheet](#sheet) | VoiceOver en iPhone y TalkBack |
 | [Sidebar](#sidebar) | VoiceOver y NVDA |
 | [Skeleton](#skeleton) | VoiceOver y NVDA |
 | [Slider](#slider) | VoiceOver y NVDA |
+| [SourceList](#sourcelist) | VoiceOver y NVDA |
 | [Stepper](#stepper) | VoiceOver y NVDA |
 | [Switch](#switch) | VoiceOver y NVDA |
 | [TabBar](#tabbar) | VoiceOver en iPhone y TalkBack |

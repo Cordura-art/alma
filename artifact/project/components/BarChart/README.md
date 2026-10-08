@@ -41,6 +41,29 @@ Antes de usarlo, lee **Gráficos de datos**: ahí está cuándo conviene un grá
 | Un énfasis | `highlight`, con el nombre de una barra. Esa va en el acento; las demás, neutras. | Cuando el título habla de una. |
 | Categórico | `categorical`. Cada barra con un color de la familia categórica, en orden. | Solo si esos colores identifican a las mismas categorías en otro gráfico de la página. |
 
+### Apiladas
+
+Con `series`, cada barra se divide en partes: los pasajes de un destino, por clase. Lo primero que se compara sigue siendo la barra entera; las partes, después.
+
+![Un BarChart de barras apiladas: cinco destinos, cada barra dividida en Semicama, Salón cama y Premium, con una leyenda sobre el gráfico. El detalle, abierto sobre la parte de Salón cama de Temuco, dice «420 pasajes de 1.260».](assets/Componentes/bar-chart-apiladas.png)
+
+- De dos a cinco partes. Con más, junta las menores en «Otros».
+- Las partes van en el mismo orden en todas las barras, y la más importante, abajo: es la única que parte de cero y se compara bien.
+- Cada parte toma un color categórico, y una leyenda dice cuál es cuál.
+- Si lo que importa es comparar una parte entre barras, no apiles: usa un gráfico por parte.
+
+### Estados
+
+| Estado | Cómo | Qué se ve |
+|---|---|---|
+| Cargando | `loading` | La forma del gráfico, del tamaño que va a tener. |
+| Sin datos | `data` vacío | Qué falta y qué hacer, con `emptyTitle`, `emptyMessage` y `emptyAction`. |
+| Error | `error`, con `onRetry` | Qué pasó y «Reintentar». |
+
+![Un mismo gráfico en sus tres estados, con el título y la bajada siempre en su lugar. Cargando: un bloque del tamaño que va a tener el gráfico. Sin datos: «Aún no hay ventas en abril» y una frase que dice cuándo aparecerán. Error: «No pudimos cargar los datos», con el botón «Reintentar».](assets/Componentes/bar-chart-estados.png)
+
+En los tres, el título y la bajada siguen ahí, y el estado ocupa el alto del gráfico: nada salta cuando llegan los datos. Los tres valen igual para `LineChart` y `ScatterChart`.
+
 ### Vertical u horizontal
 
 - **Vertical**, por defecto.
@@ -55,7 +78,7 @@ Antes de usarlo, lee **Gráficos de datos**: ahí está cuándo conviene un grá
 
 ### Relacionados
 
-`LineChart` · `Table` · `ProgressBar` · Gráficos de datos.
+`LineChart` · `ScatterChart` · `Table` · `ProgressBar` · `Skeleton` · `EmptyState` · Gráficos de datos.
 
 ## Estilo
 
@@ -136,6 +159,33 @@ h(BarChart, {
 | `summary` | texto | Se arma solo | Lo que un lector de pantalla lee después del título. |
 | `labelHeader`, `valueHeader` | texto | «Categoría», «Valor» | Los encabezados de la tabla alternativa. |
 
+### Apiladas
+
+```jsx
+h(BarChart, {
+  title: 'Semicama es más de la mitad de cada destino',
+  labels: ['Talca', 'Chillán', 'Temuco'],
+  series: [{ name: 'Semicama', values: [1100, 900, 700] }, { name: 'Salón cama', values: [540, 380, 420] }],
+  unit: 'pasajes'
+})
+```
+
+Con `series` y `labels` en vez de `data`, las barras son apiladas. `highlight`, `categorical` y `showValues` no aplican.
+
+### Estados
+
+| Propiedad | Tipo | Qué hace |
+|---|---|---|
+| `loading` | sí o no | Muestra la forma del gráfico mientras llegan los datos. |
+| `error` | sí, o un texto | Muestra el error. Con un texto, ese es el título. |
+| `onRetry` | función | Agrega «Reintentar» al error. |
+| `emptyTitle`, `emptyMessage` | texto | Lo que dice cuando no hay datos. |
+| `emptyAction` | `{ label, onClick }` | El siguiente paso, cuando no hay datos. |
+
+```jsx
+h(BarChart, { title: 'Pasajes vendidos por destino', data: ventas, loading: cargando, error: fallo, onRetry: cargar })
+```
+
 ### Ancho
 
 `BarChart` ocupa el ancho de su contenedor y se redibuja si cambia. No le des un ancho fijo.
@@ -151,6 +201,8 @@ h(BarChart, {
 - **El detalle aparece con el foco**, igual que con el puntero.
 - **No depende del color:** cada barra lleva su nombre, y la que tiene foco, un contorno.
 - **Con movimiento reducido**, las barras no crecen.
+- **Apiladas:** las flechas hacia arriba y abajo pasan de una parte a otra, y cada una se anuncia con su parte y el total de su barra: «Talca, Semicama: 1.100 pasajes de 1.840».
+- **Estados:** mientras carga, se anuncia «Cargando el gráfico»; el error y el estado vacío son texto, con su acción al alcance del teclado.
 
 ### Teclado
 
@@ -158,6 +210,7 @@ h(BarChart, {
 |---|---|
 | Tab | Llega al gráfico; sale de él. |
 | → ← | Barra siguiente o anterior. |
+| ↑ ↓ | En barras apiladas, la parte de arriba o de abajo. |
 | Inicio, Fin | Primera o última barra. |
 | Esc | Cierra el detalle. |
 

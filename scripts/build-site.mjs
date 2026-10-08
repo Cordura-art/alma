@@ -167,7 +167,7 @@ const { icons: iconosEscenas, ...datosSistema } = datosEscenas;
 content.escena = datosSistema;
 const escenas = JSON.stringify({ fuentes: fuentesEscenas, base: cssEscenas, helpers: ayudantes, doc: docDispositivo, iconos: iconosEscenas,
   libs: LIBS.slice(0, 2).map((l) => `<script src="${CDN}/${l}"></script>`).join(''),
-  lista: Object.fromEntries(allScenes.map((s) => [s.file, { js: s.js, after: s.after, css: s.css, click: s.click }])) }).replace(/</g, '\\u003c');
+  lista: Object.fromEntries(allScenes.map((s) => [s.file, { js: s.js, after: s.after, css: s.css, click: s.click, efectos: s.efectos }])) }).replace(/</g, '\\u003c');
 const json = JSON.stringify(content).replace(/</g, '\\u003c');
 
 const html = `<title>${TITLE}</title>
@@ -189,7 +189,7 @@ ${bundle}
 <script>
 ${campoPortada.replace(/^<\/script>\n<script>\n/, '')}${await read('site/escenas.js')}
 </script>
-<script>
+<script id="alma-efectos">
 ${motorEfectos}
 </script>
 <script type="application/json" id="alma-escenas">${escenas}</script>

@@ -40,6 +40,13 @@ Antes de usarlo, lee **Gráficos de datos**.
 | Varias, con un énfasis | `highlight`, con el nombre de una. Las demás, neutras. | Cuando el título habla de una. Es lo más claro. |
 | Varias, categóricas | Por defecto: los colores categóricos, en orden. | Cuando todas importan por igual. |
 
+### Con área
+
+Con `area`, lo que queda bajo la línea se rellena, suave. Sirve cuando importa la cantidad y no solo la tendencia: cuánto se ocupó, cuánto se acumuló.
+
+- Úsalo con una serie, o dos a lo sumo: las áreas se tapan entre sí.
+- El eje parte de cero. Un área que no parte de cero exagera.
+
 ### Datos que faltan
 
 Un valor que falta se escribe `null`, y deja un hueco en la línea. Nunca lo reemplaces por cero: una línea que cae a cero dice que no hubo nada, no que no se sabe.
@@ -85,6 +92,7 @@ Todos los números usan cifras del mismo ancho.
 | Línea | grosor | 2 px; 3 px la que está activa |
 | Punto | radio | 3 px, visible con ocho valores o menos |
 | Punto activo | radio | 5 px |
+| Área | relleno | El color de su línea, al 24 % |
 | Rótulos del eje | separación | Al menos 64 px entre uno y otro; se saltan los que no caben |
 
 ### Movimiento
@@ -123,10 +131,13 @@ h(LineChart, {
 | `highlight` | texto | — | El `name` de la serie que lleva el acento. |
 | `unit` | texto | — | La unidad, para el detalle y la tabla. |
 | `format` | función | Formato de Chile | Cómo se escribe un valor. |
+| `area` | sí o no | no | Rellena lo que queda bajo cada línea. |
 | `min` | número | 0, o el menor valor si hay negativos | Dónde parte el eje. |
 | `height` | número | 240 | El alto, en px. |
 | `summary` | texto | Se arma solo | Lo que un lector de pantalla lee después del título. |
 | `labelHeader` | texto | «Periodo» | El encabezado de la primera columna de la tabla. |
+
+Acepta también `loading`, `error`, `onRetry`, `emptyTitle`, `emptyMessage` y `emptyAction`. Ver **BarChart › Código › Estados**.
 
 ### Ancho
 

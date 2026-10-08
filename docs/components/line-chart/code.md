@@ -35,10 +35,13 @@ h(LineChart, {
 | `highlight` | texto | — | El `name` de la serie que lleva el acento. |
 | `unit` | texto | — | La unidad, para el detalle y la tabla. |
 | `format` | función | Formato de Chile | Cómo se escribe un valor. |
+| `area` | sí o no | no | Rellena lo que queda bajo cada línea. |
 | `min` | número | 0, o el menor valor si hay negativos | Dónde parte el eje. |
 | `height` | número | 240 | El alto, en px. |
 | `summary` | texto | Se arma solo | Lo que un lector de pantalla lee después del título. |
 | `labelHeader` | texto | «Periodo» | El encabezado de la primera columna de la tabla. |
+
+Acepta también `loading`, `error`, `onRetry`, `emptyTitle`, `emptyMessage` y `emptyAction`. Ver **BarChart › Código › Estados**.
 
 ## Ancho
 

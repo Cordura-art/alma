@@ -30,6 +30,10 @@ Un fondo vivo cambia de claro a oscuro bajo las letras. Por eso el texto nunca v
 
 Cada efecto nuevo parte de mirar cómo lo resuelven otros, entender la idea y escribirla de nuevo con las reglas de arriba. Entra a la colección cuando tiene su página aquí, con sus ajustes a la vista.
 
+## La presencia de una IA
+
+El Velo y el Halo juntos son la presencia de una IA. `AlmaEfectos.presencia(elemento, 'reposo')` monta los dos y devuelve `estado(nombre)` para cambiar el Halo: `reposo`, `escuchando`, `pensando`, `respondiendo` y `apagada`. Cuándo usarla está en la guía **Interfaces de IA › Presencia**.
+
 ## Fondo
 
 ### Halo

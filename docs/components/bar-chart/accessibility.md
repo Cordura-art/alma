@@ -14,6 +14,8 @@ summary: Qué resuelve ALMA en el gráfico de barras.
 - **El detalle aparece con el foco**, igual que con el puntero.
 - **No depende del color:** cada barra lleva su nombre, y la que tiene foco, un contorno.
 - **Con movimiento reducido**, las barras no crecen.
+- **Apiladas:** las flechas hacia arriba y abajo pasan de una parte a otra, y cada una se anuncia con su parte y el total de su barra: «Talca, Semicama: 1.100 pasajes de 1.840».
+- **Estados:** mientras carga, se anuncia «Cargando el gráfico»; el error y el estado vacío son texto, con su acción al alcance del teclado.
 
 ## Teclado
 
@@ -21,6 +23,7 @@ summary: Qué resuelve ALMA en el gráfico de barras.
 |---|---|
 | Tab | Llega al gráfico; sale de él. |
 | → ← | Barra siguiente o anterior. |
+| ↑ ↓ | En barras apiladas, la parte de arriba o de abajo. |
 | Inicio, Fin | Primera o última barra. |
 | Esc | Cierra el detalle. |
 

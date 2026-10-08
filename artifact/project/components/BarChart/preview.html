@@ -1,11 +1,20 @@
-<!-- @dsCard group="Datos" height=720 subtitle="Cuál es mayor · un énfasis · también como tabla" -->
+<!-- @dsCard group="Datos" height=1560 subtitle="Cuál es mayor · apiladas · cargando, sin datos y error" -->
 <div id="root" style="padding:24px;display:grid;gap:48px;max-width:720px;"></div>
 <script>
   // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
   document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   var destinos = [{ label: 'Talca', value: 1840 }, { label: 'Chillán', value: 1420 }, { label: 'Temuco', value: 1260 }, { label: 'Valdivia', value: 940 }, { label: 'Osorno', value: 610 }];
+  var clases = [{ name: 'Semicama', values: [1100, 900, 700, 560, 400] }, { name: 'Salón cama', values: [540, 380, 420, 290, 160] }, { name: 'Premium', values: [200, 140, 140, 90, 50] }];
+  function Estados() {
+    var c = React.useState(0);
+    return h('div', { style: { display: 'grid', gap: '32px' } },
+      h(A.BarChart, { title: 'Pasajes vendidos por destino', description: 'Cargando', data: [], loading: true, height: 160 }),
+      h(A.BarChart, { title: 'Pasajes vendidos por destino', description: 'Abril de 2026', data: [], height: 160, emptyTitle: 'Aún no hay ventas en abril', emptyMessage: 'Aparecerán aquí cuando se venda el primer pasaje.' }),
+      h(A.BarChart, { title: 'Pasajes vendidos por destino', description: 'Marzo de 2026', data: [], height: 160, error: true, onRetry: function () { c[1](c[0] + 1); } }));
+  }
   ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
     h(A.BarChart, { title: 'Talca fue el destino más vendido en marzo', description: 'Pasajes vendidos por destino · marzo de 2026', data: destinos, highlight: 'Talca', unit: 'pasajes', labelHeader: 'Destino' }),
-    h(A.BarChart, { title: 'Pasajes vendidos por destino', description: 'Marzo de 2026', data: destinos, orientation: 'horizontal', categorical: true, unit: 'pasajes', labelHeader: 'Destino' })));
+    h(A.BarChart, { title: 'Semicama es más de la mitad de cada destino', description: 'Pasajes vendidos por destino y clase · marzo de 2026', labels: destinos.map(function (d) { return d.label; }), series: clases, unit: 'pasajes', labelHeader: 'Destino' }),
+    h(Estados)));
 </script>

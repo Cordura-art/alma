@@ -36,6 +36,7 @@ Todos los números usan cifras del mismo ancho.
 | Línea | grosor | 2 px; 3 px la que está activa |
 | Punto | radio | 3 px, visible con ocho valores o menos |
 | Punto activo | radio | 5 px |
+| Área | relleno | El color de su línea, al 24 % |
 | Rótulos del eje | separación | Al menos 64 px entre uno y otro; se saltan los que no caben |
 
 ## Movimiento

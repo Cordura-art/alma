@@ -47,7 +47,7 @@ Guían a cualquier persona que diseñe, o apruebe un diseño, en nombre de Cordu
 - **Secuencial:** `viz-seq-1` (claro) a `viz-seq-5` (intenso), rampa terciaria, para valores de menos a más.
 - **Divergente:** `viz-div-1` a `viz-div-5`, de rojo a azul con neutro en el centro (`viz-div-3`), para desvíos alrededor de un punto medio.
 - El color nunca es la única pista: rotula las series o usa forma o trama.
-- **Componentes:** `BarChart` (cuál es mayor) y `LineChart` (cómo cambió). Los dos piden un título que diga la conclusión, dan sus datos también como tabla y se recorren con el teclado. La guía completa está en Fundamentos › Gráficos de datos.
+- **Componentes:** `BarChart` (cuál es mayor; también apiladas), `LineChart` (cómo cambió; también con área) y `ScatterChart` (si dos medidas van juntas). Traen sus estados de cargando, sin datos y error. Los tres piden un título que diga la conclusión, dan sus datos también como tabla y se recorren con el teclado. La guía completa está en Fundamentos › Gráficos de datos.
 
 ### Tres capas de color
 
@@ -160,6 +160,18 @@ La base son nuestros referentes. Las recetas de marca (escribirse, armarse, desh
 ### Efectos
 
 Lo que se mueve detrás, entre y debajo de las cosas está en una colección propia, sin librerías: fondos (Halo, Velo, Hilos, Retícula, Grano, Rayos, Ondas), reacciones (Chispa, Imán, Destello, Foco, Inclinar), transiciones (Trama, Aparecer, Cortina, Fundido) y textos (Descifrar, Contar, Escalonar, Brillo, Rotar, Desvelar). Cada uno toma sus colores y sus tiempos de los tokens, trabaja solo mientras se ve y respeta el movimiento reducido. Como el movimiento de marca, viven en portadas y páginas de presentación, no en la interfaz de un producto. La guía de cada uno está en la sección Efectos, y el código en `efectos.js`: `AlmaEfectos.monta('halo', elemento)`.
+
+### Interfaces de IA
+
+Toda función que genere, resuma, converse o actúe con un modelo sigue la guía Interfaces de IA (`Guias-3-ia.md`), más la pestaña IA de Contenido (cómo escribe) y la de Accesibilidad (lector de pantalla, teclado, movimiento). Lo esencial:
+
+- **La IA no tiene color propio.** Usa el acento de la entidad. Lo que la distingue es la luz: el Velo detrás y el Halo delante. Es la excepción a que los efectos vivan solo en portadas: una zona propia, una por pantalla, nunca con texto encima.
+- **El Halo dice el estado** (en reposo, escuchando, pensando, respondiendo), y el estado va siempre también escrito.
+- **Lo generado lleva la marca de IA**: `AILabel`, el ícono `ai-label` y el texto «IA», que se abre y explica qué hizo, con qué y cuándo. Sin chispas ni varitas.
+- **La persona decide**: usar, editar o descartar; permiso antes de lo que no se deshace; «Detener» siempre a la vista; un camino sin IA para toda función.
+- **Se anuncia una vez**: la respuesta que llega de a poco lleva `aria-busy` y se lee completa al terminar; el foco no se mueve.
+
+Componentes (grupo «IA»): `AILabel` (la marca), `PromptInput` (la caja de pedido: Enter envía, el botón pasa a «Detener» con `busy`), `ChatMessage` (un turno; `status`: `thinking`, `writing`, `done`, `stopped`, `error`; el mismo elemento cambia de estado para anunciarse una vez) y `SourceList` con `SourceRef` (las fuentes). La luz: `AlmaEfectos.presencia(elemento, 'reposo')` devuelve `{ estado(nombre), quita() }`, o `null` sin WebGL.
 
 ## Imágenes e ilustración
 

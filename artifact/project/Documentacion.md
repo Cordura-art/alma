@@ -6,12 +6,33 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 8 de octubre de 2026
 
+#### Cuatro componentes de IA
+
+- `AILabel`, la marca de lo generado: sola, o con una explicación que se abre y dice qué hizo la IA, con qué y cuándo. Con `edited` dice «IA · editado» y ofrece volver atrás.
+- `PromptInput`, la caja de pedido: parte en una línea y crece hasta seis, Enter envía, y mientras llega la respuesta su botón pasa a ser «Detener».
+- `ChatMessage`, un turno de la conversación, con los cinco estados de una respuesta, sus fuentes y sus acciones. Se anuncia sola: una vez, completa.
+- `SourceList`, la lista de fuentes, y `SourceRef`, el número junto a la frase.
+- `AlmaEfectos.presencia` monta el Velo y el Halo juntos y cambia el Halo con el estado.
+- Están en el grupo «IA» de los componentes. Con ellos son 54.
+
+#### Guía de interfaces de IA
+
+- Una guía nueva, en Guías, con seis pestañas: Resumen, Presencia, Transparencia, Conversación, Estados y Control. Cómo escribe una IA está en Contenido › IA, y cómo se usa con lector de pantalla y teclado, en Accesibilidad › IA.
+- La presencia de una IA es luz: el Velo detrás y el Halo delante, con los colores de cada entidad. El Halo cambia con el estado: en reposo, escuchando, pensando y respondiendo.
+- Lo generado lleva la marca de IA: el ícono `ai-label` y el texto «IA». Al abrirla explica qué hizo, con qué y cuándo.
+- Seis imágenes, dos con el Velo y el Halo de verdad: una imagen de las guías ya puede llevar efectos.
+
+#### Más gráficos, y sus estados
+
+- `ScatterChart`, un gráfico de puntos para ver si dos medidas van juntas. Con él son tres.
+- `BarChart` hace barras apiladas cuando recibe varias series, y `LineChart` rellena el área bajo la línea con `area`.
+- Los tres gráficos traen sus estados: cargando, sin datos y error con «Reintentar». El estado ocupa el alto del gráfico, para que nada salte cuando llegan los datos.
+
 #### Dos gráficos: BarChart y LineChart
 
 - `BarChart` compara cantidades entre categorías; `LineChart` muestra cómo cambia una o varias series. Están en el grupo «Datos» de los componentes.
 - Los dos traen sus datos también como tabla, se recorren con el teclado y anuncian cada valor. Un gráfico es una sola parada de Tab.
 - Toman un solo color por defecto, el acento, y dejan destacar una barra o una serie. `BarChart` pasa solo a horizontal cuando no hay ancho.
-- Son la primera versión: faltan barras apiladas, áreas y puntos.
 
 #### Cinco patrones y tres fundamentos nuevos
 

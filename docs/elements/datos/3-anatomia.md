@@ -42,10 +42,10 @@ Todo en múltiplos de 8 donde se pueda: márgenes, separación entre gráficos, 
 
 | Estado | Qué mostrar |
 |---|---|
-| Cargando | El marco del gráfico con `Skeleton`, del tamaño que va a tener. |
-| Sin datos | `EmptyState` en el lugar del gráfico: qué falta y qué hacer. |
+| Cargando | La forma del gráfico, del tamaño que va a tener. Es `loading`. |
+| Sin datos | Qué falta y qué hacer, en el lugar del gráfico. Aparece solo cuando no hay datos. |
 | Datos parciales | El gráfico, con una nota que dice qué falta. Un hueco en la línea, no una línea que baja a cero. |
-| Error | `InlineNotification` y «Reintentar». |
+| Error | Qué pasó y «Reintentar». Es `error`, con `onRetry`. |
 
 ## En pantallas angostas
 

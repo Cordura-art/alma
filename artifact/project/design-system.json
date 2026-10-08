@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-10-08T18:22:14.116Z",
+    "at": "2026-10-08T19:12:48.248Z",
     "via": "Claude Code",
-    "note": "Las nueve imágenes que faltaban: patrones, gráficos y fundamentos nuevos"
+    "note": "Interfaces de IA: cuatro componentes (AILabel, PromptInput, ChatMessage, SourceList), la presencia en los efectos, y la guía repartida en seis pestañas"
   },
   "layout": "files",
   "libraries": [

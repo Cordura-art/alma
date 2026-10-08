@@ -11,7 +11,7 @@ Un gráfico sirve cuando deja ver algo que una cifra o una tabla no dejan ver: u
 
 Todo gráfico responde una pregunta. Si no puedes escribirla en una frase, todavía no hay gráfico.
 
-ALMA trae dos gráficos, `BarChart` y `LineChart`, hechos con esta guía. Vale también para cualquier gráfico hecho con otra herramienta.
+ALMA trae tres gráficos hechos con esta guía: `BarChart` (también apiladas), `LineChart` (también con área) y `ScatterChart`. Los tres tienen sus estados de cargando, sin datos y error. Vale también para cualquier gráfico hecho con otra herramienta.
 
 ## Elegir el gráfico
 
@@ -21,7 +21,7 @@ ALMA trae dos gráficos, `BarChart` y `LineChart`, hechos con esta guía. Vale t
 | ¿Cuál es mayor? | Barras. Horizontales si los nombres son largos. | Ordénalas de mayor a menor, salvo que tengan un orden propio. |
 | ¿Cómo cambió en el tiempo? | Líneas. Barras si son pocos periodos. | El tiempo va de izquierda a derecha. |
 | ¿Cómo se reparte un total? | Barras apiladas, o una sola barra dividida. | De dos a cinco partes. Con más, agrupa en «Otros». |
-| ¿Se relacionan dos medidas? | Puntos. | Rotula los puntos que importan, no todos. |
+| ¿Se relacionan dos medidas? | Puntos: `ScatterChart`. | Rotula los puntos que importan, no todos. |
 | ¿Cómo se distribuye? | Histograma. | Tramos del mismo ancho. |
 | ¿Dónde pasa? | Mapa, solo si el lugar es la respuesta. | Si no, barras por región se leen mejor. |
 | ¿Cómo va frente a la meta? | Una barra de avance con su marca de meta. | `ProgressBar` alcanza para un solo valor. |

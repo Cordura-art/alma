@@ -57,7 +57,7 @@
   function escenaHtml(id, n) {
     var cssSistema = SIS ? textoDe('style[data-sistema="' + sisId + '"]') : textoDe('#alma-entidad');
     return window.__ESCENA_DOC({ fuentes: ESC.fuentes, css: textoDe('#alma-css') + '\n' + cssSistema + '\n' + ESC.base, bundle: textoDe('#alma-bundle'), libs: ESC.libs,
-      helpers: ESC.helpers, doc: ESC.doc, datos: Object.assign({ icons: ESC.iconos }, C.escena), escena: ESC.lista[id], vivo: n });
+      helpers: ESC.helpers, doc: ESC.doc, datos: Object.assign({ icons: ESC.iconos }, C.escena), escena: ESC.lista[id], vivo: n, motor: textoDe('#alma-efectos') });
   }
   // A scene starts when it comes near the screen. Nothing inside it can be reached: it is a picture, named by its text.
   function encender(el) {
@@ -372,7 +372,7 @@
   }
 
   // ---- Routes and navigation
-  var GROUP_ICON = { 'Acciones': 'flash', 'Formularios': 'list', 'Toggles': 'checkbox--checked', 'Menús': 'menu', 'Navegación': 'compass',
+  var GROUP_ICON = { 'IA': 'ai-label', 'Acciones': 'flash', 'Formularios': 'list', 'Toggles': 'checkbox--checked', 'Menús': 'menu', 'Navegación': 'compass',
     'Contenido': 'grid', 'Datos': 'dashboard', 'Comunicación': 'chat', 'Estados': 'in-progress', 'Ayuda': 'help', 'Iconografía': 'image' };
   var pages = [
     { id: 'inicio', label: 'Inicio', icon: 'home', group: SITE.grupo, render: function () { return h(Home); } },
@@ -393,7 +393,7 @@
   (C.efectos || []).forEach(function (ef) {
     pages.push({ id: 'efecto-' + ef.slug, label: ef.name, icon: ef.id ? 'flash' : 'grid', group: 'Efectos', render: function () { return h(Efecto, { ef: ef, key: ef.slug }); } });
   });
-  var GUIDE_ICON = { accesibilidad: 'user', contenido: 'chat' };
+  var GUIDE_ICON = { accesibilidad: 'user', contenido: 'chat', ia: 'ai-label' };
   Object.keys(C.guides || {}).forEach(function (id) {
     var g = C.guides[id];
     pages.push({ id: id, label: g.name, icon: GUIDE_ICON[id] || 'help', group: 'Guías', render: function () { return h(Guide, { g: g, key: id }); } });

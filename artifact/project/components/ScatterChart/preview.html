@@ -1,0 +1,12 @@
+<!-- @dsCard group="Datos" height=820 subtitle="Si dos medidas van juntas · por grupo · también como tabla" -->
+<div id="root" style="padding:24px;display:grid;gap:48px;max-width:720px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  var rutas = [{ label: 'Rancagua', x: 87, y: 4200 }, { label: 'Viña del Mar', x: 120, y: 7000 }, { label: 'Talca', x: 255, y: 9800 }, { label: 'Chillán', x: 400, y: 13500 }, { label: 'Concepción', x: 500, y: 15900 }, { label: 'Temuco', x: 680, y: 19800 }, { label: 'Valdivia', x: 840, y: 26500 }, { label: 'Osorno', x: 930, y: 25400 }, { label: 'Puerto Montt', x: 1030, y: 28900 }];
+  var clases = rutas.map(function (r) { return { label: r.label + ' · Semicama', x: r.x, y: r.y, group: 'Semicama' }; }).concat(rutas.map(function (r) { return { label: r.label + ' · Salón cama', x: r.x, y: Math.round(r.y * 1.45 / 100) * 100, group: 'Salón cama' }; }));
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(A.ScatterChart, { title: 'Mientras más lejos, más caro: unos 28 pesos por kilómetro', description: 'Precio del pasaje semicama según la distancia desde Santiago', points: rutas, xLabel: 'Distancia', xUnit: 'km', yLabel: 'Precio', yUnit: 'pesos', labelled: ['Valdivia', 'Viña del Mar'], labelHeader: 'Destino' }),
+    h(A.ScatterChart, { title: 'El salón cama sube con la distancia más rápido que el semicama', description: 'Precio del pasaje según la distancia y la clase', points: clases, xLabel: 'Distancia', xUnit: 'km', yLabel: 'Precio', yUnit: 'pesos', labelHeader: 'Viaje', groupHeader: 'Clase' })));
+</script>

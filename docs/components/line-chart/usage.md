@@ -40,6 +40,13 @@ Antes de usarlo, lee **Gráficos de datos**.
 | Varias, con un énfasis | `highlight`, con el nombre de una. Las demás, neutras. | Cuando el título habla de una. Es lo más claro. |
 | Varias, categóricas | Por defecto: los colores categóricos, en orden. | Cuando todas importan por igual. |
 
+## Con área
+
+Con `area`, lo que queda bajo la línea se rellena, suave. Sirve cuando importa la cantidad y no solo la tendencia: cuánto se ocupó, cuánto se acumuló.
+
+- Úsalo con una serie, o dos a lo sumo: las áreas se tapan entre sí.
+- El eje parte de cero. Un área que no parte de cero exagera.
+
 ## Datos que faltan
 
 Un valor que falta se escribe `null`, y deja un hueco en la línea. Nunca lo reemplaces por cero: una línea que cae a cero dice que no hubo nada, no que no se sabe.

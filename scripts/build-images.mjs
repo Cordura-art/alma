@@ -4,12 +4,13 @@
 // With --entidad <id> the same scenes are drawn with that entity's tokens, into build/documentacion-<id>/assets/.
 // Only the scenes that changed are drawn again (see "The cache" below); --forzar draws them all, --paralelo N sets how
 // many are drawn at once (4 by default).
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { chromium } from 'playwright';
 import { componentScenes } from './images/componentes.mjs';
 import { patternScenes } from './images/patrones.mjs';
+import { iaScenes } from './images/ia.mjs';
 import { sistema, aplicar, css as cssEntidad } from './lib/documentacion.mjs';
 
 const P = 'artifact/project';
@@ -30,7 +31,8 @@ const ICONS = ['arrow--left', 'arrow--right', 'arrow--up', 'arrow--down', 'close
   'home', 'launch', 'recently-viewed', 'side-panel--close', 'side-panel--open', 'overflow-menu--horizontal', 'overflow-menu--vertical', 'chevron--down', 'chevron--right',
   'chevron--left', 'share', 'copy', 'money', 'star', 'help', 'information--filled', 'checkmark--filled', 'error--filled', 'warning--filled', 'dashboard', 'map', 'email', 'phone',
   'upload', 'document', 'image', 'favorite', 'receipt', 'purchase', 'locked', 'view', 'download', 'renew', 'task', 'list', 'list--checked', 'shopping--cart', 'idea', 'save',
-  'wifi--off', 'user--avatar', 'error', 'warning', 'checkmark--outline', 'text--bold', 'text--italic', 'text--underline', 'list--bulleted', 'list--numbered', 'link', 'draggable'];
+  'wifi--off', 'user--avatar', 'error', 'warning', 'checkmark--outline', 'text--bold', 'text--italic', 'text--underline', 'list--bulleted', 'list--numbered', 'link', 'draggable',
+  'ai-label', 'ai-generate', 'send', 'stop--filled', 'thumbs-up', 'thumbs-down', 'restart', 'microphone', 'undo', 'chat', 'attachment'];
 const color = (name) => tok.color.tokens.find((t) => t.name === name);
 const family = (f) => Object.fromEntries(tok[f].tokens.map((t) => [t.name, t.value]));
 const DATA = {
@@ -319,7 +321,7 @@ export const scenes = [
     mount(h('div', { className: 'row', style: { gap: 'var(--space-32)', alignItems: 'flex-end' } }, device({ label: 'Angosto · desde 320 px', w: 390, h: 620, js: angosto, scale: 0.6 }), device({ label: 'Medio · desde 672 px', w: 720, h: 620, js: medio, scale: 0.6 }), device({ label: 'Amplio · desde 1056 px', w: 1120, h: 620, js: amplio, scale: 0.6 })));` }
 ];
 
-const ALL = scenes.concat(componentScenes, patternScenes);
+const ALL = scenes.concat(componentScenes, patternScenes, iaScenes);
 export { ALL as allScenes };
 
 // What a scene's picture depends on: every custom property that a CSS rule matching one of its elements reads, or that
@@ -379,7 +381,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   // Everything a scene runs on except token values: those count only for the scenes that read them.
   const sinValores = sheets.map((c) => c.replace(/--[\w-]+\s*:[^;{}]*;?/g, '')).join('\n');
   const comun = sha([bundle, sinValores, HELPERS, DEPS, DOC, FONTS, libs, JSON.stringify(DATA.icons), JSON.stringify(DATA.themes)].join('\u0000'));
-  const fuente = (s) => { const code = [s.js, s.after, s.css, s.click].join('\u0000'); return sha([comun, s.file, code, ...['easing', 'duration', 'fontAxis', 'swatch'].filter((k) => code.includes(k)).map((k) => JSON.stringify(DATA[k]))].join('\u0000')); };
+  // The effects a scene may show (site/efectos): only those scenes are drawn again when an effect changes.
+  const motor = (await Promise.all(['site/reloj.js', 'site/partitura.js', 'site/efectos.js', ...(await readdir('site/efectos')).filter((f) => f.endsWith('.js')).sort().map((f) => `site/efectos/${f}`)].map(read))).join('\n');
+  const fuente = (s) => { const code = [s.js, s.after, s.css, s.click, s.efectos ? motor : ''].join('\u0000'); return sha([comun, s.file, code, ...['easing', 'duration', 'fontAxis', 'swatch'].filter((k) => code.includes(k)).map((k) => JSON.stringify(DATA[k]))].join('\u0000')); };
   const llave = (src, deps) => sha(src + deps.map((n) => THEMES.map((th) => resolve(n, th)).join('|')).join('\n'));
 
   const queue = [];
@@ -408,7 +412,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
             await page.setContent('<button style="position:fixed;left:0;top:0;width:40px;height:40px"></button>');
             await page.mouse.click(20, 20);
             await page.mouse.move(0, 0);
-            const html = escenaDoc({ fuentes: FONTS, css, bundle, libs, helpers: HELPERS, doc: DOC, deps: DEPS, datos: DATA, escena: s });
+            const html = escenaDoc({ fuentes: FONTS, css, bundle, libs, helpers: HELPERS, doc: DOC, deps: DEPS, datos: DATA, escena: s, motor });
             await page.setContent(html, { waitUntil: 'networkidle' });
             await page.evaluate(() => document.fonts.ready);
             await page.waitForTimeout(250);

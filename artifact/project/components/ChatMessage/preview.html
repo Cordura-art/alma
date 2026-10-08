@@ -1,0 +1,21 @@
+<!-- @dsCard group="IA" height=980 subtitle="Un turno de la conversación · pensando, escribiendo, terminada, detenida y con error" -->
+<div id="root" style="padding:24px;display:grid;gap:32px;max-width:640px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty("background", "var(--ui-02)", "important");
+  var h = React.createElement, A = AlmaDS;
+  var F = [{ title: 'Tu pasaje del 31 de marzo', origin: 'Tus viajes', href: '#' }, { title: 'Aviso de la empresa, 29 de marzo', origin: 'Correo', href: '#' }];
+  function caso(t, el) { return h('div', { style: { display: 'grid', gap: '8px' } }, h('p', { className: 'web-label-s', style: { margin: 0, color: 'var(--text-02)' } }, t), el); }
+  function App() {
+    var v = React.useState(null);
+    return h(React.Fragment, null,
+      caso('El pedido de la persona', h(A.ChatMessage, { from: 'user', onEdit: function () {} }, '¿A qué hora sale mi bus?')),
+      caso('Pensando', h(A.ChatMessage, { status: 'thinking', statusText: 'Buscando en tus viajes' })),
+      caso('Escribiendo', h(A.ChatMessage, { status: 'writing' }, h('p', null, 'Tu bus a Viña del Mar sale el martes 31 de marzo a las'))),
+      caso('Terminada', h(A.ChatMessage, { sources: F, sourcesId: 'm1', onRetry: function () {}, feedback: v[0], onFeedback: v[1] },
+        h('p', null, 'Tu bus a Viña del Mar sale el martes 31 de marzo a las 08:30, del andén 4 del Terminal Alameda.', h(A.SourceRef, { n: 1, listId: 'm1' }), ' Llega 15 minutos antes: la empresa avisó que el andén puede cambiar.', h(A.SourceRef, { n: 2, listId: 'm1' })))),
+      caso('Detenida', h(A.ChatMessage, { status: 'stopped', onContinue: function () {} }, h('p', null, 'Tu bus a Viña del Mar sale el martes 31 de marzo'))),
+      caso('Con error', h(A.ChatMessage, { status: 'error', error: 'Se cortó la conexión.', onRetry: function () {} })));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

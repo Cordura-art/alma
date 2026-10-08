@@ -1,0 +1,28 @@
+<!-- @dsCard group="IA" height=640 subtitle="Escribe y envía: Enter envía, Escape detiene · la respuesta es de muestra" -->
+<div id="root" style="padding:24px;max-width:640px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty("background", "var(--ui-02)", "important");
+  var h = React.createElement, A = AlmaDS;
+  var RESP = 'Tu bus a Viña del Mar sale el martes 31 de marzo a las 08:30, del andén 4 del Terminal Alameda. Llega 15 minutos antes.';
+  function App() {
+    var m = React.useState([]), t = React.useRef(null);
+    function parar() { clearInterval(t.current); clearTimeout(t.current); }
+    React.useEffect(function () { return parar; }, []);
+    // The answer on its way is the last message: the same element goes from thinking to writing to done, and says so once.
+    function ultimo(c) { m[1](function (x) { return x.slice(0, -1).concat([Object.assign({}, x[x.length - 1], c)]); }); }
+    function enviar(p) {
+      m[1](function (x) { return x.concat([{ de: 'user', texto: p }, { de: 'ai', texto: '', status: 'thinking' }]); });
+      t.current = setTimeout(function () { var pal = RESP.split(' '), i = 0;
+        t.current = setInterval(function () { i++; var fin = i >= pal.length; if (fin) parar(); ultimo({ texto: pal.slice(0, i).join(' '), status: fin ? 'done' : 'writing' }); }, 90); }, 1400);
+    }
+    function detener() { parar(); ultimo({ status: 'stopped' }); }
+    var fin = m[0][m[0].length - 1], enCurso = !!fin && (fin.status === 'thinking' || fin.status === 'writing');
+    return h('div', { style: { display: 'grid', gap: '24px', minHeight: '560px', gridTemplateRows: '1fr auto' } },
+      h('ol', { style: { margin: 0, padding: 0, display: 'grid', gap: '16px', alignContent: 'start' } },
+        m[0].length ? null : h('li', { style: { listStyle: 'none' } }, h('p', { className: 'web-body-m', style: { margin: 0, color: 'var(--text-02)' } }, 'Escribe un pedido y envíalo. Mientras llega la respuesta, el botón pasa a ser «Detener».')),
+        m[0].map(function (x, i) { return x.de === 'user' ? h(A.ChatMessage, { key: i, as: 'li', from: 'user' }, x.texto) : h(A.ChatMessage, { key: i, as: 'li', status: x.status, statusText: 'Buscando en tus viajes' }, x.texto ? h('p', null, x.texto) : null); })),
+      h(A.PromptInput, { placeholder: 'Pregunta por tus viajes', busy: enCurso, onSubmit: enviar, onStop: detener }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

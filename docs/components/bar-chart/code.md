@@ -38,6 +38,33 @@ h(BarChart, {
 | `summary` | texto | Se arma solo | Lo que un lector de pantalla lee después del título. |
 | `labelHeader`, `valueHeader` | texto | «Categoría», «Valor» | Los encabezados de la tabla alternativa. |
 
+## Apiladas
+
+```jsx
+h(BarChart, {
+  title: 'Semicama es más de la mitad de cada destino',
+  labels: ['Talca', 'Chillán', 'Temuco'],
+  series: [{ name: 'Semicama', values: [1100, 900, 700] }, { name: 'Salón cama', values: [540, 380, 420] }],
+  unit: 'pasajes'
+})
+```
+
+Con `series` y `labels` en vez de `data`, las barras son apiladas. `highlight`, `categorical` y `showValues` no aplican.
+
+## Estados
+
+| Propiedad | Tipo | Qué hace |
+|---|---|---|
+| `loading` | sí o no | Muestra la forma del gráfico mientras llegan los datos. |
+| `error` | sí, o un texto | Muestra el error. Con un texto, ese es el título. |
+| `onRetry` | función | Agrega «Reintentar» al error. |
+| `emptyTitle`, `emptyMessage` | texto | Lo que dice cuando no hay datos. |
+| `emptyAction` | `{ label, onClick }` | El siguiente paso, cuando no hay datos. |
+
+```jsx
+h(BarChart, { title: 'Pasajes vendidos por destino', data: ventas, loading: cargando, error: fallo, onRetry: cargar })
+```
+
 ## Ancho
 
 `BarChart` ocupa el ancho de su contenedor y se redibuja si cambia. No le des un ancho fijo.

@@ -99,5 +99,33 @@
       quita: function () { vivo = false; if (quita) quita(); if (dejaReloj) dejaReloj(); ojo.disconnect(); regla.disconnect(); if (tema) tema.disconnect(); window.removeEventListener('pointermove', mueve); document.removeEventListener('visibilitychange', anda); obra.quita(); lienzo.remove(); }
     };
   }
-  window.AlmaEfectos = { lista: LISTA, color: color, quieto: quieto, segundos: segundos, curva: curva, sombra: sombra, RUIDO: RUIDO, cada: cada, alVer: alVer, dosCaras: dosCaras, monta: monta, pon: function (def) { LISTA[def.id] = def; return def; } };
+  // The presence of an AI (guide «Interfaces de IA»): the Velo behind, the Halo in front, and the Halo saying the state.
+  // presencia(el, estado) → { estado(nombre), quita() }, or null where there is no WebGL: the state is always written too.
+  var PRESENCIA = {
+    velo: { alto: 0.45, amplitud: 1, suave: 0.35, fuerza: 0.7, velocidad: 1 },
+    reposo: { tamano: 1.2, pulso: 2, petalos: 3, estela: 0.8, giro: 1, velocidad: 1, latido: 0.6 },
+    escuchando: { tamano: 1.5, pulso: 0.6, petalos: 3, estela: 0.6, giro: 0.4, velocidad: 0.5, latido: 0 },
+    pensando: { tamano: 0.9, pulso: 3, petalos: 5, estela: 0.9, giro: 2.2, velocidad: 1.8, latido: 0 },
+    respondiendo: { tamano: 1.2, pulso: 1.2, petalos: 3, estela: 0.8, giro: 1, velocidad: 1.2, latido: 0.3 }
+  };
+  function presencia(el, estado) {
+    if (!LISTA.halo || !LISTA.velo) return null;
+    // The Halo first and the Velo after it: each goes to the back, so the last one mounted is behind.
+    var halo = monta('halo', el, PRESENCIA[PRESENCIA[estado] ? estado : 'reposo']); if (!halo) return null;
+    var bajo = el.getBoundingClientRect().height < 240, velo = monta('velo', el, bajo ? Object.assign({}, PRESENCIA.velo, { alto: 0.35 }) : PRESENCIA.velo);
+    var lienzo = el.querySelectorAll('canvas'), luz = lienzo[lienzo.length > 1 ? 1 : 0], para = null;
+    luz.style.transition = 'opacity var(--duration-slow-01) var(--easing-exit-expressive)';
+    function pon(nombre) {
+      // «apagada»: there is no service. The Halo goes out and the Velo dims; nothing turns red.
+      var fuera = nombre === 'apagada', a = PRESENCIA[fuera ? 'reposo' : nombre]; if (!a || nombre === 'velo') return;
+      luz.style.opacity = fuera ? '0' : ''; if (velo) velo.ajusta('fuerza', fuera ? 0.3 : PRESENCIA.velo.fuerza);
+      if (para) { para(); para = null; }
+      if (fuera) return;
+      var de = Object.assign({}, halo.valores), t = 0, dura = segundos('duration-slow-02', el), sube = curva('easing-standard-expressive', el);
+      if (quieto()) { for (var q in a) halo.ajusta(q, a[q]); return; }
+      para = cada(function (dt) { t = Math.min(1, t + dt / dura); for (var k in a) halo.ajusta(k, k === 'petalos' ? a[k] : de[k] + (a[k] - de[k]) * sube(t)); return t < 1; });
+    }
+    return { estado: pon, estados: Object.keys(PRESENCIA).filter(function (k) { return k !== 'velo'; }).concat('apagada'), quita: function () { if (para) para(); halo.quita(); if (velo) velo.quita(); } };
+  }
+  window.AlmaEfectos = { presencia: presencia, lista: LISTA, color: color, quieto: quieto, segundos: segundos, curva: curva, sombra: sombra, RUIDO: RUIDO, cada: cada, alVer: alVer, dosCaras: dosCaras, monta: monta, pon: function (def) { LISTA[def.id] = def; return def; } };
 })();

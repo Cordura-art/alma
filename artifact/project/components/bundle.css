@@ -744,6 +744,17 @@ button.alma-steps__btn:focus-visible { outline: 2px solid var(--focus); outline-
 .alma-chart__legend { display: flex; flex-wrap: wrap; gap: var(--space-8) var(--space-16); margin: 0; padding: 0; list-style: none; font-size: 0.75rem; color: var(--text-02); }
 .alma-chart__legend li { display: inline-flex; align-items: center; gap: var(--space-8); }
 .alma-chart__swatch { width: var(--space-16); height: 2px; background: var(--chart-mark); }
+/* A part of a stacked bar: parted from its neighbours by a hair of the page, and it does not grow on its own. */
+.alma-chart__mark.is-seg { stroke: var(--ui-02); stroke-width: 1; animation: none; }
+.alma-chart__mark.is-seg.is-active { stroke: var(--focus); stroke-width: 2; }
+.alma-chart__area { fill: var(--chart-mark); opacity: 0.24; }
+.alma-chart__dot.is-free { opacity: 0.88; }
+.alma-chart__swatch.is-box { width: var(--space-8); height: var(--space-8); }
+.alma-chart__swatch.is-dot { width: var(--space-8); height: var(--space-8); border-radius: var(--radius-pill); }
+/* While there is nothing to draw: the same room the chart will take, so that nothing jumps when it comes. */
+.alma-chart__state { display: grid; align-content: center; justify-items: start; min-width: 0; }
+.alma-chart.is-empty .alma-chart__state { justify-items: center; text-align: center; border: 1px dashed var(--border-subtle); border-radius: var(--radius-panel); }
+.alma-chart__bone { display: block; width: 100%; border-radius: var(--radius-panel); }
 .alma-chart__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .alma-chart__tablewrap { overflow-x: auto; }
 .alma-chart__table { width: 100%; border-collapse: collapse; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
@@ -755,3 +766,47 @@ button.alma-steps__btn:focus-visible { outline: 2px solid var(--focus); outline-
 /* ---------- Alto contraste: superficies que son claras en todos los temas ---------- */
 [data-theme$="-hc"] .alma-pcard__body { opacity: 1; }
 [data-theme$="-hc"] .alma-paycard__number { text-shadow: none; }
+
+/* ---------- AI (guide «Interfaces de IA»): AILabel, SourceList, ChatMessage, PromptInput ---------- */
+.alma-ailabel { font-weight: var(--font-weight-emphasis); }
+button.alma-ailabel { font-family: inherit; }
+.alma-ailabel__body { display: grid; gap: var(--space-8); }
+.alma-ailabel__body p { margin: 0; }
+.alma-ailabel__when { color: var(--text-02); }
+
+.alma-sources { display: grid; gap: var(--space-8); justify-items: start; }
+.alma-sources__label { margin: 0; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); }
+.alma-sources__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-8); }
+.alma-sources__item { display: grid; grid-template-columns: 1.25rem 1fr; gap: var(--space-8); align-items: baseline; font-size: 0.875rem; line-height: 1.5; letter-spacing: 0.14px; scroll-margin-top: var(--space-64); }
+.alma-sources__item:target .alma-sources__n { background: var(--interactive-01); color: var(--text-on-interactive); }
+.alma-sources__n { display: inline-grid; place-items: center; min-width: 1.25rem; height: 1.25rem; border-radius: var(--radius-chip); background: var(--ui-03); color: var(--text-02); font-size: 0.6875rem; font-variant-numeric: tabular-nums; }
+.alma-sources__text { display: grid; justify-items: start; min-width: 0; overflow-wrap: anywhere; }
+.alma-sources > div > .alma-btn { margin-left: calc(var(--space-16) * -1); }
+.alma-sources__origin { color: var(--text-02); font-size: 0.75rem; letter-spacing: 0.18px; }
+.alma-source-ref { display: inline-grid; place-items: center; min-width: 1.125rem; height: 1.125rem; margin-left: 2px; padding: 0 2px; box-sizing: border-box; vertical-align: text-top; border-radius: var(--radius-chip); background: var(--ui-03); color: var(--link-text); font-size: 0.6875rem; line-height: 1; font-variant-numeric: tabular-nums; text-decoration: none; }
+.alma-source-ref:hover { box-shadow: inset 0 0 0 1px currentColor; }
+.alma-source-ref:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.alma-msg { display: grid; gap: var(--space-8); min-width: 0; margin: 0; padding: 0; list-style: none; color: var(--text-01); font-size: 0.875rem; line-height: 1.5; letter-spacing: 0.14px; }
+.alma-msg--user { grid-template-columns: 1fr auto; justify-items: end; align-items: center; }
+.alma-msg__bubble { max-width: min(80%, 36rem); padding: var(--space-8) var(--space-16); border-radius: var(--radius-panel); background: var(--ui-03); overflow-wrap: anywhere; white-space: pre-wrap; }
+.alma-msg--user:not(:has(.alma-btn)) .alma-msg__bubble { grid-column: 1 / -1; }
+.alma-msg__body { display: grid; gap: var(--space-8); max-width: 48rem; overflow-wrap: anywhere; }
+.alma-msg__body > :where(p, ul, ol) { margin: 0; }
+/* the cursor of an answer on its way: after the last word, wherever it is */
+.alma-msg.is-writing .alma-msg__body > :last-child::after { content: ""; display: inline-block; width: 2px; height: 1em; margin-left: 2px; vertical-align: text-bottom; background: var(--interactive-01); }
+.alma-msg__status { display: flex; align-items: center; gap: var(--space-8); color: var(--text-02); }
+.alma-msg__status p { margin: 0; }
+.alma-msg__status .alma-btn__spinner { width: 1rem; height: 1rem; flex: none; color: var(--interactive-01); }
+.alma-msg__note { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); margin: 0; color: var(--text-02); }
+.alma-msg__actions { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-left: calc(var(--space-8) * -1); }
+.alma-msg__actions .alma-btn { min-width: var(--alma-control); }
+
+.alma-prompt { display: grid; gap: var(--space-8); max-width: 48rem; margin: 0; }
+.alma-prompt .alma-field__box { align-items: flex-end; gap: var(--space-8); padding: var(--space-8) var(--space-8) var(--space-8) var(--space-16); }
+.alma-prompt .alma-field__box:focus-within { padding: 7px 7px 7px 15px; }
+.alma-prompt__input { min-height: 0; resize: none; align-self: center; padding: var(--space-8) 0; line-height: 1.5; }
+.alma-prompt .alma-field__box:not(:focus-within) .alma-prompt__input::placeholder { color: var(--field-placeholder); }
+.alma-prompt__send { flex: none; }
+.alma-prompt__note { margin: 0; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); }
+.alma-prompt__before { display: flex; flex-wrap: wrap; gap: var(--space-8); }
