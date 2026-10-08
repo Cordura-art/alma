@@ -4,6 +4,15 @@
 
 Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detalle de cada cambio está en el historial del repositorio.
 
+### 8 de octubre de 2026
+
+#### Un planeta por entidad, en partículas
+
+- Cada entidad tiene su planeta en la web: una página que se recorre a pie o en vuelo, dibujada con más de cien mil puntos en sus tres colores. Está en los Ejemplos de su sistema.
+- Nada del planeta se guarda: la página lleva los genes de la entidad y la regla del relieve, y el suelo se calcula alrededor de quien lo recorre. Cada página pesa unos 170 KB.
+- Los puntos se deshacen donde pasa el puntero y vuelven a su sitio. Con movimiento reducido no reaccionan, y la entidad contenida reacciona menos de la mitad.
+- Se maneja con teclado o con botones en pantalla, y un panel de Slider ajusta cantidad, tamaño, luz, motas y reacción. `npm run mundo` arma las tres páginas.
+
 ### 7 de octubre de 2026
 
 #### La portada como patrón, y la letra viva de cada entidad
