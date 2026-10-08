@@ -638,3 +638,59 @@
     }
   });
 })();
+// Foco: a soft light under the pointer, inside a surface, that goes where the pointer goes. A reaction.
+// The light is a round gradient laid over the surface, centred where the pointer is; it comes up when the pointer
+// comes onto the surface and goes down when it leaves. With the keyboard, it comes up in the middle.
+(function () {
+  var E = window.AlmaEfectos;
+  E.pon({
+    id: 'foco', familia: 'reaccion', nombre: 'Foco', muestra: 'tarjeta',
+    colores: { luz: 'interactive-01' },
+    ajustes: [
+      { id: 'brillo', nombre: 'Brillo', min: 0.05, max: 0.6, paso: 0.05, valor: 0.25 },
+      { id: 'radio', nombre: 'Radio', min: 80, max: 400, paso: 40, valor: 200 }
+    ],
+    pone: function (el, V) {
+      var luz = document.createElement('span'), x = 50, y = 50, enPx = false;
+      luz.setAttribute('aria-hidden', 'true');
+      luz.style.cssText = 'position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity var(--duration-moderate-02) var(--easing-standard-productive)';
+      function pinta() { luz.style.backgroundImage = 'radial-gradient(circle ' + V.radio + 'px at ' + x + (enPx ? 'px ' : '% ') + y + (enPx ? 'px' : '%') + ', color-mix(in srgb, var(--interactive-01) ' + Math.round(V.brillo * 100) + '%, transparent), transparent)'; }
+      function mueve(ev) { var r = el.getBoundingClientRect(); x = Math.round(ev.clientX - r.left); y = Math.round(ev.clientY - r.top); enPx = true; pinta(); luz.style.opacity = '1'; }
+      function centro() { x = y = 50; enPx = false; pinta(); luz.style.opacity = '1'; }
+      function sale() { luz.style.opacity = '0'; }
+      var antes = { position: el.style.position, overflow: el.style.overflow };
+      if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      el.style.overflow = 'hidden'; pinta(); el.appendChild(luz);
+      el.addEventListener('pointermove', mueve); el.addEventListener('pointerleave', sale); el.addEventListener('focusin', centro); el.addEventListener('focusout', sale);
+      return { ajusta: pinta, quita: function () { el.removeEventListener('pointermove', mueve); el.removeEventListener('pointerleave', sale); el.removeEventListener('focusin', centro); el.removeEventListener('focusout', sale); luz.remove(); el.style.position = antes.position; el.style.overflow = antes.overflow; } };
+    }
+  });
+})();
+// Inclinar: a surface tips toward the pointer as if it were held by its middle, and lies flat again when the
+// pointer leaves. A reaction.
+// It is put on a wrapper, which stays flat, and tips what the wrapper holds: so the place the pointer is measured
+// against does not tip with it. The side the pointer is on goes down, as a card pressed with a finger would.
+(function () {
+  var E = window.AlmaEfectos;
+  E.pon({
+    id: 'inclinar', familia: 'reaccion', nombre: 'Inclinar', muestra: 'envuelta',
+    colores: {},
+    ajustes: [
+      { id: 'grados', nombre: 'Grados', min: 2, max: 20, paso: 1, valor: 8 },
+      { id: 'crece', nombre: 'Crece', min: 1, max: 1.1, paso: 0.01, valor: 1.02 }
+    ],
+    pone: function (el, V) {
+      var pieza = el.firstElementChild; if (!pieza) return { quita: function () {} };
+      var antes = { transform: pieza.style.transform, transition: pieza.style.transition };
+      function mueve(ev) {
+        if (ev.pointerType === 'touch' || E.quieto()) return;
+        var r = el.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width - 0.5, py = (ev.clientY - r.top) / r.height - 0.5;
+        pieza.style.transition = 'transform var(--duration-moderate-01) var(--easing-entrance-productive)';
+        pieza.style.transform = 'perspective(800px) rotateX(' + (-py * 2 * V.grados).toFixed(2) + 'deg) rotateY(' + (px * 2 * V.grados).toFixed(2) + 'deg) scale(' + V.crece + ')';
+      }
+      function sale() { pieza.style.transition = 'transform var(--duration-slow-01) var(--easing-standard-productive)'; pieza.style.transform = antes.transform; }
+      el.addEventListener('pointermove', mueve); el.addEventListener('pointerleave', sale);
+      return { quita: function () { el.removeEventListener('pointermove', mueve); el.removeEventListener('pointerleave', sale); pieza.style.transform = antes.transform; pieza.style.transition = antes.transition; } };
+    }
+  });
+})();

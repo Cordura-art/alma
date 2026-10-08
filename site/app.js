@@ -335,6 +335,7 @@
                 h('div', { className: 'efecto__tarjeta', hidden: true }, h('p', { className: 'web-h6' }, 'Después'), h('p', { className: 'web-body-s' }, 'Lo que viene.')))
               : def.muestra === 'texto' ? h('p', { className: 'web-display-s efecto__texto' }, def.ejemplo)
               : def.muestra === 'entrada' ? h('div', { className: 'efecto__tarjeta' }, h('p', { className: 'web-h6' }, ef.name), h('p', { className: 'web-body-s' }, 'Una pieza que toma forma al entrar a la vista.'))
+              : def.muestra === 'envuelta' ? h('div', { className: 'efecto__envoltorio efecto__envoltorio--ancho' }, h('div', { className: 'efecto__tarjeta' }, h('p', { className: 'web-h6' }, ef.name), h('p', { className: 'web-body-s' }, 'Mueve el puntero por encima.')))
               : def.muestra === 'boton' ? h('span', { className: 'efecto__envoltorio' }, h(A.Button, { variant: 'filled' }, 'Acerca el puntero'))
               : h('div', { className: 'efecto__tarjeta', tabIndex: 0 }, h('p', { className: 'web-h6' }, ef.name), h('p', { className: 'web-body-s' }, 'Pasa el puntero, o llega con el teclado.')),
             def.muestra === 'cambio' || def.muestra === 'entrada' || def.muestra === 'texto' ? h(A.Button, { variant: 'tinted', onClick: function () { if (obra.current) obra.current.pasa(); } }, def.muestra === 'cambio' ? 'Cambiar' : 'Repetir') : null),

@@ -104,3 +104,4 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .efecto__tarjeta p + p { margin-top: var(--space-8); color: var(--text-02); }
 .efecto__cambio { width: min(100%, 320px); border-radius: var(--radius-card); overflow: hidden; }
 .efecto__texto { position: relative; margin: 0; max-width: 100%; color: var(--text-01); text-align: center; }
+.efecto__envoltorio--ancho { display: block; width: min(100%, 320px); }
