@@ -1,0 +1,25 @@
+/* An entity's planet in dots (site/mundo.js): one screen, the same page as a scanned place's (escaneo.css), with the
+   controls that walk it at the foot. They are ALMA's Button, plain and icon only, on the page's own ground. */
+html, body { height: 100%; }
+.mundo { height: 100vh; height: 100svh; }
+.mundo.mundo--vivo .escaneo__palabra { position: absolute; left: 0; top: 0; width: max-content; align-self: start; justify-self: start; font-size: 10rem; line-height: 1; transform-origin: 0 0; opacity: 1; }
+.mundo .escaneo__lienzo { touch-action: none; cursor: grab; } .mundo .escaneo__lienzo:active { cursor: grabbing; }
+.mundo .escaneo__entrada { margin-bottom: calc(var(--space-80) + var(--space-24)); transition: opacity var(--duration-moderate-01) var(--easing-standard-productive); }
+.mundo__mandos { z-index: 2; align-self: end; justify-self: center; box-sizing: border-box; max-width: calc(100% - 2 * var(--space-16)); margin: 0 var(--space-16) calc(var(--space-24) + env(safe-area-inset-bottom, 0px)); padding: var(--space-8); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-8); background: var(--ui-02); border: 1px solid var(--border-subtle); border-radius: var(--radius-pill); }
+.mundo__mando { display: inline-flex; align-items: center; justify-content: center; width: var(--size-touch-min); height: var(--size-touch-min); padding: 0; color: var(--button-plain-text); background-color: transparent; border: 0; border-radius: var(--radius-pill); cursor: pointer; touch-action: none; -webkit-user-select: none; user-select: none; transition: box-shadow var(--duration-fast-02) var(--easing-standard-productive); }
+.mundo__mando:hover { background-image: linear-gradient(var(--button-plain-bg-hover), var(--button-plain-bg-hover)); }
+.mundo__mando:active, .mundo__mando[aria-pressed="true"] { background-image: linear-gradient(var(--button-plain-bg-active), var(--button-plain-bg-active)); box-shadow: inset 0 0 0 2px var(--button-plain-text); }
+.mundo__mando:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+/* (up and down are for whoever flies) */
+.mundo:not(.mundo--en-vuelo) .mundo__mando--vuelo { display: none; }
+.mundo__estado { margin: 0; padding: 0 var(--space-16) 0 var(--space-8); min-width: 11rem; color: var(--text-02); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+/* What the dots are like: ALMA's Sliders in a panel on the page's own ground, behind a button, at the foot on the
+   other side from what is said (at the top on a narrow page, where the foot is the controls'). */
+.mundo__ajuste { --alma-control: var(--size-touch-min); z-index: 2; align-self: end; justify-self: end; box-sizing: border-box; max-width: calc(100% - 2 * var(--space-16)); margin: 0 var(--space-16) calc(var(--space-24) + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column-reverse; align-items: flex-end; gap: var(--space-8); pointer-events: none; }
+.mundo__ajuste > * { pointer-events: auto; }
+.mundo__abre { background-color: var(--ui-02); border: 1px solid var(--border-subtle); }
+.mundo__panel { box-sizing: border-box; width: min(100vw - 2 * var(--space-16), 17rem); padding: var(--space-16) var(--space-16) var(--space-8); display: grid; gap: var(--space-8); background: var(--ui-02); border: 1px solid var(--border-subtle); border-radius: var(--radius-tag); }
+.mundo__panel[hidden] { display: none; }
+@media (max-width: 64rem) { .mundo__ajuste { align-self: start; justify-self: start; flex-direction: column; align-items: flex-start; margin: calc(var(--space-16) + env(safe-area-inset-top, 0px)) var(--space-16) 0; } }
+@media (max-width: 64rem) { .mundo .escaneo__entrada { margin-bottom: calc(var(--space-80) + var(--space-64)); } .mundo__estado { min-width: 0; flex-basis: 100%; text-align: center; padding: 0 var(--space-8); } .mundo__mandos { border-radius: var(--radius-tag); gap: var(--space-4); } }
+@media (prefers-reduced-motion: reduce) { .mundo__mando, .mundo .escaneo__entrada { transition: none; } }
