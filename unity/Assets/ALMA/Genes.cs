@@ -8,14 +8,14 @@ namespace Alma
 {
     [Serializable] public class Puerta { public int n; public int l; }
     [Serializable] public class Pieza { public string @base; public string[] barras; public string acento; public string tinta; }
-    [Serializable] public class Tema { public string @base; }
+    [Serializable] public class Tema { public string @base, acento; }
     [Serializable] public class Fondos { public Tema dark; public Tema light; }
     [Serializable]
     public class Genes
     {
         public string semilla, tipo, direccion, autoridad;
-        public float redondez = 0.5f, ritmo = 1f;
-        public int puntas = 5, complejidad = 3, grupos = 1;
+        public float redondez = 0.5f, ritmo = 1f, trazo = 1f;
+        public int puntas = 5, complejidad = 3, grupos = 1, focos = 3;
         public string[] centros = new string[0];
         public Puerta[] puertas = new Puerta[0];
         public int[] numeros = new int[0];

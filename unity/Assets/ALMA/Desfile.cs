@@ -19,7 +19,12 @@ namespace Alma
         readonly List<Transform> rotulos = new List<Transform>();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        static void Arranca() { if (FindFirstObjectByType<Desfile>() == null) new GameObject("ALMA desfile").AddComponent<Desfile>(); }
+        static void Arranca()
+        {
+            // (which stage opens is a choice kept on this machine: the parade, or an entity's planet; see the ALMA menu)
+            if (PlayerPrefs.GetString("alma.escena", "desfile") == "planeta") { if (FindFirstObjectByType<EscenaPlaneta>() == null) new GameObject("ALMA planeta").AddComponent<EscenaPlaneta>(); return; }
+            if (FindFirstObjectByType<Desfile>() == null) new GameObject("ALMA desfile").AddComponent<Desfile>();
+        }
 
         void Start()
         {
