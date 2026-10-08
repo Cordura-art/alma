@@ -4,12 +4,12 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 8 de octubre de 2026
 
-### La portada de Autómata late
+### Las portadas con busto laten
 
-- La portada con busto puede llevar fondos de la colección en dos momentos: detrás de la figura, y en su lugar cuando se deshace. La de Autómata entra sin fondo; al desplazar, baja el Velo y aparece el Halo al centro. Al final los puntos y los datos se desvanecen y queda el Halo.
+- La portada con busto puede llevar fondos de la colección en dos momentos: detrás de la figura, y en su lugar cuando se deshace. Las de Cordura, Ensayo y Autómata entran sin fondo; cuando el busto se deshizo y sus datos ya se fueron, baja el Velo y aparece el Halo al centro, con los colores de cada entidad.
 - El Halo es transparente donde no hay luz, así que puede ir sobre otro fondo.
 - El busto de Autómata vuelve a responder al puntero: sus puntos se apartan a su paso, como el suelo de su planeta. Lo demás de su medida contenida sigue igual.
-- Con un fondo detrás, los cuatro datos se alinean como un marco y van sin recuadro: el fondo se despeja suavemente detrás de cada uno para que se lean. Salen junto con los puntos, y al final queda solo el fondo.
+- Un fondo y un texto nunca se encuentran: los datos se leen sobre la página limpia, salen junto con los puntos, y solo entonces entran el Velo y el Halo. Los cuatro datos se alinean como un marco, sin recuadro.
 - El Halo tiene un ajuste nuevo, «Latido»: el anillo se ensancha con dos golpes y una pausa, como un corazón.
 
 ### Efectos: una colección propia

@@ -7,7 +7,7 @@
   "frase": ["Diseñar es", "poner nombre."],
   "accion": { "texto": "Lee cómo trabajamos", "destino": "#oficio" },
   "pista": "Desplaza para comprobarlo",
-  "descripcion": "Un busto romano de mármol dibujado con miles de puntos en nuestros colores. Gira con el puntero, y sus puntos se apartan a su paso. Al desplazar la página, los puntos se separan en cuatro grupos, uno junto a cada dato, y al final se desvanecen junto con los datos.",
+  "descripcion": "Un busto romano de mármol dibujado con miles de puntos en nuestros colores. Gira con el puntero, y sus puntos se apartan a su paso. Al desplazar la página, los puntos se separan en cuatro grupos, uno junto a cada dato. Al final se desvanecen junto con los datos y queda un halo que late.",
   "efectos": {
     "despues": [
       { "id": "velo", "valores": { "alto": 0.45, "amplitud": 1, "suave": 0.35, "fuerza": 0.7, "velocidad": 1 } },

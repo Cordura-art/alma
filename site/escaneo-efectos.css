@@ -1,6 +1,8 @@
 /* A cover with grounds behind it (site/efectos.js): only the pages that ask for them carry this. */
 /* Its grounds, under everything. */
 .escaneo__efecto { z-index: 0; pointer-events: none; }
+/* (a longer way down: there is one more thing to see at the end of it) */
+.escaneo--con-efectos { height: 460vh; }
 .escaneo--con-efectos .escaneo__dato { box-sizing: border-box; padding: var(--space-16) var(--space-24); }
 /* The four of them as one frame: those above stand on one line by their tops, those below by their bottoms. */
 .escaneo--con-efectos .escaneo__dato:nth-child(-n+2) { align-self: start; margin-top: clamp(var(--space-48), 12vh, var(--space-80) * 2); }

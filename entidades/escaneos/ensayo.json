@@ -5,7 +5,13 @@
   "frase": ["Un primer borrador", "nunca es el texto.", "Es el material."],
   "accion": { "texto": "Lee cómo corregimos", "destino": "#oficio" },
   "pista": "Desplaza para leerlo de cerca",
-  "descripcion": "Un busto romano de mármol dibujado con miles de puntos en nuestros colores. Gira con el puntero. Al desplazar la página, los puntos se separan en cuatro grupos, uno junto a cada dato.",
+  "descripcion": "Un busto romano de mármol dibujado con miles de puntos en nuestros colores. Gira con el puntero. Al desplazar la página, los puntos se separan en cuatro grupos, uno junto a cada dato. Al final se desvanecen junto con los datos y queda un halo que late.",
+  "efectos": {
+    "despues": [
+      { "id": "velo", "valores": { "alto": 0.45, "amplitud": 1, "suave": 0.35, "fuerza": 0.7, "velocidad": 1 } },
+      { "id": "halo", "valores": { "tamano": 1.2, "pulso": 2, "petalos": 3, "estela": 0.8, "giro": 1, "velocidad": 1, "x": 0, "y": 0, "latido": 0.6 } }
+    ]
+  },
   "datos": [
     "Lo leímos punto por punto: {puntos} lecturas de un mismo busto.",
     "De {pesoOrigen} de escaneo quedaron {pesoTrama}. Corregir también es quitar.",
