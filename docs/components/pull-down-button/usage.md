@@ -16,7 +16,8 @@ summary: Un botón que abre una lista de acciones relacionadas con algo.
 ### Cuándo no usarlo
 - **Para elegir una opción:** `PopUpButton`.
 - **Para la acción principal:** un `Button` a la vista.
-- **Con una sola acción:** un `Button`.
+- **Con una o dos acciones:** botones. Abrir un menú vale la pena desde tres.
+- **Para todas las acciones de una pantalla.** Las principales van a la vista; el menú es para el resto.
 
 ## Anatomía
 
@@ -30,8 +31,19 @@ summary: Un botón que abre una lista de acciones relacionadas con algo.
 
 - Acciones que empiezan con verbo: «Copiar número», «Compartir viaje».
 - Si una acción abre otra vista o pide datos, termina en «…»: «Cambiar nombre…».
-- La destructiva va al final, con `role: 'destructive'`. Si no se puede deshacer, confirma con `Alert`.
+- La destructiva va al final, separada, con `role: 'destructive'`. Si no se puede deshacer, confirma con un `ActionSheet`: aparece en otro lugar y hay que cerrarlo a propósito, y eso evita un borrado por error.
 - Ordena por uso, la más usada primero.
+- Las reglas de nombres, íconos y orden están en el patrón **Menús**.
+
+## Grupos, submenús e ítems que se marcan
+
+![Un PullDownButton «Ver» abierto, con el título «Mis viajes». El ítem «Ordenar por» tiene una flecha y su submenú abierto al lado, con «Fecha» marcada. Debajo, «Solo los pagados» con un visto, un separador y «Actualizar» con su atajo Ctrl+R a la derecha.](assets/Componentes/pull-down-button-submenu.png)
+
+- **Grupos:** un separador (`'-'`) entre grupos de acciones relacionadas.
+- **Submenú:** un ítem con `items` abre una lista menor. Un solo nivel, hasta unos cinco ítems.
+- **Ítems que se marcan:** con `checked`, el ítem lleva un visto cuando está en efecto. Sirve para elegir varios a la vez, que `PopUpButton` no permite.
+- **Atajos:** `shortcut` muestra el atajo a la derecha. Mostrarlo no lo activa: eso es de la app.
+- **Título:** `title`, solo si agrega algo que el botón no dice.
 
 ## Comportamiento
 
@@ -40,7 +52,7 @@ summary: Un botón que abre una lista de acciones relacionadas con algo.
 
 ## Relacionados
 
-`PopUpButton` · `Toolbar` · `Button` · `Alert`.
+`PopUpButton` · `ContextMenu` · `ActionSheet` · `Toolbar` · `Button` · Menús.
 
 ## Referencias
 

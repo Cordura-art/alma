@@ -1,0 +1,17 @@
+<!-- @dsCard group="Comunicación" height=420 subtitle="Las opciones de una acción que la persona inició" -->
+<div id="root" style="padding:24px;display:grid;gap:16px;justify-items:start;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  function App() {
+    var o = React.useState(false), u = React.useState('');
+    function fin(t) { return function () { o[1](false); u[1](t); }; }
+    return h(React.Fragment, null,
+      h(A.Button, { variant: 'tinted', onClick: function () { o[1](true); } }, 'Cerrar el mensaje'),
+      h('p', { className: 'web-body-s', role: 'status', style: { margin: 0, color: 'var(--text-02)' } }, u[0]),
+      h(A.ActionSheet, { open: o[0], title: '¿Qué hacemos con el borrador?', message: 'Llevas escrito un mensaje para Tomás.',
+        actions: [{ label: 'Guardar borrador', onPress: fin('Guardaste el borrador.') }, { label: 'Descartar borrador', role: 'destructive', onPress: fin('Descartaste el borrador.') }, { label: 'Seguir escribiendo', role: 'cancel', onPress: fin('') }] }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

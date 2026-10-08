@@ -16,7 +16,8 @@ Un botón que abre una lista de acciones relacionadas con algo.
 #### Cuándo no usarlo
 - **Para elegir una opción:** `PopUpButton`.
 - **Para la acción principal:** un `Button` a la vista.
-- **Con una sola acción:** un `Button`.
+- **Con una o dos acciones:** botones. Abrir un menú vale la pena desde tres.
+- **Para todas las acciones de una pantalla.** Las principales van a la vista; el menú es para el resto.
 
 ### Anatomía
 
@@ -30,8 +31,19 @@ Un botón que abre una lista de acciones relacionadas con algo.
 
 - Acciones que empiezan con verbo: «Copiar número», «Compartir viaje».
 - Si una acción abre otra vista o pide datos, termina en «…»: «Cambiar nombre…».
-- La destructiva va al final, con `role: 'destructive'`. Si no se puede deshacer, confirma con `Alert`.
+- La destructiva va al final, separada, con `role: 'destructive'`. Si no se puede deshacer, confirma con un `ActionSheet`: aparece en otro lugar y hay que cerrarlo a propósito, y eso evita un borrado por error.
 - Ordena por uso, la más usada primero.
+- Las reglas de nombres, íconos y orden están en el patrón **Menús**.
+
+### Grupos, submenús e ítems que se marcan
+
+![Un PullDownButton «Ver» abierto, con el título «Mis viajes». El ítem «Ordenar por» tiene una flecha y su submenú abierto al lado, con «Fecha» marcada. Debajo, «Solo los pagados» con un visto, un separador y «Actualizar» con su atajo Ctrl+R a la derecha.](assets/Componentes/pull-down-button-submenu.png)
+
+- **Grupos:** un separador (`'-'`) entre grupos de acciones relacionadas.
+- **Submenú:** un ítem con `items` abre una lista menor. Un solo nivel, hasta unos cinco ítems.
+- **Ítems que se marcan:** con `checked`, el ítem lleva un visto cuando está en efecto. Sirve para elegir varios a la vez, que `PopUpButton` no permite.
+- **Atajos:** `shortcut` muestra el atajo a la derecha. Mostrarlo no lo activa: eso es de la app.
+- **Título:** `title`, solo si agrega algo que el botón no dice.
 
 ### Comportamiento
 
@@ -40,7 +52,7 @@ Un botón que abre una lista de acciones relacionadas con algo.
 
 ### Relacionados
 
-`PopUpButton` · `Toolbar` · `Button` · `Alert`.
+`PopUpButton` · `ContextMenu` · `ActionSheet` · `Toolbar` · `Button` · Menús.
 
 ### Referencias
 
@@ -105,10 +117,37 @@ h(PullDownButton, { icon: 'overflow-menu--horizontal', 'aria-label': 'Más accio
 | `label` | `string` | — | Texto del botón. |
 | `icon` | `string` | — | Ícono del botón. |
 | `aria-label` | `string` | — | Obligatorio si solo tiene ícono. |
-| `actions` | `Array<string \| { value, label, icon, disabled, role, onSelect }>` | — | Las acciones. |
+| `actions` | lista de ítems | — | Las acciones. Ver «Los ítems». |
+| `title` | `string` | — | Un título dentro del menú. |
+| `shortcuts` | `boolean` | `true` | Con `false`, no muestra los atajos. |
 | `onAction` | `(value) => void` | — | Recibe la acción elegida. |
 | `disabled` | `boolean` | `false` | — |
 | `id` | `string` | automático | — |
+
+### Los ítems
+
+Un ítem es un texto, `'-'` para un separador, `{ title }` para el rótulo de un grupo, o un objeto:
+
+| Campo | Tipo | Uso |
+|---|---|---|
+| `value`, `label` | `string` | El valor que recibe `onAction` y lo que se lee. |
+| `icon` | `string` | Un ícono. Todos los de un grupo, o ninguno. |
+| `role` | `'destructive'` | En rojo. Va al final. |
+| `disabled` | `boolean` | Apagado: se ve, no responde. |
+| `checked` | `boolean` | Un visto delante cuando es `true`. Con `radio: true`, es uno entre varios. |
+| `shortcut` | `string` | El atajo, a la derecha: «Ctrl+R». |
+| `items` | lista de ítems | Un submenú, de un nivel. |
+| `onSelect` | `() => void` | Se llama al elegirlo, además de `onAction`. |
+
+```js
+h(PullDownButton, { label: 'Ver', onAction: handle, actions: [
+  { value: 'orden', label: 'Ordenar por', items: [
+    { value: 'fecha', label: 'Fecha', checked: orden === 'fecha', radio: true },
+    { value: 'precio', label: 'Precio', checked: orden === 'precio', radio: true }] },
+  { value: 'pagados', label: 'Solo los pagados', checked: soloPagados },
+  '-',
+  { value: 'actualizar', label: 'Actualizar', shortcut: 'Ctrl+R' }] })
+```
 
 ## Accesibilidad
 
@@ -117,6 +156,9 @@ h(PullDownButton, { icon: 'overflow-menu--horizontal', 'aria-label': 'Más accio
 #### Comportamiento
 - El botón tiene `aria-haspopup="menu"` y `aria-expanded`.
 - El menú es `role="menu"` y cada acción `role="menuitem"`; las desactivadas, `aria-disabled`.
+- Un ítem que se marca es `menuitemcheckbox` o `menuitemradio`, y dice si está marcado.
+- Un ítem con submenú dice que lo tiene y si está abierto.
+- El menú no se sale de la pantalla: se abre hacia arriba o se alinea al otro lado.
 - Al abrir, el foco entra a la primera acción; al cerrar, vuelve al botón.
 
 #### Interacciones de teclado
@@ -126,6 +168,8 @@ h(PullDownButton, { icon: 'overflow-menu--horizontal', 'aria-label': 'Más accio
 | Enter, Espacio o ↓ (en el botón) | Abre el menú. |
 | ↓ / ↑ | Recorren las acciones, en círculo, saltando las desactivadas. |
 | Inicio / Fin | Primera y última acción. |
+| → / ← | Abre el submenú; lo cierra y vuelve a su ítem. |
+| Una letra | Va a la siguiente acción que empieza con ella. |
 | Enter o Espacio | Ejecuta la acción. |
 | Esc o Tab | Cierra el menú. |
 

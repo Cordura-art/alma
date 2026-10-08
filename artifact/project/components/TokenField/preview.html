@@ -1,0 +1,10 @@
+<!-- @dsCard group="Formularios" height=380 subtitle="Varios valores en un campo · Enter o coma agrega · Retroceso vuelve al último" -->
+<div id="root" style="padding:24px;display:grid;gap:32px;max-width:520px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty("background", "var(--ui-02)", "important");
+  var h = React.createElement, A = AlmaDS;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(A.TokenField, { label: 'Compartir con', placeholder: 'Escribe un correo', defaultValue: ['tomas@correo.cl', 'camila@correo.cl'], helper: 'Separa los correos con una coma.', validate: function (v) { return /@/.test(v); } }),
+    h(A.TokenField, { label: 'Destinos favoritos', placeholder: 'Escribe una ciudad', suggestions: ['Talca', 'Temuco', 'Chillán', 'Concepción', 'Valdivia', 'Viña del Mar', 'Valparaíso'], defaultValue: ['Viña del Mar'] })));
+</script>

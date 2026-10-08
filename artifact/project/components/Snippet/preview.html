@@ -1,0 +1,18 @@
+<!-- @dsCard group="IA" height=520 subtitle="La respuesta del asistente como tarjeta · un resultado, y una confirmación que espera" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty("background", "var(--ui-02)", "important");
+  var h = React.createElement, A = AlmaDS;
+  function dl(p) { return h('dl', { style: { margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '8px 16px' } }, p.map(function (x) { return [h('dt', { key: x[0], style: { color: 'var(--text-02)' } }, x[0]), h('dd', { key: x[0] + 'v', style: { margin: 0 } }, x[1])]; })); }
+  function App() {
+    var u = React.useState('');
+    return h(React.Fragment, null,
+      h(A.Snippet, { kind: 'result', source: 'Viajes', sourceIcon: 'ticket', title: 'Tu próximo viaje', dialogue: 'Tu bus a Viña del Mar sale mañana a las 08:30, del andén 4.', ai: true, onOpen: function () {}, onDone: function () { u[1]('Cerraste el resultado.'); } },
+        dl([['Sale', 'Martes 31 de marzo, 08:30'], ['Desde', 'Terminal Alameda, andén 4'], ['Asiento', '14 · Semicama']])),
+      h(A.Snippet, { kind: 'confirmation', source: 'Viajes', sourceIcon: 'ticket', title: 'Voy a cambiar tu pasaje', dialogue: 'Voy a cambiar tu pasaje del lunes 30 al martes 31. Cuesta 2.500 pesos más.', primaryLabel: 'Cambiar pasaje', onConfirm: function () { u[1]('Confirmaste el cambio.'); }, onCancel: function () { u[1]('Cancelaste. Tu pasaje sigue igual.'); } },
+        dl([['Antes', 'Lunes 30 de marzo, 08:30'], ['Ahora', 'Martes 31 de marzo, 08:30'], ['Diferencia', '$2.500, con tu tarjeta terminada en 4821']])),
+      h('p', { className: 'web-body-s', role: 'status', style: { margin: 0, flexBasis: '100%', color: 'var(--text-02)' } }, u[0]));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

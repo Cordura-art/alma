@@ -1,0 +1,14 @@
+<!-- @dsCard group="Entorno" height=520 subtitle="Algo que dura, seguido sin abrir su app · mínima, compacta y expandida" -->
+<div id="root" style="padding:24px;display:grid;gap:32px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty("background", "var(--ui-02)", "important");
+  var h = React.createElement, A = AlmaDS;
+  function fila(t, el) { return h('div', { style: { display: 'grid', gap: '8px', justifyItems: 'start' } }, h('p', { className: 'web-label-s', style: { margin: 0, color: 'var(--text-02)' } }, t), el); }
+  var PASOS = [{ label: 'Buscar tu pasaje', state: 'done' }, { label: 'Revisar los cambios permitidos', state: 'done' }, { label: 'Cambiar la fecha', state: 'current' }, { label: 'Avisar a Tomás', state: 'todo' }];
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '48px' } },
+      fila('Mínima', h(A.LiveActivity, { presentation: 'minimal', icon: 'bus', label: 'Viaje a Viña del Mar', value: 'Llega en 42 min', progress: 0.6 })),
+      fila('Compacta · tócala para expandir', h(A.LiveActivity, { icon: 'bus', label: 'Viaje a Viña del Mar', short: 'Viña del Mar', value: '42 min', detail: 'Bus 214 · andén 4', progress: 0.6, actions: [{ label: 'Ver pasaje' }] }))),
+    fila('Expandida: un agente que trabaja por pasos', h(A.LiveActivity, { presentation: 'expanded', icon: 'ai-label', label: 'Cambiando tu pasaje', detail: 'Asistente', value: '3 de 4', steps: PASOS, actions: [{ label: 'Detener', role: 'destructive' }] }))));
+</script>

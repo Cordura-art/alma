@@ -1,0 +1,13 @@
+<!-- @dsCard group="Formularios" height=380 subtitle="Un código corto, un dígito por casilla · se puede pegar" -->
+<div id="root" style="padding:24px;display:grid;gap:32px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty("background", "var(--ui-02)", "important");
+  var h = React.createElement, A = AlmaDS;
+  function App() { var u = React.useState('');
+    return h(React.Fragment, null,
+      h(A.DigitEntry, { label: 'Código de verificación', helper: 'Te lo enviamos al correo c•••@correo.cl', onComplete: function (v) { u[1]('Código completo: ' + v); } }),
+      h(A.DigitEntry, { label: 'Código de verificación', length: 4, defaultValue: '4821', error: 'El código no coincide. Revisa el último que te enviamos.' }),
+      h('p', { className: 'web-body-s', role: 'status', style: { margin: 0, color: 'var(--text-02)' } }, u[0])); }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

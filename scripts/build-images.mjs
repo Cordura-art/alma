@@ -318,7 +318,16 @@ export const scenes = [
     var angosto = "mount(h('div', null, h('div', { style: { padding: '24px 16px' } }, " + lista + "), " + barra + "));";
     var medio = "mount(h('div', null, h('div', { style: { padding: '24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' } }, " + lista + ", " + det + "), " + barra + "));";
     var amplio = "mount(h('div', { style: { display: 'flex', gap: '24px', padding: '24px' } }, h(A.Sidebar, { label: 'Secciones', defaultValue: 'viajes', groups: [{ items: [{ value: 'inicio', label: 'Inicio', icon: 'home' }, { value: 'viajes', label: 'Viajes', icon: 'ticket' }, { value: 'billetera', label: 'Billetera', icon: 'wallet' }, { value: 'cuenta', label: 'Cuenta', icon: 'user' }] }] }), h('div', { style: { flex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignContent: 'start' } }, " + lista + ", " + det + ")));";
-    mount(h('div', { className: 'row', style: { gap: 'var(--space-32)', alignItems: 'flex-end' } }, device({ label: 'Angosto · desde 320 px', w: 390, h: 620, js: angosto, scale: 0.6 }), device({ label: 'Medio · desde 672 px', w: 720, h: 620, js: medio, scale: 0.6 }), device({ label: 'Amplio · desde 1056 px', w: 1120, h: 620, js: amplio, scale: 0.6 })));` }
+    mount(h('div', { className: 'row', style: { gap: 'var(--space-32)', alignItems: 'flex-end' } }, device({ label: 'Angosto · desde 320 px', w: 390, h: 620, js: angosto, scale: 0.6 }), device({ label: 'Medio · desde 672 px', w: 720, h: 620, js: medio, scale: 0.6 }), device({ label: 'Amplio · desde 1056 px', w: 1120, h: 620, js: amplio, scale: 0.6 })));` },
+
+  { file: 'Fundamentos/profundidad-vidrio', efectos: true, alt: 'Cuatro paneles del mismo tamaño sobre un fondo de luz que se mueve, uno por grosor de vidrio: muy delgado, delgado, medio y grueso. En cada uno el fondo se ve menos. Cada panel lleva escritos los textos que asegura: ninguno el muy delgado, el principal el delgado, el principal y el secundario el medio, y los tres el grueso.',
+    js: `var G = [['ultra-thin', 'Muy delgado', 0], ['thin', 'Delgado', 1], ['', 'Medio', 2], ['thick', 'Grueso', 3]], T = [['text-01', 'Texto principal'], ['text-02', 'Texto secundario'], ['text-03', 'Texto terciario']];
+    mount(h('div', { className: 'fondo' }, h('div', { className: 'luz', 'aria-hidden': true }), h('div', { className: 'fila' }, G.map(function (g) { return h('div', { key: g[1], className: 'alma-glass' + (g[0] ? ' alma-glass--' + g[0] : '') + ' panel' },
+      h('p', { className: 'web-h6', style: { margin: 0 } }, g[1]), h('p', { className: 'tok', style: { margin: 0, color: 'inherit' } }, 'glass-' + (g[0] || 'regular')),
+      h('div', { className: 'col', style: { marginTop: 'var(--space-16)', gap: 'var(--space-4)' } }, g[2] ? T.slice(0, g[2]).map(function (t) { return h('p', { key: t[0], className: 'web-body-s', style: { margin: 0, color: 'var(--' + t[0] + ')' } }, t[1]); }) : h(A.Icon, { name: 'image', size: 24 }))); }))));`,
+    after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'reposo'); await sleep(4000);`,
+    css: `.fondo { position: relative; width: 60rem; padding: var(--space-48) var(--space-32); border-radius: var(--radius-panel); overflow: hidden; } .luz { position: absolute; inset: 0; }
+    .fila { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-24); } .panel { min-height: 11rem; padding: var(--space-24); border-radius: var(--radius-panel); box-shadow: var(--shadow-floating); }` }
 ];
 
 const ALL = scenes.concat(componentScenes, patternScenes, iaScenes);

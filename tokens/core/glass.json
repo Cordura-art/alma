@@ -1,0 +1,35 @@
+{
+  "glass": {
+    "$description": "El vidrio: una superficie que deja pasar, desenfocado, lo que tiene detrás. Es de la capa funcional (barras, menús, ventanas), nunca del contenido. Cada grosor es cuánto del color de la superficie (ui-01) queda; el resto es lo de atrás.",
+    "glass-ultra-thin": {
+      "$type": "number",
+      "$value": 0.5,
+      "$description": "Casi todo pasa. Solo sobre imagen o video, y sin texto corrido encima: no asegura contraste."
+    },
+    "glass-thin": {
+      "$type": "number",
+      "$value": 0.72,
+      "$description": "Deja ver el lugar. Asegura 4,5:1 para text-01 sobre cualquier fondo. Barras y controles que flotan."
+    },
+    "glass-regular": {
+      "$type": "number",
+      "$value": 0.85,
+      "$description": "El de siempre. Asegura 4,5:1 para text-01 y text-02. Menús, popovers, paneles, ventanas."
+    },
+    "glass-thick": {
+      "$type": "number",
+      "$value": 0.94,
+      "$description": "Casi opaco. Asegura 4,5:1 para text-01, text-02 y text-03. Superficies con mucho texto."
+    },
+    "glass-blur": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": "Cuánto se desenfoca lo de atrás."
+    },
+    "glass-saturate": {
+      "$type": "number",
+      "$value": 1.6,
+      "$description": "Cuánto se aviva el color de lo de atrás al pasar: 1 lo deja igual."
+    }
+  }
+}

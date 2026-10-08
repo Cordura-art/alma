@@ -1,0 +1,16 @@
+<!-- @dsCard group="Entorno" height=300 subtitle="Las apps a un toque · un punto bajo las abiertas · clic derecho para su menú" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  function App() {
+    var ab = React.useState({ viajes: true });
+    var apps = [['viajes', 'Viajes', 'ticket'], ['asistente', 'Asistente', 'ai-label'], ['billetera', 'Billetera', 'wallet'], ['notas', 'Notas', 'document']];
+    function cambia(id, v) { var o = Object.assign({}, ab[0]); if (v) o[id] = true; else delete o[id]; ab[1](o); }
+    return h('div', { style: { position: 'relative', height: '200px', borderRadius: 'var(--radius-panel)', border: '1px solid var(--border-subtle)', overflow: 'hidden', background: 'var(--ui-03)' } },
+      h(A.Dock, { label: 'Aplicaciones', items: apps.map(function (a) { return { id: a[0], label: a[1], icon: a[2], running: !!ab[0][a[0]], badge: a[0] === 'asistente' ? 2 : undefined, onOpen: function () { cambia(a[0], true); },
+        menu: [{ value: 'abrir', label: ab[0][a[0]] ? 'Mostrar' : 'Abrir', onSelect: function () { cambia(a[0], true); } }, { value: 'salir', label: 'Salir', disabled: !ab[0][a[0]], onSelect: function () { cambia(a[0], false); } }] }; }).concat([{ separator: true }, { id: 'ajustes', label: 'Ajustes', icon: 'settings' }]) }));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

@@ -52,7 +52,7 @@ Las superficies se apilan en un orden fijo. Cada capa se distingue de la que tie
 | 2 | `ui-01` | Blanco | Blanco al 4 % sobre la página | Contenedores: tarjetas, menús, tablas, alertas. |
 | 3 | `ui-03` | Gris claro | Blanco al 7 % | Un panel dentro de un contenedor. |
 | 4 | `ui-04` | Gris medio claro | Blanco al 10 % | Una zona dentro de ese panel. |
-| Acción | `interactive-01`, `interactive-02` | Azul y azul muy oscuro | Azul y azul muy oscuro | Los botones, sobre cualquier capa. |
+| Acción | `interactive-01`, `interactive-02` | Azul y azul muy oscuro | Azul y azul muy oscuro | El botón principal, y los acentos profundos. |
 
 No saltes capas hacia atrás: un contenedor dentro de otro `ui-01` pasa a `ui-03`, no vuelve a `ui-02`. En los dos temas cada capa de encima se despega de la anterior.
 
@@ -89,7 +89,7 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 ### Un acento
 
 - `interactive-01` (azul) es la acción principal y el foco de la pieza. **Una por pantalla.** Si todo es azul, nada lo es.
-- `interactive-02` (el mismo azul, muy oscuro y apagado) es la acción secundaria.
+- `interactive-02` (el mismo azul, muy oscuro y apagado) es para acentos profundos. El botón neutro (`gray`) es un gris tenue, no este color.
 - El texto sobre ambos es siempre `text-on-interactive`.
 - En tema oscuro, los bordes, las etiquetas y los controles encendidos usan pasos claros de la rampa azul, que se despegan del negro. En claro usan el azul de acción.
 
@@ -99,9 +99,11 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 |---|---|
 | `text-01` | Texto principal y títulos. |
 | `text-02` | Texto secundario: ayudas, descripciones, metadatos. |
-| `text-03` | Texto desactivado y marcadores de posición. |
+| `text-03` | Lo que todavía no está: marcadores de posición, pasos por hacer. |
 | `text-error` | Mensajes de error. |
 | `text-on-interactive` | Texto sobre el azul. |
+
+Son tres niveles con un trabajo cada uno: lo que se vino a leer, lo que ayuda a entenderlo y lo que todavía no está. En un dato, el nombre va en `text-02` y el valor en `text-01`. El detalle está en el patrón **Jerarquía**.
 
 ### Estados del sistema
 

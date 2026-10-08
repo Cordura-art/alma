@@ -1697,27 +1697,27 @@
     },
     "button-gray-bg": {
       "$type": "color",
-      "$value": "{color.interactive-02}",
-      "$description": "Button gray: fondo. Token de componente: alias de interactive-02."
+      "$value": "rgba(250,250,250,0.12)",
+      "$description": "Botón gray (Apple): un relleno neutro y tenue, el de menos peso entre los que tienen fondo. Hasta el 2026-10-08 era un sólido oscuro (interactive-02) que en el tema claro pesaba más que el botón principal."
     },
     "button-gray-bg-hover": {
       "$type": "color",
-      "$value": "{color.hover-secondary}",
+      "$value": "rgba(250,250,250,0.18)",
       "$description": "Button gray: fondo al pasar el puntero. Token de componente: alias de hover-secondary."
     },
     "button-gray-bg-active": {
       "$type": "color",
-      "$value": "{color.active-secondary}",
+      "$value": "rgba(250,250,250,0.24)",
       "$description": "Button gray: fondo al presionar. Token de componente: alias de active-secondary."
     },
     "button-gray-text": {
       "$type": "color",
-      "$value": "#FFFFFF",
-      "$description": "Button gray: texto e ícono. Token de componente: alias de text-on-interactive."
+      "$value": "{color.text-01}",
+      "$description": "Texto del botón gray: el del texto principal."
     },
     "button-gray-text-active": {
       "$type": "color",
-      "$value": "{color.brand-white}",
+      "$value": "{color.text-01}",
       "$description": "Button gray: texto al presionar. Token de componente: alias de brand-white."
     },
     "button-plain-bg-hover": {
@@ -1807,12 +1807,12 @@
     },
     "button-destructive-gray-text": {
       "$type": "color",
-      "$value": "#FACDCD",
-      "$description": "Button destructivo gray: texto. Token de componente: alias de active-danger."
+      "$value": "{color.button-destructive-text}",
+      "$description": "Texto de una acción destructiva en un botón gray: el rojo de las acciones destructivas."
     },
     "button-destructive-gray-bg-hover": {
       "$type": "color",
-      "$value": "#3B4E73",
+      "$value": "rgba(250,250,250,0.18)",
       "$description": "Button destructivo gray: fondo al pasar el puntero (se aclara para que el texto rojo mantenga el contraste). Token de componente: alias de secondary-400."
     },
     "button-destructive-plain-bg-hover": {

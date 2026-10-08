@@ -31,6 +31,7 @@
     "breakpoint",
     "zIndex",
     "shadow",
+    "glass",
     "size",
     "icon",
     "grid",
@@ -52,7 +53,8 @@
     "fontAxis": "Ejes de Roboto Flex que ALMA aplica a todo el texto: el ancho y el grado. El peso va en fontWeight.",
     "fontWeight": "Un peso por rol. Los estilos de texto y los componentes los usan, así que cambiar uno cambia todo el texto de ese rol.",
     "material": "Cómo recibe la luz una pieza con volumen: arcilla, laca, acrílico y tela. Valores de 0 a 1 que entiende cualquier programa de 3D. El color no va aquí: siempre es un color de la entidad.",
-    "pelaje": "Las cinco clases de pelaje de un personaje: pelo, rizo, púa, pluma y fleco. Las medidas van en alturas de un personaje llano (1 es su alto)."
+    "pelaje": "Las cinco clases de pelaje de un personaje: pelo, rizo, púa, pluma y fleco. Las medidas van en alturas de un personaje llano (1 es su alto).",
+    "glass": "El vidrio de la capa funcional. Cada grosor es cuánto del color de la superficie queda; lo demás es lo de atrás, desenfocado. Desde el delgado, el contraste del texto está asegurado sobre cualquier fondo."
   },
   "keyOrder": [
     "name",
@@ -67,6 +69,7 @@
     "breakpoint",
     "zIndex",
     "shadow",
+    "glass",
     "size",
     "icon",
     "grid",

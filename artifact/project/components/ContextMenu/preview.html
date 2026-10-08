@@ -1,0 +1,23 @@
+<!-- @dsCard group="Menús" height=460 subtitle="Clic derecho, toque largo o la tecla de menú sobre un viaje" -->
+<div id="root" style="padding:24px;display:grid;gap:16px;max-width:520px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  var VIAJES = [{ id: 1, cuando: '31 mar 2026 · 08:30', ruta: 'Santiago → Viña del Mar', clase: 'Semicama · asiento 14', pagado: true }, { id: 2, cuando: '4 abr 2026 · 19:10', ruta: 'Viña del Mar → Santiago', clase: 'Salón cama · asiento 3', pagado: false }];
+  function App() {
+    var u = React.useState('Abre el menú de un viaje: clic derecho, toque largo, o Mayúsculas + F10 con el foco en él.');
+    function menu(v) { return [
+      { value: 'ver', label: 'Ver pasaje', icon: 'ticket', disabled: !v.pagado },
+      { value: 'pagar', label: 'Pagar', icon: 'wallet', disabled: v.pagado },
+      { value: 'compartir', label: 'Compartir', icon: 'share' },
+      { value: 'cambiar', label: 'Cambiar fecha…', icon: 'calendar' },
+      '-',
+      { value: 'anular', label: 'Anular viaje', icon: 'trash-can', role: 'destructive' }]; }
+    return h(React.Fragment, null,
+      VIAJES.map(function (v) { return h(A.ContextMenu, { key: v.id, items: menu(v), label: 'Acciones de ' + v.ruta, onAction: function (a) { u[1]('Elegiste «' + a + '» en ' + v.ruta + '.'); } },
+        h('div', { tabIndex: 0, style: { borderRadius: 'var(--radius-panel)' } }, h(A.Card, { headingLevel: 2, eyebrow: v.cuando, title: v.ruta, subtitle: v.clase }))); }),
+      h('p', { className: 'web-body-s', role: 'status', style: { margin: 0, color: 'var(--text-02)' } }, u[0]));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

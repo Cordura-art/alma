@@ -38,7 +38,7 @@ Dentro de un campo, una sugerencia de completado va en `text-03`, después del c
 
 ## Un permiso
 
-Antes de algo que no se puede deshacer, la IA se detiene y lo dice. Se arma con el patrón Diálogos.
+Antes de algo que no se puede deshacer, la IA se detiene y lo dice. Es un `Snippet` de confirmación.
 
 - **Qué va a hacer**, con los datos exactos: «Cambiar tu pasaje del lunes 30 al martes 31, 08:30».
 - **Qué cambia y qué cuesta**: «Se cobra una diferencia de $2.500».
@@ -67,7 +67,7 @@ Cuando la IA reescribe algo de la persona, lo original no se pierde.
 Un agente hace varios pasos sin que se le pida cada uno. Pide más cuidado que todo lo anterior.
 
 1. **Muestra el plan antes de empezar.** Los pasos que va a dar, en palabras simples. La persona puede cambiarlo o cancelarlo.
-2. **Muestra el avance.** La lista de pasos, con cuál va. Ver Estados.
+2. **Muestra el avance.** La lista de pasos, con cuál va. Es una `LiveActivity`, que se sigue aunque su ventana esté cerrada. Ver Estados.
 3. **Se detiene ante lo que no se deshace.** Pide permiso en ese paso, no al principio por todo.
 4. **Se puede parar siempre.** «Detener» está a la vista de principio a fin. Al parar, dice qué alcanzó a hacer y qué quedó sin hacer.
 5. **Se puede tomar el control.** La persona puede seguir a mano desde donde quedó.

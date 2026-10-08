@@ -52,6 +52,14 @@ summary: Un botón que abre una lista corta de opciones excluyentes y muestra la
 
 ![Los estados de PopUpButton en tema oscuro y claro: en reposo, abierto con la opción elegida marcada, con el puntero sobre una opción, y desactivado.](assets/Componentes/pop-up-button-estados.png)
 
+## Lo que dice Apple y seguimos
+
+- **Lista plana.** Sin submenús ni acciones. Si necesitas alguno de los dos, o elegir varias, es un `PullDownButton`.
+- **Una opción inicial útil:** la que la mayoría quiere.
+- **Se sabe qué hay sin abrirlo:** la etiqueta dice de qué son las opciones.
+- **«Personalizado…»** al final, si hay casos que no entran en la lista. Así no se llena de opciones raras.
+- Una línea de ayuda bajo la lista (`help`) explica cómo funcionan las opciones, si hace falta.
+
 ## Relacionados
 
 `PullDownButton` · `Combobox` · `SegmentedControl` · `RadioGroup`.

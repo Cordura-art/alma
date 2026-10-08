@@ -1,9 +1,9 @@
 Button|primary texto|text-on-interactive|interactive-01|4.5
 Button|primary hover texto|text-on-interactive|hover-primary|4.5
 Button|primary activo texto|button-filled-text-active|active-primary|4.5
-Button|secondary texto|button-gray-text|interactive-02|4.5
-Button|secondary hover texto|button-gray-text|hover-secondary|4.5
-Button|secondary activo texto|brand-white|active-secondary|4.5
+Button|gray texto|button-gray-text|ui-03|4.5
+Button|gray hover texto|button-gray-text|ui-04|4.5
+Button|gray activo texto|button-gray-text-active|ui-04|4.5
 Button|ghost texto|secondary-50|brand-ink|4.5
 Button|ghost hover texto|secondary-50|active-secondary|4.5
 Button|ghost activo texto|button-ghost-text-active|hover-secondary|4.5
@@ -53,7 +53,7 @@ Button|destructivo hover texto|brand-white|hover-danger|4.5
 Button|destructivo activo texto|brand-white|active-danger|4.5
 Button|destructivo tinted texto|button-destructive-text|button-destructive-tinted-bg|4.5
 Button|destructivo plain texto|button-destructive-text|ui-02|4.5
-Button|destructivo gray texto|button-destructive-gray-text|interactive-02|4.5
+Button|destructivo gray texto|button-destructive-gray-text|ui-04|4.5
 Button|gray (secondary) activo destructivo|brand-white|active-secondary|4.5
 Button|spinner sobre primario|text-on-interactive|interactive-01|3
 Switch|pista encendida vs página|control-on|ui-02|3

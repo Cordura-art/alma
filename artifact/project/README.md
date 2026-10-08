@@ -33,7 +33,7 @@ Guían a cualquier persona que diseñe, o apruebe un diseño, en nombre de Cordu
 - Superficies, como en el theme de origen de Cordura: la **página** va en `ui-02` y los **contenedores** (tarjetas, alertas, menús, tablas) en `ui-01`.
 - Tema **Oscuro** (por defecto): página `ui-02` (`#02010C`), contenedores `ui-01` (`#141733`), texto en `text-01`, secundario en `text-02`.
 - Tema **Claro**: son los valores exactos de las variables de Figma. Úsalo en documentos e interfaces de trabajo.
-- Acciones: `interactive-01` (azul) para la principal, `interactive-02` (el mismo azul, muy oscuro y apagado) para la secundaria. El texto sobre la principal es `text-on-interactive` (blanco); cada botón trae además su propio token de texto.
+- Acciones: `interactive-01` (azul) para la principal, `interactive-02` (el mismo azul, muy oscuro y apagado) para acentos profundos; el botón neutro (`gray`) es un gris tenue. El texto sobre la principal es `text-on-interactive` (blanco); cada botón trae además su propio token de texto.
 - Enlaces: `link-01`. Foco: `focus`, un borde o anillo de 2 px sólido.
 - Estados del sistema: `support-01` error, `support-02` éxito, `support-03` advertencia, `support-04` información. Van siempre con palabra o ícono, nunca solo color. Los fondos de aviso son `notification-*-bg`.
 - Etiquetas: `tag-<color>-bg` con `tag-<color>-text`. Hay 11 colores: red, yellow, magenta, purple, blue, cyan, teal, green, warmgray, gray y coolgray.
@@ -161,6 +161,38 @@ La base son nuestros referentes. Las recetas de marca (escribirse, armarse, desh
 
 Lo que se mueve detrás, entre y debajo de las cosas está en una colección propia, sin librerías: fondos (Halo, Velo, Hilos, Retícula, Grano, Rayos, Ondas), reacciones (Chispa, Imán, Destello, Foco, Inclinar), transiciones (Trama, Aparecer, Cortina, Fundido) y textos (Descifrar, Contar, Escalonar, Brillo, Rotar, Desvelar). Cada uno toma sus colores y sus tiempos de los tokens, trabaja solo mientras se ve y respeta el movimiento reducido. Como el movimiento de marca, viven en portadas y páginas de presentación, no en la interfaz de un producto. La guía de cada uno está en la sección Efectos, y el código en `efectos.js`: `AlmaEfectos.monta('halo', elemento)`.
 
+### Jerarquía
+
+Tres cosas dicen qué se lee primero, y están en el patrón Jerarquía:
+
+- **Texto:** `text-01` lo que se vino a leer, `text-02` lo que ayuda (bajadas, nombres de datos, ayudas de campo), `text-03` lo que todavía no está. En un dato, el nombre va en `text-02` y el valor en `text-01`.
+- **Botones:** un `filled` por vista. Dos botones juntos miden lo mismo y se distinguen por estilo. Una acción que destruye nunca es `filled`: va en `tinted` con rol destructivo. El orden de peso es `filled`, `tinted`, `gray`, `plain`: el `gray` es un gris tenue y neutro, para «Cancelar» y «Volver».
+- **Márgenes:** `space-4` entre partes de una misma cosa, `space-8` entre cosas relacionadas, `space-16` dentro de un grupo, `space-24` entre grupos. Lo de adentro va más junto que lo de afuera, todo parte del mismo borde, y un radio interior es el exterior menos el margen.
+
+Piezas nuevas de la lista de Apple: `DigitEntry` (código de verificación), `TokenField` (varios valores en un campo), `Gauge` (un valor en un rango; no es avance: eso es `ProgressBar`) y `Rating` (estrellas, para leer o elegir).
+
+### Profundidad y vidrio
+
+El contenido va en superficies opacas (`ui-02`, `ui-01`, `ui-03`). Lo que flota sobre él para moverse y actuar (barras, menús, popovers, ventanas) es la capa funcional, y puede ser de vidrio: la clase `alma-glass`, con `--ultra-thin`, `--thin` o `--thick`. Reglas:
+
+- El vidrio nunca va en el contenido: ni tarjetas, ni filas, ni campos.
+- El delgado asegura contraste para `text-01`; el medio, también para `text-02`; el grueso, para los tres. El muy delgado no asegura nada: solo sobre imagen, sin texto corrido.
+- Es la única manera de poner texto sobre un efecto de fondo.
+- La clase ya lo vuelve opaco en alto contraste, con menos transparencia y sin desenfoque. La guía está en `Fundamentos-10-profundidad.md`.
+
+### El entorno
+
+Cuando una entidad necesita su propio escritorio (varias apps abiertas a la vez, en ventanas), se arma con cuatro componentes del grupo «Entorno», siguiendo el patrón Entorno:
+
+- `Desktop`: el escenario. Recibe `menuBar`, `dock`, `wallpaper` y las ventanas como hijos. Necesita un alto. Bajo 672 px de ancho muestra una ventana a la vez.
+- `Window`: `title`, `onClose`, `onMinimize`, `minimized`, `defaultPosition`, `defaultSize`, `frontKey` (al cambiar, pasa al frente). Se mueve y cambia de tamaño con puntero y con teclado. `kind: 'panel'` para un inspector. Fuera de un `Desktop` es una ventana quieta.
+- `MenuBar`: `appName`, `menus` (en el orden app, Archivo, Edición, Ver, propios, Ventana, Ayuda) y `extras`.
+- `Dock`: `items` con `running`, `badge` y `menu`.
+
+Fuera de las ventanas: `Widget` (una idea de una app, de un vistazo; `size` `sm`, `md`, `lg`, `xl`; grilla `alma-widgets`), `LiveActivity` (algo con principio y fin; `presentation` `minimal`, `compact`, `expanded`; `steps` y `actions` para la tarea de un agente; se anuncia solo con `announce`) y `Snippet` (la respuesta del asistente como tarjeta; `kind` `result` o `confirmation`, que es el permiso de un agente).
+
+El fondo no lleva texto. La barra de la ventana activa, la barra de menús y el dock son de vidrio. Una sola luz de IA: si el fondo es `AlmaEfectos.presencia`, no hay otra.
+
 ### Interfaces de IA
 
 Toda función que genere, resuma, converse o actúe con un modelo sigue la guía Interfaces de IA (`Guias-3-ia.md`), más la pestaña IA de Contenido (cómo escribe) y la de Accesibilidad (lector de pantalla, teclado, movimiento). Lo esencial:
@@ -239,7 +271,10 @@ Una clase de ilustración: un objeto dibujado con una sola línea fina, visto de
   - El estado nunca se indica solo con color.
 - **Menús** (según Apple):
   - `PopUpButton`: elegir una opción; muestra la selección.
-  - `PullDownButton`: lista de acciones, con la destructiva al final.
+  - `PullDownButton`: lista de acciones, con la destructiva al final. Sus ítems admiten separadores (`'-'`), `checked`, `shortcut` y un submenú de un nivel (`items`).
+  - `ContextMenu`: las acciones de un ítem con clic derecho, toque largo o la tecla de menú. Muestra solo lo que aplica, y nada vive solo ahí.
+  - `ActionSheet`: las opciones de una acción que la persona inició (guardar o descartar). La destructiva arriba, cancelar abajo. Para avisar de algo inesperado es `Alert`.
+  - Las reglas comunes de nombres, íconos, orden, submenús y teclado están en el patrón Menús.
 - **Navegación** (según Apple):
   - `TabBar`, en móvil: de 3 a 5 secciones, siempre visible, nunca deshabilitada.
   - `Sidebar`, en tablet y escritorio: como máximo 2 niveles y visible por defecto.

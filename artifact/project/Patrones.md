@@ -1052,3 +1052,337 @@ El permiso por defecto al invitar es el más bajo que sirva: «Ver».
 ### Relacionados
 
 `Modal` · `Sheet` · `Combobox` · `PopUpButton` · `Tag` · `ToastRegion` · Diálogos · Deshacer.
+
+## Menús
+
+Qué menú usar, cómo se nombran sus ítems y cómo se ordenan.
+
+### Qué menú
+
+Un menú guarda lo que no cabe a la vista. Todos los de ALMA comparten una misma lista, con las mismas reglas; lo que cambia es qué la abre y para qué.
+
+| Necesitas | Usa | Ejemplo |
+|---|---|---|
+| Elegir una opción entre varias que se excluyen | `PopUpButton` | El tipo de documento: RUT, pasaporte. |
+| Acciones relacionadas con un botón | `PullDownButton` | «Agregar»: un pasajero, una maleta, un seguro. |
+| Las acciones de un ítem, sin ocupar lugar | `ContextMenu` | Clic derecho sobre un viaje. |
+| Las opciones de una acción que la persona ya inició | `ActionSheet` | Al cerrar un mensaje a medias: guardar o descartar. |
+| Avisar de algo que la persona no esperaba | `Alert` | «No se pudo guardar». |
+
+Dos reglas para no confundirlos:
+
+- **`ActionSheet` responde a algo que la persona hizo; `Alert` llega sin que lo pida.** Si la persona tocó «Cerrar», lo que sigue es una hoja de acción. Si falló la red, es una alerta.
+- **Nada vive solo en un menú contextual.** Está escondido: quien no lo conoce no lo encuentra. Cada acción suya está también a la vista en otro lugar.
+
+### Los ítems
+
+- **Empiezan con verbo** cuando hacen algo: «Copiar número», «Cambiar fecha».
+- **Sin artículos:** «Ver pasaje», no «Ver el pasaje». Alargan y no aclaran.
+- **Con puntos suspensivos** cuando la acción pide algo más antes de terminar: «Cambiar fecha…» abre un calendario; «Copiar número» no pide nada.
+- **Uno que no se puede usar se ve apagado**, no desaparece: así se aprende que existe. La excepción es el menú contextual, que muestra solo lo que aplica.
+- **El destructivo va en rojo y al final**, separado. Y pide confirmación con un `ActionSheet`.
+
+### Íconos
+
+- Pocos y con motivo: para las acciones más usadas y para lo que se reconoce de un vistazo (copiar, compartir, eliminar).
+- **Todos los ítems de un grupo llevan ícono, o ninguno.** Mezclar desordena la lectura.
+- La misma acción lleva el mismo ícono en todo el producto.
+- Si no hay un ícono que la represente bien, no lleva.
+
+### Orden y grupos
+
+- **Lo más usado, primero.** Se lee desde arriba.
+- **Lo relacionado, junto**, aunque no pese lo mismo: «Pegar» y «Pegar sin formato» van en el mismo grupo.
+- **Un separador entre grupos.** No más de tres grupos en un menú contextual.
+- **Corto.** Si un menú no se lee de un vistazo, divídelo en dos o usa un submenú. La excepción es una lista que la persona misma llenó, como su historial: esa puede ser larga y desplazarse.
+- **Al menos tres ítems** en un `PullDownButton`. Con uno o dos, son botones.
+
+### Submenús
+
+Un ítem puede abrir una lista menor de opciones muy relacionadas. Se reconoce por una flecha al final.
+
+- **Un solo nivel.** Un submenú dentro de otro cuesta abrirlo y se pierde.
+- **Hasta unos cinco ítems.** Con más, es otro menú.
+- **Cuando una palabra se repite:** en vez de «Ordenar por fecha», «Ordenar por precio» y «Ordenar por destino», un ítem «Ordenar por» con las tres opciones.
+- **No indentes ítems** para mostrar jerarquía. Para eso es el submenú.
+- `PopUpButton` no lleva submenús: su lista es plana.
+
+### Ítems que se marcan
+
+Un ítem puede ser un atributo que está puesto o no, con un visto delante.
+
+- **Un visto** dice que el atributo está en efecto: «Solo los pagados».
+- **O una etiqueta que cambia:** «Mostrar mapa» pasa a «Ocultar mapa». Si no queda claro si es un estado o una acción, agrega el verbo: «Activar avisos», no «Avisos activados».
+- **Cuando ayuda ver los dos estados**, muestra los dos ítems y deja disponible solo el que aplica.
+- Si se pueden marcar varios, ofrece uno que los quite todos: «Sin filtros».
+
+### Atajos de teclado
+
+- Se muestran a la derecha del ítem, en los menús de un botón y en la barra de menús.
+- **No en un menú contextual:** ya es un atajo.
+- Un atajo que se muestra tiene que funcionar. El menú lo muestra; hacerlo andar es de la app.
+
+### Título
+
+Un menú casi nunca necesita título: el botón y los ítems ya dicen de qué es. Ponlo solo si agrega algo, como cuántos elementos afecta: «3 viajes seleccionados».
+
+### Con el teclado
+
+| Tecla | Qué hace |
+|---|---|
+| ↓ ↑ | Recorren los ítems, en círculo. Saltan separadores y apagados. |
+| Inicio, Fin | Primer y último ítem. |
+| → | Abre el submenú. |
+| ← | Cierra el submenú y vuelve a su ítem. |
+| Enter, Espacio | Elige. |
+| Una letra | Va al siguiente ítem que empieza con ella. |
+| Esc | Cierra y vuelve a lo que abrió el menú. |
+| Tab | Cierra y sigue. |
+
+### Nunca fuera de la pantalla
+
+Un menú se abre bajo su botón. Si no cabe, se abre hacia arriba o se alinea al otro lado. Un menú contextual se abre en el punto donde se pidió y se corre lo necesario para quedar entero.
+
+### No hagas
+
+- Meter todas las acciones de una pantalla en un solo menú «Más». Las principales van a la vista.
+- Un menú con un solo ítem.
+- Cambiar el orden de los ítems según el uso. La gente los encuentra por su lugar.
+- Usar un menú para navegar entre secciones. Para eso están `Tabs`, `Sidebar` y `TabBar`.
+
+### Relacionados
+
+`PopUpButton` · `PullDownButton` · `ContextMenu` · `ActionSheet` · `Alert` · `Toolbar` · Acciones · Diálogos.
+
+### Referencias
+
+- Apple, Human Interface Guidelines: Menus, Context menus, Pop-up buttons, Pull-down buttons, Action sheets.
+
+## Entorno
+
+Un escritorio que corre en el navegador: ventanas, barra de menús, dock, y dónde vive la IA.
+
+### Qué es
+
+Cada entidad de ALMA puede tener su propio entorno: un escritorio donde sus apps se abren en ventanas, con una barra de menús arriba y un dock abajo. Corre en el navegador. Las piezas son las mismas para todas las entidades; cambian el color, la letra, la voz y la luz.
+
+Es para cuando una persona trabaja con varias cosas a la vez y las quiere ver juntas. Una sola tarea, de principio a fin, sigue siendo una página.
+
+### Las piezas
+
+| Pieza | Componente | Qué hace |
+|---|---|---|
+| **Escritorio** | `Desktop` | El escenario. Lleva el fondo, ordena las ventanas y sabe si la pantalla es angosta. |
+| **Ventana** | `Window` | El marco de una app: se mueve, cambia de tamaño, se minimiza, se amplía y se cierra. |
+| **Barra de menús** | `MenuBar` | Todos los comandos de la app que está al frente. A su derecha, los extras. |
+| **Dock** | `Dock` | Las apps, a un toque. Dice cuáles están abiertas. |
+
+Y fuera de las ventanas, para ver sin abrir:
+
+| Pieza | Componente | Qué hace |
+|---|---|---|
+| **Widget** | `Widget` | Una idea de una app sobre el escritorio, para leer de un vistazo. |
+| **Actividad en vivo** | `LiveActivity` | Algo con principio y fin, seguido desde la barra de menús o sobre el escritorio. |
+| **Fragmento** | `Snippet` | La respuesta del asistente como tarjeta: un resultado, o una confirmación. |
+
+Además, lo que ya existía: `ContextMenu` sobre cualquier ítem, `Sheet` y `Alert` dentro de una ventana, `ToastRegion` para los avisos.
+
+### Las capas
+
+De atrás hacia adelante. Sigue el fundamento Profundidad.
+
+| Nivel | Qué | De qué |
+|---|---|---|
+| 0 | El fondo del escritorio. Puede ser un efecto de ALMA. | Opaco, o un efecto. |
+| 1 | Los widgets, sobre el fondo y bajo las ventanas. | Vidrio medio. |
+| 1 | Las ventanas. El cuerpo es contenido; la barra es de la capa funcional. | Cuerpo en `ui-02`. Barra de vidrio en la ventana activa. |
+| 2 | La barra de menús y el dock. | Vidrio delgado y vidrio medio. |
+| 3 | Menús, popovers y avisos. | Como siempre. |
+
+El fondo no lleva texto. Todo lo que se lee está en una ventana, en la barra o en el dock.
+
+### Ventanas
+
+- **Una está al frente.** Es la que recibe el teclado. Se nota: su barra es de vidrio, sus controles tienen color pleno y lleva sombra. Las demás se apagan un tono.
+- **Principal o auxiliar.** La principal lleva la navegación de la app. Una auxiliar es para una sola tarea (escribir un mensaje, ver un pasaje) y se cierra al terminar.
+- **Panel.** Una ventana menor que flota junto a otra: el detalle de lo seleccionado. Es toda de vidrio.
+- **Abre una ventana nueva cuando ayuda ver dos cosas a la vez**: escribir mientras se lee. No por defecto: muchas ventanas son desorden.
+- **Recuerda su lugar.** Una ventana que se cierra vuelve donde estaba y del tamaño que tenía.
+- **Nada importante abajo.** El borde inferior es lo primero que queda fuera de la vista al mover una ventana. El pie de una ventana es para un dato menor: «2 viajes».
+- **Se llama ventana.** En los textos, siempre esa palabra.
+
+### La barra de menús
+
+Los menús van siempre en el mismo orden. La gente los encuentra por su lugar.
+
+| Menú | Qué lleva |
+|---|---|
+| **El nombre de la app**, en negrita | Lo que vale para toda la app: «Acerca de», «Ajustes…». |
+| **Archivo** | Crear, abrir, guardar, imprimir, cerrar la ventana. |
+| **Edición** | Deshacer, rehacer, cortar, copiar, pegar, buscar. |
+| **Formato** | Solo si la app tiene texto con formato. |
+| **Ver** | Cómo se muestra: ordenar, filtrar, mostrar u ocultar partes. |
+| Los propios de la app | Entre Ver y Ventana. Títulos de una palabra. |
+| **Ventana** | Minimizar, ampliar y la lista de ventanas abiertas. |
+| **Ayuda** | La ayuda de la app. |
+
+- **Todo comando de la app está aquí**, incluidos los de sus menús contextuales. Es donde se aprende qué hace la app.
+- **Siempre los mismos ítems.** El que no se puede usar se ve apagado; no desaparece.
+- **Con sus atajos**, que funcionan.
+
+A la derecha van **los extras**: la hora, los avisos, la conexión, la presencia de la IA. Un extra que se toca abre un menú, no un popover. Son pocos, y la persona elige cuáles ver.
+
+### El dock
+
+- **Las apps que más se usan**, y las que están abiertas. Un punto bajo las abiertas.
+- **Tocar una app** la abre, o trae su ventana al frente.
+- **Su menú** (clic derecho o toque largo) tiene sus atajos: «Nuevo viaje», «Salir». Nada vive solo ahí.
+- **Un contador** sobre el ícono dice cuánto hay sin ver. Solo para lo que la persona pidió seguir.
+
+### En una pantalla angosta
+
+Bajo 672 px de ancho no hay espacio para ventanas que se superponen:
+
+- Se ve **una ventana a la vez**, a todo el tamaño.
+- No se mueven ni cambian de tamaño. Queda el control de cerrar.
+- La barra muestra solo el menú de la app.
+- El dock sigue abajo, y con él se cambia de app.
+
+Es el mismo entorno, con las mismas apps en el mismo estado. Al ensanchar, las ventanas vuelven a su lugar.
+
+### Dónde vive la IA
+
+La guía Interfaces de IA pide una sola luz por pantalla. En el entorno hay tres lugares para ella, de más a menos presencia:
+
+| Lugar | Qué | Cuándo |
+|---|---|---|
+| **El fondo del escritorio** | El escenario: Velo y Halo, detrás de todo. | Cuando la IA es el centro del entorno. El Halo dice su estado. |
+| **Un extra de la barra** | La figura: el Halo pequeño, o el ícono `ai-label`. | Cuando el fondo es otro. Abre el asistente. |
+| **Una ventana** | El asistente: `ChatMessage` y `PromptInput`. | Donde se conversa. |
+
+Si el fondo ya es la luz de la IA, el extra de la barra es solo el ícono. Nunca dos luces.
+
+Lo que la IA hace fuera de su ventana tiene dos piezas: una tarea larga se sigue con una `LiveActivity`, que muestra sus pasos y siempre deja detenerla; y cuando necesita permiso, o responde con un dato, lo hace con un `Snippet`.
+
+### Con el teclado
+
+| Tecla | Dónde | Qué hace |
+|---|---|---|
+| Tab | En todo el entorno | Barra de menús, ventana al frente, dock. |
+| ← → | En la barra de menús | Pasa de un menú a otro. |
+| ↓, Enter | En un menú de la barra | Lo abre. |
+| Flechas | En la barra de una ventana | Mueven la ventana. |
+| Mayúsculas + flechas | En la barra de una ventana | Cambian su tamaño. |
+| ← → | En el dock | Pasa de una app a otra. |
+| Tecla de menú | Sobre una app del dock | Abre su menú. |
+
+Mover y cambiar de tamaño nunca dependen de arrastrar: siempre hay teclado, y «Ampliar» y «Minimizar» están en los controles y en el menú Ventana.
+
+### No hagas
+
+- Dibujar ventanas propias, con otros controles u otro orden. La gente reconoce la ventana por su marco.
+- Abrir una ventana por cada cosa.
+- Poner texto sobre el fondo del escritorio.
+- Esconder comandos fuera de la barra de menús.
+- Hacer que una ventana se abra más grande que el escritorio, o fuera de él.
+
+### Relacionados
+
+`Desktop` · `Window` · `MenuBar` · `Dock` · `Widget` · `LiveActivity` · `Snippet` · `ContextMenu` · Menús · Profundidad · Interfaces de IA · Diseño adaptable.
+
+### Referencias
+
+- Apple, Human Interface Guidelines: Windows, The menu bar, Dock menus, Panels.
+
+## Jerarquía
+
+Qué se lee primero: los niveles del texto, el peso de los botones y los márgenes que agrupan.
+
+### Para qué
+
+Una pantalla se entiende cuando se nota qué es lo principal, qué lo acompaña y qué va junto. Eso lo dicen tres cosas, antes que cualquier adorno: **el color del texto, el peso de los botones y los márgenes**. Cuando están bien, nadie las ve. Cuando están mal, todo pesa lo mismo.
+
+### Los niveles del texto
+
+Cada nivel tiene un trabajo. Se elige por el trabajo, no por cómo se ve.
+
+| Nivel | Token | Trabajo | Ejemplos |
+|---|---|---|---|
+| **Principal** | `text-01` | Lo que se vino a leer. | Títulos, el valor de un dato, el texto de un párrafo, lo escrito en un campo. |
+| **Secundario** | `text-02` | Lo que ayuda a entender lo principal. | Bajadas, el nombre de un dato, ayudas de un campo, fechas, de cuándo es algo. |
+| **Terciario** | `text-03` | Lo que todavía no está. | El texto de ejemplo de un campo, un paso por hacer. |
+
+Reglas:
+
+- **Un dato tiene dos niveles:** su nombre en `text-02` y su valor en `text-01`. «Sale» en secundario, «08:30» en principal. Nunca al revés.
+- **La ayuda de un campo es secundaria**, no principal. Si compite con lo que la persona escribe, está mal.
+- **Tres niveles alcanzan.** Un cuarto tono de gris no se distingue del tercero.
+- **El nivel no reemplaza al tamaño ni al peso:** van juntos. Un título es grande, con peso y principal; una nota al pie es chica y secundaria.
+- **El color de acento no es un nivel de texto.** Es de lo que se puede tocar. Un texto azul que no es enlace confunde.
+- **El texto desactivado** no es un cuarto nivel: es el control entero, apagado.
+- **Sobre vidrio**, cada grosor admite sus niveles. Ver Profundidad.
+
+En el tema claro los tres niveles estaban casi juntos (9,4 · 6,7 · 5,7 a 1 sobre la superficie). Ahora el principal es la tinta de marca y quedan en 17,6 · 9,4 · 5,7. En el oscuro ya estaban separados: 18,7 · 10,4 · 6,2.
+
+### El peso de los botones
+
+Cuatro pesos, de más a menos. Se elige por cuánto importa la acción en **esa** vista.
+
+| Peso | Estilo | Para | Cuántos |
+|---|---|---|---|
+| 1 | `filled` | La acción que casi todos van a elegir. Relleno de acento. | Uno por vista. Dos, como mucho. |
+| 2 | `tinted` | La segunda acción que importa. El acento, tenue. | Uno por grupo. |
+| 3 | `gray` | Lo neutro: «Cancelar», «Volver». Un gris tenue. | Los que hagan falta. |
+| 4 | `plain` | Lo repetido y lo menor: acciones en filas, barras, enlaces de acción. Solo texto. | Los que hagan falta. |
+
+Reglas, de Apple:
+
+- **El estilo distingue, no el tamaño.** Dos botones juntos miden lo mismo; el preferido se nota por su estilo. Dos tamaños juntos se leen como un error.
+- **Una acción que destruye nunca es la principal.** Aunque sea la más probable. La gente aprieta el botón más visible sin leerlo: ese tiene que ser el seguro. «Eliminar» va en `tinted` con rol destructivo, y «Cancelar» recibe el foco.
+- **Enter es del principal.** Por eso el principal no puede destruir.
+- **Con espacio alrededor.** 44 px de área de toque, y `space-8` entre botones.
+- **Mientras trabaja, lo dice en el botón:** «Pagando…», con su indicador.
+
+El orden es el de Apple, y se nota a simple vista: cada peso contrasta menos con el fondo que el anterior. El `gray` es un gris tenue y neutro, igual en todas las entidades. Hasta octubre de 2026 era un relleno sólido y oscuro que en el tema claro pesaba más que el botón principal; por eso se cambió.
+
+La marca en su paso más oscuro sigue existiendo como color (`interactive-02`), para acentos profundos. Ya no es un botón.
+
+### Los márgenes
+
+El espacio dice qué va con qué. Mientras más relacionadas dos cosas, más cerca.
+
+| Relación | Espacio | Ejemplo |
+|---|---|---|
+| Partes de una misma cosa | `space-4` | Un ícono y su texto. El nombre de un dato y su valor apilados. |
+| Cosas relacionadas | `space-8` | Un título y su bajada. Un campo y su ayuda. Dos botones. |
+| Elementos de un grupo | `space-16` | Campos de un formulario. Filas de datos. El borde de una pieza chica. |
+| Grupos | `space-24` | Dos grupos de campos. El borde de una tarjeta o un panel. |
+| Secciones | `space-32` o más | Dos secciones de una página. |
+
+Reglas:
+
+- **Lo de adentro va más junto que lo de afuera.** El espacio entre las partes de una tarjeta es menor que su margen. Si es igual, la tarjeta se deshace.
+- **Un margen por contenedor.** Todo lo que está dentro de una pieza parte del mismo borde izquierdo: título, texto, botones. Un botón que empieza 8 px más adentro que el título se nota.
+- **Alinea por el texto, no por la caja.** Un botón `plain` tiene relleno invisible: se corre hacia afuera para que su texto calce con el del párrafo.
+- **Radios concéntricos.** Una forma dentro de otra lleva el radio de afuera menos el margen. Dentro de un panel de radio 16 con margen 8, lo de adentro lleva radio 8. Un radio interior mayor que el exterior se ve hinchado.
+- **Lo importante arriba y al inicio.** Se lee de arriba abajo y de izquierda a derecha.
+- **La sangría dice jerarquía.** Algo corrido hacia adentro depende de lo de arriba. No la uses para decorar.
+- **Agrupa con espacio antes que con líneas.** Una línea o una caja, solo cuando el espacio no alcanza.
+
+### Lista de comprobación
+
+- ¿Se nota cuál es el dato principal sin leer?
+- ¿Hay un solo botón `filled`?
+- ¿El botón más visible es seguro?
+- ¿Todo parte del mismo borde izquierdo?
+- ¿El espacio dentro de cada grupo es menor que el espacio entre grupos?
+- ¿Algún radio interior es mayor que el de su contenedor?
+- ¿Se entiende igual en el tema claro?
+
+### Relacionados
+
+`Button` · Color · Espaciado · Tipografía · Profundidad · Acciones · Formularios.
+
+### Referencias
+
+- Apple, Human Interface Guidelines: Layout, Typography, Color, Buttons, Materials.

@@ -51,7 +51,7 @@ Para ajustar un componente, cambia su token de componente, nunca el semántico: 
 | Bordes | `border-subtle`, `border-control` | El borde sutil separa contenedores; el de control marca campos y selectores (3:1). |
 | Texto | `text-01` a `text-05`, `text-error`, `text-on-interactive` | Principal, secundario, desactivado, sobre colores. |
 | Íconos | `icon-01` a `icon-03` | Principal, secundario, sobre colores. |
-| Acción | `interactive-01` a `interactive-04` | {V:acento} para la acción principal, {v:acento} muy oscuro y apagado para la secundaria, y el color de acción para el contorno de la terciaria y lo elegido. |
+| Acción | `interactive-01` a `interactive-04` | {V:acento} para la acción principal, {v:acento} muy oscuro y apagado para acentos profundos, y el color de acción para el contorno de la terciaria y lo elegido. |
 | Estados de interacción | `hover-*`, `active-*`, `selected-ui`, `focus` | Encima, presionado, elegido y foco. |
 | Estados del sistema | `support-01` a `support-04` | Error, éxito, advertencia, información. |
 | Inversos | `inverse-01`, `inverse-02`, `inverse-support-*` | Superficies que invierten el tema, como el tooltip. |

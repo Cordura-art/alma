@@ -30,8 +30,8 @@ El estilo marca la prominencia. Usa el de más énfasis solo para la acción que
 |---|---|---|
 | `filled` | Alto | La acción principal de la vista. Fondo azul (`interactive-01`). Una por vista; como máximo dos si son equivalentes. |
 | `tinted` | Medio | Una acción secundaria importante junto a la principal, o la principal de una sección cuando la vista ya tiene una `filled`. |
-| `gray` | Medio | Acciones neutras: «Cancelar», «Volver», «Ver detalles». Fondo azul muy oscuro y apagado (`interactive-02`), con texto blanco. |
-| `tertiary` | Medio-bajo | Una acción alternativa con contorno, cuando `gray` se confunde con el fondo. Viene del theme de origen de Cordura (`interactive-03`). |
+| `gray` | Medio-bajo | Acciones neutras: «Cancelar», «Volver», «Ver detalles». Un relleno gris tenue, con el color del texto. Es el de menos peso entre los que tienen fondo. |
+| `tertiary` | Medio-bajo | Una acción alternativa con contorno, cuando `gray` se pierde sobre el fondo. Viene del theme de origen de Cordura (`interactive-03`). |
 | `plain` | Bajo | Acciones de poco peso o muy repetidas: en tablas, barras de herramientas, tarjetas y como «Omitir». Solo texto. |
 | `ghost` | Especial | Sobre imágenes o fondos claros de marca. |
 | `inverse` | Especial | Sobre piezas de marca oscuras. |

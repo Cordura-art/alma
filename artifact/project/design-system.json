@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-10-08T19:12:48.248Z",
+    "at": "2026-10-08T21:14:28.290Z",
     "via": "Claude Code",
-    "note": "Interfaces de IA: cuatro componentes (AILabel, PromptInput, ChatMessage, SourceList), la presencia en los efectos, y la guía repartida en seis pestañas"
+    "note": "El botón gray pasa a ser un gris neutro y tenue, en ALMA y en todas las entidades"
   },
   "layout": "files",
   "libraries": [

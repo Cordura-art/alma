@@ -1,0 +1,12 @@
+<!-- @dsCard group="Entorno" height=520 subtitle="El marco de una app: barra con controles y título, y cuerpo · activa e inactiva" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  function cuerpo() { return h('div', { style: { padding: '16px', display: 'grid', gap: '16px' } }, h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' })); }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(A.Window, { title: 'Viajes', defaultSize: { w: 360 }, onClose: function () {}, toolbar: h(A.Button, { variant: 'plain', icon: 'search', 'aria-label': 'Buscar' }), bottomBar: '1 viaje' }, cuerpo()),
+    h(A.Window, { title: 'Viajes · inactiva', active: false, defaultSize: { w: 360 }, onClose: function () {} }, cuerpo()),
+    h(A.Window, { title: 'Detalle', kind: 'panel', defaultSize: { w: 240 }, onClose: function () {} }, h('dl', { className: 'web-body-s', style: { margin: 0, padding: '8px 16px 16px', display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '8px 16px' } }, h('dt', { style: { color: 'var(--text-02)' } }, 'Asiento'), h('dd', { style: { margin: 0 } }, '14'), h('dt', { style: { color: 'var(--text-02)' } }, 'Andén'), h('dd', { style: { margin: 0 } }, '4')))));
+</script>

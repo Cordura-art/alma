@@ -810,3 +810,219 @@ button.alma-ailabel { font-family: inherit; }
 .alma-prompt__send { flex: none; }
 .alma-prompt__note { margin: 0; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); }
 .alma-prompt__before { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+
+/* ---------- Menus (Apple HIG › Menus): separators, titles, checked items, shortcuts, one level of submenu ---------- */
+.alma-menu.is-up { top: auto; bottom: calc(100% + var(--space-8)); }
+.alma-menu.is-end { left: auto; right: 0; }
+.alma-menu__list { max-height: min(24rem, calc(100vh - 2rem)); max-height: min(24rem, calc(100dvh - 2rem)); overflow-y: auto; }
+.alma-menu__title { margin: 0 0 var(--space-4); padding: var(--space-8) var(--space-16) var(--space-4); font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); }
+.alma-menu__group { padding: var(--space-8) var(--space-16) 0; font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); }
+.alma-menu__sep { height: 1px; margin: var(--space-4) var(--space-8); background: var(--menu-border); }
+.alma-menu__text { flex: 1; min-width: 0; }
+.alma-menu__key { flex: none; margin-left: var(--space-16); font-size: 0.75rem; letter-spacing: 0.18px; color: var(--text-02); font-variant-numeric: tabular-nums; }
+.alma-menu__more { flex: none; margin-right: calc(var(--space-8) * -1); color: var(--icon-02); }
+.alma-menu__item.is-open { background: var(--menu-item-bg-hover); }
+.alma-menu--sub { top: 0; left: calc(100% - var(--space-4)); min-width: 10rem; }
+.alma-menu--sub.is-end { left: auto; right: calc(100% - var(--space-4)); }
+.alma-menu--point { position: fixed; min-width: 12rem; }
+.alma-context { -webkit-touch-callout: none; }
+.alma-context__layer { position: fixed; inset: 0 auto auto 0; z-index: var(--z-floating); }
+
+/* ---------- ActionSheet (Apple HIG › Action sheets) ---------- */
+.alma-overlay--asheet { align-items: flex-end; }
+.alma-asheet { display: grid; gap: var(--space-8); width: 100%; max-width: 24rem; box-sizing: border-box; padding: var(--space-16); border-radius: var(--radius-panel); background: var(--alert-bg); border: 1px solid var(--alert-border); color: var(--text-01); outline: none; animation: alma-invoke var(--duration-moderate-02) var(--easing-entrance-expressive) both; }
+.alma-asheet__head { display: grid; gap: var(--space-4); padding: var(--space-8) var(--space-8) var(--space-16); text-align: center; }
+.alma-asheet__title { margin: 0; font-size: 1rem; line-height: 1.4; font-weight: var(--font-weight-emphasis); text-wrap: balance; }
+.alma-asheet__msg { margin: 0; font-size: 0.875rem; line-height: 1.5; letter-spacing: 0.14px; color: var(--text-02); }
+.alma-asheet__actions { display: grid; gap: var(--space-8); }
+.alma-asheet__btn { width: 100%; }
+.alma-asheet__cancel { margin-top: var(--space-8); }
+@media (min-width: 672px) { .alma-overlay--asheet { align-items: center; } }
+
+/* ---------- Glass (foundation «Profundidad»): the surface of the functional layer ---------- */
+/* What is behind passes through, blurred. Each thickness is how much of the surface's own colour stays (tokens glass-*).
+   From thin on, the text's contrast holds over anything. Where transparency cannot be had, or is not wanted, it is opaque. */
+.alma-glass { --alma-glass: var(--glass-regular); background: color-mix(in srgb, var(--ui-01) calc(var(--alma-glass) * 100%), transparent); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); border: 1px solid var(--border-subtle); color: var(--text-01); }
+.alma-glass--ultra-thin { --alma-glass: var(--glass-ultra-thin); }
+.alma-glass--thin { --alma-glass: var(--glass-thin); }
+.alma-glass--thick { --alma-glass: var(--glass-thick); }
+[data-theme$="-hc"] .alma-glass { background: var(--ui-01); -webkit-backdrop-filter: none; backdrop-filter: none; }
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) { .alma-glass { background: var(--ui-01); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .alma-glass { background: var(--ui-01); } }
+
+/* ---------- The environment (pattern «Entorno»): Desktop, Window, MenuBar, Dock ---------- */
+.alma-desktop { position: relative; isolation: isolate; overflow: hidden; min-height: 30rem; background: var(--ui-02); color: var(--text-01); }
+.alma-desktop__wall { position: absolute; inset: 0; z-index: 0; }
+.alma-desktop__wall > * { position: absolute; inset: 0; }
+.alma-desktop__stage { position: absolute; inset: 0; z-index: 1; }
+.alma-desktop.has-bar .alma-desktop__stage { top: 2rem; }
+
+.alma-window { position: absolute; display: flex; flex-direction: column; min-width: 0; box-sizing: border-box; border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); background: var(--ui-02); color: var(--text-01); outline: none; }
+.alma-window.is-active { border-color: var(--border-control); box-shadow: var(--shadow-floating); }
+.alma-window.is-still { position: relative; }
+.alma-window.is-full { inset: 0; border-radius: 0; border-width: 0; }
+.alma-desktop.has-dock .alma-window.is-full { bottom: 5rem; border-bottom-width: 1px; }
+.alma-window:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-window__bar { position: relative; flex: none; display: flex; align-items: center; gap: var(--space-8); min-height: 2.5rem; padding: 0 var(--space-8); box-sizing: border-box; border-width: 0 0 1px; border-radius: calc(var(--radius-panel) - 1px) calc(var(--radius-panel) - 1px) 0 0; background: var(--ui-01); border-bottom: 1px solid var(--border-subtle); color: var(--text-02); touch-action: none; -webkit-user-select: none; user-select: none; }
+.alma-window.is-full .alma-window__bar { border-radius: 0; }
+.alma-window.is-active .alma-window__bar { color: var(--text-01); }
+.alma-window__bar.alma-glass { border-width: 0 0 1px; }
+.alma-window__bar:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-window__ctls { display: flex; gap: var(--space-4); flex: none; }
+.alma-window__ctl { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; padding: 0; border: 0; border-radius: var(--radius-chip); background: transparent; color: var(--icon-02); cursor: pointer; }
+.alma-window.is-active .alma-window__ctl { color: var(--icon-01); }
+.alma-window__ctl:hover { background: var(--hover-ui); }
+.alma-window__ctl:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.alma-window__title { flex: 1; min-width: 0; margin: 0; font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; font-weight: var(--font-weight-emphasis); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alma-window__tools { display: flex; align-items: center; gap: var(--space-4); flex: none; }
+.alma-window__ctls:empty + .alma-window__title { text-align: left; padding-left: var(--space-8); }
+.alma-window__body { flex: 1; min-height: 0; overflow: auto; border-radius: 0 0 calc(var(--radius-panel) - 1px) calc(var(--radius-panel) - 1px); }
+.alma-window__foot { flex: none; padding: var(--space-4) var(--space-16); border-top: 1px solid var(--border-subtle); font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); }
+.alma-window--panel { border-radius: var(--radius-panel); }
+.alma-window--panel .alma-window__bar { min-height: 2rem; background: transparent; }
+.alma-window--panel .alma-window__body { background: transparent; }
+.alma-window__grip { position: absolute; touch-action: none; }
+.alma-window__grip--e { top: 8px; bottom: 8px; right: -4px; width: 8px; cursor: ew-resize; }
+.alma-window__grip--w { top: 8px; bottom: 8px; left: -4px; width: 8px; cursor: ew-resize; }
+.alma-window__grip--s { left: 8px; right: 8px; bottom: -4px; height: 8px; cursor: ns-resize; }
+.alma-window__grip--se { right: -4px; bottom: -4px; width: 16px; height: 16px; cursor: nwse-resize; }
+.alma-window__grip--sw { left: -4px; bottom: -4px; width: 16px; height: 16px; cursor: nesw-resize; }
+
+.alma-menubar { position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); height: 2rem; padding: 0 var(--space-8); box-sizing: border-box; border-width: 0 0 1px; font-size: 0.875rem; letter-spacing: 0.14px; }
+.alma-menubar__menus { display: flex; align-items: center; margin: 0; padding: 0; list-style: none; min-width: 0; }
+.alma-menubar__item { position: relative; }
+.alma-menubar__title { height: 1.5rem; padding: 0 var(--space-8); border: 0; border-radius: var(--radius-chip); background: transparent; color: var(--text-01); font: inherit; white-space: nowrap; cursor: default; }
+.alma-menubar__title.is-app { font-weight: var(--font-weight-emphasis); }
+.alma-menubar__title:hover, .alma-menubar__title.is-open { background: var(--hover-ui); }
+.alma-menubar__title:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-menubar .alma-menu { top: calc(100% + var(--space-4)); min-width: 12rem; }
+.alma-menubar__extras { display: flex; align-items: center; gap: var(--space-8); flex: none; }
+.alma-menubar__extra { display: inline-flex; align-items: center; gap: var(--space-4); height: 1.5rem; color: var(--text-01); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.alma-menubar__btn { padding: 0 var(--space-4); min-width: 1.5rem; justify-content: center; border: 0; border-radius: var(--radius-chip); background: transparent; font: inherit; cursor: pointer; }
+.alma-menubar__btn:hover { background: var(--hover-ui); }
+.alma-menubar__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-menubar__extras .alma-popup__btn { min-width: 1.5rem; min-height: 1.5rem; height: 1.5rem; padding: 0 var(--space-4); border-color: transparent; border-radius: var(--radius-chip); background: transparent; }
+.alma-menubar__extras .alma-menu { left: auto; right: 0; top: calc(100% + var(--space-4)); }
+.alma-desktop.is-compact .alma-menubar__item:not(:first-child) { display: none; }
+
+.alma-dock { position: absolute; left: 50%; bottom: var(--space-8); z-index: 3; transform: translateX(-50%); display: flex; align-items: flex-start; gap: var(--space-8); max-width: calc(100% - var(--space-16)); padding: var(--space-8) var(--space-8) var(--space-4); box-sizing: border-box; border-radius: calc(var(--radius-panel) * 2); box-shadow: var(--shadow-floating); overflow-x: auto; }
+.alma-dock__slot { display: inline-flex; flex: none; }
+.alma-dock__app { position: relative; display: grid; justify-items: center; gap: var(--space-4); padding: 0; border: 0; background: transparent; color: var(--text-01); cursor: pointer; border-radius: var(--radius-panel); }
+.alma-dock__tile { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: var(--radius-panel); background: var(--ui-03); color: var(--icon-01); transition: transform var(--duration-fast-02) var(--easing-standard-productive); }
+.alma-dock__app:hover .alma-dock__tile { background: var(--hover-ui); }
+.alma-dock__app:active .alma-dock__tile { transform: scale(0.94); }
+.alma-dock__app.is-active .alma-dock__tile { color: var(--interactive-01); }
+.alma-dock__app:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-dock__dot { width: 4px; height: 4px; border-radius: 50%; background: transparent; }
+.alma-dock__app.is-running .alma-dock__dot { background: var(--text-01); }
+.alma-dock__badge { position: absolute; top: -4px; right: -4px; min-width: 1.125rem; height: 1.125rem; padding: 0 var(--space-4); box-sizing: border-box; display: grid; place-items: center; border-radius: var(--radius-pill); background: var(--interactive-01); color: var(--text-on-interactive); font-size: 0.6875rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.alma-dock__sep { align-self: stretch; width: 1px; margin: var(--space-4) 0 var(--space-8); background: var(--border-subtle); }
+@media (prefers-reduced-motion: reduce) { .alma-dock__tile { transition: none; } }
+
+/* ---------- At a glance: Widget, LiveActivity, Snippet ---------- */
+.alma-widgets { display: grid; grid-template-columns: repeat(auto-fill, 10rem); grid-auto-rows: 10rem; gap: var(--space-16); }
+.alma-widget { position: relative; display: flex; flex-direction: column; gap: var(--space-8); min-width: 0; padding: var(--space-16); box-sizing: border-box; border-radius: calc(var(--radius-panel) * 2); overflow: hidden; }
+.alma-widget--sm { width: 10rem; height: 10rem; }
+.alma-widget--md { width: 21rem; height: 10rem; grid-column: span 2; }
+.alma-widget--lg { width: 21rem; height: 21rem; grid-column: span 2; grid-row: span 2; }
+.alma-widget--xl { width: 43rem; height: 21rem; grid-column: span 4; grid-row: span 2; }
+.alma-widgets .alma-widget { width: auto; height: auto; }
+.alma-widget__head { display: flex; align-items: center; gap: var(--space-4); flex: none; color: var(--text-02); }
+.alma-widget__title { margin: 0; font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; font-weight: var(--font-weight-emphasis); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alma-widget__body { flex: 1; min-height: 0; display: grid; align-content: start; gap: var(--space-4); overflow: hidden; }
+.alma-widget__body > :where(p, h4) { margin: 0; }
+.alma-widget__when { flex: none; margin: 0; font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); }
+.alma-widget__open { position: absolute; inset: 0; padding: 0; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
+.alma-widget__open:hover { background: color-mix(in srgb, var(--text-01) 6%, transparent); }
+.alma-widget__open:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.alma-widget :where(button, a):not(.alma-widget__open) { position: relative; z-index: 1; }
+.alma-widget__figure { font-size: 2rem; line-height: 1.2; font-weight: var(--font-weight-heading); font-variant-numeric: tabular-nums; }
+
+.alma-live { position: relative; display: inline-block; }
+.alma-live__pill { display: inline-flex; align-items: center; gap: var(--space-8); height: 1.5rem; padding: 0 var(--space-8); border: 0; border-radius: var(--radius-pill); background: var(--ui-03); color: var(--text-01); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; white-space: nowrap; cursor: pointer; }
+.alma-live__pill.is-minimal { padding: 0 var(--space-4); }
+.alma-live__pill:hover { background: var(--hover-ui); }
+.alma-live__pill:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-live__figure { font-weight: var(--font-weight-emphasis); font-variant-numeric: tabular-nums; }
+.alma-live__ring { width: 1rem; height: 1rem; flex: none; border-radius: 50%; background: conic-gradient(var(--interactive-01) calc(var(--p) * 1%), var(--border-control) 0); -webkit-mask: radial-gradient(farthest-side, transparent 55%, black 56%); mask: radial-gradient(farthest-side, transparent 55%, black 56%); }
+.alma-live__panel { display: grid; gap: var(--space-16); width: 20rem; max-width: calc(100vw - 2rem); padding: var(--space-16); box-sizing: border-box; color: var(--text-01); }
+.alma-live:not(.alma-live--still) > .alma-live__panel { position: absolute; top: calc(100% + var(--space-8)); right: 0; z-index: var(--z-floating); border-radius: calc(var(--radius-panel) * 2); box-shadow: var(--shadow-floating); }
+.alma-live--still { display: block; width: 20rem; max-width: 100%; border-radius: calc(var(--radius-panel) * 2); }
+.alma-live--still .alma-live__panel { width: auto; }
+.alma-live__top { display: flex; align-items: center; gap: var(--space-8); }
+.alma-live__names { flex: 1; min-width: 0; }
+.alma-live__label { margin: 0; font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; font-weight: var(--font-weight-emphasis); }
+.alma-live__detail { margin: 0; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); }
+.alma-live__value { margin: 0; font-size: 1.25rem; line-height: 1.2; font-weight: var(--font-weight-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.alma-live__steps { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-8); font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; }
+.alma-live__step { display: grid; grid-template-columns: 1rem 1fr; gap: var(--space-8); align-items: center; color: var(--text-02); }
+.alma-live__step.is-current, .alma-live__step.is-done { color: var(--text-01); }
+.alma-live__step .alma-btn__spinner { width: 1rem; height: 1rem; color: var(--interactive-01); }
+.alma-live__todo { width: 0.5rem; height: 0.5rem; margin: 0 0.25rem; border-radius: 50%; border: 1px solid var(--border-control); box-sizing: border-box; }
+.alma-live__actions { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+
+.alma-snippet { display: grid; gap: var(--space-16); width: 100%; max-width: 24rem; padding: var(--space-16); box-sizing: border-box; border-radius: calc(var(--radius-panel) * 2); }
+.alma-snippet__say { margin: 0; font-size: 0.875rem; line-height: 1.5; letter-spacing: 0.14px; }
+.alma-snippet__head { display: flex; align-items: center; gap: var(--space-8); }
+.alma-snippet__names { flex: 1; min-width: 0; }
+.alma-snippet__source { margin: 0; font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); }
+.alma-snippet__title { margin: 0; font-size: 1rem; line-height: 1.4; font-weight: var(--font-weight-emphasis); text-wrap: balance; }
+.alma-snippet__body { max-height: 25rem; overflow: auto; font-size: 0.875rem; line-height: 1.5; letter-spacing: 0.14px; }
+.alma-snippet__body:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-snippet__actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-8); }
+.alma-snippet__actions:empty { display: none; }
+
+/* ---------- DigitEntry, TokenField, Gauge, Rating (text and margins by pattern «Jerarquía») ---------- */
+.alma-field__foot { color: var(--text-02); }   /* a help is the second level of text; an error keeps its own colour */
+.alma-field--error .alma-field__help { color: var(--field-text-error); }
+
+.alma-digits { display: grid; gap: var(--space-8); justify-items: start; }
+.alma-digits__label { font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; color: var(--text-01); }
+.alma-digits__row { position: relative; display: grid; grid-template-columns: repeat(var(--n), 3rem); gap: var(--space-8); }
+.alma-digits__box { display: grid; place-items: center; height: var(--size-field); box-sizing: border-box; border: 1px solid var(--field-border); border-radius: var(--radius-field); color: var(--field-text); font-size: 1.5rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.alma-digits__row.has-focus .alma-digits__box.is-current { border-width: 2px; outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-digits__input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: transparent; color: transparent; caret-color: transparent; font-size: 1rem; outline: none; cursor: text; letter-spacing: 2rem; }
+.alma-digits__help { display: flex; align-items: center; gap: var(--space-4); margin: 0; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); }
+.alma-digits.is-error .alma-digits__box { border-color: var(--field-border-error); }
+.alma-digits.is-error .alma-digits__help { color: var(--field-text-error); }
+.alma-digits.is-disabled { opacity: .45; }
+
+.alma-tokens { width: 100%; max-width: 30rem; }
+.alma-tokens .alma-field__box { position: relative; flex-wrap: wrap; align-items: center; gap: var(--space-8); min-height: var(--alma-field); padding: var(--space-8) var(--space-16); }
+.alma-tokens .alma-field__box:focus-within { padding: 7px 15px; }
+.alma-tokens__list { display: contents; margin: 0; padding: 0; list-style: none; }
+.alma-tokens__list > li { display: inline-flex; }
+.alma-tokens__input { flex: 1 1 6rem; min-width: 6rem; min-height: 2rem; }
+.alma-tokens .alma-field__box:not(:focus-within) .alma-tokens__input::placeholder { color: var(--field-placeholder); }
+.alma-tokens__menu { top: calc(100% + var(--space-4)); left: 0; right: 0; width: auto; max-width: none; margin: 0; list-style: none; display: grid; gap: var(--space-4); }
+
+.alma-gauge { display: grid; gap: var(--space-8); min-width: 10rem; color: var(--text-01); --alma-gauge: var(--interactive-01); }
+.alma-gauge.is-warning { --alma-gauge: var(--status-icon-warning); } .alma-gauge.is-error { --alma-gauge: var(--status-icon-error); } .alma-gauge.is-success { --alma-gauge: var(--status-icon-success); }
+.alma-gauge__top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-16); }
+.alma-gauge__name { font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; color: var(--text-02); }
+.alma-gauge__value { font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; font-weight: var(--font-weight-emphasis); font-variant-numeric: tabular-nums; }
+.alma-gauge > .alma-gauge__track { position: relative; height: 0.5rem; border-radius: var(--radius-pill); background: var(--border-control); }
+.alma-gauge__fill { height: 100%; border-radius: inherit; background: var(--alma-gauge); }
+.alma-gauge > .alma-gauge__track > .alma-gauge__mark { position: absolute; top: 50%; width: 1rem; height: 1rem; border-radius: 50%; transform: translate(-50%, -50%); background: var(--alma-gauge); box-shadow: 0 0 0 2px var(--ui-01); }
+.alma-gauge__ends { display: flex; justify-content: space-between; font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); font-variant-numeric: tabular-nums; }
+.alma-gauge--circular { position: relative; display: block; min-width: 0; }
+.alma-gauge__dial { display: block; }
+.alma-gauge__dial .alma-gauge__track { stroke: var(--border-control); }
+.alma-gauge__dial .alma-gauge__fill { stroke: var(--alma-gauge); }
+.alma-gauge__dial .alma-gauge__mark { fill: var(--alma-gauge); stroke: var(--ui-01); stroke-width: 2; }
+.alma-gauge__center { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 2px; text-align: center; }
+.alma-gauge--circular .alma-gauge__value { font-size: 1.125rem; font-weight: var(--font-weight-heading); }
+.alma-gauge--circular .alma-gauge__name { font-size: 0.6875rem; letter-spacing: 0.165px; }
+
+.alma-rating { display: inline-flex; align-items: center; gap: var(--space-8); color: var(--text-01); font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; }
+.alma-rating--sm { gap: var(--space-4); font-size: 0.75rem; letter-spacing: 0.18px; }
+.alma-rating__stars { display: inline-flex; gap: 2px; }
+.alma-rating__star { color: var(--border-control); }
+.alma-rating__star.is-on { color: var(--text-01); }
+.alma-rating__value { font-weight: var(--font-weight-emphasis); font-variant-numeric: tabular-nums; }
+.alma-rating__count { color: var(--text-02); font-variant-numeric: tabular-nums; }
+/* the first star lines up with the text above it: the touch area is wider than the star */
+.alma-rating--input { gap: 0; margin-left: calc((var(--alma-control) - 1.25rem) / -2); }
+.alma-rating__btn { display: grid; place-items: center; width: var(--alma-control); height: var(--alma-control); padding: 0; border: 0; border-radius: var(--radius-chip); background: transparent; cursor: pointer; }
+.alma-rating__btn:hover .alma-rating__star { color: var(--text-01); }
+.alma-rating__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }

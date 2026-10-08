@@ -67,7 +67,7 @@ La persona puede detener en cualquiera de ellos.
 
 ## Trabajando por pasos
 
-Cuando la IA hace varias cosas seguidas, se muestran como lista.
+Cuando la IA hace varias cosas seguidas, se muestran como lista. Es el componente `LiveActivity`, con `steps`.
 
 - Cada paso tiene su estado: hecho (`checkmark--filled`), en curso (`ActivityIndicator`) o por hacer.
 - El nombre dice lo que hace, en infinitivo o en gerundio, siempre igual: «Buscar tu pasaje», «Revisar los cambios permitidos».

@@ -71,6 +71,8 @@ Dos partes viven en su propia guía, junto a lo demás de su tema: **Contenido �
 | `PromptInput` | La caja de pedido, con enviar y detener. | Componentes › IA |
 | `ChatMessage` | Un turno de la conversación, con sus estados. | Componentes › IA |
 | `SourceList` | La lista de fuentes, y `SourceRef`, el número junto a la frase. | Componentes › IA |
+| `Snippet` | La respuesta como tarjeta: un resultado, o el permiso de un agente. | Componentes › IA |
+| `LiveActivity` | La tarea larga de un agente, con sus pasos y «Detener». | Componentes › Entorno |
 | `AlmaEfectos.presencia` | El Velo y el Halo juntos, con los estados del Halo. | Efectos |
 
 Lo demás es ALMA de siempre: `Button`, `Tag`, `Sheet`, `InlineNotification`, `ToastRegion` y los patrones Deshacer, Diálogos y Carga.
@@ -478,7 +480,7 @@ La persona puede detener en cualquiera de ellos.
 
 ### Trabajando por pasos
 
-Cuando la IA hace varias cosas seguidas, se muestran como lista.
+Cuando la IA hace varias cosas seguidas, se muestran como lista. Es el componente `LiveActivity`, con `steps`.
 
 - Cada paso tiene su estado: hecho (`checkmark--filled`), en curso (`ActivityIndicator`) o por hacer.
 - El nombre dice lo que hace, en infinitivo o en gerundio, siempre igual: «Buscar tu pasaje», «Revisar los cambios permitidos».
@@ -557,7 +559,7 @@ Dentro de un campo, una sugerencia de completado va en `text-03`, después del c
 
 ### Un permiso
 
-Antes de algo que no se puede deshacer, la IA se detiene y lo dice. Se arma con el patrón Diálogos.
+Antes de algo que no se puede deshacer, la IA se detiene y lo dice. Es un `Snippet` de confirmación.
 
 - **Qué va a hacer**, con los datos exactos: «Cambiar tu pasaje del lunes 30 al martes 31, 08:30».
 - **Qué cambia y qué cuesta**: «Se cobra una diferencia de $2.500».
@@ -586,7 +588,7 @@ Cuando la IA reescribe algo de la persona, lo original no se pierde.
 Un agente hace varios pasos sin que se le pida cada uno. Pide más cuidado que todo lo anterior.
 
 1. **Muestra el plan antes de empezar.** Los pasos que va a dar, en palabras simples. La persona puede cambiarlo o cancelarlo.
-2. **Muestra el avance.** La lista de pasos, con cuál va. Ver Estados.
+2. **Muestra el avance.** La lista de pasos, con cuál va. Es una `LiveActivity`, que se sigue aunque su ventana esté cerrada. Ver Estados.
 3. **Se detiene ante lo que no se deshace.** Pide permiso en ese paso, no al principio por todo.
 4. **Se puede parar siempre.** «Detener» está a la vista de principio a fin. Al parar, dice qué alcanzó a hacer y qué quedó sin hacer.
 5. **Se puede tomar el control.** La persona puede seguir a mano desde donde quedó.

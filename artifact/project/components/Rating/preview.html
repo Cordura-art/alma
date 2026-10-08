@@ -1,0 +1,14 @@
+<!-- @dsCard group="Estados" height=320 subtitle="Cómo se valoró algo · y las estrellas para valorarlo" -->
+<div id="root" style="padding:24px;display:grid;gap:24px;justify-items:start;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty("background", "var(--ui-02)", "important");
+  var h = React.createElement, A = AlmaDS;
+  function App() { var v = React.useState(0);
+    return h(React.Fragment, null,
+      h(A.Rating, { value: 4.5, showValue: true, count: 1284 }),
+      h(A.Rating, { value: 3, size: 'sm', count: 12 }),
+      h('div', { style: { display: 'grid', gap: '8px' } }, h('p', { className: 'web-label-m', style: { margin: 0 } }, '¿Cómo estuvo tu viaje?'), h(A.Rating, { label: 'Valora tu viaje', value: v[0], onChange: v[1] }),
+        h('p', { className: 'web-body-s', role: 'status', style: { margin: 0, color: 'var(--text-02)' } }, v[0] ? 'Elegiste ' + v[0] + ' de 5.' : 'Aún sin valorar.'))); }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

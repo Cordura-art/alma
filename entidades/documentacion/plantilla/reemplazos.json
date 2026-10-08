@@ -28,8 +28,7 @@
   ["entran separados por 20 ms", "entran separados por {token:duration-stagger}"],
   ["La línea azul que termina en verde.", "La línea {v:acento} que termina en verde."],
   ["son píldoras con la etiqueta flotante.", "llevan la etiqueta flotante.", "!pildora"],
-  ["Campo en píldora · etiqueta flotante", "Campo de {v:forma} · etiqueta flotante", "!pildora"],
-  ["Fondo azul muy oscuro y apagado (`interactive-02`), con texto blanco.", "Fondo {v:acento} muy oscuro y apagado (`interactive-02`), con texto blanco."]
+  ["Campo en píldora · etiqueta flotante", "Campo de {v:forma} · etiqueta flotante", "!pildora"]
  ],
  "vigentes": [
   "una píldora más ancha",

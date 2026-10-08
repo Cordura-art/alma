@@ -772,4 +772,119 @@ export const componentScenes = [
     'Anatomía de ScatterChart: el título con la conclusión (1), la bajada (2), el botón «Ver como tabla» (3), el nombre de un eje con su unidad (4), los puntos, dos de ellos con su nombre al lado (5), y el detalle abierto sobre el punto de Concepción (7). La leyenda (6) no aparece: todos los puntos son de un mismo grupo.',
     { js: `mount(h('div', { style: { width: '40rem', padding: '24px 56px 8px' } }, h(A.ScatterChart, { title: 'Mientras más lejos, más caro: unos 28 pesos por kilómetro', description: 'Precio del pasaje semicama según la distancia desde Santiago', points: [{ label: 'Rancagua', x: 87, y: 4200 }, { label: 'Viña del Mar', x: 120, y: 7000 }, { label: 'Talca', x: 255, y: 9800 }, { label: 'Chillán', x: 400, y: 13500 }, { label: 'Concepción', x: 500, y: 15900 }, { label: 'Temuco', x: 680, y: 19800 }, { label: 'Valdivia', x: 840, y: 26500 }, { label: 'Osorno', x: 930, y: 25400 }, { label: 'Puerto Montt', x: 1030, y: 28900 }], xLabel: 'Distancia', xUnit: 'km', yLabel: 'Precio', yUnit: 'pesos', labelled: ['Valdivia', 'Viña del Mar'] })));`,
       after: `var p = $('.alma-chart__plot'); var K = ["ArrowRight","ArrowRight","ArrowRight","ArrowRight","ArrowRight"]; for (var i = 0; i < K.length; i++) { p.dispatchEvent(new KeyboardEvent('keydown', { key: K[i], bubbles: true })); await sleep(80); } await sleep(200); var ej = all('.alma-chart__axis'); num($('.alma-chart__title'), 1, 'left'); num($('.alma-chart__desc'), 2, 'left'); num($('.alma-chart__head .alma-btn'), 3, 'right'); num(ej[ej.length - 1], 4, 'right'); num($('.alma-chart__name'), 5, 'right'); num($('.alma-chart__tip'), 7, 'top');` }),
+
+  // ---------- Menus ----------
+  scene('pull-down-button', 'usage', 'grupos, submenú e ítems marcados', 'pull-down-button-submenu',
+    'Un PullDownButton «Ver» abierto, con el título «Mis viajes». El ítem «Ordenar por» tiene una flecha y su submenú abierto al lado, con «Fecha» marcada. Debajo, «Solo los pagados» con un visto, un separador y «Actualizar» con su atajo Ctrl+R a la derecha.',
+    { click: '.alma-popup__btn',
+      js: `mount(h('div', { style: { padding: '8px 380px 260px 8px' } }, h(A.PullDownButton, { label: 'Ver', title: 'Mis viajes', actions: [
+        { value: 'orden', label: 'Ordenar por', items: [{ value: 'fecha', label: 'Fecha', checked: true, radio: true }, { value: 'precio', label: 'Precio', checked: false, radio: true }, { value: 'destino', label: 'Destino', checked: false, radio: true }] },
+        { value: 'solo', label: 'Solo los pagados', checked: true }, '-', { value: 'actualizar', label: 'Actualizar', shortcut: 'Ctrl+R' }] })));`,
+      after: `await sleep(150); $('.alma-menu__list').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true })); await sleep(200); if (document.activeElement) document.activeElement.blur();` }),
+
+  scene('context-menu', 'usage', 'el menú abierto sobre un viaje', 'context-menu-anatomia',
+    'Anatomía de ContextMenu: una tarjeta de viaje (1) y, sobre ella, el menú abierto (2) con «Ver pasaje», «Compartir» y «Cambiar fecha…» en un grupo (3) y, separada y en rojo, «Anular viaje» (4).',
+    { js: `mount(h('div', { style: { padding: '8px 200px 200px 56px' } }, h(A.ContextMenu, { label: 'Acciones del viaje', items: [{ value: 'ver', label: 'Ver pasaje', icon: 'ticket' }, { value: 'compartir', label: 'Compartir', icon: 'share' }, { value: 'cambiar', label: 'Cambiar fecha…', icon: 'calendar' }, '-', { value: 'anular', label: 'Anular viaje', icon: 'trash-can', role: 'destructive' }] },
+        h('div', { tabIndex: 0, style: { width: '22rem' } }, h(A.Card, { headingLevel: 2, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' })))));`,
+      after: `var c = $('.alma-card'), r = c.getBoundingClientRect(); c.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: r.left + 150, clientY: r.top + 60 })); await sleep(250); if (document.activeElement) document.activeElement.blur();
+        var it = all('.alma-menu__item'); num(c, 1, 'left'); num($('.alma-menu'), 2, 'right'); num(it[1], 3, 'right', { outline: false, d: 40 }); num(it[3], 4, 'right', { outline: false, d: 40, dy: 14 });` }),
+
+  scene('action-sheet', 'usage', 'la hoja con sus partes numeradas', 'action-sheet-anatomia',
+    'Anatomía de ActionSheet: el título «¿Qué hacemos con el borrador?» (1), un mensaje breve (2), la acción destructiva «Descartar borrador» arriba y en rojo (3), «Guardar borrador» debajo (4) y, separada al final, «Seguir escribiendo» (5).',
+    { js: `mount(h('div', { style: { padding: '8px 56px', width: '24rem' } }, h(A.ActionSheet, { open: true, inline: true, title: '¿Qué hacemos con el borrador?', message: 'Llevas escrito un mensaje para Tomás.',
+        actions: [{ label: 'Guardar borrador' }, { label: 'Descartar borrador', role: 'destructive' }, { label: 'Seguir escribiendo', role: 'cancel' }] })));`,
+      after: `var b = all('.alma-asheet__btn'); num($('.alma-asheet__title'), 1, 'left', { outline: false, d: 24 }); num($('.alma-asheet__msg'), 2, 'left', { outline: false, d: 24 }); num(b[0], 3, 'right', { outline: false, d: 24 }); num(b[1], 4, 'right', { outline: false, d: 24 }); num(b[2], 5, 'right', { outline: false, d: 24 });` }),
+
+  // ---------- The environment ----------
+  scene('desktop', 'usage', 'un escritorio con sus partes numeradas', 'desktop-anatomia',
+    'Un escritorio con sus partes numeradas. Detrás, un fondo de luz (1). Arriba, la barra de menús con el nombre de la app, sus menús y, a la derecha, los avisos y la hora (2). En el centro, dos ventanas que se superponen: «Viajes» detrás y «Asistente» al frente (3). Abajo al centro, el dock con tres apps, dos con un punto debajo (4).',
+    { efectos: true,
+      js: `mount(h('div', { style: { padding: '8px 56px' } }, h(A.Desktop, { label: 'Escritorio', style: { width: '56rem', height: '34rem', borderRadius: 'var(--radius-panel)', border: '1px solid var(--border-subtle)' }, wallpaper: h('div', { className: 'luz' }),
+        menuBar: h(A.MenuBar, { appName: 'Viajes', menus: [{ label: 'Viajes', items: [{ value: 'a', label: 'Acerca de Viajes' }] }, { label: 'Archivo', items: [{ value: 'n', label: 'Nuevo viaje…' }] }, { label: 'Edición', items: [{ value: 'deshacer', label: 'Deshacer', shortcut: 'Ctrl+Z' }, { value: 'rehacer', label: 'Rehacer', shortcut: 'Ctrl+Y', disabled: true }, '-', { value: 'copiar', label: 'Copiar', shortcut: 'Ctrl+C' }, { value: 'pegar', label: 'Pegar', shortcut: 'Ctrl+V' }] }, { label: 'Ver', items: [{ value: 'o', label: 'Ordenar por' }] }, { label: 'Ventana', items: [{ value: 'm', label: 'Minimizar' }] }, { label: 'Ayuda', items: [{ value: 'h', label: 'Ayuda de Viajes' }] }], extras: [{ icon: 'notification', label: 'Avisos', onPress: function () {} }, { text: 'mar 31 · 08:12', label: 'Fecha y hora' }] }),
+        dock: h(A.Dock, { label: 'Aplicaciones', items: [{ id: 'v', label: 'Viajes', icon: 'ticket', running: true }, { id: 'a', label: 'Asistente', icon: 'ai-label', running: true, active: true }, { id: 'n', label: 'Notas', icon: 'document' }] }) },
+        h(A.Window, { title: 'Viajes', defaultPosition: { x: 40, y: 32 }, defaultSize: { w: 400, h: 320 }, onClose: function () {}, onMinimize: function () {}, bottomBar: '1 viaje' }, h('div', { style: { padding: '16px', display: 'grid', gap: '16px' } }, h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' }))),
+        h(A.Window, { title: 'Asistente', defaultPosition: { x: 330, y: 96 }, defaultSize: { w: 380, h: 320 }, onClose: function () {}, onMinimize: function () {} },
+          h('div', { style: { padding: '16px', display: 'grid', gap: '16px', gridTemplateRows: '1fr auto', minHeight: '100%', boxSizing: 'border-box' } },
+            h('ol', { style: { margin: 0, padding: 0, display: 'grid', gap: '16px', alignContent: 'start' } }, h(A.ChatMessage, { as: 'li', from: 'user' }, '¿A qué hora sale mi bus?'), h(A.ChatMessage, { as: 'li', actions: false }, h('p', null, 'Tu bus sale el martes 31 de marzo a las 08:30, del andén 4.'))),
+            h(A.PromptInput, { placeholder: 'Pregunta por tus viajes', note: false }))))));`,
+      after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'reposo'); await sleep(4000); var w = all('.alma-window');
+        num($('.alma-desktop'), 1, 'left', { outline: false, dy: 120 }); num($('.alma-menubar'), 2, 'right', { outline: false }); num(w[1], 3, 'right', { outline: false }); num($('.alma-dock'), 4, 'right', { outline: false });` }),
+
+  scene('window', 'usage', 'la ventana con sus partes numeradas', 'window-anatomia',
+    'Anatomía de Window: la barra (1) con los controles de cerrar, minimizar y ampliar (2), el título «Viajes» al centro (3) y un botón de buscar a la derecha (4); debajo el cuerpo con una tarjeta de viaje (5) y, al final, un pie que dice «1 viaje» (6).',
+    { js: `mount(h('div', { style: { padding: '40px 56px 8px' } }, h(A.Desktop, { style: { width: '26rem', height: '17rem', minHeight: 0, background: 'transparent', overflow: 'visible' } },
+        h(A.Window, { title: 'Viajes', defaultPosition: { x: 0, y: 0 }, defaultSize: { w: 416, h: 272 }, onClose: function () {}, onMinimize: function () {}, toolbar: h(A.Button, { variant: 'plain', icon: 'search', 'aria-label': 'Buscar' }), bottomBar: '1 viaje' }, h('div', { style: { padding: '16px', display: 'grid', gap: '16px' } }, h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' }))))));`,
+      after: `await sleep(300); num($('.alma-window__bar'), 1, 'left', { outline: false, d: 16 }); num($('.alma-window__ctls'), 2, 'top', { outline: false }); num($('.alma-window__title'), 3, 'top', { outline: false }); num($('.alma-window__tools'), 4, 'top', { outline: false }); num($('.alma-window__body'), 5, 'right', { outline: false, d: 16 }); num($('.alma-window__foot'), 6, 'left', { outline: false, d: 16 });` }),
+
+  scene('window', 'usage', 'una ventana activa y una inactiva', 'window-estados',
+    'Dos ventanas iguales. La de la izquierda está activa: su barra es de vidrio, su borde está marcado, su título y sus controles tienen todo el color, y lleva sombra. La de la derecha está inactiva: barra opaca, borde tenue, título y controles en gris, sin sombra.',
+    { js: `function v(t, act) { return h('div', { className: 'col', style: { gap: 'var(--space-16)' } }, h('p', { className: 'cap web-label-m' }, t), h(A.Window, { title: 'Viajes', active: act, defaultSize: { w: 352 }, onClose: function () {} }, h('div', { style: { padding: '16px', display: 'grid', gap: '16px' } }, h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' })))); }
+      mount(h('div', { className: 'fondo' }, h('div', { className: 'luz', 'aria-hidden': true }), h('div', { className: 'row', style: { position: 'relative', gap: 'var(--space-32)' } }, v('Activa', true), v('Inactiva', false))));`,
+      efectos: true, after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'reposo'); await sleep(4000);`,
+      css: `.fondo { position: relative; padding: var(--space-32); border-radius: var(--radius-panel); overflow: hidden; } .luz { position: absolute; inset: 0; } .fondo .cap { color: var(--text-01); }` }),
+
+  scene('menu-bar', 'usage', 'la barra con un menú abierto', 'menu-bar-anatomia',
+    'Anatomía de MenuBar: a la izquierda, el nombre de la app «Viajes» en negrita (1) y los menús Archivo, Edición, Ver, Ventana y Ayuda (2). El menú Edición está abierto (3), con Deshacer, Rehacer apagado, Copiar y Pegar, cada uno con su atajo. A la derecha, el ícono de avisos y la fecha y la hora (4).',
+    { js: `mount(h('div', { style: { padding: '40px 56px 8px' } }, h('div', { style: { position: 'relative', width: '46rem', height: '17rem', borderRadius: 'var(--radius-panel)', border: '1px solid var(--border-subtle)', background: 'var(--ui-03)' } },
+        h(A.MenuBar, { appName: 'Viajes', menus: [{ label: 'Viajes', items: [{ value: 'a', label: 'Acerca de Viajes' }] }, { label: 'Archivo', items: [{ value: 'n', label: 'Nuevo viaje…' }] }, { label: 'Edición', items: [{ value: 'deshacer', label: 'Deshacer', shortcut: 'Ctrl+Z' }, { value: 'rehacer', label: 'Rehacer', shortcut: 'Ctrl+Y', disabled: true }, '-', { value: 'copiar', label: 'Copiar', shortcut: 'Ctrl+C' }, { value: 'pegar', label: 'Pegar', shortcut: 'Ctrl+V' }] }, { label: 'Ver', items: [{ value: 'o', label: 'Ordenar por' }] }, { label: 'Ventana', items: [{ value: 'm', label: 'Minimizar' }] }, { label: 'Ayuda', items: [{ value: 'h', label: 'Ayuda de Viajes' }] }], extras: [{ icon: 'notification', label: 'Avisos', onPress: function () {} }, { text: 'mar 31 · 08:12', label: 'Fecha y hora' }] }))));`,
+      after: `all('.alma-menubar__title')[2].click(); await sleep(250); if (document.activeElement) document.activeElement.blur(); var t = all('.alma-menubar__title');
+        num(t[0], 1, 'top', { outline: false }); num(t[4], 2, 'top', { outline: false }); num($('.alma-menubar .alma-menu'), 3, 'right', { outline: false }); num($('.alma-menubar__extras'), 4, 'top', { outline: false });` }),
+
+  scene('dock', 'usage', 'el dock con el menú de una app', 'dock-anatomia',
+    'Anatomía de Dock: cuatro apps en fila (1); la primera tiene un punto debajo porque está abierta (2), la segunda un contador con un 2 (3). Después de un separador (4) está Ajustes. Sobre la primera app está abierto su menú, con «Mostrar» y «Salir» (5).',
+    { js: `mount(h('div', { style: { padding: '8px 56px 48px 200px' } }, h('div', { style: { position: 'relative', width: '30rem', height: '14rem' } },
+        h(A.Dock, { label: 'Aplicaciones', items: [{ id: 'v', label: 'Viajes', icon: 'ticket', running: true, menu: [{ value: 'm', label: 'Mostrar' }, { value: 's', label: 'Salir' }] }, { id: 'a', label: 'Asistente', icon: 'ai-label', badge: 2 }, { id: 'b', label: 'Billetera', icon: 'wallet' }, { id: 'n', label: 'Notas', icon: 'document' }, { separator: true }, { id: 'j', label: 'Ajustes', icon: 'settings' }] }))));`,
+      after: `var a = all('.alma-dock__app'), r = a[0].getBoundingClientRect(); a[0].dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: r.left - 190, clientY: r.top - 96 })); await sleep(250); if (document.activeElement) document.activeElement.blur();
+        num(a[3], 1, 'top', { outline: false }); num(a[0].querySelector('.alma-dock__dot'), 2, 'bottom', { outline: false }); num($('.alma-dock__badge'), 3, 'top', { outline: false, dx: 16 }); num($('.alma-dock__sep'), 4, 'bottom', { outline: false }); num($('.alma-menu'), 5, 'top', { outline: false });` }),
+
+  // ---------- At a glance ----------
+  scene('widget', 'usage', 'el widget chico y el mediano con sus partes', 'widget-anatomia',
+    'Anatomía de Widget, en sus tamaños chico y mediano: el título con el ícono de la app (1), el contenido con el dato principal en grande (2) y, al pie, de cuándo es el dato (3).',
+    { efectos: true, css: `.fondo { position: relative; padding: var(--space-48) var(--space-56); border-radius: var(--radius-panel); overflow: hidden; } .luz { position: absolute; inset: 0; }`,
+      js: `mount(h('div', { className: 'fondo' }, h('div', { className: 'luz', 'aria-hidden': true }), h('div', { className: 'row', style: { position: 'relative', gap: 'var(--space-16)' } },
+        h(A.Widget, { size: 'sm', title: 'Próximo viaje', icon: 'ticket', updated: 'Hace 5 min' }, h('p', { className: 'alma-widget__figure' }, '08:30'), h('p', { className: 'web-body-s' }, 'Viña del Mar'), h('p', { className: 'web-label-s', style: { color: 'var(--text-02)' } }, 'Mañana · andén 4')),
+        h(A.Widget, { size: 'md', title: 'Billetera', icon: 'wallet', updated: 'Hoy, 08:12' }, h('p', { className: 'alma-widget__figure' }, '$24.500'), h('p', { className: 'web-body-s', style: { color: 'var(--text-02)' } }, 'Saldo disponible · 2 pasajes guardados')))));`,
+      after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'reposo'); await sleep(4000); num($('.alma-widget__head'), 1, 'top', { outline: false }); num($('.alma-widget__figure'), 2, 'left', { outline: false, d: 28 }); num($('.alma-widget__when'), 3, 'bottom', { outline: false });` }),
+
+  scene('live-activity', 'usage', 'mínima, compacta y expandida', 'live-activity-presentaciones',
+    'Las tres presentaciones de LiveActivity. Mínima: un anillo de avance. Compacta: el anillo, el nombre «Viña del Mar» y «42 min». Expandida: el ícono, el nombre y el detalle, la cifra grande, una barra de avance, la lista de pasos con su estado y el botón «Detener».',
+    { js: `function c(t, el) { return h('div', { className: 'col', style: { gap: 'var(--space-16)', justifyItems: 'start' } }, h('p', { className: 'cap web-label-m' }, t), el); }
+      mount(h('div', { className: 'row', style: { gap: 'var(--space-48)' } },
+        c('Mínima', h(A.LiveActivity, { presentation: 'minimal', icon: 'bus', label: 'Viaje a Viña del Mar', progress: 0.6 })),
+        c('Compacta', h(A.LiveActivity, { icon: 'bus', label: 'Viaje a Viña del Mar', short: 'Viña del Mar', value: '42 min', progress: 0.6 })),
+        c('Expandida', h(A.LiveActivity, { presentation: 'expanded', icon: 'ai-label', label: 'Cambiando tu pasaje', detail: 'Asistente', value: '3 de 4', progress: 0.6,
+          steps: [{ label: 'Buscar tu pasaje', state: 'done' }, { label: 'Revisar los cambios permitidos', state: 'done' }, { label: 'Cambiar la fecha', state: 'current' }, { label: 'Avisar a Tomás', state: 'todo' }], actions: [{ label: 'Detener', role: 'destructive' }] }))));` }),
+
+  scene('snippet', 'usage', 'un resultado y una confirmación', 'snippet-tipos',
+    'Los dos tipos de Snippet. A la izquierda, un resultado: «Tu próximo viaje», con sus datos, la marca de IA y los botones «Abrir» y «Listo». A la derecha, una confirmación: «Voy a cambiar tu pasaje», con lo que cambia y lo que cuesta, y los botones «Cancelar» y «Cambiar pasaje».',
+    { js: `function dl(p) { return h('dl', { style: { margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '8px 16px' } }, p.map(function (x) { return [h('dt', { key: x[0], style: { color: 'var(--text-02)' } }, x[0]), h('dd', { key: x[0] + 'v', style: { margin: 0 } }, x[1])]; })); }
+      function c(t, el) { return h('div', { className: 'col', style: { gap: 'var(--space-16)', width: '24rem' } }, h('p', { className: 'cap web-label-m' }, t), el); }
+      mount(h('div', { className: 'row', style: { gap: 'var(--space-32)' } },
+        c('Resultado', h(A.Snippet, { kind: 'result', source: 'Viajes', sourceIcon: 'ticket', title: 'Tu próximo viaje', ai: true, onOpen: function () {}, onDone: function () {} }, dl([['Sale', 'Martes 31 de marzo, 08:30'], ['Desde', 'Terminal Alameda, andén 4'], ['Asiento', '14 · Semicama']]))),
+        c('Confirmación', h(A.Snippet, { kind: 'confirmation', source: 'Viajes', sourceIcon: 'ticket', title: 'Voy a cambiar tu pasaje', primaryLabel: 'Cambiar pasaje', onConfirm: function () {}, onCancel: function () {} }, dl([['Antes', 'Lunes 30 de marzo, 08:30'], ['Ahora', 'Martes 31 de marzo, 08:30'], ['Diferencia', '$2.500, con tu tarjeta terminada en 4821']])))));` }),
+
+  // ---------- More of Apple's list ----------
+  scene('digit-entry', 'usage', 'el campo con sus partes numeradas', 'digit-entry-anatomia',
+    'Anatomía de DigitEntry: el rótulo «Código de verificación» (1), seis casillas (2) con las tres primeras llenas y la cuarta marcada como actual (3), y debajo la ayuda «Te lo enviamos al correo» (4).',
+    { js: `mount(h('div', { style: { padding: '8px 56px' } }, h(A.DigitEntry, { label: 'Código de verificación', defaultValue: '482', helper: 'Te lo enviamos al correo c•••@correo.cl' })));`,
+      after: `$('.alma-digits__input').focus(); await sleep(200); var b = all('.alma-digits__box'); num($('.alma-digits__label'), 1, 'left', { outline: false, d: 16 }); num(b[0], 2, 'left', { outline: false, d: 16 }); num(b[3], 3, 'top', { outline: false, d: 14 }); num($('.alma-digits__help'), 4, 'left', { outline: false, d: 16 });` }),
+
+  scene('token-field', 'usage', 'el campo con dos fichas', 'token-field-anatomia',
+    'Anatomía de TokenField: el rótulo «Compartir con» (1), dos fichas con correos y su botón de quitar (2), el lugar donde se escribe el siguiente (3) y debajo la ayuda «Separa los correos con una coma» (5).',
+    { js: `mount(h('div', { style: { padding: '24px 56px 8px', width: '30rem' } }, h(A.TokenField, { label: 'Compartir con', defaultValue: ['tomas@correo.cl', 'camila@correo.cl'], helper: 'Separa los correos con una coma.' })));`,
+      after: `num($('.alma-tokens .alma-field__label'), 1, 'top', { outline: false }); num(all('.alma-tokens .alma-tag')[1], 2, 'top', { outline: false }); num($('.alma-tokens__input'), 3, 'right', { outline: false, d: 24 }); num($('.alma-tokens .alma-field__help'), 5, 'left', { outline: false, d: 24 });` }),
+
+  scene('gauge', 'usage', 'lineales y circulares, de capacidad y con marca', 'gauge-tipos',
+    'Cuatro medidores. Arriba, lineales: uno de capacidad, «Asientos ocupados, 32 de 44», con la barra llena hasta ahí y sus extremos rotulados; y uno con marca, «Temperatura en Viña, 18 °C», con un punto sobre la barra. Abajo, circulares: «73 %» con el arco lleno, y «18» con un punto sobre el arco.',
+    { js: `function c(t, el) { return h('div', { className: 'col', style: { gap: 'var(--space-16)' } }, h('p', { className: 'cap web-label-m' }, t), el); }
+      mount(h('div', { style: { display: 'grid', gridTemplateColumns: '18rem 18rem', gap: 'var(--space-32) var(--space-48)' } },
+        c('De capacidad', h(A.Gauge, { label: 'Asientos ocupados', value: 32, max: 44, valueLabel: '32 de 44', minLabel: '0', maxLabel: '44' })),
+        c('Con marca', h(A.Gauge, { label: 'Temperatura en Viña', kind: 'standard', value: 18, min: 5, max: 30, unit: '°C', minLabel: '5 °C', maxLabel: '30 °C' })),
+        c('De capacidad, circular', h(A.Gauge, { variant: 'circular', label: 'Ocupación', value: 73, valueLabel: '73 %' })),
+        c('Con marca, circular', h(A.Gauge, { variant: 'circular', kind: 'standard', label: '°C', value: 18, min: 5, max: 30, valueLabel: '18' }))));` }),
+
+  scene('rating', 'usage', 'para leer y para elegir', 'rating-usos',
+    'Tres valoraciones. Para leer: cuatro estrellas y media con su cifra «4,5» y «(1.284)» entre paréntesis; y una chica de tres estrellas con «(12)». Para elegir: cinco estrellas más grandes y separadas, con tres marcadas.',
+    { js: `function c(t, el) { return h('div', { className: 'col', style: { gap: 'var(--space-16)', justifyItems: 'start' } }, h('p', { className: 'cap web-label-m' }, t), el); }
+      mount(h('div', { className: 'row', style: { gap: 'var(--space-48)' } }, c('Para leer', h(A.Rating, { value: 4.5, showValue: true, count: 1284 })), c('Para leer, chica', h(A.Rating, { value: 3, size: 'sm', count: 12 })), c('Para elegir', h(A.Rating, { label: 'Valora tu viaje', value: 3, onChange: function () {} }))));` })
 ];

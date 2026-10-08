@@ -24,7 +24,7 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 ## Un acento
 
 - `interactive-01` (azul) es la acción principal y el foco de la pieza. **Una por pantalla.** Si todo es azul, nada lo es.
-- `interactive-02` (el mismo azul, muy oscuro y apagado) es la acción secundaria.
+- `interactive-02` (el mismo azul, muy oscuro y apagado) es para acentos profundos. El botón neutro (`gray`) es un gris tenue, no este color.
 - El texto sobre ambos es siempre `text-on-interactive`.
 - En tema oscuro, los bordes, las etiquetas y los controles encendidos usan pasos claros de la rampa azul, que se despegan del negro. En claro usan el azul de acción.
 
@@ -34,9 +34,11 @@ Solo lo que flota sobre el contenido (menús, popovers, tooltips) lleva sombra: 
 |---|---|
 | `text-01` | Texto principal y títulos. |
 | `text-02` | Texto secundario: ayudas, descripciones, metadatos. |
-| `text-03` | Texto desactivado y marcadores de posición. |
+| `text-03` | Lo que todavía no está: marcadores de posición, pasos por hacer. |
 | `text-error` | Mensajes de error. |
 | `text-on-interactive` | Texto sobre el azul. |
+
+Son tres niveles con un trabajo cada uno: lo que se vino a leer, lo que ayuda a entenderlo y lo que todavía no está. En un dato, el nombre va en `text-02` y el valor en `text-01`. El detalle está en el patrón **Jerarquía**.
 
 ## Estados del sistema
 

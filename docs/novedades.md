@@ -4,6 +4,58 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 8 de octubre de 2026
 
+### El botón gray pasa a ser un gris tenue
+
+- **Cambio de color:** el botón `gray` deja de ser un relleno sólido y oscuro. Ahora es un gris neutro y tenue con el color del texto, como el de Apple. En el tema claro el anterior contrastaba 14:1 con el fondo, contra 4,9:1 del botón principal: pesaba más que la acción que debía destacar.
+- El orden de peso queda `filled`, `tinted`, `gray`, `plain`.
+- Vale para ALMA y para todas las entidades: el `gray` ya no toma el color de la marca. La marca en su paso más oscuro sigue como `interactive-02`, para acentos.
+- Una acción destructiva en `gray` lleva el rojo de siempre.
+
+### Jerarquía, y cuatro piezas más de la lista de Apple
+
+- Un patrón nuevo, Jerarquía: los niveles del texto, el peso de los botones y los márgenes que agrupan, con lo aprendido de Apple.
+- **Cambio de color:** en el tema claro, `text-01` pasa de #464646 a la tinta de marca (#191919) y `text-02` a #464646. Los tres niveles de texto casi no se distinguían (9,4 · 6,7 · 5,7 a 1) y ahora sí (17,6 · 9,4 · 5,7). En alto contraste claro suben un paso más.
+- La ayuda de un campo pasa a texto secundario: estaba en principal y competía con lo escrito.
+- Una acción que destruye ya no es el botón más visible: en `Modal` y `Snippet` pasa de `filled` a `tinted`.
+- `DigitEntry`: un código corto, un dígito por casilla. Es un solo campo: se puede pegar y autocompletar.
+- `TokenField`: varios valores en un campo, cada uno una ficha.
+- `Gauge`: un valor dentro de un rango, lineal o circular, de capacidad o con marca.
+- `Rating`: una valoración en estrellas, para leer o para elegir.
+- Con estos son 67 componentes.
+
+### Widgets, actividades en vivo y fragmentos
+
+- `Widget`: una idea de una app, para leer de un vistazo. Cuatro tamaños sobre una grilla de 160 px, y dice de cuándo es lo que muestra.
+- `LiveActivity`: algo con principio y fin, seguido sin abrir su app. Mínima, compacta y expandida; con pasos y «Detener» para la tarea de un agente.
+- `Snippet`: la respuesta del asistente como tarjeta. Un resultado, o una confirmación que espera: es el permiso de un agente.
+- Los tres son de vidrio. Con ellos son 63 componentes.
+
+### El entorno: escritorio, ventanas, barra de menús y dock
+
+- Un patrón nuevo, Entorno: un escritorio que corre en el navegador, para el sistema de cada entidad.
+- `Desktop`, el escenario: lleva el fondo, ordena las ventanas y, bajo 672 px, muestra una a la vez.
+- `Window`, el marco de una app: se mueve por su barra y cambia de tamaño por sus bordes, con el puntero o con el teclado. Se amplía, se minimiza y se cierra. La activa lleva la barra de vidrio.
+- `MenuBar`, todos los comandos de la app al frente, en su orden de siempre, y los extras a la derecha.
+- `Dock`, las apps a un toque, con un punto bajo las abiertas y un menú por app.
+- El fondo del escritorio puede ser la presencia de una IA: el Velo y el Halo detrás de todo.
+- Es el primer uso del vidrio. Con estos son 60 componentes.
+
+### Profundidad y vidrio
+
+- Un fundamento nuevo, Profundidad: la capa del contenido, la capa funcional que flota sobre ella, y sus niveles.
+- El vidrio: una superficie que deja pasar, desenfocado, lo que tiene detrás. Cuatro grosores (`glass-ultra-thin`, `glass-thin`, `glass-regular`, `glass-thick`) y la clase `alma-glass`.
+- Desde el delgado, cada grosor asegura 4,5:1 para sus textos sobre el peor fondo posible. Una prueba lo cuida.
+- En alto contraste, con menos transparencia o sin desenfoque, el vidrio es opaco.
+- Es de la capa funcional: barras, menús, ventanas. Nunca del contenido. Los componentes todavía no lo usan; lo estrenan las ventanas.
+
+### Menús, según la guía de Apple
+
+- Un patrón nuevo, Menús: qué menú usar, cómo se nombran y ordenan sus ítems, submenús, ítems que se marcan y atajos.
+- El menú que comparten `PopUpButton` y `PullDownButton` ahora admite separadores, títulos de grupo, ítems con visto, atajos a la vista, un submenú de un nivel y búsqueda por letra. Y no se sale de la pantalla: se abre hacia arriba o se alinea al otro lado.
+- `ContextMenu`, nuevo: las acciones de un ítem con clic derecho, toque largo o la tecla de menú.
+- `ActionSheet`, nuevo: las opciones de una acción que la persona inició, con la destructiva arriba y cancelar abajo.
+- Es el primer paso de una revisión de los componentes contra la lista de Apple. Con estos son 56.
+
 ### Cuatro componentes de IA
 
 - `AILabel`, la marca de lo generado: sola, o con una explicación que se abre y dice qué hizo la IA, con qué y cuándo. Con `edited` dice «IA · editado» y ofrece volver atrás.

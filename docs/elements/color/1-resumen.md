@@ -52,7 +52,7 @@ Las superficies se apilan en un orden fijo. Cada capa se distingue de la que tie
 | 2 | `ui-01` | Blanco | Blanco al 4 % sobre la página | Contenedores: tarjetas, menús, tablas, alertas. |
 | 3 | `ui-03` | Gris claro | Blanco al 7 % | Un panel dentro de un contenedor. |
 | 4 | `ui-04` | Gris medio claro | Blanco al 10 % | Una zona dentro de ese panel. |
-| Acción | `interactive-01`, `interactive-02` | Azul y azul muy oscuro | Azul y azul muy oscuro | Los botones, sobre cualquier capa. |
+| Acción | `interactive-01`, `interactive-02` | Azul y azul muy oscuro | Azul y azul muy oscuro | El botón principal, y los acentos profundos. |
 
 No saltes capas hacia atrás: un contenedor dentro de otro `ui-01` pasa a `ui-03`, no vuelve a `ui-02`. En los dos temas cada capa de encima se despega de la anterior.
 

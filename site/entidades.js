@@ -191,7 +191,8 @@
     var sec = function (rest, hover, active) {
       // A destructive action on the dark fill reads in the first light red that reaches 4.5:1 on it and on its hover.
       var red = [200, 100, 50].filter(function (st) { return contrast(R.danger[st], rest) >= 4.5 && contrast(R.danger[st], hover) >= 4.5; })[0] || 50;
-      return { 'interactive-02': rest, 'hover-secondary': hover, 'active-secondary': active, 'button-gray-text': WHITE, 'button-destructive-gray-text': R.danger[red], 'button-destructive-gray-bg-hover': hover,
+      // (the gray button is no longer this fill: since 2026-10-08 it is ALMA's faint neutral one, the same in every entity)
+      return { 'interactive-02': rest, 'hover-secondary': hover, 'active-secondary': active,
         // The white fills (inverse button) keep ink text and gray states; text on the pressed ghost button sits on the dark tone.
         'button-inverse-text': INK, 'button-inverse-text-active': INK, 'button-inverse-bg-hover': G[100], 'button-inverse-bg-active': G[300], 'button-ghost-text-active': WHITE };
     };
@@ -307,7 +308,7 @@
     var B = D.base, a = B.accent, s = { '--font-width': B.fontAxis['font-width'], '--font-grade': B.fontAxis['font-grade'] };
     Object.keys(B.weights).forEach(function (k) { s['--font-weight-' + k] = B.weights[k]; });
     Object.keys(B.radius).forEach(function (k) { s['--' + k] = B.radius[k]; });
-    s['--interactive-01'] = a.interactive; s['--hover-primary'] = a.hover; s['--text-on-interactive'] = INK;
+    s['--interactive-01'] = a.interactive; s['--hover-primary'] = a.hover;
     s['--nav-selected'] = theme === 'light' ? a.navLight : a.navDark; s['--link-01'] = theme === 'light' ? a.linkLight : a.linkDark;
     Object.keys(B.extra[theme]).forEach(function (k) { s['--' + k] = B.extra[theme][k]; });
     return s;

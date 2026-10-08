@@ -1,0 +1,15 @@
+<!-- @dsCard group="Entorno" height=460 subtitle="Una idea de una app, de un vistazo · cuatro tamaños sobre una grilla" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty("background", "var(--ui-02)", "important");
+  var h = React.createElement, A = AlmaDS;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'alma-widgets', style: { maxWidth: '44rem' } },
+    h(A.Widget, { size: 'sm', title: 'Próximo viaje', icon: 'ticket', updated: 'Hace 5 min', onOpen: function () {} },
+      h('p', { className: 'alma-widget__figure' }, '08:30'), h('p', { className: 'web-body-s' }, 'Viña del Mar'), h('p', { className: 'web-label-s', style: { color: 'var(--text-02)' } }, 'Mañana · andén 4')),
+    h(A.Widget, { size: 'md', title: 'Billetera', icon: 'wallet', updated: 'Hoy, 08:12', onOpen: function () {} },
+      h('p', { className: 'alma-widget__figure' }, '$24.500'), h('p', { className: 'web-body-s', style: { color: 'var(--text-02)' } }, 'Saldo disponible · 2 pasajes guardados')),
+    h(A.Widget, { size: 'sm', title: 'Asistente', icon: 'ai-label', onOpen: function () {} },
+      h('p', { className: 'web-body-s' }, 'Tu andén cambió al 6.'), h('p', { className: 'web-label-s', style: { color: 'var(--text-02)' } }, 'Aviso de la empresa')),
+    h(A.Widget, { size: 'sm', title: 'Clima en Viña', loading: true })));
+</script>

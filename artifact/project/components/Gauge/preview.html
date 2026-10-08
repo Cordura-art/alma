@@ -1,0 +1,14 @@
+<!-- @dsCard group="Estados" height=380 subtitle="Un valor dentro de un rango · de capacidad o con marca · lineal o circular" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty("background", "var(--ui-02)", "important");
+  var h = React.createElement, A = AlmaDS;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h('div', { style: { display: 'grid', gap: '32px', width: '18rem' } },
+      h(A.Gauge, { label: 'Asientos ocupados', value: 32, max: 44, unit: 'de 44', valueLabel: '32 de 44', minLabel: '0', maxLabel: '44' }),
+      h(A.Gauge, { label: 'Temperatura en Viña', kind: 'standard', value: 18, min: 5, max: 30, unit: '°C', minLabel: '5 °C', maxLabel: '30 °C' }),
+      h(A.Gauge, { label: 'Saldo de la tarjeta', value: 8, max: 100, valueLabel: '8 %', status: 'error', statusText: 'queda poco' })),
+    h(A.Gauge, { variant: 'circular', label: 'Ocupación', value: 73, valueLabel: '73 %' }),
+    h(A.Gauge, { variant: 'circular', kind: 'standard', label: '°C', value: 18, min: 5, max: 30, valueLabel: '18' })));
+</script>

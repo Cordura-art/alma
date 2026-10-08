@@ -71,6 +71,8 @@ Dos partes viven en su propia guía, junto a lo demás de su tema: **Contenido �
 | `PromptInput` | La caja de pedido, con enviar y detener. | Componentes › IA |
 | `ChatMessage` | Un turno de la conversación, con sus estados. | Componentes › IA |
 | `SourceList` | La lista de fuentes, y `SourceRef`, el número junto a la frase. | Componentes › IA |
+| `Snippet` | La respuesta como tarjeta: un resultado, o el permiso de un agente. | Componentes › IA |
+| `LiveActivity` | La tarea larga de un agente, con sus pasos y «Detener». | Componentes › Entorno |
 | `AlmaEfectos.presencia` | El Velo y el Halo juntos, con los estados del Halo. | Efectos |
 
 Lo demás es ALMA de siempre: `Button`, `Tag`, `Sheet`, `InlineNotification`, `ToastRegion` y los patrones Deshacer, Diálogos y Carga.

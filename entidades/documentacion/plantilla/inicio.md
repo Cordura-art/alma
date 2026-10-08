@@ -37,7 +37,7 @@ Cinco rasgos nos distinguen de ALMA. Todo lo demás es igual.
 ## Color
 
 - La página va en `ui-02` y los contenedores en `ui-01`. Los neutros son los de ALMA.
-- Tres papeles hacen casi todo{si accionMarca}, y los tres salen del mismo {v:acento}{fin}. La acción principal es `interactive-01`, {v:marca}, con `text-on-interactive` ({v:sobre}) encima. La secundaria es `interactive-02`: el tono del {v:acento}, muy oscuro y apagado, con texto blanco. Los enlaces, el foco y lo elegido usan el color de acción{si accionMarca}, que aquí también es nuestro {v:acento}{sino}, un azul clásico: `{token:link-01}` en tema oscuro y `{token:link-01:light}` en claro{fin}.
+- Tres papeles hacen casi todo{si accionMarca}, y los tres salen del mismo {v:acento}{fin}. La acción principal es `interactive-01`, {v:marca}, con `text-on-interactive` ({v:sobre}) encima. La acción neutra, como «Cancelar», es un gris tenue, igual en todas las entidades. El tono del {v:acento} muy oscuro y apagado, `interactive-02`, queda para acentos profundos. Los enlaces, el foco y lo elegido usan el color de acción{si accionMarca}, que aquí también es nuestro {v:acento}{sino}, un azul clásico: `{token:link-01}` en tema oscuro y `{token:link-01:light}` en claro{fin}.
 {si profundo}
 - En tema oscuro, el texto y la navegación en {v:acento} usan un paso claro de la rampa, `{token:nav-selected}`: el {v:acento} pleno no llega a 4,5:1 sobre el fondo oscuro. En tema claro usan `{token:nav-selected:light}`.
 {sino}

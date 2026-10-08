@@ -122,12 +122,12 @@
     },
     "text-01": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#000000",
       "$description": "Uso (Cordura): Texto principal: cuerpo y encabezados; hover del texto text-02. Texto principal, cuerpo y titulares sobre ui-02 y ui-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "text-02": {
       "$type": "color",
-      "$value": "#464646",
+      "$value": "#191919",
       "$description": "Uso (Cordura): Texto secundario; etiquetas de campos. Texto secundario y etiquetas de input, sobre ui-02 y ui-01. Accesible: en claro se oscureció de #7A94A7 (Figma, 3:1) a #566980 (5.4:1). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "text-03": {
@@ -277,7 +277,7 @@
     },
     "icon-01": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#000000",
       "$description": "Uso (Cordura): Íconos principales. Íconos principales. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "icon-02": {
@@ -1697,27 +1697,27 @@
     },
     "button-gray-bg": {
       "$type": "color",
-      "$value": "{color.interactive-02}",
-      "$description": "Button gray: fondo. Token de componente: alias de interactive-02."
+      "$value": "rgba(0,0,0,0.12)",
+      "$description": "Botón gray (Apple): un relleno neutro y tenue, el de menos peso entre los que tienen fondo. Hasta el 2026-10-08 era un sólido oscuro (interactive-02) que en el tema claro pesaba más que el botón principal."
     },
     "button-gray-bg-hover": {
       "$type": "color",
-      "$value": "{color.hover-secondary}",
+      "$value": "rgba(0,0,0,0.18)",
       "$description": "Button gray: fondo al pasar el puntero. Token de componente: alias de hover-secondary."
     },
     "button-gray-bg-active": {
       "$type": "color",
-      "$value": "{color.active-secondary}",
+      "$value": "rgba(0,0,0,0.24)",
       "$description": "Button gray: fondo al presionar. Token de componente: alias de active-secondary."
     },
     "button-gray-text": {
       "$type": "color",
-      "$value": "#FFFFFF",
-      "$description": "Button gray: texto e ícono. Token de componente: alias de text-on-interactive."
+      "$value": "{color.text-01}",
+      "$description": "Texto del botón gray: el del texto principal."
     },
     "button-gray-text-active": {
       "$type": "color",
-      "$value": "{color.brand-white}",
+      "$value": "{color.text-01}",
       "$description": "Button gray: texto al presionar. Token de componente: alias de brand-white."
     },
     "button-plain-bg-hover": {
@@ -1807,12 +1807,12 @@
     },
     "button-destructive-gray-text": {
       "$type": "color",
-      "$value": "#F5A9A9",
-      "$description": "Button destructivo gray: texto. Token de componente: alias de active-danger."
+      "$value": "{color.button-destructive-text}",
+      "$description": "Texto de una acción destructiva en un botón gray: el rojo de las acciones destructivas."
     },
     "button-destructive-gray-bg-hover": {
       "$type": "color",
-      "$value": "#243658",
+      "$value": "rgba(0,0,0,0.18)",
       "$description": "Button destructivo gray: fondo al pasar el puntero (se aclara para que el texto rojo mantenga el contraste). Token de componente: alias de secondary-400."
     },
     "button-destructive-plain-bg-hover": {

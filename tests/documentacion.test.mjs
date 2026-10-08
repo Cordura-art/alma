@@ -63,12 +63,12 @@ test('tres colores en la Entidad Autómata: marca, marca muy oscura y el color d
   for (const th of THEMES) assert.equal(v('button-filled-bg', th), '#1D62FF', th);
   // The secondary keeps the brand's hue, very dark and with little chroma, and is lighter on dark themes.
   for (const th of ['light', 'dark']) {
-    const [l, c, h] = S.En.fromHex(v('button-gray-bg', th));
+    const [l, c, h] = S.En.fromHex(v('interactive-02', th));
     assert.ok(Math.abs(h - S.P.palette[0].h) < 6, `${th}: tono ${h.toFixed(0)}`);
     assert.ok(c <= 0.075 && c > 0.02, `${th}: saturación ${c.toFixed(3)}`);
     assert.ok(l < 0.42, `${th}: luminosidad ${l.toFixed(2)}`);
   }
-  assert.ok(S.En.fromHex(v('button-gray-bg', 'dark'))[0] > S.En.fromHex(v('button-gray-bg', 'light'))[0]);
+  assert.ok(S.En.fromHex(v('interactive-02', 'dark'))[0] > S.En.fromHex(v('interactive-02', 'light'))[0]);
   assert.equal(v('button-tertiary-border', 'light'), '#1D62FF');
   assert.equal(v('button-tertiary-border', 'dark'), v('link-01'), 'en oscuro, el contorno es el color de los enlaces');
   assert.equal(v('focus', 'light'), '#1D62FF');
@@ -89,8 +89,8 @@ for (const id of readdirSync('entidades/lenguajes').map((f) => f.replace(/\.json
     aplicar(tok, S);
     const v = (n, th) => valor(tok, n, th);
     for (const th of THEMES) {
-      for (const [texto, fondo] of [['button-gray-text', 'button-gray-bg'], ['button-gray-text', 'button-gray-bg-hover'], ['button-gray-text-active', 'button-gray-bg-active'],
-        ['button-destructive-gray-text', 'button-gray-bg'], ['button-destructive-gray-text', 'button-destructive-gray-bg-hover'], ['button-destructive-text-pressed', 'button-gray-bg-active'],
+      for (const [texto, fondo] of [['button-gray-text', 'ui-03'], ['button-gray-text', 'ui-04'], ['button-gray-text-active', 'ui-04'],
+        ['button-destructive-gray-text', 'ui-03'], ['button-destructive-gray-text', 'ui-04'],
         ['button-tertiary-text', 'ui-02'], ['button-tertiary-text', 'ui-01'], ['button-tertiary-text-hover', 'button-tertiary-bg-hover'], ['button-tertiary-text-active', 'button-tertiary-bg-active'],
         ['button-inverse-text', 'button-inverse-bg'], ['button-inverse-text', 'button-inverse-bg-hover'], ['button-inverse-text-active', 'button-inverse-bg-active'],
         ['button-ghost-text', 'button-ghost-bg-hover'], ['button-ghost-text-active', 'button-ghost-bg-active'], ['link-01', 'ui-02'], ['link-01', 'ui-01']]) {

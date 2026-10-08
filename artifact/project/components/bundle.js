@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"AlmaDS","components":[{"name":"AILabel"},{"name":"PromptInput"},{"name":"ChatMessage"},{"name":"SourceList"},{"name":"Button"},{"name":"TextInput"},{"name":"Icon"},{"name":"Pictogram"},{"name":"SegmentedControl"},{"name":"Stepper"},{"name":"ProductCard"},{"name":"PaymentCard"},{"name":"ProgressLine"},{"name":"Switch"},{"name":"Checkbox"},{"name":"RadioGroup"},{"name":"PopUpButton"},{"name":"PullDownButton"},{"name":"Alert"},{"name":"Tabs"},{"name":"TabBar"},{"name":"Sidebar"},{"name":"Toolbar"},{"name":"SearchField"},{"name":"Tooltip"},{"name":"Tip"},{"name":"Table"},{"name":"Slider"},{"name":"ProgressBar"},{"name":"ActivityIndicator"},{"name":"PageControl"},{"name":"InlineNotification"},{"name":"ToastRegion"},{"name":"Pagination"},{"name":"FileUploader"},{"name":"Skeleton"},{"name":"Link"},{"name":"Tag"},{"name":"Textarea"},{"name":"Card"},{"name":"List"},{"name":"EmptyState"},{"name":"Breadcrumb"},{"name":"Accordion"},{"name":"ProgressIndicator"},{"name":"Popover"},{"name":"Modal"},{"name":"Sheet"},{"name":"Combobox"},{"name":"DatePicker"},{"name":"TimePicker"},{"name":"BarChart"},{"name":"LineChart"},{"name":"ScatterChart"}]} */
+/* @ds-bundle: {"format":4,"namespace":"AlmaDS","components":[{"name":"DigitEntry"},{"name":"TokenField"},{"name":"Gauge"},{"name":"Rating"},{"name":"Widget"},{"name":"LiveActivity"},{"name":"Snippet"},{"name":"Desktop"},{"name":"Window"},{"name":"MenuBar"},{"name":"Dock"},{"name":"ContextMenu"},{"name":"ActionSheet"},{"name":"AILabel"},{"name":"PromptInput"},{"name":"ChatMessage"},{"name":"SourceList"},{"name":"Button"},{"name":"TextInput"},{"name":"Icon"},{"name":"Pictogram"},{"name":"SegmentedControl"},{"name":"Stepper"},{"name":"ProductCard"},{"name":"PaymentCard"},{"name":"ProgressLine"},{"name":"Switch"},{"name":"Checkbox"},{"name":"RadioGroup"},{"name":"PopUpButton"},{"name":"PullDownButton"},{"name":"Alert"},{"name":"Tabs"},{"name":"TabBar"},{"name":"Sidebar"},{"name":"Toolbar"},{"name":"SearchField"},{"name":"Tooltip"},{"name":"Tip"},{"name":"Table"},{"name":"Slider"},{"name":"ProgressBar"},{"name":"ActivityIndicator"},{"name":"PageControl"},{"name":"InlineNotification"},{"name":"ToastRegion"},{"name":"Pagination"},{"name":"FileUploader"},{"name":"Skeleton"},{"name":"Link"},{"name":"Tag"},{"name":"Textarea"},{"name":"Card"},{"name":"List"},{"name":"EmptyState"},{"name":"Breadcrumb"},{"name":"Accordion"},{"name":"ProgressIndicator"},{"name":"Popover"},{"name":"Modal"},{"name":"Sheet"},{"name":"Combobox"},{"name":"DatePicker"},{"name":"TimePicker"},{"name":"BarChart"},{"name":"LineChart"},{"name":"ScatterChart"}]} */
 (function () {
   var h = window.React.createElement;
   var useState = window.React.useState;
@@ -485,43 +485,80 @@ function pictograma(G, clave, o = {}) {
     }, [open]);
   }
 
+  // The menu every component with a menu shares (Apple HIG › Menus): PopUpButton, PullDownButton, ContextMenu and, in
+  // time, the menu bar. One list of items; an item may be a separator, a title, a checked attribute, or the door to a
+  // submenu — one level deep, as the HIG asks.
+  // props: kind ('listbox'|'menu'), items [{ value, label, icon, role, disabled, checked, radio, shortcut, items } |
+  //   { separator: true } | { title }], selected, onPick, onClose, footer, labelledBy, title,
+  //   point { x, y } (opens at a point of the screen instead of under its button), shortcuts (false hides them), sub (internal)
   function MenuSurface(props) {
-    // props: kind ('listbox'|'menu'), items [{value,label,role,disabled,icon}], selected, onPick, onClose, footer, labelledBy
-    var items = props.items;
-    var start = Math.max(0, items.findIndex(function (i) { return i.value === props.selected; }));
-    var act = useState(start), active = act[0], setActive = act[1];
-    var listRef = window.React.useRef(null);
-    window.React.useEffect(function () { var el = listRef.current && listRef.current.children[active]; if (el) el.focus(); }, [active]);
-    function move(d) { var n = active; for (var k = 0; k < items.length; k++) { n = (n + d + items.length) % items.length; if (!items[n].disabled) break; } setActive(n); }
+    var RR = window.React, items = props.items, menu = props.kind !== 'listbox';
+    function real(i) { return items[i] && !items[i].separator && items[i].title === undefined; }
+    function first(d) { for (var k = d > 0 ? 0 : items.length - 1; k >= 0 && k < items.length; k += d) if (real(k) && !items[k].disabled) return k; return 0; }
+    var sel = items.findIndex(function (i) { return i.value === props.selected && props.selected !== undefined; });
+    var act = useState(sel >= 0 ? sel : first(1)), active = act[0], setActive = act[1];
+    var su = useState(null), sub = su[0], setSub = su[1];   // { i, top }
+    var box = RR.useRef(null), listRef = RR.useRef(null), typed = RR.useRef({ t: 0, s: '' }), place = useState(null);
+    RR.useEffect(function () { var el = listRef.current && listRef.current.children[active]; if (el && !sub) el.focus(); }, [active, sub]);
+    // Never off the screen: a menu under its button flips up or to the end; a menu at a point is pushed back in.
+    RR.useLayoutEffect(function () {
+      var el = box.current; if (!el) return; var r = el.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight, m = 8;
+      if (props.point) place[1]({ left: Math.max(m, Math.min(props.point.x, W - r.width - m)), top: Math.max(m, Math.min(props.point.y, H - r.height - m)) });
+      else { var an = el.offsetParent ? el.offsetParent.getBoundingClientRect() : r; place[1]({ up: !props.sub && r.bottom > H - m && an.top - 8 - r.height > m, end: r.right > W - m }); }
+    }, []);
+    function move(d) { var n = active; for (var k = 0; k < items.length; k++) { n = (n + d + items.length) % items.length; if (real(n) && !items[n].disabled) break; } setActive(n); }
+    function openSub(i) { var li = listRef.current.children[i]; setSub({ i: i, top: li.offsetTop - listRef.current.scrollTop }); }
+    function pick(it, i) { if (it.disabled) return; if (it.items) { openSub(i); return; } props.onPick(it); }
     function onKey(e) {
-      if (e.key === 'ArrowDown') { e.preventDefault(); move(1); }
-      else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); }
-      else if (e.key === 'Home') { e.preventDefault(); setActive(0); }
-      else if (e.key === 'End') { e.preventDefault(); setActive(items.length - 1); }
-      else if (e.key === 'Escape' || e.key === 'Tab') { props.onClose(true); }
-      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!items[active].disabled) props.onPick(items[active]); }
+      var it = items[active], k = e.key;
+      if (k === 'ArrowDown') { e.preventDefault(); move(1); }
+      else if (k === 'ArrowUp') { e.preventDefault(); move(-1); }
+      else if (k === 'Home') { e.preventDefault(); setActive(first(1)); }
+      else if (k === 'End') { e.preventDefault(); setActive(first(-1)); }
+      else if (k === 'ArrowRight' && it && it.items && !it.disabled) { e.preventDefault(); openSub(active); }
+      else if (k === 'ArrowLeft' && props.sub) { e.preventDefault(); e.stopPropagation(); props.onClose(true); }
+      else if (k === 'Escape') { e.preventDefault(); e.stopPropagation(); props.onClose(true); }
+      else if (k === 'Tab') { props.onClose(true, true); }
+      else if (k === 'Enter' || k === ' ') { e.preventDefault(); if (it) pick(it, active); }
+      else if (k.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        // type a letter: the next item that starts with what was typed
+        var now = Date.now(), y = typed.current; y.s = (now - y.t > 600 ? '' : y.s) + k.toLowerCase(); y.t = now;
+        for (var j = 1; j <= items.length; j++) { var n = (active + (y.s.length > 1 ? j - 1 : j)) % items.length;
+          if (real(n) && !items[n].disabled && String(items[n].label).toLowerCase().indexOf(y.s) === 0) { setActive(n); break; } }
+      }
     }
-    return h('div', { className: 'alma-menu' },
-      h('ul', { ref: listRef, role: props.kind, 'aria-labelledby': props.labelledBy, className: 'alma-menu__list', onKeyDown: onKey },
+    var p = place[0] || {}, style = props.point ? { left: p.left !== undefined ? p.left : props.point.x, top: p.top !== undefined ? p.top : props.point.y, opacity: place[0] ? undefined : 0 }
+      : (props.sub ? { top: props.top } : undefined);
+    return h('div', { ref: box, style: style, className: 'alma-menu' + (props.point ? ' alma-menu--point' : '') + (props.sub ? ' alma-menu--sub' : '') + (p.up ? ' is-up' : '') + (p.end ? ' is-end' : '') },
+      props.title ? h('p', { className: 'alma-menu__title', id: props.titleId }, props.title) : null,
+      h('ul', { ref: listRef, role: props.kind, 'aria-labelledby': props.labelledBy, 'aria-label': props.label, className: 'alma-menu__list', onKeyDown: onKey },
         items.map(function (it, i) {
-          var sel = props.kind === 'listbox' && it.value === props.selected;
+          if (it.separator) return h('li', { key: 's' + i, role: 'separator', className: 'alma-menu__sep' });
+          if (it.title !== undefined) return h('li', { key: 't' + i, role: 'presentation', className: 'alma-menu__group' }, it.title);
+          var chosen = !menu && it.value === props.selected, checks = menu && it.checked !== undefined;
           return h('li', {
             key: String(it.value), tabIndex: i === active ? 0 : -1,
-            role: props.kind === 'listbox' ? 'option' : 'menuitem',
-            'aria-selected': props.kind === 'listbox' ? sel : undefined,
-            'aria-disabled': it.disabled || undefined,
-            className: 'alma-menu__item' + (it.role === 'destructive' ? ' is-destructive' : '') + (it.disabled ? ' is-disabled' : ''),
-            onMouseEnter: function () { setActive(i); },
-            onClick: function () { if (!it.disabled) props.onPick(it); }
+            role: !menu ? 'option' : (checks ? (it.radio ? 'menuitemradio' : 'menuitemcheckbox') : 'menuitem'),
+            'aria-selected': !menu ? chosen : undefined, 'aria-checked': checks ? !!it.checked : undefined,
+            'aria-disabled': it.disabled || undefined, 'aria-haspopup': it.items ? 'menu' : undefined, 'aria-expanded': it.items ? !!(sub && sub.i === i) : undefined,
+            'aria-keyshortcuts': it.shortcut && props.shortcuts !== false ? it.shortcut : undefined,
+            className: 'alma-menu__item' + (it.role === 'destructive' ? ' is-destructive' : '') + (it.disabled ? ' is-disabled' : '') + (sub && sub.i === i ? ' is-open' : ''),
+            onMouseEnter: function () { setActive(i); if (it.items && !it.disabled) openSub(i); else if (sub) setSub(null); },
+            onClick: function () { pick(it, i); }
           },
-            h('span', { className: 'alma-menu__check' }, sel ? h(AlmaIcon, { name: 'checkmark', size: 16 }) : (it.icon ? h(AlmaIcon, { name: it.icon, size: 16 }) : null)),
-            h('span', { className: 'alma-menu__text' }, it.label));
+            h('span', { className: 'alma-menu__check' }, chosen || (checks && it.checked) ? h(AlmaIcon, { name: 'checkmark', size: 16 }) : (it.icon ? h(AlmaIcon, { name: it.icon, size: 16 }) : null)),
+            h('span', { className: 'alma-menu__text' }, it.label),
+            it.shortcut && props.shortcuts !== false ? h('span', { className: 'alma-menu__key', 'aria-hidden': 'true' }, it.shortcut) : null,
+            it.items ? h(AlmaIcon, { name: 'chevron--right', size: 16, className: 'alma-menu__more' }) : null);
         })),
-      props.footer ? h('p', { className: 'alma-menu__footer' }, props.footer) : null
+      props.footer ? h('p', { className: 'alma-menu__footer' }, props.footer) : null,
+      sub ? h(MenuSurface, { key: 'sub' + sub.i, sub: true, top: sub.top, kind: 'menu', label: items[sub.i].label, shortcuts: props.shortcuts,
+        items: normItems(items[sub.i].items).slice(0), onPick: props.onPick,
+        onClose: function (refocus, all) { setSub(null); if (all) props.onClose(true, true); } }) : null
     );
   }
 
-  function normItems(opts) { return (opts || []).map(function (o) { return typeof o === 'string' ? { value: o, label: o } : Object.assign({ value: o.label }, o); }); }
+  function normItems(opts) { return (opts || []).map(function (o) { return o === '-' ? { separator: true } : typeof o === 'string' ? { value: o, label: o } : (o.separator || o.title !== undefined ? o : Object.assign({ value: o.label }, o)); }); }
 
   function PopUpButton(props) {
     var id = useId(props.id);
@@ -561,7 +598,7 @@ function pictograma(G, clave, o = {}) {
         props.icon ? h(AlmaIcon, { name: props.icon, size: 16 }) : null,
         props.label ? h('span', { className: 'alma-popup__value' }, props.label) : null,
         props.label ? h(AlmaIcon, { name: 'chevron--down', size: 16 }) : null),
-      open ? h(MenuSurface, { kind: 'menu', items: items, labelledBy: id, onClose: close,
+      open ? h(MenuSurface, { kind: 'menu', items: items, labelledBy: id, title: props.title, shortcuts: props.shortcuts, onClose: close,
         onPick: function (it) { close(true); if (it.onSelect) it.onSelect(); if (props.onAction) props.onAction(it.value); } }) : null
     );
   }
@@ -1281,7 +1318,7 @@ function pictograma(G, clave, o = {}) {
         props.children),
       p || sec ? h('div', { className: 'alma-modal__foot' },
         sec ? h(Button, { variant: 'gray', role: 'cancel', onClick: sec.onClick || dismiss }, sec.label) : null,
-        p ? h(Button, { variant: 'filled', role: p.destructive ? 'destructive' : 'primary', type: 'button', disabled: p.disabled,
+        p ? h(Button, { variant: p.destructive ? 'tinted' : 'filled', role: p.destructive ? 'destructive' : 'primary', type: 'button', disabled: p.disabled,
           loading: p.loading, loadingLabel: p.loadingLabel, onClick: p.onClick }, p.label) : null) : null);
     return window.ReactDOM.createPortal(h('div', { className: 'alma-overlay' + (sheet ? ' alma-overlay--sheet' : ''),
       onMouseDown: overlayClose ? dismiss : undefined }, dialog), document.body);
@@ -1715,6 +1752,221 @@ function pictograma(G, clave, o = {}) {
         h('div', { className: 'alma-chart__sr', 'aria-live': 'polite' }, act ? (act.label ? act.label + '. ' : '') + dice(act) + '. ' + (a.i + 1) + ' de ' + n : '')));
   }
 
+  // ContextMenu (Apple HIG › Context menus): the few actions that belong to one item, at the point where they were asked
+  // for — secondary click, a long press, or the keyboard's menu key (Shift+F10). It shows only what applies: an item
+  // that is not available is left out, not dimmed; and nothing lives only here.
+  function ContextMenu(props) {
+    var RR = window.React, at = useState(null), wrap = RR.useRef(null), layer = RR.useRef(null), back = RR.useRef(null), press = RR.useRef(null);
+    function close(refocus) { at[1](null); if (refocus && back.current && back.current.focus) back.current.focus(); }
+    RR.useEffect(function () {
+      if (!at[0]) return;
+      function out(e) { if (layer.current && !layer.current.contains(e.target)) close(); }
+      function gone() { close(); }
+      document.addEventListener('mousedown', out); document.addEventListener('touchstart', out); window.addEventListener('scroll', gone, true); window.addEventListener('resize', gone); window.addEventListener('blur', gone);
+      return function () { document.removeEventListener('mousedown', out); document.removeEventListener('touchstart', out); window.removeEventListener('scroll', gone, true); window.removeEventListener('resize', gone); window.removeEventListener('blur', gone); };
+    }, [!!at[0]]);
+    RR.useEffect(function () { return function () { clearTimeout(press.current); }; }, []);
+    function open(x, y, target, e) {
+      var its = typeof props.items === 'function' ? props.items(e) : props.items;
+      its = normItems(its).filter(function (i) { return !i.disabled; });
+      if (!its.length) return;
+      back.current = document.activeElement && wrap.current.contains(document.activeElement) ? document.activeElement : target; at[1]({ x: x, y: y, items: its });
+    }
+    if (props.disabled) return props.children;
+    return h(props.as || 'div', { ref: wrap, className: 'alma-context' + (props.className ? ' ' + props.className : ''),
+      onContextMenu: function (e) {
+        e.preventDefault(); var x = e.clientX, y = e.clientY;
+        // from the keyboard there is no point: open under what has the focus
+        if (!x && !y) { var r = (e.target.getBoundingClientRect ? e.target : wrap.current).getBoundingClientRect(); x = r.left + 8; y = r.bottom + 4; }
+        open(x, y, e.target, e);
+      },
+      onTouchStart: function (e) { var t = e.touches[0], tg = e.target, x = t.clientX, y = t.clientY; clearTimeout(press.current); press.current = setTimeout(function () { open(x, y, tg, e); }, 500); },
+      onTouchMove: function () { clearTimeout(press.current); }, onTouchEnd: function () { clearTimeout(press.current); }, onTouchCancel: function () { clearTimeout(press.current); } },
+      props.children,
+      at[0] ? window.ReactDOM.createPortal(h('div', { ref: layer, className: 'alma-context__layer' }, h(MenuSurface, { kind: 'menu', point: at[0], items: at[0].items, title: props.title, label: props.label || 'Acciones', shortcuts: false,
+        onClose: close, onPick: function (it) { close(true); if (it.onSelect) it.onSelect(); if (props.onAction) props.onAction(it.value); } })), document.body) : null);
+  }
+
+  // ActionSheet (Apple HIG › Action sheets): the choices of an action the person started — «¿Guardar o descartar el
+  // borrador?». Not an alert, which arrives unasked. What destroys goes first and in red; Cancel goes last, apart.
+  // On a narrow screen it rises from the bottom; on a wide one it sits in the middle.
+  function ActionSheet(props) {
+    var id = useId(props.id), box = R.useRef(null), actions = props.actions || [];
+    var cancel = actions.find(function (a) { return a.role === 'cancel'; });
+    function dismiss() { if (cancel && cancel.onPress) cancel.onPress(); else if (props.onDismiss) props.onDismiss(); }
+    useFocusTrap(box, !!props.open && !props.inline, dismiss, '.alma-asheet__cancel', true);
+    R.useEffect(function () {
+      if (!props.open || props.inline) return;
+      var b = document.body, prev = b.style.overflow; b.style.overflow = 'hidden';
+      return function () { b.style.overflow = prev; };
+    }, [props.open]);
+    if (!props.open) return null;
+    var w = function (a) { return a.role === 'destructive' ? 0 : 1; };
+    var rest = actions.filter(function (a) { return a.role !== 'cancel'; }).sort(function (a, b) { return w(a) - w(b); });
+    var sheet = h('div', { ref: box, role: 'dialog', 'aria-modal': props.inline ? undefined : true, tabIndex: -1, 'aria-labelledby': props.title ? id + '-t' : undefined, 'aria-label': props.title ? undefined : (props['aria-label'] || 'Opciones'),
+      'aria-describedby': props.message ? id + '-m' : undefined, className: 'alma-asheet', onMouseDown: function (e) { e.stopPropagation(); } },
+      props.title || props.message ? h('div', { className: 'alma-asheet__head' },
+        props.title ? h('h2', { id: id + '-t', className: 'alma-asheet__title' }, props.title) : null,
+        props.message ? h('p', { id: id + '-m', className: 'alma-asheet__msg' }, props.message) : null) : null,
+      h('div', { className: 'alma-asheet__actions' }, rest.map(function (a) {
+        return h(Button, { key: a.label, variant: 'tinted', size: 'md', role: a.role === 'destructive' ? 'destructive' : 'normal', iconBefore: a.icon, disabled: a.disabled, className: 'alma-asheet__btn', type: 'button', onClick: a.onPress }, a.label);
+      })),
+      cancel ? h(Button, { variant: 'gray', size: 'md', role: 'cancel', className: 'alma-asheet__btn alma-asheet__cancel', type: 'button', onClick: cancel.onPress }, cancel.label) : null);
+    if (props.inline) return sheet;
+    return window.ReactDOM.createPortal(h('div', { className: 'alma-overlay alma-overlay--asheet', onMouseDown: dismiss }, sheet), document.body);
+  }
+
+  // ---------- The environment (pattern «Entorno»): Desktop, Window, MenuBar, Dock ----------
+  // A desktop that runs in the browser: windows that overlap over a background, a bar of menus above and a dock below.
+  // Apple HIG › Windows, The menu bar, Dock menus; the frame is glass (foundation «Profundidad»), the body is content.
+  // (made on first use: the bundle can be loaded where there is no React yet to make it)
+  var deskCtx = null; function DeskCtx() { return deskCtx || (deskCtx = R.createContext(null)); }
+
+  // Desktop: the stage. It keeps the order of its windows (the last one is in front and takes the keyboard) and knows
+  // if it is narrow: under 672 px there is one window at a time, full size, as on a phone.
+  function Desktop(props) {
+    var root = R.useRef(null), stage = R.useRef(null), ord = useState([]), nar = useState(false), ready = R.useRef(false);
+    // (the windows it starts with do not take the focus of the page; the ones that come later do)
+    R.useEffect(function () { var t = setTimeout(function () { ready.current = true; }, 200); return function () { clearTimeout(t); }; }, []);
+    R.useEffect(function () {
+      var el = root.current; if (!el) return;
+      function mide() { nar[1](el.getBoundingClientRect().width < 672); }
+      mide(); if (!window.ResizeObserver) return; var ro = new ResizeObserver(mide); ro.observe(el); return function () { ro.disconnect(); };
+    }, []);
+    var ctx = R.useMemo(function () { return {
+      order: ord[0], compact: nar[0], stage: stage, dock: !!props.dock, ready: ready,
+      front: function (id) { ord[1](function (o) { return o[o.length - 1] === id ? o : o.filter(function (x) { return x !== id; }).concat([id]); }); },
+      leave: function (id) { ord[1](function (o) { return o.indexOf(id) < 0 ? o : o.filter(function (x) { return x !== id; }); }); }
+    }; }, [ord[0], nar[0], !!props.dock]);
+    return h(DeskCtx().Provider, { value: ctx },
+      h('div', { ref: root, role: 'region', 'aria-label': props.label || 'Escritorio', style: props.style,
+        className: 'alma-desktop' + (nar[0] ? ' is-compact' : '') + (props.menuBar ? ' has-bar' : '') + (props.dock ? ' has-dock' : '') + (props.className ? ' ' + props.className : '') },
+        props.wallpaper ? h('div', { className: 'alma-desktop__wall', 'aria-hidden': 'true' }, props.wallpaper) : null,
+        props.menuBar || null,
+        h('div', { ref: stage, className: 'alma-desktop__stage' }, props.children),
+        props.dock || null));
+  }
+
+  // Window: a frame (the bar, with its controls and its title) and a body. It is moved by its bar and resized by its
+  // edges, with the pointer or with the keyboard; the one in front is the active one, and the others step back.
+  // Outside a Desktop it is a still window, for a document or a picture.
+  var winSeq = 0;
+  function Window(props) {
+    var ctx = R.useContext(DeskCtx()), id = useId(props.id), n = R.useRef(null); if (n.current === null) n.current = winSeq++;
+    var dp = props.defaultPosition || { x: 24 + (n.current % 6) * 32, y: 24 + (n.current % 6) * 32 }, ds = props.defaultSize || { w: 480, h: 360 }, min = props.minSize || { w: 240, h: 160 };
+    var g = useState({ x: dp.x, y: dp.y, w: ds.w, h: ds.h }), geo = g[0], zo = useState(!!props.defaultZoomed), root = R.useRef(null), drag = R.useRef(null);
+    var shown = props.open !== false && !props.minimized, cid = ctx ? id : null;
+    R.useEffect(function () { if (!ctx || !shown) return; ctx.front(id); return function () { ctx.leave(id); }; }, [shown, !!ctx]);
+    // frontKey: when its value changes, the window comes to the front (its app was chosen in the dock, or in a menu)
+    R.useEffect(function () { if (ctx && shown && props.frontKey) ctx.front(id); }, [props.frontKey]);
+    var z = ctx ? ctx.order.indexOf(id) : 0, active = !ctx ? props.active !== false : (ctx.order[ctx.order.length - 1] === id);
+    // the one that comes to the front from elsewhere (the dock, a menu) takes the focus
+    var was = R.useRef(false);
+    R.useEffect(function () { if (ctx && ctx.ready.current && active && !was.current && root.current && !root.current.contains(document.activeElement)) root.current.focus({ preventScroll: true }); was.current = active; }, [active]);
+    if (!shown) return null;
+    var free = ctx && !ctx.compact && !zo[0], panel = props.kind === 'panel';
+    function bounds() { var s = ctx && ctx.stage.current; return s ? { w: s.clientWidth, h: s.clientHeight } : { w: 1e5, h: 1e5 }; }
+    function put(q) {
+      var b = bounds(); q.w = Math.max(min.w, Math.min(q.w, b.w)); q.h = Math.max(min.h, Math.min(q.h, b.h));
+      // the controls, at the start of the bar, always stay within reach
+      q.x = Math.max(0, Math.min(q.x, b.w - 96)); q.y = Math.max(0, Math.min(q.y, b.h - 40));
+      g[1](q); if (props.onChange) props.onChange(q);
+    }
+    function start(mode) { return function (e) {
+      if (!free || (e.button !== undefined && e.button !== 0) || (mode === 'move' && e.target.closest('button, a, input, [role="menu"]'))) return;
+      drag.current = { mode: mode, px: e.clientX, py: e.clientY, g: geo }; e.currentTarget.setPointerCapture(e.pointerId); if (ctx) ctx.front(id);
+    }; }
+    function moveTo(e) {
+      var d = drag.current; if (!d) return; var dx = e.clientX - d.px, dy = e.clientY - d.py, q = Object.assign({}, d.g), m = d.mode;
+      if (m === 'move') { q.x += dx; q.y += dy; }
+      if (m.indexOf('e') >= 0 && m !== 'move') q.w = d.g.w + dx;
+      if (m.indexOf('s') >= 0) q.h = d.g.h + dy;
+      if (m.indexOf('w') >= 0) { var w = Math.max(min.w, d.g.w - dx); q.x = d.g.x + (d.g.w - w); q.w = w; }
+      put(q);
+    }
+    function end() { drag.current = null; }
+    function keys(e) {
+      if (e.target !== e.currentTarget || !free) return;
+      var k = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key]; if (!k) return;
+      e.preventDefault(); var s = 16, q = Object.assign({}, geo);
+      if (e.shiftKey) { q.w += k[0] * s; q.h += k[1] * s; } else { q.x += k[0] * s; q.y += k[1] * s; }
+      put(q);
+    }
+    function ctl(icon, label, fn) { return h('button', { type: 'button', className: 'alma-window__ctl', 'aria-label': label + ' ' + props.title, title: label, onClick: fn }, h(AlmaIcon, { name: icon, size: 16 })); }
+    var style = !ctx ? Object.assign({ width: geo.w, height: props.defaultSize ? geo.h : undefined }, props.style) : (free ? { left: geo.x, top: geo.y, width: geo.w, height: geo.h, zIndex: z + 1 } : { zIndex: z + 1 });
+    return h('section', { ref: root, id: cid || props.id, role: 'dialog', 'aria-labelledby': id + '-t', tabIndex: -1, style: style,
+      hidden: ctx && ctx.compact && !active ? true : undefined,
+      className: 'alma-window' + (active ? ' is-active' : '') + (panel ? ' alma-window--panel alma-glass' : '') + (!ctx ? ' is-still' : '') + (ctx && !free ? ' is-full' : '') + (props.className ? ' ' + props.className : ''),
+      onPointerDownCapture: function () { if (ctx && !active) ctx.front(id); }, onFocusCapture: function () { if (ctx && !active) ctx.front(id); } },
+      h('header', { className: 'alma-window__bar' + (active && !panel ? ' alma-glass' : ''), tabIndex: free ? 0 : undefined, role: 'group', 'aria-label': 'Barra de ' + props.title, 'aria-describedby': free ? id + '-k' : undefined,
+        onPointerDown: start('move'), onPointerMove: moveTo, onPointerUp: end, onPointerCancel: end, onKeyDown: keys,
+        onDoubleClick: function (e) { if (ctx && !ctx.compact && props.zoomable !== false && !e.target.closest('button')) zo[1](!zo[0]); } },
+        h('div', { className: 'alma-window__ctls' },
+          props.onClose ? ctl('close', 'Cerrar', props.onClose) : null,
+          props.onMinimize && ctx && !ctx.compact ? ctl('subtract', 'Minimizar', props.onMinimize) : null,
+          ctx && !ctx.compact && props.zoomable !== false && !panel ? ctl(zo[0] ? 'minimize' : 'maximize', zo[0] ? 'Restaurar' : 'Ampliar', function () { zo[1](!zo[0]); }) : null),
+        h('h2', { id: id + '-t', className: 'alma-window__title' }, props.title),
+        props.toolbar ? h('div', { className: 'alma-window__tools' }, props.toolbar) : null,
+        free ? h('span', { id: id + '-k', className: 'alma-vh' }, 'Flechas: mover la ventana. Mayúsculas y flechas: cambiar su tamaño.') : null),
+      h('div', { className: 'alma-window__body' }, props.children),
+      props.bottomBar ? h('footer', { className: 'alma-window__foot' }, props.bottomBar) : null,
+      free && props.resizable !== false ? ['e', 's', 'w', 'se', 'sw'].map(function (m) { return h('div', { key: m, className: 'alma-window__grip alma-window__grip--' + m, 'aria-hidden': 'true', onPointerDown: start(m), onPointerMove: moveTo, onPointerUp: end, onPointerCancel: end }); }) : null);
+  }
+
+  // MenuBar: the menus of the app in front, always in the same place and the same order, and on the other side the
+  // extras — the hour, the connection, the presence of the AI. Every command of the app can be found here.
+  function MenuBar(props) {
+    var id = useId(props.id), menus = props.menus || [], op = useState(-1), open = op[0], bar = R.useRef(null), foc = useState(0);
+    useOutside(bar, open >= 0, function () { op[1](-1); });
+    function go(i, andOpen) { var k = (i + menus.length) % menus.length; foc[1](k); if (andOpen) op[1](k); var b = bar.current && bar.current.querySelectorAll('.alma-menubar__title')[k]; if (b && !andOpen) b.focus(); }
+    function key(e, i) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1, open >= 0); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1, open >= 0); }
+      else if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); op[1](i); }
+      else if (e.key === 'Home') { e.preventDefault(); go(0); } else if (e.key === 'End') { e.preventDefault(); go(menus.length - 1); }
+    }
+    function close(refocus) { var i = open; op[1](-1); if (refocus) { var b = bar.current.querySelectorAll('.alma-menubar__title')[i]; if (b) b.focus(); } }
+    var extras = props.extras || [];
+    return h('div', { ref: bar, className: 'alma-menubar alma-glass alma-glass--thin' + (props.className ? ' ' + props.className : '') },
+      h('ul', { role: 'menubar', 'aria-label': props.label || 'Menús de ' + (props.appName || 'la aplicación'), className: 'alma-menubar__menus',
+        // inside an open menu, the side arrows go to the menu next to it (unless they open or close a submenu)
+        onKeyDown: function (e) { if (open < 0 || e.defaultPrevented) return; if (e.key === 'ArrowRight') { e.preventDefault(); go(open + 1, true); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(open - 1, true); } } },
+        menus.map(function (m, i) {
+          return h('li', { key: m.label, role: 'none', className: 'alma-menubar__item' },
+            h('button', { type: 'button', role: 'menuitem', id: id + '-m' + i, tabIndex: i === foc[0] ? 0 : -1, 'aria-haspopup': 'menu', 'aria-expanded': open === i,
+              className: 'alma-menubar__title' + (i === 0 && props.appName ? ' is-app' : '') + (open === i ? ' is-open' : ''),
+              onClick: function () { foc[1](i); op[1](open === i ? -1 : i); }, onMouseEnter: function () { if (open >= 0 && open !== i) { foc[1](i); op[1](i); } }, onKeyDown: function (e) { key(e, i); } }, m.label),
+            open === i ? h(MenuSurface, { key: 'm' + i, kind: 'menu', labelledBy: id + '-m' + i, items: normItems(m.items), onClose: close,
+              onPick: function (it) { close(true); if (it.onSelect) it.onSelect(); if (props.onAction) props.onAction(it.value, m.label); } }) : null);
+        })),
+      extras.length ? h('div', { className: 'alma-menubar__extras' }, extras.map(function (x, i) {
+        if (x.node) return h('span', { key: i, className: 'alma-menubar__extra' }, x.node);
+        if (x.items) return h(PullDownButton, { key: i, icon: x.icon, label: x.text, 'aria-label': x.label, actions: x.items, onAction: x.onAction });
+        if (x.onPress) return h('button', { key: i, type: 'button', className: 'alma-menubar__extra alma-menubar__btn', 'aria-label': x.label, title: x.label, onClick: x.onPress }, x.icon ? h(AlmaIcon, { name: x.icon, size: 16 }) : null, x.text || null);
+        return h('span', { key: i, className: 'alma-menubar__extra' }, x.icon ? h(AlmaIcon, { name: x.icon, size: 16, label: x.label }) : null, x.text ? h('span', null, x.text) : null);
+      })) : null);
+  }
+
+  // Dock: the apps, one touch away. A dot under the ones that are open; a secondary click on one brings its own menu.
+  // One Tab stop: the arrows go from app to app.
+  function Dock(props) {
+    var items = props.items || [], f = useState(0), bar = R.useRef(null);
+    function go(i) { var k = (i + items.length) % items.length; f[1](k); var b = bar.current && bar.current.querySelectorAll('.alma-dock__app')[k]; if (b) b.focus(); }
+    return h('div', { ref: bar, role: 'toolbar', 'aria-label': props.label || 'Dock', 'aria-orientation': 'horizontal', className: 'alma-dock alma-glass' + (props.className ? ' ' + props.className : ''),
+      onKeyDown: function (e) { if (e.key === 'ArrowRight') { e.preventDefault(); go(f[0] + 1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(f[0] - 1); } else if (e.key === 'Home') { e.preventDefault(); go(0); } else if (e.key === 'End') { e.preventDefault(); go(items.length - 1); } } },
+      items.map(function (it, i) {
+        if (it.separator) return h('span', { key: 's' + i, className: 'alma-dock__sep', role: 'separator', 'aria-orientation': 'vertical' });
+        var btn = h('button', { type: 'button', tabIndex: i === f[0] ? 0 : -1, className: 'alma-dock__app' + (it.running ? ' is-running' : '') + (it.active ? ' is-active' : ''), title: it.label,
+          'aria-label': it.label + (it.running ? ', abierta' : '') + (it.badge ? ', ' + it.badge + ' sin ver' : ''), onFocus: function () { f[1](i); },
+          onClick: function () { if (it.onOpen) it.onOpen(); if (props.onOpen) props.onOpen(it.id); } },
+          h('span', { className: 'alma-dock__tile' }, it.node || h(AlmaIcon, { name: it.icon, size: 24 })),
+          it.badge ? h('span', { className: 'alma-dock__badge', 'aria-hidden': 'true' }, it.badge) : null,
+          h('span', { className: 'alma-dock__dot', 'aria-hidden': 'true' }));
+        return it.menu ? h(ContextMenu, { key: it.id || it.label, as: 'span', className: 'alma-dock__slot', items: it.menu, label: 'Acciones de ' + it.label, onAction: function (v) { if (props.onAction) props.onAction(v, it.id); } }, btn)
+          : h('span', { key: it.id || it.label, className: 'alma-dock__slot' }, btn);
+      }));
+  }
+
   // ---------- AI (guide «Interfaces de IA») ----------
   // What an AI generated is marked, explained, sourced and announced the same way everywhere. Carbon's AI label and
   // explainability levels, Apple's control and correction, Google's PAIR on showing limits; the words are ALMA's.
@@ -1843,5 +2095,165 @@ function pictograma(G, clave, o = {}) {
       note ? h('p', { id: id + '-note', className: 'alma-prompt__note' }, note) : null);
   }
 
-  window.AlmaDS = { AILabel: AILabel, PromptInput: PromptInput, ChatMessage: ChatMessage, SourceList: SourceList, SourceRef: SourceRef, ScatterChart: ScatterChart, BarChart: BarChart, LineChart: LineChart, applyTheme: applyTheme, Link: Link, Tag: Tag, Textarea: Textarea, Card: Card, List: List, EmptyState: EmptyState, Breadcrumb: Breadcrumb, Accordion: Accordion, ProgressIndicator: ProgressIndicator, Popover: Popover, Modal: Modal, Sheet: Sheet, Combobox: Combobox, DatePicker: DatePicker, TimePicker: TimePicker, registerIcons: registerIcons, iconNames: iconNames, Table: Table, Slider: Slider, ProgressBar: ProgressBar, ActivityIndicator: ActivityIndicator, PageControl: PageControl, InlineNotification: InlineNotification, ToastRegion: ToastRegion, toast: toast, Pagination: Pagination, FileUploader: FileUploader, Skeleton: Skeleton, Tabs: Tabs, TabBar: TabBar, Sidebar: Sidebar, Toolbar: Toolbar, SearchField: SearchField, Tooltip: Tooltip, Tip: Tip, Switch: Switch, Checkbox: Checkbox, RadioGroup: RadioGroup, PopUpButton: PopUpButton, PullDownButton: PullDownButton, Alert: Alert, Button: Button, TextInput: TextInput, Icon: AlmaIcon, Pictogram: Pictogram, pictogramDrawings: pictogramDrawings, configurePictograms: configurePictograms, SegmentedControl: SegmentedControl, Stepper: Stepper, ProductCard: ProductCard, PaymentCard: PaymentCard, ProgressLine: ProgressLine };
+  // ---------- At a glance, outside the app: Widget, LiveActivity, Snippet ----------
+  // Apple HIG › Widgets, Live Activities, Snippets. What an app shows when it is not in front: a little of its
+  // content on the desktop, the course of something that lasts, and the answer of the assistant as a card.
+
+  // Widget: one idea of an app, to be read at a glance. Four sizes on a grid of 160 px; the whole of it opens the app
+  // at that place. It says when its content is from: a widget is not live.
+  function Widget(props) {
+    var id = useId(props.id), size = { sm: 'sm', md: 'md', lg: 'lg', xl: 'xl' }[props.size] || 'sm', open = props.onOpen || props.href;
+    return h('article', { className: 'alma-widget alma-widget--' + size + ' alma-glass' + (props.className ? ' ' + props.className : ''), 'aria-labelledby': id + '-t', 'aria-busy': props.loading || undefined },
+      h('header', { className: 'alma-widget__head' },
+        props.icon ? h(AlmaIcon, { name: props.icon, size: 16 }) : null,
+        h('h3', { id: id + '-t', className: 'alma-widget__title' }, props.title)),
+      h('div', { className: 'alma-widget__body' }, props.loading ? h(Skeleton, { label: 'Cargando ' + props.title, lines: size === 'sm' ? 2 : 3 }) : props.children),
+      props.updated && !props.loading ? h('p', { className: 'alma-widget__when' }, props.updated) : null,
+      // one way in, over the whole widget; what can be pressed inside it stays above
+      open ? h(props.href ? 'a' : 'button', { type: props.href ? undefined : 'button', href: props.href, className: 'alma-widget__open', onClick: props.onOpen, 'aria-label': props.openLabel || 'Abrir ' + props.title }) : null);
+  }
+
+  // LiveActivity: something with a beginning and an end, followed without opening its app. Compact: an icon, a name
+  // and the figure that matters; minimal: the icon and how far it is; expanded: the detail, its steps and what can
+  // be done. It is announced only when told (announce), never on every tick.
+  function LiveActivity(props) {
+    var id = useId(props.id), o = useControlled(props.expanded, !!props.defaultExpanded), open = o[0], wrap = R.useRef(null);
+    var p = props.progress, has = p !== undefined && p !== null, pct = has ? Math.round(Math.max(0, Math.min(1, p)) * 100) : null, mini = props.presentation === 'minimal';
+    var still = props.presentation === 'expanded';
+    function set(v) { o[1](v); if (props.onExpandedChange) props.onExpandedChange(v); }
+    useOutside(wrap, open && !still, function () { set(false); });
+    var ring = has ? h('span', { className: 'alma-live__ring', style: { '--p': pct }, 'aria-hidden': 'true' }) : null;
+    var steps = props.steps || [];
+    var panel = h('div', { id: id + '-p', className: 'alma-live__panel' + (still ? '' : ' alma-glass'), role: 'group', 'aria-label': props.label },
+      h('div', { className: 'alma-live__top' }, props.icon ? h(AlmaIcon, { name: props.icon, size: 24 }) : null,
+        h('div', { className: 'alma-live__names' }, h('p', { className: 'alma-live__label' }, props.label), props.detail ? h('p', { className: 'alma-live__detail' }, props.detail) : null),
+        props.value ? h('p', { className: 'alma-live__value' }, props.value) : null),
+      has ? h('div', { className: 'alma-progressbar' }, h('div', { className: 'alma-progressbar__track', role: 'progressbar', 'aria-label': props.progressLabel || props.label, 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': pct }, h('div', { className: 'alma-progressbar__fill', style: { width: pct + '%' } }))) : null,
+      steps.length ? h('ol', { className: 'alma-live__steps' }, steps.map(function (s, i) {
+        var st = s.state || 'todo';
+        return h('li', { key: i, className: 'alma-live__step is-' + st, 'aria-current': st === 'current' ? 'step' : undefined },
+          st === 'done' ? h(AlmaIcon, { name: 'checkmark--filled', size: 16 }) : (st === 'current' ? h('span', { className: 'alma-btn__spinner', 'aria-hidden': 'true' }) : h('span', { className: 'alma-live__todo', 'aria-hidden': 'true' })),
+          h('span', null, s.label, h('span', { className: 'alma-vh' }, st === 'done' ? ', hecho' : (st === 'current' ? ', en curso' : ', por hacer'))));
+      })) : null,
+      props.children,
+      props.actions && props.actions.length ? h('div', { className: 'alma-live__actions' }, props.actions.map(function (a) {
+        return h(Button, { key: a.label, variant: a.role === 'destructive' ? 'tinted' : (a.primary ? 'filled' : 'gray'), role: a.role === 'destructive' ? 'destructive' : (a.primary ? 'primary' : 'normal'), type: 'button', onClick: a.onPress }, a.label);
+      })) : null);
+    return h('div', { ref: wrap, className: 'alma-live' + (still ? ' alma-live--still alma-glass' : '') + (props.className ? ' ' + props.className : '') },
+      h('span', { className: 'alma-vh', role: 'status' }, props.announce || ''),
+      still ? panel : h('button', { type: 'button', className: 'alma-live__pill' + (mini ? ' is-minimal' : ''), 'aria-expanded': open, 'aria-controls': id + '-p',
+        'aria-label': props.label + (props.value ? ', ' + props.value : '') + (has ? ', ' + pct + ' %' : ''), onClick: function () { set(!open); } },
+        ring || (props.icon ? h(AlmaIcon, { name: props.icon, size: 16 }) : null),
+        mini ? null : h('span', { className: 'alma-live__short' }, props.short || props.label),
+        mini || !props.value ? null : h('span', { className: 'alma-live__figure' }, props.value)),
+      !still && open ? panel : null);
+  }
+
+  // Snippet: what the assistant answers when the answer is a thing and not a text. A result shows it and is done; a
+  // confirmation says what is about to happen and waits — Cancel, and a button named after the action.
+  function Snippet(props) {
+    var id = useId(props.id), confirm = props.kind === 'confirmation';
+    return h('section', { className: 'alma-snippet alma-glass alma-glass--thick' + (props.className ? ' ' + props.className : ''), 'aria-labelledby': props.title ? id + '-t' : undefined, 'aria-label': props.title ? undefined : (props['aria-label'] || (confirm ? 'Confirmación' : 'Resultado')) },
+      props.dialogue ? h('p', { className: props.showDialogue ? 'alma-snippet__say' : 'alma-vh' }, props.dialogue) : null,
+      props.title || props.source || props.ai ? h('header', { className: 'alma-snippet__head' },
+        props.sourceIcon ? h(AlmaIcon, { name: props.sourceIcon, size: 16 }) : null,
+        h('div', { className: 'alma-snippet__names' }, props.source ? h('p', { className: 'alma-snippet__source' }, props.source) : null, props.title ? h('h3', { id: id + '-t', className: 'alma-snippet__title' }, props.title) : null),
+        props.ai ? h(AILabel, typeof props.ai === 'object' ? props.ai : null) : null) : null,
+      h('div', { className: 'alma-snippet__body', tabIndex: props.scrolls ? 0 : undefined }, props.children),
+      h('div', { className: 'alma-snippet__actions' },
+        confirm ? h(Button, { variant: 'gray', role: 'cancel', type: 'button', onClick: props.onCancel }, props.cancelLabel || 'Cancelar') : null,
+        confirm ? h(Button, { variant: props.destructive ? 'tinted' : 'filled', role: props.destructive ? 'destructive' : 'primary', type: 'button', onClick: props.onConfirm }, props.primaryLabel || 'Continuar') : null,
+        !confirm && props.onOpen ? h(Button, { variant: 'plain', type: 'button', iconAfter: 'launch', onClick: props.onOpen }, props.openLabel || 'Abrir') : null,
+        !confirm && props.onDone ? h(Button, { variant: 'gray', type: 'button', onClick: props.onDone }, props.doneLabel || 'Listo') : null));
+  }
+
+  // ---------- More of Apple's list: DigitEntry, TokenField, Gauge, Rating ----------
+  // Built with the three things of pattern «Jerarquía» in hand: one level of text per job (text-01 what is read,
+  // text-02 what helps, text-03 what is not there yet), one prominent action per view, and margins by relation.
+
+  // DigitEntry (Apple HIG › Digit entry views): a short code, one digit per box. It is one real field under the boxes,
+  // so a code can be pasted or filled in by the system, and a screen reader meets a single field with its name.
+  function DigitEntry(props) {
+    var id = useId(props.id), n = props.length || 6, s = useControlled(props.value, props.defaultValue || ''), value = String(s[0]).replace(/\D/g, '').slice(0, n);
+    var f = useState(false), invalid = !!props.error, helper = typeof props.error === 'string' ? props.error : props.helper;
+    function change(e) { var v = e.target.value.replace(/\D/g, '').slice(0, n); s[1](v); if (props.onChange) props.onChange(v); if (v.length === n && props.onComplete) props.onComplete(v); }
+    return h('div', { className: 'alma-digits' + (invalid ? ' is-error' : '') + (props.disabled ? ' is-disabled' : '') + (props.className ? ' ' + props.className : '') },
+      h('label', { htmlFor: id, className: 'alma-digits__label' }, props.label),
+      h('div', { className: 'alma-digits__row' + (f[0] ? ' has-focus' : ''), style: { '--n': n } },
+        Array.from({ length: n }, function (_, i) { return h('span', { key: i, 'aria-hidden': 'true', className: 'alma-digits__box' + (value[i] ? ' is-filled' : '') + (f[0] && i === Math.min(value.length, n - 1) ? ' is-current' : '') }, props.mask && value[i] ? '•' : (value[i] || '')); }),
+        h('input', { id: id, className: 'alma-digits__input', type: 'text', inputMode: 'numeric', autoComplete: props.autoComplete || 'one-time-code', pattern: '[0-9]*', maxLength: n, value: value, disabled: props.disabled, name: props.name,
+          'aria-invalid': invalid || undefined, 'aria-describedby': helper ? id + '-h' : undefined, onChange: change, onFocus: function () { f[1](true); }, onBlur: function () { f[1](false); } })),
+      helper ? h('p', { id: id + '-h', className: 'alma-digits__help' }, invalid ? h(AlmaIcon, { name: 'warning--filled', size: 16 }) : null, helper) : null);
+  }
+
+  // TokenField (Apple HIG › Token fields): several values in one field, each one a token that can be removed. Enter or
+  // a comma makes a token of what was typed; Backspace on an empty field goes back to the last one.
+  function TokenField(props) {
+    var id = useId(props.id), s = useControlled(props.value, props.defaultValue || []), tokens = s[0], t = useState(''), text = t[0], input = R.useRef(null), box = R.useRef(null), say = useState(''), act = useState(-1);
+    var invalid = !!props.error, helper = typeof props.error === 'string' ? props.error : props.helper;
+    var sug = text.trim() ? (props.suggestions || []).filter(function (x) { return x.toLowerCase().indexOf(text.trim().toLowerCase()) === 0 && tokens.indexOf(x) < 0; }).slice(0, 6) : [];
+    function set(v, msg) { s[1](v); if (props.onChange) props.onChange(v); say[1](msg); }
+    function add(raw) { var v = String(raw).trim().replace(/,$/, ''); if (!v) return; t[1](''); act[1](-1); if (tokens.indexOf(v) >= 0) { say[1](v + ' ya está'); return; } if (props.validate && !props.validate(v)) { say[1](v + ' no es válido'); t[1](v); return; } set(tokens.concat([v]), 'Agregaste ' + v); }
+    function remove(i) { var v = tokens[i]; set(tokens.filter(function (_, k) { return k !== i; }), 'Quitaste ' + v); if (input.current) input.current.focus(); }
+    function key(e) {
+      if (sug.length && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) { e.preventDefault(); act[1]((act[0] + (e.key === 'ArrowDown' ? 1 : -1) + sug.length + (act[0] < 0 && e.key === 'ArrowUp' ? 1 : 0)) % sug.length); return; }
+      if (e.key === 'Enter' || e.key === ',') { if (text.trim() || act[0] >= 0) { e.preventDefault(); add(act[0] >= 0 ? sug[act[0]] : text); } return; }
+      if (e.key === 'Escape' && sug.length) { e.stopPropagation(); t[1](''); return; }
+      if (e.key === 'Backspace' && !text && tokens.length) { var last = box.current.querySelectorAll('.alma-tag__remove'); if (last.length) last[last.length - 1].focus(); }
+    }
+    return h('div', { className: 'alma-field alma-field--area alma-field--filled alma-tokens' + (invalid ? ' alma-field--error' : '') + (props.disabled ? ' alma-field--disabled' : '') + (props.className ? ' ' + props.className : '') },
+      h('div', { ref: box, className: 'alma-field__box', onMouseDown: function (e) { if (e.target === e.currentTarget && input.current) { e.preventDefault(); input.current.focus(); } } },
+        h('label', { htmlFor: id, className: 'alma-field__label' }, props.label + (props.required ? '*' : '')),
+        tokens.length ? h('ul', { className: 'alma-tokens__list', 'aria-label': props.label + ': ' + tokens.length + (tokens.length === 1 ? ' elegido' : ' elegidos') }, tokens.map(function (v, i) {
+          return h('li', { key: v }, h(Tag, { size: 'sm', disabled: props.disabled, onRemove: function () { remove(i); } }, v)); })) : null,
+        h('input', { ref: input, id: id, className: 'alma-field__input alma-tokens__input', value: text, placeholder: tokens.length ? undefined : props.placeholder, disabled: props.disabled, autoComplete: 'off',
+          role: props.suggestions ? 'combobox' : undefined, 'aria-expanded': props.suggestions ? sug.length > 0 : undefined, 'aria-controls': props.suggestions ? id + '-s' : undefined, 'aria-autocomplete': props.suggestions ? 'list' : undefined,
+          'aria-activedescendant': act[0] >= 0 ? id + '-s' + act[0] : undefined, 'aria-invalid': invalid || undefined, 'aria-describedby': helper ? id + '-help' : undefined,
+          onChange: function (e) { var v = e.target.value; if (/,\s*$/.test(v)) add(v); else { t[1](v); act[1](-1); } }, onKeyDown: key, onBlur: function () { if (props.addOnBlur !== false && text.trim() && !sug.length) add(text); } }),
+        sug.length ? h('ul', { id: id + '-s', role: 'listbox', 'aria-label': 'Sugerencias', className: 'alma-menu alma-tokens__menu' }, sug.map(function (x, i) {
+          return h('li', { key: x, id: id + '-s' + i, role: 'option', 'aria-selected': i === act[0], className: 'alma-menu__item' + (i === act[0] ? ' is-active' : ''), onMouseDown: function (e) { e.preventDefault(); add(x); } }, h('span', { className: 'alma-menu__text' }, x)); })) : null),
+      helper ? h('div', { className: 'alma-field__foot' }, h('span', { id: id + '-help', className: 'alma-field__help' }, helper)) : null,
+      h('span', { className: 'alma-vh', role: 'status' }, say[0]));
+  }
+
+  // Gauge (Apple HIG › Gauges): one value inside a range. Standard: a mark on the path, for where it is; capacity: the
+  // path filled up to it, for how much there is. It always says its number: the drawing alone is not the value.
+  function Gauge(props) {
+    var min = props.min === undefined ? 0 : props.min, max = props.max === undefined ? 100 : props.max, v = Math.max(min, Math.min(max, props.value)), k = max > min ? (v - min) / (max - min) : 0;
+    var fmt = props.format || function (x) { return new Intl.NumberFormat('es-CL').format(x); }, text = props.valueLabel || (fmt(v) + (props.unit ? ' ' + props.unit : ''));
+    var cap = props.kind !== 'standard', circ = props.variant === 'circular', tone = { warning: ' is-warning', error: ' is-error', success: ' is-success' }[props.status] || '';
+    var meter = { role: 'meter', 'aria-label': props.label, 'aria-valuemin': min, 'aria-valuemax': max, 'aria-valuenow': v, 'aria-valuetext': text + (props.statusText ? ', ' + props.statusText : '') };
+    if (circ) {
+      var S = props.size || 96, r = S / 2 - 6, C = 2 * Math.PI * r, arc = 0.75, len = C * arc;
+      return h('div', Object.assign({ className: 'alma-gauge alma-gauge--circular' + tone + (props.className ? ' ' + props.className : ''), style: { width: S } }, meter),
+        h('svg', { viewBox: '0 0 ' + S + ' ' + S, width: S, height: S, 'aria-hidden': 'true', className: 'alma-gauge__dial' },
+          h('circle', { className: 'alma-gauge__track', cx: S / 2, cy: S / 2, r: r, fill: 'none', strokeWidth: 8, strokeLinecap: 'round', strokeDasharray: len + ' ' + C, transform: 'rotate(135 ' + S / 2 + ' ' + S / 2 + ')' }),
+          cap ? h('circle', { className: 'alma-gauge__fill', cx: S / 2, cy: S / 2, r: r, fill: 'none', strokeWidth: 8, strokeLinecap: 'round', strokeDasharray: Math.max(0.01, len * k) + ' ' + C, transform: 'rotate(135 ' + S / 2 + ' ' + S / 2 + ')' })
+            : h('circle', { className: 'alma-gauge__mark', cx: S / 2 + r * Math.cos((135 + 270 * k) * Math.PI / 180), cy: S / 2 + r * Math.sin((135 + 270 * k) * Math.PI / 180), r: 6 })),
+        h('div', { className: 'alma-gauge__center', 'aria-hidden': 'true' }, h('span', { className: 'alma-gauge__value' }, text), props.label && props.showLabel !== false ? h('span', { className: 'alma-gauge__name' }, props.label) : null));
+    }
+    return h('div', Object.assign({ className: 'alma-gauge' + tone + (props.className ? ' ' + props.className : '') }, meter),
+      h('div', { className: 'alma-gauge__top', 'aria-hidden': 'true' }, h('span', { className: 'alma-gauge__name' }, props.label), h('span', { className: 'alma-gauge__value' }, text)),
+      h('div', { className: 'alma-gauge__track', 'aria-hidden': 'true' }, cap ? h('div', { className: 'alma-gauge__fill', style: { width: k * 100 + '%' } }) : h('div', { className: 'alma-gauge__mark', style: { left: k * 100 + '%' } })),
+      props.minLabel || props.maxLabel ? h('div', { className: 'alma-gauge__ends', 'aria-hidden': 'true' }, h('span', null, props.minLabel || ''), h('span', null, props.maxLabel || '')) : null);
+  }
+
+  // Rating (Apple HIG › Rating indicators): how something was rated, in stars; or the stars to rate it with. To read,
+  // it is a picture with its figure in words; to choose, a group of options that the arrows go through.
+  function Rating(props) {
+    var id = useId(props.id), max = props.max || 5, s = useControlled(props.value, props.defaultValue || 0), v = s[0] || 0, hov = useState(0), input = !!props.onChange || props.interactive;
+    var fmt = new Intl.NumberFormat('es-CL', { maximumFractionDigits: 1 }), cls = 'alma-rating' + (props.size === 'sm' ? ' alma-rating--sm' : '') + (props.className ? ' ' + props.className : '');
+    function star(i, val) { var full = val >= i, half = !full && val >= i - 0.5; return h(AlmaIcon, { key: i, name: full ? 'star--filled' : (half ? 'star--half' : 'star'), size: props.size === 'sm' ? 16 : 20, className: 'alma-rating__star' + (full || half ? ' is-on' : '') }); }
+    if (!input) return h('span', { className: cls },
+      h('span', { className: 'alma-rating__stars', role: 'img', 'aria-label': fmt.format(v) + ' de ' + max + ' estrellas' }, Array.from({ length: max }, function (_, i) { return star(i + 1, v); })),
+      props.showValue ? h('span', { className: 'alma-rating__value', 'aria-hidden': 'true' }, fmt.format(v)) : null,
+      props.count !== undefined ? h('span', { className: 'alma-rating__count' }, '(' + new Intl.NumberFormat('es-CL').format(props.count) + ')', h('span', { className: 'alma-vh' }, ' valoraciones')) : null);
+    function pick(n) { var nv = n === v && props.clearable !== false ? 0 : n; s[1](nv); if (props.onChange) props.onChange(nv); }
+    function key(e) { var d = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key]; if (!d) return; e.preventDefault(); var nv = Math.max(1, Math.min(max, (v || 0) + d)); s[1](nv); if (props.onChange) props.onChange(nv); var b = e.currentTarget.querySelectorAll('button')[nv - 1]; if (b) b.focus(); }
+    return h('div', { className: cls + ' alma-rating--input', role: 'radiogroup', 'aria-label': props.label || 'Tu valoración', onKeyDown: key, onMouseLeave: function () { hov[1](0); } },
+      Array.from({ length: max }, function (_, i) { var n = i + 1;
+        return h('button', { key: n, type: 'button', role: 'radio', 'aria-checked': v === n, tabIndex: (v ? v === n : n === 1) ? 0 : -1, disabled: props.disabled, className: 'alma-rating__btn', 'aria-label': n + (n === 1 ? ' estrella' : ' estrellas'), onMouseEnter: function () { hov[1](n); }, onClick: function () { pick(n); } }, star(n, hov[0] || v)); }));
+  }
+
+  window.AlmaDS = { DigitEntry: DigitEntry, TokenField: TokenField, Gauge: Gauge, Rating: Rating, Widget: Widget, LiveActivity: LiveActivity, Snippet: Snippet, Desktop: Desktop, Window: Window, MenuBar: MenuBar, Dock: Dock, ContextMenu: ContextMenu, ActionSheet: ActionSheet, AILabel: AILabel, PromptInput: PromptInput, ChatMessage: ChatMessage, SourceList: SourceList, SourceRef: SourceRef, ScatterChart: ScatterChart, BarChart: BarChart, LineChart: LineChart, applyTheme: applyTheme, Link: Link, Tag: Tag, Textarea: Textarea, Card: Card, List: List, EmptyState: EmptyState, Breadcrumb: Breadcrumb, Accordion: Accordion, ProgressIndicator: ProgressIndicator, Popover: Popover, Modal: Modal, Sheet: Sheet, Combobox: Combobox, DatePicker: DatePicker, TimePicker: TimePicker, registerIcons: registerIcons, iconNames: iconNames, Table: Table, Slider: Slider, ProgressBar: ProgressBar, ActivityIndicator: ActivityIndicator, PageControl: PageControl, InlineNotification: InlineNotification, ToastRegion: ToastRegion, toast: toast, Pagination: Pagination, FileUploader: FileUploader, Skeleton: Skeleton, Tabs: Tabs, TabBar: TabBar, Sidebar: Sidebar, Toolbar: Toolbar, SearchField: SearchField, Tooltip: Tooltip, Tip: Tip, Switch: Switch, Checkbox: Checkbox, RadioGroup: RadioGroup, PopUpButton: PopUpButton, PullDownButton: PullDownButton, Alert: Alert, Button: Button, TextInput: TextInput, Icon: AlmaIcon, Pictogram: Pictogram, pictogramDrawings: pictogramDrawings, configurePictograms: configurePictograms, SegmentedControl: SegmentedControl, Stepper: Stepper, ProductCard: ProductCard, PaymentCard: PaymentCard, ProgressLine: ProgressLine };
 })();
