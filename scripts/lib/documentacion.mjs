@@ -87,6 +87,8 @@ export function css(S) {
   // The seed of what the entity generates (its pictograms) travels with its values: the Pictogram component reads it.
   let out = `/* Entidad ${S.L.nombre}: los valores de la entidad sobre los tokens de ALMA. */\n:root {\n${Object.values(S.core).map(decl).join('\n')}\n  --pictogram-seed: "${semilla(S)}";\n}\n`;
   for (const th of THEMES) out += `${sel[th]} {\n${decl(S.color[th])}\n}\n`;
+  // An entity may ask for everything in glass ("vidrio": true in its language): the same rules for any entity, all tokens.
+  if (S.L.vidrio) out += readFileSync(new URL('../../entidades/vidrio.css', import.meta.url), 'utf8');
   return out;
 }
 

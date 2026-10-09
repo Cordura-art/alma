@@ -807,7 +807,7 @@ export const componentScenes = [
           h('div', { style: { padding: '16px', display: 'grid', gap: '16px', gridTemplateRows: '1fr auto', minHeight: '100%', boxSizing: 'border-box' } },
             h('ol', { style: { margin: 0, padding: 0, display: 'grid', gap: '16px', alignContent: 'start' } }, h(A.ChatMessage, { as: 'li', from: 'user' }, '¿A qué hora sale mi bus?'), h(A.ChatMessage, { as: 'li', actions: false }, h('p', null, 'Tu bus sale el martes 31 de marzo a las 08:30, del andén 4.'))),
             h(A.PromptInput, { placeholder: 'Pregunta por tus viajes', note: false }))))));`,
-      after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'reposo'); await sleep(4000); var w = all('.alma-window');
+      after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'fondo'); await sleep(4000); var w = all('.alma-window');
         num($('.alma-desktop'), 1, 'left', { outline: false, dy: 120 }); num($('.alma-menubar'), 2, 'right', { outline: false }); num(w[1], 3, 'right', { outline: false }); num($('.alma-dock'), 4, 'right', { outline: false });` }),
 
   scene('window', 'usage', 'la ventana con sus partes numeradas', 'window-anatomia',
@@ -820,7 +820,7 @@ export const componentScenes = [
     'Dos ventanas iguales. La de la izquierda está activa: su barra es de vidrio, su borde está marcado, su título y sus controles tienen todo el color, y lleva sombra. La de la derecha está inactiva: barra opaca, borde tenue, título y controles en gris, sin sombra.',
     { js: `function v(t, act) { return h('div', { className: 'col', style: { gap: 'var(--space-16)' } }, h('p', { className: 'cap web-label-m' }, t), h(A.Window, { title: 'Viajes', active: act, defaultSize: { w: 352 }, onClose: function () {} }, h('div', { style: { padding: '16px', display: 'grid', gap: '16px' } }, h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' })))); }
       mount(h('div', { className: 'fondo' }, h('div', { className: 'luz', 'aria-hidden': true }), h('div', { className: 'row', style: { position: 'relative', gap: 'var(--space-32)' } }, v('Activa', true), v('Inactiva', false))));`,
-      efectos: true, after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'reposo'); await sleep(4000);`,
+      efectos: true, after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'fondo'); await sleep(4000);`,
       css: `.fondo { position: relative; padding: var(--space-32); border-radius: var(--radius-panel); overflow: hidden; } .luz { position: absolute; inset: 0; } .fondo .cap { color: var(--text-01); }` }),
 
   scene('menu-bar', 'usage', 'la barra con un menú abierto', 'menu-bar-anatomia',
@@ -844,7 +844,7 @@ export const componentScenes = [
       js: `mount(h('div', { className: 'fondo' }, h('div', { className: 'luz', 'aria-hidden': true }), h('div', { className: 'row', style: { position: 'relative', gap: 'var(--space-16)' } },
         h(A.Widget, { size: 'sm', title: 'Próximo viaje', icon: 'ticket', updated: 'Hace 5 min' }, h('p', { className: 'alma-widget__figure' }, '08:30'), h('p', { className: 'web-body-s' }, 'Viña del Mar'), h('p', { className: 'web-label-s', style: { color: 'var(--text-02)' } }, 'Mañana · andén 4')),
         h(A.Widget, { size: 'md', title: 'Billetera', icon: 'wallet', updated: 'Hoy, 08:12' }, h('p', { className: 'alma-widget__figure' }, '$24.500'), h('p', { className: 'web-body-s', style: { color: 'var(--text-02)' } }, 'Saldo disponible · 2 pasajes guardados')))));`,
-      after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'reposo'); await sleep(4000); num($('.alma-widget__head'), 1, 'top', { outline: false }); num($('.alma-widget__figure'), 2, 'left', { outline: false, d: 28 }); num($('.alma-widget__when'), 3, 'bottom', { outline: false });` }),
+      after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'fondo'); await sleep(4000); num($('.alma-widget__head'), 1, 'top', { outline: false }); num($('.alma-widget__figure'), 2, 'left', { outline: false, d: 28 }); num($('.alma-widget__when'), 3, 'bottom', { outline: false });` }),
 
   scene('live-activity', 'usage', 'mínima, compacta y expandida', 'live-activity-presentaciones',
     'Las tres presentaciones de LiveActivity. Mínima: un anillo de avance. Compacta: el anillo, el nombre «Viña del Mar» y «42 min». Expandida: el ícono, el nombre y el detalle, la cifra grande, una barra de avance, la lista de pasos con su estado y el botón «Detener».',

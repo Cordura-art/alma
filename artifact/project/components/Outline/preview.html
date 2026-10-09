@@ -1,0 +1,10 @@
+<!-- @dsCard group="Navegación" height=440 subtitle="Cosas dentro de cosas · se abren y cierran · una parada de Tab, flechas para recorrer" -->
+<div id="root" style="padding:24px;max-width:24rem;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  function App() { var s = React.useState('mar');
+    return h('div', { style: { border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-panel)', background: 'var(--ui-01)' } }, h(A.Outline, { label: 'Mi cuenta', items: [{ id: 'viajes', label: 'Viajes', icon: 'ticket', children: [{ id: '2026', label: '2026', children: [{ id: 'mar', label: 'Marzo', trailing: 2 }, { id: 'abr', label: 'Abril', trailing: 3 }] }, { id: '2025', label: '2025', trailing: 14 }] }, { id: 'pagos', label: 'Medios de pago', icon: 'wallet', children: [{ id: 't1', label: 'Tarjeta terminada en 4821' }, { id: 't2', label: 'Tarjeta terminada en 7637' }] }, { id: 'avisos', label: 'Avisos', icon: 'notification' }], defaultExpanded: ['viajes', '2026'], selected: s[0], onSelect: s[1] })); }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

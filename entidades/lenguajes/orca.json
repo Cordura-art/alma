@@ -1,0 +1,769 @@
+{
+ "id": "orca",
+ "nombre": "ORCA",
+ "nacimiento": {
+  "fecha": "1984-06-02",
+  "hora": "08:00",
+  "zona": "America/Los_Angeles"
+ },
+ "vidrio": true,
+ "fechaLarga": "2 de junio de 1984, 08:00, Cupertino, California",
+ "aviso": "Borrador automático. Estos textos se escribieron solos a partir de la carta de ORCA (2 de junio de 1984, 08:00, Cupertino, California). Lo que viene de la carta, como los principios, la voz, la letra, el color y el movimiento, ya es suyo. Los ejemplos de producto son genéricos, sobre proyectos: falta reemplazarlos por los de su oficio.",
+ "borrador": {
+  "fecha": "2026-10-09",
+  "revisar": [
+   "aviso",
+   "muestra",
+   "inicio",
+   "puntoDeVista",
+   "tono",
+   "escritura",
+   "ilustracion",
+   "fotografia",
+   "datos",
+   "producto",
+   "comunicacion"
+  ]
+ },
+ "muestra": {
+  "eyebrow": "Proyectos",
+  "titulo": "Proyecto de ejemplo, versión 2",
+  "texto": "Te recomendamos revisar el total antes de pagar.",
+  "primaria": "Abrir proyecto",
+  "secundaria": "Ahora no",
+  "parrafo": "Sugerimos y orientamos; no ordenamos. La última palabra siempre es de la persona. Damos las opciones y sus razones. Decidir es más fácil cuando se puede comparar y conversar.",
+  "enfasis": [
+   "El proyecto tiene ",
+   "3 tareas",
+   " pendientes."
+  ]
+ },
+ "inicio": {
+  "titulo": "Buscar → Sostener → Verificar",
+  "lede": "Este es el ethos detrás de nuestra filosofía y de cada uno de nuestros principios. Creemos en buscar experiencias, y en que para eso hace falta sostener un ritmo."
+ },
+ "puntoDeVista": {
+  "lede": "Lo que creemos define lo que hacemos. Esta es la base de todo lo que diseñamos, desde un botón hasta una marca entera.",
+  "bloques": [
+   {
+    "p": "Existimos para buscar experiencias. Es lo que buscamos en cada cosa que hacemos, y la medida con la que revisamos lo que ya hicimos."
+   },
+   {
+    "p": "Lo que nos sostiene es sostener un ritmo. Sin eso, lo primero se queda en intención."
+   },
+   {
+    "s": "Probar lo nuevo."
+   },
+   {
+    "p": "Hay dos cosas que no elegimos y que igual nos mueven: verificar y dar sentido al pasado. Se notan más en cómo trabajamos que en lo que decimos."
+   },
+   {
+    "p": "Nos toca guiar. Miramos con atención, recomendamos con fundamento y esperamos a que nos inviten: una buena guía no empuja."
+   },
+   {
+    "s": "Buscar → Sostener"
+   },
+   {
+    "p": "Decidimos conversando. Explicamos las opciones, las comparamos y dejamos que la persona las comente con quien quiera antes de elegir."
+   },
+   {
+    "p": "Todo lo que hacemos es esto. Todo lo que diseñamos también."
+   },
+   {
+    "q": "Toda experiencia con nosotros debería sentirse curiosa, escéptica y clara."
+   }
+  ],
+  "origen": "La cruz {cruz}: buscar experiencias (35), sostener un ritmo (5), verificar (63), dar sentido al pasado (64). Autoridad mental: la claridad llega al conversar."
+ },
+ "principios": {
+  "lede": "Nuestros principios son criterios para crear y para evaluar. Los usa quien diseña, quien escribe y quien aprueba: cualquier persona que decida algo en nuestro nombre.",
+  "items": [
+   {
+    "t": "Probar lo nuevo",
+    "p": "Nuestro propósito pasa por buscar experiencias. En la interfaz: novedades que invitan a probar.",
+    "q": [
+     "¿Esto ayuda a buscar experiencias?",
+     "¿Una persona que llega por primera vez lo nota?",
+     "¿Qué quitaríamos si este fuera nuestro único principio?"
+    ]
+   },
+   {
+    "t": "Claridad que irrumpe",
+    "p": "Quitar lo que sobra y ver lo que otros no ven. En la interfaz: cada pantalla con lo mínimo necesario. Ideas nuevas bien explicadas.",
+    "q": [
+     "¿Esto ayuda a simplificar?",
+     "¿Esto ayuda a ver lo nuevo?",
+     "¿Una persona que llega por primera vez lo nota?",
+     "¿Qué quitaríamos si este fuera nuestro único principio?"
+    ]
+   },
+   {
+    "t": "Respetar el ritmo",
+    "p": "Nuestro propósito pasa por sostener un ritmo. En la interfaz: patrones predecibles: nada cambia de lugar sin aviso.",
+    "q": [
+     "¿Esto ayuda a sostener un ritmo?",
+     "¿Una persona que llega por primera vez lo nota?",
+     "¿Qué quitaríamos si este fuera nuestro único principio?"
+    ]
+   },
+   {
+    "t": "Verificar antes de afirmar",
+    "p": "Nuestro propósito pasa por verificar. En la interfaz: la evidencia a la vista.",
+    "q": [
+     "¿Esto ayuda a verificar?",
+     "¿Una persona que llega por primera vez lo nota?",
+     "¿Qué quitaríamos si este fuera nuestro único principio?"
+    ]
+   }
+  ],
+  "cierre": "Una prueba final: después de usarnos, ¿la persona nos describiría como curiosos, escépticos y claros?"
+ },
+ "prisma": {
+  "lede": "Nuestras seis caras, ordenadas en el prisma de identidad: lo que mostramos y lo que llevamos dentro, lo que emitimos y lo que provocamos en quien nos recibe.",
+  "caras": [
+   {
+    "k": "Físico",
+    "q": "Lo que se ve",
+    "t": "Un azul sobre negro, letra de ancho normal y de peso liviano en los titulares, esquinas amables de 16 px y una firma que una regla dibuja: criaturas, colonias y un campo en movimiento.",
+    "o": "Garganta definida · línea 1 · línea 4 · definición simple"
+   },
+   {
+    "k": "Personalidad",
+    "q": "Cómo somos",
+    "t": "Curiosos, escépticos y claros. Damos el dato y la fuente antes de la opinión.",
+    "o": "Puertas 35, 63 y 23"
+   },
+   {
+    "k": "Relación",
+    "q": "Cómo nos vinculamos",
+    "t": "Guiamos por invitación: orientamos, recomendamos y reconocemos a la persona. La decisión siempre es de ella.",
+    "o": "Proyector · línea 1 · línea 4"
+   },
+   {
+    "k": "Cultura",
+    "q": "Lo que valoramos",
+    "t": "Probar lo nuevo, claridad que irrumpe, respetar el ritmo y verificar antes de afirmar.",
+    "o": "Canal 23-43"
+   },
+   {
+    "k": "Reflejo",
+    "q": "A quién le hablamos",
+    "t": "A alguien que quiere buscar experiencias y no se conforma con menos.",
+    "o": "Sol en la 35"
+   },
+   {
+    "k": "Autoimagen",
+    "q": "Cómo se siente quien nos usa",
+    "t": "Capaz de sostener un ritmo, y con ganas de volver.",
+    "o": "Tierra en la 5"
+   }
+  ],
+  "lectura": "La columna izquierda es lo que cualquiera puede ver: nuestra forma, cómo nos vinculamos y a quién le hablamos. La derecha es lo que llevamos dentro: el carácter, los valores y lo que dejamos en las personas. Cuando las dos columnas dicen lo mismo, la marca es creíble. Cuando no, algo en el diseño está mintiendo."
+ },
+ "voz": {
+  "lede": "Nuestra voz es una sola, hablemos donde hablemos. Somos curiosos sin ser dispersos, escépticos sin ser cínicos y claros sin ser simplistas.",
+  "atributos": [
+   [
+    "Curiosos",
+    "no dispersos",
+    "Nos mueve buscar experiencias. Novedades que invitan a probar. Cuando nos pasamos, sonamos dispersos: ahí hay que volver atrás.",
+    "Puerta 35"
+   ],
+   [
+    "Escépticos",
+    "no cínicos",
+    "Nos mueve verificar. La evidencia a la vista. Cuando nos pasamos, sonamos cínicos: ahí hay que volver atrás.",
+    "Puerta 63"
+   ],
+   [
+    "Claros",
+    "no simplistas",
+    "Nos mueve simplificar. Cada pantalla con lo mínimo necesario. Cuando nos pasamos, sonamos simplistas: ahí hay que volver atrás.",
+    "Puerta 23"
+   ]
+  ],
+  "como": [
+   {
+    "t": "Explicando",
+    "p": "Damos las opciones y sus razones. Decidir es más fácil cuando se puede comparar y conversar."
+   },
+   {
+    "t": "Con fundamento",
+    "p": "Damos el dato y la fuente antes de la opinión."
+   },
+   {
+    "t": "Por invitación",
+    "p": "Sugerimos y orientamos; no ordenamos. La última palabra siempre es de la persona."
+   },
+   {
+    "t": "Con voz definida",
+    "p": "Tenemos una forma propia de decir las cosas, y no cambia según quién escuche."
+   }
+  ],
+  "comoOrigen": "Autoridad mental · línea consciente 1 · Proyector · Garganta definida.",
+  "quien": "Hablamos en plural, como el equipo que está detrás de cada pantalla, y tratamos de tú. Nunca hablamos de nosotros en tercera persona.",
+  "ex": {
+   "si": {
+    "title": "No pudimos guardar el proyecto",
+    "message": "No se guardó porque se perdió la conexión. Revisa la red y vuelve a intentarlo.",
+    "cap": "Así suena un error nuestro: la claridad llega al conversar."
+   },
+   "no": {
+    "title": "¡Ups! Algo salió mal.",
+    "message": "Inténtalo de nuevo.",
+    "cap": "Nunca dejes un error sin causa ni salida."
+   }
+  }
+ },
+ "tono": {
+  "lede": "La voz no cambia; el tono sí. Leemos en qué momento está la persona y nos ajustamos: más ánimo al empezar, más exactitud cuando algo falla.",
+  "filas": [
+   [
+    "Bienvenida",
+    "Animado",
+    "Lo mínimo",
+    "Aún no hay informes. Importa el primero para tener una base."
+   ],
+   [
+    "Acción principal",
+    "Claro",
+    "Qué va a pasar",
+    "Te recomendamos revisar el total antes de pagar."
+   ],
+   [
+    "Error",
+    "Calmo",
+    "Qué pasó y qué hacer",
+    "{error}"
+   ],
+   [
+    "Acción irreversible",
+    "Firme",
+    "Todo, sin presión",
+    "Se eliminarán el proyecto y sus 12 tareas. No se podrán recuperar. Compara antes de decidir."
+   ],
+   [
+    "Éxito",
+    "Sobrio",
+    "Una línea",
+    "Listo. El proyecto quedó guardado."
+   ],
+   [
+    "Anuncio",
+    "Propio",
+    "Qué cambia y para quién",
+    "Probar lo nuevo: lo nuevo de junio."
+   ]
+  ],
+  "cuanto": "Mientras más está en juego, más exactos somos. En un éxito basta una línea; en un error decimos qué pasó y cómo se arregla; antes de algo irreversible decimos exactamente qué se pierde. Nunca usamos el tono para presionar.",
+  "ex": {
+   "si": {
+    "eyebrow": "Acción irreversible",
+    "title": "Eliminar el proyecto",
+    "body": "Se eliminarán el proyecto y sus 12 tareas. No se podrán recuperar.",
+    "primary": "Eliminar proyecto",
+    "secondary": "Cancelar",
+    "cap": "Firme y exacto: qué se pierde, y una salida."
+   },
+   "no": {
+    "eyebrow": "¡Atención!",
+    "title": "¿Seguro que quieres hacer esto?",
+    "primary": "Sí",
+    "secondary": "No",
+    "cap": "Evita las confirmaciones vagas: no dicen qué se pierde."
+   }
+  },
+  "nunca": [
+   "Nunca des una sola opción cuando hay dos.",
+   "Nunca dejes un error sin su causa y su salida.",
+   "Que ser curiosos nunca nos vuelva dispersos.",
+   "Evita las exclamaciones y los emojis en un error o una advertencia."
+  ]
+ },
+ "escritura": {
+  "lede": "Reglas para que cualquier persona escriba como nosotros: curiosos, escépticos y claros.",
+  "reglas": [
+   [
+    "Botones con verbo y objeto",
+    "Abrir proyecto · Invitar al equipo",
+    "La acción se entiende sin leer nada más."
+   ],
+   [
+    "Sugerir, no ordenar",
+    "Te recomendamos… · Prueba…",
+    "La decisión es de la persona."
+   ],
+   [
+    "Con fundamento",
+    "Aún no hay informes. Importa el primero para tener una base",
+    "Damos el dato y la fuente antes de la opinión."
+   ],
+   [
+    "La causa, no el síntoma",
+    "No se guardó porque se perdió la conexión",
+    "Un error que se explica se puede arreglar."
+   ],
+   [
+    "Cifras exactas",
+    "3 de 12 tareas",
+    "«Varias» no le sirve a nadie."
+   ],
+   [
+    "Tuteo, sin exclamaciones",
+    "Vuelve a intentarlo cuando quieras.",
+    "La calma también se escribe."
+   ],
+   [
+    "Mayúscula solo al inicio",
+    "Proyecto de ejemplo · Ver la versión anterior",
+    "Leemos más rápido en tipo oración."
+   ]
+  ],
+  "ex": {
+   "si": {
+    "title": "3 tareas pendientes en el proyecto",
+    "body": "Dos son de esta semana y una está atrasada. Puedes verlas en cualquier orden.",
+    "primary": "Ver 3 tareas",
+    "cap": "Cifra exacta, de qué son y el control en manos de la persona."
+   },
+   "no": {
+    "title": "¡Tienes cosas pendientes!",
+    "body": "Hay varios problemas.",
+    "primary": "Arreglar todo",
+    "cap": "Evita el juicio vago, la exclamación y el botón que decide por la persona."
+   }
+  },
+  "palabras": [
+   [
+    "Te recomendamos, prueba",
+    "Debes, tienes que"
+   ],
+   [
+    "Porque, la razón es",
+    "Algo salió mal"
+   ],
+   [
+    "3 de 12, el 4 de mayo",
+    "Varios, pronto"
+   ]
+  ],
+  "formatos": [
+   [
+    "Fechas.",
+    "«2 jun 1984» en tablas y etiquetas; «2 de junio de 1984» en texto corrido."
+   ],
+   [
+    "Horas.",
+    "Formato de 24 horas: 12:00, 18:30."
+   ],
+   [
+    "Unidades.",
+    "Con espacio: 18 %, 12 px, 320 tareas."
+   ],
+   [
+    "Números grandes.",
+    "Con punto de miles: 2.026 proyectos."
+   ]
+  ]
+ },
+ "firma": {
+  "lede": "Nuestra firma no es un dibujo fijo. Es una familia de piezas que una regla dibuja a partir de nuestra carta y de nuestra fecha de nacimiento: un campo, un carrusel, un micelio, criaturas, colonias, emblemas y caras de tarjeta. Acompaña al nombre; no lo reemplaza.",
+  "construccion": "Funciona como un juego que dibuja su mundo desde una semilla. La carta da las reglas: los colores, las puntas, los focos, el ritmo. La fecha de nacimiento da la semilla. Una clave, que puede ser un nombre, un concepto o un número, elige un dibujo entre infinitos, y la misma clave da siempre el mismo.",
+  "color": "Las piezas viven sobre negro, con la paleta completa y el azul como acento: en la marca de cada emblema, también en los que forman el campo, y en las criaturas más chicas de una colonia. Solo la colonia y el relieve tienen una versión apagada para ir detrás de un texto.",
+  "movimiento": "El campo, el carrusel y el micelio se mueven un 25 % más lento que la base de ALMA. Siempre se pueden pausar y se detienen solos al salir de la pantalla. Si la persona pidió menos movimiento, parten quietos y completos."
+ },
+ "tipografia": {
+  "lede": "La tipografía es nuestra voz hecha forma. Escribimos en Roboto Flex, de ancho normal y de peso liviano en los titulares.",
+  "letra": "Roboto Flex es una tipografía variable: su ancho, su peso y su grado se ajustan por eje. Nosotros la usamos con ancho {ancho} y pesos {pesos}. El ancho normal aprovecha el espacio: caben más datos en cada línea.",
+  "pesos": [
+   "Titulares grandes. De peso liviano.",
+   "Títulos de sección. De peso regular.",
+   "Lectura larga e interfaz.",
+   "Énfasis: una palabra o frase clave por párrafo."
+  ],
+  "escala": [
+   "Buscar → Sostener → Verificar",
+   "Probar lo nuevo",
+   "Probar lo nuevo",
+   "Claridad que irrumpe",
+   "Respetar el ritmo",
+   "Verificar antes de afirmar",
+   "Sugerimos y orientamos; no ordenamos. La última palabra siempre es de la persona. El ancho normal aprovecha el espacio: caben más datos en cada línea.",
+   "Texto de interfaz, descripciones y tablas.",
+   "Etiquetas y controles",
+   "Notas, fuentes y leyendas."
+  ],
+  "origen": "Línea consciente 1 (ancho {ancho}) · autoridad mental (pesos {pesos}) · línea 4 (grado más firme)."
+ },
+ "fundamentos": {
+  "lede": "La buena tipografía pasa inadvertida porque simplemente funciona. Estas son las prácticas que hacen que un texto nuestro se lea bien, en cualquier tamaño y en español."
+ },
+ "color": {
+  "lede": "Nuestra paleta parte de un azul que salió de nuestra carta, y se extiende hacia sus vecinos. Sobre negro, el azul aparece donde se puede actuar, y por eso se reconoce.",
+  "centro": "El azul salió de nuestra carta: el tono viene de la autoridad mental, y la saturación, de 2 centros definidos.",
+  "neutros": "El negro y los neutros de ALMA dominan toda experiencia. Sobre ellos, el azul marca una sola cosa por pantalla. Si una pantalla se siente de color azul, tiene demasiado.",
+  "interfaz": "Los neutros ordenan; el azul marca la acción principal en todos los productos, con texto blanco. Los demás colores se usan poco y con un propósito.",
+  "daltonismo": "Nunca usamos solo el color para comunicar: un estado lleva icono y texto, una serie lleva etiqueta, un enlace se distingue también por su forma. Dos colores de la paleta nunca se usan solos para separar dos cosas.",
+  "accion": "Trazos de azul sobre negro: así se ve la paleta en la galería de producto y comunicación.",
+  "origen": "Autoridad mental (tono). Armonía del Proyector, saturación por 2 centros definidos, acento profundo por la Garganta definida."
+ },
+ "grilla": {
+  "lede": "La grilla es la estructura de todo lo que mostramos. Da el orden que necesita una página para leerse: cuando todo tiene su lugar, la atención puede ir al contenido.",
+  "espacio": "Mientras más larga la lectura, más margen alrededor. Lo que va junto se ve junto, y lo que es distinto se separa con espacio antes que con líneas.",
+  "forma": "Nuestras esquinas son amables, de {radio}. Son formas amables, hechas para acercar. La casilla de verificación conserva sus esquinas, para seguir leyéndose como control.",
+  "ex": {
+   "siCap": "Esquinas amables de {radio}, separación con espacio y todo alineado.",
+   "noCap": "Evita mezclar radios, las sombras decorativas y los elementos fuera de la grilla."
+  },
+  "avoid": [
+   "No mezcles dos radios distintos en una misma pantalla.",
+   "No uses sombras para separar: usa espacio o una línea de 1 px.",
+   "No saques un elemento de la grilla para llamar la atención."
+  ],
+  "origen": "Línea inconsciente 4: abre puertas y construye su red."
+ },
+ "iconografia": {
+  "lede": "Un icono es una señal exacta. Representa una idea o una acción de un vistazo, sin dejar dudas.",
+  "principios": [
+   {
+    "t": "Claros",
+    "p": "Un icono, un significado. Siempre el mismo icono para la misma idea en todos los productos."
+   },
+   {
+    "t": "Exactos",
+    "p": "El icono de estado solo acompaña a su estado: un error, una advertencia, un éxito."
+   },
+   {
+    "t": "Acompañados",
+    "p": "Un icono acompaña al texto; no lo reemplaza. Solo va solo en barras de herramientas, y entonces lleva una etiqueta accesible."
+   }
+  ],
+  "ex": {
+   "boton": "Descargar proyecto",
+   "texto": "Última versión: 2 jun"
+  }
+ },
+ "ilustracion": {
+  "lede": "Ilustramos para explicar. Un dibujo nuestro muestra una estructura, un cambio o un proceso que no se ve a simple vista.",
+  "puntoDeVista": "Si la fotografía muestra a las personas, la ilustración muestra las ideas. Cada ilustración explica una sola idea y deja espacio alrededor.",
+  "estilos": [
+   {
+    "t": "Línea",
+    "p": "El estilo principal. Trazos de grosor uniforme con esquinas amables, sobre la grilla de 8 px. Ideal para estructuras y procesos."
+   },
+   {
+    "t": "Interfaz",
+    "p": "Fragmentos de nuestra propia interfaz, simplificados, para explicar una función. Siempre con componentes de ALMA."
+   },
+   {
+    "t": "Criaturas",
+    "p": "Nuestros personajes. Cada uno son dos formas redondas y dos ojos, con los colores de la paleta, y el mismo nombre da siempre la misma criatura. Sirven de avatar, de mascota de una pieza y, amontonadas, de textura."
+   }
+  ],
+  "personas": "Cuando dibujamos personas, las mostramos haciendo algo, concentradas. Siluetas simples y diversas, sin caricatura.",
+  "color": "El azul para lo que importa, negro y neutros para el resto, {secundario} y {terciario} solo como apoyo. Una ilustración nunca usa más de tres colores de la paleta. Las criaturas son la excepción: una sola lleva dos colores sobre negro, y una textura de criaturas puede usar la paleta completa.",
+  "avoid": [
+   "Evita las metáforas gastadas: bombillas, cohetes, apretones de manos.",
+   "Evita que una criatura dé un error, un aviso o una instrucción: eso va con texto y un icono.",
+   "Evita los personajes ajenos y los que imitan a una persona real.",
+   "Evita ilustrar lo que una frase ya explica."
+  ],
+  "generativa": {
+   "nombres": [
+    "Ana Rojas",
+    "Luis Soto",
+    "Marta Díaz",
+    "Pedro Vera",
+    "Camila Paz",
+    "Tomás Mora",
+    "Elena Lagos",
+    "Raúl Pino",
+    "Sofía Reyes",
+    "Iván Silva",
+    "Noa Campos",
+    "Diego Vidal"
+   ],
+   "conceptos": [
+    "proyecto",
+    "idea",
+    "equipo",
+    "versión",
+    "pregunta",
+    "avance",
+    "acuerdo",
+    "entrega",
+    "comienzo",
+    "detalle",
+    "ritmo",
+    "cierre"
+   ]
+  }
+ },
+ "fotografia": {
+  "lede": "Nuestras imágenes muestran el trabajo de verdad: personas, manos, mesas y herramientas, tal como son.",
+  "puntoDeVista": "Fotografiamos el proceso antes que el resultado. Una buena imagen nuestra muestra a alguien haciendo algo que le importa, sin posar.",
+  "tipos": [
+   {
+    "t": "Oficio: el trabajo en proceso",
+    "p": "La mayor parte de nuestras imágenes. Lo que se está haciendo, a medio camino."
+   },
+   {
+    "t": "Personas: la atención",
+    "p": "Personas trabajando, fotografiadas sin interrumpir. La concentración es el tema."
+   },
+   {
+    "t": "Detalle: lo exacto",
+    "p": "Un gesto o un objeto de cerca, con foco exacto."
+   }
+  ],
+  "tecnica": [
+   [
+    "Encuadre.",
+    "Con margen alrededor del sujeto, espacio libre para texto y líneas que siguen la grilla."
+   ],
+   [
+    "Luz.",
+    "Natural y lateral. Sin flashes ni luces de colores."
+   ],
+   [
+    "Color.",
+    "Fiel a la realidad, con negros profundos. El azul aparece en la composición, no en un filtro."
+   ],
+   [
+    "Tiempo.",
+    "Momentos de concentración, nunca de apuro."
+   ]
+  ],
+  "avoid": [
+   "Evita las fotos de banco con sonrisas a cámara.",
+   "Evita las imágenes de estrés o de fecha límite.",
+   "Evita los montajes y los fondos inventados."
+  ]
+ },
+ "datos": {
+  "lede": "Mostramos los datos para que la persona vea lo que no se ve a simple vista: cuánto, dónde y cómo cambió.",
+  "criterios": [
+   {
+    "t": "Exactas",
+    "p": "Cada marca corresponde a su valor. Los ejes empiezan en cero cuando se comparan cantidades, y las proporciones nunca se exageran."
+   },
+   {
+    "t": "Con su antes",
+    "p": "Comparamos con el período anterior. Un dato sin su antes no dice si algo mejoró."
+   },
+   {
+    "t": "Sin alarma",
+    "p": "Un problema se marca con su ícono y su palabra, nunca solo con un color."
+   },
+   {
+    "t": "En tus manos",
+    "p": "Qué medir y qué comparar lo elige la persona. Le damos el control de lo que quiere mirar."
+   }
+  ],
+  "ejemplo": {
+   "titulo": "Tareas resueltas por semana",
+   "barras": [
+    [
+     "Sem. 1",
+     12
+    ],
+    [
+     "Sem. 2",
+     7
+    ],
+    [
+     "Sem. 3",
+     4
+    ],
+    [
+     "Sem. 4",
+     9,
+     true
+    ]
+   ],
+   "fuente": "Fuente: proyecto de ejemplo. Sem. 4: semana en curso."
+  },
+  "avoid": [
+   "No cortes un eje para exagerar una diferencia.",
+   "No uses el color solo para decir que algo está mal.",
+   "No muestres una cifra sin decir de dónde sale."
+  ],
+  "origen": "Puerta 35 (buscar experiencias), puerta 5 (sostener un ritmo)."
+ },
+ "movimiento": {
+  "lede": "Nuestro movimiento va un 25 % más lento que la base de ALMA. Muestra qué cambió y después se queda quieto.",
+  "enfoque": [
+   {
+    "t": "Pausado",
+    "p": "El movimiento es preciso y sereno: orienta la mirada hacia lo que importa y después se queda quieto."
+   },
+   {
+    "t": "Exacto",
+    "p": "El movimiento apunta al lugar: lo que cambió, lo que se abre. Nada se mueve lejos de lo que explica."
+   },
+   {
+    "t": "Explicativo",
+    "p": "Cada movimiento responde una pregunta: qué cambió, de dónde viene, qué sigue. Si no explica nada, no se mueve."
+   },
+   {
+    "t": "Respetuoso",
+    "p": "Nunca usamos el movimiento para llamar la atención con urgencia: nada parpadea, nada tiembla."
+   }
+  ],
+  "curvas": "ALMA tiene dos curvas: productiva, eficiente y precisa, y expresiva, con más carácter. La productiva es la nuestra en toda la interfaz. La expresiva queda para la firma y las portadas, donde un momento de carácter ayuda a contar algo.",
+  "aplicaciones": [
+   [
+    "Comparar.",
+    "Al cambiar de versión, lo que se quitó se va y lo nuevo llega, para que el cambio se vea."
+   ],
+   [
+    "Orientar.",
+    "Un panel que se abre muestra de dónde viene."
+   ],
+   [
+    "Presentar.",
+    "El campo, el carrusel y el micelio abren portadas y bienvenidas, a nuestro ritmo."
+   ]
+  ],
+  "avoid": [
+   "No uses parpadeos ni temblores para llamar la atención.",
+   "No uses rebotes ni escalas exageradas.",
+   "No muevas el texto que la persona está leyendo."
+  ],
+  "origen": "Proyector · autoridad mental: la claridad llega al conversar."
+ },
+ "producto": {
+  "lede": "Una pantalla de proyectos con nuestro lenguaje. Solo componentes de ALMA: lo que cambia son los tokens y las palabras.",
+  "pantalla": {
+   "titulo": "Proyectos",
+   "secundaria": "Ahora no",
+   "primaria": "Ver 3 tareas",
+   "aviso": {
+    "status": "info",
+    "title": "El proyecto de ejemplo tiene 3 tareas pendientes",
+    "message": "Dos son de esta semana y una está atrasada. Puedes verlas en cualquier orden."
+   },
+   "tabla": "Proyectos",
+   "columnas": [
+    {
+     "key": "p",
+     "label": "Proyecto"
+    },
+    {
+     "key": "e",
+     "label": "Estado"
+    },
+    {
+     "key": "v",
+     "label": "Versión"
+    },
+    {
+     "key": "f",
+     "label": "Tareas"
+    }
+   ],
+   "filas": [
+    {
+     "p": "Proyecto uno",
+     "e": "Terminado",
+     "v": "4",
+     "f": "0"
+    },
+    {
+     "p": "Proyecto dos",
+     "e": "Terminado",
+     "v": "3",
+     "f": "0"
+    },
+    {
+     "p": "Proyecto de ejemplo",
+     "e": "Con tareas",
+     "v": "2",
+     "f": "3"
+    },
+    {
+     "p": "Proyecto cuatro",
+     "e": "Recién creado",
+     "v": "1",
+     "f": "—"
+    }
+   ],
+   "pie": "Entre la versión 1 y la 2 del proyecto de ejemplo se resolvieron 9 de 12 tareas."
+  },
+  "mapa": [
+   [
+    "El número exacto de tareas",
+    "Probar lo nuevo: la cifra y de qué son."
+   ],
+   [
+    "«Ahora no» junto a la acción principal",
+    "Proyector: guiar, no empujar."
+   ],
+   [
+    "La nota sobre lo resuelto entre versiones",
+    "Verificar antes de afirmar: mostrar el avance."
+   ],
+   [
+    "Una sola acción principal",
+    "Un azul por pantalla."
+   ]
+  ]
+ },
+ "comunicacion": {
+  "lede": "Cuando anunciamos algo: la firma más la voz, en tres formatos.",
+  "portada": {
+   "eyebrow": "Lo nuevo de junio",
+   "titulo": "Probar lo nuevo",
+   "texto": "Novedades que invitan a probar. Patrones predecibles: nada cambia de lugar sin aviso.",
+   "boton": "Conocer lo nuevo"
+  },
+  "cuadrado": {
+   "titulo": "Probar lo nuevo.",
+   "texto": "Sostener un ritmo."
+  },
+  "historia": {
+   "titulo": "Buscar.",
+   "texto": "Buscar, sostener y verificar."
+  }
+ },
+ "carta": {
+  "tipo": "Guía cuando la invitan; no persigue.",
+  "perfil": "Consciente: investiga hasta tener una base. Inconsciente: abre puertas y construye su red.",
+  "autoridad": "Decide conversando y tomando distancia, no por impulso.",
+  "definicion": "Un solo circuito: todo lo definido está conectado y trabaja sin desvíos. Centros definidos: Ajna y Garganta.",
+  "centros": "Mente y voz: lo que en nosotros es fijo y no cambia según quién llega."
+ },
+ "fecha": {
+  "lede": "Nacimos el {fechaLarga}. Es nuestra fecha real: para una marca nueva, la fecha manda.",
+  "secciones": [
+   {
+    "titulo": "Lo que decide la hora",
+    "bullets": [
+     [
+      "08:00.",
+      "A esa hora nuestro perfil es {perfil}. Ese mismo día, a otra hora, sería 1/3 (entre las 00:00 y las 06:00) y 2/4 (entre las 10:00 y las 23:00)."
+     ],
+     [
+      "Lo que no depende de la hora.",
+      "A cualquier hora de ese día se mantienen el tipo, Proyector, la autoridad mental, los centros Ajna y Garganta definidos y la cruz {cruz}."
+     ],
+     [
+      "Lo que sí depende.",
+      "El perfil ({perfil}), y con él las esquinas ({radio}) y el ancho de la letra ({ancho})."
+     ]
+    ]
+   },
+   {
+    "titulo": "De dónde sale el azul",
+    "parrafos": [
+     "No elegimos el azul: lo da nuestra carta. El tono viene de la autoridad mental; la armonía alrededor, del tipo; y la profundidad del acento, de la Garganta.",
+     "ALMA, el sistema base, queda neutro. Cada entidad lo viste con su propia paleta: la nuestra es la del azul."
+    ]
+   }
+  ],
+  "aviso": {
+   "title": "La fecha manda",
+   "message": "Para una marca nueva, manda su fecha real. La misma fecha siempre da la misma entidad."
+  }
+ }
+}

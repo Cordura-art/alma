@@ -1045,3 +1045,94 @@ button.alma-ailabel { font-family: inherit; }
 .alma-list__moves { flex: none; display: flex; }
 /* while editing, the controls reach the edge of the row: their touch area is the margin */
 .alma-list.is-editing .alma-list__row { padding-inline: var(--space-4); gap: var(--space-8); }
+
+/* ---------- The rest of Apple's list ---------- */
+.alma-cal--inline { position: static; width: 22rem; max-width: 100%; box-shadow: none; }
+
+.alma-split { display: flex; min-height: 20rem; min-width: 0; border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); overflow: hidden; background: var(--ui-02); color: var(--text-01); }
+.alma-split__pane { min-width: 0; overflow: auto; }
+.alma-split__primary { flex: none; width: var(--alma-split); background: var(--ui-01); }
+.alma-split__detail { flex: 1; }
+.alma-split.is-compact .alma-split__primary { width: 100%; }
+.alma-split__bar { flex: none; position: relative; width: 1px; background: var(--border-subtle); cursor: col-resize; touch-action: none; }
+.alma-split__bar::after { content: ""; position: absolute; inset: 0 -4px; }
+.alma-split__bar:hover, .alma-split__bar:focus-visible { background: var(--interactive-01); outline: 2px solid var(--focus); outline-offset: 0; }
+.alma-split__back { padding: var(--space-8) var(--space-8) 0; }
+
+.alma-collection { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--alma-cell), 1fr)); gap: var(--alma-gap); margin: 0; padding: 0; list-style: none; }
+.alma-collection__item { min-width: 0; } .alma-collection__item.is-wide { grid-column: span 2; }
+.alma-collection--row { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: var(--alma-cell); overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: var(--space-8); }
+.alma-collection--row .alma-collection__item { scroll-snap-align: start; }
+.alma-collection--row:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.alma-image { position: relative; display: block; width: 100%; overflow: hidden; border-radius: var(--radius-panel); background: var(--ui-03); color: var(--text-02); }
+.alma-image img { display: block; width: 100%; height: 100%; }
+.alma-image.is-loading img { opacity: 0; }
+.alma-image__wait, .alma-image__fail { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: var(--space-8); font-size: 0.75rem; letter-spacing: 0.18px; }
+.alma-image__ai { position: absolute; left: var(--space-8); bottom: var(--space-8); }
+.alma-figure { margin: 0; display: grid; gap: var(--space-8); }
+.alma-figure__caption { font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); }
+
+.alma-outline { margin: 0; padding: var(--space-4); list-style: none; display: grid; gap: 2px; color: var(--text-01); font-size: 0.875rem; letter-spacing: 0.14px; }
+.alma-outline__row { display: flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-8) 0 calc(var(--space-8) + var(--alma-level) * var(--space-16)); border-radius: var(--radius-nav); cursor: pointer; outline: none; }
+.alma-outline__row:hover { background: var(--hover-ui); }
+.alma-outline__row.is-selected { background: var(--hover-ui); font-weight: var(--font-weight-emphasis); }
+.alma-outline__row:focus-visible { box-shadow: inset 0 0 0 2px var(--focus); }
+.alma-outline__twist { flex: none; width: 1rem; height: 1rem; display: grid; place-items: center; color: var(--icon-02); }
+.alma-outline__icon { flex: none; color: var(--icon-02); }
+.alma-outline__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alma-outline__trailing { flex: none; color: var(--text-02); font-variant-numeric: tabular-nums; }
+
+.alma-columns { display: flex; min-height: 16rem; overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); background: var(--ui-01); color: var(--text-01); font-size: 0.875rem; letter-spacing: 0.14px; outline: none; }
+.alma-columns__col { flex: none; width: 14rem; margin: 0; padding: var(--space-4); list-style: none; display: grid; align-content: start; gap: 2px; overflow-y: auto; }
+.alma-columns__col + .alma-columns__col { border-left: 1px solid var(--border-subtle); }
+.alma-columns__row { display: flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-8); border-radius: var(--radius-nav); cursor: pointer; outline: none; }
+.alma-columns__row:hover, .alma-columns__row.is-selected { background: var(--hover-ui); }
+.alma-columns__row.is-selected { font-weight: var(--font-weight-emphasis); }
+.alma-columns__row:focus-visible { box-shadow: inset 0 0 0 2px var(--focus); }
+.alma-columns__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alma-columns__more { flex: none; color: var(--icon-02); }
+
+.alma-webview { display: flex; flex-direction: column; border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); overflow: hidden; background: var(--ui-02); color: var(--text-01); }
+.alma-webview__bar { flex: none; display: flex; align-items: center; gap: var(--space-8); min-height: var(--alma-control); padding: 0 var(--space-4) 0 var(--space-16); background: var(--ui-01); border-bottom: 1px solid var(--border-subtle); color: var(--text-02); }
+.alma-webview__host { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.875rem; letter-spacing: 0.14px; color: var(--text-01); }
+.alma-webview__body { position: relative; flex: 1; min-height: 0; }
+.alma-webview__body iframe { display: block; width: 100%; height: 100%; border: 0; background: var(--ui-01); }
+.alma-webview__wait, .alma-webview__msg { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: var(--space-8); padding: var(--space-24); text-align: center; background: var(--ui-02); font-size: 0.875rem; }
+.alma-webview__msg p { margin: 0; color: var(--text-02); }
+
+.alma-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); width: 20rem; max-width: 100%; padding: var(--space-8); box-sizing: border-box; border-radius: calc(var(--radius-panel) * 2); box-shadow: var(--shadow-floating); }
+.alma-control { display: flex; align-items: center; gap: var(--space-8); min-height: 3.5rem; min-width: 0; padding: var(--space-8); border: 0; border-radius: var(--radius-panel); background: var(--ui-03); color: var(--text-01); font: inherit; text-align: left; cursor: pointer; }
+.alma-control.is-wide { grid-column: 1 / -1; }
+.alma-control:hover:not(:disabled) { background: var(--hover-ui); }
+.alma-control:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.alma-control:disabled { opacity: .45; cursor: not-allowed; }
+.alma-control__icon { flex: none; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--ui-01); color: var(--icon-01); }
+.alma-control.is-on .alma-control__icon { background: var(--interactive-01); color: var(--text-on-interactive); }
+.alma-control__text { min-width: 0; display: grid; }
+.alma-control__label { font-size: 0.875rem; line-height: 1.4; letter-spacing: 0.14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alma-control__value { font-size: 0.75rem; line-height: 1.4; letter-spacing: 0.18px; color: var(--text-02); }
+.alma-controls__more { grid-column: 1 / -1; padding: var(--space-8); }
+
+.alma-editmenu-host { position: relative; }
+.alma-editmenu { position: absolute; z-index: var(--z-floating); transform: translate(-50%, calc(-100% - var(--space-8))); display: flex; gap: 2px; padding: var(--space-4); border-radius: var(--radius-panel); box-shadow: var(--shadow-floating); white-space: nowrap; }
+.alma-editmenu__btn { display: inline-flex; align-items: center; gap: var(--space-4); min-height: 2rem; padding: 0 var(--space-8); border: 0; border-radius: var(--radius-chip); background: transparent; color: var(--text-01); font: inherit; font-size: 0.875rem; letter-spacing: 0.14px; cursor: pointer; }
+.alma-editmenu__btn:hover { background: var(--hover-ui); }
+.alma-editmenu__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+
+/* ---------- Glass on what floats (foundation «Profundidad», levels 1 to 3) ---------- */
+/* Each piece keeps its own surface colour and lets through, blurred, what is behind it. Regular for what appears and
+   goes and for the bars; thick for what stops everything, and for anything that sits on another glass. */
+.alma-menu, .alma-popover, .alma-cal:not(.alma-cal--inline), .alma-toolbar, .alma-tabbar, .alma-modal, .alma-alert, .alma-asheet {
+  background: color-mix(in srgb, var(--alma-surface) calc(var(--alma-glass-k) * 100%), transparent);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); }
+.alma-menu { --alma-surface: var(--menu-bg); --alma-glass-k: var(--glass-regular); }
+.alma-popover, .alma-cal { --alma-surface: var(--popover-bg); --alma-glass-k: var(--glass-regular); }
+.alma-toolbar { --alma-surface: var(--toolbar-bg); --alma-glass-k: var(--glass-regular); }
+.alma-tabbar { --alma-surface: var(--tab-bar-bg); --alma-glass-k: var(--glass-regular); }
+.alma-modal { --alma-surface: var(--modal-bg); --alma-glass-k: var(--glass-thick); }
+.alma-alert, .alma-asheet { --alma-surface: var(--alert-bg); --alma-glass-k: var(--glass-thick); }
+.alma-glass .alma-menu, .alma-glass .alma-popover, .alma-menu .alma-menu { --alma-glass-k: var(--glass-thick); }
+[data-theme$="-hc"] :is(.alma-menu, .alma-popover, .alma-cal, .alma-toolbar, .alma-tabbar, .alma-modal, .alma-alert, .alma-asheet) { background: var(--alma-surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) { :is(.alma-menu, .alma-popover, .alma-cal, .alma-toolbar, .alma-tabbar, .alma-modal, .alma-alert, .alma-asheet) { background: var(--alma-surface); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { :is(.alma-menu, .alma-popover, .alma-cal, .alma-toolbar, .alma-tabbar, .alma-modal, .alma-alert, .alma-asheet) { background: var(--alma-surface); } }

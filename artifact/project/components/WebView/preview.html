@@ -1,0 +1,8 @@
+<!-- @dsCard group="Contenido" height=420 subtitle="Contenido de fuera, con su origen a la vista · aquí no se puede incrustar otro sitio" -->
+<div id="root" style="padding:24px;max-width:36rem;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(A.WebView, { src: 'https://www.ejemplo.cl/condiciones', title: 'Condiciones de cambio', origin: 'ejemplo.cl', blocked: true, height: 300 }));
+</script>

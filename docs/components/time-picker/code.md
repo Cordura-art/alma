@@ -22,3 +22,13 @@ h(TimePicker, { label: 'Hora de salida', defaultValue: '08:30', onChange: setHor
 | `helper` | `string` | `'Formato de 24 horas, por ejemplo 14:30'` | Ayuda. |
 | `error` | `string \| boolean` | — | Error propio. |
 | `required` / `disabled` | `boolean` | `false` | — |
+
+## Minutos por pasos
+
+```js
+h(TimePicker, { label: 'Hora de salida', minuteStep: 15 })
+```
+
+| Propiedad | Tipo | Uso |
+|---|---|---|
+| `minuteStep` | número | Lleva los minutos al múltiplo más cercano. Tiene que dividir a 60. |

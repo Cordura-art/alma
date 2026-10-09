@@ -1,0 +1,8 @@
+<!-- @dsCard group="Navegación" height=400 subtitle="La misma jerarquía, con cada nivel en su columna · derecha entra, izquierda vuelve" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(A.ColumnView, { label: 'Mi cuenta', items: [{ id: 'viajes', label: 'Viajes', icon: 'ticket', children: [{ id: '2026', label: '2026', children: [{ id: 'mar', label: 'Marzo', trailing: 2 }, { id: 'abr', label: 'Abril', trailing: 3 }] }, { id: '2025', label: '2025', trailing: 14 }] }, { id: 'pagos', label: 'Medios de pago', icon: 'wallet', children: [{ id: 't1', label: 'Tarjeta terminada en 4821' }, { id: 't2', label: 'Tarjeta terminada en 7637' }] }, { id: 'avisos', label: 'Avisos', icon: 'notification' }], defaultPath: ['viajes', '2026'] }));
+</script>

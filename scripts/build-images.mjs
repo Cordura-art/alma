@@ -325,7 +325,7 @@ export const scenes = [
     mount(h('div', { className: 'fondo' }, h('div', { className: 'luz', 'aria-hidden': true }), h('div', { className: 'fila' }, G.map(function (g) { return h('div', { key: g[1], className: 'alma-glass' + (g[0] ? ' alma-glass--' + g[0] : '') + ' panel' },
       h('p', { className: 'web-h6', style: { margin: 0 } }, g[1]), h('p', { className: 'tok', style: { margin: 0, color: 'inherit' } }, 'glass-' + (g[0] || 'regular')),
       h('div', { className: 'col', style: { marginTop: 'var(--space-16)', gap: 'var(--space-4)' } }, g[2] ? T.slice(0, g[2]).map(function (t) { return h('p', { key: t[0], className: 'web-body-s', style: { margin: 0, color: 'var(--' + t[0] + ')' } }, t[1]); }) : h(A.Icon, { name: 'image', size: 24 }))); }))));`,
-    after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'reposo'); await sleep(4000);`,
+    after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'fondo'); await sleep(4000);`,
     css: `.fondo { position: relative; width: 60rem; padding: var(--space-48) var(--space-32); border-radius: var(--radius-panel); overflow: hidden; } .luz { position: absolute; inset: 0; }
     .fila { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-24); } .panel { min-height: 11rem; padding: var(--space-24); border-radius: var(--radius-panel); box-shadow: var(--shadow-floating); }` }
 ];

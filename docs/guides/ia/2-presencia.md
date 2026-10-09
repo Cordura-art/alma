@@ -15,13 +15,25 @@ Juntos, el Velo detrás y el Halo delante, son la presencia de una IA. Los dos t
 
 ![Un panel de asistente. Arriba, una zona con el Velo y, sobre él, el Halo: un anillo de luz con su estela. Debajo, sobre fondo liso, el saludo «¿En qué te ayudo?», tres sugerencias y la caja para escribir el pedido.](assets/Guias/ia-presencia.png)
 
+## Primer plano y fondo
+
+La luz dice dónde está la IA en este momento.
+
+| La IA está | Qué se ve | Por qué |
+|---|---|---|
+| **En primer plano**: es el tema de la pantalla. Se presenta, escucha, piensa, responde. | El Velo y el Halo. | El Halo es lo vivo: late y cambia con el estado. |
+| **De fondo**: está disponible, pero la persona está en otra cosa. | Solo el Velo. | El aire sigue ahí. El Halo no: no hay nada que decir, y es el efecto que más recursos gasta. |
+| **No está**. | El Velo, más tenue. O nada. | — |
+
+El Halo no se muestra siempre. Aparece cuando la IA pasa al frente y se va cuando vuelve al fondo. No se esconde: se quita, y así deja de gastar.
+
 ## Tres niveles
 
 La presencia tiene tres tamaños. Se elige el menor que alcance.
 
 | Nivel | Qué lleva | Dónde | Cuántas |
 |---|---|---|---|
-| **Escenario** | Velo y Halo, en una zona completa. | La portada de una IA, la bienvenida de un asistente, una conversación vacía, el modo de voz. | Una por pantalla. |
+| **Escenario** | Velo y Halo, en una zona completa, con la IA en primer plano. De fondo, solo el Velo. | La portada de una IA, la bienvenida de un asistente, una conversación vacía, el modo de voz. | Una por pantalla. |
 | **Figura** | Solo el Halo, pequeño, sobre el fondo de la página. Desde 96 px de lado. | La cabecera de un panel de asistente, el estado de una tarea larga. | Una por pantalla. |
 | **Marca** | El ícono `ai-label` y el texto «IA». Sin luz. | Junto a todo lo que una IA generó. | Las que hagan falta. |
 
@@ -55,7 +67,7 @@ El Halo cambia con lo que la IA está haciendo. No hace falta leer para saber si
 | **Respondiendo** | Habla. Parejo, con un latido suave. | 1,2 | 1,2 | 3 | 0,8 | 1 | 1,2 | 0,3 |
 | **Sin servicio** | No está. | Sin Halo. Queda el Velo, con la fuerza en 0,3. | | | | | | |
 
-Estos valores vienen puestos en `AlmaEfectos.presencia`, que monta el Velo y el Halo juntos y cambia de estado con `estado('pensando')`. En reposo son los mismos valores de la portada de Autómata. El paso de un estado a otro no salta: cada ajuste se mueve hacia su nuevo valor durante `duration-slow-02`.
+Estos valores vienen puestos en `AlmaEfectos.presencia`, que parte con el Velo solo (`fondo`) y trae el Halo al pedir un estado de primer plano, con `estado('pensando')`. Al volver a `estado('fondo')`, el Halo se retira. En reposo son los mismos valores de la portada de Autómata. El paso de un estado a otro no salta: cada ajuste se mueve hacia su nuevo valor durante `duration-slow-02`.
 
 Un error no se dice con el Halo ni con color rojo en la luz. Se dice con un mensaje. La luz solo se apaga.
 

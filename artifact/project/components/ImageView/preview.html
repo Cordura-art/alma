@@ -1,0 +1,10 @@
+<!-- @dsCard group="Contenido" height=380 subtitle="Una imagen que guarda su lugar · en espera, cargada, y cuando falla" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  var SVG = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#2667F2"/><circle cx="290" cy="90" r="46" fill="#C9DCFD"/><path d="M0 300 L120 150 L210 240 L280 180 L400 300Z" fill="#0032A3"/></svg>');
+  function c(t, el) { return h('div', { style: { width: '14rem', display: 'grid', gap: '8px' } }, h('p', { className: 'web-label-s', style: { margin: 0, color: 'var(--text-02)' } }, t), el); }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null, c('Cargada', h(A.ImageView, { src: SVG, alt: 'Un cerro frente al mar, al atardecer', caption: 'Viña del Mar' })), c('Generada', h(A.ImageView, { src: SVG, alt: 'un cerro frente al mar', ai: true })), c('No cargó', h(A.ImageView, { src: 'data:image/png;base64,xx', alt: 'Mapa del terminal' }))));
+</script>

@@ -27,3 +27,13 @@ h(DatePicker, { label: 'Fecha de ida', min: hoy, onChange: setFecha })
 | `name` / `id` | `string` | — | — |
 
 Para mostrar la fecha elegida en otro lugar, usa `Intl.DateTimeFormat('es-CL')` (ver **Contenido → Formatos**).
+
+## En línea
+
+```js
+h(DatePicker, { label: 'Fecha del viaje', inline: true, value: fecha, onChange: setFecha })
+```
+
+| Propiedad | Tipo | Uso |
+|---|---|---|
+| `inline` | sí o no | El calendario siempre abierto, en su lugar. |

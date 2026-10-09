@@ -6,6 +6,23 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 8 de octubre de 2026
 
+#### El Halo, solo en primer plano
+
+- La presencia de una IA distingue ahora primer plano y fondo. De fondo es solo el Velo; el Halo aparece cuando la IA pasa al frente y se retira al volver. Ahorra recursos: el Halo es el efecto más costoso.
+- En ORCA, el suelo de la página es el Velo, muy tenue, en vez de manchas de color. Y sus campos, sus etiquetas y sus botones de fondo tenue pasan a vidrio.
+
+#### La entidad ORCA, toda en vidrio
+
+- Una entidad nueva, ORCA, cercana al lenguaje de Apple: azul profundo con texto blanco, esquinas de 16 px y letra de ancho normal. Su carta es del 2 de junio de 1984, en Cupertino.
+- Un modo nuevo, «todo en vidrio», que una entidad pide en su lenguaje: el suelo de la página lleva una luz tenue del acento, y las tarjetas, listas, tablas y la barra lateral pasan a vidrio delgado. ORCA lo usa.
+
+#### La lista de Apple, completa; y el vidrio en lo que flota
+
+- Ocho piezas nuevas: `SplitView` (lista y detalle), `Collection` (grilla o fila), `ImageView` (una imagen que guarda su lugar), `Outline` (un árbol), `ColumnView` (cada nivel en su columna), `WebView` (contenido de fuera, con su origen a la vista), `ControlCenter` (los controles del entorno) y `EditMenu` (acciones sobre lo seleccionado).
+- `DatePicker` gana el estilo en línea y `TimePicker`, los minutos por pasos.
+- **Vidrio:** los menús, los popovers, el calendario, `Toolbar` y `TabBar` pasan a vidrio medio; los diálogos, las alertas y las hojas, a vidrio grueso. En alto contraste, con menos transparencia o sin desenfoque, siguen opacos.
+- Con estos son 75 componentes.
+
 #### Listas que se eligen y se editan, y tres ajustes
 
 - `List` gana lo que pide Apple: filas que se eligen (quedan marcadas al navegar, o llevan un visto al escoger una opción), un interruptor al final de una fila, y un modo de edición con eliminar, subir y bajar.

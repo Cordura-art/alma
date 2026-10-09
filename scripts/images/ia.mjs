@@ -8,7 +8,7 @@ const scene = (file, alt, rest) => ({ file: `Guias/${file}`, alt, ...rest });
 const comp = (file, alt, rest) => ({ file: `Componentes/${file}`, alt, ...rest });
 
 // The light is AlmaEfectos.presencia (site/efectos.js): the Halo of a state over the Velo.
-const LUZ = `function luz(el, estado) { if (window.AlmaEfectos) AlmaEfectos.presencia(el, estado); }`;
+const LUZ = `function luz(el, estado) { if (window.AlmaEfectos) AlmaEfectos.presencia(el, estado); }  // every scene of the guide shows the AI in front: with its Halo`;
 
 const CSS = `.ia { width: 26rem; display: grid; gap: var(--space-24); }
 .ia-escenario { height: 15rem; border-radius: var(--radius-panel); overflow: hidden; background: var(--ui-02); }

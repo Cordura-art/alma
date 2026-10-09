@@ -5,7 +5,7 @@
   document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   var APPS = [{ id: 'viajes', label: 'Viajes', icon: 'ticket' }, { id: 'asistente', label: 'Asistente', icon: 'ai-label' }, { id: 'notas', label: 'Notas', icon: 'document' }];
-  function Fondo() { var r = React.useRef(null); React.useEffect(function () { var p = window.AlmaEfectos && AlmaEfectos.presencia ? AlmaEfectos.presencia(r.current, 'reposo') : null; return function () { if (p) p.quita(); }; }, []); return h('div', { ref: r }); }
+  function Fondo() { var r = React.useRef(null); React.useEffect(function () { var p = window.AlmaEfectos && AlmaEfectos.presencia ? AlmaEfectos.presencia(r.current, 'fondo') : null; return function () { if (p) p.quita(); }; }, []); return h('div', { ref: r }); }
   function Viajes() { return h('div', { style: { padding: '16px', display: 'grid', gap: '16px' } },
     h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' }),
     h(A.Card, { headingLevel: 3, eyebrow: '4 abr 2026 · 19:10', title: 'Viña del Mar → Santiago', subtitle: 'Salón cama · asiento 3' })); }

@@ -48,6 +48,10 @@ Un campo de fecha con calendario, en formato de Chile.
 - IBM, Carbon Design System: Date picker.
 - W3C, WAI-ARIA Authoring Practices: Date picker dialog.
 
+### En línea
+
+Con `inline`, el calendario va en su lugar, siempre abierto, sin campo que lo despliegue. Sirve cuando elegir la fecha es la tarea de la pantalla, o cuando conviene ver el mes completo. Si la fecha es un dato más de un formulario, usa el estilo de siempre.
+
 ## Estilo
 
 ### Color
@@ -118,6 +122,16 @@ h(DatePicker, { label: 'Fecha de ida', min: hoy, onChange: setFecha })
 | `name` / `id` | `string` | — | — |
 
 Para mostrar la fecha elegida en otro lugar, usa `Intl.DateTimeFormat('es-CL')` (ver **Contenido → Formatos**).
+
+### En línea
+
+```js
+h(DatePicker, { label: 'Fecha del viaje', inline: true, value: fecha, onChange: setFecha })
+```
+
+| Propiedad | Tipo | Uso |
+|---|---|---|
+| `inline` | sí o no | El calendario siempre abierto, en su lugar. |
 
 ## Accesibilidad
 

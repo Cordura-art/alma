@@ -96,12 +96,13 @@ La base son nuestros referentes. De IBM Carbon vienen la marca de IA, la explica
 ```
 
 ```js
-var luz = AlmaEfectos.presencia(document.querySelector('.ia-escenario'), 'reposo');
+var luz = AlmaEfectos.presencia(document.querySelector('.ia-escenario'));   // de fondo: solo el Velo
 
-if (luz) luz.estado('pensando');   // reposo, escuchando, pensando, respondiendo, apagada
+if (luz) luz.estado('pensando');   // primer plano: reposo, escuchando, pensando, respondiendo
+if (luz) luz.estado('fondo');      // vuelve al fondo: el Halo se retira
 ```
 
-`presencia` monta el Halo sobre el Velo y lleva cada ajuste del Halo a su nuevo valor con el tiempo y la curva de ALMA. Devuelve `null` si el equipo no tiene WebGL: por eso el `if`, y por eso el estado va siempre escrito aparte. Con `luz.quita()` se retira.
+`presencia` monta el Velo, trae el Halo solo cuando la IA pasa al primer plano y lleva cada ajuste del Halo a su nuevo valor con el tiempo y la curva de ALMA. Devuelve `null` si el equipo no tiene WebGL: por eso el `if`, y por eso el estado va siempre escrito aparte. Con `luz.quita()` se retira.
 
 ### La marca de IA
 

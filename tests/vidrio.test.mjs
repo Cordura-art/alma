@@ -35,3 +35,13 @@ test('con alto contraste, con menos transparencia o sin desenfoque, el vidrio es
   assert.match(hoja, /prefers-reduced-transparency: reduce/);
   assert.match(hoja, /@supports not \(\(backdrop-filter/);
 });
+
+test('lo que flota es de vidrio sobre su propio color, con el grosor de su nivel, y también se vuelve opaco', () => {
+  const hoja = readFileSync('artifact/project/components/bundle.css', 'utf8');
+  for (const [pieza, grosor] of [['menu', 'regular'], ['popover, .alma-cal', 'regular'], ['toolbar', 'regular'], ['tabbar', 'regular'], ['modal', 'thick'], ['alert, .alma-asheet', 'thick']])
+    assert.ok(hoja.includes(`.alma-${pieza} { --alma-surface: var(--`) && new RegExp(`\\.alma-${pieza.replace(/[.,]/g, '\\$&')} \\{[^}]*--alma-glass-k: var\\(--glass-${grosor}\\)`).test(hoja), pieza);
+  assert.match(hoja, /\[data-theme\$="-hc"\] :is\(\.alma-menu, [^)]*\) \{ background: var\(--alma-surface\)/);
+  // the surfaces a glass is mixed from are the ones whose text was measured: ui-01 in every case
+  const css = readFileSync('dist/css/alma.css', 'utf8');
+  for (const t of ['menu-bg', 'popover-bg', 'toolbar-bg', 'tab-bar-bg', 'modal-bg', 'alert-bg']) assert.match(css, new RegExp(`--${t}: var\\(--ui-0[12]\\)`), t);
+});

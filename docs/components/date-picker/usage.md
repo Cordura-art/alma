@@ -47,3 +47,7 @@ summary: Un campo de fecha con calendario, en formato de Chile.
 
 - IBM, Carbon Design System: Date picker.
 - W3C, WAI-ARIA Authoring Practices: Date picker dialog.
+
+## En línea
+
+Con `inline`, el calendario va en su lugar, siempre abierto, sin campo que lo despliegue. Sirve cuando elegir la fecha es la tarea de la pantalla, o cuando conviene ver el mes completo. Si la fecha es un dato más de un formulario, usa el estilo de siempre.

@@ -32,4 +32,4 @@ Cada efecto nuevo parte de mirar cómo lo resuelven otros, entender la idea y es
 
 ## La presencia de una IA
 
-El Velo y el Halo juntos son la presencia de una IA. `AlmaEfectos.presencia(elemento, 'reposo')` monta los dos y devuelve `estado(nombre)` para cambiar el Halo: `reposo`, `escuchando`, `pensando`, `respondiendo` y `apagada`. Cuándo usarla está en la guía **Interfaces de IA › Presencia**.
+El Velo y el Halo juntos son la presencia de una IA. `AlmaEfectos.presencia(elemento)` monta el Velo, que es la IA de fondo, y devuelve `estado(nombre)`. Un estado de primer plano (`reposo`, `escuchando`, `pensando`, `respondiendo`) trae el Halo; `fondo` lo retira; `apagada` deja el Velo más tenue. Cuándo usarla está en la guía **Interfaces de IA › Presencia**.

@@ -1,0 +1,12 @@
+<!-- @dsCard group="Entorno" height=460 subtitle="Lista y detalle · el divisor se mueve con el puntero o con las flechas · angosto, un panel a la vez" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  function App() { var s = React.useState('vina'), d = React.useState(false), V = [{ id: 'vina', title: 'Santiago → Viña del Mar', subtitle: '31 mar · 08:30' }, { id: 'stgo', title: 'Viña del Mar → Santiago', subtitle: '4 abr · 19:10' }, { id: 'talca', title: 'Santiago → Talca', subtitle: '12 abr · 07:00' }], v = V.filter(function (x) { return x.id === s[0]; })[0];
+    return h(A.SplitView, { style: { height: '380px' }, primaryLabel: 'Mis viajes', detailLabel: 'Detalle del viaje', showDetail: d[0], onBack: function () { d[1](false); },
+      primary: h('div', { style: { padding: '8px' } }, h(A.List, { 'aria-label': 'Mis viajes', selection: 'single', selected: s[0], onSelect: function (id) { s[1](id); d[1](true); }, items: V })),
+      detail: h('div', { style: { padding: '24px', display: 'grid', gap: '8px' } }, h('p', { className: 'web-label-s', style: { margin: 0, color: 'var(--text-02)' } }, v.subtitle), h('h2', { className: 'web-h5', style: { margin: 0 } }, v.title), h('p', { className: 'web-body-m', style: { margin: 0, color: 'var(--text-02)' } }, 'Semicama · asiento 14 · Terminal Alameda')) }); }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

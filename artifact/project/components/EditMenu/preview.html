@@ -1,0 +1,12 @@
+<!-- @dsCard group="Menús" height=320 subtitle="Selecciona parte del texto: aparecen las acciones sobre lo seleccionado" -->
+<div id="root" style="padding:24px;max-width:36rem;display:grid;gap:16px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  function App() { var u = React.useState('Selecciona algo del párrafo.');
+    return h(React.Fragment, null, h('div', { style: { paddingTop: '48px' } }, h(A.EditMenu, { items: [{ value: 'copiar', label: 'Copiar', icon: 'copy' }, { value: 'buscar', label: 'Buscar', icon: 'search' }, { value: 'ia', label: 'Preguntar a la IA', icon: 'ai-generate' }], onAction: function (v, t) { u[1]('«' + v + '» sobre: ' + t.slice(0, 40)); } },
+      h('p', { className: 'web-body-m', style: { margin: 0 } }, 'Tu bus a Viña del Mar sale el martes 31 de marzo a las 08:30, del andén 4 del Terminal Alameda. Llega 15 minutos antes: la empresa avisó que el andén puede cambiar.'))),
+      h('p', { className: 'web-body-s', role: 'status', style: { margin: 0, color: 'var(--text-02)' } }, u[0])); }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

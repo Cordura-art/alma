@@ -169,6 +169,8 @@ Tres cosas dicen qué se lee primero, y están en el patrón Jerarquía:
 - **Botones:** un `filled` por vista. Dos botones juntos miden lo mismo y se distinguen por estilo. Una acción que destruye nunca es `filled`: va en `tinted` con rol destructivo. El orden de peso es `filled`, `tinted`, `gray`, `plain`: el `gray` es un gris tenue y neutro, para «Cancelar» y «Volver».
 - **Márgenes:** `space-4` entre partes de una misma cosa, `space-8` entre cosas relacionadas, `space-16` dentro de un grupo, `space-24` entre grupos. Lo de adentro va más junto que lo de afuera, todo parte del mismo borde, y un radio interior es el exterior menos el margen.
 
+De la lista de Apple, para estructura y contenido: `SplitView` (lista y detalle; angosto, un panel a la vez), `Collection` (grilla o fila), `ImageView` (con `ratio` y `alt`; `ai` para lo generado), `Outline` (árbol), `ColumnView`, `WebView` (con `blocked` donde no se puede incrustar), `ControlCenter` y `EditMenu`. `List` admite `selection`, un `switch` por fila y `editing`.
+
 Piezas nuevas de la lista de Apple: `DigitEntry` (código de verificación), `TokenField` (varios valores en un campo), `Gauge` (un valor en un rango; no es avance: eso es `ProgressBar`) y `Rating` (estrellas, para leer o elegir).
 
 ### Profundidad y vidrio
@@ -178,6 +180,7 @@ El contenido va en superficies opacas (`ui-02`, `ui-01`, `ui-03`). Lo que flota 
 - El vidrio nunca va en el contenido: ni tarjetas, ni filas, ni campos.
 - El delgado asegura contraste para `text-01`; el medio, también para `text-02`; el grueso, para los tres. El muy delgado no asegura nada: solo sobre imagen, sin texto corrido.
 - Es la única manera de poner texto sobre un efecto de fondo.
+- Los componentes que flotan ya son de vidrio: menús, popovers, calendario, `Toolbar` y `TabBar` (medio); `Modal`, `Sheet`, `Alert` y `ActionSheet` (grueso). No hay que hacer nada para usarlo.
 - La clase ya lo vuelve opaco en alto contraste, con menos transparencia y sin desenfoque. La guía está en `Fundamentos-10-profundidad.md`.
 
 ### El entorno

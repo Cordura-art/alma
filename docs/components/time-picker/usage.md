@@ -38,3 +38,7 @@ summary: Un campo de hora en formato de 24 horas.
 ## Relacionados
 
 `DatePicker` · `TextInput` · Formularios.
+
+## Minutos por pasos
+
+Si la hora exacta no importa (una reserva, una salida cada cuarto de hora), pide menos precisión con `minuteStep`: 5, 10, 15 o 30. La hora escrita se lleva al paso más cercano, y la ayuda lo dice.

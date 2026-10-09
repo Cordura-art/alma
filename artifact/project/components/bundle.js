@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"AlmaDS","components":[{"name":"DigitEntry"},{"name":"TokenField"},{"name":"Gauge"},{"name":"Rating"},{"name":"Widget"},{"name":"LiveActivity"},{"name":"Snippet"},{"name":"Desktop"},{"name":"Window"},{"name":"MenuBar"},{"name":"Dock"},{"name":"ContextMenu"},{"name":"ActionSheet"},{"name":"AILabel"},{"name":"PromptInput"},{"name":"ChatMessage"},{"name":"SourceList"},{"name":"Button"},{"name":"TextInput"},{"name":"Icon"},{"name":"Pictogram"},{"name":"SegmentedControl"},{"name":"Stepper"},{"name":"ProductCard"},{"name":"PaymentCard"},{"name":"ProgressLine"},{"name":"Switch"},{"name":"Checkbox"},{"name":"RadioGroup"},{"name":"PopUpButton"},{"name":"PullDownButton"},{"name":"Alert"},{"name":"Tabs"},{"name":"TabBar"},{"name":"Sidebar"},{"name":"Toolbar"},{"name":"SearchField"},{"name":"Tooltip"},{"name":"Tip"},{"name":"Table"},{"name":"Slider"},{"name":"ProgressBar"},{"name":"ActivityIndicator"},{"name":"PageControl"},{"name":"InlineNotification"},{"name":"ToastRegion"},{"name":"Pagination"},{"name":"FileUploader"},{"name":"Skeleton"},{"name":"Link"},{"name":"Tag"},{"name":"Textarea"},{"name":"Card"},{"name":"List"},{"name":"EmptyState"},{"name":"Breadcrumb"},{"name":"Accordion"},{"name":"ProgressIndicator"},{"name":"Popover"},{"name":"Modal"},{"name":"Sheet"},{"name":"Combobox"},{"name":"DatePicker"},{"name":"TimePicker"},{"name":"BarChart"},{"name":"LineChart"},{"name":"ScatterChart"}]} */
+/* @ds-bundle: {"format":4,"namespace":"AlmaDS","components":[{"name":"SplitView"},{"name":"Collection"},{"name":"ImageView"},{"name":"Outline"},{"name":"ColumnView"},{"name":"WebView"},{"name":"ControlCenter"},{"name":"EditMenu"},{"name":"DigitEntry"},{"name":"TokenField"},{"name":"Gauge"},{"name":"Rating"},{"name":"Widget"},{"name":"LiveActivity"},{"name":"Snippet"},{"name":"Desktop"},{"name":"Window"},{"name":"MenuBar"},{"name":"Dock"},{"name":"ContextMenu"},{"name":"ActionSheet"},{"name":"AILabel"},{"name":"PromptInput"},{"name":"ChatMessage"},{"name":"SourceList"},{"name":"Button"},{"name":"TextInput"},{"name":"Icon"},{"name":"Pictogram"},{"name":"SegmentedControl"},{"name":"Stepper"},{"name":"ProductCard"},{"name":"PaymentCard"},{"name":"ProgressLine"},{"name":"Switch"},{"name":"Checkbox"},{"name":"RadioGroup"},{"name":"PopUpButton"},{"name":"PullDownButton"},{"name":"Alert"},{"name":"Tabs"},{"name":"TabBar"},{"name":"Sidebar"},{"name":"Toolbar"},{"name":"SearchField"},{"name":"Tooltip"},{"name":"Tip"},{"name":"Table"},{"name":"Slider"},{"name":"ProgressBar"},{"name":"ActivityIndicator"},{"name":"PageControl"},{"name":"InlineNotification"},{"name":"ToastRegion"},{"name":"Pagination"},{"name":"FileUploader"},{"name":"Skeleton"},{"name":"Link"},{"name":"Tag"},{"name":"Textarea"},{"name":"Card"},{"name":"List"},{"name":"EmptyState"},{"name":"Breadcrumb"},{"name":"Accordion"},{"name":"ProgressIndicator"},{"name":"Popover"},{"name":"Modal"},{"name":"Sheet"},{"name":"Combobox"},{"name":"DatePicker"},{"name":"TimePicker"},{"name":"BarChart"},{"name":"LineChart"},{"name":"ScatterChart"}]} */
 (function () {
   var h = window.React.createElement;
   var useState = window.React.useState;
@@ -1441,7 +1441,7 @@ function pictograma(G, clave, o = {}) {
     var s = useControlled(props.value, props.defaultValue || null), value = s[0];
     var t = useState(fmtDate(value)), text = t[0], setText = t[1];
     var er = useState(null), err = er[0], setErr = er[1];
-    var o = useState(false), open = o[0], setOpen = o[1];
+    var o = useState(false), inline = !!props.inline, open = inline || o[0], setOpen = o[1];
     var today = dayOnly(new Date());
     var min = dayOnly(props.min), max = dayOnly(props.max);
     function ok(d) { return (!min || d >= min) && (!max || d <= max); }
@@ -1453,8 +1453,8 @@ function pictograma(G, clave, o = {}) {
     function openCal() { setFocus(value || clamp(today)); setOpen(true); }
     function closeCal() { setOpen(false); }
     function pick(d) { if (!ok(d)) return; commit(d); closeCal(); }
-    useFocusTrap(box, open, closeCal, '.alma-cal__day[tabindex="0"]');
-    useOutside(wrap, open, closeCal);
+    useFocusTrap(box, open && !inline, closeCal, '.alma-cal__day[tabindex="0"]');
+    useOutside(wrap, open && !inline, closeCal);
     R.useEffect(function () {
       // Moving by keyboard can remount the focused cell (it changes row), so refocus from a flag, not from activeElement.
       var root = box.current; if (!open || !root || !keyNav.current) return;
@@ -1493,7 +1493,7 @@ function pictograma(G, clave, o = {}) {
           'aria-label': value ? 'Cambiar fecha, ' + longDate(value) : 'Elegir fecha', onClick: function () { if (open) closeCal(); else openCal(); } },
           h(AlmaIcon, { size: 16, name: 'calendar' }))),
       h('div', { className: 'alma-field__foot' }, h('span', { id: id + '-help', className: 'alma-field__help' }, helper)),
-      open ? h('div', { ref: box, role: 'dialog', 'aria-modal': true, 'aria-labelledby': id + '-m', className: 'alma-cal' },
+      open ? h('div', { ref: box, role: inline ? 'group' : 'dialog', 'aria-modal': inline ? undefined : true, 'aria-labelledby': id + '-m', className: 'alma-cal' + (inline ? ' alma-cal--inline' : '') },
         h('div', { className: 'alma-cal__head' },
           h(Button, { variant: 'plain', icon: 'chevron--left', 'aria-label': 'Mes anterior', onClick: function () { setFocus(addMonths(focus, -1)); } }),
           h('h2', { id: id + '-m', className: 'alma-cal__month', 'aria-live': 'polite' }, MONTHS[focus.getMonth()] + ' ' + focus.getFullYear()),
@@ -1525,10 +1525,11 @@ function pictograma(G, clave, o = {}) {
       if (!text.trim()) { setErr(null); if (value) { s[1](''); if (props.onChange) props.onChange(''); } return; }
       var m = /^\s*(\d{1,2})[:.h]?(\d{2})\s*$/.exec(text);
       if (!m || +m[1] > 23 || +m[2] > 59) { setErr('Escribe la hora en formato de 24 horas, por ejemplo 14:30.'); return; }
-      var v = pad2(+m[1]) + ':' + m[2]; setText(v); setErr(null); s[1](v); if (props.onChange) props.onChange(v);
+      var st = props.minuteStep || 1, mm = Math.round(+m[2] / st) * st, hh = +m[1]; if (mm >= 60) { mm = 0; hh = (hh + 1) % 24; }
+      var v = pad2(hh) + ':' + pad2(mm); setText(v); setErr(null); s[1](v); if (props.onChange) props.onChange(v);
     }
     return h(TextInput, { id: props.id, label: props.label, value: text, placeholder: 'hh:mm', inputMode: 'numeric', autoComplete: 'off', name: props.name,
-      helper: props.helper || 'Formato de 24 horas, por ejemplo 14:30', error: props.error || err, required: props.required, disabled: props.disabled,
+      helper: props.helper || ('Formato de 24 horas, por ejemplo 14:30' + (props.minuteStep > 1 ? '. De a ' + props.minuteStep + ' minutos' : '')), error: props.error || err, required: props.required, disabled: props.disabled,
       onChange: function (v) { setText(v); }, onBlur: onBlur });
   }
 
@@ -2280,5 +2281,142 @@ function pictograma(G, clave, o = {}) {
         return h('button', { key: n, type: 'button', role: 'radio', 'aria-checked': v === n, tabIndex: (v ? v === n : n === 1) ? 0 : -1, disabled: props.disabled, className: 'alma-rating__btn', 'aria-label': n + (n === 1 ? ' estrella' : ' estrellas'), onMouseEnter: function () { hov[1](n); }, onClick: function () { pick(n); } }, star(n, hov[0] || v)); }));
   }
 
-  window.AlmaDS = { DigitEntry: DigitEntry, TokenField: TokenField, Gauge: Gauge, Rating: Rating, Widget: Widget, LiveActivity: LiveActivity, Snippet: Snippet, Desktop: Desktop, Window: Window, MenuBar: MenuBar, Dock: Dock, ContextMenu: ContextMenu, ActionSheet: ActionSheet, AILabel: AILabel, PromptInput: PromptInput, ChatMessage: ChatMessage, SourceList: SourceList, SourceRef: SourceRef, ScatterChart: ScatterChart, BarChart: BarChart, LineChart: LineChart, applyTheme: applyTheme, Link: Link, Tag: Tag, Textarea: Textarea, Card: Card, List: List, EmptyState: EmptyState, Breadcrumb: Breadcrumb, Accordion: Accordion, ProgressIndicator: ProgressIndicator, Popover: Popover, Modal: Modal, Sheet: Sheet, Combobox: Combobox, DatePicker: DatePicker, TimePicker: TimePicker, registerIcons: registerIcons, iconNames: iconNames, Table: Table, Slider: Slider, ProgressBar: ProgressBar, ActivityIndicator: ActivityIndicator, PageControl: PageControl, InlineNotification: InlineNotification, ToastRegion: ToastRegion, toast: toast, Pagination: Pagination, FileUploader: FileUploader, Skeleton: Skeleton, Tabs: Tabs, TabBar: TabBar, Sidebar: Sidebar, Toolbar: Toolbar, SearchField: SearchField, Tooltip: Tooltip, Tip: Tip, Switch: Switch, Checkbox: Checkbox, RadioGroup: RadioGroup, PopUpButton: PopUpButton, PullDownButton: PullDownButton, Alert: Alert, Button: Button, TextInput: TextInput, Icon: AlmaIcon, Pictogram: Pictogram, pictogramDrawings: pictogramDrawings, configurePictograms: configurePictograms, SegmentedControl: SegmentedControl, Stepper: Stepper, ProductCard: ProductCard, PaymentCard: PaymentCard, ProgressLine: ProgressLine };
+  // ---------- The rest of Apple's list: SplitView, Collection, Outline, ColumnView, ImageView, WebView, ControlCenter, EditMenu ----------
+
+  // SplitView (Apple HIG › Split views): a list and its detail, side by side, with a divider that can be moved —
+  // with the pointer or with the arrows. Narrow, there is room for one pane: the list, or the detail with its way back.
+  function SplitView(props) {
+    var root = R.useRef(null), nar = useState(false), w = useState(props.defaultWidth || 280), min = props.minWidth || 200, max = props.maxWidth || 480, drag = R.useRef(null);
+    R.useEffect(function () { var el = root.current; if (!el) return; function m() { nar[1](el.getBoundingClientRect().width < 672); } m(); if (!window.ResizeObserver) return; var ro = new ResizeObserver(m); ro.observe(el); return function () { ro.disconnect(); }; }, []);
+    function set(v) { w[1](Math.max(min, Math.min(max, v))); }
+    var detail = !!props.showDetail;
+    return h('div', { ref: root, className: 'alma-split' + (nar[0] ? ' is-compact' : '') + (props.className ? ' ' + props.className : ''), style: Object.assign({ '--alma-split': w[0] + 'px' }, props.style) },
+      !nar[0] || !detail ? h('div', { className: 'alma-split__pane alma-split__primary', role: 'region', 'aria-label': props.primaryLabel || 'Lista' }, props.primary) : null,
+      !nar[0] ? h('div', { className: 'alma-split__bar', role: 'separator', tabIndex: 0, 'aria-orientation': 'vertical', 'aria-label': 'Ancho de ' + (props.primaryLabel || 'la lista'), 'aria-valuemin': min, 'aria-valuemax': max, 'aria-valuenow': w[0],
+        onKeyDown: function (e) { var d = { ArrowLeft: -16, ArrowRight: 16 }[e.key]; if (d) { e.preventDefault(); set(w[0] + d); } else if (e.key === 'Home') { e.preventDefault(); set(min); } else if (e.key === 'End') { e.preventDefault(); set(max); } },
+        onPointerDown: function (e) { drag.current = { x: e.clientX, w: w[0] }; e.currentTarget.setPointerCapture(e.pointerId); },
+        onPointerMove: function (e) { if (drag.current) set(drag.current.w + e.clientX - drag.current.x); }, onPointerUp: function () { drag.current = null; }, onPointerCancel: function () { drag.current = null; } }) : null,
+      !nar[0] || detail ? h('div', { className: 'alma-split__pane alma-split__detail', role: 'region', 'aria-label': props.detailLabel || 'Detalle' },
+        nar[0] && props.onBack ? h('div', { className: 'alma-split__back' }, h(Button, { variant: 'plain', iconBefore: 'chevron--left', onClick: props.onBack }, props.backLabel || 'Volver')) : null, props.detail) : null);
+  }
+
+  // Collection (Apple HIG › Collections): items of the same kind that are looked at more than read — pictures, cards.
+  // A grid that fills the width, or one row that scrolls sideways.
+  function Collection(props) {
+    var row = props.layout === 'row';
+    return h('ul', { className: 'alma-collection' + (row ? ' alma-collection--row' : '') + (props.className ? ' ' + props.className : ''), 'aria-label': props.label, tabIndex: row ? 0 : undefined,
+      style: { '--alma-cell': (props.minItemWidth || 160) + 'px', '--alma-gap': 'var(--space-' + (props.gap || 16) + ')' } },
+      (props.items || []).map(function (it, i) { return h('li', { key: it.id || i, className: 'alma-collection__item' + (it.span === 2 ? ' is-wide' : '') }, props.renderItem ? props.renderItem(it, i) : it.node); }));
+  }
+
+  // ImageView (Apple HIG › Image views): a picture with its place kept — its proportion — while it arrives, and
+  // something to see if it never does. A generated picture carries the mark of AI on it.
+  function ImageView(props) {
+    var st = useState('loading'), ratio = props.ratio || '4 / 3';
+    R.useEffect(function () { st[1](props.src ? 'loading' : 'error'); }, [props.src]);
+    var fig = h('div', { className: 'alma-image is-' + st[0] + (props.className ? ' ' + props.className : ''), style: { aspectRatio: ratio, borderRadius: props.radius === false ? 0 : undefined } },
+      props.src && st[0] !== 'error' ? h('img', { src: props.src, alt: props.alt === undefined ? '' : (props.ai ? 'Imagen generada: ' : '') + props.alt, loading: props.lazy === false ? undefined : 'lazy', decoding: 'async',
+        style: { objectFit: props.fit || 'cover', objectPosition: props.position }, onLoad: function () { st[1]('ok'); }, onError: function () { st[1]('error'); } }) : null,
+      st[0] === 'loading' ? h('span', { className: 'alma-image__wait', role: 'status' }, h('span', { className: 'alma-vh' }, 'Cargando imagen')) : null,
+      st[0] === 'error' ? h('span', { className: 'alma-image__fail', role: 'img', 'aria-label': (props.alt ? props.alt + '. ' : '') + 'No se pudo cargar la imagen' }, h(AlmaIcon, { name: 'image', size: 24 }), h('span', { 'aria-hidden': 'true' }, 'No se pudo cargar')) : null,
+      props.ai && st[0] === 'ok' ? h('span', { className: 'alma-image__ai' }, h(AILabel, typeof props.ai === 'object' ? props.ai : null)) : null);
+    return props.caption ? h('figure', { className: 'alma-figure' }, fig, h('figcaption', { className: 'alma-figure__caption' }, props.caption)) : fig;
+  }
+
+  // Outline (Apple HIG › Outline views): things inside things — folders, categories — that open and close.
+  // One Tab stop; the arrows walk it: up and down through what is visible, right opens or goes in, left closes or goes out.
+  function Outline(props) {
+    var id = useId(props.id), op = useControlled(props.expanded, props.defaultExpanded || []), open = op[0], f = useState(null), root = R.useRef(null);
+    var flat = []; (function walk(list, level, parent) { (list || []).forEach(function (n) { var kids = n.children && n.children.length, isOpen = kids && open.indexOf(n.id) >= 0; flat.push({ n: n, level: level, kids: kids, open: isOpen, parent: parent }); if (isOpen) walk(n.children, level + 1, n.id); }); })(props.items, 1, null);
+    var cur = f[0] !== null && flat.some(function (x) { return x.n.id === f[0]; }) ? f[0] : (props.selected !== undefined && flat.some(function (x) { return x.n.id === props.selected; }) ? props.selected : (flat[0] && flat[0].n.id));
+    function toggle(n, v) { var nx = v ? open.concat([n.id]) : open.filter(function (x) { return x !== n.id; }); op[1](nx); if (props.onExpandedChange) props.onExpandedChange(nx); }
+    function go(nid) { f[1](nid); var el = root.current && root.current.querySelector('[data-node="' + nid + '"]'); if (el) el.focus(); }
+    function key(e) {
+      var i = flat.findIndex(function (x) { return x.n.id === cur; }), x = flat[i]; if (!x) return;
+      if (e.key === 'ArrowDown' && flat[i + 1]) { e.preventDefault(); go(flat[i + 1].n.id); }
+      else if (e.key === 'ArrowUp' && flat[i - 1]) { e.preventDefault(); go(flat[i - 1].n.id); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); if (x.kids && !x.open) toggle(x.n, true); else if (x.open && flat[i + 1]) go(flat[i + 1].n.id); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); if (x.open) toggle(x.n, false); else if (x.parent !== null) go(x.parent); }
+      else if (e.key === 'Home') { e.preventDefault(); go(flat[0].n.id); } else if (e.key === 'End') { e.preventDefault(); go(flat[flat.length - 1].n.id); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (props.onSelect) props.onSelect(x.n.id); else if (x.kids) toggle(x.n, !x.open); }
+    }
+    return h('ul', { ref: root, role: 'tree', 'aria-label': props.label, className: 'alma-outline' + (props.className ? ' ' + props.className : ''), onKeyDown: key },
+      flat.map(function (x) { var n = x.n, sel = props.selected === n.id;
+        return h('li', { key: n.id, role: 'treeitem', 'data-node': n.id, tabIndex: n.id === cur ? 0 : -1, 'aria-level': x.level, 'aria-expanded': x.kids ? !!x.open : undefined, 'aria-selected': props.onSelect ? sel : undefined,
+          className: 'alma-outline__row' + (sel ? ' is-selected' : ''), style: { '--alma-level': x.level - 1 }, onFocus: function () { f[1](n.id); },
+          onClick: function () { f[1](n.id); if (props.onSelect) props.onSelect(n.id); else if (x.kids) toggle(n, !x.open); } },
+          x.kids ? h('span', { className: 'alma-outline__twist', 'aria-hidden': 'true', onClick: function (e) { e.stopPropagation(); toggle(n, !x.open); } }, h(AlmaIcon, { name: x.open ? 'chevron--down' : 'chevron--right', size: 16 })) : h('span', { className: 'alma-outline__twist' }),
+          n.icon ? h(AlmaIcon, { name: n.icon, size: 16, className: 'alma-outline__icon' }) : null,
+          h('span', { className: 'alma-outline__label' }, n.label),
+          n.trailing !== undefined ? h('span', { className: 'alma-outline__trailing' }, n.trailing) : null); }));
+  }
+
+  // ColumnView (Apple HIG › Column views): the same hierarchy, with every level open in its own column, so the way
+  // down stays in sight. Right goes into a column, left comes back.
+  function ColumnView(props) {
+    var p = useControlled(props.path, props.defaultPath || []), path = p[0], root = R.useRef(null), want = R.useRef(null);
+    var cols = [props.items || []]; path.forEach(function (pid, i) { var n = (cols[i] || []).filter(function (x) { return x.id === pid; })[0]; if (n && n.children && n.children.length) cols.push(n.children); });
+    function set(np) { p[1](np); if (props.onPathChange) props.onPathChange(np); }
+    R.useEffect(function () { var wnt = want.current, el = root.current; if (!wnt || !el) return; want.current = null; var c = el.querySelectorAll('.alma-columns__col')[wnt.c]; var b = c && (c.querySelector('[aria-selected="true"]') || c.querySelector('[role="option"]')); if (b) b.focus(); if (c && c.scrollIntoView) c.scrollIntoView({ block: 'nearest', inline: 'nearest' }); });
+    return h('div', { ref: root, className: 'alma-columns' + (props.className ? ' ' + props.className : ''), role: 'group', 'aria-label': props.label, tabIndex: -1 },
+      cols.map(function (list, c) {
+        return h('ul', { key: c, role: 'listbox', 'aria-label': c === 0 ? (props.rootLabel || props.label) : (cols[c - 1].filter(function (x) { return x.id === path[c - 1]; })[0] || {}).label, className: 'alma-columns__col',
+          onKeyDown: function (e) { var its = [].slice.call(e.currentTarget.querySelectorAll('[role="option"]')), i = its.indexOf(document.activeElement);
+            if (e.key === 'ArrowDown' && its[i + 1]) { e.preventDefault(); its[i + 1].focus(); } else if (e.key === 'ArrowUp' && its[i - 1]) { e.preventDefault(); its[i - 1].focus(); }
+            else if (e.key === 'ArrowRight' && cols[c + 1] && path[c] === list[i].id) { e.preventDefault(); want.current = { c: c + 1 }; set(path.slice(0, c + 1)); }
+            else if (e.key === 'ArrowLeft' && c > 0) { e.preventDefault(); want.current = { c: c - 1 }; set(path.slice(0, c)); } } },
+          list.map(function (n, i) { var sel = path[c] === n.id, kids = n.children && n.children.length;
+            return h('li', { key: n.id, role: 'option', 'aria-selected': sel, tabIndex: sel || (path[c] === undefined && i === 0) ? 0 : -1, className: 'alma-columns__row' + (sel ? ' is-selected' : ''),
+              onClick: function () { set(path.slice(0, c).concat([n.id])); if (!kids && props.onOpen) props.onOpen(n); },
+              onKeyDown: function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); want.current = kids ? { c: c + 1 } : null; set(path.slice(0, c).concat([n.id])); if (!kids && props.onOpen) props.onOpen(n); } } },
+              n.icon ? h(AlmaIcon, { name: n.icon, size: 16 }) : null, h('span', { className: 'alma-columns__label' }, n.label), kids ? h(AlmaIcon, { name: 'chevron--right', size: 16, className: 'alma-columns__more' }) : null); })); }));
+  }
+
+  // WebView (Apple HIG › Web views): something from outside, inside. It always says where it comes from, and it is
+  // closed in: it cannot reach the page that holds it. Where the frame is not allowed, it offers to open it outside.
+  function WebView(props) {
+    var st = useState('loading'), k = useState(0), host = ''; try { host = new URL(props.src, 'https://x').host; } catch (e) {}
+    return h('div', { className: 'alma-webview' + (props.className ? ' ' + props.className : ''), style: { height: props.height || 360 } },
+      h('div', { className: 'alma-webview__bar' }, h(AlmaIcon, { name: 'locked', size: 16, label: /^https:/.test(props.src || '') ? 'Conexión segura' : undefined }),
+        h('span', { className: 'alma-webview__host' }, props.origin || host),
+        h(Button, { variant: 'plain', icon: 'renew', 'aria-label': 'Recargar ' + (props.title || host), onClick: function () { st[1]('loading'); k[1](k[0] + 1); } }),
+        h('a', { className: 'alma-btn alma-btn--plain alma-btn--sm alma-btn--icon', href: props.src, target: '_blank', rel: 'noopener noreferrer', 'aria-label': 'Abrir ' + (props.title || host) + ' en otra pestaña', title: 'Abrir en otra pestaña' }, h(AlmaIcon, { name: 'launch', size: 16 }))),
+      h('div', { className: 'alma-webview__body' },
+        props.blocked ? h('div', { className: 'alma-webview__msg' }, h('p', null, 'Este contenido no se puede mostrar aquí.'), h(Link, { href: props.src, external: true }, 'Abrir ' + (props.origin || host))) :
+          h('iframe', { key: k[0], src: props.src, title: props.title || host, sandbox: props.sandbox || 'allow-scripts allow-forms allow-popups', referrerPolicy: 'no-referrer', loading: 'lazy', onLoad: function () { st[1]('ok'); } }),
+        st[0] === 'loading' && !props.blocked ? h('div', { className: 'alma-webview__wait' }, h(ActivityIndicator, { label: 'Cargando ' + (props.title || host) })) : null));
+  }
+
+  // ControlCenter (Apple HIG › Controls): the few controls of the environment that are needed at any moment, in one
+  // panel: buttons that do one thing and switches that are on or off. Each one says what it is and how it is.
+  function ControlCenter(props) {
+    return h('div', { className: 'alma-controls alma-glass' + (props.className ? ' ' + props.className : ''), role: 'group', 'aria-label': props.label || 'Centro de control' },
+      (props.controls || []).map(function (c) { var tog = c.checked !== undefined;
+        return h('button', { key: c.id || c.label, type: 'button', disabled: c.disabled, className: 'alma-control' + (c.checked ? ' is-on' : '') + (c.size === 'wide' ? ' is-wide' : ''),
+          role: tog ? 'switch' : undefined, 'aria-checked': tog ? !!c.checked : undefined, onClick: function () { if (tog && c.onChange) c.onChange(!c.checked); if (c.onPress) c.onPress(); } },
+          h('span', { className: 'alma-control__icon' }, h(AlmaIcon, { name: c.icon, size: 20 })),
+          h('span', { className: 'alma-control__text' }, h('span', { className: 'alma-control__label' }, c.label), c.value ? h('span', { className: 'alma-control__value' }, c.value) : null)); }),
+      props.children ? h('div', { className: 'alma-controls__more' }, props.children) : null);
+  }
+
+  // EditMenu (Apple HIG › Edit menus): what can be done with what is selected — copy it, look it up, ask about it —
+  // in a short bar next to the selection. It never is the only way: the same commands live in the menu bar.
+  function EditMenu(props) {
+    var wrap = R.useRef(null), bar = R.useRef(null), at = useState(null);
+    R.useEffect(function () {
+      function see() { var s = window.getSelection && window.getSelection(), el = wrap.current; if (!s || s.isCollapsed || !el || !s.rangeCount || !el.contains(s.anchorNode)) { if (!bar.current || !bar.current.contains(document.activeElement)) at[1](null); return; }
+        var r = s.getRangeAt(0).getBoundingClientRect(), b = el.getBoundingClientRect(); at[1]({ x: r.left + r.width / 2 - b.left, y: r.top - b.top, text: String(s) }); }
+      function up() { setTimeout(see, 0); }
+      document.addEventListener('mouseup', up); document.addEventListener('keyup', up); document.addEventListener('touchend', up);
+      return function () { document.removeEventListener('mouseup', up); document.removeEventListener('keyup', up); document.removeEventListener('touchend', up); };
+    }, []);
+    var items = props.items || [{ value: 'copiar', label: 'Copiar', icon: 'copy' }];
+    function run(it) { var text = at[0].text; if (it.value === 'copiar' && !it.onSelect) { try { navigator.clipboard.writeText(text); } catch (e) {} } if (it.onSelect) it.onSelect(text); if (props.onAction) props.onAction(it.value, text); at[1](null); }
+    return h('div', { ref: wrap, className: 'alma-editmenu-host' + (props.className ? ' ' + props.className : ''), onKeyDown: function (e) { if (e.key === 'Escape' && at[0]) { e.stopPropagation(); at[1](null); } } },
+      props.children,
+      at[0] ? h('div', { ref: bar, role: 'toolbar', 'aria-label': props.label || 'Acciones sobre la selección', className: 'alma-editmenu alma-glass', style: { left: at[0].x, top: at[0].y }, onMouseDown: function (e) { e.preventDefault(); } },
+        items.map(function (it) { return h('button', { key: it.value, type: 'button', className: 'alma-editmenu__btn', onClick: function () { run(it); } }, it.icon ? h(AlmaIcon, { name: it.icon, size: 16 }) : null, h('span', null, it.label)); })) : null);
+  }
+
+  window.AlmaDS = { SplitView: SplitView, Collection: Collection, ImageView: ImageView, Outline: Outline, ColumnView: ColumnView, WebView: WebView, ControlCenter: ControlCenter, EditMenu: EditMenu, DigitEntry: DigitEntry, TokenField: TokenField, Gauge: Gauge, Rating: Rating, Widget: Widget, LiveActivity: LiveActivity, Snippet: Snippet, Desktop: Desktop, Window: Window, MenuBar: MenuBar, Dock: Dock, ContextMenu: ContextMenu, ActionSheet: ActionSheet, AILabel: AILabel, PromptInput: PromptInput, ChatMessage: ChatMessage, SourceList: SourceList, SourceRef: SourceRef, ScatterChart: ScatterChart, BarChart: BarChart, LineChart: LineChart, applyTheme: applyTheme, Link: Link, Tag: Tag, Textarea: Textarea, Card: Card, List: List, EmptyState: EmptyState, Breadcrumb: Breadcrumb, Accordion: Accordion, ProgressIndicator: ProgressIndicator, Popover: Popover, Modal: Modal, Sheet: Sheet, Combobox: Combobox, DatePicker: DatePicker, TimePicker: TimePicker, registerIcons: registerIcons, iconNames: iconNames, Table: Table, Slider: Slider, ProgressBar: ProgressBar, ActivityIndicator: ActivityIndicator, PageControl: PageControl, InlineNotification: InlineNotification, ToastRegion: ToastRegion, toast: toast, Pagination: Pagination, FileUploader: FileUploader, Skeleton: Skeleton, Tabs: Tabs, TabBar: TabBar, Sidebar: Sidebar, Toolbar: Toolbar, SearchField: SearchField, Tooltip: Tooltip, Tip: Tip, Switch: Switch, Checkbox: Checkbox, RadioGroup: RadioGroup, PopUpButton: PopUpButton, PullDownButton: PullDownButton, Alert: Alert, Button: Button, TextInput: TextInput, Icon: AlmaIcon, Pictogram: Pictogram, pictogramDrawings: pictogramDrawings, configurePictograms: configurePictograms, SegmentedControl: SegmentedControl, Stepper: Stepper, ProductCard: ProductCard, PaymentCard: PaymentCard, ProgressLine: ProgressLine };
 })();

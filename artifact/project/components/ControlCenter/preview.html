@@ -1,0 +1,12 @@
+<!-- @dsCard group="Entorno" height=420 subtitle="Los controles del entorno, en un panel · botones e interruptores" -->
+<div id="root" style="padding:24px;"></div>
+<script>
+  // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
+  document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
+  var h = React.createElement, A = AlmaDS;
+  function App() { var s = React.useState({ avisos: true, enfoque: false, oscuro: true });
+    function t(k) { return { checked: s[0][k], onChange: function (v) { var o = Object.assign({}, s[0]); o[k] = v; s[1](o); } }; }
+    return h(A.ControlCenter, { controls: [Object.assign({ id: 'avisos', label: 'Avisos', icon: 'notification', value: s[0].avisos ? 'Activados' : 'En silencio' }, t('avisos')), Object.assign({ id: 'enfoque', label: 'Enfoque', icon: 'view', value: s[0].enfoque ? 'Activado' : 'Apagado' }, t('enfoque')),
+      Object.assign({ id: 'oscuro', label: 'Tema oscuro', icon: 'asleep', size: 'wide', value: s[0].oscuro ? 'Activado' : 'Apagado' }, t('oscuro')), { id: 'ajustes', label: 'Ajustes', icon: 'settings', onPress: function () {} }, { id: 'asistente', label: 'Asistente', icon: 'ai-label', onPress: function () {} }] }); }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>

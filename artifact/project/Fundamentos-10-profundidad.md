@@ -31,6 +31,8 @@ Dentro de la capa funcional hay orden. Mientras más arriba, más gruesa la supe
 | 2 | Lo que aparece y se va: menús, popovers, avisos. | Medio. | `shadow-floating`. |
 | 3 | Lo que detiene: hojas, diálogos, la ventana activa. | Medio o grueso. | `shadow-floating`, y un velo detrás si es modal. |
 
+Así vienen ya los componentes: los menús, los popovers, el calendario y las barras (`Toolbar`, `TabBar`) son de vidrio medio; los diálogos, las alertas y las hojas, de vidrio grueso. Un menú que se abre sobre otro vidrio pasa a grueso.
+
 ALMA separa las superficies del contenido con capas de color, no con sombras. Eso no cambia: la sombra sigue siendo solo para lo que flota.
 
 ### Cuándo usar vidrio
@@ -43,6 +45,16 @@ ALMA separa las superficies del contenido con capas de color, no con sombras. Es
 | Controles sobre una imagen o un video. | Para decorar. El vidrio es estructura. |
 
 Con medida: es para los elementos funcionales que más importan. Si se ve vidrio en todas partes, deja de decir «esto flota».
+
+### Todo en vidrio
+
+Una entidad puede pedir vidrio en todo, con `"vidrio": true` en su lenguaje. ORCA lo hace. Cambian dos cosas:
+
+- **El suelo de la página es el Velo, muy tenue.** Sin algo detrás, un vidrio no deja pasar nada.
+- **Los contenedores y los campos pasan a vidrio delgado** sobre él: tarjetas, listas, tablas, la barra lateral, los campos de texto.
+- **Los botones de fondo tenue** (`tinted` y `gray`) y las etiquetas desenfocan lo que tienen detrás. El `filled` sigue sólido: es la acción que tiene que verse primero, y su texto blanco necesita todo su color debajo.
+
+Es la excepción a «el vidrio nunca va en el contenido», y tiene su condición: la fuerza del Velo está acotada (0,18 en oscuro y 0,1 en claro), y con él debajo los tres niveles de texto siguen en 4,5:1. En alto contraste y con menos transparencia, el suelo es liso y todo vuelve a ser opaco.
 
 ### El vidrio y los fondos
 
