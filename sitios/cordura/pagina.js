@@ -7,8 +7,9 @@
   var G = window.__GENES.cordura, HECHOS = window.__HECHOS, root = document.documentElement;
   root.lang = 'es';
 
-  // Where someone writes to us. Empty until Cordura decides it: the closing then says so instead of inventing one.
-  var CONTACTO = '';
+  // Where someone writes to us: a mail address, shown as text that can be selected. Empty until Cordura gives it: the
+  // closing then says so instead of inventing one.
+  var CONTACTO = 'contacto@cordura.tech';
 
   // The theme: the viewer's choice on this page (remembered on this device), else the host's (data-theme on the root),
   // else the system's. Four themes: dark or light, each with its high-contrast version.
@@ -71,7 +72,7 @@
   function resp(t) { return h('p', { className: 'web-body-m note' }, t); }
   var PREGUNTAS = [
     { id: 'agentes', title: '¿Qué es un sistema de marca para agentes?', content: resp('Es tu marca escrita de modo que la pueda recorrer una persona y la pueda leer una IA: tokens con nombre, componentes que funcionan, reglas de voz y el porqué de cada una. Así un agente que arma una página o una presentación parte de tus decisiones y no de las suyas.') },
-    { id: 'porcentaje', title: '¿Por qué un porcentaje y no una tarifa?', content: resp('Porque una tarifa paga una entrega, y lo que una marca necesita es que alguien la sostenga mientras crece. Con un porcentaje, a nosotros nos va bien solo si a ti te va bien.') },
+    { id: 'pago', title: '¿Cómo se paga?', content: resp('Lo acordamos por escrito antes de empezar, atado a tu resultado y no a una entrega. Preferimos conversarlo con tu caso a la vista.') },
     { id: 'adapta', title: '¿Se adapta a mi empresa o es igual para todos?', content: resp('Se adapta. El sistema es uno, pero sus valores son los de tu marca: color, letra, forma y movimiento. Esta página es el mismo sistema con los valores de Cordura.') },
     { id: 'existente', title: '¿Qué pasa con lo que ya tenemos?', content: resp('Se revisa al conocernos. Lo que funciona se integra; lo que se reemplaza, se reemplaza por partes y con tu equipo al tanto.') },
     { id: 'casos', title: '¿Tienen casos de clientes?', content: resp('Todavía no tenemos casos de clientes que mostrar, y preferimos decirlo. Lo que sí puedes revisar hoy es el sistema mismo: todo lo que ves en esta página está hecho con él.') }
@@ -184,24 +185,27 @@
     { ruta: 'tokens/core/radius.json', regla: 'Todas las esquinas salen de un solo radio.' }
   ];
   function Pedido() {
+    // One frame, the two screens one over the other, and a slider under them: what is left of the line is the screen
+    // made without the system, what is right of it the one made with it. The real one cannot be reached while it is hidden.
+    var v = useState(50), x = v[0];
     return h('div', { className: 'pedido' },
       h('p', { className: 'web-body-m pedido__q' }, h('span', null, 'Arma la pantalla de propuestas')),
-      h('div', { className: 'pedido__dos' },
-        h('figure', { className: 'soporte' },
-          h('figcaption', { className: 'web-label-m' }, 'Sin el sistema'),
-          h('div', { className: 'marco generico', role: 'img', 'aria-label': 'Una pantalla genérica: el título «Mis elementos», un aviso verde que dice «Tienes 2 elementos pendientes. Complétalos lo antes posible.», dos filas y un botón verde «Enviar».' },
-            h('p', { className: 'generico__t' }, 'Mis elementos'),
-            h('p', { className: 'generico__a' }, '✓ Tienes 2 elementos pendientes. Complétalos lo antes posible.'),
-            h('p', { className: 'generico__f' }, 'Elemento 1', h('span', null, 'Pendiente')),
-            h('p', { className: 'generico__f' }, 'Elemento 2', h('span', null, 'Pendiente')),
-            h('p', { className: 'generico__b' }, 'Enviar'))),
-        h('figure', { className: 'soporte' },
-          h('figcaption', { className: 'web-label-m' }, 'Con el sistema de Cordura'),
-          h('div', { className: 'marco pedido__si' },
-            h('h3', { className: 'web-h4' }, 'Propuestas'),
-            h(A.InlineNotification, AVISO),
-            h(A.List, { 'aria-label': 'Propuestas', items: FILAS.slice(0, 2).map(function (r) { return { id: r.id, title: r.p, subtitle: r.e, trailing: r.f }; }) }),
-            h('div', { className: 'fila' }, h(A.Button, { variant: 'filled' }, 'Revisar 2 propuestas'), h(A.Button, { variant: 'tinted' }, 'Ahora no'))))),
+      h('div', { className: 'pedido__pila' },
+        h('div', { className: 'marco generico', role: 'img', style: { clipPath: 'inset(0 ' + (100 - x) + '% 0 0)' }, 'aria-hidden': x <= 0 ? 'true' : undefined, 'aria-label': 'Sin el sistema, una pantalla genérica: el título «Mis elementos», un aviso verde que dice «Tienes 2 elementos pendientes. Complétalos lo antes posible.», dos filas y un botón verde «Enviar».' },
+          h('p', { className: 'generico__t' }, 'Mis elementos'),
+          h('p', { className: 'generico__a' }, '✓ Tienes 2 elementos pendientes. Complétalos lo antes posible.'),
+          h('p', { className: 'generico__f' }, 'Elemento 1', h('span', null, 'Pendiente')),
+          h('p', { className: 'generico__f' }, 'Elemento 2', h('span', null, 'Pendiente')),
+          h('p', { className: 'generico__b' }, 'Enviar')),
+        h('div', { className: 'marco pedido__si', style: { clipPath: 'inset(0 0 0 ' + x + '%)' }, inert: x >= 100 ? '' : undefined, 'aria-label': 'Con el sistema de Cordura', role: 'group' },
+          h('h3', { className: 'web-h4' }, 'Propuestas'),
+          h(A.InlineNotification, AVISO),
+          h(A.List, { 'aria-label': 'Propuestas', items: FILAS.slice(0, 2).map(function (r) { return { id: r.id, title: r.p, subtitle: r.e, trailing: r.f }; }) }),
+          h('div', { className: 'fila' }, h(A.Button, { variant: 'filled' }, 'Revisar 2 propuestas'), h(A.Button, { variant: 'tinted' }, 'Ahora no'))),
+        h('span', { className: 'pedido__linea', style: { left: x + '%' }, 'aria-hidden': 'true' })),
+      h('div', { className: 'pedido__control' },
+        h('div', { className: 'pedido__lados web-label-m', 'aria-hidden': 'true' }, h('span', null, 'Sin el sistema'), h('span', null, 'Con el sistema de Cordura')),
+        h(A.Slider, { label: 'Línea de comparación', min: 0, max: 100, step: 1, value: x, onChange: v[1], format: function (n) { return n + ' %'; } })),
       h('ul', { className: 'citas' }, CITAS.map(function (c, i) { return h('li', { key: i }, h('code', { className: 'web-body-s' }, c.ruta), h('span', { className: 'web-body-s' }, c.regla)); })));
   }
 
@@ -242,41 +246,38 @@
             h(A.Button, { variant: 'plain', onClick: function () { goTo('preguntas'); } }, 'Preguntas')),
           h(A.Button, { variant: 'plain', icon: claro ? 'asleep' : 'light', 'aria-label': claro ? 'Usar tema oscuro' : 'Usar tema claro', onClick: function () { pon(!claro, alto); } })))),
       h('main', { className: 'wrap' },
-        h(Efecto, { id: 'reticula', className: 'portada' },
-          h('div', { className: 'portada__in', id: 'inicio', tabIndex: -1 },
-            h(Mapa, { wide: wide[0] }),
-            h('p', { className: 'web-body-m portada__pie' }, 'Diseño, desarrollo y agentes de IA, trabajando desde un mismo sistema.'))),
-
+        h('div', { id: 'inicio', tabIndex: -1, className: 'ancla' }),
         h(Texto, { parrafos: [
-          { f: 'Cada pantalla, cada página y cada anuncio que publica tu equipo es una decisión sobre qué es tu marca. Hoy se toman más de esas decisiones que nunca, entre más personas, y con agentes de IA en la mesa.' },
-          'Nuestra marca es lima. En una portada se ve bien. ¿Va también en un enlace? ¿En un gráfico? ¿En una alerta? Una guía en PDF no lo dice: muestra la portada. Quien diseña la pantalla siguiente decide por su cuenta, y quien la programa también. Los dos deciden bien, y deciden distinto.',
-          'Nadie se equivoca. Cada uno trabaja desde una versión distinta de la empresa.',
-          'Antes, producir era lento y alguien alcanzaba a notar la diferencia. Hoy un agente arma veinte variantes en una tarde. Si no sabe por qué se decidió algo, adivina. Y adivina con criterio, que es lo difícil de ver: nada queda mal, todo queda genérico.',
-          'No creemos que esto se arregle con otra reunión ni con otro PDF.',
-          { s: 'Se arregla escribiendo la marca para que cualquiera pueda decidir bien una pantalla que nadie dibujó todavía.' }] }),
+          { f: 'Cada pantalla, cada página y cada anuncio que publica tu equipo es una decisión sobre qué es tu marca. Hoy muchas de esas decisiones las toma un agente de IA.' },
+          'Este es el mismo pedido, dos veces: una sin nada a la vista, y otra con nuestro sistema.'] }),
 
         h('section', { className: 'demo', 'aria-label': 'El mismo pedido, sin el sistema y con el sistema' },
           h(Pedido),
-          h('p', { className: 'web-body-s demo__pie' }, 'El mismo pedido, sin el sistema y con el sistema. La pantalla de la izquierda es una maqueta de lo que sale por defecto.')),
+          h('p', { className: 'web-body-s demo__pie' }, 'Mueve el control. La pantalla «sin el sistema» es una maqueta de lo que sale por defecto; la otra usa nuestros componentes.')),
+
+        h(Texto, { parrafos: [
+          'La de la izquierda no está mal. Está genérica: nadie le dijo cómo decide esta marca.',
+          'Nuestra marca es lima. En una portada se ve bien. ¿Va también en un enlace, en un gráfico, en una alerta? Una guía en PDF muestra la portada y no responde. Quien diseña la pantalla siguiente decide por su cuenta, quien la programa también, y un agente arma veinte variantes en una tarde.',
+          { s: 'La marca se escribe para que cualquiera pueda decidir bien una pantalla que nadie dibujó todavía.' }] }),
 
         h('section', { className: 'cap', id: 'sistema', 'aria-labelledby': 'sistema-t' },
           h('h2', { className: 'web-h2 sec__title cap__t', id: 'sistema-t', tabIndex: -1 }, 'Qué es el sistema'),
+          h(Efecto, { id: 'reticula', className: 'portada' }, h('div', { className: 'portada__in' }, h(Mapa, { wide: wide[0] }))),
           h(Texto, { parrafos: [
-            'Es una colección de guías, piezas y código que una persona puede recorrer y un agente puede leer. Guarda la voz y los principios de tu marca, sus reglas de color, letra, forma y movimiento, y los componentes con que se construye lo nuevo.',
-            'Lo importante es que cada regla dice dónde aplica y por qué. Una imagen muestra lo que alguien decidió para una página. Un sistema le da a la persona siguiente, o al agente siguiente, contexto para decidir una página que no existe.',
-            'El nuestro responde la pregunta del lima: va solo en el botón principal. Los enlaces son azules, y los fondos y los textos son neutros. No es una opinión que haya que recordar: está escrito, con nombre, y el código lo usa tal cual.'] })),
+            'Guías, piezas y código que una persona puede recorrer y un agente puede leer: la voz y los principios de tu marca, sus reglas de color, letra, forma y movimiento, y los componentes con que se construye lo nuevo.',
+            'Cada regla dice dónde aplica y por qué. La del lima está escrita así: va solo en el botón principal; los enlaces son azules; los fondos y los textos, neutros. El código usa esa regla tal cual.'] })),
 
         h('section', { className: 'demo', 'aria-label': 'Archivos del sistema de Cordura' },
           h(Archivos),
-          h('p', { className: 'web-body-s demo__pie' }, 'Abre cualquiera. Son archivos del sistema de Cordura, recortados; ninguno se escribió para esta página.')),
+          h('p', { className: 'web-body-s demo__pie' }, 'Archivos del sistema de Cordura, recortados. Ninguno se escribió para esta página.')),
 
         h(Texto, { parrafos: [
-          '«Fuente de verdad» solo significa algo si las piezas siguen conectadas. Aquí el color de un botón no es un valor suelto: es un lugar en una tabla. Si la marca cambia de tono, cambia la tabla, y los ' + HECHOS.componentes + ' componentes cambian con ella en los ' + HECHOS.temas + ' temas.',
-          'Eso no significa que todo se actualice solo. Significa que hay pruebas que avisan: ' + HECHOS.pares + ' combinaciones de texto y fondo se miden en cada tema, y ningún color, espacio o radio puede entrar al sistema sin nombre. Alguien sigue teniendo que mirar cómo queda. Ese alguien somos nosotros, contigo.'] }),
+          'Las piezas siguen conectadas. El color de un botón no es un valor suelto: es un lugar en una tabla. Si la marca cambia de tono, cambia la tabla y todo lo demás la sigue.',
+          'No todo se actualiza solo. Hay pruebas que avisan, y alguien tiene que mirar cómo queda. Ese alguien somos nosotros, contigo.'] }),
 
         h('dl', { className: 'cifras' }, [[HECHOS.componentes, 'componentes'], [HECHOS.temas, 'temas'], [HECHOS.pares, 'combinaciones de texto y fondo, medidas']].map(function (c) { return h('div', { key: c[1] }, h(Efecto, { id: 'contar', como: 'dd', className: 'web-display-m cifras__n' }, String(c[0])), h('dt', { className: 'web-body-m' }, c[1])); })),
 
-        h(Sec, { id: 'consistencia', title: 'Un sistema, muchas salidas', lede: 'No te pedimos que nos creas: pruébalo. Cambia el tema o sube de nivel, del token más chico al entorno completo. Lo que ves es el sistema funcionando, no una imagen.' },
+        h(Sec, { id: 'consistencia', title: 'Un sistema, muchas salidas', lede: 'Cambia el tema o sube de nivel, del token más chico al entorno completo. Es el sistema funcionando, no una imagen.' },
           h('div', { className: 'mesa' },
             h('div', { className: 'mesa__nivel' }, h(A.SegmentedControl, { label: 'Nivel', options: NIVELES, value: N, onChange: nivel[1] })),
             h(A.SegmentedControl, { label: 'Tema', options: [{ value: 'dark', label: 'Oscuro' }, { value: 'light', label: 'Claro' }], value: claro ? 'light' : 'dark', onChange: function (v) { pon(v === 'light', alto); } }),
@@ -284,9 +285,9 @@
           h('div', { className: 'tarima' },
             h('p', { className: 'web-body-m tarima__que', 'aria-live': 'polite' }, QUE[N]),
             escena),
-          h('p', { className: 'web-body-m note' }, 'El tema cambia la página entera, no solo este recuadro: la barra de arriba, los títulos y el cierre usan los mismos tokens.')),
+          null),
 
-        h(Sec, { id: 'soportes', title: 'En cada soporte', lede: 'La misma propuesta en un teléfono, en un documento y en un anuncio. Cambian el tamaño y el formato; la voz, la letra y la forma no.' },
+        h(Sec, { id: 'soportes', title: 'En cada soporte', lede: 'La misma propuesta en un teléfono, en un documento y en un anuncio.' },
           h('div', { className: 'soportes' },
             h('figure', { className: 'soporte' },
               h('div', { className: 'marco marco--tel' },
@@ -311,21 +312,20 @@
                   h('div', { className: 'actions' }, h(A.Button, { variant: 'filled', size: 'sm' }, 'Conocer la vista de propuestas')))),
               h('figcaption', { className: 'web-body-s' }, 'Anuncio')))),
 
-        h(Sec, { id: 'recibes', title: 'Lo que construimos contigo', lede: 'Seis piezas que son una sola: cada una sale de las mismas decisiones, por eso calzan.' },
-          h('div', { className: 'piezas' }, PIEZAS.map(function (x) { return h(Efecto, { id: 'inclinar', key: x.t, className: 'pieza' }, h(A.Card, { title: x.t, headingLevel: 3 }, h(Figura, { nombre: x.fig, etiqueta: x.et }), h('p', { className: 'web-body-m note' }, x.p))); })),
-          h('p', { className: 'web-body-s note' }, 'Cifras al ' + HECHOS.fecha.split('-').reverse().join('-') + ', contadas en el sistema que usa esta página.')),
+        h(Sec, { id: 'recibes', title: 'Lo que construimos contigo', lede: 'Seis piezas que salen de las mismas decisiones. Por eso calzan.' },
+          h('div', { className: 'piezas' }, PIEZAS.map(function (x) { return h('article', { key: x.t, className: 'pieza' }, h(Efecto, { id: 'inclinar', className: 'pieza__marco' }, h(Figura, { nombre: x.fig, etiqueta: x.et })), h('h3', { className: 'web-h5' }, x.t), h('p', { className: 'web-body-m note' }, x.p)); })),
+          h('p', { className: 'web-body-s demo__pie' }, 'Cifras al ' + HECHOS.fecha.split('-').reverse().join('-') + ', contadas en el sistema que usa esta página.')),
 
-        h(Sec, { id: 'relacion', title: 'Una relación, no una entrega', lede: 'Un sistema así no se entrega y se deja: se sostiene. Por eso no vendemos un proyecto. Entramos como tu socio de diseño, al modo de una aceleradora, y nuestro pago es un porcentaje: nos va bien si a ti te va bien.' },
-          h('ol', { className: 'pasos' }, PASOS.map(function (x) { return h('li', { key: x.t }, h('span', { className: 'pasos__c', 'aria-hidden': 'true' }, h(A.Pictogram, { name: x.t, kind: 'creature', size: 32 })), h('h3', { className: 'web-h5' }, x.t), h('p', { className: 'web-body-m' }, x.p)); })),
-          h(A.InlineNotification, { kind: 'callout', status: 'info', title: 'El porcentaje se acuerda por escrito antes de empezar', message: 'Borrador: falta definir sobre qué se calcula y en qué rango.' })),
+        h(Sec, { id: 'relacion', title: 'Una relación, no una entrega', lede: 'Un sistema así no se entrega y se deja: se sostiene. Por eso no vendemos un proyecto. Entramos como tu socio de diseño, al modo de una aceleradora: nos va bien si a ti te va bien.' },
+          h('ol', { className: 'pasos' }, PASOS.map(function (x) { return h('li', { key: x.t }, h('span', { className: 'pasos__c', 'aria-hidden': 'true' }, h(A.Pictogram, { name: x.t, kind: 'creature', size: 32 })), h('h3', { className: 'web-h5' }, x.t), h('p', { className: 'web-body-m' }, x.p)); }))),
 
         h(Sec, { id: 'preguntas', title: 'Preguntas', lede: 'Las que nos haríamos nosotros antes de decidir.' },
           h('div', { className: 'preguntas' }, h(A.Accordion, { headingLevel: 3, items: PREGUNTAS }))),
 
         h('section', { className: 'closing', 'aria-labelledby': 'conversar-t' }, h(Efecto, { id: 'hilos', className: 'closing__hilos' }), h('div', { className: 'closing__in', id: 'conversar' },
           h('h2', { className: (wide[0] ? 'web-display-s' : 'web-h2') + ' closing__t', id: 'conversar-t', tabIndex: -1 }, 'Conversemos cuando quieras.'),
-          h('p', { className: 'web-body-l closing__p' }, 'Te mostramos el sistema con tu caso a la vista y respondemos lo que haga falta. Si no es el momento, esta página sigue aquí.'),
-          CONTACTO ? h('p', { className: 'web-h5 contacto' }, CONTACTO) : h('p', { className: 'web-body-m note' }, 'Borrador: falta definir el canal de contacto.')))),
+          h('p', { className: 'web-body-l closing__p' }, 'Escríbenos un correo. Te mostramos el sistema con tu caso a la vista. Si no es el momento, esta página sigue aquí.'),
+          CONTACTO ? h('p', { className: 'web-h4 contacto' }, CONTACTO) : h('p', { className: 'web-body-m note' }, 'Borrador: falta la dirección de correo.')))),
 
       h('footer', { className: 'foot' }, h('div', { className: 'wrap' },
         h('p', { className: 'web-body-s' }, 'Cordura · Santiago de Chile. Todo lo que ves en esta página usa los componentes de ALMA, nuestro sistema de diseño, con los valores de Cordura.'))));

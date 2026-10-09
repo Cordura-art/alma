@@ -16,8 +16,9 @@ body {
 .top__links { display: none; gap: var(--space-8); }
 
 /* After the cover (the scanned bust, site/escaneo.css): the map of what goes in and what comes out, on a grid ground. */
-.portada { margin-inline: calc(-1 * var(--space-16)); border-bottom: 1px solid var(--border-subtle); }
-.portada__in { position: relative; display: grid; gap: var(--space-24); justify-items: center; padding: var(--space-80) var(--space-16); text-align: center; outline: none; }
+.portada { margin-block: var(--space-40) 0; border-radius: var(--radius-panel); overflow: hidden; }
+.ancla { outline: none; scroll-margin-top: var(--space-80); }
+.portada__in { position: relative; display: grid; justify-items: center; padding: var(--space-64) var(--space-16); text-align: center; }
 .portada__pie { margin: 0; color: var(--text-01); }
 .escaneo__frase { font-family: inherit; }
 .mapa { display: block; width: 100%; max-width: 55rem; height: auto; margin-block: var(--space-16); }
@@ -33,21 +34,26 @@ body {
 
 /* The essay: one narrow column. The demonstrations between its parts take the full width. */
 .texto { display: grid; gap: var(--space-24); max-width: 40rem; margin-inline: auto; padding-block: var(--space-40); }
-.texto p { margin: 0; color: var(--text-02); }
+.texto p { margin: 0; color: var(--text-02); text-wrap: pretty; }
 .texto .texto__f, .texto .texto__s { color: var(--text-01); line-height: 1.4; text-wrap: pretty; }
-.cap { padding-top: var(--space-56); border-top: 1px solid var(--border-subtle); }
-.cap__t { max-width: 40rem; margin-inline: auto; }
-.demo { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-16); padding-block: var(--space-24) var(--space-40); }
+.cap { padding-top: var(--space-80); }
+.sec__title.cap__t { max-width: 40rem; margin-inline: auto; }
+.demo { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); padding-block: var(--space-24) var(--space-40); }
 .demo__pie { margin: 0; text-align: center; color: var(--text-02); }
 
-.pedido { display: grid; gap: var(--space-24); min-width: 0; padding: var(--space-24) var(--space-16); border-radius: var(--radius-panel); background: var(--ui-01); border: 1px solid var(--border-subtle); }
+.pedido { display: grid; gap: var(--space-24); min-width: 0; }
 .pedido__q { margin: 0; text-align: center; }
 .pedido__q span { display: inline-block; padding: var(--space-8) var(--space-16); border-radius: var(--radius-panel); background: var(--ui-03); color: var(--text-01); }
-.pedido__dos { display: grid; gap: var(--space-24); align-items: start; }
-.pedido__si { display: grid; gap: var(--space-16); padding: var(--space-24); background: var(--ui-02); }
+.pedido__pila { position: relative; display: grid; width: 100%; max-width: 36rem; margin-inline: auto; }
+.pedido__pila > .marco { grid-area: 1 / 1; min-width: 0; align-content: start; }
+.pedido__linea { position: absolute; top: calc(-1 * var(--space-8)); bottom: calc(-1 * var(--space-8)); width: 2px; margin-left: -1px; background: var(--text-01); pointer-events: none; }
+.pedido__control { display: grid; gap: var(--space-8); width: 100%; max-width: 36rem; margin-inline: auto; }
+.pedido__lados { display: flex; justify-content: space-between; gap: var(--space-16); color: var(--text-02); }
+.pedido__lados span:last-child { text-align: end; }
+.pedido__si { display: grid; gap: var(--space-16); padding: var(--space-24); }
 .pedido__si h3 { margin: 0; }
 /* What no system gives: on purpose outside Cordura's letter, corners and color. Only ALMA's plain ramps. */
-.marco.generico { display: grid; gap: var(--space-16); padding: var(--space-24); border-radius: var(--space-4); background: var(--ui-02); font-family: system-ui, sans-serif; font-variation-settings: normal; font-stretch: normal; }
+.marco.generico { display: grid; gap: var(--space-16); padding: var(--space-24); border-radius: var(--space-4); font-family: system-ui, sans-serif; font-variation-settings: normal; font-stretch: normal; }
 .generico p { margin: 0; }
 .generico__t { font-size: 1.25rem; font-weight: 700; color: var(--text-02); }
 .generico__a { padding: var(--space-16); border: 1px solid var(--green-500); border-radius: var(--space-4); color: var(--text-01); }
@@ -65,8 +71,8 @@ body {
 .archivos__txt { margin: 0; padding: var(--space-24); max-height: 26rem; overflow: auto; white-space: pre; font-family: var(--font-mono, ui-monospace, monospace); color: var(--text-01); }
 .archivos__txt:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-.sec { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-32); padding-block: var(--space-56); border-top: 1px solid var(--border-subtle); }
-.sec__head { display: grid; gap: var(--space-8); max-width: 44rem; }
+.sec { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-40); padding-block: var(--space-80); }
+.sec__head { box-sizing: border-box; display: grid; gap: var(--space-16); width: 100%; max-width: 40rem; margin-inline: auto; }
 .sec__title { margin: 0; line-height: 1.25; text-wrap: balance; outline: none; }
 .sec__lede { margin: 0; color: var(--text-02); }
 .note { margin: 0; color: var(--text-02); }
@@ -75,7 +81,7 @@ body {
 .mesa { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16) var(--space-32); }
 .mesa > * { min-width: 0; max-width: 100%; }
 .mesa__nivel { overflow-x: auto; }
-.tarima { box-sizing: border-box; display: grid; gap: var(--space-24); min-width: 0; padding: var(--space-24) var(--space-16); border-radius: var(--radius-panel); background: var(--ui-01); border: 1px solid var(--border-subtle); }
+.tarima { box-sizing: border-box; display: grid; gap: var(--space-24); min-width: 0; padding: var(--space-24) var(--space-16); border-radius: var(--radius-panel); background: var(--ui-01); }
 .tarima__que { margin: 0; color: var(--text-02); max-width: 44rem; }
 .fila { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16); }
 .campo { max-width: 24rem; }
@@ -108,20 +114,24 @@ body {
 
 .piezas { display: grid; gap: var(--space-16); }
 .piezas > * { min-width: 0; }
-.pieza, .pieza > * { height: 100%; }
-.pieza__fig { max-width: 12rem; margin-bottom: var(--space-16); }
+.piezas { gap: var(--space-48) var(--space-32); }
+.pieza { display: grid; gap: var(--space-8); align-content: start; }
+.pieza h3, .pieza p { margin: 0; text-wrap: pretty; }
+.pieza__marco { margin-bottom: var(--space-8); }
+.pieza__fig { border-radius: var(--radius-panel); overflow: hidden; }
 .cifras { display: grid; gap: var(--space-32); margin: 0; padding-block: var(--space-40) var(--space-64); text-align: center; }
 .cifras > div { display: grid; gap: var(--space-8); min-width: 0; }
 .cifras__n { margin: 0; line-height: 1; font-variant-numeric: tabular-nums; color: var(--text-01); }
 .cifras dt { color: var(--text-02); }
-.pasos { display: grid; gap: var(--space-24); margin: 0; padding: 0; list-style: none; counter-reset: paso; max-width: 48rem; }
+.pasos { display: grid; gap: var(--space-32); margin: 0; padding: 0; list-style: none; width: 100%; max-width: 40rem; }
 .pasos li { display: grid; grid-template-columns: var(--space-40) minmax(0, 1fr); gap: var(--space-4) var(--space-16); }
 .pasos__c { grid-row: span 2; padding-top: var(--space-4); }
 .pasos h3, .pasos p { margin: 0; }
-.pasos p { color: var(--text-02); }
-.preguntas { max-width: 48rem; }
+.pasos p { color: var(--text-02); text-wrap: pretty; }
+.preguntas { width: 100%; max-width: 40rem; margin-inline: auto; }
+.pasos { margin-inline: auto; }
 
-.closing { margin-inline: calc(-1 * var(--space-16)); border-top: 1px solid var(--border-subtle); }
+.closing { margin-inline: calc(-1 * var(--space-16)); }
 .closing { position: relative; display: grid; }
 .closing__hilos { height: 12rem; }
 .closing__in { position: relative; display: grid; gap: var(--space-24); padding: var(--space-40) var(--space-16) var(--space-80); }
@@ -133,15 +143,13 @@ body {
 
 @media (min-width: 56rem) {
   .wrap { padding-inline: var(--space-32); }
-  .portada, .closing { margin-inline: calc(-1 * var(--space-32)); }
-  .portada__in, .closing__in { padding-inline: var(--space-32); }
+  .closing { margin-inline: calc(-1 * var(--space-32)); }
+  .closing__in { padding-inline: var(--space-32); }
   .cifras { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .closing__hilos { position: absolute; inset: 0 0 0 48%; height: auto; }
   .closing__in { max-width: 44%; padding-block: calc(2 * var(--space-64)); }
   .top__links { display: flex; }
   .tarima { padding: var(--space-32); }
-  .pedido { padding: var(--space-32); }
-  .pedido__dos { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-32); }
   .citas { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .archivos { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--space-32); }
   .texto { padding-block: var(--space-56); }
