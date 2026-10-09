@@ -4,6 +4,10 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 8 de octubre de 2026
 
+### Las figuras de línea tienen su página
+
+- Un fundamento nuevo, Figuras de línea: para qué sirven, sus reglas, sus tonos y cómo montarlas. Su pestaña Catálogo muestra las 28, en vivo. Hasta ahora solo se veían en el Lenguaje de cada entidad.
+
 ### ProductCard y PaymentCard, rehechas
 
 - `ProductCard` es ahora una tarjeta de producto de verdad: imagen, insignia, categoría, nombre, descripción, valoración, precio con su rebaja y su nota, y una acción. Va en grilla o en fila, y sabe decir «Agotado». La tarjeta desplegable de color que había antes ya no existe: ese uso es de `Accordion`.

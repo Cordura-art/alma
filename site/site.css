@@ -105,3 +105,10 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .efecto__cambio { width: min(100%, 320px); border-radius: var(--radius-card); overflow: hidden; }
 .efecto__texto { position: relative; margin: 0; max-width: 100%; color: var(--text-01); text-align: center; }
 .efecto__envoltorio--ancho { display: block; width: min(100%, 320px); }
+
+/* Line figures, the catalogue of the foundation. */
+.figs { display: grid; gap: var(--space-24); }
+.figs__grilla { display: grid; gap: var(--space-32) var(--space-24); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); align-items: start; }
+.figs__una { display: grid; gap: var(--space-8); margin: 0; min-width: 0; }
+.figs__una figcaption { color: var(--text-02); } .figs__una figcaption .web-label-l { color: var(--text-01); }
+.figs__dice { color: var(--text-02); }

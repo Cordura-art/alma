@@ -129,6 +129,10 @@ function device(o) { return h('div', { className: 'col', key: o.key || o.label }
 `;
 
 export const scenes = [
+  { file: 'Fundamentos/figuras-muestra', figuras: true, alt: 'Seis figuras de línea en dos filas: un terreno de líneas con una colina, una pila de fichas, un portátil abierto, un teléfono en sus cuatro capas, un router con sus antenas y un teclado. Cada una es solo línea fina sobre el fondo de la página, con una única marca en el color de acento.',
+    js: `function F(p) { var r = React.useRef(null); React.useEffect(function () { if (window.AlmaFigura) AlmaFigura.monta(r.current, p.n); }, []); return h('div', { ref: r, style: { width: '18rem' } }); }
+      mount(h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3, auto)', gap: 'var(--space-24)' } }, ['terreno', 'pila', 'portatil', 'telefono', 'router', 'teclado'].map(function (n) { return h(F, { key: n, n: n }); })));`,
+    after: `await sleep(700);` },
   { file: 'Fundamentos/color-cuatro-temas', alt: 'La misma pantalla de compra de un pasaje en los cuatro temas de ALMA, lado a lado: oscuro, claro, oscuro de alto contraste y claro de alto contraste.',
     js: `mount(h('div', { className: 'row' }, D.themes.map(function (t) {
       return h('div', { key: t.id, className: 'col' }, h('p', { className: 'cap web-label-m' }, t.name),

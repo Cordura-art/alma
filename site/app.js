@@ -290,6 +290,20 @@
           roles.map(function (r) { return h('span', { key: r, className: 'swatch', style: { background: 'var(--' + r + ')' } }); }))];
       }) });
   }
+  // The line figures, every one, alive: each is mounted when its tab shows it and let go when it leaves.
+  function FiguraViva(p) {
+    var ref = React.useRef(null), dice = React.useState('En reposo');
+    React.useEffect(function () { var f = window.AlmaFigura.monta(ref.current, p.nombre, { intensidad: p.intensidad, alLeer: dice[1] }); return function () { f.suelta(); }; }, [p.nombre]);
+    return h('figure', { className: 'figs__una' }, h('div', { ref: ref }),
+      h('figcaption', { className: 'web-body-s' }, h('span', { className: 'web-label-l' }, p.titulo + '.'), ' ', p.describe, ' ', h('code', null, p.nombre), ' ', h('span', { className: 'figs__dice', 'aria-hidden': 'true' }, dice[0])));
+  }
+  function FigurasVivas() {
+    var F = window.AlmaFigura;
+    if (!F) return h('p', { className: 'web-body-m' }, 'Las figuras necesitan su motor, que esta página no cargó.');
+    return h('div', { className: 'figs' },
+      h('p', { className: 'web-body-m', style: { margin: 0 } }, 'Pasa el puntero por una figura, o entra en ella con el tabulador y usa las flechas. Escape la deja en reposo.'),
+      h('div', { className: 'figs__grilla' }, Object.keys(F.figuras).map(function (k) { var x = F.figuras[k]; return h(FiguraViva, { key: k, nombre: k, titulo: x.titulo || k, describe: x.describe || '', intensidad: 0.5 }); })));
+  }
   var FUND = {
     color: { slug: 'color', icon: 'light', tokens: function (s) { return h(ColorTokens, { theme: s.theme }); } },
     tipografia: { slug: 'tipografia', icon: 'view', tokens: function () { return h(TypeTokens); } },
@@ -301,13 +315,16 @@
     datos: { slug: 'datos', icon: 'dashboard' },
     adaptable: { slug: 'adaptable', icon: 'grid' },
     entradas: { slug: 'entradas', icon: 'flash' },
-    profundidad: { slug: 'profundidad', icon: 'side-panel--open' }
+    profundidad: { slug: 'profundidad', icon: 'side-panel--open' },
+    // (its own tab shows every figure there is, alive)
+    figuras: { slug: 'figuras', icon: 'edit', propia: { titulo: 'Catálogo', render: function () { return h(FigurasVivas); } } }
   };
   function Foundation(p) {
     var f = FUND[p.id], el = C.elements[f.slug];
     var mo = f.preview ? C.components.filter(function (c) { return c.name === f.preview; })[0] : null;
     var tab = useState(el.sections[0].title);
     var tabs = el.sections.map(function (s) { return { value: s.title, label: s.title, content: h(Md, { src: s.body, shift: true }) }; })
+      .concat(f.propia ? [{ value: f.propia.titulo, label: f.propia.titulo, content: f.propia.render(p) }] : [])
       .concat(f.tokens ? [{ value: 'Tokens', label: 'Tokens', content: f.tokens(p) }] : []);
     return h(React.Fragment, null,
       h(Head, { eyebrow: 'Fundamentos', title: el.name, summary: el.summary }),
