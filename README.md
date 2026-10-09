@@ -58,6 +58,7 @@ npm run genes -- ensayo   # escribe build/blender/ensayo.json: los genes y las c
 # Su piel para Unity (almohadas, piernas y zapatos): blender --background --factory-startup --python blender/piloto.py -- build/blender/<id>.json - --exporta unity/Assets/StreamingAssets/pieles/<id>.json
 npm run sistemas          # arma build/documentacion-sistemas/: ALMA y sus entidades en un solo sitio, con su documentación y su lenguaje de diseño
 npm run ejemplo           # arma build/ejemplos/ensayo-cafe.html: un landing hecho con la Entidad Ensayo
+npm run sitio:cordura     # arma build/sitios/cordura.html: el sitio de Cordura, con el busto escaneado de portada, efectos y figuras (node sitios/cordura/revisar.mjs lo revisa en un navegador)
 npm run buscar-fecha -- --anios 1911,1924 --zona America/New_York --tipo proyector --perfil 1/3 --centros cabeza,ajna,garganta --color '#0F62FE'   # fechas cuya carta da esa entidad
 ```
 

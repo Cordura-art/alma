@@ -1,0 +1,150 @@
+/* Cordura's site. Layout only: every color, space, radius and type value is an ALMA token with the Entidad Cordura's values. */
+html { background: var(--ui-02); scroll-padding-top: var(--space-80); }
+body {
+  margin: 0; background: var(--ui-02); color: var(--text-01);
+  font-family: var(--font-flex); font-stretch: calc(var(--font-width, 100) * 1%); font-variation-settings: "wdth" var(--font-width, 100), "GRAD" var(--font-grade, 0);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+.skip { position: absolute; left: var(--space-16); top: calc(-1 * var(--space-80)); z-index: 10; padding: var(--space-8) var(--space-16); border-radius: var(--radius-button); background: var(--interactive-01); color: var(--text-on-interactive); text-decoration: none; }
+.skip:focus { top: var(--space-8); outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.wrap { box-sizing: border-box; width: 100%; max-width: 72rem; margin-inline: auto; padding-inline: var(--space-16); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ui-02); border-bottom: 1px solid var(--border-subtle); }
+.top__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); min-height: var(--space-64); }
+.brand { margin: 0; color: var(--text-01); }
+.top__nav { display: flex; align-items: center; gap: var(--space-8); }
+.top__links { display: none; gap: var(--space-8); }
+
+/* After the cover (the scanned bust, site/escaneo.css): the map of what goes in and what comes out, on a grid ground. */
+.portada { margin-inline: calc(-1 * var(--space-16)); border-bottom: 1px solid var(--border-subtle); }
+.portada__in { position: relative; display: grid; gap: var(--space-24); justify-items: center; padding: var(--space-80) var(--space-16); text-align: center; outline: none; }
+.portada__pie { margin: 0; color: var(--text-01); }
+.escaneo__frase { font-family: inherit; }
+.mapa { display: block; width: 100%; max-width: 55rem; height: auto; margin-block: var(--space-16); }
+.mapa__txt { fill: var(--text-02); font-size: 13px; }
+.mapa__c { fill: var(--text-01); font-size: 14px; font-weight: var(--font-weight-emphasis); }
+.mapa__l { fill: none; stroke: var(--border-control); stroke-width: 1; }
+.mapa__caja { fill: var(--ui-01); stroke: var(--text-01); stroke-width: 1; }
+.mapa--pila { display: grid; gap: var(--space-8); justify-items: center; color: var(--text-02); }
+.mapa--pila p { margin: 0; }
+.mapa--pila .mapa__c { padding: var(--space-16) var(--space-24); border: 1px solid var(--text-01); border-radius: var(--radius-panel); background: var(--ui-01); color: var(--text-01); }
+.eyebrow { margin: 0; color: var(--text-02); }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-16); }
+
+/* The essay: one narrow column. The demonstrations between its parts take the full width. */
+.texto { display: grid; gap: var(--space-24); max-width: 40rem; margin-inline: auto; padding-block: var(--space-40); }
+.texto p { margin: 0; color: var(--text-02); }
+.texto .texto__f, .texto .texto__s { color: var(--text-01); line-height: 1.4; text-wrap: pretty; }
+.cap { padding-top: var(--space-56); border-top: 1px solid var(--border-subtle); }
+.cap__t { max-width: 40rem; margin-inline: auto; }
+.demo { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-16); padding-block: var(--space-24) var(--space-40); }
+.demo__pie { margin: 0; text-align: center; color: var(--text-02); }
+
+.pedido { display: grid; gap: var(--space-24); min-width: 0; padding: var(--space-24) var(--space-16); border-radius: var(--radius-panel); background: var(--ui-01); border: 1px solid var(--border-subtle); }
+.pedido__q { margin: 0; text-align: center; }
+.pedido__q span { display: inline-block; padding: var(--space-8) var(--space-16); border-radius: var(--radius-panel); background: var(--ui-03); color: var(--text-01); }
+.pedido__dos { display: grid; gap: var(--space-24); align-items: start; }
+.pedido__si { display: grid; gap: var(--space-16); padding: var(--space-24); background: var(--ui-02); }
+.pedido__si h3 { margin: 0; }
+/* What no system gives: on purpose outside Cordura's letter, corners and color. Only ALMA's plain ramps. */
+.marco.generico { display: grid; gap: var(--space-16); padding: var(--space-24); border-radius: var(--space-4); background: var(--ui-02); font-family: system-ui, sans-serif; font-variation-settings: normal; font-stretch: normal; }
+.generico p { margin: 0; }
+.generico__t { font-size: 1.25rem; font-weight: 700; color: var(--text-02); }
+.generico__a { padding: var(--space-16); border: 1px solid var(--green-500); border-radius: var(--space-4); color: var(--text-01); }
+.generico__f { display: flex; justify-content: space-between; gap: var(--space-16); padding-block: var(--space-8); border-bottom: 1px solid var(--border-subtle); color: var(--text-02); }
+.generico__b { padding: var(--space-8) var(--space-16); border-radius: var(--space-4); background: var(--green-700); color: var(--brand-white); text-align: center; font-weight: 700; }
+.citas { display: grid; gap: var(--space-16); margin: 0; padding: 0; list-style: none; }
+.citas li { display: grid; gap: var(--space-4); padding-top: var(--space-8); border-top: 1px solid var(--border-control); min-width: 0; }
+.citas code { font-family: var(--font-mono, ui-monospace, monospace); color: var(--text-02); overflow-wrap: anywhere; }
+.citas span { color: var(--text-01); }
+
+.archivos { display: grid; gap: var(--space-24); align-items: start; min-width: 0; }
+.archivos > * { min-width: 0; }
+.archivos__ver { display: grid; gap: var(--space-8); }
+.archivos__ruta { margin: 0; color: var(--text-02); font-family: var(--font-mono, ui-monospace, monospace); }
+.archivos__txt { margin: 0; padding: var(--space-24); max-height: 26rem; overflow: auto; white-space: pre; font-family: var(--font-mono, ui-monospace, monospace); color: var(--text-01); }
+.archivos__txt:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.sec { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-32); padding-block: var(--space-56); border-top: 1px solid var(--border-subtle); }
+.sec__head { display: grid; gap: var(--space-8); max-width: 44rem; }
+.sec__title { margin: 0; line-height: 1.25; text-wrap: balance; outline: none; }
+.sec__lede { margin: 0; color: var(--text-02); }
+.note { margin: 0; color: var(--text-02); }
+
+/* The demonstration: its controls, and the stage where one level is shown at a time. */
+.mesa { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16) var(--space-32); }
+.mesa > * { min-width: 0; max-width: 100%; }
+.mesa__nivel { overflow-x: auto; }
+.tarima { box-sizing: border-box; display: grid; gap: var(--space-24); min-width: 0; padding: var(--space-24) var(--space-16); border-radius: var(--radius-panel); background: var(--ui-01); border: 1px solid var(--border-subtle); }
+.tarima__que { margin: 0; color: var(--text-02); max-width: 44rem; }
+.fila { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16); }
+.campo { max-width: 24rem; }
+
+.tokens { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: var(--space-16); margin: 0; }
+.token { display: grid; grid-template-columns: var(--space-48) minmax(0, 1fr); gap: var(--space-4) var(--space-16); align-items: center; }
+.token__m { grid-row: span 2; box-sizing: border-box; width: var(--space-48); height: var(--space-48); display: grid; place-items: center; border: 1px solid var(--border-control); border-radius: var(--radius-swatch); color: var(--text-01); }
+.token dt { margin: 0; color: var(--text-01); }
+.token dd { margin: 0; color: var(--text-02); font-family: var(--font-mono, ui-monospace, monospace); overflow-wrap: anywhere; }
+
+.pantalla { display: grid; gap: var(--space-24); min-width: 0; }
+.pantalla__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-16); }
+.pantalla__head h3 { margin: 0; }
+.tabla { min-width: 0; overflow-x: auto; }
+.entorno { height: 30rem; border-radius: var(--radius-panel); overflow: hidden; border: 1px solid var(--border-subtle); }
+.ventana { display: grid; gap: var(--space-16); padding: var(--space-16); }
+
+/* The supports: the same proposal on a phone, on a page and in an announcement. */
+.soportes { display: grid; gap: var(--space-32); align-items: start; }
+.soporte { display: grid; gap: var(--space-16); min-width: 0; margin: 0; }
+.soporte figcaption { color: var(--text-02); }
+.marco { box-sizing: border-box; min-width: 0; border-radius: var(--radius-panel); background: var(--ui-01); border: 1px solid var(--border-subtle); overflow: hidden; }
+.marco--tel { display: grid; gap: var(--space-16); padding: var(--space-24) var(--space-16); max-width: 22rem; }
+.marco--hoja { display: grid; gap: var(--space-16); padding: var(--space-32) var(--space-24); }
+.marco--hoja h3, .marco--tel h3, .anuncio h3 { margin: 0; }
+.hoja__firma { margin: 0; padding-top: var(--space-16); border-top: 1px solid var(--border-subtle); color: var(--text-02); }
+.gen-campo { display: block; width: 100%; aspect-ratio: 16 / 9; background: var(--brand-ink); }
+.anuncio { display: grid; gap: var(--space-16); padding: var(--space-24); }
+.anuncio .actions { align-items: center; }
+
+.piezas { display: grid; gap: var(--space-16); }
+.piezas > * { min-width: 0; }
+.pieza, .pieza > * { height: 100%; }
+.pieza__fig { max-width: 12rem; margin-bottom: var(--space-16); }
+.cifras { display: grid; gap: var(--space-32); margin: 0; padding-block: var(--space-40) var(--space-64); text-align: center; }
+.cifras > div { display: grid; gap: var(--space-8); min-width: 0; }
+.cifras__n { margin: 0; line-height: 1; font-variant-numeric: tabular-nums; color: var(--text-01); }
+.cifras dt { color: var(--text-02); }
+.pasos { display: grid; gap: var(--space-24); margin: 0; padding: 0; list-style: none; counter-reset: paso; max-width: 48rem; }
+.pasos li { display: grid; grid-template-columns: var(--space-40) minmax(0, 1fr); gap: var(--space-4) var(--space-16); }
+.pasos__c { grid-row: span 2; padding-top: var(--space-4); }
+.pasos h3, .pasos p { margin: 0; }
+.pasos p { color: var(--text-02); }
+.preguntas { max-width: 48rem; }
+
+.closing { margin-inline: calc(-1 * var(--space-16)); border-top: 1px solid var(--border-subtle); }
+.closing { position: relative; display: grid; }
+.closing__hilos { height: 12rem; }
+.closing__in { position: relative; display: grid; gap: var(--space-24); padding: var(--space-40) var(--space-16) var(--space-80); }
+.closing__t { margin: 0; line-height: 1.2; max-width: 22ch; text-wrap: balance; overflow-wrap: anywhere; }
+.closing__p { margin: 0; max-width: 40rem; color: var(--text-02); }
+.contacto { margin: 0; user-select: all; -webkit-user-select: all; }
+.foot { padding-block: var(--space-32) var(--space-56); border-top: 1px solid var(--border-subtle); color: var(--text-02); }
+.foot p { margin: 0; max-width: 48rem; }
+
+@media (min-width: 56rem) {
+  .wrap { padding-inline: var(--space-32); }
+  .portada, .closing { margin-inline: calc(-1 * var(--space-32)); }
+  .portada__in, .closing__in { padding-inline: var(--space-32); }
+  .cifras { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .closing__hilos { position: absolute; inset: 0 0 0 48%; height: auto; }
+  .closing__in { max-width: 44%; padding-block: calc(2 * var(--space-64)); }
+  .top__links { display: flex; }
+  .tarima { padding: var(--space-32); }
+  .pedido { padding: var(--space-32); }
+  .pedido__dos { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-32); }
+  .citas { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .archivos { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--space-32); }
+  .texto { padding-block: var(--space-56); }
+  .soportes { grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 6fr); }
+  .piezas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }

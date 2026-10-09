@@ -42,7 +42,8 @@
     "mundo": "node scripts/build-mundo.mjs",
     "test:componentes": "node --test tests/navegador/*.test.mjs",
     "matriz": "node scripts/build-matriz.mjs",
-    "matriz:aplicar": "node scripts/aplicar-matriz.mjs"
+    "matriz:aplicar": "node scripts/aplicar-matriz.mjs",
+    "sitio:cordura": "node sitios/cordura/build.mjs"
   },
   "engines": {
     "node": ">=20"
