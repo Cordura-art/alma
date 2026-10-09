@@ -4,8 +4,9 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { sistema, valor } from './lib/documentacion.mjs';
 
 const read = (p) => readFileSync(p, 'utf8'), tok = JSON.parse(read('dist/json/tokens.json')), regla = JSON.parse(read('tokens/matriz.json'));
+const RAMPAS = [...new Set(Object.values(regla.casilleros).flat().map((c) => (/^([a-z]+)\d+$/.exec(c) || [])[1]).filter(Boolean))];
 // Every token the page shows: the slots, what the sample screen needs, and the three ramps of today.
-const NOMBRES = [...new Set(['brand-accent', 'text-on-interactive', ...Object.keys(regla.casilleros), ...['primary', 'secondary', 'tertiary'].flatMap((r) => [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((s) => `${r}-${s}`))])];
+const NOMBRES = [...new Set(['brand-accent', 'text-on-interactive', ...Object.keys(regla.casilleros), ...['primary', 'secondary', 'tertiary', ...RAMPAS].flatMap((r) => [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((s) => `${r}-${s}`))])];
 const hoy = {};
 for (const id of ['alma', ...readdirSync('entidades/lenguajes').map((f) => f.replace(/\.json$/, '')).sort()]) {
   const S = id === 'alma' ? null : await sistema(id);

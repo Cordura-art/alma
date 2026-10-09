@@ -23,12 +23,17 @@ input[type="range"] { width: 12rem; max-width: 100%; accent-color: var(--interac
 .num { padding: var(--space-16) var(--space-24); border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); background: var(--ui-01); display: grid; gap: var(--space-4); }
 .num b { font-size: 2rem; line-height: 1.2; font-weight: var(--font-weight-heading); font-variant-numeric: tabular-nums; }
 .sec { display: grid; gap: var(--space-16); }
-.ramp { display: grid; gap: var(--space-4); }
-.ramp__row { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--space-2); }
-.ramp__row > span { display: block; height: var(--space-48); border-radius: var(--radius-chip); position: relative; }
-.ramp__row--hoy > span { height: var(--space-16); }
-.ramp__row > span[data-anchor]::after { content: ""; position: absolute; left: 50%; bottom: var(--space-4); width: var(--space-8); height: var(--space-8); margin-left: calc(var(--space-8) / -2); border-radius: var(--radius-pill); background: var(--on); }
-.ramp__lab { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--space-2); font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; font-size: 0.6875rem; color: var(--text-02); text-align: center; }
+.mx { display: grid; gap: var(--space-8); min-width: 0; }
+.mx__fila { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(7rem, 1fr); gap: var(--space-8); overflow-x: auto; align-items: start; padding-bottom: var(--space-8); }
+.mx__fila:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.mx__paso { display: grid; border: 1px solid var(--border-control); border-radius: var(--radius-panel); overflow: hidden; background: var(--ui-01); min-width: 0; }
+.mx__paso.is-vacio { border-color: var(--border-subtle); }
+.mx__color { display: block; height: var(--space-64); position: relative; }
+.mx__color[data-anchor]::after { content: ""; position: absolute; left: 50%; bottom: var(--space-8); width: var(--space-8); height: var(--space-8); margin-left: calc(var(--space-8) / -2); border-radius: var(--radius-pill); background: var(--on); }
+.mx__cuerpo { display: grid; gap: var(--space-2); padding: var(--space-8) var(--space-8) var(--space-16); min-width: 0; overflow-wrap: anywhere; }
+.mx__nombre { font-size: 0.875rem; line-height: 1.4; }
+.mx__paso.is-vacio .mx__nombre { color: var(--text-02); }
+.mx__cuerpo ul { margin: var(--space-4) 0 0; padding: 0 0 0 var(--space-16); font-size: 0.75rem; line-height: 1.6; }
 .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--space-24); }
 /* The sample screen: every colour comes from the map it is given (today's, or the matrix's). */
 .mock { background: var(--m-ui-02); color: var(--m-text-01); border: 1px solid var(--border-control); border-radius: var(--radius-panel); padding: var(--space-24); display: grid; gap: var(--space-16); }
@@ -39,6 +44,11 @@ input[type="range"] { width: 12rem; max-width: 100%; accent-color: var(--interac
 .mock__rows > div { padding: var(--space-8) var(--space-16); border-radius: var(--radius-nav); display: flex; justify-content: space-between; gap: var(--space-16); }
 .mock__rows .is-hover { background: var(--m-hover-ui); } .mock__rows .is-sel { background: var(--m-selected-ui); color: var(--m-nav-selected); box-shadow: inset 2px 0 0 var(--m-interactive-04); }
 .mock__rows span + span { color: var(--m-text-02); font-size: 0.75rem; }
+.mock__tags { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.mock__tags span { padding: var(--space-4) var(--space-8); border-radius: var(--radius-tag); font-size: 0.75rem; line-height: 1.4; }
+.t-green { background: var(--m-tag-green-bg); color: var(--m-tag-green-text); } .t-yellow { background: var(--m-tag-yellow-bg); color: var(--m-tag-yellow-text); } .t-red { background: var(--m-tag-red-bg); color: var(--m-tag-red-text); } .t-blue { background: var(--m-tag-blue-bg); color: var(--m-tag-blue-text); } .t-gray { background: var(--m-tag-gray-bg); color: var(--m-tag-gray-text); }
+.mock__aviso { display: flex; gap: var(--space-8); align-items: baseline; padding: var(--space-8) var(--space-16); border-radius: var(--radius-panel); background: var(--m-notification-error-bg); color: var(--m-text-01); }
+.mock__punto { flex: none; width: var(--space-8); height: var(--space-8); border-radius: var(--radius-pill); background: var(--m-status-icon-error); }
 .mock__field { background: var(--m-field-01); border: 1px solid var(--m-border-control); border-radius: var(--radius-field); padding: var(--space-8) var(--space-16); outline: 2px solid var(--m-focus); outline-offset: 2px; }
 .mock__btns { display: flex; flex-wrap: wrap; gap: var(--space-8); align-items: center; }
 .mock__btns span { display: inline-flex; align-items: center; min-height: var(--size-touch-min); padding: 0 var(--space-16); border-radius: var(--radius-button); }
@@ -61,7 +71,7 @@ td code, .mono { font-family: var(--font-mono); font-stretch: 100%; font-variati
 <div class="pg">
   <header class="sec">
     <h1 class="web-h3">Matriz de color</h1>
-    <p class="lede">Cada token es un casillero: una familia y un paso. Aquí se ven los colores de hoy junto a los que salen de la matriz, para ALMA y sus cuatro entidades. La matriz usa tres rampas: Primary es la marca, Tertiary es la acción y Secondary es el neutro, teñido con el tono de la acción.</p>
+    <p class="lede">Cada token es un casillero: una familia y un paso. Aquí se ven los colores de hoy junto a los que salen de la matriz, para ALMA y sus cuatro entidades. La matriz usa tres rampas: Primary es la marca, Tertiary es la acción y Secondary es el neutro, teñido con el tono de la acción. Las etiquetas, los estados y las notificaciones toman su casillero de la rampa de su color.</p>
   </header>
 
   <div class="bar" role="group" aria-label="Qué se compara">
@@ -74,8 +84,8 @@ td code, .mono { font-family: var(--font-mono); font-stretch: 100%; font-variati
   <section class="nums" id="nums" aria-label="Resumen"></section>
 
   <section class="sec">
-    <h2 class="web-h5">Las tres rampas</h2>
-    <p class="cap">Arriba, en franja delgada, la rampa de hoy. Abajo, la de la matriz. El punto marca el paso 500: el color de marca en Primary y el color de acción en Tertiary.</p>
+    <h2 class="web-h5">La matriz</h2>
+    <p class="cap">Cada rampa con sus pasos y, bajo cada paso, los tokens que viven en ese casillero en el tema elegido. La comparación con los colores de hoy está más abajo, en «Token por token». El punto marca el paso 500: el color de marca en Primary y el color de acción en Tertiary.</p>
     <div id="rampas" class="sec"></div>
   </section>
 
@@ -95,7 +105,7 @@ td code, .mono { font-family: var(--font-mono); font-stretch: 100%; font-variati
 
   <section class="sec">
     <h2 class="web-h5">Token por token</h2>
-    <p class="cap">El casillero es familia y paso: P es Primary, S es Secondary, T es Tertiary. La diferencia es qué tan distinto se ve el color nuevo del de hoy: bajo 2 no se nota, sobre 10 es otro color.</p>
+    <p class="cap">El casillero es familia y paso: P es Primary, S es Secondary, T es Tertiary. Las demás familias llevan el nombre de su rampa: red200 es el paso 200 del rojo. La diferencia es qué tan distinto se ve el color nuevo del de hoy: bajo 2 no se nota, sobre 10 es otro color.</p>
     <div class="tw"><table id="t-tok"></table></div>
   </section>
 
@@ -107,10 +117,15 @@ var HOY = /*DATA*/;
 // ---------- the slots: [light, dark]. P Primary · S Secondary · T Tertiary · W white · K black
 var REGLA = /*REGLA*/, CASILLEROS = REGLA.casilleros, PARES = REGLA.pares.map(function (p) { return [p.texto, p.fondo, p.minimo]; });
 var NOMBRE_PAR = { 'text-01': 'Texto principal', 'text-02': 'Texto secundario', 'text-03': 'Texto terciario', 'link-01': 'Enlace', 'text-on-interactive': 'Texto del botón principal', 'button-tinted-text': 'Texto del botón tenue', 'nav-selected': 'Navegación elegida', 'text-05': 'Texto de ayuda', 'interactive-04': 'Marca de lo elegido', 'focus': 'Foco', 'control-on': 'Control encendido', 'border-control': 'Borde de un control',
+  'text-error': 'Texto de error', 'status-icon-error': 'Ícono de error', 'status-icon-success': 'Ícono de éxito', 'status-icon-warning': 'Ícono de aviso', 'status-icon-info': 'Ícono de información',
+  'notification-error-bg': 'un aviso de error', 'notification-success-bg': 'un aviso de éxito', 'notification-warning-bg': 'un aviso de advertencia', 'notification-info-bg': 'un aviso de información',
   'ui-02': 'la página', 'ui-01': 'un contenedor', 'interactive-01': 'el botón principal', 'selected-ui': 'una fila elegida', 'hover-ui': 'una fila con el cursor', 'field-01': 'un campo' };
 // ---------- state
 var E = { sis: 'alma', tema: 'light', tinte: { alma: REGLA.tinte, automata: REGLA.tinte, cordura: REGLA.tinte, ensayo: REGLA.tinte, orca: REGLA.tinte }, solo: false };
-function deSistema(sis, tema) { var H = HOY[sis]; return matriz({ marca: H.light['brand-accent'], accion: H.light['link-01'] }, tema, REGLA, E.tinte[sis]); }
+function rampasDe(sis) { var o = {}; Object.keys(HOY[sis].light).forEach(function (n) { var m = /^([a-z]+)-(\d+)$/.exec(n); if (m && HOY[sis].light[n]) (o[m[1]] = o[m[1]] || {})[m[2]] = HOY[sis].light[n]; }); return o; }
+function deSistema(sis, tema) { var H = HOY[sis]; return matriz({ marca: H.light['brand-accent'], accion: H.light['link-01'], rampas: rampasDe(sis) }, tema, REGLA, E.tinte[sis]); }
+// A colour with transparency, as it looks on the surface it sits on.
+function solido(v, fondo) { var m = /^rgba?\(([^)]+)\)$/i.exec(v || ''); if (!m) return v; var p = m[1].split(',').map(Number), f = rgb(fondo), a = p[3] == null ? 1 : p[3]; return '#' + [0, 1, 2].map(function (i) { return ('0' + Math.round(p[i] * a + f[i] * (1 - a)).toString(16)).slice(-2); }).join('').toUpperCase(); }
 function el(tag, attrs, kids) { var e = document.createElement(tag); Object.keys(attrs || {}).forEach(function (k) { if (k === 'text') e.textContent = attrs[k]; else if (k === 'style') e.setAttribute('style', attrs[k]); else e.setAttribute(k, attrs[k]); }); (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }); return e; }
 function esHex(v) { return /^#[0-9A-Fa-f]{6}$/.test(v || ''); }
 function botones(id, ops, valor, alElegir) { var g = document.getElementById(id); g.textContent = ''; ops.forEach(function (o) { var b = el('button', { type: 'button', 'aria-pressed': String(o[0] === valor), text: o[1] }); b.addEventListener('click', function () { alElegir(o[0]); }); g.appendChild(b); }); }
@@ -119,29 +134,43 @@ function muestra(caja, mapa) {
   caja.textContent = '';
   caja.appendChild(el('div', { class: 'mock__card' }, [el('h3', { text: 'Santiago → Viña del Mar' }), el('p', {}, ['Tu bus sale el martes 31 de marzo a las 08:30. ', el('a', { href: '#', text: 'Ver las condiciones' }), '.']), el('p', { class: 'ph', text: 'Por confirmar: el andén.' }),
     el('div', { class: 'mock__rows' }, [el('div', {}, [el('span', { text: 'Semicama' }), el('span', { text: '$7.000' })]), el('div', { class: 'is-hover' }, [el('span', { text: 'Salón cama' }), el('span', { text: '$12.000' })]), el('div', { class: 'is-sel' }, [el('span', { text: 'Premium' }), el('span', { text: '$18.000' })])]),
+    el('div', { class: 'mock__tags' }, [el('span', { class: 't-green', text: 'Confirmado' }), el('span', { class: 't-yellow', text: 'Por pagar' }), el('span', { class: 't-red', text: 'Anulado' }), el('span', { class: 't-blue', text: 'Nuevo' }), el('span', { class: 't-gray', text: 'Borrador' })]),
+    el('div', { class: 'mock__aviso' }, [el('span', { class: 'mock__punto', 'aria-hidden': 'true' }), el('span', {}, [el('strong', { text: 'No se pudo pagar. ' }), 'Revisa los datos de tu tarjeta.'])]),
     el('div', { class: 'mock__field', text: 'camila@correo.cl' }),
     el('div', { class: 'mock__btns' }, [el('span', { class: 'b-fill', text: 'Pagar' }), el('span', { class: 'b-tint', text: 'Guardar' }), el('span', { class: 'b-gray', text: 'Volver' }), el('span', { class: 'b-plain', text: 'Ver detalle' }), el('span', { class: 'sw', role: 'img', 'aria-label': 'Un interruptor encendido' })])]));
 }
 function pinta() {
-  var H = HOY[E.sis][E.tema], M = deSistema(E.sis, E.tema), m = M.m;
+  var H0 = HOY[E.sis][E.tema], H = {}, M = deSistema(E.sis, E.tema), m = M.m; Object.keys(H0).forEach(function (n) { H[n] = solido(H0[n], H0['ui-01']); });
   botones('sis', Object.keys(HOY).map(function (k) { return [k, HOY[k].nombre]; }), E.sis, function (v) { E.sis = v; pinta(); });
   botones('tema', [['light', 'Claro'], ['dark', 'Oscuro']], E.tema, function (v) { E.tema = v; pinta(); });
   document.getElementById('tinte').value = Math.round(E.tinte[E.sis] * 100); document.getElementById('tinte-v').textContent = Math.round(E.tinte[E.sis] * 100) + ' %';
-  // ramps
+  // the matrix: every ramp, and under each step the tokens that live in that slot in this theme
   var R = document.getElementById('rampas'); R.textContent = '';
-  [['Primary · la marca', 'primary', M.P, PASOS], ['Secondary · el neutro', 'secondary', M.S, NEUTRO], ['Tertiary · la acción', 'tertiary', M.T, PASOS]].forEach(function (r) {
-    R.appendChild(el('div', { class: 'ramp' }, [el('span', { class: 'web-label-m', text: r[0] }),
-      el('div', { class: 'ramp__row ramp__row--hoy', role: 'img', 'aria-label': 'La rampa de hoy' }, r[3].map(function (s) { var v = HOY[E.sis].light[r[1] + '-' + s]; return el('span', { style: 'background:' + (v || 'transparent') }); })),
-      el('div', { class: 'ramp__row', role: 'img', 'aria-label': 'La rampa de la matriz' }, r[3].map(function (s) { return el('span', Object.assign({ style: 'background:' + r[2][s] + ';--on:' + (con('#FFFFFF', r[2][s]) >= 3 ? '#FFFFFF' : '#000000'), title: r[2][s] }, s === 500 && r[1] !== 'secondary' ? { 'data-anchor': '' } : {})); })),
-      el('div', { class: 'ramp__lab', 'aria-hidden': 'true' }, r[3].map(function (s) { return el('span', { text: String(s) }); }))]));
-  });
+  var idx = E.tema === 'light' ? 0 : 1, enCasillero = {}, RA = rampasDe(E.sis);
+  Object.keys(CASILLEROS).forEach(function (n) { var c = CASILLEROS[n][idx]; (enCasillero[c] = enCasillero[c] || []).push(n); });
+  function fila(titulo, clave, pasos, color) {
+    var tarjetas = pasos.map(function (s) { var c = clave + s, v = color(s), toks = enCasillero[c] || [];
+      return el('div', { class: 'mx__paso' + (toks.length ? '' : ' is-vacio') }, [el('span', Object.assign({ class: 'mx__color', style: 'background:' + v + ';--on:' + (con('#FFFFFF', v) >= 3 ? '#FFFFFF' : '#000000'), title: v }, s === 500 && (clave === 'P' || clave === 'T') ? { 'data-anchor': '' } : {})),
+        el('div', { class: 'mx__cuerpo' }, [el('span', { class: 'mx__nombre', text: (s === '' ? titulo : titulo.split(' · ')[0] + ' ' + s) }), el('span', { class: 'mono cap', text: v }),
+          toks.length ? el('ul', {}, toks.map(function (n) { return el('li', { text: n }); })) : null])]); });
+    R.appendChild(el('div', { class: 'mx' }, [el('span', { class: 'web-label-m', text: titulo }),
+      el('div', { class: 'mx__fila', tabindex: '0', role: 'group', 'aria-label': titulo }, tarjetas)]));
+  }
+  R.appendChild(el('div', { class: 'mx' }, [el('span', { class: 'web-label-m', text: 'Blanco y negro' }), el('div', { class: 'mx__fila', tabindex: '0', role: 'group', 'aria-label': 'Blanco y negro' }, [['W', 'Blanco', '#FFFFFF'], ['K', 'Negro', '#000000']].map(function (x) { var toks = enCasillero[x[0]] || [];
+    return el('div', { class: 'mx__paso' }, [el('span', { class: 'mx__color', style: 'background:' + x[2] }), el('div', { class: 'mx__cuerpo' }, [el('span', { class: 'mx__nombre', text: x[1] }), el('span', { class: 'mono cap', text: x[2] }), toks.length ? el('ul', {}, toks.map(function (n) { return el('li', { text: n }); })) : null])]); }))]));
+  fila('Primary · la marca', 'P', PASOS, function (s) { return M.P[s]; });
+  fila('Secondary · el neutro', 'S', NEUTRO, function (s) { return M.S[s]; });
+  fila('Tertiary · la acción', 'T', PASOS, function (s) { return M.T[s]; });
+  var NOMBRES_RAMPA = { danger: 'Danger · error', success: 'Success · éxito', warning: 'Warning · aviso', info: 'Info · información', green: 'Green', yellow: 'Yellow', red: 'Red', magenta: 'Magenta', purple: 'Purple', blue: 'Blue', cyan: 'Cyan', teal: 'Teal', warmgray: 'Warm gray', coolgray: 'Cool gray', gray: 'Gray' };
+  Object.keys(NOMBRES_RAMPA).forEach(function (r) { if (RA[r]) fila(NOMBRES_RAMPA[r], r, PASOS, function (s) { return RA[r][s]; }); });
   muestra(document.getElementById('m-hoy'), H); muestra(document.getElementById('m-nuevo'), Object.assign({}, H, m));
   // contrast
   var tc = document.getElementById('t-con'); tc.textContent = ''; tc.appendChild(el('tr', {}, ['Qué', 'Sobre', 'Mínimo', 'Hoy', 'Con la matriz'].map(function (t) { return el('th', { scope: 'col', text: t }); })));
   var pasaH = 0, pasaM = 0, total = 0;
   PARES.forEach(function (p) { var a = H[p[0]], b = H[p[1]]; if (!esHex(a) || !esHex(b)) return; total++; var ch = con(a, b), cm = con(m[p[0]], m[p[1]]), oh = ch >= p[2], om = cm >= p[2]; if (oh) pasaH++; if (om) pasaM++;
     var celda = function (c, ok) { return el('td', { class: ok ? 'ok' : 'no', text: c.toFixed(2).replace('.', ',') + ' : 1 · ' + (ok ? 'pasa' : 'no pasa') }); };
-    tc.appendChild(el('tr', {}, [el('td', { text: NOMBRE_PAR[p[0]] }), el('td', { text: NOMBRE_PAR[p[1]] }), el('td', { text: String(p[2]).replace('.', ',') + ' : 1' }), celda(ch, oh), celda(cm, om)])); });
+    var nom = function (n) { var g = /^tag-([a-z]+)-(text|bg)$/.exec(n); return g ? (g[2] === 'text' ? 'Texto de la etiqueta ' : 'su fondo, ') + g[1] : NOMBRE_PAR[n] || n; };
+    tc.appendChild(el('tr', {}, [el('td', { text: nom(p[0]) }), el('td', { text: nom(p[1]) }), el('td', { text: String(p[2]).replace('.', ',') + ' : 1' }), celda(ch, oh), celda(cm, om)])); });
   // tokens
   var tt = document.getElementById('t-tok'); tt.textContent = ''; tt.appendChild(el('tr', {}, ['Token', 'Casillero', 'Hoy', 'Con la matriz', 'Diferencia'].map(function (t) { return el('th', { scope: 'col', text: t }); })));
   var cambian = 0, lista = Object.keys(m).filter(function (n) { return esHex(H[n]); });

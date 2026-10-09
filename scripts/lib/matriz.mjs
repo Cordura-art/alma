@@ -24,10 +24,11 @@ function rampa(ancla) { var a = lch(ancla), o = {}, sube = { 50: 0.93, 100: 0.85
 // The neutral: every lightness from paper to night, tinted with the hue of the action as much as `tinte` says.
 var LUZ = { 50: 0.985, 100: 0.965, 200: 0.925, 300: 0.87, 400: 0.78, 500: 0.66, 600: 0.54, 700: 0.44, 800: 0.36, 900: 0.26, 950: 0.19, 1000: 0.155 }, CROMA = { 50: 0.25, 100: 0.35, 200: 0.5, 300: 0.65, 400: 0.8, 500: 1, 600: 1, 700: 1, 800: 0.95, 900: 0.9, 950: 0.8, 1000: 0.7 };
 function neutro(accion, tinte) { var h = lch(accion)[2], o = {}; NEUTRO.forEach(function (s) { o[s] = hexOf(LUZ[s], 0.045 * tinte * CROMA[s], h); }); return o; }
-// What every slot holds for one system and one theme. `sistema`: { marca, accion }; `regla`: tokens/matriz.json.
+// What every slot holds for one system and one theme. `sistema`: { marca, accion, rampas }; `regla`: tokens/matriz.json.
+// `rampas` are the ramps the system already has, by name (red, danger, info…): a slot like red200 is read from them.
 function matriz(sistema, tema, regla, tinte) {
   var P = rampa(sistema.marca), T = rampa(sistema.accion), S = neutro(sistema.accion, tinte == null ? regla.tinte : tinte), i = tema === 'light' ? 0 : 1, m = {};
-  function de(c) { return c === 'W' ? '#FFFFFF' : c === 'K' ? '#000000' : ({ P: P, S: S, T: T })[c[0]][c.slice(1)]; }
+  function de(c) { if (c === 'W') return '#FFFFFF'; if (c === 'K') return '#000000'; var r = /^([a-z]+)(\d+)$/.exec(c); return r ? sistema.rampas[r[1]][r[2]] : ({ P: P, S: S, T: T })[c[0]][c.slice(1)]; }
   Object.keys(regla.casilleros).forEach(function (n) { m[n] = de(regla.casilleros[n][i]); });
   // the text of the main button: white if it reads, the darkest neutral if it does not
   m['text-on-interactive'] = con('#FFFFFF', m['interactive-01']) >= 4.5 ? '#FFFFFF' : S[1000];

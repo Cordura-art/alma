@@ -1,6 +1,6 @@
 {
-  "$description": "La matriz de color: cada token es un casillero, una familia y un paso. P es Primary (la marca), S es Secondary (el neutro, teñido con el tono de la acción), T es Tertiary (la acción); W es blanco y K es negro. Cada casillero trae su paso para el tema claro y para el oscuro. Los del claro vienen del estudio de color de Cordura; los del oscuro se fijaron el 2026-10-09. Todavía no gobierna los tokens: es la regla acordada, y tests/matriz.test.mjs cuida que cumpla el contraste.",
-  "tinte": 1,
+  "$description": "La matriz de color: cada token es un casillero, una familia y un paso. P es Primary (la marca), S es Secondary (el neutro, teñido con el tono de la acción), T es Tertiary (la acción); W es blanco y K es negro. Las demás familias se nombran por su rampa: red200, danger500. Cada casillero trae su paso para el tema claro y para el oscuro. Los del claro vienen del estudio de color de Cordura; los del oscuro se fijaron el 2026-10-09. La luz ordena las capas en los dos temas: la página es la capa más profunda y cada capa sobre ella es más clara. Todavía no gobierna los tokens: es la regla acordada, y tests/matriz.test.mjs cuida que cumpla el contraste.",
+  "tinte": 0.05,
   "casilleros": {
     "interactive-01": [
       "P500",
@@ -79,11 +79,11 @@
       "T400"
     ],
     "ui-01": [
-      "S50",
+      "W",
       "S1000"
     ],
     "ui-02": [
-      "W",
+      "S50",
       "K"
     ],
     "ui-03": [
@@ -112,7 +112,7 @@
     ],
     "text-04": [
       "T50",
-      "T900"
+      "S900"
     ],
     "text-05": [
       "T600",
@@ -128,7 +128,7 @@
     ],
     "field-01": [
       "T50",
-      "T900"
+      "S950"
     ],
     "field-02": [
       "W",
@@ -136,23 +136,23 @@
     ],
     "hover-row": [
       "T50",
-      "T900"
+      "S950"
     ],
     "highlight": [
       "T50",
-      "T900"
+      "S900"
     ],
     "hover-ui": [
       "T100",
-      "T800"
+      "S900"
     ],
     "selected-ui": [
       "T100",
-      "T800"
+      "S800"
     ],
     "active-ui": [
       "T100",
-      "T800"
+      "S800"
     ],
     "hover-selected-ui": [
       "S200",
@@ -195,8 +195,220 @@
       "S900"
     ],
     "border-control": [
-      "S500",
+      "S600",
       "S600"
+    ],
+    "tag-green-bg": [
+      "green200",
+      "green200"
+    ],
+    "tag-green-hover": [
+      "green300",
+      "green300"
+    ],
+    "tag-green-text": [
+      "green700",
+      "green700"
+    ],
+    "tag-yellow-bg": [
+      "yellow200",
+      "yellow200"
+    ],
+    "tag-yellow-hover": [
+      "yellow300",
+      "yellow300"
+    ],
+    "tag-yellow-text": [
+      "yellow800",
+      "yellow800"
+    ],
+    "tag-red-bg": [
+      "red200",
+      "red200"
+    ],
+    "tag-red-hover": [
+      "red300",
+      "red300"
+    ],
+    "tag-red-text": [
+      "red700",
+      "red700"
+    ],
+    "tag-magenta-bg": [
+      "magenta200",
+      "magenta200"
+    ],
+    "tag-magenta-hover": [
+      "magenta300",
+      "magenta300"
+    ],
+    "tag-magenta-text": [
+      "magenta700",
+      "magenta700"
+    ],
+    "tag-purple-bg": [
+      "purple200",
+      "purple200"
+    ],
+    "tag-purple-hover": [
+      "purple300",
+      "purple300"
+    ],
+    "tag-purple-text": [
+      "purple700",
+      "purple700"
+    ],
+    "tag-blue-bg": [
+      "blue200",
+      "blue200"
+    ],
+    "tag-blue-hover": [
+      "blue300",
+      "blue300"
+    ],
+    "tag-blue-text": [
+      "blue700",
+      "blue700"
+    ],
+    "tag-cyan-bg": [
+      "cyan200",
+      "cyan200"
+    ],
+    "tag-cyan-hover": [
+      "cyan300",
+      "cyan300"
+    ],
+    "tag-cyan-text": [
+      "cyan700",
+      "cyan700"
+    ],
+    "tag-teal-bg": [
+      "teal200",
+      "teal200"
+    ],
+    "tag-teal-hover": [
+      "teal300",
+      "teal300"
+    ],
+    "tag-teal-text": [
+      "teal700",
+      "teal700"
+    ],
+    "tag-warmgray-bg": [
+      "warmgray200",
+      "warmgray200"
+    ],
+    "tag-warmgray-hover": [
+      "warmgray300",
+      "warmgray300"
+    ],
+    "tag-warmgray-text": [
+      "warmgray700",
+      "warmgray700"
+    ],
+    "tag-coolgray-bg": [
+      "coolgray200",
+      "coolgray200"
+    ],
+    "tag-coolgray-hover": [
+      "coolgray300",
+      "coolgray300"
+    ],
+    "tag-coolgray-text": [
+      "coolgray700",
+      "coolgray700"
+    ],
+    "tag-gray-bg": [
+      "gray200",
+      "gray200"
+    ],
+    "tag-gray-hover": [
+      "gray300",
+      "gray300"
+    ],
+    "tag-gray-text": [
+      "gray700",
+      "gray700"
+    ],
+    "support-01": [
+      "danger500",
+      "danger400"
+    ],
+    "danger": [
+      "danger500",
+      "danger400"
+    ],
+    "text-error": [
+      "danger600",
+      "danger400"
+    ],
+    "inverse-support-01": [
+      "danger400",
+      "danger500"
+    ],
+    "hover-danger": [
+      "danger600",
+      "danger600"
+    ],
+    "active-danger": [
+      "danger700",
+      "danger700"
+    ],
+    "support-02": [
+      "success500",
+      "success400"
+    ],
+    "inverse-support-02": [
+      "success400",
+      "success500"
+    ],
+    "support-03": [
+      "warning500",
+      "warning500"
+    ],
+    "inverse-support-03": [
+      "warning500",
+      "warning500"
+    ],
+    "support-04": [
+      "info500",
+      "info400"
+    ],
+    "inverse-support-04": [
+      "info400",
+      "info500"
+    ],
+    "status-icon-error": [
+      "danger500",
+      "danger400"
+    ],
+    "status-icon-success": [
+      "success600",
+      "success400"
+    ],
+    "status-icon-warning": [
+      "warning700",
+      "warning500"
+    ],
+    "status-icon-info": [
+      "info500",
+      "info400"
+    ],
+    "notification-error-bg": [
+      "danger50",
+      "danger900"
+    ],
+    "notification-success-bg": [
+      "success50",
+      "success900"
+    ],
+    "notification-warning-bg": [
+      "warning50",
+      "warning900"
+    ],
+    "notification-info-bg": [
+      "info50",
+      "info900"
     ]
   },
   "pares": [
@@ -293,6 +505,131 @@
     {
       "texto": "border-control",
       "fondo": "ui-02",
+      "minimo": 3
+    },
+    {
+      "texto": "tag-green-text",
+      "fondo": "tag-green-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-yellow-text",
+      "fondo": "tag-yellow-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-red-text",
+      "fondo": "tag-red-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-magenta-text",
+      "fondo": "tag-magenta-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-purple-text",
+      "fondo": "tag-purple-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-blue-text",
+      "fondo": "tag-blue-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-cyan-text",
+      "fondo": "tag-cyan-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-teal-text",
+      "fondo": "tag-teal-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-warmgray-text",
+      "fondo": "tag-warmgray-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-coolgray-text",
+      "fondo": "tag-coolgray-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "tag-gray-text",
+      "fondo": "tag-gray-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-error",
+      "fondo": "ui-02",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-error",
+      "fondo": "ui-01",
+      "minimo": 4.5
+    },
+    {
+      "texto": "status-icon-error",
+      "fondo": "ui-02",
+      "minimo": 3
+    },
+    {
+      "texto": "text-01",
+      "fondo": "notification-error-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "status-icon-error",
+      "fondo": "notification-error-bg",
+      "minimo": 3
+    },
+    {
+      "texto": "status-icon-success",
+      "fondo": "ui-02",
+      "minimo": 3
+    },
+    {
+      "texto": "text-01",
+      "fondo": "notification-success-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "status-icon-success",
+      "fondo": "notification-success-bg",
+      "minimo": 3
+    },
+    {
+      "texto": "status-icon-warning",
+      "fondo": "ui-02",
+      "minimo": 3
+    },
+    {
+      "texto": "text-01",
+      "fondo": "notification-warning-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "status-icon-warning",
+      "fondo": "notification-warning-bg",
+      "minimo": 3
+    },
+    {
+      "texto": "status-icon-info",
+      "fondo": "ui-02",
+      "minimo": 3
+    },
+    {
+      "texto": "text-01",
+      "fondo": "notification-info-bg",
+      "minimo": 4.5
+    },
+    {
+      "texto": "status-icon-info",
+      "fondo": "notification-info-bg",
       "minimo": 3
     }
   ]
