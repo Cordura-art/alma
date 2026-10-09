@@ -66,6 +66,14 @@ Los dos temas de alto contraste tienen sus propios casilleros. Parten de la mism
 - **La marca se mueve por su propia rampa:** en claro baja al paso más oscuro y en oscuro sube a uno claro, para leerse contra la página. El texto del botón es blanco o negro, el que se lea.
 - **Las capas siguen la misma regla de la luz:** página teñida y contenedor blanco en claro; página negra y capas que suben en oscuro.
 
-## Lo que la matriz no cubre
+## Los gráficos
 
-- Los colores de los gráficos.
+Los colores de los gráficos también tienen casillero.
+
+| Serie | De dónde sale | Regla |
+|---|---|---|
+| **Categórica** (`viz-cat-01` a `08`) | Ocho rampas de color: púrpura, cian, verde azulado, magenta, rojo, verde y azul. | Un paso oscuro en claro y uno claro en oscuro. Cada una alcanza 3 a 1 sobre un contenedor. |
+| **De un solo tono** (`viz-seq-1` a `5`) | Primary, la marca. | Cinco pasos de la rampa. El valor más alto es el más oscuro en claro y el más claro en oscuro. |
+| **Divergente** (`viz-div-1` a `5`) | Rojo de error a un lado, Primary al otro y el neutro al centro. | Igual en los cuatro temas. |
+
+En una entidad, la serie de un solo tono toma su marca. La categórica es la misma en todas: sirve para distinguir, no para identificar.

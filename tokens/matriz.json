@@ -613,6 +613,114 @@
       "info900",
       "info50",
       "info900"
+    ],
+    "viz-cat-01": [
+      "purple700",
+      "purple600",
+      "purple700",
+      "purple600"
+    ],
+    "viz-cat-02": [
+      "cyan500",
+      "cyan400",
+      "cyan500",
+      "cyan400"
+    ],
+    "viz-cat-03": [
+      "teal700",
+      "teal600",
+      "teal700",
+      "teal600"
+    ],
+    "viz-cat-04": [
+      "magenta700",
+      "magenta400",
+      "magenta700",
+      "magenta400"
+    ],
+    "viz-cat-05": [
+      "red500",
+      "red500",
+      "red500",
+      "red500"
+    ],
+    "viz-cat-06": [
+      "red900",
+      "red100",
+      "red900",
+      "red100"
+    ],
+    "viz-cat-07": [
+      "green600",
+      "green300",
+      "green600",
+      "green300"
+    ],
+    "viz-cat-08": [
+      "blue800",
+      "blue500",
+      "blue800",
+      "blue500"
+    ],
+    "viz-seq-1": [
+      "P100",
+      "P700",
+      "P100",
+      "P700"
+    ],
+    "viz-seq-2": [
+      "P300",
+      "P600",
+      "P300",
+      "P600"
+    ],
+    "viz-seq-3": [
+      "P500",
+      "P400",
+      "P500",
+      "P400"
+    ],
+    "viz-seq-4": [
+      "P600",
+      "P200",
+      "P600",
+      "P200"
+    ],
+    "viz-seq-5": [
+      "P900",
+      "P50",
+      "P900",
+      "P50"
+    ],
+    "viz-div-1": [
+      "danger600",
+      "danger600",
+      "danger600",
+      "danger600"
+    ],
+    "viz-div-2": [
+      "danger300",
+      "danger300",
+      "danger300",
+      "danger300"
+    ],
+    "viz-div-3": [
+      "S200",
+      "S200",
+      "S200",
+      "S200"
+    ],
+    "viz-div-4": [
+      "P400",
+      "P400",
+      "P400",
+      "P400"
+    ],
+    "viz-div-5": [
+      "P700",
+      "P700",
+      "P700",
+      "P700"
     ]
   },
   "pares": [
@@ -834,6 +942,46 @@
     {
       "texto": "status-icon-info",
       "fondo": "notification-info-bg",
+      "minimo": 3
+    },
+    {
+      "texto": "viz-cat-01",
+      "fondo": "ui-01",
+      "minimo": 3
+    },
+    {
+      "texto": "viz-cat-02",
+      "fondo": "ui-01",
+      "minimo": 3
+    },
+    {
+      "texto": "viz-cat-03",
+      "fondo": "ui-01",
+      "minimo": 3
+    },
+    {
+      "texto": "viz-cat-04",
+      "fondo": "ui-01",
+      "minimo": 3
+    },
+    {
+      "texto": "viz-cat-05",
+      "fondo": "ui-01",
+      "minimo": 3
+    },
+    {
+      "texto": "viz-cat-06",
+      "fondo": "ui-01",
+      "minimo": 3
+    },
+    {
+      "texto": "viz-cat-07",
+      "fondo": "ui-01",
+      "minimo": 3
+    },
+    {
+      "texto": "viz-cat-08",
+      "fondo": "ui-01",
       "minimo": 3
     }
   ]

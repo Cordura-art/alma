@@ -11,6 +11,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 - El neutro (Secondary) cubre ahora todo el rango, del blanco al negro, con dos pasos nuevos para las superficies oscuras: `secondary-950` y `secondary-1000`.
 - `interactive-02` y sus estados son pasos del neutro. El botón fantasma tiene sus dos tonos propios, ya no cruzados.
 - Los colores de papel que no son un paso de una rampa bajaron de 36 a 2.
+- Los colores de los gráficos también tienen casillero: la serie categórica en ocho rampas de color, la de un solo tono en Primary y la divergente entre el rojo y Primary. Con eso son 120 tokens con casillero, y ya no queda ninguna familia de color fuera de la matriz.
 - El fundamento Color tiene una pestaña nueva, Matriz, que explica la regla.
 - Los dos temas de alto contraste también salen de la matriz: cada token tiene cuatro casilleros, uno por tema. Los de alto contraste se fijaron en el paso más cercano al valor que cada uno ya tenía, y ahí el texto alcanza 7 a 1.
 
