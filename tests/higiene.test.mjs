@@ -90,7 +90,7 @@ test('los documentos no escriben a mano el valor de un token: lo piden', async (
 test('el color de un papel es un paso de una rampa; los que no, están contados y no crecen', () => {
   const F = {}; const flat = (o, out = {}) => { for (const k in o) { const v = o[k]; if (v && v.$value !== undefined) out[k] = v; else if (v && typeof v === 'object') flat(v, out); } return out; };
   for (const th of ['dark', 'light', 'dark-hc', 'light-hc']) F[th] = flat(JSON.parse(readFileSync(`tokens/themes/${th}.json`, 'utf8')));
-  const prim = (n) => /-(50|[1-9]00)$/.test(n) || /^brand-/.test(n), pasos = new Set();
+  const prim = (n) => /-(50|[1-9]00|950|1000)$/.test(n) || /^brand-/.test(n), pasos = new Set();
   for (const th in F) for (const n in F[th]) if (prim(n) && /^#/.test(F[th][n].$value)) pasos.add(F[th][n].$value.toUpperCase());
   const hoy = [];
   for (const th in F) for (const n in F[th]) { const v = F[th][n].$value; if (!prim(n) && /^#[0-9a-fA-F]{6}$/.test(v) && !pasos.has(v.toUpperCase())) hoy.push(`${th} ${n} ${v.toUpperCase()}`); }

@@ -27,7 +27,8 @@ test('del planeta solo viajan los genes: el suelo se calcula en la página y nad
   assert.equal('contenida' in genesDeMundo({ semilla: 's' }, {}), false);
   assert.equal(/__HITOS|base64/.test(html), false);
   // (the page is its script and ALMA's styles: no map, no mesh, no picture)
-  assert.ok(html.length < 210000, 'la página pesa más de lo que pesa su regla');
+  // (ALMA's own styles travel with it and grow with the tokens: what is weighed is the rest)
+  assert.ok(html.length - readFileSync('dist/css/alma.css', 'utf8').length < 135000, 'la página pesa más de lo que pesa su regla');
 });
 
 test('la regla del planeta es la del planeta de Unity: los mismos números, escritos otra vez', () => {

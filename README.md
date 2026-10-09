@@ -36,6 +36,7 @@ npm run tuner   # arma build/alma-ajustes.html: la herramienta para ajustar tema
 npm run tokens:apply -- cambios.json   # aplica a tokens/ los cambios exportados por la herramienta
 npm run images  # fotografía las imágenes del artefacto ALMA con los componentes reales (Playwright); los sitios las dibujan en vivo
 npm run test:componentes  # maneja los componentes en un navegador: teclado, foco y lo que se anuncia (Playwright; necesita red)
+npm run matriz:aplicar  # lleva tokens/matriz.json a tokens/themes (claro y oscuro); después, npm run build
 npm run matriz  # arma build/matriz.html: los colores de hoy junto a los de la matriz de color (tokens/matriz.json)
 npm run carta -- --fecha 1911-06-16 --hora 12:00 --zona America/New_York --nombre IBM   # carta de una entidad (--json para el objeto completo)
 npm run entidades   # arma build/entidades-alma.html: crear entidades y ver ALMA con sus parámetros

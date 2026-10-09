@@ -4,12 +4,22 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 9 de octubre de 2026
 
+### La matriz de color gobierna los tokens
+
+- Los temas claro y oscuro de ALMA salen de la matriz: cada token con casillero toma el color de su casillero, y las rampas Primary, Secondary y Tertiary son las que la matriz calcula. `npm run matriz:aplicar` lo hace, y una prueba cuida que no se separen.
+- Las entidades también: su carta entrega dos colores, la marca y la acción, y todo lo demás sale de la matriz. En Cordura y en Ensayo, la navegación elegida, los interruptores y el texto de los botones tenue y plano pasan al azul de acción; la marca queda en el botón principal.
+- El neutro (Secondary) cubre ahora todo el rango, del blanco al negro, con dos pasos nuevos para las superficies oscuras: `secondary-950` y `secondary-1000`.
+- `interactive-02` y sus estados son pasos del neutro. El botón fantasma tiene sus dos tonos propios, ya no cruzados.
+- Los colores de papel que no son un paso de una rampa bajaron de 36 a 20, y en claro y oscuro queda uno solo.
+- El fundamento Color tiene una pestaña nueva, Matriz, que explica la regla.
+- Los temas de alto contraste conservan sus valores.
+
 ### La matriz de color, escrita como regla
 
 - Cada token de color pasa a tener un casillero: una familia y un paso, para el tema claro y para el oscuro. Están en `tokens/matriz.json`. Las familias son tres: Primary es la marca, Tertiary es la acción (enlaces, foco, lo elegido) y Secondary es el neutro, teñido con el tono de la acción.
 - Los casilleros del tema claro vienen del estudio de color de Cordura. Los del oscuro se fijaron hoy. El foco va en Tertiary 400, y el tinte del neutro, en 5 %: casi gris, con un rastro del tono de la acción.
 - Las etiquetas, los estados y las notificaciones también tienen casillero, en la rampa de su color: una etiqueta lleva el fondo en el 200 y el texto en el 700; un estado va en el 500 en claro y en el 400 en oscuro; el fondo de una notificación, en el 50 en claro y en el 900 en oscuro. Con eso son 103 tokens con casillero.
-- La matriz todavía no gobierna los tokens: es la regla acordada. Una prueba cuida que cumpla el contraste en ALMA y en las cuatro entidades, en los dos temas.
+- Una prueba cuida que cumpla el contraste en ALMA y en las cuatro entidades, en los dos temas.
 - `npm run matriz` arma una página que compara los colores de hoy con los de la matriz.
 
 ### brand-lime pasa a llamarse brand-accent

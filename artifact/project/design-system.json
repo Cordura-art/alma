@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-10-09T13:47:32.340Z",
+    "at": "2026-10-09T14:45:32.494Z",
     "via": "Claude Code",
-    "note": "La matriz de color queda escrita como regla; brand-lime pasa a brand-accent"
+    "note": "La matriz de color gobierna los tokens de ALMA y de las entidades, en claro y oscuro"
   },
   "layout": "files",
   "libraries": [

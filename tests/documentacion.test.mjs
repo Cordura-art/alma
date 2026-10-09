@@ -34,7 +34,8 @@ test('cada tema declara los mismos tokens, para que el oscuro no se filtre en lo
   const S = await sistema('automata'), keys = (th) => Object.keys(S.color[th]).sort().join();
   for (const th of THEMES) assert.equal(keys(th), keys('dark'), th);
   const hoja = css(S);
-  assert.match(hoja, /\[data-theme="light"\] \{[^}]*--button-tinted-text: #191919;/);
+  // (a token the entity may set travels with a value in every theme: where the entity leaves it, ALMA's own)
+  assert.match(hoja, /\[data-theme="light"\] \{[^}]*--button-tinted-text: (#[0-9A-Fa-f]{6}|var\(--[a-z0-9-]+\));/);
   assert.doesNotMatch(hoja, /E1F564/i, 'no queda lima en los valores de la entidad');
 });
 
@@ -61,17 +62,12 @@ test('tres colores en la Entidad Autómata: marca, marca muy oscura y el color d
   const v = (n, th) => valor(tok, n, th);
   // Primary: the same brand step in every theme. Secondary: the brand at its darkest. Tertiary: the action color, here the brand itself.
   for (const th of THEMES) assert.equal(v('button-filled-bg', th), '#1D62FF', th);
-  // The secondary keeps the brand's hue, very dark and with little chroma, and is lighter on dark themes.
-  for (const th of ['light', 'dark']) {
-    const [l, c, h] = S.En.fromHex(v('interactive-02', th));
-    assert.ok(Math.abs(h - S.P.palette[0].h) < 6, `${th}: tono ${h.toFixed(0)}`);
-    assert.ok(c <= 0.075 && c > 0.02, `${th}: saturación ${c.toFixed(3)}`);
-    assert.ok(l < 0.42, `${th}: luminosidad ${l.toFixed(2)}`);
-  }
-  assert.ok(S.En.fromHex(v('interactive-02', 'dark'))[0] > S.En.fromHex(v('interactive-02', 'light'))[0]);
-  assert.equal(v('button-tertiary-border', 'light'), '#1D62FF');
-  assert.equal(v('button-tertiary-border', 'dark'), v('link-01'), 'en oscuro, el contorno es el color de los enlaces');
-  assert.equal(v('focus', 'light'), '#1D62FF');
+  // With the colour matrix (tokens/matriz.json): interactive-02 is a step of the neutral, which carries only a trace of
+  // the action's hue; the outline of the tertiary button and the links are the action colour, here the brand itself.
+  for (const th of ['light', 'dark']) { const [, c] = S.En.fromHex(v('interactive-02', th)); assert.ok(c < 0.02, `${th}: interactive-02 es un neutro (saturación ${c.toFixed(3)})`); }
+  assert.equal(v('link-01', 'light'), '#1D62FF', 'en claro, el enlace es el color de acción: Tertiary 500');
+  assert.equal(v('focus', 'light'), v('tertiary-400', 'light'), 'el foco va en Tertiary 400');
+  assert.equal(v('tertiary-500', 'light'), v('primary-500', 'light'), 'una marca azul es su propio color de acción: una sola rampa');
   assert.deepEqual(S.P.accent.action, S.P.palette[0].ramp, 'una marca azul es su propio color de acción');
 });
 
@@ -126,7 +122,7 @@ test('la plantilla escribe lo que la carta decidió, y falla ante una marca que 
   // A line that only opens or closes a condition leaves no empty line behind.
   assert.equal(plantilla('a\n{si heredado}\nb\n{fin}\nc', automata, ti), 'a\nc');
   assert.equal(plantilla('{L:grilla.forma:1}', automata, ti), 'Nuestros ángulos son rectos.');
-  assert.match(plantilla('{tabla:rampa}', automata, ti), /\| `primary-600` \| `#1D62FF` \| `interactive-01` en los cuatro temas/);
+  assert.match(plantilla('{tabla:rampa}', automata, ti), /\| `primary-500` \| `#1D62FF` \| `interactive-01` en los cuatro temas/);
   assert.throws(() => plantilla('{si inventada}x{fin}', automata, ti), /Condición desconocida/);
   assert.throws(() => plantilla('{v:inventada}', automata, ti), /Palabra desconocida/);
   assert.throws(() => plantilla('{L:no.existe}', automata, ti), /le falta "no.existe"/);

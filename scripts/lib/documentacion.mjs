@@ -2,6 +2,7 @@
 // An entity changes token values, never token names: `sistema()` computes them from the chart, `aplicar()` writes them
 // into the artifact's tokens.json shape, `css()` into custom properties, and `palabras()` fills the shared templates
 // (entidades/documentacion/plantilla/) and the replacements for the sentences of ALMA's guides that only hold for Cordura.
+import { matriz, PASOS, NEUTRO } from './matriz.mjs';
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { genes, colonia, comoFondo } from '../../entidades/generador.mjs';
 import { cargarMotor } from './entidades.mjs';
@@ -21,6 +22,16 @@ export async function sistema(id) {
   for (const [k, v] of Object.entries(r0)) ramp[`primary-${k}`] = v;
   const color = { dark: { ...ramp, ...a.dark }, light: { ...ramp, ...a.light }, 'dark-hc': { ...ramp, ...a.dark, ...a.darkHc }, 'light-hc': { ...ramp, ...a.light, ...a.lightHc } };
   const base = JSON.parse(read('dist/json/tokens.json'));
+  // The colour matrix (tokens/matriz.json) governs the entity as it governs ALMA: the chart gives two colours, its brand
+  // and its action (the colour of its links on light), and every token with a slot takes the colour of its slot. The
+  // three ramps come from there too. The high-contrast themes keep what the engine and ALMA give them.
+  const regla = JSON.parse(read('tokens/matriz.json')), deAlma = (n) => valor(base, n, 'light'), hex = (v) => { const m = /^var\(--([a-z0-9-]+)\)$/.exec(v || ''); return m ? hex(a.light[m[1]] ?? deAlma(m[1])) : v; };
+  const familias = [...new Set(Object.values(regla.casilleros).flat().map((c) => (/^([a-z]+)\d+$/.exec(c) || [])[1]).filter(Boolean))];
+  const dato = { marca: hex(a.light['interactive-01']), accion: hex(a.light['link-01'] ?? a.light['interactive-01']), rampas: Object.fromEntries(familias.map((r) => [r, Object.fromEntries(PASOS.map((s) => [s, deAlma(`${r}-${s}`)]))])) };
+  for (const th of THEMES) { const M = matriz(dato, th.startsWith('light') ? 'light' : 'dark', regla);
+    for (const s of PASOS) { color[th][`primary-${s}`] = M.P[s]; color[th][`tertiary-${s}`] = M.T[s]; }
+    for (const s of NEUTRO) color[th][`secondary-${s}`] = M.S[s];
+    if (!th.endsWith('-hc')) Object.assign(color[th], M.m); }
   // A token the entity sets in one theme keeps ALMA's value in the others. It is declared there too: on the root, the
   // dark block (":root") would otherwise win over ALMA's block for the active theme.
   const names = new Set(THEMES.flatMap((th) => Object.keys(color[th])));

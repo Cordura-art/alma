@@ -37,3 +37,23 @@ test('la marca queda en su casillero: el botón principal es el color de marca t
   const S = await sistemas();
   for (const [id, s] of Object.entries(S)) for (const tema of ['light', 'dark']) assert.equal(matriz(s, tema, regla).m['interactive-01'], s.marca.toUpperCase(), `${id} · ${tema}`);
 });
+
+// Since 2026-10-09 the matrix governs: in the light theme and in the dark one, ALMA's tokens are what their slots say,
+// and the three ramps in tokens/themes are the ones the matrix makes. `npm run matriz:aplicar` puts them back in line.
+test('los tokens de ALMA son los de la matriz, en claro y en oscuro', () => {
+  const marca = valor(tok, 'brand-accent', 'light'), mal = [];
+  const rampas = Object.fromEntries([...new Set(Object.values(regla.casilleros).flat().map((c) => (/^([a-z]+)\d+$/.exec(c) || [])[1]).filter(Boolean))].map((r) => [r, Object.fromEntries(PASOS.map((s) => [s, valor(tok, `${r}-${s}`, 'light')]))]));
+  for (const tema of ['light', 'dark']) { const M = matriz({ marca, accion: marca, rampas }, tema, regla);
+    for (const [n, v] of Object.entries(M.m)) { let hoy; try { hoy = valor(tok, n, tema); } catch { continue; } if (hoy.toUpperCase() !== v.toUpperCase()) mal.push(`${tema} · ${n}: ${hoy}, y su casillero dice ${v}`); }
+    for (const s of PASOS) for (const [r, R] of [['primary', M.P], ['tertiary', M.T]]) if (valor(tok, `${r}-${s}`, tema).toUpperCase() !== R[s]) mal.push(`${tema} · ${r}-${s}`);
+    for (const s of NEUTRO) if (valor(tok, `secondary-${s}`, tema).toUpperCase() !== M.S[s]) mal.push(`${tema} · secondary-${s}`); }
+  assert.equal(mal.length, 0, mal.join('\n') + '\nCorre npm run matriz:aplicar y npm run build.');
+});
+
+test('una entidad toma sus colores de la matriz: su marca en el botón principal, su acción en enlaces y foco', async () => {
+  for (const f of readdirSync('entidades/lenguajes')) { const id = f.replace(/\.json$/, ''), S = await sistema(id), c = S.color.light;
+    assert.equal(c['interactive-01'], c['primary-500'], `${id}: el botón principal es Primary 500`);
+    assert.equal(c['link-01'], c['tertiary-500'], `${id}: el enlace es Tertiary 500`);
+    assert.equal(c['focus'], c['tertiary-400'], `${id}: el foco es Tertiary 400`);
+    assert.equal(c['ui-01'], '#FFFFFF', `${id}: un contenedor es blanco sobre la página teñida`); assert.equal(c['ui-02'], c['secondary-50']); }
+});

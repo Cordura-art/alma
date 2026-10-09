@@ -5,8 +5,8 @@ Button|gray texto|button-gray-text|ui-03|4.5
 Button|gray hover texto|button-gray-text|ui-04|4.5
 Button|gray activo texto|button-gray-text-active|ui-04|4.5
 Button|ghost texto|secondary-50|brand-ink|4.5
-Button|ghost hover texto|secondary-50|active-secondary|4.5
-Button|ghost activo texto|button-ghost-text-active|hover-secondary|4.5
+Button|ghost hover texto|button-ghost-text|button-ghost-bg-hover|4.5
+Button|ghost activo texto|button-ghost-text-active|button-ghost-bg-active|4.5
 Button|inverse texto|button-inverse-text|brand-white|4.5
 Button|inverse hover texto|button-inverse-text|button-inverse-bg-hover|4.5
 Button|inverse activo texto|button-inverse-text-active|button-inverse-bg-active|4.5
@@ -50,7 +50,6 @@ Button|destructivo activo texto|brand-white|active-danger|4.5
 Button|destructivo tinted texto|button-destructive-text|button-destructive-tinted-bg|4.5
 Button|destructivo plain texto|button-destructive-text|ui-02|4.5
 Button|destructivo gray texto|button-destructive-gray-text|ui-04|4.5
-Button|gray (secondary) activo destructivo|brand-white|active-secondary|4.5
 Button|spinner sobre primario|text-on-interactive|interactive-01|3
 Switch|pista encendida vs página|control-on|ui-02|3
 Switch|perilla encendida|control-on-mark|control-on|3
