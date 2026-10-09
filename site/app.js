@@ -304,8 +304,38 @@
       h('p', { className: 'web-body-m', style: { margin: 0 } }, 'Pasa el puntero por una figura, o entra en ella con el tabulador y usa las flechas. Escape la deja en reposo.'),
       h('div', { className: 'figs__grilla' }, Object.keys(F.figuras).map(function (k) { var x = F.figuras[k]; return h(FiguraViva, { key: k, nombre: k, titulo: x.titulo || k, describe: x.describe || '', intensidad: 0.5 }); })));
   }
+  // The colour matrix as a board: every ramp, and under each step the tokens that live in that slot in the theme that
+  // is on. The colours are the page's own (the ramps are tokens), so the board is the system's that is being looked at.
+  var MX_TEMAS = ['light', 'dark', 'light-hc', 'dark-hc'], MX_PASOS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+  var MX_FAMILIAS = [['P', 'primary', 'Primary · la marca', MX_PASOS], ['S', 'secondary', 'Secondary · el neutro', MX_PASOS.concat([950, 1000])], ['T', 'tertiary', 'Tertiary · la acción', MX_PASOS]];
+  var MX_RAMPAS = { danger: 'Danger · error', success: 'Success · éxito', warning: 'Warning · aviso', info: 'Info · información', green: 'Green', yellow: 'Yellow', red: 'Red', magenta: 'Magenta', purple: 'Purple', blue: 'Blue', cyan: 'Cyan', teal: 'Teal', warmgray: 'Warm gray', coolgray: 'Cool gray', gray: 'Gray' };
+  function MatrizViva(p) {
+    var K = C.matriz, hex = useState({}), caja = React.useRef(null);
+    var idx = Math.max(0, MX_TEMAS.indexOf(p.theme)), en = {}, usadas = {};
+    if (K) Object.keys(K).forEach(function (n) { var c = K[n][idx]; (en[c] = en[c] || []).push(n); var m = /^([a-z]+)\d+$/.exec(c); if (m) usadas[m[1]] = true; });
+    var filas = MX_FAMILIAS.map(function (f) { return { clave: f[0], rampa: f[1], titulo: f[2], pasos: f[3] }; })
+      .concat(Object.keys(MX_RAMPAS).filter(function (r) { return usadas[r]; }).map(function (r) { return { clave: r, rampa: r, titulo: MX_RAMPAS[r], pasos: MX_PASOS }; }));
+    // (the value of each step, read from the page as it is: another theme or another system gives other values)
+    useEffect(function () {
+      if (!caja.current) return; var cs = getComputedStyle(caja.current), o = {};
+      filas.forEach(function (f) { f.pasos.forEach(function (s) { o[f.rampa + '-' + s] = cs.getPropertyValue('--' + f.rampa + '-' + s).trim().toUpperCase(); }); });
+      hex[1](o);
+    }, [p.theme, C]);
+    if (!K) return h('p', { className: 'web-body-m' }, 'Esta página no trae la matriz de color.');
+    function paso(key, nombre, fondo, valor, toks, ancla) {
+      return h('div', { className: 'mx__paso' + (toks.length ? '' : ' is-vacio'), key: key },
+        h('span', { className: 'mx__color', style: { background: fondo }, 'data-anchor': ancla ? '' : undefined }),
+        h('div', { className: 'mx__cuerpo' }, h('span', { className: 'web-body-s mx__nombre' }, nombre), h('span', { className: 'mx__valor' }, valor),
+          toks.length ? h('ul', null, toks.map(function (n) { return h('li', { key: n }, n); })) : null));
+    }
+    function fila(titulo, hijos) { return h('div', { className: 'mx', key: titulo }, h('h3', { className: 'web-label-m' }, titulo), h('div', { className: 'mx__fila', tabIndex: 0, role: 'group', 'aria-label': titulo }, hijos)); }
+    return h('div', { className: 'mx-tablero', ref: caja },
+      h('p', { className: 'web-body-m', style: { margin: 0 } }, 'Cada tarjeta es un casillero: una familia y un paso. Debajo, los tokens que lo ocupan en el tema que estás mirando (' + ({ light: 'claro', dark: 'oscuro', 'light-hc': 'claro, alto contraste', 'dark-hc': 'oscuro, alto contraste' })[MX_TEMAS[idx]] + '). Cambia el tema y cada token se muda de casillero; los colores de las rampas son los mismos.'),
+      fila('Blanco y negro', [paso('W', 'Blanco', 'var(--brand-white)', '#FFFFFF', en.W || []), paso('K', 'Negro', 'var(--brand-black)', '#000000', en.K || [])]),
+      filas.map(function (f) { return fila(f.titulo, f.pasos.map(function (s) { return paso(s, f.titulo.split(' · ')[0] + ' ' + s, 'var(--' + f.rampa + '-' + s + ')', hex[0][f.rampa + '-' + s] || '', en[f.clave + s] || [], s === 500 && (f.clave === 'P' || f.clave === 'T')); })); }));
+  }
   var FUND = {
-    color: { slug: 'color', icon: 'light', tokens: function (s) { return h(ColorTokens, { theme: s.theme }); } },
+    color: { slug: 'color', icon: 'light', tokens: function (s) { return h(ColorTokens, { theme: s.theme }); }, propia: { titulo: 'Casilleros', render: function (s) { return h(MatrizViva, { theme: s.theme }); } } },
     tipografia: { slug: 'tipografia', icon: 'view', tokens: function () { return h(TypeTokens); } },
     espaciado: { slug: 'espaciado', icon: 'layers', tokens: function () { return h(SpaceTokens); } },
     movimiento: { slug: 'movimiento', icon: 'renew', preview: 'Motion', hint: 'Pasa el cursor o enfoca una fila', tokens: function () { return h(MotionTokens); } },

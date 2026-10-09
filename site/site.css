@@ -112,3 +112,18 @@ code, pre, kbd { font-family: var(--font-mono); font-stretch: 100%; font-variati
 .figs__una { display: grid; gap: var(--space-8); margin: 0; min-width: 0; }
 .figs__una figcaption { color: var(--text-02); } .figs__una figcaption .web-label-l { color: var(--text-01); }
 .figs__dice { color: var(--text-02); }
+
+/* The colour matrix as a board (Color › Casilleros): a row for each ramp, a card for each step, and in it the tokens of that slot. */
+.mx-tablero { display: grid; gap: var(--space-24); min-width: 0; }
+.mx { display: grid; gap: var(--space-8); min-width: 0; }
+.mx h3 { margin: 0; color: var(--text-02); }
+.mx__fila { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(7rem, 1fr); gap: var(--space-8); overflow-x: auto; align-items: start; padding-bottom: var(--space-8); }
+.mx__fila:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.mx__paso { display: grid; border: 1px solid var(--border-control); border-radius: var(--radius-panel); overflow: hidden; background: var(--ui-01); min-width: 0; }
+.mx__paso.is-vacio { border-color: var(--border-subtle); }
+.mx__color { display: block; height: var(--space-64); position: relative; }
+.mx__color[data-anchor]::after { content: ""; position: absolute; left: 50%; bottom: var(--space-8); width: var(--space-8); height: var(--space-8); margin-left: calc(var(--space-8) / -2); border-radius: var(--radius-pill); background: var(--text-on-interactive); }
+.mx__cuerpo { display: grid; gap: var(--space-2); padding: var(--space-8) var(--space-8) var(--space-16); min-width: 0; overflow-wrap: anywhere; }
+.mx__paso.is-vacio .mx__nombre, .mx__valor { color: var(--text-02); }
+.mx__valor { font-family: var(--font-mono, ui-monospace, monospace); font-size: 0.75rem; }
+.mx__cuerpo ul { margin: var(--space-4) 0 0; padding: 0 0 0 var(--space-16); font-size: 0.75rem; line-height: 1.6; }

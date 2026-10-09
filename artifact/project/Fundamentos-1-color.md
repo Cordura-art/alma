@@ -200,7 +200,7 @@ Los tokens viven en `tokens/` del repositorio, en formato W3C. Se cambian ahí, 
 
 Un token de color no guarda un color elegido a mano: ocupa un **casillero**, que es una familia y un paso. `interactive-01` es «Primary 500», `link-01` es «Tertiary 500», `text-02` es «Secondary 800». Si cambian las rampas, todo se recolorea solo y sigue combinando.
 
-La tabla completa está en `tokens/matriz.json`. Gobierna los temas claro y oscuro de ALMA y de todas las entidades.
+La tabla completa está en `tokens/matriz.json`, y se ve dibujada en la pestaña **Casilleros**: cada rampa con los tokens de cada paso, en el tema que estés mirando. Gobierna los temas claro y oscuro de ALMA y de todas las entidades.
 
 ### Las tres familias
 

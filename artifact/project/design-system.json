@@ -28,7 +28,7 @@
   },
   "blobs": {},
   "createdOnFiles": {
-    "at": "2026-09-29T15:32:00Z",
+    "at": "2026-10-09T18:51:12.000Z",
     "v": 1
   },
   "docs": {
@@ -43,7 +43,7 @@
     "by": "Juan Pablo",
     "at": "2026-10-09T15:37:17.905Z",
     "via": "Claude Code",
-    "note": "La matriz de color define también los dos temas de alto contraste"
+    "note": "Los gráficos entran a la matriz de color, y Color suma la pestaña Casilleros"
   },
   "layout": "files",
   "libraries": [

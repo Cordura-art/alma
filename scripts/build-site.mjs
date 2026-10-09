@@ -146,6 +146,8 @@ const content = S ? {
 };
 Object.assign(content, {
   tokens: { themes: tok.color.themes, color: tok.color.tokens, type: tok.type.groups, families },
+  // (the colour matrix: the slot of every token in each theme, for the board in Color)
+  matriz: JSON.parse(await read('tokens/matriz.json')).casilleros,
   components,
   elements,
   guides,

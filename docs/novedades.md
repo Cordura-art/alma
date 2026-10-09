@@ -6,6 +6,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### La matriz de color gobierna los tokens
 
+- La matriz se ve en la documentación: Color tiene una pestaña **Casilleros** con cada rampa y, bajo cada paso, los tokens que lo ocupan en el tema que se está mirando. En una entidad, las rampas son las suyas.
 - Los temas claro y oscuro de ALMA salen de la matriz: cada token con casillero toma el color de su casillero, y las rampas Primary, Secondary y Tertiary son las que la matriz calcula. `npm run matriz:aplicar` lo hace, y una prueba cuida que no se separen.
 - Las entidades también: su carta entrega dos colores, la marca y la acción, y todo lo demás sale de la matriz. En Cordura y en Ensayo, la navegación elegida, los interruptores y el texto de los botones tenue y plano pasan al azul de acción; la marca queda en el botón principal.
 - El neutro (Secondary) cubre ahora todo el rango, del blanco al negro, con dos pasos nuevos para las superficies oscuras: `secondary-950` y `secondary-1000`.
