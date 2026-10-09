@@ -1,12 +1,8 @@
-/* «Todo en vidrio»: el modo que una entidad pide con "vidrio": true en su lenguaje (fundamento Profundidad).
-   El suelo de la página es el Velo, tenue: site/app.js lo monta en #alma-suelo cuando --glass-ground es mayor que 0.
-   Sobre él, los contenedores, los campos y los botones de fondo tenue son de vidrio. La fuerza del Velo está acotada:
-   con él debajo, los tres niveles de texto siguen en 4,5:1. Lo que flota ya es de vidrio en ALMA. Todo son tokens. */
-:root, [data-theme="dark"] { --glass-ground: 0.18; }
-[data-theme="light"] { --glass-ground: 0.1; }
-[data-theme$="-hc"] { --glass-ground: 0; }
-html body { background: transparent; }
-#alma-suelo { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+/* «Todo en vidrio»: el modo de una entidad de carta abierta, con dos centros definidos o menos (fundamento Profundidad).
+   Lo decide la regla de Entidades ALMA, no un interruptor.
+   Los contenedores, los campos y los botones de fondo tenue son de vidrio sobre el fondo liso de la página. La página
+   no lleva luz propia: el Velo es de la IA y aparece donde ella está (el escritorio, su escenario). Lo que flota ya es
+   de vidrio en ALMA. Todo son tokens. */
 :is(.alma-card, .alma-list__rows, .alma-side, .alma-table-wrap, .alma-split__primary, .alma-columns, .alma-webview__bar, .pv, .md blockquote, .md .escena, .alma-field__box, .alma-digits__box, .alma-seg) {
   background: color-mix(in srgb, var(--ui-01) calc(var(--glass-thin) * 100%), transparent);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
@@ -17,7 +13,6 @@ html body { background: transparent; }
 .alma-table thead th { background: transparent; }
 [data-theme$="-hc"] :is(.alma-card, .alma-list__rows, .alma-side, .alma-table-wrap, .alma-split__primary, .alma-columns, .alma-webview__bar, .pv, .md blockquote, .md .escena, .alma-field__box, .alma-digits__box, .alma-seg) { background: var(--ui-01); -webkit-backdrop-filter: none; backdrop-filter: none; }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
-  html body { background: var(--ui-02); } #alma-suelo { display: none; }
   :is(.alma-card, .alma-list__rows, .alma-side, .alma-table-wrap, .alma-split__primary, .alma-columns, .alma-webview__bar, .pv, .md blockquote, .md .escena, .alma-field__box, .alma-digits__box, .alma-seg) { background: var(--ui-01); -webkit-backdrop-filter: none; backdrop-filter: none; }
   :is(.alma-btn--tinted, .alma-btn--gray, .alma-tag) { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }

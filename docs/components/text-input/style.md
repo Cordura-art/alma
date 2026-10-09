@@ -47,7 +47,7 @@ En tema oscuro el borde y la etiqueta usan pasos claros de la rampa azul (`field
 
 | Elemento | Propiedad | Valor |
 |---|---|---|
-| Contenedor | radio | `radius-field` (8 px) |
+| Contenedor | radio | `radius-field` ({token:radius-field}) |
 | Contenedor | relleno lateral | 16 px (`space-16`); 15 px con el borde de 2 px del foco |
 | Contenedor | separación interna | 8 px (`space-8`) |
 | Etiqueta flotante | posición | sobre el borde superior, a 8 px del inicio |
@@ -69,7 +69,7 @@ El alto es mínimo: crece si la persona agranda el texto. Ancho por defecto 15 r
 
 ## Movimiento
 
-El borde cambia en `duration-fast-02` (110 ms) y la etiqueta sube al chip en `duration-moderate-01` (150 ms), ambos con `easing-standard-productive`. Con movimiento reducido, los cambios son instantáneos.
+El borde cambia en `duration-fast-02` ({token:duration-fast-02}) y la etiqueta sube al chip en `duration-moderate-01` ({token:duration-moderate-01}), ambos con `easing-standard-productive`. Con movimiento reducido, los cambios son instantáneos.
 
 ## Contraste
 

@@ -90,7 +90,6 @@ axe ya pasa en todos. Falta escuchar cada componente con un lector de pantalla r
 
 | Qué | Dónde | Estado |
 |---|---|---|
-| Valores fijos del vidrio de `PaymentCard` como tokens (opacidad, borde de 0,5 px, radio de 14,4 px, chip) | Guía de `PaymentCard`, pestaña Estilo | En pausa hasta que se decida |
 | Paquete de React con Storybook | Fase 2 | Por empezar |
 | Sitio de marca en línea (Astro en Vercel): punto de vista, principios, galería, logo, pictogramas e ilustración | Fase 3 | Por empezar |
 | Paquete de Flutter con Widgetbook | Fase 4 | Por empezar; los tokens de Dart ya se generan |

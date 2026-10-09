@@ -8,7 +8,8 @@ import { readdir, readFile, writeFile, mkdir, stat, copyFile } from 'node:fs/pro
 import { dirname } from 'node:path';
 import { generadorNavegador } from './lib/generativo.mjs';
 import { allScenes, cssEscenas, ayudantes, docDispositivo, datosEscenas, fuentesEscenas } from './build-images.mjs';
-import { sistema, aplicar, css as cssEntidad, palabras, restos, portada, origen } from './lib/documentacion.mjs';
+import { sistema, aplicar, css as cssEntidad, palabras, restos, portada, origen, conValores } from './lib/documentacion.mjs';
+const TOKENS = JSON.parse(await readFile('dist/json/tokens.json', 'utf8'));
 
 const args = process.argv.slice(2), ei = args.indexOf('--entidad');
 const ENT = ei >= 0 ? args.splice(ei, 2)[1] : null;
@@ -103,7 +104,7 @@ for (const f of (await readdir(P)).filter((f) => /^Guias-\d+-.+\.md$/.test(f)).s
 }
 const patterns = [];
 for (const f of (await readdir('docs/patterns')).filter((f) => f.endsWith('.md')).sort((a, b) => parseInt(a) - parseInt(b))) {
-  const src = adapt(await read(`docs/patterns/${f}`));
+  const src = adapt(conValores(await read(`docs/patterns/${f}`), TOKENS));
   const m = /^---\n([\s\S]*?)\n---\n/.exec(src), meta = {};
   for (const line of m[1].split('\n')) { const i = line.indexOf(':'); if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim(); }
   patterns.push({ slug: f.replace(/^\d+-|\.md$/g, ''), name: meta.pattern, summary: meta.summary, body: src.slice(m[0].length).trim() });
@@ -112,7 +113,7 @@ for (const f of (await readdir('docs/patterns')).filter((f) => f.endsWith('.md')
 // Effects: one page each from docs/efectos; a page with an id shows that effect live (site/efectos/<id>.js).
 const efectos = [];
 for (const f of (await readdir('docs/efectos')).filter((f) => f.endsWith('.md')).sort((a, b) => parseInt(a) - parseInt(b))) {
-  const src = adapt(await read(`docs/efectos/${f}`));
+  const src = adapt(conValores(await read(`docs/efectos/${f}`), TOKENS));
   const m = /^---\n([\s\S]*?)\n---\n/.exec(src), meta = {};
   for (const line of m[1].split('\n')) { const i = line.indexOf(':'); if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim(); }
   efectos.push({ slug: f.replace(/^\d+-|\.md$/g, ''), name: meta.efecto, id: meta.id || null, familia: meta.familia, summary: meta.summary, body: src.slice(m[0].length).trim() });

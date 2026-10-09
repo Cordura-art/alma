@@ -105,6 +105,23 @@ La guía Interfaces de IA pide una sola luz por pantalla. En el entorno hay tres
 
 **El Halo es de primer plano.** Mientras la IA está de fondo, su luz es solo el Velo: quieto, tenue y barato de dibujar. Cuando la ventana del asistente pasa al frente, el Halo aparece sobre el Velo; cuando deja de estarlo, se retira. `Window` avisa con `onActiveChange`.
 
+### El asistente a pantalla completa
+
+Es el escenario de la IA: su espacio. Al ampliar la ventana del asistente (`Window` con `kind: 'stage'`), el entorno se ordena en tres capas.
+
+| Capa | Qué | Regla |
+|---|---|---|
+| **El suelo** | El Velo, de lado a lado. La ventana no tiene fondo propio. | Es la misma luz del escritorio, no otra. Las demás ventanas esperan fuera de la vista. |
+| **La zona despejada** | Arriba, el Halo. Dice el estado: en reposo, escuchando mientras se escribe, pensando, respondiendo. | Sin texto ni controles encima. Mide 160 px de alto como mínimo. |
+| **La hoja** | Abajo y al centro, vidrio grueso: el saludo y las sugerencias, o la conversación, y la caja de pedido. | Ancho de lectura, 44 rem como mucho. Crece hacia arriba con la conversación y se desplaza por dentro. |
+
+- **Lo que se lee va siempre sobre la hoja.** El vidrio grueso admite los tres niveles de texto sobre cualquier luz.
+- **El Halo se achica y sube** a su zona; al volver a ventana flotante regresa al centro. El paso dura `duration-slow-02`.
+- **Si otra ventana pasa al frente,** el asistente recupera su fondo y el Halo se retira.
+- **En alto contraste o con menos transparencia,** la hoja es opaca. La luz sigue detrás y nada depende de ella.
+
+![El asistente ampliado hasta llenar el escritorio. La ventana no tiene fondo propio: el velo de luz la cruza de lado a lado. Arriba, en una zona despejada, el Halo. Abajo y al centro, una hoja de vidrio con el saludo «¿En qué te ayudo?», tres preguntas sugeridas y la caja para escribir el pedido. Bajo ella, el dock.](assets/Patrones/entorno-escenario.png)
+
 Si el fondo ya es la luz de la IA, el extra de la barra es solo el ícono. Nunca dos luces.
 
 Lo que la IA hace fuera de su ventana tiene dos piezas: una tarea larga se sigue con una `LiveActivity`, que muestra sus pasos y siempre deja detenerla; y cuando necesita permiso, o responde con un dato, lo hace con un `Snippet`.

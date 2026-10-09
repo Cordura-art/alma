@@ -257,7 +257,7 @@
     // One-hue series: the brand ramp. The largest value is the darkest step on light themes and the lightest on dark ones.
     [200, 400, 600, 700, 900].forEach(function (st, n) { vizLight['viz-seq-' + (n + 1)] = P0[st]; });
     [800, 700, 500, 300, 100].forEach(function (st, n) { vizDark['viz-seq-' + (n + 1)] = P0[st]; });
-    var shared = { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'text-on-interactive': WHITE, 'field-label-float-text': INK, 'product-card-text': INK };
+    var shared = { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'text-on-interactive': WHITE, 'field-label-float-text': INK };
     return {
       ramp: pal[0].name, deep: true, action: RO.action,
       dark: Object.assign({}, RO.dark, shared, vizDark, { 'nav-selected': navDark, 'field-border-active': navDark,
@@ -268,16 +268,25 @@
     };
   }
 
+  // The radii, from one base: a button takes it whole; the rest take it up to their own ceiling, so a small piece is never
+  // rounder than it is tall, and a container is never rounder than what it holds. ALMA's own radii follow this rule too
+  // (tokens/core/radius.json, from radius-base). The checkbox is apart: it keeps its corners, not to read as a radio.
+  var RADIUS_CAPS = { 'radius-button': Infinity, 'radius-tag': 100, 'radius-chip': 8, 'radius-field': 24, 'radius-nav': 24, 'radius-card': 24, 'radius-panel': 16, 'radius-swatch': 8 };
+  function radii(base) { var o = {}; Object.keys(RADIUS_CAPS).forEach(function (k) { o[k] = Math.min(base, RADIUS_CAPS[k]) + 'px'; }); return o; }
+
   // ---------- Entity → ALMA parameters (the translation rules, one per trait).
   function params(e) {
     var p = Number(e.profile.split('/')[0]), d = Number(e.profile.split('/')[1]);
     var auth = AUTH[e.auth], authCenter = auth.center ? centerOf(auth.center) : null;
-    var base = SHAPE[d].base, cap = function (n) { return Math.min(base, n) + 'px'; }, pal = palette(e);
+    var base = SHAPE[d].base, pal = palette(e);
     return {
       fontWidth: 100 + (p - 1) * 10,
       fontGrade: (d - 3) * 8,
       weights: auth.weights,
-      radius: { 'radius-button': base + 'px', 'radius-tag': cap(100), 'radius-chip': cap(8), 'radius-field': cap(24), 'radius-nav': cap(24), 'radius-card': cap(24), 'radius-panel': cap(16), 'radius-swatch': cap(8), 'radius-checkbox': [0, 1, 3, 2, 4, 4, 4][d] + 'px' },
+      // glass: an entity with few defined centres is open — most of it lets through what comes from outside. Its
+      // surfaces do too: with two centres or fewer, everything is in glass (foundation Profundidad).
+      glass: e.centers.length <= 2,
+      radius: Object.assign(radii(base), { 'radius-checkbox': [0, 1, 3, 2, 4, 4, 4][d] + 'px' }),
       palette: pal,
       accent: accentFor(pal, e.centers.indexOf('garganta') >= 0 && e.type !== 'reflector' && !e.color, e.color),
       motion: TYPES[e.type],
@@ -629,7 +638,7 @@
           h(A.Tabs, { label: 'Vistas de la entidad', tabs: tabs, value: tab[0], onChange: tab[1] }))));
   }
 
-  window.__ENGINE = { fromHex: fromHex, params: params, palette: palette, layout: layout, contrast: contrast, derive: derive, exportJson: exportJson, scopeStyle: scopeStyle, baseStyle: baseStyle, Signature: Signature, Palette: Palette, Preview: Preview, BodyGraph: BodyGraph, withCarta: withCarta, TYPES: TYPES, AUTH: AUTH, CENTERS: CENTERS, DEFS: DEFS, LINES: LINES, SHAPE: SHAPE, hueName: hueName };
+  window.__ENGINE = { fromHex: fromHex, params: params, radii: radii, palette: palette, layout: layout, contrast: contrast, derive: derive, exportJson: exportJson, scopeStyle: scopeStyle, baseStyle: baseStyle, Signature: Signature, Palette: Palette, Preview: Preview, BodyGraph: BodyGraph, withCarta: withCarta, TYPES: TYPES, AUTH: AUTH, CENTERS: CENTERS, DEFS: DEFS, LINES: LINES, SHAPE: SHAPE, hueName: hueName };
   if (window.__ENGINE_ONLY) return;
   paint(hostTheme());
   ReactDOM.createRoot(document.getElementById('root')).render(h(App));

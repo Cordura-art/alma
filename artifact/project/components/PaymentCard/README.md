@@ -1,134 +1,170 @@
 # PaymentCard
 
-Una tarjeta de pago virtual sobre vidrio oscuro, con su avance de activación.
+Una tarjeta de pago, como se tiene en la mano.
 
 
 ## Uso
 
 ### Resumen
 
-`PaymentCard` muestra una tarjeta de pago virtual y su estado de activación. Es propia de ALMA, de la billetera de Cordura.
+`PaymentCard` muestra una tarjeta de pago: quién la emite, su número, de quién es y hasta cuándo vale. Lo secreto queda oculto hasta que se pide, y su estado se dice siempre con palabras.
 
-#### Cuándo usarla
-- En la billetera, para mostrar la tarjeta y cómo va su activación.
+### Anatomía
 
-#### Cuándo no usarla
-- **Fuera de un fondo oscuro de marca:** el vidrio está pensado para `brand-black` o `brand-ink`.
-- **Para listar varias tarjetas:** una `List` con el nombre y los últimos 4 dígitos.
+1. **Emisor.**
+2. **Estado:** un ícono y una palabra.
+3. **Número.** Oculto, deja ver sus últimos cuatro dígitos.
+4. **Titular, vencimiento y CVV.**
+5. **Acciones,** bajo la tarjeta: mostrar u ocultar los datos, y copiar el número.
+
+![PaymentCard. A la izquierda, la tarjeta activa con sus datos a la vista y sus partes numeradas: el emisor (1), el estado «Activa» con su ícono (2), el número (3), el titular, el vencimiento y el CVV (4) y, bajo la tarjeta, las acciones «Ocultar datos» y «Copiar número» (5). A la derecha, tres tarjetas con los datos ocultos y otros estados: «Activando», «Pendiente» y «Bloqueada», esta última con sus datos apagados.](assets/Componentes/payment-card-estados.png)
+
+### Cuándo usarla
+
+- Para mostrar una tarjeta propia: en una billetera, al activar una tarjeta nueva, al pagar.
+- Chica (`size: 'sm'`), para elegir entre varias en una lista.
+
+### Cuándo no
+
+- **Para pedir los datos de una tarjeta:** un formulario con `TextInput`.
+- **Para una lista larga de medios de pago:** `List`, con el emisor y los últimos cuatro dígitos en cada fila.
 
 ### Estados
 
-| Estado | Texto | Dígitos | Chip | Muestra |
-|---|---|---|---|---|
-| `pending` | Pendiente | Rojo | Rojo | Últimos 4 dígitos. |
-| `activating` | Activando | Rojo | Amarillo | Últimos 4 dígitos. |
-| `enabled` | Habilitada | Verde | Verde | Últimos 4 dígitos. |
-| `active` | Activa | Verde | Verde | Número completo y vencimiento. |
+| Estado | Ícono | Qué significa | Datos |
+|---|---|---|---|
+| **Pendiente** | reloj | Se pidió y todavía no llega. | Ocultos. |
+| **Activando** | avance | Se está activando. | Ocultos. |
+| **Habilitada** | visto | Lista para usar; falta el primer uso. | Se pueden mostrar. |
+| **Activa** | visto | En uso. | Se pueden mostrar. |
+| **Bloqueada** | candado | No se puede usar. | Ocultos y apagados. |
 
-El estado se escribe junto al chip («Pendiente», «Activando», «Habilitada», «Activa»), así no depende del color.
+El estado nunca se dice solo con color: lleva su ícono y su palabra.
 
-![PaymentCard en sus cuatro estados sobre la tinta de marca: pendiente, activando, habilitada y activa.](assets/Componentes/payment-card-estados.png)
+### Los datos
 
-### Contenido
+- **Parten ocultos.** El número muestra solo sus últimos cuatro dígitos; el vencimiento y el CVV, puntos.
+- **Se muestran al pedirlo,** con «Mostrar datos», y se vuelven a ocultar con el mismo botón.
+- **El número se agrupa de a cuatro** y va en letra de ancho fijo, para leerlo y compararlo.
+- **Copiar copia el número sin espacios,** y lo confirma con texto: «Número copiado».
+- **Si la app puede, que pida identificarse** antes de mostrar. `PaymentCard` avisa con `onReveal`.
 
-- `brand`: el nombre del producto.
-- Solo el estado `active` muestra el número completo y el vencimiento; el CVV nunca.
+### Reglas
+
+- **La tarjeta es siempre oscura,** en todos los temas: es un objeto, no una superficie de la página.
+- **Una tarjeta grande por vista.** Las demás, chicas.
+- **No inventes números de ejemplo que parezcan reales** en una pantalla de producción.
 
 ### Relacionados
 
-`ProductCard` · `List`.
+`Card` · `List` · `TextInput` · `DigitEntry` · Indicadores de estado.
+
+### Referencias
+
+- Apple, Human Interface Guidelines: Wallet; Apple Pay.
 
 ## Estilo
 
 ### Color
 
+La tarjeta no cambia con el tema: sus colores son los mismos en los cuatro.
+
 | Elemento | Propiedad | Token |
 |---|---|---|
-| Marca | color del texto | `payment-card-brand` (`brand-steel`) |
-| Estado, etiquetas y valores | color del texto | `payment-card-text` |
-| Dígitos, chip y Copiar (pendiente, activando) | color | `payment-card-pending` |
-| Chip (activando) | borde | `payment-card-chip-activating` |
-| Dígitos, chip y Copiar (habilitada, activa) | color | `payment-card-active` |
-| Copiar:focus | contorno | `focus` (2 px) |
+| Tarjeta | fondo | `payment-card-bg`, con un brillo tenue en diagonal hecho de `payment-card-border` |
+| Tarjeta | borde | `payment-card-border`, al 40 % |
+| Tarjeta | canto inferior | `payment-card-edge` |
+| Emisor, número, valores | texto | `brand-white` |
+| Rótulos; datos de una tarjeta bloqueada | texto | `payment-card-text` |
+| Estado en curso (pendiente, activando) | ícono y texto | `payment-card-chip-activating` |
+| Estado habilitada o activa | ícono y texto | `payment-card-active` |
+| Estado bloqueada | ícono y texto | `payment-card-pending` |
+| «Número copiado» | texto | `text-02` |
 
-En alto contraste, `payment-card-text` y los colores de estado usan pasos más claros de sus rampas.
-
-### Valores fijos de Figma
-
-Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
-
-| Elemento | Valor |
-|---|---|
-| Vidrio | tinta de marca al 50 % de opacidad |
-| Borde | 0,5 px blanco al 42 % |
-| Radio | 14,4 px |
-| Chip | 34 × 24 px, radio 5 px |
+Todos los textos de la tarjeta tienen 4,5:1 o más sobre la parte más clara de su brillo.
 
 ### Tipografía
 
-| Elemento | Tamaño de letra (px / rem) | Peso |
+| Elemento | Tamaño | Detalle |
 |---|---|---|
-| Marca | 14 / 0,875 | `font-weight-emphasis` |
-| Estado y etiquetas | 11 / 0,6875 | `font-weight-body` |
-| Número | 16 / 1 | `font-weight-emphasis` |
-| Vencimiento y CVV | 16 / 1 | `font-weight-body` |
+| Número | 20 px; chica, 14 px | Ancho fijo, cifras tabulares |
+| Emisor | 16 px | `font-weight-emphasis` |
+| Valores | 14 px | — |
+| Estado | 12 px | — |
+| Rótulos | 11 px | — |
 
 ### Estructura
 
 | Elemento | Propiedad | Valor |
 |---|---|---|
-| Tarjeta | ancho, alto mínimo | 311 px (19,4375 rem), 190 px |
-| Tarjeta | relleno | 16 px arriba y abajo, 18 px a los lados |
-| Estado y chip | separación | 8 px |
-| Vencimiento y CVV | columnas, separación | 2, 16 px |
+| Tarjeta | ancho | hasta 352 px; chica, 256 px |
+| Tarjeta | proporción | 1,586 a 1, la de una tarjeta real. La chica toma el alto de su contenido |
+| Tarjeta | relleno | `space-24`; chica, `space-16` |
+| Tarjeta | radio | `radius-panel` |
+| Datos | separación | `space-24` |
+| Tarjeta y acciones | separación | `space-8` |
 
-![Medidas de PaymentCard: ancho de 311 px, alto mínimo de 190 px, relleno, radio y chip de 34 × 24 px.](assets/Componentes/payment-card-medidas.png)
-
-### Contraste
-
-La marca llega a 9:1 sobre el vidrio (en Figma era `#3A4660`, que daba 2:1). Dígitos, etiquetas y chip pasan AA sobre `brand-black` y `brand-ink`.
+![Medidas de PaymentCard: 352 px de ancho como máximo y la proporción de una tarjeta real, 1,586 a 1; relleno de 24 px; y el radio del panel.](assets/Componentes/payment-card-medidas.png)
 
 ## Código
 
-### Uso
-
 ```js
-const { PaymentCard } = window.AlmaDS;
-h(PaymentCard, { status: 'activating', brand: 'Cordura', last4: '4821', onCopy: copyNumber })
-h(PaymentCard, { status: 'active', brand: 'Cordura', last4: '4821', number: '4821 7730 1102 4821', expiry: '09/29', onCopy: copyNumber })
+var h = React.createElement, A = AlmaDS;
+
+h(A.PaymentCard, {
+  brand: 'Cordura', status: 'active',
+  number: numero, holder: 'Camila Rojas', expiry: '08/29', cvv: cvv,
+  onReveal: function (visible) { /* pide identificarse, registra */ }
+});
+
+// En una lista, chica y sin datos
+h(A.PaymentCard, { size: 'sm', brand: 'Cordura', status: 'blocked', last4: '4821' });
 ```
 
-### Propiedades
-
-| Propiedad | Tipo | Por defecto | Uso |
+| Propiedad | Tipo | Por defecto | Qué hace |
 |---|---|---|---|
-| `status` | `'pending' \| 'activating' \| 'enabled' \| 'active'` | `'pending'` | Estado. |
-| `brand` | `string` | `'Cordura'` | Nombre del producto. |
-| `last4` | `string` | `'0000'` | Últimos 4 dígitos. |
-| `number` / `expiry` | `string` | — | Solo se muestran en `active`. |
-| `onCopy` | `() => void` | — | Copiar el número. |
+| `brand` | texto | «Cordura» | El emisor. |
+| `status` | `pending`, `activating`, `enabled`, `active`, `blocked` | `active` | El estado. |
+| `number` | texto | — | El número completo. Sin él no hay nada que mostrar ni copiar. |
+| `last4` | texto | los últimos de `number` | Los cuatro dígitos que se ven con la tarjeta oculta. |
+| `holder` | texto | — | El titular. |
+| `expiry` | texto | — | El vencimiento: «08/29». |
+| `cvv` | texto | — | El código. Solo se ve con los datos a la vista. |
+| `revealed`, `defaultRevealed` | sí o no | no | Si los datos están a la vista, controlado o inicial. |
+| `onReveal` | función | — | Recibe `true` o `false` al mostrar u ocultar. |
+| `onCopy` | función | — | Recibe el número al copiarlo. |
+| `actions` | sí o no | sí | Con `false`, sin las acciones de abajo. |
+| `size` | `sm` | — | Chica: emisor, estado y últimos cuatro dígitos. |
+| `label` | texto | — | El nombre de la tarjeta para un lector de pantalla, si el de siempre no sirve. |
 
-Al copiar, confirma con un `toast` («Número copiado»).
+Los datos solo se pueden mostrar en una tarjeta habilitada o activa.
+
+Cambio de octubre de 2026: el estado por defecto es `active` (era `pending`), y se agregan `holder`, `cvv`, `blocked`, `size` y las acciones.
 
 ## Accesibilidad
 
 ### Qué ofrece ALMA
 
-- El estado está escrito en la tarjeta, junto al chip («Activando»): no depende del color (WCAG 1.4.1) y el lector lo lee.
-- El número enmascarado se lee «terminada en 4821», no como una fila de puntos; el vencimiento y el CVV ocultos, como «oculta» y «oculto».
-- Copiar se llama «Copiar número».
+- **La tarjeta es un grupo con nombre:** «Tarjeta Cordura terminada en 7 6 3 7, activa».
+- **El estado se dice con palabras** y con un ícono, nunca solo con color.
+- **Los puntos no se leen.** Un dato oculto se anuncia como «oculto», y el número como «terminado en 7 6 3 7», dígito por dígito.
+- **Mostrar y ocultar es un botón que dice lo que hará:** «Mostrar datos» u «Ocultar datos».
+- **Copiar lo confirma con texto,** «Número copiado», que también se anuncia.
+- **El contraste no depende del tema:** la tarjeta es siempre oscura y sus textos tienen 4,5:1 o más.
 
-#### Interacciones de teclado
+### Lo que te toca
 
-| Tecla | Acción |
+- No muestres los datos sin que la persona lo pida.
+- Si tu app exige identificarse antes de mostrar, hazlo en `onReveal`.
+- Con varias tarjetas, que el emisor y los últimos cuatro dígitos las distingan.
+
+### Teclado
+
+| Tecla | Qué hace |
 |---|---|
-| Tab | Llega a Copiar. |
-| Enter o Espacio | Copia el número. |
+| Tab | Va a «Mostrar datos» y después a «Copiar número». |
+| Enter o Espacio | Muestra u oculta los datos; copia el número. |
 
-### Consideraciones de desarrollo
+### Pruebas
 
-- Confirma la copia con un `toast`: el botón no cambia de aspecto.
-
-### Verificación
-
-axe sin problemas sobre fondo de marca. Pendiente: VoiceOver y NVDA.
+Pendiente: VoiceOver y NVDA.

@@ -1,23 +1,28 @@
 {
   "radius": {
+    "radius-base": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "El radio base. Los demás radios salen de él: el botón lo toma entero y cada pieza lo toma hasta su tope. Para cambiar la forma de todo el sistema se cambia este valor y se corre npm run build."
+    },
     "radius-chip": {
       "$type": "dimension",
-      "$value": "4px",
+      "$value": "8px",
       "$description": "Etiquetas flotantes de campo, globos de ayuda y contornos de foco pequeños."
     },
     "radius-swatch": {
       "$type": "dimension",
-      "$value": "2px",
+      "$value": "8px",
       "$description": "Tarjetas de muestra de color."
     },
     "radius-panel": {
       "$type": "dimension",
-      "$value": "8px",
+      "$value": "16px",
       "$description": "Menús, alertas y tarjetas de lista (en Figma: ProductCard y tarjetas de viaje)."
     },
     "radius-card": {
       "$type": "dimension",
-      "$value": "8px",
+      "$value": "16px",
       "$description": "Marcos de documentación y tarjetas grandes."
     },
     "radius-button": {
@@ -27,17 +32,17 @@
     },
     "radius-field": {
       "$type": "dimension",
-      "$value": "8px",
+      "$value": "16px",
       "$description": "Campos: TextInput, Textarea, Search y el campo del Slider."
     },
     "radius-nav": {
       "$type": "dimension",
-      "$value": "8px",
+      "$value": "16px",
       "$description": "Destinos de navegación: Tabs, Sidebar, ítems de menú y Breadcrumb."
     },
     "radius-tag": {
       "$type": "dimension",
-      "$value": "8px",
+      "$value": "16px",
       "$description": "Tag, fichas del buscador, Badge y archivos del FileUploader."
     },
     "radius-checkbox": {

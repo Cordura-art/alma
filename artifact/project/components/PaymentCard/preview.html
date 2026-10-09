@@ -1,13 +1,18 @@
-<!-- @dsCard group="Contenido" height=460 subtitle="Tarjeta de pago en 4 estados" -->
-<div id="root" style="padding:24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(311px,1fr));gap:16px;background:var(--brand-black);"></div>
+<!-- @dsCard group="Contenido" height=620 subtitle="Muestra y oculta sus datos · sus cinco estados · chica, para una lista" -->
+<div id="root" style="padding:24px;display:grid;gap:32px;"></div>
 <script>
   // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
   document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, C = AlmaDS.PaymentCard;
+  // (a number made up for the sample: it belongs to no one)
+  var fila = { display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'flex-start' };
   ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
-    h(C, { brand: 'C.WalletPay', status: 'pending', last4: '0000' }),
-    h(C, { brand: 'C.WalletPay', status: 'activating', last4: '0637' }),
-    h(C, { brand: 'C.WalletPay', status: 'enabled', last4: '7637' }),
-    h(C, { brand: 'C.WalletPay', status: 'active', number: '5432  8765  7654  7 6 3 7', expiry: '08/29' })
-  ));
+    h('div', { style: fila },
+      h(C, { brand: 'Cordura', status: 'active', number: '5432 8765 7654 7637', holder: 'Camila Rojas', expiry: '08/29', cvv: '417' }),
+      h(C, { brand: 'Cordura', status: 'activating', last4: '0637', holder: 'Camila Rojas' }),
+      h(C, { brand: 'Cordura', status: 'blocked', last4: '4821', holder: 'Camila Rojas', expiry: '11/27' })),
+    h('div', { style: fila },
+      h(C, { size: 'sm', brand: 'Cordura', status: 'active', last4: '7637' }),
+      h(C, { size: 'sm', brand: 'Cordura', status: 'pending', last4: '0000' }),
+      h(C, { size: 'sm', brand: 'Cordura', status: 'enabled', last4: '4821' }))));
 </script>

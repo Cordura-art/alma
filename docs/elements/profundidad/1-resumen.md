@@ -50,13 +50,12 @@ Con medida: es para los elementos funcionales que más importan. Si se ve vidrio
 
 ## Todo en vidrio
 
-Una entidad puede pedir vidrio en todo, con `"vidrio": true` en su lenguaje. ORCA lo hace. Cambian dos cosas:
+Una entidad lleva vidrio en todo cuando su carta es abierta: dos centros definidos o menos, de nueve. Una carta así deja pasar casi todo lo que viene de afuera, y sus superficies también. Lo decide la regla, igual que el color o el radio; nadie lo enciende a mano. Hoy es el caso de ORCA. Cambian dos cosas:
 
-- **El suelo de la página es el Velo, muy tenue.** Sin algo detrás, un vidrio no deja pasar nada.
-- **Los contenedores y los campos pasan a vidrio delgado** sobre él: tarjetas, listas, tablas, la barra lateral, los campos de texto.
+- **Los contenedores y los campos pasan a vidrio delgado:** tarjetas, listas, tablas, la barra lateral, los campos de texto.
 - **Los botones de fondo tenue** (`tinted` y `gray`) y las etiquetas desenfocan lo que tienen detrás. El `filled` sigue sólido: es la acción que tiene que verse primero, y su texto blanco necesita todo su color debajo.
 
-Es la excepción a la regla de arriba, y tiene su condición: la fuerza del Velo está acotada (0,18 en oscuro y 0,1 en claro), y con él debajo los tres niveles de texto siguen en 4,5:1. En alto contraste y con menos transparencia, el suelo es liso y todo vuelve a ser opaco.
+**La página no lleva luz propia.** Su fondo es liso. El Velo es de la IA y aparece donde ella está: el fondo de un escritorio, el escenario de un asistente. Ahí es donde el vidrio deja pasar algo; sobre el fondo liso de una página se ve como una superficie apenas más clara. En alto contraste y con menos transparencia, todo vuelve a ser opaco.
 
 ## El vidrio y los fondos
 

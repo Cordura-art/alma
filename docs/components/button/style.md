@@ -233,7 +233,7 @@ Contorno de 2 px en `focus`, separado 2 px del contenedor, solo con teclado (`:f
 
 ## Movimiento
 
-Fondo y texto cambian en `duration-fast-01` (70 ms) con `easing-standard-productive`. El indicador de carga gira sin fin; con movimiento reducido se detiene y queda visible al 60 %.
+Fondo y texto cambian en `duration-fast-01` ({token:duration-fast-01}) con `easing-standard-productive`. El indicador de carga gira sin fin; con movimiento reducido se detiene y queda visible al 60 %.
 
 ## Contraste
 

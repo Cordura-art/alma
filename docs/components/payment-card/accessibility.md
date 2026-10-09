@@ -7,21 +7,26 @@ summary: Qué resuelve ALMA en la tarjeta de pago.
 
 ## Qué ofrece ALMA
 
-- El estado está escrito en la tarjeta, junto al chip («Activando»): no depende del color (WCAG 1.4.1) y el lector lo lee.
-- El número enmascarado se lee «terminada en 4821», no como una fila de puntos; el vencimiento y el CVV ocultos, como «oculta» y «oculto».
-- Copiar se llama «Copiar número».
+- **La tarjeta es un grupo con nombre:** «Tarjeta Cordura terminada en 7 6 3 7, activa».
+- **El estado se dice con palabras** y con un ícono, nunca solo con color.
+- **Los puntos no se leen.** Un dato oculto se anuncia como «oculto», y el número como «terminado en 7 6 3 7», dígito por dígito.
+- **Mostrar y ocultar es un botón que dice lo que hará:** «Mostrar datos» u «Ocultar datos».
+- **Copiar lo confirma con texto,** «Número copiado», que también se anuncia.
+- **El contraste no depende del tema:** la tarjeta es siempre oscura y sus textos tienen 4,5:1 o más.
 
-### Interacciones de teclado
+## Lo que te toca
 
-| Tecla | Acción |
+- No muestres los datos sin que la persona lo pida.
+- Si tu app exige identificarse antes de mostrar, hazlo en `onReveal`.
+- Con varias tarjetas, que el emisor y los últimos cuatro dígitos las distingan.
+
+## Teclado
+
+| Tecla | Qué hace |
 |---|---|
-| Tab | Llega a Copiar. |
-| Enter o Espacio | Copia el número. |
+| Tab | Va a «Mostrar datos» y después a «Copiar número». |
+| Enter o Espacio | Muestra u oculta los datos; copia el número. |
 
-## Consideraciones de desarrollo
+## Pruebas
 
-- Confirma la copia con un `toast`: el botón no cambia de aspecto.
-
-## Verificación
-
-axe sin problemas sobre fondo de marca. Pendiente: VoiceOver y NVDA.
+Pendiente: VoiceOver y NVDA.

@@ -41,6 +41,7 @@ Antes de usarla, lee el patrón **Entorno**.
 | **Principal** | — | La ventana de una app, con su navegación. |
 | **Auxiliar** | — | Una sola tarea. No lleva a otras partes de la app, y se cierra al terminar. |
 | **Panel** | `panel` | El detalle de lo seleccionado en otra ventana. Menor, toda de vidrio, sin ampliar. |
+| **Escenario** | `stage` | La ventana de un asistente. Flotando es una ventana como las demás. Ampliada y al frente no tiene fondo propio: su suelo es la luz del escritorio, y lo que se lee va en una hoja de vidrio adentro. Las ventanas de atrás esperan fuera de la vista. |
 
 ## Estados
 

@@ -1,13 +1,18 @@
-<!-- @dsCard group="Contenido" height=420 subtitle="Tarjeta con desplegable" -->
-<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;"></div>
+<!-- @dsCard group="Contenido" height=560 subtitle="En grilla, con rebaja, agotado y en fila" -->
+<div id="root" style="padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:stretch;"></div>
 <script>
   // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
   document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, P = AlmaDS.ProductCard;
-  var body = 'Los tiempos de escucha son aproximados y se midieron con reproducción de música, con el estuche completamente cargado y otras funciones desactivadas.';
+  // A picture drawn with the theme's own colours, so the sample needs no file and follows every entity.
+  function foto(forma) { var cs = getComputedStyle(document.documentElement), k = function (n) { return cs.getPropertyValue(n).trim(); };
+    var f = { audifonos: '<path d="M120 170a80 80 0 0 1 160 0" fill="none" stroke="' + k('--text-01') + '" stroke-width="14"/><rect x="100" y="160" width="44" height="80" rx="20" fill="' + k('--interactive-01') + '"/><rect x="256" y="160" width="44" height="80" rx="20" fill="' + k('--interactive-01') + '"/>',
+      parlante: '<rect x="140" y="70" width="120" height="170" rx="24" fill="' + k('--interactive-01') + '"/><circle cx="200" cy="180" r="36" fill="' + k('--ui-02') + '"/><circle cx="200" cy="110" r="14" fill="' + k('--ui-02') + '"/>',
+      estuche: '<rect x="120" y="110" width="160" height="110" rx="40" fill="' + k('--text-01') + '"/><rect x="120" y="150" width="160" height="6" fill="' + k('--ui-04') + '"/><circle cx="200" cy="185" r="6" fill="' + k('--interactive-01') + '"/>' }[forma];
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="' + k('--ui-04') + '"/>' + f + '</svg>'); }
   ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
-    h(P, { title: 'Detalles del producto', subtitle: 'Autonomía de 11 horas', defaultOpen: true }, body),
-    h(P, { title: 'Garantía y soporte', tone: 'cyan' }, body),
-    h(P, { title: 'Envío', tone: 'yellow' }, body)
-  ));
+    h(P, { href: '#', image: foto('audifonos'), imageAlt: 'Audífonos de diadema, con almohadillas azules', badge: 'Nuevo', eyebrow: 'Audio', title: 'Audífonos Ruta', description: 'Cancelación de ruido y 30 horas de batería, para viajes largos.', rating: { value: 4.5, count: 1284 }, price: '$89.990', priceNote: 'o 6 cuotas de $14.998', action: { label: 'Agregar', icon: 'add', onPress: function () {} } }),
+    h(P, { href: '#', image: foto('parlante'), imageAlt: 'Parlante portátil azul, de pie', eyebrow: 'Audio', title: 'Parlante Andén', description: 'Resiste el agua y suena 12 horas.', rating: { value: 4, count: 312 }, price: '$39.990', previousPrice: '$54.990', priceNote: 'Hasta el 4 de abril', action: { label: 'Agregar', icon: 'add', onPress: function () {} } }),
+    h(P, { href: '#', image: foto('estuche'), imageAlt: 'Estuche de carga, cerrado', eyebrow: 'Accesorios', title: 'Estuche de carga', description: 'Tres cargas completas en el bolsillo.', price: '$19.990', unavailable: 'Agotado. Vuelve el 12 de abril.' }),
+    h(P, { layout: 'horizontal', href: '#', image: foto('audifonos'), imageAlt: 'Audífonos de diadema, con almohadillas azules', eyebrow: 'En tu carro', title: 'Audífonos Ruta', rating: { value: 4.5, count: 1284 }, price: '$89.990', action: { label: 'Quitar', variant: 'gray', onPress: function () {} } })));
 </script>

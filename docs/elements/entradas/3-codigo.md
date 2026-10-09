@@ -46,6 +46,6 @@ boton.addEventListener('click', guardar);
 
 | Token | Valor | Para |
 |---|---|---|
-| `size-touch-min` | 44 px | El área mínima de todo control. |
-| `size-control-compact` | 32 px | Controles en densidad compacta, solo con puntero fino. |
-| `space-8` | 8 px | La separación mínima entre dos áreas de toque. |
+| `size-touch-min` | {token:size-touch-min} | El área mínima de todo control. |
+| `size-control-compact` | {token:size-control-compact} | Controles en densidad compacta, solo con puntero fino. |
+| `space-8` | {token:space-8} | La separación mínima entre dos áreas de toque. |

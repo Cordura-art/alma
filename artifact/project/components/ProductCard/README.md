@@ -1,43 +1,65 @@
 # ProductCard
 
-Una tarjeta desplegable con fondo del color de una familia de etiquetas.
+Algo que se vende: su imagen, su nombre, su precio y una acción.
 
 
 ## Uso
 
 ### Resumen
 
-`ProductCard` muestra un título y, al desplegarla, un dato destacado, una imagen y un texto. Su fondo toma el color de una familia de etiquetas. Es propia de ALMA.
-
-#### Cuándo usarla
-- Productos o beneficios que se hojean y se abren para leer más.
-
-#### Cuándo no usarla
-- **Una tarjeta que lleva a otra página:** `Card`.
-- **Contenido largo por partes:** `Accordion`.
+`ProductCard` presenta un producto en una grilla o en una lista: su imagen, su nombre, lo que dice la gente de él, lo que cuesta y una cosa que hacer con él. Toda la tarjeta abre el producto; su acción tiene un área propia.
 
 ### Anatomía
 
-1. **Título.**
-2. **Botón** Expandir / Contraer.
-3. **Dato destacado** (al abrir).
-4. **Imagen** (al abrir), 328 × 245.
-5. **Texto** (al abrir).
+1. **Imagen**, en proporción 4 a 3. Lo primero que se mira.
+2. **Insignia** (opcional): una sola palabra sobre la imagen. «Nuevo».
+3. **Categoría** (opcional), en texto secundario.
+4. **Nombre.** Es el título de la tarjeta y su enlace.
+5. **Descripción** (opcional): una frase, dos líneas como mucho.
+6. **Valoración** (opcional): las estrellas, la cifra y cuántas personas opinaron.
+7. **Precio**, y su nota: las cuotas, hasta cuándo vale.
+8. **Acción:** una sola. «Agregar».
 
-![ProductCard en el tono rojo, cerrada y abierta.](assets/Componentes/product-card-tono.png)
+![ProductCard. A la izquierda, una tarjeta con sus partes numeradas: la imagen (1) con la insignia «Nuevo» (2), la categoría (3), el nombre (4), la descripción (5), la valoración (6), el precio con su nota (7) y la acción «Agregar» (8). Al centro, una con rebaja: el precio anterior tachado junto al nuevo. A la derecha, una agotada: la imagen apagada y, en lugar de la acción, «Agotado. Vuelve el 12 de abril.»](assets/Componentes/product-card-tono.png)
 
-### Tonos
+### Cuándo usarla
 
-El fondo usa `tag-<tono>-bg`: `red` (por defecto), `yellow`, `magenta`, `purple`, `blue`, `cyan`, `teal`, `green`, `warmgray`, `gray` o `coolgray`. No mezcles más de dos tonos en una misma lista.
+- En una grilla o un carrusel de productos: úsala dentro de una `Collection`.
+- En una lista corta, como un carro: con `layout: 'horizontal'`.
 
-### Comportamiento
+### Cuándo no
 
-- El botón abre y cierra; el contenido aparece bajando.
-- `collapsible: false` la deja siempre abierta, sin botón.
+- **Para un contenido que no se vende:** `Card`.
+- **Para comparar muchos productos por sus datos:** `Table`.
+- **Para un texto que se despliega:** `Accordion`. Hasta octubre de 2026 `ProductCard` era una tarjeta desplegable de color; ese uso es de `Accordion`.
+
+### El precio
+
+- **El precio de hoy es lo más visible** después del nombre.
+- **Una rebaja muestra los dos precios:** el anterior tachado y más chico, a la izquierda, y el nuevo. Nunca solo el color dice que hay rebaja.
+- **La nota dice la condición:** «o 6 cuotas de $14.998», «Hasta el 4 de abril». Una línea.
+- **Con el formato del país:** «$89.990».
+
+### Agotado
+
+Cuando no se puede comprar, la acción se reemplaza por un texto que dice por qué y, si se sabe, hasta cuándo: «Agotado. Vuelve el 12 de abril.» La imagen se apaga. La tarjeta se sigue pudiendo abrir.
+
+### Reglas
+
+- **Una sola acción.** Dos botones en cada tarjeta de una grilla son demasiados.
+- **La acción es `tinted`,** no `filled`: en una grilla hay muchas, y ninguna es la principal de la pantalla.
+- **La insignia es una palabra,** y pocas tarjetas la llevan. Si todas son «Nuevo», ninguna lo es.
+- **Todas las tarjetas de una grilla miden lo mismo** y llevan las mismas partes, aunque alguna quede vacía.
+- **La imagen muestra el producto,** sobre un fondo parejo. Su texto alternativo dice qué es.
 
 ### Relacionados
 
-`Card` · `Accordion` · `Tag`.
+`Card` · `Collection` · `Rating` · `ImageView` · `Table`.
+
+### Referencias
+
+- Apple, Human Interface Guidelines: Collections; Buttons.
+- Baymard Institute: Product list item design.
 
 ## Estilo
 
@@ -45,81 +67,99 @@ El fondo usa `tag-<tono>-bg`: `red` (por defecto), `yellow`, `magenta`, `purple`
 
 | Elemento | Propiedad | Token |
 |---|---|---|
-| Tarjeta | fondo | `product-card-bg`, o `tag-<tono>-bg` |
-| Título y texto | color | `product-card-text` (`text-on-interactive`) |
-| Dato destacado | color | `product-card-subtitle` |
-| Botón | fondo | `product-card-toggle-bg` (`brand-white`) |
-| Botón:focus | contorno | `focus` (2 px, separado 2 px) |
+| Tarjeta | fondo | `card-bg`; con el cursor encima, `card-bg-hover` |
+| Tarjeta | borde | `card-border` |
+| Imagen | fondo, mientras carga | `ui-03` |
+| Insignia | fondo y texto | `ui-01` y `text-01` |
+| Nombre, precio | texto | `text-01` |
+| Categoría, descripción, precio anterior, nota, «Agotado» | texto | `text-02` |
+| Foco | contorno | `focus` |
 
 ### Tipografía
 
-| Elemento | Tamaño de letra (px / rem) | Estilo de texto |
+| Elemento | Tamaño | Peso |
 |---|---|---|
-| Título | 16 / 1 | `web-label-l` |
-| Dato destacado | 20 / 1,25 | `web-label-xl` |
-| Texto | 14 / 0,875, al 87 % de opacidad | `web-body-m` |
+| Nombre | 18 px | `font-weight-heading` |
+| Precio | 20 px, cifras tabulares | `font-weight-emphasis` |
+| Descripción, precio anterior | 14 px | `font-weight-body` |
+| Categoría, nota, insignia | 12 px | — |
 
 ### Estructura
 
 | Elemento | Propiedad | Valor |
 |---|---|---|
-| Tarjeta | ancho | 328 px (20,5 rem) |
+| Tarjeta | ancho | hasta 320 px; en fila, hasta 576 px |
 | Tarjeta | radio | `radius-panel` |
-| Cabecera | relleno | 16 px |
-| Imagen | alto | 245 px, recortada |
-| Texto | relleno | 20 px arriba y abajo, 16 px a los lados |
-| Botón | relleno, radio | 4 px, `radius-pill`; área de toque de 44 px |
+| Imagen | proporción | 4 a 3; en fila, cuadrada y de 160 px |
+| Cuerpo | relleno | `space-16` a los lados, `space-24` abajo |
+| Cuerpo | entre líneas | `space-8` |
+| Insignia | desde el borde | `space-16` |
+| Acción | relleno | `space-16` |
 
-![Medidas de ProductCard: relleno, botón para abrir y cerrar, separación entre encabezado y cuerpo, y radio.](assets/Componentes/product-card-medidas.png)
-
-### Movimiento
-
-El contenido aparece bajando 4 px en `duration-moderate-02` con `easing-entrance-productive`. Con movimiento reducido, sin animación.
-
-### Contraste
-
-Texto a 4,5:1 sobre los once fondos de etiqueta, en los cuatro temas.
+![Medidas de ProductCard: 320 px de ancho como máximo, la imagen en proporción 4 a 3, relleno de 16 px a los lados y 8 px entre las líneas del texto.](assets/Componentes/product-card-medidas.png)
 
 ## Código
 
-### Uso
-
 ```js
-const { ProductCard } = window.AlmaDS;
-h(ProductCard, { title: 'Pasaje flexible', subtitle: '$1.990 extra', tone: 'teal',
-  image: 'flexible.jpg', imageAlt: '' }, 'Cambia la fecha sin costo hasta 4 horas antes de la salida.')
+var h = React.createElement, A = AlmaDS;
+
+h(A.ProductCard, {
+  href: '/audifonos-ruta',
+  image: '/img/audifonos-ruta.jpg', imageAlt: 'Audífonos de diadema, con almohadillas azules',
+  badge: 'Nuevo', eyebrow: 'Audio', title: 'Audífonos Ruta',
+  description: 'Cancelación de ruido y 30 horas de batería, para viajes largos.',
+  rating: { value: 4.5, count: 1284 },
+  price: '$89.990', priceNote: 'o 6 cuotas de $14.998',
+  action: { label: 'Agregar', icon: 'add', onPress: agregar }
+});
 ```
 
-### Propiedades
-
-| Propiedad | Tipo | Por defecto | Uso |
+| Propiedad | Tipo | Por defecto | Qué hace |
 |---|---|---|---|
-| `title` | `string` | — | Obligatorio. |
-| `subtitle` | `string` | — | Dato destacado. |
-| `image` / `imageAlt` | `string` | — | Imagen; `imageAlt` vacío si es decorativa. |
-| `children` | `node` | — | El texto. |
-| `tone` | `string` | `'red'` | Familia de etiqueta del fondo. |
-| `open` / `defaultOpen` / `onToggle` | `boolean` / `(open) => void` | — | Abierta o cerrada. |
-| `collapsible` | `boolean` | `true` | `false`: siempre abierta. |
+| `title` | texto | — | El nombre del producto. Obligatorio. |
+| `href`, `onPress` | texto, función | — | Adónde lleva la tarjeta, o qué hace al tocarla. Toda la tarjeta responde. |
+| `image`, `imageAlt` | texto | — | La imagen y su texto alternativo. |
+| `badge` | texto | — | La insignia sobre la imagen. |
+| `eyebrow` | texto | — | La categoría. |
+| `description` | texto | — | Una frase. Se corta en dos líneas. |
+| `rating` | `{ value, count }` | — | La valoración, como en `Rating`. |
+| `price` | texto | — | El precio de hoy, ya con formato. |
+| `previousPrice` | texto | — | El precio anterior, tachado. |
+| `priceNote` | texto | — | La nota bajo el precio. |
+| `action` | `{ label, onPress, icon, variant, ariaLabel }` | — | La acción. `variant` es `tinted` si no se dice. |
+| `unavailable` | sí, o texto | no | Reemplaza la acción por «Agotado», o por el texto que le des. |
+| `layout` | `vertical`, `horizontal` | `vertical` | En grilla o en fila. |
+| `headingLevel` | número | 3 | El nivel del título. |
+
+En una grilla, usa `Collection` con `minItemWidth` de 240 a 320.
+
+Cambio de octubre de 2026: `subtitle`, `tone`, `open`, `defaultOpen`, `collapsible`, `onToggle` y el contenido como hijos ya no existen. Para un texto que se despliega, usa `Accordion`.
 
 ## Accesibilidad
 
 ### Qué ofrece ALMA
 
-- El botón se llama «Expandir» o «Contraer» y tiene `aria-expanded`.
-- Su área de toque mide 44 × 44 px, aunque se vea más chico.
+- **La tarjeta es un artículo** que lleva el nombre de su producto.
+- **Toda la tarjeta se puede tocar, con un solo enlace:** el del nombre. Un lector de pantalla lo encuentra una vez, no una por cada parte.
+- **La acción tiene su propio nombre:** «Agregar: Audífonos Ruta». En una grilla, veinte botones «Agregar» iguales no dicen nada.
+- **La rebaja se dice con palabras:** «Antes $54.990, ahora $39.990». El tachado solo se ve.
+- **La valoración dice su valor:** «4,5 de 5 estrellas».
+- **«Agotado» es texto,** no un botón apagado: se lee y explica qué pasa.
+- **El foco se ve** alrededor de toda la tarjeta.
 
-#### Interacciones de teclado
+### Lo que te toca
 
-| Tecla | Acción |
+- Escribe el texto alternativo de la imagen: qué producto es, no «foto».
+- No pongas en la insignia algo que solo se entienda por su color.
+- Si la tarjeta tiene acción, que haga una sola cosa y diga cuál.
+
+### Teclado
+
+| Tecla | Qué hace |
 |---|---|
-| Tab | Llega al botón. |
-| Enter o Espacio | Abre o cierra. |
+| Tab | Va al nombre (la tarjeta) y después a su acción. |
+| Enter | Abre el producto, o ejecuta la acción. |
 
-### Recomendaciones de diseño
+### Pruebas
 
-- «Expandir» no dice qué se expande: si hay varias tarjetas juntas, el título debe ser lo bastante claro para ubicarse.
-
-### Verificación
-
-axe sin problemas en los cuatro temas. Pendiente: VoiceOver y NVDA.
+Pendiente: VoiceOver y NVDA.

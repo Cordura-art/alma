@@ -9,37 +9,33 @@ summary: Especificaciones visuales de la tarjeta de producto.
 
 | Elemento | Propiedad | Token |
 |---|---|---|
-| Tarjeta | fondo | `product-card-bg`, o `tag-<tono>-bg` |
-| Título y texto | color | `product-card-text` (`text-on-interactive`) |
-| Dato destacado | color | `product-card-subtitle` |
-| Botón | fondo | `product-card-toggle-bg` (`brand-white`) |
-| Botón:focus | contorno | `focus` (2 px, separado 2 px) |
+| Tarjeta | fondo | `card-bg`; con el cursor encima, `card-bg-hover` |
+| Tarjeta | borde | `card-border` |
+| Imagen | fondo, mientras carga | `ui-03` |
+| Insignia | fondo y texto | `ui-01` y `text-01` |
+| Nombre, precio | texto | `text-01` |
+| Categoría, descripción, precio anterior, nota, «Agotado» | texto | `text-02` |
+| Foco | contorno | `focus` |
 
 ## Tipografía
 
-| Elemento | Tamaño de letra (px / rem) | Estilo de texto |
+| Elemento | Tamaño | Peso |
 |---|---|---|
-| Título | 16 / 1 | `web-label-l` |
-| Dato destacado | 20 / 1,25 | `web-label-xl` |
-| Texto | 14 / 0,875, al 87 % de opacidad | `web-body-m` |
+| Nombre | 18 px | `font-weight-heading` |
+| Precio | 20 px, cifras tabulares | `font-weight-emphasis` |
+| Descripción, precio anterior | 14 px | `font-weight-body` |
+| Categoría, nota, insignia | 12 px | — |
 
 ## Estructura
 
 | Elemento | Propiedad | Valor |
 |---|---|---|
-| Tarjeta | ancho | 328 px (20,5 rem) |
+| Tarjeta | ancho | hasta 320 px; en fila, hasta 576 px |
 | Tarjeta | radio | `radius-panel` |
-| Cabecera | relleno | 16 px |
-| Imagen | alto | 245 px, recortada |
-| Texto | relleno | 20 px arriba y abajo, 16 px a los lados |
-| Botón | relleno, radio | 4 px, `radius-pill`; área de toque de 44 px |
+| Imagen | proporción | 4 a 3; en fila, cuadrada y de 160 px |
+| Cuerpo | relleno | `space-16` a los lados, `space-24` abajo |
+| Cuerpo | entre líneas | `space-8` |
+| Insignia | desde el borde | `space-16` |
+| Acción | relleno | `space-16` |
 
-![Medidas de ProductCard: relleno, botón para abrir y cerrar, separación entre encabezado y cuerpo, y radio.](assets/Componentes/product-card-medidas.png)
-
-## Movimiento
-
-El contenido aparece bajando 4 px en `duration-moderate-02` con `easing-entrance-productive`. Con movimiento reducido, sin animación.
-
-## Contraste
-
-Texto a 4,5:1 sobre los once fondos de etiqueta, en los cuatro temas.
+![Medidas de ProductCard: 320 px de ancho como máximo, la imagen en proporción 4 a 3, relleno de 16 px a los lados y 8 px entre las líneas del texto.](assets/Componentes/product-card-medidas.png)

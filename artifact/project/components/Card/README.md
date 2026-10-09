@@ -16,7 +16,7 @@ Un contenedor de un tema: un viaje, una noticia, una configuración.
 #### Cuándo no usarla
 - **Para comparar elementos por los mismos datos:** `Table`.
 - **Para listas de ajustes o destinos:** `List`.
-- **Para un producto con despliegue y color de marca:** `ProductCard`.
+- **Para algo que se vende, con precio y acción:** `ProductCard`.
 
 ### Anatomía
 

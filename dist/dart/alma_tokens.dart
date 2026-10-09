@@ -406,12 +406,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     required this.stepperBg,
     required this.stepperBgHover,
     required this.stepperBorder,
-    required this.productCardBg,
-    required this.productCardText,
-    required this.productCardSubtitle,
-    required this.productCardToggleBg,
     required this.paymentCardBrand,
     required this.paymentCardText,
+    required this.paymentCardBg,
+    required this.paymentCardBorder,
+    required this.paymentCardEdge,
     required this.paymentCardPending,
     required this.paymentCardActive,
     required this.paymentCardChipActivating,
@@ -1308,23 +1307,21 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   final Color stepperBgHover;
   /// Stepper: borde. Token de componente: alias de border-control.
   final Color stepperBorder;
-  /// ProductCard: fondo por defecto (cambia con el tono de la tarjeta). Token de componente: alias de tag-red-bg.
-  final Color productCardBg;
-  /// ProductCard: texto. Token de componente: alias de text-on-interactive.
-  final Color productCardText;
-  /// ProductCard: subtítulo. Token de componente: alias de tertiary-500; en alto contraste, de tertiary-700.
-  final Color productCardSubtitle;
-  /// ProductCard: botón para desplegar. Token de componente: alias de brand-white.
-  final Color productCardToggleBg;
   /// PaymentCard: marca. Token de componente: alias de brand-steel.
   final Color paymentCardBrand;
   /// PaymentCard: etiquetas y datos. Token de componente: alias de secondary-600; en alto contraste, de secondary-400.
   final Color paymentCardText;
-  /// PaymentCard pendiente o activándose: número, chip y copiar. Token de componente: alias de danger-400; en alto contraste, de danger-200.
+  /// PaymentCard: la superficie de la tarjeta. Siempre oscura, como el objeto: alias de brand-ink en todos los temas.
+  final Color paymentCardBg;
+  /// PaymentCard: el borde, un filo de luz. La tarjeta es siempre oscura: el valor es el mismo en todos los temas.
+  final Color paymentCardBorder;
+  /// PaymentCard: la sombra del canto inferior. La tarjeta es siempre oscura: el valor es el mismo en todos los temas.
+  final Color paymentCardEdge;
+  /// PaymentCard: el estado bloqueada.
   final Color paymentCardPending;
   /// PaymentCard habilitada o activa: número, chip y copiar. Token de componente: alias de success-400; en alto contraste, de success-300.
   final Color paymentCardActive;
-  /// PaymentCard activándose: borde del chip. Token de componente: alias de support-03.
+  /// PaymentCard: el estado en curso (pendiente, activando).
   final Color paymentCardChipActivating;
   /// ProgressLine cargando: brillo. Token de componente: alias de brand-lime.
   final Color progressLineLoading;
@@ -1928,12 +1925,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     stepperBg: Color(0xFF0C0C0C),
     stepperBgHover: Color(0xFF464646),
     stepperBorder: Color(0xFF676767),
-    productCardBg: Color(0xFFFDBFC2),
-    productCardText: Color(0xFF191919),
-    productCardSubtitle: Color(0xFF0043CC),
-    productCardToggleBg: Color(0xFFFFFFFF),
     paymentCardBrand: Color(0xFFBDBDBD),
     paymentCardText: Color(0xFF919191),
+    paymentCardBg: Color(0xFF191919),
+    paymentCardBorder: Color(0x6BFFFFFF),
+    paymentCardEdge: Color(0x2E000000),
     paymentCardPending: Color(0xFFEB6161),
     paymentCardActive: Color(0xFF59B874),
     paymentCardChipActivating: Color(0xFFF1C21B),
@@ -2437,12 +2433,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     stepperBg: Color(0xFFFFFFFF),
     stepperBgHover: Color(0xFFABC0EB),
     stepperBorder: Color(0xFF676767),
-    productCardBg: Color(0xFFFDBFC2),
-    productCardText: Color(0xFF191919),
-    productCardSubtitle: Color(0xFF0043CC),
-    productCardToggleBg: Color(0xFFFFFFFF),
     paymentCardBrand: Color(0xFFBDBDBD),
     paymentCardText: Color(0xFF919191),
+    paymentCardBg: Color(0xFF191919),
+    paymentCardBorder: Color(0x6BFFFFFF),
+    paymentCardEdge: Color(0x2E000000),
     paymentCardPending: Color(0xFFEB6161),
     paymentCardActive: Color(0xFF59B874),
     paymentCardChipActivating: Color(0xFFF1C21B),
@@ -2946,12 +2941,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     stepperBg: Color(0xFF111111),
     stepperBgHover: Color(0xFF464646),
     stepperBorder: Color(0xFFBDBDBD),
-    productCardBg: Color(0xFFFDBFC2),
-    productCardText: Color(0xFF191919),
-    productCardSubtitle: Color(0xFF00247D),
-    productCardToggleBg: Color(0xFFFFFFFF),
     paymentCardBrand: Color(0xFFBDBDBD),
     paymentCardText: Color(0xFFCDCDCD),
+    paymentCardBg: Color(0xFF191919),
+    paymentCardBorder: Color(0x6BFFFFFF),
+    paymentCardEdge: Color(0x2E000000),
     paymentCardPending: Color(0xFFF5A9A9),
     paymentCardActive: Color(0xFF7FC894),
     paymentCardChipActivating: Color(0xFFF1C21B),
@@ -3455,12 +3449,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     stepperBg: Color(0xFFFFFFFF),
     stepperBgHover: Color(0xFFABC0EB),
     stepperBorder: Color(0xFF464646),
-    productCardBg: Color(0xFFFDBFC2),
-    productCardText: Color(0xFF191919),
-    productCardSubtitle: Color(0xFF00247D),
-    productCardToggleBg: Color(0xFFFFFFFF),
     paymentCardBrand: Color(0xFFBDBDBD),
     paymentCardText: Color(0xFFCDCDCD),
+    paymentCardBg: Color(0xFF191919),
+    paymentCardBorder: Color(0x6BFFFFFF),
+    paymentCardEdge: Color(0x2E000000),
     paymentCardPending: Color(0xFFF5A9A9),
     paymentCardActive: Color(0xFF7FC894),
     paymentCardChipActivating: Color(0xFFF1C21B),
@@ -3978,12 +3971,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     Color? stepperBg,
     Color? stepperBgHover,
     Color? stepperBorder,
-    Color? productCardBg,
-    Color? productCardText,
-    Color? productCardSubtitle,
-    Color? productCardToggleBg,
     Color? paymentCardBrand,
     Color? paymentCardText,
+    Color? paymentCardBg,
+    Color? paymentCardBorder,
+    Color? paymentCardEdge,
     Color? paymentCardPending,
     Color? paymentCardActive,
     Color? paymentCardChipActivating,
@@ -4486,12 +4478,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
       stepperBg: stepperBg ?? this.stepperBg,
       stepperBgHover: stepperBgHover ?? this.stepperBgHover,
       stepperBorder: stepperBorder ?? this.stepperBorder,
-      productCardBg: productCardBg ?? this.productCardBg,
-      productCardText: productCardText ?? this.productCardText,
-      productCardSubtitle: productCardSubtitle ?? this.productCardSubtitle,
-      productCardToggleBg: productCardToggleBg ?? this.productCardToggleBg,
       paymentCardBrand: paymentCardBrand ?? this.paymentCardBrand,
       paymentCardText: paymentCardText ?? this.paymentCardText,
+      paymentCardBg: paymentCardBg ?? this.paymentCardBg,
+      paymentCardBorder: paymentCardBorder ?? this.paymentCardBorder,
+      paymentCardEdge: paymentCardEdge ?? this.paymentCardEdge,
       paymentCardPending: paymentCardPending ?? this.paymentCardPending,
       paymentCardActive: paymentCardActive ?? this.paymentCardActive,
       paymentCardChipActivating: paymentCardChipActivating ?? this.paymentCardChipActivating,
@@ -4999,12 +4990,11 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
       stepperBg: Color.lerp(stepperBg, other.stepperBg, t)!,
       stepperBgHover: Color.lerp(stepperBgHover, other.stepperBgHover, t)!,
       stepperBorder: Color.lerp(stepperBorder, other.stepperBorder, t)!,
-      productCardBg: Color.lerp(productCardBg, other.productCardBg, t)!,
-      productCardText: Color.lerp(productCardText, other.productCardText, t)!,
-      productCardSubtitle: Color.lerp(productCardSubtitle, other.productCardSubtitle, t)!,
-      productCardToggleBg: Color.lerp(productCardToggleBg, other.productCardToggleBg, t)!,
       paymentCardBrand: Color.lerp(paymentCardBrand, other.paymentCardBrand, t)!,
       paymentCardText: Color.lerp(paymentCardText, other.paymentCardText, t)!,
+      paymentCardBg: Color.lerp(paymentCardBg, other.paymentCardBg, t)!,
+      paymentCardBorder: Color.lerp(paymentCardBorder, other.paymentCardBorder, t)!,
+      paymentCardEdge: Color.lerp(paymentCardEdge, other.paymentCardEdge, t)!,
       paymentCardPending: Color.lerp(paymentCardPending, other.paymentCardPending, t)!,
       paymentCardActive: Color.lerp(paymentCardActive, other.paymentCardActive, t)!,
       paymentCardChipActivating: Color.lerp(paymentCardChipActivating, other.paymentCardChipActivating, t)!,
@@ -5145,22 +5135,24 @@ abstract final class AlmaSpacing {
 }
 
 abstract final class AlmaRadius {
+  /// El radio base. Los demás radios salen de él: el botón lo toma entero y cada pieza lo toma hasta su tope. Para cambiar la forma de todo el sistema se cambia este valor y se corre npm run build.
+  static const double radiusBase = 16.0;
   /// Etiquetas flotantes de campo, globos de ayuda y contornos de foco pequeños.
-  static const double radiusChip = 4.0;
+  static const double radiusChip = 8.0;
   /// Tarjetas de muestra de color.
-  static const double radiusSwatch = 2.0;
+  static const double radiusSwatch = 8.0;
   /// Menús, alertas y tarjetas de lista (en Figma: ProductCard y tarjetas de viaje).
-  static const double radiusPanel = 8.0;
+  static const double radiusPanel = 16.0;
   /// Marcos de documentación y tarjetas grandes.
-  static const double radiusCard = 8.0;
+  static const double radiusCard = 16.0;
   /// Botones: Button, IconButton, Stepper, PopUpButton y SegmentedControl. 100 px es la píldora.
   static const double radiusButton = 16.0;
   /// Campos: TextInput, Textarea, Search y el campo del Slider.
-  static const double radiusField = 8.0;
+  static const double radiusField = 16.0;
   /// Destinos de navegación: Tabs, Sidebar, ítems de menú y Breadcrumb.
-  static const double radiusNav = 8.0;
+  static const double radiusNav = 16.0;
   /// Tag, fichas del buscador, Badge y archivos del FileUploader.
-  static const double radiusTag = 8.0;
+  static const double radiusTag = 16.0;
   /// La casilla de Checkbox: siempre con esquinas, para no confundirla con Radio.
   static const double radiusCheckbox = 2.0;
   /// Formas siempre redondas: Switch, barra de progreso, días del calendario, íconos dentro de campos.

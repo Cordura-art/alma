@@ -114,8 +114,10 @@
     if (!LISTA.halo || !LISTA.velo) return null;
     var bajo = el.getBoundingClientRect().height < 240, velo = monta('velo', el, bajo ? Object.assign({}, PRESENCIA.velo, { alto: 0.35 }) : PRESENCIA.velo); if (!velo) return null;
     var halo = null, para = null;
-    function pon(nombre) {
+    // lugar: where the Halo goes and how big, { x, y, escala } — to move it to the clear zone of a stage
+    function pon(nombre, lugar) {
       var a = PRESENCIA[nombre]; if (nombre === 'velo') return;
+      if (a && lugar) { a = Object.assign({}, a, { x: lugar.x || 0, y: lugar.y || 0 }); a.tamano = a.tamano * (lugar.escala || 1); }
       if (para) { para(); para = null; }
       velo.ajusta('fuerza', nombre === 'apagada' ? 0.3 : PRESENCIA.velo.fuerza);
       // in the background, or with no service, there is no Halo: it is taken away, not hidden

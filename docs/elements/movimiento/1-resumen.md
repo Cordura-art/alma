@@ -30,12 +30,12 @@ Cordura es un estudio de lenguajes de movimiento, y ALMA usa el lenguaje de movi
 
 | Token | Valor | Para |
 |---|---|---|
-| `duration-fast-01` | 70 ms | Botones y toggles. |
-| `duration-fast-02` | 110 ms | Tooltips, bordes de campo, menús. |
-| `duration-moderate-01` | 150 ms | Cambios cortos. Por defecto. |
-| `duration-moderate-02` | 240 ms | Expansiones, toasts, modales. |
-| `duration-slow-01` | 400 ms | Expansiones grandes. |
-| `duration-slow-02` | 700 ms | Velos y portadas. |
+| `duration-fast-01` | {token:duration-fast-01} | Botones y toggles. |
+| `duration-fast-02` | {token:duration-fast-02} | Tooltips, bordes de campo, menús. |
+| `duration-moderate-01` | {token:duration-moderate-01} | Cambios cortos. Por defecto. |
+| `duration-moderate-02` | {token:duration-moderate-02} | Expansiones, toasts, modales. |
+| `duration-slow-01` | {token:duration-slow-01} | Expansiones grandes. |
+| `duration-slow-02` | {token:duration-slow-02} | Velos y portadas. |
 
 ## Recetas de IBM
 

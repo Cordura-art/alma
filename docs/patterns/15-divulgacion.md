@@ -12,7 +12,7 @@ Cuando hay más información de la que la mayoría necesita: detalles, condicion
 | Lo que se esconde | Usa |
 |---|---|
 | Secciones de contenido largo | `Accordion` |
-| El detalle de una tarjeta | `ProductCard` (se despliega) o `Card` (lleva a otra página) |
+| El detalle de una tarjeta | `Accordion` (se despliega) o `Card` (lleva a otra página) |
 | Una explicación breve de un término | `Popover` |
 | Qué hace un control | `Tooltip` |
 | Opciones relacionadas con lo que se ve | `Sheet` |
@@ -31,9 +31,9 @@ Cuando hay más información de la que la mayoría necesita: detalles, condicion
 
 ## Accesibilidad
 
-- El control que despliega anuncia si está abierto (`aria-expanded`); ALMA lo hace en `Accordion`, `ProductCard`, `Popover` y `PullDownButton`.
+- El control que despliega anuncia si está abierto (`aria-expanded`); ALMA lo hace en `Accordion`, `Popover` y `PullDownButton`.
 - Lo escondido queda oculto también para el lector.
 
 ## Relacionados
 
-`Accordion` · `ProductCard` · `Popover` · `Sheet` · Contenido que desborda.
+`Accordion` · `Popover` · `Sheet` · Contenido que desborda.

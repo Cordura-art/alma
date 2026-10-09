@@ -54,10 +54,10 @@ Mucho se adapta solo, sin ninguna consulta:
 
 | Token | Valor |
 |---|---|
-| `bp-sm` | 320 px |
-| `bp-md` | 672 px |
-| `bp-lg` | 1056 px |
-| `bp-xlg` | 1312 px |
-| `bp-max` | 1584 px |
+| `bp-sm` | {token:bp-sm} |
+| `bp-md` | {token:bp-md} |
+| `bp-lg` | {token:bp-lg} |
+| `bp-xlg` | {token:bp-xlg} |
+| `bp-max` | {token:bp-max} |
 
 La grilla de cada uno está en **Espaciado y grilla › Grilla**.

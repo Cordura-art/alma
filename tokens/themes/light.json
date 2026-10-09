@@ -1970,26 +1970,6 @@
       "$value": "{color.border-control}",
       "$description": "Stepper: borde. Token de componente: alias de border-control."
     },
-    "product-card-bg": {
-      "$type": "color",
-      "$value": "{color.tag-red-bg}",
-      "$description": "ProductCard: fondo por defecto (cambia con el tono de la tarjeta). Token de componente: alias de tag-red-bg."
-    },
-    "product-card-text": {
-      "$type": "color",
-      "$value": "#191919",
-      "$description": "ProductCard: texto. Token de componente: alias de text-on-interactive."
-    },
-    "product-card-subtitle": {
-      "$type": "color",
-      "$value": "{color.tertiary-500}",
-      "$description": "ProductCard: subtítulo. Token de componente: alias de tertiary-500; en alto contraste, de tertiary-700."
-    },
-    "product-card-toggle-bg": {
-      "$type": "color",
-      "$value": "{color.brand-white}",
-      "$description": "ProductCard: botón para desplegar. Token de componente: alias de brand-white."
-    },
     "payment-card-brand": {
       "$type": "color",
       "$value": "{color.brand-steel}",
@@ -2000,10 +1980,25 @@
       "$value": "{color.secondary-600}",
       "$description": "PaymentCard: etiquetas y datos. Token de componente: alias de secondary-600; en alto contraste, de secondary-400."
     },
+    "payment-card-bg": {
+      "$type": "color",
+      "$value": "{color.brand-ink}",
+      "$description": "PaymentCard: la superficie de la tarjeta. Siempre oscura, como el objeto: alias de brand-ink en todos los temas."
+    },
+    "payment-card-border": {
+      "$type": "color",
+      "$value": "rgba(255, 255, 255, 0.42)",
+      "$description": "PaymentCard: el borde, un filo de luz. La tarjeta es siempre oscura: el valor es el mismo en todos los temas."
+    },
+    "payment-card-edge": {
+      "$type": "color",
+      "$value": "rgba(0, 0, 0, 0.18)",
+      "$description": "PaymentCard: la sombra del canto inferior. La tarjeta es siempre oscura: el valor es el mismo en todos los temas."
+    },
     "payment-card-pending": {
       "$type": "color",
       "$value": "{color.danger-400}",
-      "$description": "PaymentCard pendiente o activándose: número, chip y copiar. Token de componente: alias de danger-400; en alto contraste, de danger-200."
+      "$description": "PaymentCard: el estado bloqueada."
     },
     "payment-card-active": {
       "$type": "color",
@@ -2013,7 +2008,7 @@
     "payment-card-chip-activating": {
       "$type": "color",
       "$value": "{color.support-03}",
-      "$description": "PaymentCard activándose: borde del chip. Token de componente: alias de support-03."
+      "$description": "PaymentCard: el estado en curso (pendiente, activando)."
     },
     "progress-line-loading": {
       "$type": "color",

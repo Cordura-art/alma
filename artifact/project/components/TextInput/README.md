@@ -146,7 +146,7 @@ En tema oscuro el borde y la etiqueta usan pasos claros de la rampa azul (`field
 
 | Elemento | Propiedad | Valor |
 |---|---|---|
-| Contenedor | radio | `radius-field` (8 px) |
+| Contenedor | radio | `radius-field` (16 px) |
 | Contenedor | relleno lateral | 16 px (`space-16`); 15 px con el borde de 2 px del foco |
 | Contenedor | separación interna | 8 px (`space-8`) |
 | Etiqueta flotante | posición | sobre el borde superior, a 8 px del inicio |

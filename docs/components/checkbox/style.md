@@ -29,7 +29,7 @@ En tema oscuro, `control-on` es un paso claro de la rampa azul: se despega del f
 | Elemento | Propiedad | Valor |
 |---|---|---|
 | Casilla | tamaño | 20 × 20 px |
-| Casilla | radio | `radius-checkbox` (2 px) |
+| Casilla | radio | `radius-checkbox` ({token:radius-checkbox}) |
 | Marca | tamaño | 16 px |
 | Casilla y etiqueta | separación | 8 px (`space-8`) |
 | Fila | alto mínimo | 44 px (`size-touch-min`) |
@@ -46,7 +46,7 @@ En tema oscuro, `control-on` es un paso claro de la rampa azul: se despega del f
 
 ## Movimiento
 
-El relleno y el borde cambian en `duration-fast-01` (70 ms) con `easing-standard-productive`.
+El relleno y el borde cambian en `duration-fast-01` ({token:duration-fast-01}) con `easing-standard-productive`.
 
 ## Contraste
 

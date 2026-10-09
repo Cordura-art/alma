@@ -7,7 +7,7 @@ summary: El movimiento explica qué cambió. Productivo en la interfaz, expresiv
 
 ## Cuando entran varios elementos
 
-Si una pantalla nueva trae varios elementos, no los animes todos a la vez ni uno por uno. Repártelos por grupos, con `duration-stagger` (20 ms) entre cada uno, y con el total bajo 500 ms.
+Si una pantalla nueva trae varios elementos, no los animes todos a la vez ni uno por uno. Repártelos por grupos, con `duration-stagger` ({token:duration-stagger}) entre cada uno, y con el total bajo 500 ms.
 
 | Orden | Qué entra |
 |---|---|

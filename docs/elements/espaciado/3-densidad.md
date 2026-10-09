@@ -26,11 +26,11 @@ Las superficies se separan con color (ver **Color**). Lo que se apila sobre el c
 | Token | Valor | Qué va |
 |---|---|---|
 | `z-hidden` | −1 | Detrás del contenido. |
-| `z-footer` | 5000 | Pie fijo. |
+| `z-footer` | {token:z-footer} | Pie fijo. |
 | `z-floating`, `z-overlay` | 6000 | Tooltips, popovers, toasts. |
-| `z-header` | 8000 | Barra superior fija, `TabBar` fija. |
-| `z-modal` | 9000 | Modales, hojas y alertas. |
-| `z-dropdown` | 9100 | Menús desplegables, también dentro de un modal. |
+| `z-header` | {token:z-header} | Barra superior fija, `TabBar` fija. |
+| `z-modal` | {token:z-modal} | Modales, hojas y alertas. |
+| `z-dropdown` | {token:z-dropdown} | Menús desplegables, también dentro de un modal. |
 
 No inventes valores intermedios.
 

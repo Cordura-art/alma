@@ -41,9 +41,9 @@
   ],
   "lastChange": {
     "by": "Juan Pablo",
-    "at": "2026-10-09T01:19:30.101Z",
+    "at": "2026-10-09T02:34:21.704Z",
     "via": "Claude Code",
-    "note": "Halo de primer plano en el escritorio, imágenes de ocho piezas y tres patrones, ColumnView con dato al final"
+    "note": "ProductCard y PaymentCard rehechas; reglas de higiene, radios desde radius-base, vidrio por la carta"
   },
   "layout": "files",
   "libraries": [

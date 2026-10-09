@@ -42,7 +42,7 @@ export const componentScenes = [
       var B = A.Button;
       mount(h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3, auto)', gap: 'var(--space-32)' } },
         ctx('Diálogo', [h('div', { key: 't' }, h('p', { className: 'web-h6', style: { margin: 0 } }, '¿Anular el pasaje?'), h('p', { className: 'cap web-body-s' }, 'Te devolvemos $7.000 a tu billetera.')),
-          h('div', { key: 'b', className: 'row', style: { justifyContent: 'flex-end', gap: '8px' } }, h(B, { variant: 'gray', role: 'cancel' }, 'Cancelar'), h(B, { variant: 'filled', role: 'destructive' }, 'Anular'))]),
+          h('div', { key: 'b', className: 'row', style: { justifyContent: 'flex-end', gap: '8px' } }, h(B, { variant: 'gray', role: 'cancel' }, 'Cancelar'), h(B, { variant: 'tinted', role: 'destructive' }, 'Anular'))]),
         ctx('Formulario', [h(A.TextInput, { key: 'i', label: 'Nombre', defaultValue: 'Camila Rojas' }), h('div', { key: 'b', className: 'row', style: { gap: '8px' } }, h(B, { variant: 'filled', role: 'primary' }, 'Guardar'), h(B, { variant: 'plain' }, 'Descartar'))]),
         ctx('Flujo por pasos', [h('p', { key: 't', className: 'cap web-label-s' }, 'Paso 2 de 3 · Pasajeros'), h('div', { key: 'b', className: 'row', style: { justifyContent: 'flex-end', gap: '8px' } }, h(B, { variant: 'gray' }, 'Volver'), h(B, { variant: 'filled', role: 'primary' }, 'Continuar'))]),
         ctx('Tarjeta', [h('div', { key: 't' }, h('p', { className: 'cap web-label-s', style: { margin: 0 } }, 'Billetera'), h('p', { className: 'web-h6', style: { margin: 0 } }, 'Recarga automática')), h('div', { key: 'b', className: 'row', style: { gap: '8px' } }, h(B, { variant: 'tinted' }, 'Cambiar monto'), h(B, { variant: 'plain' }, 'Desactivar'))]),
@@ -721,29 +721,37 @@ export const componentScenes = [
       after: `var z = $('.alma-upload__zone'), f = all('.alma-upload__file'); if (z) { dimH(z, 'right'); rad(z, box(z).x - 130, box(z).y); } if (f[0]) dimH(f[0], 'right'); if (f[1]) gapY(f[0], f[1], box(f[0]).x - 130);` }),
 
   // ---------- PaymentCard ----------
-  scene('payment-card', 'usage', 'la tarjeta en los cuatro estados', 'payment-card-estados',
-    'PaymentCard en sus cuatro estados sobre el azul noche de marca: pendiente, activando, habilitada y activa.',
-    { js: `mount(h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(2, auto)', gap: '24px', padding: '32px', background: 'var(--brand-ink)', borderRadius: 'var(--radius-panel)' } },
-        h(A.PaymentCard, { brand: 'C.WalletPay', status: 'pending', last4: '0000' }), h(A.PaymentCard, { brand: 'C.WalletPay', status: 'activating', last4: '0637' }),
-        h(A.PaymentCard, { brand: 'C.WalletPay', status: 'enabled', last4: '7637' }), h(A.PaymentCard, { brand: 'C.WalletPay', status: 'active', number: '5432  8765  7654  7637', expiry: '08/29' })));` }),
+  scene('payment-card', 'usage', 'la tarjeta con sus partes numeradas', 'payment-card-estados',
+    'PaymentCard. A la izquierda, la tarjeta activa con sus datos a la vista y sus partes numeradas: el emisor (1), el estado «Activa» con su ícono (2), el número (3), el titular, el vencimiento y el CVV (4) y, bajo la tarjeta, las acciones «Ocultar datos» y «Copiar número» (5). A la derecha, tres tarjetas con los datos ocultos y otros estados: «Activando», «Pendiente» y «Bloqueada», esta última con sus datos apagados.',
+    { js: `var C = A.PaymentCard; mount(h('div', { className: 'row', style: { gap: 'var(--space-48)', alignItems: 'flex-start', padding: '24px 24px 8px 64px' } },
+        h('div', { style: { width: '22rem' } }, h(C, { brand: 'Cordura', status: 'active', number: '5432 8765 7654 7637', holder: 'Camila Rojas', expiry: '08/29', cvv: '417', defaultRevealed: true })),
+        h('div', { className: 'col', style: { gap: 'var(--space-16)' } }, h(C, { size: 'sm', brand: 'Cordura', status: 'activating', last4: '0637' }), h(C, { size: 'sm', brand: 'Cordura', status: 'pending', last4: '0000' }), h(C, { size: 'sm', brand: 'Cordura', status: 'blocked', last4: '4821' }))));`,
+      after: `num($('.alma-paycard__brand'), 1, 'left', { outline: false, d: 48 }); num($('.alma-paycard__status'), 2, 'top', { outline: false, d: 40 }); num($('.alma-paycard__number'), 3, 'left', { outline: false, d: 48 }); num($('.alma-paycard__meta'), 4, 'left', { outline: false, d: 48 }); num($('.alma-paycard__actions'), 5, 'left', { outline: false, d: 24 });` }),
 
   scene('payment-card', 'style', 'anatomía acotada', 'payment-card-medidas',
-    'Medidas de PaymentCard: ancho de 311 px, alto mínimo de 190 px, relleno, radio y chip de 34 × 24 px.',
-    { js: `mount(h('div', { style: { padding: '56px 180px 64px 150px', background: 'var(--brand-ink)' } }, h(A.PaymentCard, { brand: 'C.WalletPay', status: 'active', number: '5432  8765  7654  7637', expiry: '08/29' })));`,
-      after: `var c = $('.alma-paycard'), ch = $('.alma-paycard__chip'); dimW(c, 'bottom'); dimH(c, 'right'); padL(c); if (ch) dimW(ch, 'top', null, { d: box(ch).y - box(c).y + 16 }); rad(c, box(c).x + box(c).w + 16, box(c).y - 20);` }),
+    'Medidas de PaymentCard: 352 px de ancho como máximo y la proporción de una tarjeta real, 1,586 a 1; relleno de 24 px; y el radio del panel.',
+    { js: `mount(h('div', { style: { padding: '56px 180px 64px 150px' } }, h('div', { style: { width: '22rem' } }, h(A.PaymentCard, { brand: 'Cordura', status: 'active', number: '5432 8765 7654 7637', holder: 'Camila Rojas', expiry: '08/29', actions: false }))));`,
+      after: `var c = $('.alma-paycard__face'); dimW(c, 'bottom'); dimH(c, 'right'); padL(c); padT(c);` }),
 
   // ---------- ProductCard ----------
-  scene('product-card', 'usage', 'la tarjeta cerrada y abierta', 'product-card-tono',
-    'ProductCard en el tono rojo, cerrada y abierta.',
-    { js: `var body = 'El pasaje incluye una maleta de hasta 25 kg en la bodega y un bolso de mano. Puedes cambiar la fecha hasta 4 horas antes de la salida.';
-      mount(h('div', { className: 'row', style: { gap: 'var(--space-32)', alignItems: 'flex-start' } },
-        h('div', { className: 'col', style: { width: '20rem' } }, h('p', { className: 'cap web-label-m' }, 'Cerrada'), h(A.ProductCard, { title: 'Condiciones del pasaje', subtitle: 'Semicama', tone: 'red' }, body)),
-        h('div', { className: 'col', style: { width: '20rem' } }, h('p', { className: 'cap web-label-m' }, 'Abierta'), h(A.ProductCard, { title: 'Condiciones del pasaje', subtitle: 'Semicama', tone: 'red', defaultOpen: true }, body))));` }),
+  scene('product-card', 'usage', 'la tarjeta con sus partes numeradas', 'product-card-tono',
+    'ProductCard. A la izquierda, una tarjeta con sus partes numeradas: la imagen (1) con la insignia «Nuevo» (2), la categoría (3), el nombre (4), la descripción (5), la valoración (6), el precio con su nota (7) y la acción «Agregar» (8). Al centro, una con rebaja: el precio anterior tachado junto al nuevo. A la derecha, una agotada: la imagen apagada y, en lugar de la acción, «Agotado. Vuelve el 12 de abril.»',
+    { js: `var cs = getComputedStyle(document.documentElement), k = function (n) { return cs.getPropertyValue(n).trim(); };
+      function foto(f) { var d = { a: '<path d="M120 170a80 80 0 0 1 160 0" fill="none" stroke="' + k('--text-01') + '" stroke-width="14"/><rect x="100" y="160" width="44" height="80" rx="20" fill="' + k('--interactive-01') + '"/><rect x="256" y="160" width="44" height="80" rx="20" fill="' + k('--interactive-01') + '"/>', p: '<rect x="140" y="70" width="120" height="170" rx="24" fill="' + k('--interactive-01') + '"/><circle cx="200" cy="180" r="36" fill="' + k('--ui-02') + '"/><circle cx="200" cy="110" r="14" fill="' + k('--ui-02') + '"/>', e: '<rect x="120" y="110" width="160" height="110" rx="40" fill="' + k('--text-01') + '"/><circle cx="200" cy="185" r="6" fill="' + k('--interactive-01') + '"/>' }[f];
+        return 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="' + k('--ui-04') + '"/>' + d + '</svg>'); }
+      var P = A.ProductCard; mount(h('div', { className: 'row', style: { gap: 'var(--space-24)', alignItems: 'stretch', padding: '8px 8px 8px 72px' } },
+        h('div', { style: { width: '19rem', display: 'flex' } }, h(P, { image: foto('a'), imageAlt: 'Audífonos de diadema', badge: 'Nuevo', eyebrow: 'Audio', title: 'Audífonos Ruta', description: 'Cancelación de ruido y 30 horas de batería, para viajes largos.', rating: { value: 4.5, count: 1284 }, price: '$89.990', priceNote: 'o 6 cuotas de $14.998', action: { label: 'Agregar', icon: 'add', onPress: function () {} } })),
+        h('div', { style: { width: '19rem', display: 'flex' } }, h(P, { image: foto('p'), imageAlt: 'Parlante portátil', eyebrow: 'Audio', title: 'Parlante Andén', description: 'Resiste el agua y suena 12 horas.', rating: { value: 4, count: 312 }, price: '$39.990', previousPrice: '$54.990', priceNote: 'Hasta el 4 de abril', action: { label: 'Agregar', icon: 'add', onPress: function () {} } })),
+        h('div', { style: { width: '19rem', display: 'flex' } }, h(P, { image: foto('e'), imageAlt: 'Estuche de carga', eyebrow: 'Accesorios', title: 'Estuche de carga', description: 'Tres cargas completas en el bolsillo.', price: '$19.990', unavailable: 'Agotado. Vuelve el 12 de abril.' }))));`,
+      after: `await sleep(300); var c = $('.alma-pcard'), q = function (s) { return c.querySelector(s); }; num(q('.alma-pcard__media'), 1, 'left', { outline: false }); num(q('.alma-pcard__badge'), 2, 'top', { d: 24 }); num(q('.alma-pcard__eyebrow'), 3, 'left', { outline: false, d: 40 }); num(q('.alma-pcard__title'), 4, 'left', { outline: false, d: 40 });
+        num(q('.alma-pcard__desc'), 5, 'left', { outline: false, d: 40 }); num(q('.alma-rating'), 6, 'left', { outline: false, d: 40 }); num(q('.alma-pcard__price'), 7, 'left', { outline: false, d: 40 }); num(q('.alma-btn'), 8, 'left', { outline: false, d: 40 });` }),
 
   scene('product-card', 'style', 'anatomía acotada', 'product-card-medidas',
-    'Medidas de ProductCard: relleno, botón para abrir y cerrar, separación entre encabezado y cuerpo, y radio.',
-    { js: `mount(h('div', { style: { width: '22rem', padding: '56px 180px 56px 150px' } }, h(A.ProductCard, { title: 'Condiciones del pasaje', subtitle: 'Semicama', tone: 'red', defaultOpen: true }, 'Incluye una maleta de hasta 25 kg y un bolso de mano.')));`,
-      after: `var c = $('.alma-pcard'), hd = $('.alma-pcard__head'), bd = $('.alma-pcard__body'), tg = $('.alma-pcard__toggle'); padL(hd || c); if (tg) dimW(tg, 'top'); if (hd && bd) gapY(hd, bd, box(c).x + box(c).w + 16); rad(c, box(c).x + box(c).w + 16, box(c).y);` }),
+    'Medidas de ProductCard: 320 px de ancho como máximo, la imagen en proporción 4 a 3, relleno de 16 px a los lados y 8 px entre las líneas del texto.',
+    { js: `var cs = getComputedStyle(document.documentElement), k = function (n) { return cs.getPropertyValue(n).trim(); };
+      var img = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="' + k('--ui-04') + '"/><rect x="140" y="70" width="120" height="170" rx="24" fill="' + k('--interactive-01') + '"/></svg>');
+      mount(h('div', { style: { padding: '56px 180px 56px 150px' } }, h('div', { style: { width: '20rem' } }, h(A.ProductCard, { image: img, imageAlt: 'Parlante portátil', eyebrow: 'Audio', title: 'Parlante Andén', description: 'Resiste el agua y suena 12 horas.', price: '$39.990', action: { label: 'Agregar', onPress: function () {} } }))));`,
+      after: `await sleep(300); var c = $('.alma-pcard'), m = $('.alma-pcard__media'), b = $('.alma-pcard__body'); dimW(c, 'bottom'); dimH(m, 'right'); padL(b); gapY($('.alma-pcard__eyebrow'), $('.alma-pcard__title'));` }),
 
   // ---------- BarChart ----------
   scene('bar-chart', 'usage', 'un `BarChart` vertical con sus seis partes numeradas', 'bar-chart-anatomia',

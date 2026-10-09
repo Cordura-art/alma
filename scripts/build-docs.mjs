@@ -7,7 +7,11 @@ import { readdir, readFile, writeFile, stat } from 'node:fs/promises';
 const TABS = ['usage', 'style', 'code', 'accessibility'];
 const ROOT = 'docs/components';
 
+import { conValores } from './lib/documentacion.mjs';
+const TOK = JSON.parse(await readFile('dist/json/tokens.json', 'utf8'));
+
 function parse(src) {
+  src = conValores(src, TOK);
   const m = /^---\n([\s\S]*?)\n---\n/.exec(src);
   const meta = {};
   if (m) for (const line of m[1].split('\n')) { const i = line.indexOf(':'); if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim(); }

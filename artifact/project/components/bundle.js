@@ -360,55 +360,59 @@ function pictograma(G, clave, o = {}) {
     );
   }
 
+  // ProductCard: something that is sold, in a grid or a list — its picture, its name, what people say of it, what it
+  // costs and one thing to do with it. The whole card opens the product; its action keeps its own area.
   function ProductCard(props) {
-    var controlled = props.open !== undefined;
-    var st = useState(!!props.defaultOpen);
-    var open = controlled ? props.open : st[0];
-    var hasBody = props.subtitle || props.image || props.children;
-    return h('div', { className: 'alma-pcard', style: props.tone ? { background: 'var(--tag-' + props.tone + '-bg)' } : undefined },
-      h('div', { className: 'alma-pcard__head' },
-        h('span', { className: 'alma-pcard__title' }, props.title),
-        hasBody && props.collapsible !== false ? h('button', {
-          type: 'button', className: 'alma-pcard__toggle', 'aria-expanded': open,
-          'aria-label': open ? 'Contraer' : 'Expandir',
-          onClick: function () { if (!controlled) st[1](!open); if (props.onToggle) props.onToggle(!open); }
-        }, h(AlmaIcon, { size: 16, name: open ? 'chevron--up' : 'chevron--down' })) : null
-      ),
-      (open || props.collapsible === false) && hasBody ? h(window.React.Fragment, null,
-        props.subtitle ? h('div', { className: 'alma-pcard__subtitle' }, props.subtitle) : null,
-        props.image ? h('img', { className: 'alma-pcard__img', src: props.image, alt: props.imageAlt || '' }) : null,
-        props.children ? h('div', { className: 'alma-pcard__body' }, props.children) : null
-      ) : null
-    );
+    var id = useId(props.id), Hd = 'h' + (props.headingLevel || 3), r = props.rating, off = props.unavailable, a = props.action;
+    return h('article', { className: 'alma-pcard' + (props.layout === 'horizontal' ? ' alma-pcard--row' : '') + (off ? ' is-off' : '') + (props.href || props.onPress ? ' is-link' : '') + (props.className ? ' ' + props.className : ''), 'aria-labelledby': id + '-t' },
+      h('div', { className: 'alma-pcard__media' },
+        props.image ? h('img', { className: 'alma-pcard__img', src: props.image, alt: props.imageAlt || '', loading: 'lazy' }) : null,
+        props.badge ? h('span', { className: 'alma-pcard__badge' }, props.badge) : null),
+      h('div', { className: 'alma-pcard__body' },
+        props.eyebrow ? h('p', { className: 'alma-pcard__eyebrow' }, props.eyebrow) : null,
+        h(Hd, { id: id + '-t', className: 'alma-pcard__title' },
+          props.href ? h('a', { href: props.href, className: 'alma-pcard__link' }, props.title)
+            : props.onPress ? h('button', { type: 'button', className: 'alma-pcard__link', onClick: props.onPress }, props.title) : props.title),
+        props.description ? h('p', { className: 'alma-pcard__desc' }, props.description) : null,
+        r ? h(Rating, { value: r.value, count: r.count, size: 'sm', showValue: true }) : null,
+        props.price ? h('p', { className: 'alma-pcard__price' },
+          // (who cannot see the line through the old price hears which is which)
+          props.previousPrice ? h(window.React.Fragment, null, h('span', { className: 'alma-vh' }, 'Antes '), h('s', { className: 'alma-pcard__was' }, props.previousPrice), h('span', { className: 'alma-vh' }, ', ahora ')) : null,
+          h('span', { className: 'alma-pcard__now' }, props.price)) : null,
+        props.priceNote ? h('p', { className: 'alma-pcard__note' }, props.priceNote) : null),
+      off || a ? h('div', { className: 'alma-pcard__actions' },
+        off ? h('p', { className: 'alma-pcard__off' }, off === true ? 'Agotado' : off)
+          : h(Button, { variant: a.variant || 'tinted', iconBefore: a.icon, onClick: a.onPress, 'aria-label': a.ariaLabel || (a.label + ': ' + props.title) }, a.label)) : null);
   }
 
-  var CARD_STATUS = { pending: 'support-01', activating: 'support-03', enabled: 'support-02', active: 'support-02' };
-  // Status words, written on the card next to the chip.
-  var CARD_WORD = { pending: 'Pendiente', activating: 'Activando', enabled: 'Habilitada', active: 'Activa' };
+  // PaymentCard: a card as it is held — who issued it, its number, whose it is and until when. What is secret stays
+  // hidden until it is asked for, and its state is always said in words, next to its icon.
+  var CARD_WORD = { pending: 'Pendiente', activating: 'Activando', enabled: 'Habilitada', active: 'Activa', blocked: 'Bloqueada' };
+  var CARD_ICON = { pending: 'time', activating: 'in-progress', enabled: 'checkmark', active: 'checkmark', blocked: 'locked' };
   function PaymentCard(props) {
-    var status = props.status || 'pending';
-    var last4 = (props.last4 || '0000').split('').join(' ');
-    var number = status === 'active' && props.number ? props.number : '••••  ••••  ••••  ' + last4;
-    return h('div', { className: 'alma-paycard alma-paycard--' + status },
+    var id = useId(props.id), status = props.status || 'active', last4 = props.last4 || (props.number ? String(props.number).replace(/\s/g, '').slice(-4) : '0000');
+    var canShow = !!props.number && (status === 'active' || status === 'enabled'), sh = useControlled(props.revealed, !!props.defaultRevealed), shown = canShow && !!sh[0], said = useState('');
+    var groups = shown ? String(props.number).replace(/\s/g, '').replace(/(.{4})/g, '$1 ').trim() : '•••• •••• •••• ' + last4;
+    function toggle() { var v = !shown; sh[1](v); if (props.onReveal) props.onReveal(v); said[1](''); }
+    function copy() { try { if (navigator.clipboard) navigator.clipboard.writeText(String(props.number).replace(/\s/g, '')); } catch (e) {} said[1]('Número copiado'); if (props.onCopy) props.onCopy(props.number); }
+    var dato = function (label, value, hidden, spoken) { return h('div', { className: 'alma-paycard__dato' }, h('span', { className: 'alma-paycard__label' }, label),
+      hidden ? h('span', { className: 'alma-paycard__val' }, h('span', { 'aria-hidden': 'true' }, hidden), h('span', { className: 'alma-vh' }, spoken)) : h('span', { className: 'alma-paycard__val' }, value)); };
+    var face = h('div', { className: 'alma-paycard__face alma-paycard--' + status + (props.size === 'sm' ? ' alma-paycard__face--sm' : ''), role: 'group', 'aria-label': props.label || ('Tarjeta ' + (props.brand || '') + ' terminada en ' + last4.split('').join(' ') + ', ' + CARD_WORD[status].toLowerCase()) },
       h('div', { className: 'alma-paycard__top' },
         h('span', { className: 'alma-paycard__brand' }, props.brand || 'Cordura'),
-        // The status is written next to the chip, so it never depends on color alone (WCAG 1.4.1).
-        h('span', { className: 'alma-paycard__state' },
-          h('span', { className: 'alma-paycard__status' }, CARD_WORD[status]),
-          h('span', { className: 'alma-paycard__chip', 'aria-hidden': 'true' }))
-      ),
-      h('div', { className: 'alma-paycard__label' }, 'Número de tarjeta'),
-      h('div', { className: 'alma-paycard__row' },
-        h('span', { className: 'alma-paycard__number' }, h('span', { 'aria-hidden': 'true' }, number),
-          h('span', { className: 'alma-vh' }, status === 'active' && props.number ? props.number : 'terminada en ' + (props.last4 || '0000'))),
-        h('button', { type: 'button', className: 'alma-paycard__copy', 'aria-label': 'Copiar número', onClick: props.onCopy }, h(AlmaIcon, { name: 'copy', size: 16 }))
-      ),
-      h('div', { className: 'alma-paycard__meta' },
-        h('div', null, h('div', { className: 'alma-paycard__label' }, 'Fecha de expiración'), status === 'active' && props.expiry ? h('div', { className: 'alma-paycard__val' }, props.expiry)
-          : h('div', { className: 'alma-paycard__val' }, h('span', { 'aria-hidden': 'true' }, '••/••'), h('span', { className: 'alma-vh' }, 'oculta'))),
-        h('div', null, h('div', { className: 'alma-paycard__label' }, 'CVV'), h('div', { className: 'alma-paycard__val' }, h('span', { 'aria-hidden': 'true' }, '•••'), h('span', { className: 'alma-vh' }, 'oculto')))
-      )
-    );
+        h('span', { className: 'alma-paycard__status' }, h(AlmaIcon, { name: CARD_ICON[status], size: 16 }), CARD_WORD[status])),
+      h('p', { className: 'alma-paycard__number' }, h('span', { 'aria-hidden': 'true' }, props.size === 'sm' ? '•••• ' + last4 : groups),
+        h('span', { className: 'alma-vh' }, shown ? String(props.number) : 'Número terminado en ' + last4.split('').join(' '))),
+      props.size === 'sm' ? null : h('div', { className: 'alma-paycard__meta' },
+        props.holder ? dato('Titular', props.holder) : null,
+        dato('Vence', props.expiry, shown || !props.expiry ? (props.expiry ? null : '••/••') : '••/••', 'oculta'),
+        dato('CVV', props.cvv, shown && props.cvv ? null : '•••', 'oculto')));
+    if (props.size === 'sm' || props.actions === false || !canShow) return h('div', { className: 'alma-paycard' + (props.className ? ' ' + props.className : '') }, face);
+    return h('div', { className: 'alma-paycard' + (props.className ? ' ' + props.className : '') }, face,
+      h('div', { className: 'alma-paycard__actions' },
+        h(Button, { variant: 'plain', iconBefore: shown ? 'view--off' : 'view', onClick: toggle }, shown ? 'Ocultar datos' : 'Mostrar datos'),
+        h(Button, { variant: 'plain', iconBefore: 'copy', onClick: copy }, 'Copiar número'),
+        h('span', { className: 'alma-paycard__said', role: 'status' }, said[0])));
   }
 
   function ProgressLine(props) {
@@ -1888,11 +1892,14 @@ function pictograma(G, clave, o = {}) {
     var z = ctx ? ctx.order.indexOf(id) : 0, active = !ctx ? props.active !== false : (ctx.order[ctx.order.length - 1] === id);
     // onActiveChange: tells when the window comes to the front or leaves it (an assistant brings its Halo forward with this)
     R.useEffect(function () { if (props.onActiveChange) props.onActiveChange(active && shown); }, [active, shown]);
+    // onZoomChange: tells when the window fills the desktop (zoomed, or the only one on a narrow screen) and when it stops
+    var full = !!ctx && shown && (zo[0] || !!ctx.compact);
+    R.useEffect(function () { if (props.onZoomChange) props.onZoomChange(full); }, [full]);
     // the one that comes to the front from elsewhere (the dock, a menu) takes the focus
     var was = R.useRef(false);
     R.useEffect(function () { if (ctx && ctx.ready.current && active && !was.current && root.current && !root.current.contains(document.activeElement)) root.current.focus({ preventScroll: true }); was.current = active; }, [active]);
     if (!shown) return null;
-    var free = ctx && !ctx.compact && !zo[0], panel = props.kind === 'panel';
+    var free = ctx && !ctx.compact && !zo[0], panel = props.kind === 'panel', stage = props.kind === 'stage';
     function bounds() { var s = ctx && ctx.stage.current; return s ? { w: s.clientWidth, h: s.clientHeight } : { w: 1e5, h: 1e5 }; }
     function put(q) {
       var b = bounds(); q.w = Math.max(min.w, Math.min(q.w, b.w)); q.h = Math.max(min.h, Math.min(q.h, b.h));
@@ -1924,7 +1931,7 @@ function pictograma(G, clave, o = {}) {
     var style = !ctx ? Object.assign({ width: geo.w, height: props.defaultSize ? geo.h : undefined }, props.style) : (free ? { left: geo.x, top: geo.y, width: geo.w, height: geo.h, zIndex: z + 1 } : { zIndex: z + 1 });
     return h('section', { ref: root, id: cid || props.id, role: 'dialog', 'aria-labelledby': id + '-t', tabIndex: -1, style: style,
       hidden: ctx && ctx.compact && !active ? true : undefined,
-      className: 'alma-window' + (active ? ' is-active' : '') + (panel ? ' alma-window--panel alma-glass' : '') + (!ctx ? ' is-still' : '') + (ctx && !free ? ' is-full' : '') + (props.className ? ' ' + props.className : ''),
+      className: 'alma-window' + (active ? ' is-active' : '') + (panel ? ' alma-window--panel alma-glass' : '') + (stage ? ' alma-window--stage' : '') + (!ctx ? ' is-still' : '') + (ctx && !free ? ' is-full' : '') + (props.className ? ' ' + props.className : ''),
       onPointerDownCapture: function () { if (ctx && !active) ctx.front(id); }, onFocusCapture: function () { if (ctx && !active) ctx.front(id); } },
       h('header', { className: 'alma-window__bar' + (active && !panel ? ' alma-glass' : ''), tabIndex: free ? 0 : undefined, role: 'group', 'aria-label': 'Barra de ' + props.title, 'aria-describedby': free ? id + '-k' : undefined,
         onPointerDown: start('move'), onPointerMove: moveTo, onPointerUp: end, onPointerCancel: end, onKeyDown: keys,

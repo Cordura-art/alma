@@ -55,12 +55,12 @@ Si lo haces a mano, trae también los tres casos en que el vidrio es opaco. La c
 
 | Token | Valor | Qué es |
 |---|---|---|
-| `glass-ultra-thin` | 0,5 | Cuánto del color de la superficie queda. |
-| `glass-thin` | 0,72 | |
-| `glass-regular` | 0,85 | |
-| `glass-thick` | 0,94 | |
-| `glass-blur` | 24 px | El desenfoque de lo de atrás. |
-| `glass-saturate` | 1,6 | Cuánto se aviva el color de lo de atrás. |
+| `glass-ultra-thin` | {token:glass-ultra-thin} | Cuánto del color de la superficie queda. |
+| `glass-thin` | {token:glass-thin} | |
+| `glass-regular` | {token:glass-regular} | |
+| `glass-thick` | {token:glass-thick} | |
+| `glass-blur` | {token:glass-blur} | El desenfoque de lo de atrás. |
+| `glass-saturate` | {token:glass-saturate} | Cuánto se aviva el color de lo de atrás. |
 
 Son los mismos en los cuatro temas y en todas las entidades: el vidrio toma el `ui-01` de cada una.
 

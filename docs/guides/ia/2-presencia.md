@@ -37,6 +37,8 @@ La presencia tiene tres tamaños. Se elige el menor que alcance.
 | **Figura** | Solo el Halo, pequeño, sobre el fondo de la página. Desde 96 px de lado. | La cabecera de un panel de asistente, el estado de una tarea larga. | Una por pantalla. |
 | **Marca** | El ícono `ai-label` y el texto «IA». Sin luz. | Junto a todo lo que una IA generó. | Las que hagan falta. |
 
+En un escritorio, el escenario es la ventana del asistente ampliada: el Velo es su suelo, el Halo ocupa una zona despejada arriba y la conversación va en una hoja de vidrio. `AlmaEfectos.presencia` mueve el Halo a esa zona con `estado('reposo', { x, y, escala })`. Ver el patrón Entorno.
+
 Una pantalla tiene **una sola luz**. Si ya hay un escenario, no hay figura. Si hay diez resúmenes generados, hay diez marcas y ninguna luz.
 
 ## Dónde va y dónde no

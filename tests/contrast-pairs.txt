@@ -29,15 +29,11 @@ SegmentedControl|contorno de la elegida sobre el riel|segmented-border|segmented
 Stepper|valor|text-02|ui-01|4.5
 Stepper|íconos − +|text-01|ui-01|3
 Stepper|borde píldora|border-control|ui-02|3
-ProductCard|título/cuerpo|product-card-text|tag-red-bg|4.5
-ProductCard|subtítulo|tertiary-500|tag-red-bg|4.5
-ProductCard|subtítulo (cyan)|tertiary-500|tag-cyan-bg|4.5
-ProductCard|subtítulo (yellow)|tertiary-500|tag-yellow-bg|4.5
-PaymentCard|marca|brand-steel|#0A0C20|4.5
-PaymentCard|etiquetas|secondary-600|#0A0C20|4.5
-PaymentCard|dígitos rojo|danger-400|#0A0C20|4.5
-PaymentCard|chip amarillo|support-03|#0A0C20|3
-PaymentCard|dígitos verde|success-400|#0A0C20|4.5
+PaymentCard|número y datos (sobre el brillo más claro de la tarjeta)|brand-white|#232323|4.5
+PaymentCard|rótulos|payment-card-text|#232323|4.5
+PaymentCard|estado en curso|payment-card-chip-activating|#232323|4.5
+PaymentCard|estado activa|payment-card-active|#232323|4.5
+PaymentCard|estado bloqueada|payment-card-pending|#232323|4.5
 ProgressLine|éxito|success-400|#0A0C20|3
 Texto|principal|text-01|ui-02|4.5
 Texto|secundario|text-02|ui-02|4.5
@@ -113,28 +109,6 @@ FileUploader|error|text-error|ui-02|4.5
 Texto|error en contenedor|text-error|ui-01|4.5
 Button|destructivo plain en contenedor|button-destructive-text|ui-01|4.5
 TextInput|chip etiqueta error|hover-danger|secondary-50|4.5
-ProductCard|texto (red)|product-card-text|tag-red-bg|4.5
-ProductCard|dato destacado (red)|product-card-subtitle|tag-red-bg|4.5
-ProductCard|texto (yellow)|product-card-text|tag-yellow-bg|4.5
-ProductCard|dato destacado (yellow)|product-card-subtitle|tag-yellow-bg|4.5
-ProductCard|texto (magenta)|product-card-text|tag-magenta-bg|4.5
-ProductCard|dato destacado (magenta)|product-card-subtitle|tag-magenta-bg|4.5
-ProductCard|texto (purple)|product-card-text|tag-purple-bg|4.5
-ProductCard|dato destacado (purple)|product-card-subtitle|tag-purple-bg|4.5
-ProductCard|texto (blue)|product-card-text|tag-blue-bg|4.5
-ProductCard|dato destacado (blue)|product-card-subtitle|tag-blue-bg|4.5
-ProductCard|texto (cyan)|product-card-text|tag-cyan-bg|4.5
-ProductCard|dato destacado (cyan)|product-card-subtitle|tag-cyan-bg|4.5
-ProductCard|texto (teal)|product-card-text|tag-teal-bg|4.5
-ProductCard|dato destacado (teal)|product-card-subtitle|tag-teal-bg|4.5
-ProductCard|texto (green)|product-card-text|tag-green-bg|4.5
-ProductCard|dato destacado (green)|product-card-subtitle|tag-green-bg|4.5
-ProductCard|texto (warmgray)|product-card-text|tag-warmgray-bg|4.5
-ProductCard|dato destacado (warmgray)|product-card-subtitle|tag-warmgray-bg|4.5
-ProductCard|texto (gray)|product-card-text|tag-gray-bg|4.5
-ProductCard|dato destacado (gray)|product-card-subtitle|tag-gray-bg|4.5
-ProductCard|texto (coolgray)|product-card-text|tag-coolgray-bg|4.5
-ProductCard|dato destacado (coolgray)|product-card-subtitle|tag-coolgray-bg|4.5
 TextInput|solo lectura: borde vs página|field-border-readonly|ui-02|3
 TextInput|solo lectura: borde vs contenedor|field-border-readonly|ui-01|3
 TextInput|solo lectura: texto|field-text|ui-02|4.5

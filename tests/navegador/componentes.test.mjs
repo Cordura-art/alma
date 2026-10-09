@@ -132,6 +132,47 @@ test('ventana: avisa cuando pasa al frente y cuando deja de estarlo (así el asi
   await fin(s);
 });
 
+test('escenario: ampliado y al frente no tiene fondo propio, esconde las ventanas de atrás y avisa; al perder el frente lo recupera', async () => {
+  const s = await escena(`monta(h(A.Desktop, { style: { height: '600px' } },
+    h(A.Window, { title: 'Viajes', defaultPosition: { x: 20, y: 20 }, defaultSize: { w: 300, h: 200 } }, 'a'),
+    h(A.Window, { title: 'Asistente', kind: 'stage', defaultPosition: { x: 360, y: 20 }, defaultSize: { w: 300, h: 200 }, onZoomChange: function (v) { log.push(v); } }, h('button', { id: 'otra', onClick: function () {} }, 'b'))));`);
+  const { p } = s, as = p.locator('.alma-window--stage'), vi = p.locator('.alma-window', { hasText: 'Viajes' });
+  const fondo = () => as.evaluate((e) => getComputedStyle(e).backgroundColor);
+  assert.notEqual(await fondo(), 'rgba(0, 0, 0, 0)', 'flotando es una ventana como las demás');
+  await p.getByRole('button', { name: 'Ampliar Asistente' }).click(); await p.waitForTimeout(100);
+  assert.equal((await s.log()).at(-1), true); assert.equal(await fondo(), 'rgba(0, 0, 0, 0)');
+  assert.equal(await vi.evaluate((e) => getComputedStyle(e).visibility), 'hidden', 'la de atrás espera fuera de la vista');
+  await p.getByRole('button', { name: 'Restaurar Asistente' }).click(); await p.waitForTimeout(100);
+  assert.equal((await s.log()).at(-1), false); assert.equal(await vi.evaluate((e) => getComputedStyle(e).visibility), 'visible');
+  await fin(s);
+});
+
+test('tarjeta de pago: parte oculta, muestra y oculta al pedirlo, copia avisando; y una bloqueada no ofrece mostrar nada', async () => {
+  const s = await escena(`monta(h('div', null, h(A.PaymentCard, { brand: 'Cordura', status: 'active', number: '5432 8765 7654 7637', holder: 'Camila Rojas', expiry: '08/29', cvv: '417', onReveal: function (v) { log.push(v); } }),
+    h(A.PaymentCard, { id: 'b', brand: 'Cordura', status: 'blocked', number: '5432 8765 7654 4821' })));`);
+  const { p } = s, cara = p.locator('.alma-paycard__face').first();
+  assert.equal(await cara.getAttribute('aria-label'), 'Tarjeta Cordura terminada en 7 6 3 7, activa');
+  assert.doesNotMatch(await cara.innerText(), /5432|417|08\/29/, 'los datos parten ocultos');
+  await p.getByRole('button', { name: 'Mostrar datos' }).click(); await p.waitForTimeout(80);
+  assert.match(await cara.innerText(), /5432 8765 7654 7637/); assert.match(await cara.innerText(), /417/); assert.deepEqual(await s.log(), [true]);
+  await p.getByRole('button', { name: 'Copiar número' }).click(); await p.waitForTimeout(80);
+  assert.equal((await p.locator('[role=status]').first().innerText()).trim(), 'Número copiado');
+  await p.getByRole('button', { name: 'Ocultar datos' }).click(); await p.waitForTimeout(80);
+  assert.doesNotMatch(await cara.innerText(), /5432/); assert.equal(await p.getByRole('button', { name: /datos/ }).count(), 1, 'la bloqueada no ofrece mostrar');
+  await fin(s);
+});
+
+test('tarjeta de producto: un solo enlace, la acción con el nombre del producto, y la rebaja dicha con palabras', async () => {
+  const s = await escena(`monta(h('div', null, h(A.ProductCard, { href: '#p', title: 'Parlante Andén', price: '$39.990', previousPrice: '$54.990', rating: { value: 4, count: 312 }, action: { label: 'Agregar', onPress: function () { log.push('agregar'); } } }),
+    h(A.ProductCard, { href: '#e', title: 'Estuche de carga', price: '$19.990', unavailable: true })));`);
+  const { p } = s, c = p.locator('.alma-pcard').first();
+  assert.equal(await c.locator('a').count(), 1); assert.equal(await p.getByRole('article', { name: 'Parlante Andén' }).count(), 1);
+  assert.equal((await c.locator('.alma-pcard__price').textContent()).replace(/\s+/g, ' ').trim(), 'Antes $54.990, ahora $39.990');
+  await p.getByRole('button', { name: 'Agregar: Parlante Andén' }).click(); assert.deepEqual(await s.log(), ['agregar']);
+  const off = p.locator('.alma-pcard').nth(1); assert.equal(await off.getByRole('button').count(), 0); assert.match(await off.innerText(), /Agotado/);
+  await fin(s);
+});
+
 test('escritorio angosto: una ventana a la vez; barra de menús y dock con una sola parada de Tab', async () => {
   const s = await escena(`monta(h(A.Desktop, { style: { height: '600px' },
     menuBar: h(A.MenuBar, { appName: 'Viajes', menus: [{ label: 'Viajes', items: ['Acerca de'] }, { label: 'Archivo', items: ['Nuevo'] }, { label: 'Ver', items: ['Ordenar'] }] }),

@@ -45,7 +45,7 @@ En tema oscuro, `control-on` es un paso claro de la rampa azul, que se despega d
 
 ## Movimiento
 
-El fondo y el borde de la pista cambian en `duration-fast-02` (110 ms); la perilla se desplaza en `duration-moderate-01` (150 ms); ambos con `easing-standard-productive`. Con movimiento reducido, el cambio es instantáneo.
+El fondo y el borde de la pista cambian en `duration-fast-02` ({token:duration-fast-02}); la perilla se desplaza en `duration-moderate-01` ({token:duration-moderate-01}); ambos con `easing-standard-productive`. Con movimiento reducido, el cambio es instantáneo.
 
 ## Contraste
 

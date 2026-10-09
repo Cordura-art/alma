@@ -1,39 +1,64 @@
 ---
 component: PaymentCard
 tab: Uso
-summary: Una tarjeta de pago virtual sobre vidrio oscuro, con su avance de activación.
+summary: Una tarjeta de pago, como se tiene en la mano.
 ---
 
 
 ## Resumen
 
-`PaymentCard` muestra una tarjeta de pago virtual y su estado de activación. Es propia de ALMA, de la billetera de Cordura.
+`PaymentCard` muestra una tarjeta de pago: quién la emite, su número, de quién es y hasta cuándo vale. Lo secreto queda oculto hasta que se pide, y su estado se dice siempre con palabras.
 
-### Cuándo usarla
-- En la billetera, para mostrar la tarjeta y cómo va su activación.
+## Anatomía
 
-### Cuándo no usarla
-- **Fuera de un fondo oscuro de marca:** el vidrio está pensado para `brand-black` o `brand-ink`.
-- **Para listar varias tarjetas:** una `List` con el nombre y los últimos 4 dígitos.
+1. **Emisor.**
+2. **Estado:** un ícono y una palabra.
+3. **Número.** Oculto, deja ver sus últimos cuatro dígitos.
+4. **Titular, vencimiento y CVV.**
+5. **Acciones,** bajo la tarjeta: mostrar u ocultar los datos, y copiar el número.
+
+![PaymentCard. A la izquierda, la tarjeta activa con sus datos a la vista y sus partes numeradas: el emisor (1), el estado «Activa» con su ícono (2), el número (3), el titular, el vencimiento y el CVV (4) y, bajo la tarjeta, las acciones «Ocultar datos» y «Copiar número» (5). A la derecha, tres tarjetas con los datos ocultos y otros estados: «Activando», «Pendiente» y «Bloqueada», esta última con sus datos apagados.](assets/Componentes/payment-card-estados.png)
+
+## Cuándo usarla
+
+- Para mostrar una tarjeta propia: en una billetera, al activar una tarjeta nueva, al pagar.
+- Chica (`size: 'sm'`), para elegir entre varias en una lista.
+
+## Cuándo no
+
+- **Para pedir los datos de una tarjeta:** un formulario con `TextInput`.
+- **Para una lista larga de medios de pago:** `List`, con el emisor y los últimos cuatro dígitos en cada fila.
 
 ## Estados
 
-| Estado | Texto | Dígitos | Chip | Muestra |
-|---|---|---|---|---|
-| `pending` | Pendiente | Rojo | Rojo | Últimos 4 dígitos. |
-| `activating` | Activando | Rojo | Amarillo | Últimos 4 dígitos. |
-| `enabled` | Habilitada | Verde | Verde | Últimos 4 dígitos. |
-| `active` | Activa | Verde | Verde | Número completo y vencimiento. |
+| Estado | Ícono | Qué significa | Datos |
+|---|---|---|---|
+| **Pendiente** | reloj | Se pidió y todavía no llega. | Ocultos. |
+| **Activando** | avance | Se está activando. | Ocultos. |
+| **Habilitada** | visto | Lista para usar; falta el primer uso. | Se pueden mostrar. |
+| **Activa** | visto | En uso. | Se pueden mostrar. |
+| **Bloqueada** | candado | No se puede usar. | Ocultos y apagados. |
 
-El estado se escribe junto al chip («Pendiente», «Activando», «Habilitada», «Activa»), así no depende del color.
+El estado nunca se dice solo con color: lleva su ícono y su palabra.
 
-![PaymentCard en sus cuatro estados sobre la tinta de marca: pendiente, activando, habilitada y activa.](assets/Componentes/payment-card-estados.png)
+## Los datos
 
-## Contenido
+- **Parten ocultos.** El número muestra solo sus últimos cuatro dígitos; el vencimiento y el CVV, puntos.
+- **Se muestran al pedirlo,** con «Mostrar datos», y se vuelven a ocultar con el mismo botón.
+- **El número se agrupa de a cuatro** y va en letra de ancho fijo, para leerlo y compararlo.
+- **Copiar copia el número sin espacios,** y lo confirma con texto: «Número copiado».
+- **Si la app puede, que pida identificarse** antes de mostrar. `PaymentCard` avisa con `onReveal`.
 
-- `brand`: el nombre del producto.
-- Solo el estado `active` muestra el número completo y el vencimiento; el CVV nunca.
+## Reglas
+
+- **La tarjeta es siempre oscura,** en todos los temas: es un objeto, no una superficie de la página.
+- **Una tarjeta grande por vista.** Las demás, chicas.
+- **No inventes números de ejemplo que parezcan reales** en una pantalla de producción.
 
 ## Relacionados
 
-`ProductCard` · `List`.
+`Card` · `List` · `TextInput` · `DigitEntry` · Indicadores de estado.
+
+## Referencias
+
+- Apple, Human Interface Guidelines: Wallet; Apple Pay.

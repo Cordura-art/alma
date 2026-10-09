@@ -77,7 +77,6 @@
   if (watcher) watcher.disconnect();
   if (ESC) { watcher = new MutationObserver(vivir); watcher.observe(document.getElementById('app'), { childList: true, subtree: true }); }
   if (SIS) [].forEach.call(document.querySelectorAll('style[data-sistema]'), function (el) { el.media = el.getAttribute('data-sistema') === sisId ? 'all' : 'not all'; });
-  suelo();
   function change(v) { if (!isSystem(v) || v === sisId) return; store.set('alma-sistema', v); start(v); }
   // An entity's design language (site/lenguaje.js), nested here: its pages join the site's, under their own routes.
   var LANG = SIS && window.__LENGUAJE_HACER && window.__LENGUAJES && window.__LENGUAJES[sisId] ? window.__LENGUAJE_HACER(window.__LENGUAJES[sisId], 'l-') : null;
@@ -95,15 +94,7 @@
     var host = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
     return window.matchMedia && matchMedia('(prefers-contrast: more)').matches ? host + '-hc' : host;
   }
-  function paint(theme) { root.setAttribute('data-theme', theme); root.style.colorScheme = theme.indexOf('light') === 0 ? 'light' : 'dark'; suelo(); }
-  // A system «all in glass» (entidades/vidrio.css) asks for a ground: the Velo, as faint as --glass-ground says for the theme.
-  function suelo() {
-    var k = parseFloat(getComputedStyle(root).getPropertyValue('--glass-ground')) || 0, el = document.getElementById('alma-suelo');
-    if (!(k > 0) || !window.AlmaEfectos) { if (window.__almaSuelo) { window.__almaSuelo.quita(); window.__almaSuelo = null; } if (el) el.remove(); return; }
-    if (!el) { el = document.createElement('div'); el.id = 'alma-suelo'; el.setAttribute('aria-hidden', 'true'); document.body.insertBefore(el, document.body.firstChild); }
-    if (!window.__almaSuelo) window.__almaSuelo = window.AlmaEfectos.monta('velo', el, { alto: 0.6, amplitud: 1, suave: 0.5, fuerza: k, velocidad: 0.6 }); else window.__almaSuelo.ajusta('fuerza', k);
-  }
-
+  function paint(theme) { root.setAttribute('data-theme', theme); root.style.colorScheme = theme.indexOf('light') === 0 ? 'light' : 'dark'; }
   // ---- Markdown: marked + DOMPurify, then ALMA classes (type styles by name, ALMA Table, Link).
   var HEAD = { H2: 'web-h4', H3: 'web-h5', H4: 'web-h6', H5: 'web-label-l' };
   var mdCache = {};

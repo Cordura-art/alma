@@ -17,8 +17,8 @@ Roboto Flex tiene varios ejes; ALMA fija dos para todo el texto, como tokens:
 
 | Token | Eje | Valor | Qué hace |
 |---|---|---|---|
-| `font-width` | `wdth` (25 a 151) | 130 | El ancho: 130, extendido sin llegar al máximo de Roboto Flex (151). |
-| `font-grade` | `GRAD` (−200 a 150) | 20 | El grado, un poco sobre el neutro (0): engrosa o aligera el trazo sin cambiar el ancho del texto, así nada se mueve de lugar. |
+| `font-width` | `wdth` (25 a 151) | {token:font-width} | El ancho: 130, extendido sin llegar al máximo de Roboto Flex (151). |
+| `font-grade` | `GRAD` (−200 a 150) | {token:font-grade} | El grado, un poco sobre el neutro (0): engrosa o aligera el trazo sin cambiar el ancho del texto, así nada se mueve de lugar. |
 
 El peso (`wght`) va por rol, en los tokens `font-weight-*` de la sección siguiente. Para probar otros valores sobre componentes reales, usa la herramienta **Ajustes de ALMA** (`npm run tuner`).
 
@@ -28,10 +28,10 @@ Un token de peso por rol, ajustado el 30 de septiembre de 2026 con **Ajustes de 
 
 | Token | Valor | Uso |
 |---|---|---|
-| `font-weight-display` | 220 | *Display*: titulares grandes. |
-| `font-weight-heading` | 350 | Encabezados h1–h6, *headline*, *title*, citas y títulos de componentes (Card, Alert, Modal, Toolbar, Accordion…). |
-| `font-weight-body` | 350 | Cuerpo y etiquetas, y todo el texto de los componentes que no es título ni énfasis. |
-| `font-weight-emphasis` | 500 | Énfasis dentro de un componente: opción elegida, página actual, insignias, títulos de grupo, enlaces sueltos, negritas. |
+| `font-weight-display` | {token:font-weight-display} | *Display*: titulares grandes. |
+| `font-weight-heading` | {token:font-weight-heading} | Encabezados h1–h6, *headline*, *title*, citas y títulos de componentes (Card, Alert, Modal, Toolbar, Accordion…). |
+| `font-weight-body` | {token:font-weight-body} | Cuerpo y etiquetas, y todo el texto de los componentes que no es título ni énfasis. |
+| `font-weight-emphasis` | {token:font-weight-emphasis} | Énfasis dentro de un componente: opción elegida, página actual, insignias, títulos de grupo, enlaces sueltos, negritas. |
 
 El *display* es más liviano que el resto: a su tamaño, un trazo fino se lee bien y se ve elegante. Títulos y cuerpo comparten peso y se distinguen por tamaño; `font-weight-emphasis` marca lo elegido o lo actual sin cambiar el tamaño.
 

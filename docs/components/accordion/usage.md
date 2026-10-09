@@ -41,7 +41,7 @@ summary: Secciones que se abren y se cierran para mostrar contenido largo por pa
 
 ## Relacionados
 
-`Tabs` · `List` · `ProductCard`.
+`Tabs` · `List` · `Card`.
 
 ## Referencias
 

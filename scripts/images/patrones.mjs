@@ -238,6 +238,20 @@ export const patternScenes = [
       mount(h('div', { className: 'col', style: { gap: 'var(--space-32)' } }, esc('De fondo', false), esc('Al frente', true)));`,
       after: `if (window.AlmaEfectos) all('.luz').forEach(function (l) { AlmaEfectos.presencia(l, l.classList.contains('frente') ? 'reposo' : 'fondo'); }); await sleep(4000); if (document.activeElement) document.activeElement.blur();` }),
 
+  scene('23-entorno', 'el asistente a pantalla completa', 'entorno-escenario',
+    'El asistente ampliado hasta llenar el escritorio. La ventana no tiene fondo propio: el velo de luz la cruza de lado a lado. Arriba, en una zona despejada, el Halo. Abajo y al centro, una hoja de vidrio con el saludo «¿En qué te ayudo?», tres preguntas sugeridas y la caja para escribir el pedido. Bajo ella, el dock.',
+    { efectos: true,
+      js: `mount(h(A.Desktop, { label: 'Escritorio', style: { width: '60rem', height: '38rem', borderRadius: 'var(--radius-panel)', border: '1px solid var(--border-subtle)' }, wallpaper: h('div', { className: 'luz' }),
+        menuBar: h(A.MenuBar, { appName: 'Asistente', menus: [{ label: 'Archivo', items: [{ value: 'n', label: 'Nuevo' }] }, { label: 'Edición', items: [{ value: 'c', label: 'Copiar' }] }], extras: [{ text: 'mar 31 · 08:12', label: 'Fecha y hora' }] }),
+        dock: h(A.Dock, { label: 'Aplicaciones', items: [{ id: 'v', label: 'Viajes', icon: 'ticket', running: true }, { id: 'a', label: 'Asistente', icon: 'ai-label', running: true, active: true }] }) },
+        h(A.Window, { title: 'Asistente', kind: 'stage', defaultZoomed: true, onClose: function () {}, onMinimize: function () {} },
+          h('div', { style: { height: '100%', boxSizing: 'border-box', display: 'grid', gridTemplateRows: 'minmax(10rem, 1fr) minmax(0, max-content)', justifyItems: 'center', padding: '0 var(--space-16) var(--space-24)' } }, h('div', { className: 'zona' }),
+            h('div', { className: 'alma-glass alma-glass--thick', style: { width: '100%', maxWidth: '44rem', boxSizing: 'border-box', padding: 'var(--space-24)', borderRadius: 'var(--radius-panel)', display: 'grid', gap: 'var(--space-24)' } },
+              h('div', { style: { display: 'grid', gap: 'var(--space-16)' } }, h('h3', { className: 'web-h4', style: { margin: 0 } }, '¿En qué te ayudo?'),
+                h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 'var(--space-8)' } }, ['¿A qué hora sale mi bus?', '¿Cuánto falta para mi viaje?', '¿Puedo cambiar mi asiento?'].map(function (q) { return h(A.Button, { key: q, variant: 'gray' }, q); }))),
+              h(A.PromptInput, { placeholder: 'Pregunta por tus viajes' }))))));`,
+      after: `if (window.AlmaEfectos) AlmaEfectos.presencia($('.luz'), 'fondo').estado('reposo', { x: 0, y: 0.26, escala: 0.4 }); await sleep(4000); if (document.activeElement) document.activeElement.blur();` }),
+
   // ---------- Jerarquía ----------
   scene('24-jerarquia', 'los tres niveles de texto y los cuatro pesos de botón', 'jerarquia-niveles',
     'Una tarjeta de viaje con sus niveles numerados. El título «Santiago → Viña del Mar» y los valores «08:30» y «Andén 4», en texto principal (1). La bajada y los nombres de los datos, «Sale», «Desde» y «Llega», en secundario (2). La hora de llegada, que todavía no está, «Por confirmar», en terciario (3). Abajo, los cuatro pesos de botón en una fila, de más a menos: «Pagar» relleno, «Guardar» con el acento tenue, «Volver» en gris tenue y «Ver detalle» solo texto.',

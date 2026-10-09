@@ -4,6 +4,37 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ## 8 de octubre de 2026
 
+### ProductCard y PaymentCard, rehechas
+
+- `ProductCard` es ahora una tarjeta de producto de verdad: imagen, insignia, categoría, nombre, descripción, valoración, precio con su rebaja y su nota, y una acción. Va en grilla o en fila, y sabe decir «Agotado». La tarjeta desplegable de color que había antes ya no existe: ese uso es de `Accordion`.
+- `PaymentCard` es una tarjeta como se tiene en la mano: emisor, estado con ícono y palabra, número, titular, vencimiento y CVV. Los datos parten ocultos y se muestran al pedirlo; copiar lo confirma con texto. Suma el estado «Bloqueada» y un tamaño chico para listas. Su radio sigue al de la entidad.
+- La imagen de alineación de botones mostraba «Anular» como botón relleno. Ahora es `tinted` destructivo, como dice la regla.
+- Salen los tokens `product-card-*` y tres de `payment-card-*` que ya no se usan.
+
+### Menos ajustes a mano
+
+- **Lo que no es token no pasa.** Nueve pruebas nuevas revisan la hoja de estilos de los componentes: ningún color, espacio, radio, peso, tiempo, curva ni capa escritos a mano, y la letra solo en tamaños de la escala. La hoja ya las cumple.
+- **Los radios de ALMA salen de uno solo**, `radius-base`, con la misma regla de las entidades: el botón lo toma entero y cada pieza lo toma hasta su tope. Con la base en 16 px, los campos, las tarjetas, los paneles, la navegación y las etiquetas pasan de 8 a 16 px, y las fichas chicas de 4 y 2 a 8 px. Para cambiar la forma de todo el sistema se cambia ese valor.
+- **Los documentos piden el valor de un token** en vez de escribirlo: `{token:radius-field}`. Se resuelve al armar, y en la página de una entidad sale el valor de esa entidad. Son 55 valores en 14 documentos; una prueba impide escribir uno a mano en una tabla.
+- **El vidrio lo decide la carta.** Una entidad con dos centros definidos o menos tiene la carta abierta, y todo en vidrio. ORCA ya no lo pide con un interruptor: sale de su carta, y aparece en su página de Origen.
+- **Los colores de papel que no son un paso de una rampa están contados** (36) y la lista solo puede achicarse.
+
+### Higiene
+
+- `PaymentCard` ya no trae colores escritos a mano: sus seis valores (el vidrio oscuro, el filo de luz, las sombras y los brillos) son tokens, `payment-card-bg`, `payment-card-border`, `payment-card-edge`, `payment-card-chip-shine`, `payment-card-number-shade` y `payment-card-number-shine`.
+- Los espacios y radios que estaban fuera de escala en `ProductCard`, `PaymentCard`, `Badge`, `Pagination`, `Tabs`, `Slider`, `Link` y los botones de una barra pasan a tokens. Se mueven entre 1 y 4 px.
+- Las capas del escritorio tienen nombre: fondo, ventanas y barras.
+
+### ORCA, sin luz detrás de la página
+
+- La página de una entidad en vidrio ya no lleva el Velo de fondo: su fondo es liso. El Velo queda para donde está la IA, en el escritorio y en su escenario.
+
+### El escenario del asistente
+
+- La ventana del asistente, ampliada, es su escenario: el Velo es el suelo de toda la ventana, el Halo ocupa una zona despejada arriba y la conversación va en una hoja de vidrio grueso, al centro. `Window` tiene un tipo nuevo, `kind: 'stage'`, y avisa con `onZoomChange`.
+- El Halo sigue el estado de la conversación: escucha mientras se escribe, se recoge al pensar y late al responder. `AlmaEfectos.presencia` lo mueve y lo achica con `estado(nombre, { x, y, escala })`.
+- El escritorio de muestra ahora conversa: tres preguntas sugeridas, con respuesta, y «Detener».
+
 ### Lo que estaba liviano
 
 - El Halo es de primer plano también en el escritorio: mientras el asistente está de fondo, su luz es solo el Velo; cuando su ventana pasa al frente, aparece el Halo. `Window` avisa con `onActiveChange`, y el escritorio de muestra ya lo usa.

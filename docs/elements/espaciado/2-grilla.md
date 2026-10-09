@@ -11,11 +11,11 @@ Mobile first: cada punto de quiebre aplica desde ese ancho hacia arriba. En el t
 
 | Punto de quiebre | Desde | Columnas | Margen | Separación |
 |---|---|---|---|---|
-| `bp-sm` | 320 px | 4, de 76 px | `grid-offset-mobile` 16 px | `grid-gutter-mobile` 8 px |
-| `bp-md` | 672 px | 8 | `grid-margin` 16 px | `grid-gutter` 32 px |
-| `bp-lg` | 1056 px | 16 | `grid-margin` 16 px | `grid-gutter` 32 px |
-| `bp-xlg` | 1312 px | 16 | `grid-margin` 16 px | `grid-gutter` 32 px |
-| `bp-max` | 1584 px | 16 | `grid-margin-max` 24 px | `grid-gutter` 32 px |
+| `bp-sm` | {token:bp-sm} | 4, de 76 px | `grid-offset-mobile` 16 px | `grid-gutter-mobile` 8 px |
+| `bp-md` | {token:bp-md} | 8 | `grid-margin` 16 px | `grid-gutter` 32 px |
+| `bp-lg` | {token:bp-lg} | 16 | `grid-margin` 16 px | `grid-gutter` 32 px |
+| `bp-xlg` | {token:bp-xlg} | 16 | `grid-margin` 16 px | `grid-gutter` 32 px |
+| `bp-max` | {token:bp-max} | 16 | `grid-margin-max` 24 px | `grid-gutter` 32 px |
 
 ![Las columnas de la grilla sobre tres pantallas: un teléfono de 360 px con 4 columnas, bp-md de 672 px con 8 columnas y bp-lg de 1056 px con 16 columnas.](assets/Fundamentos/espaciado-grilla.png)
 

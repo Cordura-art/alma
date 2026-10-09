@@ -87,8 +87,8 @@ export function css(S) {
   // The seed of what the entity generates (its pictograms) travels with its values: the Pictogram component reads it.
   let out = `/* Entidad ${S.L.nombre}: los valores de la entidad sobre los tokens de ALMA. */\n:root {\n${Object.values(S.core).map(decl).join('\n')}\n  --pictogram-seed: "${semilla(S)}";\n}\n`;
   for (const th of THEMES) out += `${sel[th]} {\n${decl(S.color[th])}\n}\n`;
-  // An entity may ask for everything in glass ("vidrio": true in its language): the same rules for any entity, all tokens.
-  if (S.L.vidrio) out += readFileSync(new URL('../../entidades/vidrio.css', import.meta.url), 'utf8');
+  // An entity whose chart is open (two defined centres or fewer) has everything in glass: the same rules for any entity, all tokens.
+  if (S.P.glass) out += readFileSync(new URL('../../entidades/vidrio.css', import.meta.url), 'utf8');
   return out;
 }
 
@@ -98,6 +98,20 @@ export function valor(tok, name, theme = 'dark') {
   if (c) { const v = typeof c.value === 'string' ? c.value : c.value[theme], m = /^\{(.+)\}$/.exec(v); return m ? valor(tok, m[1], theme) : v; }
   for (const f of Object.values(tok)) { const t = f && Array.isArray(f.tokens) && f.tokens.find((x) => x.name === name); if (t) return String(t.value).replace(/(\d)(px|ms)$/, '$1 $2'); }
   throw new Error(`No existe el token "${name}"`);
+}
+
+// The docs do not write a token's value by hand: they ask for it, {token:radius-field}, and get it when they are built.
+export const conValores = (md, tok) => md.replace(/\{token:([a-z0-9-]+)(?::([a-z-]+))?\}/g, (_, n, th) => valor(tok, n, th));
+// A table row about one token (its first cell is the token's name) that shows that token's value in ALMA shows, in an
+// entity's pages, the entity's value.
+export function filasDeToken(md, alma, tok) {
+  return md.split('\n').map((l) => {
+    const m = /^\| `([a-z0-9-]+)` \|/.exec(l); if (!m) return l;
+    let de, a; try { de = valor(alma, m[1]); a = valor(tok, m[1]); } catch { return l; }
+    if (de === a || typeof de !== 'string') return l;
+    let hecho = false;
+    return l.split('|').map((c, k) => { if (k < 2 || hecho || c.trim() !== de) return c; hecho = true; return c.replace(de, a); }).join('|');
+  }).join('\n');
 }
 
 const meta = (src) => {
@@ -192,8 +206,10 @@ export function palabras(S, tok) {
   const propios = new Set((O.reemplazos || []).map(([de]) => de));
   const pares = [...(B.reemplazos || []).filter(([de]) => !propios.has(de)), ...(O.reemplazos || [])]
     .filter(([, , c]) => !c || (c[0] === '!' ? !R.si[c.slice(1)] : R.si[c])).map(([de, a]) => ({ de, a: plantilla(a, S, tok, R), n: 0 }));
+  const alma = JSON.parse(read('dist/json/tokens.json'));
   const adaptar = (text) => {
     for (const p of pares) if (text.includes(p.de)) { p.n++; text = text.split(p.de).join(p.a); }
+    text = filasDeToken(text, alma, tok);
     // A value written beside its token, as in "`radius-field` (8 px)", follows the entity's token.
     return text.replace(/`((?:duration|radius)-[a-z0-9-]+)` \((\d+) (ms|px)\)/g, (_, n) => '`' + n + '` (' + valor(tok, n) + ')');
   };
@@ -256,6 +272,7 @@ export function origen(S, cambios) {
   md += `| Línea inconsciente ${d} | La forma (${P.shape.note}) y el grado de la letra. | ${c('radius-button')} = ${P.radius['radius-button'].replace('px', ' px')} · ${c('font-grade')} = ${P.fontGrade} |\n`;
   md += `| Autoridad: ${A.name} | Los pesos de la letra: display, títulos, texto y énfasis. | ${w.display} / ${w.heading} / ${w.body} / ${w.emphasis} |\n`;
   md += `| Centros definidos: ${centros} | El tono y la saturación del color${P.accent.deep ? '; con la Garganta definida, un acento profundo con texto blanco' : ''}. | ${c('interactive-01')} = ${c(P.accent.dark['interactive-01'])} |\n`;
+  md += `| ${E.centers.length} ${E.centers.length === 1 ? 'centro definido' : 'centros definidos'} de 9 | La materia de las superficies: con dos o menos, la carta es abierta y todo va en vidrio. | ${P.glass ? 'Vidrio' : 'Superficies opacas'} |\n`;
   md += `| Armonía del ${T.name} | Los colores de apoyo. | ${P.palette.map((x) => `${x.role}: ${x.name.toLowerCase()}`).join(' · ')} |\n\n`;
   md += `Nacimiento de la entidad: ${L.fechaLarga || L.nacimiento.fecha}.\n\n`;
   md += `## Lo que cambia frente a ALMA\n\n${cambios.length} tokens cambian de valor. Ninguno cambia de nombre: lo que está hecho con ALMA funciona aquí sin tocar una línea.\n\n`;

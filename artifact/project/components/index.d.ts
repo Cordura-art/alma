@@ -142,30 +142,44 @@ export declare function Stepper(props: StepperProps): any;
 
 export interface ProductCardProps {
   title: string;
-  subtitle?: string;
+  href?: string;
+  onPress?: () => void;
   image?: string;
   imageAlt?: string;
-  /** Body copy. */
-  children?: any;
-  /** Tag color family for the card ground: red (default), yellow, magenta, purple, blue, cyan, teal, green, warmgray, gray, coolgray. */
-  tone?: string;
-  open?: boolean;
-  defaultOpen?: boolean;
-  /** false = always open, no toggle. */
-  collapsible?: boolean;
-  onToggle?: (open: boolean) => void;
+  badge?: string;
+  eyebrow?: string;
+  description?: string;
+  rating?: { value: number; count?: number };
+  /** Today's price, already formatted. */
+  price?: string;
+  previousPrice?: string;
+  priceNote?: string;
+  action?: { label: string; onPress?: () => void; icon?: string; variant?: string; ariaLabel?: string };
+  /** true = «Agotado», or the text to show instead of the action. */
+  unavailable?: boolean | string;
+  layout?: 'vertical' | 'horizontal';
+  headingLevel?: number;
+  className?: string;
 }
 export declare function ProductCard(props: ProductCardProps): any;
 
 export interface PaymentCardProps {
-  /** pending (red) → activating (red digits, yellow chip) → enabled (green) → active (full number shown). */
-  status?: 'pending' | 'activating' | 'enabled' | 'active';
+  status?: 'pending' | 'activating' | 'enabled' | 'active' | 'blocked';
   brand?: string;
-  last4?: string;
-  /** Full number, shown only when status = active. */
+  /** The full number. Without it there is nothing to show or copy. */
   number?: string;
+  last4?: string;
+  holder?: string;
   expiry?: string;
-  onCopy?: () => void;
+  cvv?: string;
+  revealed?: boolean;
+  defaultRevealed?: boolean;
+  onReveal?: (shown: boolean) => void;
+  onCopy?: (number: string) => void;
+  actions?: boolean;
+  size?: 'sm';
+  label?: string;
+  className?: string;
 }
 export declare function PaymentCard(props: PaymentCardProps): any;
 

@@ -1,4 +1,4 @@
-<!-- @dsCard group="Entorno" height=720 subtitle="Mueve las ventanas por su barra · cámbiales el tamaño por los bordes · abre apps desde el dock · trae el Asistente al frente y aparece el Halo" -->
+<!-- @dsCard group="Entorno" height=720 subtitle="Mueve las ventanas por su barra · cámbiales el tamaño por los bordes · abre apps desde el dock · trae el Asistente al frente y aparece el Halo · amplíalo: el Velo pasa a ser su suelo" -->
 <div id="root" style="padding:16px;"></div>
 <script>
   // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
@@ -8,37 +8,65 @@
   // The assistant in the background is only the Velo; when its window comes to the front, the Halo appears.
   function Fondo(props) { var r = React.useRef(null), p = React.useRef(null);
     React.useEffect(function () { p.current = window.AlmaEfectos && AlmaEfectos.presencia ? AlmaEfectos.presencia(r.current, 'fondo') : null; return function () { if (p.current) p.current.quita(); }; }, []);
-    React.useEffect(function () { if (p.current) p.current.estado(props.estado); }, [props.estado]);
+    React.useEffect(function () { if (p.current) p.current.estado(props.estado, props.lugar); }, [props.estado, JSON.stringify(props.lugar)]);
     return h('div', { ref: r }); }
   function Viajes() { return h('div', { style: { padding: '16px', display: 'grid', gap: '16px' } },
     h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' }),
     h(A.Card, { headingLevel: 3, eyebrow: '4 abr 2026 · 19:10', title: 'Viña del Mar → Santiago', subtitle: 'Salón cama · asiento 3' })); }
-  function Asistente() { return h('div', { style: { padding: '16px', display: 'grid', gap: '16px', gridTemplateRows: '1fr auto', minHeight: '100%', boxSizing: 'border-box' } },
-    h('ol', { style: { margin: 0, padding: 0, display: 'grid', gap: '16px', alignContent: 'start' } },
-      h(A.ChatMessage, { as: 'li', from: 'user' }, '¿A qué hora sale mi bus?'),
-      h(A.ChatMessage, { as: 'li' }, h('p', null, 'Tu bus a Viña del Mar sale el martes 31 de marzo a las 08:30, del andén 4.'))),
-    h(A.PromptInput, { placeholder: 'Pregunta por tus viajes', note: false })); }
+  // The assistant. A sample: it only knows three answers. Floating, it is a window like any other. Filling the desktop it is
+  // a stage: the Velo is its ground, the Halo keeps a clear zone above, and what is read goes on a sheet of thick glass.
+  var SABE = { '¿A qué hora sale mi bus?': 'Tu bus a Viña del Mar sale el martes 31 de marzo a las 08:30, del andén 4.', '¿Cuánto falta para mi viaje?': 'Faltan 18 minutos. Sale a las 08:30 y ahora son las 08:12.', '¿Puedo cambiar mi asiento?': 'Sí, hasta 30 minutos antes de la salida. Para este viaje ya pasó ese plazo: el asiento 14 queda como está.' };
+  function Asistente(props) {
+    var m = React.useState([]), oc = React.useState(false), reloj = React.useRef([]);
+    function limpia() { reloj.current.forEach(clearTimeout); reloj.current = []; }
+    React.useEffect(function () { return limpia; }, []);
+    function ultimo(cambio) { m[1](function (l) { var o = l.slice(); o[o.length - 1] = Object.assign({}, o[o.length - 1], cambio); return o; }); }
+    function enviar(q) {
+      if (!q || oc[0]) return; limpia(); oc[1](true); props.onEstado('pensando');
+      m[1](m[0].concat([{ de: 'user', t: q }, { de: 'assistant', s: 'thinking' }]));
+      reloj.current.push(setTimeout(function () { ultimo({ s: 'writing', t: SABE[q] || 'Soy una muestra: solo sé responder las tres preguntas sugeridas.' }); props.onEstado('respondiendo'); }, 1400));
+      reloj.current.push(setTimeout(function () { ultimo({ s: 'done' }); oc[1](false); props.onEstado('reposo'); }, 2800));
+    }
+    function detener() { limpia(); ultimo({ s: 'stopped' }); oc[1](false); props.onEstado('reposo'); }
+    // where the clear zone is, for the Halo: its centre and its size, measured against the desktop
+    var zona = React.useRef(null);
+    React.useEffect(function () {
+      var z = zona.current; if (!props.full || !z) { props.onLugar(null); return; }
+      function mide() { var d = z.closest('.alma-desktop'); if (!d) return; var a = z.getBoundingClientRect(), b = d.getBoundingClientRect();
+        props.onLugar({ x: Math.round(((a.left + a.width / 2) - (b.left + b.width / 2)) / b.width * 50) / 50, y: Math.round(((b.top + b.height / 2) - (a.top + a.height / 2)) / b.height * 50) / 50, escala: Math.max(0.25, Math.min(1, Math.round(a.height / b.height * 1.2 * 20) / 20)) }); }
+      mide(); var ro = window.ResizeObserver ? new ResizeObserver(mide) : null; if (ro) ro.observe(z); return function () { if (ro) ro.disconnect(); };
+    }, [props.full]);
+    var lista = m[0].length ? h('ol', { style: { margin: 0, padding: 0, display: 'grid', gap: 'var(--space-16)', alignContent: 'start' } }, m[0].map(function (x, i) {
+      return h(A.ChatMessage, { key: i, as: 'li', from: x.de, status: x.s }, x.de === 'user' ? x.t : (x.t ? h('p', null, x.t) : null)); })) : null;
+    var saludo = !m[0].length ? h('div', { style: { display: 'grid', gap: 'var(--space-16)' } }, h('h3', { className: props.full ? 'web-h4' : 'web-h6', style: { margin: 0 } }, '¿En qué te ayudo?'),
+      h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 'var(--space-8)' } }, Object.keys(SABE).map(function (q) { return h(A.Button, { key: q, variant: 'gray', onClick: function () { enviar(q); } }, q); }))) : null;
+    var caja = h(A.PromptInput, { placeholder: 'Pregunta por tus viajes', note: props.full ? undefined : false, busy: oc[0], onStop: detener, onSubmit: enviar, onChange: function (v) { if (!oc[0]) props.onEstado(v ? 'escuchando' : 'reposo'); } });
+    if (!props.full) return h('div', { style: { padding: 'var(--space-16)', display: 'grid', gap: 'var(--space-16)', gridTemplateRows: '1fr auto', minHeight: '100%', boxSizing: 'border-box' } }, h('div', { style: { alignSelf: m[0].length ? 'start' : 'end' } }, lista || saludo), caja);
+    return h('div', { style: { height: '100%', boxSizing: 'border-box', display: 'grid', gridTemplateRows: 'minmax(10rem, 1fr) minmax(0, max-content)', justifyItems: 'center', padding: '0 var(--space-16) var(--space-24)' } },
+      h('div', { ref: zona, 'aria-hidden': 'true', style: { width: '100%' } }),
+      h('div', { className: 'alma-glass alma-glass--thick', style: { width: '100%', maxWidth: '44rem', maxHeight: '100%', minHeight: 0, overflow: 'auto', boxSizing: 'border-box', padding: 'var(--space-24)', borderRadius: 'var(--radius-panel)', display: 'grid', gap: 'var(--space-24)' } }, lista || saludo, caja));
+  }
   function Notas() { return h('div', { style: { padding: '16px' } }, h(A.Textarea, { label: 'Nota', defaultValue: 'Llegar 15 minutos antes al Terminal Alameda.' })); }
-  var CUERPO = { viajes: Viajes, asistente: Asistente, notas: Notas };
+  var CUERPO = { viajes: Viajes, asistente: Asistente, notas: Notas }, CENTRO = { x: 0, y: 0, escala: 1 };
   function App() {
     var ab = React.useState({ viajes: true, asistente: true }), mi = React.useState({}), al = React.useState(0);
     function abrir(id) { var o = Object.assign({}, ab[0]); o[id] = true; ab[1](o); var m = Object.assign({}, mi[0]); delete m[id]; mi[1](m); al[1](al[0] + 1); frente[1]({ id: id, n: al[0] + 1 }); }
     function cerrar(id) { var o = Object.assign({}, ab[0]); delete o[id]; ab[1](o); }
     function minimizar(id) { var m = Object.assign({}, mi[0]); m[id] = true; mi[1](m); }
-    var frente = React.useState(null), ia = React.useState(false);
+    var frente = React.useState(null), ia = React.useState(false), lleno = React.useState(false), est = React.useState('reposo'), lugar = React.useState(null);
     var menus = [{ label: 'Viajes', items: [{ value: 'acerca', label: 'Acerca de Viajes' }, { value: 'ajustes', label: 'Ajustes…', shortcut: 'Ctrl+,' }] },
       { label: 'Archivo', items: [{ value: 'nuevo', label: 'Nuevo viaje…', shortcut: 'Ctrl+N' }, { value: 'cerrar', label: 'Cerrar ventana', shortcut: 'Ctrl+W' }] },
       { label: 'Edición', items: [{ value: 'deshacer', label: 'Deshacer', shortcut: 'Ctrl+Z' }, '-', { value: 'copiar', label: 'Copiar', shortcut: 'Ctrl+C' }, { value: 'pegar', label: 'Pegar', shortcut: 'Ctrl+V', disabled: true }] },
       { label: 'Ver', items: [{ value: 'orden', label: 'Ordenar por', items: [{ value: 'fecha', label: 'Fecha', checked: true, radio: true }, { value: 'precio', label: 'Precio', checked: false, radio: true }] }, { value: 'pagados', label: 'Solo los pagados', checked: false }] },
       { label: 'Ventana', items: APPS.map(function (a) { return { value: 'v-' + a.id, label: a.label, checked: !!ab[0][a.id] && !mi[0][a.id], onSelect: function () { abrir(a.id); } }; }) },
       { label: 'Ayuda', items: [{ value: 'ayuda', label: 'Ayuda de Viajes' }] }];
-    return h(A.Desktop, { label: 'Escritorio de muestra', style: { height: '660px', borderRadius: 'var(--radius-panel)', border: '1px solid var(--border-subtle)' }, wallpaper: h(Fondo, { estado: ia[0] ? 'reposo' : 'fondo' }),
+    return h(A.Desktop, { label: 'Escritorio de muestra', style: { height: '660px', borderRadius: 'var(--radius-panel)', border: '1px solid var(--border-subtle)' }, wallpaper: h(Fondo, { estado: ia[0] ? est[0] : 'fondo', lugar: ia[0] && lleno[0] && lugar[0] ? lugar[0] : CENTRO }),
       menuBar: h(A.MenuBar, { appName: 'Viajes', menus: menus, extras: [{ icon: 'notification', label: 'Avisos', onPress: function () {} }, { text: 'mar 31 · 08:12', label: 'Fecha y hora' }] }),
       dock: h(A.Dock, { label: 'Aplicaciones', items: APPS.map(function (a) { return { id: a.id, label: a.label, icon: a.icon, running: !!ab[0][a.id], onOpen: function () { abrir(a.id); },
         menu: [{ value: 'abrir', label: ab[0][a.id] ? 'Mostrar' : 'Abrir', onSelect: function () { abrir(a.id); } }, { value: 'salir', label: 'Salir', disabled: !ab[0][a.id], onSelect: function () { cerrar(a.id); } }] }; }) }) },
       APPS.filter(function (a) { return ab[0][a.id]; }).map(function (a, i) { var C = CUERPO[a.id];
         return h(A.Window, { key: a.id, frontKey: frente[0] && frente[0].id === a.id ? frente[0].n : 0, title: a.label, minimized: !!mi[0][a.id], defaultPosition: { x: 40 + i * 220, y: 32 + i * 48 }, defaultSize: { w: a.id === 'asistente' ? 380 : 420, h: a.id === 'notas' ? 240 : 360 },
-          onActiveChange: a.id === 'asistente' ? ia[1] : undefined, onClose: function () { cerrar(a.id); }, onMinimize: function () { minimizar(a.id); }, bottomBar: a.id === 'viajes' ? '2 viajes' : null }, h(C)); }));
+          kind: a.id === 'asistente' ? 'stage' : undefined, onActiveChange: a.id === 'asistente' ? ia[1] : undefined, onZoomChange: a.id === 'asistente' ? lleno[1] : undefined, onClose: function () { cerrar(a.id); }, onMinimize: function () { minimizar(a.id); }, bottomBar: a.id === 'viajes' ? '2 viajes' : null }, a.id === 'asistente' ? h(C, { full: lleno[0], onEstado: est[1], onLugar: lugar[1] }) : h(C)); }));
   }
   ReactDOM.createRoot(document.getElementById('root')).render(h(App));
 </script>

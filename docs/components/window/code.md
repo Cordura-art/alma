@@ -34,12 +34,13 @@ La ventana guarda su lugar y su tamaño. Quién está abierta o minimizada lo de
 | `onMinimize` | función | — | Muestra el control de minimizar. |
 | `zoomable` | sí o no | sí | Con `false`, no se puede ampliar. |
 | `resizable` | sí o no | sí | Con `false`, no cambia de tamaño. |
-| `kind` | `panel` | — | Un panel: menor y de vidrio. |
+| `kind` | `panel`, `stage` | — | `panel`: menor y de vidrio. `stage`: la ventana de un asistente; ampliada y al frente, deja ver la luz del escritorio. |
 | `defaultPosition` | `{ x, y }` | En cascada | Dónde aparece, en px desde la esquina del escritorio. |
 | `defaultSize` | `{ w, h }` | 480 × 360 | Su tamaño inicial. |
 | `minSize` | `{ w, h }` | 240 × 160 | El menor tamaño. |
 | `defaultZoomed` | sí o no | no | Si aparece ampliada. |
 | `frontKey` | cualquiera | — | Cuando cambia, la ventana pasa al frente. Para traerla desde el dock o un menú. |
+| `onZoomChange` | función | — | Avisa con `true` cuando la ventana llena el escritorio (ampliada, o sola en una pantalla angosta) y con `false` cuando deja de hacerlo. |
 | `onActiveChange` | función | — | Avisa con `true` cuando la ventana pasa al frente y con `false` cuando deja de estarlo o se oculta. |
 | `toolbar` | contenido | — | Herramientas, al final de la barra. |
 | `bottomBar` | contenido | — | El pie. |

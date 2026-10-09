@@ -7,48 +7,41 @@ summary: Especificaciones visuales de la tarjeta de pago.
 
 ## Color
 
+La tarjeta no cambia con el tema: sus colores son los mismos en los cuatro.
+
 | Elemento | Propiedad | Token |
 |---|---|---|
-| Marca | color del texto | `payment-card-brand` (`brand-steel`) |
-| Estado, etiquetas y valores | color del texto | `payment-card-text` |
-| Dígitos, chip y Copiar (pendiente, activando) | color | `payment-card-pending` |
-| Chip (activando) | borde | `payment-card-chip-activating` |
-| Dígitos, chip y Copiar (habilitada, activa) | color | `payment-card-active` |
-| Copiar:focus | contorno | `focus` (2 px) |
+| Tarjeta | fondo | `payment-card-bg`, con un brillo tenue en diagonal hecho de `payment-card-border` |
+| Tarjeta | borde | `payment-card-border`, al 40 % |
+| Tarjeta | canto inferior | `payment-card-edge` |
+| Emisor, número, valores | texto | `brand-white` |
+| Rótulos; datos de una tarjeta bloqueada | texto | `payment-card-text` |
+| Estado en curso (pendiente, activando) | ícono y texto | `payment-card-chip-activating` |
+| Estado habilitada o activa | ícono y texto | `payment-card-active` |
+| Estado bloqueada | ícono y texto | `payment-card-pending` |
+| «Número copiado» | texto | `text-02` |
 
-En alto contraste, `payment-card-text` y los colores de estado usan pasos más claros de sus rampas.
-
-## Valores fijos de Figma
-
-Algunas medidas del vidrio vienen de Figma y todavía no son tokens:
-
-| Elemento | Valor |
-|---|---|
-| Vidrio | tinta de marca al 50 % de opacidad |
-| Borde | 0,5 px blanco al 42 % |
-| Radio | 14,4 px |
-| Chip | 34 × 24 px, radio 5 px |
+Todos los textos de la tarjeta tienen 4,5:1 o más sobre la parte más clara de su brillo.
 
 ## Tipografía
 
-| Elemento | Tamaño de letra (px / rem) | Peso |
+| Elemento | Tamaño | Detalle |
 |---|---|---|
-| Marca | 14 / 0,875 | `font-weight-emphasis` |
-| Estado y etiquetas | 11 / 0,6875 | `font-weight-body` |
-| Número | 16 / 1 | `font-weight-emphasis` |
-| Vencimiento y CVV | 16 / 1 | `font-weight-body` |
+| Número | 20 px; chica, 14 px | Ancho fijo, cifras tabulares |
+| Emisor | 16 px | `font-weight-emphasis` |
+| Valores | 14 px | — |
+| Estado | 12 px | — |
+| Rótulos | 11 px | — |
 
 ## Estructura
 
 | Elemento | Propiedad | Valor |
 |---|---|---|
-| Tarjeta | ancho, alto mínimo | 311 px (19,4375 rem), 190 px |
-| Tarjeta | relleno | 16 px arriba y abajo, 18 px a los lados |
-| Estado y chip | separación | 8 px |
-| Vencimiento y CVV | columnas, separación | 2, 16 px |
+| Tarjeta | ancho | hasta 352 px; chica, 256 px |
+| Tarjeta | proporción | 1,586 a 1, la de una tarjeta real. La chica toma el alto de su contenido |
+| Tarjeta | relleno | `space-24`; chica, `space-16` |
+| Tarjeta | radio | `radius-panel` |
+| Datos | separación | `space-24` |
+| Tarjeta y acciones | separación | `space-8` |
 
-![Medidas de PaymentCard: ancho de 311 px, alto mínimo de 190 px, relleno, radio y chip de 34 × 24 px.](assets/Componentes/payment-card-medidas.png)
-
-## Contraste
-
-La marca llega a 9:1 sobre el vidrio (en Figma era `#3A4660`, que daba 2:1). Dígitos, etiquetas y chip pasan AA sobre `brand-black` y `brand-ink`.
+![Medidas de PaymentCard: 352 px de ancho como máximo y la proporción de una tarjeta real, 1,586 a 1; relleno de 24 px; y el radio del panel.](assets/Componentes/payment-card-medidas.png)
