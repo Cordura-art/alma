@@ -6,6 +6,32 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 
 ### 8 de octubre de 2026
 
+#### Lo que estaba liviano
+
+- El Halo es de primer plano también en el escritorio: mientras el asistente está de fondo, su luz es solo el Velo; cuando su ventana pasa al frente, aparece el Halo. `Window` avisa con `onActiveChange`, y el escritorio de muestra ya lo usa.
+- Ocho piezas que no tenían imagen ya la tienen: `Collection`, `ColumnView`, `ControlCenter`, `EditMenu`, `ImageView`, `Outline`, `SplitView` y `WebView`. Sus documentos crecieron con anatomía, teclado y qué va adentro.
+- Tres patrones ganaron imagen: Menús, Entorno (la IA de fondo y al frente) y Jerarquía (los tres niveles de texto y los cuatro pesos de botón).
+- `ColumnView` muestra el dato al final de la fila (`trailing`), igual que `Outline`. Antes lo recibía y no lo dibujaba.
+- ORCA tiene su lenguaje escrito a mano: un escritorio personal, con documentos, versiones y un asistente que cita sus fuentes. Dejó de ser un borrador automático.
+
+#### Pruebas de comportamiento
+
+- Trece pruebas nuevas manejan los componentes en un navegador de verdad, como lo haría una persona: teclado, foco y lo que se anuncia. Cubren menús, hoja de acción, caja de pedido, respuesta de la IA, marca de IA y fuentes, ventanas, escritorio, listas, entrada de dígitos, campo de fichas, árbol, columnas, divisor, medidor y valoración.
+- Se corren con `npm run test:componentes`. Van aparte de `npm test` porque necesitan Chromium y red.
+- Una prueba más cuida que, sobre el suelo de Velo de una entidad en vidrio, los tres niveles de texto sigan en 4,5:1.
+
+#### Elegir un componente, y los grupos en orden
+
+- Un patrón nuevo, Elegir un componente: once tablas que dicen cuál usar cuando varios se parecen. Se entra por lo que necesitas, no por el nombre de la pieza.
+- Los grupos de componentes se ordenaron. «Toggles» pasa a llamarse «Selección» y reúne lo que se elige (`Checkbox`, `RadioGroup`, `Switch`, `SegmentedControl`, `Slider`, `Stepper`). `Link` pasa a Acciones, `Pagination` a Navegación, `Accordion` a Contenido y `Gauge` a Datos.
+
+#### Lo anterior, al día con las reglas nuevas
+
+- Diálogos: una acción destructiva que la persona eligió se confirma con `ActionSheet`; `Alert` queda para lo que llega sin pedirlo. La acción que destruye nunca es la más visible.
+- Acciones: el orden de peso de los botones es `filled`, `tinted`, `gray`, `plain`.
+- Ajustes: un sí o no es una fila de `List` con su interruptor.
+- El valor de `Stepper` y de `Slider` pasa a texto principal: en un dato manda el valor.
+
 #### El Halo, solo en primer plano
 
 - La presencia de una IA distingue ahora primer plano y fondo. De fondo es solo el Velo; el Halo aparece cuando la IA pasa al frente y se retira al volver. Ahorra recursos: el Halo es el efecto más costoso.

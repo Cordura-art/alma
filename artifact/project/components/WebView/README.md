@@ -9,6 +9,14 @@ Contenido de fuera dentro de una app, con su origen siempre a la vista.
 
 `WebView` muestra una página de otro sitio dentro de una app: unas condiciones, una ayuda, un pago. Lleva una barra que dice de dónde viene. Es la *web view* de Apple.
 
+![Un WebView. Arriba, su barra: un candado y el sitio de donde viene la página, «ejemplo.cl», y a la derecha dos botones, recargar y abrir en otra pestaña. En el cuerpo, en lugar de la página, el mensaje «Este contenido no se puede mostrar aquí» y el enlace «Abrir ejemplo.cl».](assets/Componentes/web-view-bloqueada.png)
+
+### Anatomía
+
+1. **Barra:** un candado y el sitio de donde viene la página. La gente tiene que saber que eso no es tuyo.
+2. **Acciones:** recargar y abrir en otra pestaña.
+3. **Cuerpo:** la página. Mientras llega, un indicador; si no se deja mostrar, un mensaje y el enlace para abrirla aparte.
+
 ### Cuándo usarla
 
 - Para contenido breve de otro sitio que no conviene sacar de contexto.

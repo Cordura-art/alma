@@ -40,6 +40,7 @@ La ventana guarda su lugar y su tamaño. Quién está abierta o minimizada lo de
 | `minSize` | `{ w, h }` | 240 × 160 | El menor tamaño. |
 | `defaultZoomed` | sí o no | no | Si aparece ampliada. |
 | `frontKey` | cualquiera | — | Cuando cambia, la ventana pasa al frente. Para traerla desde el dock o un menú. |
+| `onActiveChange` | función | — | Avisa con `true` cuando la ventana pasa al frente y con `false` cuando deja de estarlo o se oculta. |
 | `toolbar` | contenido | — | Herramientas, al final de la barra. |
 | `bottomBar` | contenido | — | El pie. |
 | `onChange` | función | — | Recibe `{ x, y, w, h }` al mover o cambiar de tamaño. |

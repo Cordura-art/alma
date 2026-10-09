@@ -161,6 +161,10 @@ La base son nuestros referentes. Las recetas de marca (escribirse, armarse, desh
 
 Lo que se mueve detrás, entre y debajo de las cosas está en una colección propia, sin librerías: fondos (Halo, Velo, Hilos, Retícula, Grano, Rayos, Ondas), reacciones (Chispa, Imán, Destello, Foco, Inclinar), transiciones (Trama, Aparecer, Cortina, Fundido) y textos (Descifrar, Contar, Escalonar, Brillo, Rotar, Desvelar). Cada uno toma sus colores y sus tiempos de los tokens, trabaja solo mientras se ve y respeta el movimiento reducido. Como el movimiento de marca, viven en portadas y páginas de presentación, no en la interfaz de un producto. La guía de cada uno está en la sección Efectos, y el código en `efectos.js`: `AlmaEfectos.monta('halo', elemento)`.
 
+### Elegir un componente
+
+Cuando varios componentes se parecen, el patrón Elegir un componente dice cuál va: `ProgressBar` mide algo que está pasando y `Gauge` algo que es; `ActionSheet` responde a algo que la persona hizo y `Alert` llega sin pedirlo; texto en filas (`List`), imágenes en grilla (`Collection`), números en tabla (`Table`). Consúltalo antes de elegir.
+
 ### Jerarquía
 
 Tres cosas dicen qué se lee primero, y están en el patrón Jerarquía:

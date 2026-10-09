@@ -26,6 +26,19 @@ summary: Una lista y su detalle, lado a lado, con un divisor que se mueve.
 - **Angosto** (menos de 672 px), muestra un panel a la vez: la lista, y al elegir, el detalle con «Volver».
 - **Lo importante va al inicio:** la lista a la izquierda, el detalle a la derecha.
 
+![El mismo SplitView en dos anchos. Ancho: a la izquierda la lista «Mis viajes» con «Santiago → Viña del Mar» marcado, un divisor, y a la derecha el detalle de ese viaje. Angosto, en un teléfono: solo el detalle, con el botón «Volver» arriba para regresar a la lista.](assets/Componentes/split-view-ancho-angosto.png)
+
+## Qué va en cada panel
+
+| Panel | Qué | Con qué |
+|---|---|---|
+| **Lista** | De dónde se elige. Angosto y estable: no cambia al elegir. | `List`, `Outline`, `Sidebar` |
+| **Detalle** | Lo elegido, completo. Cambia con cada elección. | Lo que haga falta |
+
+- **El detalle nunca queda vacío** en ancho: parte con el primero elegido, o con un `EmptyState` que diga qué elegir.
+- **En angosto, «Volver» lleva a la lista** con lo elegido todavía marcado.
+- **No anides** un `SplitView` dentro de otro. Para un tercer nivel, usa `ColumnView`.
+
 ## Relacionados
 
 `List` · `Window` · `Sidebar` · `ColumnView` · Diseño adaptable.

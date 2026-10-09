@@ -18,7 +18,9 @@ Flotar no es tapar. Lo que flota en ALMA es de **vidrio**: deja pasar, desenfoca
 | **Contenido** | Lo que la persona vino a ver: texto, imágenes, listas, formularios, gráficos. | Superficies opacas: `ui-02` la página, `ui-01` los contenedores, `ui-03` lo que va dentro. |
 | **Funcional** | Lo que sirve para moverse y actuar: barras, menús, popovers, hojas, ventanas, paneles. | Vidrio. |
 
-La regla que ordena todo: **el vidrio es de la capa funcional, nunca del contenido.** Una tarjeta no es de vidrio. Una tabla no es de vidrio. Si todo es translúcido, nada se separa de nada.
+La regla que ordena todo: **el vidrio es de la capa funcional, no del contenido.** Una tarjeta no es de vidrio. Una tabla no es de vidrio. Si todo es translúcido, nada se separa de nada.
+
+Hay una sola excepción, y es una decisión de toda una entidad, no de una pantalla: «Todo en vidrio», más abajo.
 
 ## Niveles
 
@@ -54,7 +56,7 @@ Una entidad puede pedir vidrio en todo, con `"vidrio": true` en su lenguaje. ORC
 - **Los contenedores y los campos pasan a vidrio delgado** sobre él: tarjetas, listas, tablas, la barra lateral, los campos de texto.
 - **Los botones de fondo tenue** (`tinted` y `gray`) y las etiquetas desenfocan lo que tienen detrás. El `filled` sigue sólido: es la acción que tiene que verse primero, y su texto blanco necesita todo su color debajo.
 
-Es la excepción a «el vidrio nunca va en el contenido», y tiene su condición: la fuerza del Velo está acotada (0,18 en oscuro y 0,1 en claro), y con él debajo los tres niveles de texto siguen en 4,5:1. En alto contraste y con menos transparencia, el suelo es liso y todo vuelve a ser opaco.
+Es la excepción a la regla de arriba, y tiene su condición: la fuerza del Velo está acotada (0,18 en oscuro y 0,1 en claro), y con él debajo los tres niveles de texto siguen en 4,5:1. En alto contraste y con menos transparencia, el suelo es liso y todo vuelve a ser opaco.
 
 ## El vidrio y los fondos
 

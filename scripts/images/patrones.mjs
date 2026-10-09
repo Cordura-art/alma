@@ -87,12 +87,12 @@ export const patternScenes = [
 
   // ---------- Acciones ----------
   scene('7-acciones', 'una vista con una acción', 'acciones-prominencia',
-    'Una vista de pasaje con una acción filled «Pagar $7.000», dos gray «Cambiar asiento» y «Compartir», y el menú «Más» abierto con «Anular pasaje» al final, separada y en rojo.',
+    'Una vista de pasaje con una acción filled «Pagar $7.000», una tinted «Cambiar asiento», una gray «Compartir», y el menú «Más» abierto con «Anular pasaje» al final, separada y en rojo.',
     { js: `mount(h('div', { style: { padding: '0 0 14rem' } }, h('div', { className: 'pane col', style: { width: '36rem', gap: 'var(--space-16)' } },
         h('p', { className: 'cap web-label-s', style: { margin: 0 } }, '31 mar 2026 · 08:30'), h('h2', { className: 'web-h5', style: { margin: 0 } }, 'Santiago → Viña del Mar'),
         h('p', { className: 'cap web-body-m', style: { margin: 0 } }, 'Semicama · asiento 14. Paga antes de 15 minutos para no perder el asiento.'),
         h('div', { className: 'row', style: { gap: 'var(--space-8)', alignItems: 'center' } },
-          h(A.Button, { variant: 'filled', role: 'primary' }, 'Pagar $7.000'), h(A.Button, { variant: 'gray' }, 'Cambiar asiento'), h(A.Button, { variant: 'gray' }, 'Compartir'),
+          h(A.Button, { variant: 'filled', role: 'primary' }, 'Pagar $7.000'), h(A.Button, { variant: 'tinted' }, 'Cambiar asiento'), h(A.Button, { variant: 'gray' }, 'Compartir'),
           h(A.PullDownButton, { icon: 'overflow-menu--horizontal', 'aria-label': 'Más acciones', actions: [{ value: 'dl', label: 'Descargar', icon: 'download' }, { value: 'mail', label: 'Enviar por correo', icon: 'email' }, { value: 'del', label: 'Anular pasaje', icon: 'trash-can', role: 'destructive' }] })))));`,
       after: `$('.alma-popup__btn').click(); await sleep(250);` }),
 
@@ -225,4 +225,30 @@ export const patternScenes = [
     'El diálogo «Compartir Viaje a Talca»: un campo para invitar por correo con el botón «Invitar», la lista «Quién tiene acceso» con tres personas (la dueña y dos invitados, cada uno con su permiso) y, abajo, la nota del enlace con el botón «Copiar enlace».',
     { js: `var s = "function persona(n, c, p) { return h('div', { key: n, style: { display: 'flex', alignItems: 'center', gap: '16px', justifyContent: 'space-between' } }, h('div', null, h('p', { className: 'web-body-m', style: { margin: 0 } }, n), h('p', { className: 'web-body-s', style: { margin: 0, color: 'var(--text-02)' } }, c)), p ? h(A.PopUpButton, { 'aria-label': 'Permiso de ' + n, options: ['Ver', 'Comentar', 'Editar', 'Administrar'], defaultValue: p }) : h('span', { className: 'web-label-m', style: { color: 'var(--text-02)' } }, 'Dueña')); } mount(h(A.Modal, { open: true, onClose: function () {}, title: 'Compartir Viaje a Talca', primaryAction: { label: 'Listo' } }, h('div', { style: { display: 'grid', gap: '24px' } }, h('div', { style: { display: 'flex', gap: '8px', alignItems: 'flex-end' } }, h('div', { style: { flex: 1 } }, h(A.TextInput, { label: 'Invitar por correo', type: 'email' })), h(A.Button, { variant: 'tinted' }, 'Invitar')), h('div', { style: { display: 'grid', gap: '16px' } }, h('h3', { className: 'web-h6', style: { margin: 0 } }, 'Quién tiene acceso'), persona('Camila Rojas', 'camila@correo.cl'), persona('Ana Soto', 'ana@correo.cl', 'Editar'), persona('Luis Vera', 'luis@correo.cl', 'Ver')), h('div', { style: { display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'space-between' } }, h('p', { className: 'web-body-s', style: { margin: 0, color: 'var(--text-02)' } }, 'Cualquiera con el enlace puede ver.'), h(A.Button, { variant: 'gray' }, 'Copiar enlace')))));";
       mount(device({ w: 760, h: 680, js: s, theme: 'dark', after: "all('.alma-field').forEach(function (f) { f.style.width = '100%'; });" }));` }),
+
+  // ---------- Entorno ----------
+  scene('23-entorno', 'la IA de fondo y al frente', 'entorno-ia',
+    'El mismo escritorio dos veces. Arriba, «De fondo»: la ventana «Viajes» está al frente y detrás de todo solo hay un velo de luz tenue. Abajo, «Al frente»: la ventana «Asistente» pasó adelante y, sobre el velo, apareció el Halo, un anillo de luz.',
+    { efectos: true,
+      js: `function esc(t, ia) { return h('div', { className: 'col', style: { gap: 'var(--space-16)' } }, h('p', { className: 'cap web-label-m' }, t),
+        h(A.Desktop, { label: 'Escritorio, ' + t, style: { width: '52rem', height: '26rem', borderRadius: 'var(--radius-panel)', border: '1px solid var(--border-subtle)' }, wallpaper: h('div', { className: ia ? 'luz frente' : 'luz' }),
+          menuBar: h(A.MenuBar, { appName: ia ? 'Asistente' : 'Viajes', menus: [{ label: 'Archivo', items: [{ value: 'n', label: 'Nuevo' }] }, { label: 'Edición', items: [{ value: 'c', label: 'Copiar' }] }], extras: [{ text: 'mar 31 · 08:12', label: 'Fecha y hora' }] }),
+          dock: h(A.Dock, { label: 'Aplicaciones, ' + t, items: [{ id: 'v', label: 'Viajes', icon: 'ticket', running: true, active: !ia }, { id: 'a', label: 'Asistente', icon: 'ai-label', running: true, active: ia }] }) },
+          (function () { var v = h(A.Window, { key: 'v', title: 'Viajes', defaultPosition: { x: 24, y: 24 }, defaultSize: { w: 300, h: 200 }, onClose: function () {} }, h('div', { style: { padding: '16px' } }, h(A.Card, { headingLevel: 3, eyebrow: '31 mar · 08:30', title: 'Santiago → Viña del Mar' }))), a = h(A.Window, { key: 'a', title: 'Asistente', defaultPosition: { x: 420, y: 90 }, defaultSize: { w: 340, h: 190 }, onClose: function () {} }, h('div', { style: { padding: '16px', display: 'grid', gap: '16px' } }, h(A.ChatMessage, { actions: false }, h('p', null, 'Tu bus sale a las 08:30, del andén 4.')))); return ia ? [v, a] : [a, v]; })())); }
+      mount(h('div', { className: 'col', style: { gap: 'var(--space-32)' } }, esc('De fondo', false), esc('Al frente', true)));`,
+      after: `if (window.AlmaEfectos) all('.luz').forEach(function (l) { AlmaEfectos.presencia(l, l.classList.contains('frente') ? 'reposo' : 'fondo'); }); await sleep(4000); if (document.activeElement) document.activeElement.blur();` }),
+
+  // ---------- Jerarquía ----------
+  scene('24-jerarquia', 'los tres niveles de texto y los cuatro pesos de botón', 'jerarquia-niveles',
+    'Una tarjeta de viaje con sus niveles numerados. El título «Santiago → Viña del Mar» y los valores «08:30» y «Andén 4», en texto principal (1). La bajada y los nombres de los datos, «Sale», «Desde» y «Llega», en secundario (2). La hora de llegada, que todavía no está, «Por confirmar», en terciario (3). Abajo, los cuatro pesos de botón en una fila, de más a menos: «Pagar» relleno, «Guardar» con el acento tenue, «Volver» en gris tenue y «Ver detalle» solo texto.',
+    { js: `function dato(n, v, falta) { return h('div', { style: { display: 'grid', gap: 'var(--space-4)' } }, h('span', { className: 'web-label-s', style: { color: 'var(--text-02)' } }, n), h('span', { className: 'web-h6', id: falta ? 'f' : null, style: falta ? { color: 'var(--text-03)' } : null }, v)); }
+      function peso(n, t, el) { return h('div', { className: 'col', style: { gap: 'var(--space-8)', justifyItems: 'start' } }, el, h('span', { className: 'tok' }, n + ' · ' + t)); }
+      mount(h('div', { className: 'col', style: { gap: 'var(--space-40)', padding: '8px 72px' } },
+        h('div', { className: 'pane', style: { width: '30rem', display: 'grid', gap: 'var(--space-24)' } },
+          h('div', { style: { display: 'grid', gap: 'var(--space-8)' } }, h('h3', { className: 'web-h5 n1', id: 't', style: { margin: 0 } }, 'Santiago → Viña del Mar'), h('p', { className: 'web-body-m n2', id: 'b', style: { margin: 0, color: 'var(--text-02)' } }, 'Semicama · asiento 14 · martes 31 de marzo')),
+          h('div', { className: 'row', style: { gap: 'var(--space-32)' } }, dato('Sale', '08:30'), dato('Desde', 'Andén 4'), dato('Llega', 'Por confirmar', true))),
+        h('div', { className: 'row', style: { gap: 'var(--space-32)', alignItems: 'flex-start' } },
+          peso(1, 'filled', h(A.Button, { variant: 'filled', role: 'primary' }, 'Pagar')), peso(2, 'tinted', h(A.Button, { variant: 'tinted' }, 'Guardar')),
+          peso(3, 'gray', h(A.Button, { variant: 'gray' }, 'Volver')), peso(4, 'plain', h(A.Button, { variant: 'plain' }, 'Ver detalle')))));`,
+      after: `num($('#t'), 1, 'left', { outline: false, d: 48 }); num($('#b'), 2, 'right', { outline: false, d: 48 }); num($('#f'), 3, 'right', { outline: false, d: 32 });` }),
 ];

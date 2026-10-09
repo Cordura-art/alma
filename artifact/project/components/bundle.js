@@ -1886,6 +1886,8 @@ function pictograma(G, clave, o = {}) {
     // frontKey: when its value changes, the window comes to the front (its app was chosen in the dock, or in a menu)
     R.useEffect(function () { if (ctx && shown && props.frontKey) ctx.front(id); }, [props.frontKey]);
     var z = ctx ? ctx.order.indexOf(id) : 0, active = !ctx ? props.active !== false : (ctx.order[ctx.order.length - 1] === id);
+    // onActiveChange: tells when the window comes to the front or leaves it (an assistant brings its Halo forward with this)
+    R.useEffect(function () { if (props.onActiveChange) props.onActiveChange(active && shown); }, [active, shown]);
     // the one that comes to the front from elsewhere (the dock, a menu) takes the focus
     var was = R.useRef(false);
     R.useEffect(function () { if (ctx && ctx.ready.current && active && !was.current && root.current && !root.current.contains(document.activeElement)) root.current.focus({ preventScroll: true }); was.current = active; }, [active]);
@@ -2369,7 +2371,7 @@ function pictograma(G, clave, o = {}) {
             return h('li', { key: n.id, role: 'option', 'aria-selected': sel, tabIndex: sel || (path[c] === undefined && i === 0) ? 0 : -1, className: 'alma-columns__row' + (sel ? ' is-selected' : ''),
               onClick: function () { set(path.slice(0, c).concat([n.id])); if (!kids && props.onOpen) props.onOpen(n); },
               onKeyDown: function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); want.current = kids ? { c: c + 1 } : null; set(path.slice(0, c).concat([n.id])); if (!kids && props.onOpen) props.onOpen(n); } } },
-              n.icon ? h(AlmaIcon, { name: n.icon, size: 16 }) : null, h('span', { className: 'alma-columns__label' }, n.label), kids ? h(AlmaIcon, { name: 'chevron--right', size: 16, className: 'alma-columns__more' }) : null); })); }));
+              n.icon ? h(AlmaIcon, { name: n.icon, size: 16 }) : null, h('span', { className: 'alma-columns__label' }, n.label), n.trailing != null ? h('span', { className: 'alma-columns__trailing' }, n.trailing) : null, kids ? h(AlmaIcon, { name: 'chevron--right', size: 16, className: 'alma-columns__more' }) : null); })); }));
   }
 
   // WebView (Apple HIG › Web views): something from outside, inside. It always says where it comes from, and it is

@@ -7,6 +7,8 @@ summary: Qué se lee primero: los niveles del texto, el peso de los botones y lo
 
 Una pantalla se entiende cuando se nota qué es lo principal, qué lo acompaña y qué va junto. Eso lo dicen tres cosas, antes que cualquier adorno: **el color del texto, el peso de los botones y los márgenes**. Cuando están bien, nadie las ve. Cuando están mal, todo pesa lo mismo.
 
+![Una tarjeta de viaje con sus niveles numerados. El título «Santiago → Viña del Mar» y los valores «08:30» y «Andén 4», en texto principal (1). La bajada y los nombres de los datos, «Sale», «Desde» y «Llega», en secundario (2). La hora de llegada, que todavía no está, «Por confirmar», en terciario (3). Abajo, los cuatro pesos de botón en una fila, de más a menos: «Pagar» relleno, «Guardar» con el acento tenue, «Volver» en gris tenue y «Ver detalle» solo texto.](assets/Patrones/jerarquia-niveles.png)
+
 ## Los niveles del texto
 
 Cada nivel tiene un trabajo. Se elige por el trabajo, no por cómo se ve.

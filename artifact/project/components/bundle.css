@@ -115,7 +115,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-field__box:not(:focus-within) .alma-field__input::placeholder { color: transparent; }
 .alma-field__eye { display: flex; border: 0; background: none; padding: 0; color: var(--field-icon); cursor: pointer; border-radius: var(--radius-pill); }
 .alma-field__eye:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.alma-field__foot { display: flex; justify-content: space-between; gap: var(--space-8); padding: 0 var(--space-16); font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-01); }
+.alma-field__foot { display: flex; justify-content: space-between; gap: var(--space-8); padding: 0 var(--space-16); font-size: 0.6875rem; line-height: 1.4; letter-spacing: 0.165px; color: var(--text-02); }
 .alma-field--error .alma-field__box { border-color: var(--field-border-error); }
 .alma-field--error .alma-field__label, .alma-field--error .alma-field__input { color: var(--field-text-error); }
 .alma-field--error.alma-field--filled .alma-field__label, .alma-field--error .alma-field__box:focus-within .alma-field__label { color: var(--field-label-float-error); } /* chip is always light: dark red, 6.6:1 */
@@ -167,7 +167,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 /* ---------- Stepper: three 56px white pills ---------- */
 .alma-step { display: inline-flex; align-items: center; gap: var(--space-24); }
 .alma-step__btn, .alma-step__value { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-16); height: var(--alma-field); min-width: var(--alma-field); padding: 0 var(--space-16); box-sizing: border-box; border: 1px solid var(--stepper-border); border-radius: var(--radius-button); background: var(--stepper-bg); color: var(--text-01); font: inherit; font-size: 1rem; letter-spacing: 0.16px; }
-.alma-step__value { min-width: 130px; color: var(--text-02); }
+.alma-step__value { min-width: 130px; color: var(--text-01); }
 .alma-step__btn { cursor: pointer; transition: background-color var(--duration-fast-01) var(--easing-standard-productive); }
 .alma-step__btn:hover:not(:disabled) { background: var(--stepper-bg-hover); }
 .alma-step__btn:disabled { color: var(--disabled-03); cursor: not-allowed; }
@@ -412,7 +412,7 @@ html { font-family: var(--font-flex); font-weight: var(--font-weight-body, 400);
 .alma-slider { display: flex; flex-direction: column; gap: var(--space-8); max-width: 480px; }
 .alma-slider__top { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.875rem; letter-spacing: 0.14px; }
 .alma-slider__label { color: var(--text-01); }
-.alma-slider__value { color: var(--text-02); font-variant-numeric: tabular-nums; }
+.alma-slider__value { color: var(--text-01); font-variant-numeric: tabular-nums; }
 .alma-slider__row { display: flex; align-items: center; gap: var(--space-16); }
 .alma-slider__icon { color: var(--icon-02); }
 .alma-slider__input { flex: 1; min-width: 0; height: var(--alma-control); margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
@@ -977,7 +977,6 @@ button.alma-ailabel { font-family: inherit; }
 .alma-snippet__actions:empty { display: none; }
 
 /* ---------- DigitEntry, TokenField, Gauge, Rating (text and margins by pattern «Jerarquía») ---------- */
-.alma-field__foot { color: var(--text-02); }   /* a help is the second level of text; an error keeps its own colour */
 .alma-field--error .alma-field__help { color: var(--field-text-error); }
 
 .alma-digits { display: grid; gap: var(--space-8); justify-items: start; }
@@ -1091,6 +1090,7 @@ button.alma-ailabel { font-family: inherit; }
 .alma-columns__row.is-selected { font-weight: var(--font-weight-emphasis); }
 .alma-columns__row:focus-visible { box-shadow: inset 0 0 0 2px var(--focus); }
 .alma-columns__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alma-columns__trailing { flex: none; color: var(--text-02); font-weight: var(--font-weight-body); font-variant-numeric: tabular-nums; }
 .alma-columns__more { flex: none; color: var(--icon-02); }
 
 .alma-webview { display: flex; flex-direction: column; border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); overflow: hidden; background: var(--ui-02); color: var(--text-01); }

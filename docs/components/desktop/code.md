@@ -39,12 +39,19 @@ Dale un alto: el escritorio no crece con lo que lleva dentro.
 ## El fondo con la presencia de una IA
 
 ```js
-function Fondo() {
-  var ref = React.useRef(null);
+function Fondo(props) {
+  var ref = React.useRef(null), luz = React.useRef(null);
   React.useEffect(function () {
-    var luz = AlmaEfectos.presencia(ref.current, 'reposo');
-    return function () { if (luz) luz.quita(); };
+    luz.current = AlmaEfectos.presencia(ref.current, 'fondo');
+    return function () { if (luz.current) luz.current.quita(); };
   }, []);
+  React.useEffect(function () { if (luz.current) luz.current.estado(props.estado); }, [props.estado]);
   return h('div', { ref: ref });
 }
+
+// En el escritorio: el Halo aparece cuando la ventana del asistente está al frente
+h(A.Desktop, { wallpaper: h(Fondo, { estado: alFrente ? 'reposo' : 'fondo' }) },
+  h(A.Window, { title: 'Asistente', onActiveChange: setAlFrente }, …));
 ```
+
+La IA de fondo es solo el Velo. El Halo cuesta más de dibujar: aparece cuando la IA pasa al frente y se retira cuando deja de estarlo.

@@ -893,5 +893,59 @@ export const componentScenes = [
     { js: `mount(h('div', { className: 'row', style: { gap: 'var(--space-32)' } },
         h('div', { style: { width: '18rem' } }, h(A.List, { header: 'Ordenar mis viajes por', selection: 'single', selectionStyle: 'check', selected: 'fecha', items: [{ id: 'fecha', title: 'Fecha' }, { id: 'precio', title: 'Precio' }, { id: 'destino', title: 'Destino' }] })),
         h('div', { style: { width: '20rem' } }, h(A.List, { header: 'Avisos', items: [{ title: 'Cambios en mis viajes', subtitle: 'Hora, andén y atrasos', switch: { checked: true } }, { title: 'Ofertas', switch: { checked: false } }] })),
-        h('div', { style: { width: '20rem' } }, h(A.List, { header: 'Destinos favoritos', editing: true, onMove: function () {}, onDelete: function () {}, items: [{ id: 'v', title: 'Viña del Mar', subtitle: '120 km' }, { id: 't', title: 'Talca', subtitle: '255 km' }, { id: 'm', title: 'Temuco', subtitle: '680 km' }] }))));` })
+        h('div', { style: { width: '20rem' } }, h(A.List, { header: 'Destinos favoritos', editing: true, onMove: function () {}, onDelete: function () {}, items: [{ id: 'v', title: 'Viña del Mar', subtitle: '120 km' }, { id: 't', title: 'Talca', subtitle: '255 km' }, { id: 'm', title: 'Temuco', subtitle: '680 km' }] }))));` }),
+
+  // ---------- Collections, trees and panes ----------
+  scene('collection', 'usage', 'en grilla y en fila', 'collection-formas',
+    'Dos colecciones de destinos. Arriba, en grilla: seis tarjetas iguales en tres columnas, cada una con su distancia y su nombre. Abajo, en fila: las mismas tarjetas en una sola línea que sigue más allá del borde, con la última cortada para mostrar que hay más.',
+    { js: `var D = ['Viña del Mar', 'Valparaíso', 'Talca', 'Chillán', 'Concepción', 'Temuco'].map(function (t, i) { return { id: t, t: t, km: [120, 115, 255, 400, 500, 680][i] }; });
+      function celda(it) { return h(A.Card, { headingLevel: 3, eyebrow: it.km + ' km', title: it.t }); }
+      function c(t, el) { return h('div', { className: 'col', style: { gap: 'var(--space-16)' } }, h('p', { className: 'cap web-label-m' }, t), el); }
+      mount(h('div', { className: 'col', style: { gap: 'var(--space-40)', width: '44rem' } },
+        c('En grilla', h(A.Collection, { label: 'Destinos', items: D, minItemWidth: 200, renderItem: celda })),
+        c('En fila', h(A.Collection, { label: 'Destinos, en fila', layout: 'row', items: D, minItemWidth: 200, renderItem: celda }))));` }),
+
+  scene('outline', 'usage', 'un árbol con tres niveles', 'outline-niveles',
+    'Anatomía de Outline: un árbol «Mi cuenta». «Viajes» está abierto y muestra «2026», también abierto, con «Marzo» elegido y «Abril» debajo, y «2025» cerrado. Numerados: la flecha que abre y cierra (1), el ícono (2), el nombre (3), el dato al final de la fila (4) y la sangría de cada nivel (5).',
+    { js: `mount(h('div', { style: { padding: '8px 72px' } }, h('div', { className: 'pane', style: { width: '22rem', padding: 'var(--space-8)' } }, h(A.Outline, { label: 'Mi cuenta', selected: 'mar', onSelect: function () {}, defaultExpanded: ['viajes', '2026'],
+        items: [{ id: 'viajes', label: 'Viajes', icon: 'ticket', children: [{ id: '2026', label: '2026', children: [{ id: 'mar', label: 'Marzo', trailing: 2 }, { id: 'abr', label: 'Abril', trailing: 3 }] }, { id: '2025', label: '2025', trailing: 14 }] },
+          { id: 'pagos', label: 'Medios de pago', icon: 'wallet', children: [{ id: 't1', label: 'Tarjeta terminada en 4821' }] }, { id: 'avisos', label: 'Avisos', icon: 'notification' }] }))));`,
+      after: `var r = all('.alma-outline__row'); num(r[0].querySelector('.alma-outline__twist'), 1, 'left', { d: 28 }); num(r[0].querySelector('.alma-outline__icon'), 2, 'top', { d: 24 }); num(r[0].querySelector('.alma-outline__label'), 3, 'top', { outline: false, d: 24 });
+        num(r[2].querySelector('.alma-outline__trailing'), 4, 'right', { d: 36 }); num(r[3].querySelector('.alma-outline__label'), 5, 'left', { outline: false, d: 90 });` }),
+
+  scene('column-view', 'usage', 'tres columnas, una por nivel', 'column-view-ruta',
+    'ColumnView con tres columnas. En la primera, «Viajes» elegido entre «Viajes», «Medios de pago» y «Avisos». En la segunda, su contenido: «2026» elegido y «2025» con 14. En la tercera, lo que hay en 2026: «Marzo» con 2 y «Abril» con 3. Lo elegido en cada columna queda marcado y dice el camino.',
+    { js: `mount(h('div', { style: { width: '48rem' } }, h(A.ColumnView, { label: 'Mi cuenta', defaultPath: ['viajes', '2026'],
+        items: [{ id: 'viajes', label: 'Viajes', icon: 'ticket', children: [{ id: '2026', label: '2026', children: [{ id: 'mar', label: 'Marzo', trailing: 2 }, { id: 'abr', label: 'Abril', trailing: 3 }] }, { id: '2025', label: '2025', trailing: 14 }] },
+          { id: 'pagos', label: 'Medios de pago', icon: 'wallet', children: [{ id: 't1', label: 'Tarjeta terminada en 4821' }, { id: 't2', label: 'Tarjeta terminada en 7637' }] }, { id: 'avisos', label: 'Avisos', icon: 'notification' }] })));` }),
+
+  scene('split-view', 'usage', 'ancho y angosto', 'split-view-ancho-angosto',
+    'El mismo SplitView en dos anchos. Ancho: a la izquierda la lista «Mis viajes» con «Santiago → Viña del Mar» marcado, un divisor, y a la derecha el detalle de ese viaje. Angosto, en un teléfono: solo el detalle, con el botón «Volver» arriba para regresar a la lista.',
+    { js: `var s = "var V = [{ id: 'vina', title: 'Santiago → Viña del Mar', subtitle: '31 mar · 08:30' }, { id: 'stgo', title: 'Viña del Mar → Santiago', subtitle: '4 abr · 19:10' }, { id: 'talca', title: 'Santiago → Talca', subtitle: '12 abr · 07:00' }]; mount(h(A.SplitView, { style: { height: '100vh' }, primaryLabel: 'Mis viajes', detailLabel: 'Detalle del viaje', showDetail: true, onBack: function () {}, primary: h('div', { style: { padding: '8px' } }, h(A.List, { 'aria-label': 'Mis viajes', selection: 'single', selected: 'vina', onSelect: function () {}, items: V })), detail: h('div', { style: { padding: '24px', display: 'grid', gap: '8px' } }, h('p', { className: 'web-label-s', style: { margin: 0, color: 'var(--text-02)' } }, '31 mar · 08:30'), h('h2', { className: 'web-h5', style: { margin: 0 } }, 'Santiago → Viña del Mar'), h('p', { className: 'web-body-m', style: { margin: 0, color: 'var(--text-02)' } }, 'Semicama · asiento 14 · Terminal Alameda')) }));";
+      mount(h('div', { className: 'row', style: { gap: 'var(--space-40)', alignItems: 'flex-start' } }, device({ label: 'Ancho', w: 760, h: 380, js: s }), device({ label: 'Angosto', w: 360, h: 380, js: s })));` }),
+
+  scene('control-center', 'usage', 'un panel de controles', 'control-center-anatomia',
+    'Anatomía de ControlCenter: un panel con cinco controles. Arriba, uno ancho: el interruptor «Tema oscuro», encendido, con su símbolo sobre el acento. Debajo, dos interruptores chicos, «Avisos» encendido y «Enfoque» apagado, y dos botones, «Ajustes» y «Asistente». Numerados en el primero: el símbolo (1), el título (2) y el valor, «Activado» (3).',
+    { js: `mount(h('div', { style: { padding: '40px 72px 8px' } }, h(A.ControlCenter, { controls: [{ id: 'oscuro', label: 'Tema oscuro', icon: 'asleep', size: 'wide', value: 'Activado', checked: true, onChange: function () {} },
+        { id: 'avisos', label: 'Avisos', icon: 'notification', value: 'Activados', checked: true, onChange: function () {} }, { id: 'enfoque', label: 'Enfoque', icon: 'view', value: 'Apagado', checked: false, onChange: function () {} },
+        { id: 'ajustes', label: 'Ajustes', icon: 'settings', onPress: function () {} }, { id: 'asistente', label: 'Asistente', icon: 'ai-label', onPress: function () {} }] })));`,
+      after: `var c = $('.alma-control'); num(c.querySelector('.alma-control__icon'), 1, 'left', { d: 28 }); num(c.querySelector('.alma-control__label'), 2, 'top', { outline: false, d: 28 }); num(c.querySelector('.alma-control__value'), 3, 'right', { outline: false, d: 48 });` }),
+
+  scene('edit-menu', 'usage', 'el menú sobre un texto seleccionado', 'edit-menu-seleccion',
+    'Un párrafo sobre un viaje con la frase «martes 31 de marzo a las 08:30» seleccionada. Justo encima de la selección, una barra corta con tres acciones: «Copiar», «Buscar» y «Preguntar a la IA», cada una con su ícono.',
+    { js: `mount(h('div', { style: { padding: '72px 24px 24px', width: '34rem' } }, h(A.EditMenu, { items: [{ value: 'copiar', label: 'Copiar', icon: 'copy' }, { value: 'buscar', label: 'Buscar', icon: 'search' }, { value: 'ia', label: 'Preguntar a la IA', icon: 'ai-generate' }] },
+        h('p', { className: 'web-body-m', style: { margin: 0 } }, 'Tu bus a Viña del Mar sale el ', h('span', { id: 'sel' }, 'martes 31 de marzo a las 08:30'), ', del andén 4 del Terminal Alameda. Llega 15 minutos antes: el andén puede cambiar.'))));`,
+      after: `var r = document.createRange(); r.selectNodeContents($('#sel')); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); document.dispatchEvent(new MouseEvent('mouseup', { bubbles: true })); await sleep(300);` }),
+
+  scene('image-view', 'usage', 'cargada, generada y sin cargar', 'image-view-estados',
+    'Tres ImageView del mismo tamaño. «Cargada»: la imagen de un cerro frente al mar con su pie, «Viña del Mar». «Generada»: la misma imagen con la marca de IA en una esquina. «No cargó»: el lugar de la imagen se conserva, con un ícono y el texto «No se pudo cargar».',
+    { js: `var cs = getComputedStyle(document.documentElement), k = function (n) { return cs.getPropertyValue(n).trim(); };
+      var SVG = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="' + k('--interactive-01') + '"/><circle cx="290" cy="90" r="46" fill="' + k('--text-01') + '"/><path d="M0 300 L120 150 L210 240 L280 180 L400 300Z" fill="' + k('--ui-04') + '"/></svg>');
+      function c(t, el) { return h('div', { className: 'col', style: { width: '15rem', gap: 'var(--space-8)' } }, h('p', { className: 'cap web-label-m' }, t), el); }
+      mount(h('div', { className: 'row', style: { gap: 'var(--space-32)', alignItems: 'flex-start' } }, c('Cargada', h(A.ImageView, { src: SVG, alt: 'Un cerro frente al mar, al atardecer', caption: 'Viña del Mar' })), c('Generada', h(A.ImageView, { src: SVG, alt: 'un cerro frente al mar', ai: true })), c('No cargó', h(A.ImageView, { src: 'data:image/png;base64,xx', alt: 'Mapa del terminal' }))));`,
+      after: `await sleep(400);` }),
+
+  scene('web-view', 'usage', 'una página que no se deja mostrar', 'web-view-bloqueada',
+    'Un WebView. Arriba, su barra: un candado y el sitio de donde viene la página, «ejemplo.cl», y a la derecha dos botones, recargar y abrir en otra pestaña. En el cuerpo, en lugar de la página, el mensaje «Este contenido no se puede mostrar aquí» y el enlace «Abrir ejemplo.cl».',
+    { js: `mount(h('div', { style: { width: '40rem' } }, h(A.WebView, { src: 'https://www.ejemplo.cl/condiciones', title: 'Condiciones de cambio', origin: 'ejemplo.cl', blocked: true, height: 280 })));` }),
 ];

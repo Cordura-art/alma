@@ -30,7 +30,7 @@ Un ajuste es una decisión que el diseño no tomó. Antes de agregar uno, busca 
 
 | El ajuste es | Control |
 |---|---|
-| Sí o no | `Switch` |
+| Sí o no | Una fila de `List` con su interruptor (`switch`) |
 | Una de dos a cuatro opciones cortas | `SegmentedControl` |
 | Una de muchas | `PopUpButton` |
 | Un valor en un rango | `Slider` |
@@ -39,7 +39,7 @@ Un ajuste es una decisión que el diseño no tomó. Antes de agregar uno, busca 
 
 ## Cuándo se aplica
 
-- **Al tiro, sin «Guardar»:** un `Switch`, una opción, un `Slider`. El cambio se ve de inmediato y se deshace volviendo a tocar.
+- **Al tiro, sin «Guardar»:** un interruptor, una opción, un `Slider`. El cambio se ve de inmediato y se deshace volviendo a tocar.
 - **Con «Guardar»:** lo que se escribe (nombre, correo, clave) y lo que tiene consecuencias (cambiar de plan). Ahí va un formulario, con «Guardar» y «Cancelar».
 - No mezcles las dos formas en un mismo grupo.
 

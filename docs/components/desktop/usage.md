@@ -33,7 +33,7 @@ Antes de usarlo, lee el patrón **Entorno**.
 ## El fondo
 
 - Es decoración: no lleva texto ni controles.
-- Puede ser un efecto de ALMA. Si es la presencia de una IA (Velo y Halo), es la única luz del entorno.
+- Puede ser un efecto de ALMA. Si es la presencia de una IA, es la única luz del entorno: el Velo mientras la IA está de fondo, y el Halo sobre él cuando su ventana pasa al frente.
 - Las ventanas y las barras son de vidrio sobre él: se leen igual con cualquier fondo.
 
 ## El orden de las ventanas

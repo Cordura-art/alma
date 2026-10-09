@@ -381,7 +381,7 @@
   }
 
   // ---- Routes and navigation
-  var GROUP_ICON = { 'Entorno': 'fit-to-screen', 'IA': 'ai-label', 'Acciones': 'flash', 'Formularios': 'list', 'Toggles': 'checkbox--checked', 'Menús': 'menu', 'Navegación': 'compass',
+  var GROUP_ICON = { 'Entorno': 'fit-to-screen', 'IA': 'ai-label', 'Acciones': 'flash', 'Formularios': 'list', 'Selección': 'checkbox--checked', 'Menús': 'menu', 'Navegación': 'compass',
     'Contenido': 'grid', 'Datos': 'dashboard', 'Comunicación': 'chat', 'Estados': 'in-progress', 'Ayuda': 'help', 'Iconografía': 'image' };
   var pages = [
     { id: 'inicio', label: 'Inicio', icon: 'home', group: SITE.grupo, render: function () { return h(Home); } },
@@ -395,7 +395,7 @@
   var PATTERN_ICON = { 'formularios': 'list', 'estados-vacios': 'view', 'notificaciones': 'notification', 'carga': 'in-progress',
     'busqueda-y-filtros': 'search', 'dialogos': 'layers', 'acciones': 'flash', 'desactivado-y-solo-lectura': 'view', 'contenido-que-desborda': 'overflow-menu--horizontal',
     'encabezado-global': 'menu', 'inicio-de-sesion': 'login', 'indicadores-de-estado': 'warning--alt', 'barra-de-texto': 'document', 'estilos-fluidos': 'list', 'divulgacion': 'view', 'portada': 'image',
-    'bienvenida': 'home', 'ajustes': 'list', 'arrastrar-y-soltar': 'layers', 'deshacer': 'renew', 'compartir': 'launch', 'menus': 'menu', 'entorno': 'fit-to-screen', 'jerarquia': 'list' };
+    'bienvenida': 'home', 'ajustes': 'list', 'arrastrar-y-soltar': 'layers', 'deshacer': 'renew', 'compartir': 'launch', 'menus': 'menu', 'entorno': 'fit-to-screen', 'jerarquia': 'list', 'elegir': 'help' };
   (C.patterns || []).forEach(function (pt) {
     pages.push({ id: pt.slug, label: pt.name, icon: PATTERN_ICON[pt.slug] || 'grid', group: 'Patrones', render: function () { return h(Pattern, { pt: pt, key: pt.slug }); } });
   });

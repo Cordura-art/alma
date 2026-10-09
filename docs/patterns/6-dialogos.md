@@ -26,10 +26,19 @@ summary: Cómo elegir entre Modal, Sheet, Alert y Popover.
 
 ## Confirmar una acción destructiva
 
-1. `Alert` con el título como pregunta concreta: «¿Eliminar la tarjeta terminada en 4821?».
-2. Botones «Cancelar» y el verbo del título: «Eliminar».
-3. El botón destructivo en rojo solo si la persona no eligió esa acción deliberadamente.
+Depende de quién empezó.
+
+| La persona | Usa | Por qué |
+|---|---|---|
+| Eligió la acción: tocó «Eliminar» en un menú o en una fila. | `ActionSheet` | Responde a algo que hizo. Aparece en otro lugar y hay que cerrarlo a propósito. |
+| No la eligió: el sistema avisa de algo que va a perderse. | `Alert` | Llega sin que la pida, y por eso interrumpe más. |
+
+En los dos casos:
+
+1. El título es una pregunta concreta: «¿Eliminar la tarjeta terminada en 4821?».
+2. Los botones son «Cancelar» y el verbo del título: «Eliminar».
+3. **La acción que destruye nunca es la más visible.** Va en rojo y con poco peso; «Cancelar» recibe el foco, y Enter no borra nada.
 
 ## Relacionados
 
-`Modal` · `Sheet` · `Alert` · `Popover` · `Tooltip`.
+`Modal` · `Sheet` · `Alert` · `ActionSheet` · `Popover` · `Tooltip` · Menús · Jerarquía.

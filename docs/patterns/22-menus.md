@@ -62,6 +62,8 @@ Un ítem puede ser un atributo que está puesto o no, con un visto delante.
 - **Cuando ayuda ver los dos estados**, muestra los dos ítems y deja disponible solo el que aplica.
 - Si se pueden marcar varios, ofrece uno que los quite todos: «Sin filtros».
 
+![Un PullDownButton «Ver» abierto, con el título «Mis viajes». El ítem «Ordenar por» tiene una flecha y su submenú abierto al lado, con «Fecha» marcada. Debajo, «Solo los pagados» con un visto, un separador y «Actualizar» con su atajo Ctrl+R a la derecha.](assets/Componentes/pull-down-button-submenu.png)
+
 ## Atajos de teclado
 
 - Se muestran a la derecha del ítem, en los menús de un botón y en la barra de menús.

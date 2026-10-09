@@ -8,14 +8,16 @@ summary: Cómo ordenar los botones: prominencia, cantidad y posición.
 | Estilo | Para |
 |---|---|
 | `filled` | La acción más probable. **1 o 2 por vista.** |
-| `tinted` | Acciones importantes, pero no la principal. |
-| `gray` | Acciones secundarias; «Cancelar». |
-| `plain` | Acciones terciarias o en barras de herramientas. |
+| `tinted` | La segunda acción que importa. |
+| `gray` | Lo neutro: «Cancelar», «Volver». Es el de menos peso entre los que tienen fondo. |
+| `plain` | Lo menor y lo repetido: en filas y en barras de herramientas. |
 | `tertiary` | Contorno, del theme de origen de Cordura. |
 
-El rol cambia el significado, no la prominencia: `destructive` pinta de rojo cualquier estilo.
+El orden de peso es ese: `filled`, `tinted`, `gray`, `plain`. El detalle está en el patrón **Jerarquía**.
 
-![Una vista de pasaje con una acción filled «Pagar $7.000», dos gray «Cambiar asiento» y «Compartir», y el menú «Más» abierto con «Anular pasaje» al final, separada y en rojo.](assets/Patrones/acciones-prominencia.png)
+El rol cambia el significado, no la prominencia: `destructive` pinta de rojo cualquier estilo. Una acción que destruye nunca va en `filled`.
+
+![Una vista de pasaje con una acción filled «Pagar $7.000», una tinted «Cambiar asiento», una gray «Compartir», y el menú «Más» abierto con «Anular pasaje» al final, separada y en rojo.](assets/Patrones/acciones-prominencia.png)
 
 ## Cantidad
 

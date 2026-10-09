@@ -1,11 +1,15 @@
-<!-- @dsCard group="Entorno" height=720 subtitle="Mueve las ventanas por su barra · cámbiales el tamaño por los bordes · abre apps desde el dock" -->
+<!-- @dsCard group="Entorno" height=720 subtitle="Mueve las ventanas por su barra · cámbiales el tamaño por los bordes · abre apps desde el dock · trae el Asistente al frente y aparece el Halo" -->
 <div id="root" style="padding:16px;"></div>
 <script>
   // The gallery frame makes html and body transparent; paint the page color of the ALMA theme (inline !important wins).
   document.documentElement.style.setProperty('background', 'var(--ui-02)', 'important');
   var h = React.createElement, A = AlmaDS;
   var APPS = [{ id: 'viajes', label: 'Viajes', icon: 'ticket' }, { id: 'asistente', label: 'Asistente', icon: 'ai-label' }, { id: 'notas', label: 'Notas', icon: 'document' }];
-  function Fondo() { var r = React.useRef(null); React.useEffect(function () { var p = window.AlmaEfectos && AlmaEfectos.presencia ? AlmaEfectos.presencia(r.current, 'fondo') : null; return function () { if (p) p.quita(); }; }, []); return h('div', { ref: r }); }
+  // The assistant in the background is only the Velo; when its window comes to the front, the Halo appears.
+  function Fondo(props) { var r = React.useRef(null), p = React.useRef(null);
+    React.useEffect(function () { p.current = window.AlmaEfectos && AlmaEfectos.presencia ? AlmaEfectos.presencia(r.current, 'fondo') : null; return function () { if (p.current) p.current.quita(); }; }, []);
+    React.useEffect(function () { if (p.current) p.current.estado(props.estado); }, [props.estado]);
+    return h('div', { ref: r }); }
   function Viajes() { return h('div', { style: { padding: '16px', display: 'grid', gap: '16px' } },
     h(A.Card, { headingLevel: 3, eyebrow: '31 mar 2026 · 08:30', title: 'Santiago → Viña del Mar', subtitle: 'Semicama · asiento 14' }),
     h(A.Card, { headingLevel: 3, eyebrow: '4 abr 2026 · 19:10', title: 'Viña del Mar → Santiago', subtitle: 'Salón cama · asiento 3' })); }
@@ -21,20 +25,20 @@
     function abrir(id) { var o = Object.assign({}, ab[0]); o[id] = true; ab[1](o); var m = Object.assign({}, mi[0]); delete m[id]; mi[1](m); al[1](al[0] + 1); frente[1]({ id: id, n: al[0] + 1 }); }
     function cerrar(id) { var o = Object.assign({}, ab[0]); delete o[id]; ab[1](o); }
     function minimizar(id) { var m = Object.assign({}, mi[0]); m[id] = true; mi[1](m); }
-    var frente = React.useState(null);
+    var frente = React.useState(null), ia = React.useState(false);
     var menus = [{ label: 'Viajes', items: [{ value: 'acerca', label: 'Acerca de Viajes' }, { value: 'ajustes', label: 'Ajustes…', shortcut: 'Ctrl+,' }] },
       { label: 'Archivo', items: [{ value: 'nuevo', label: 'Nuevo viaje…', shortcut: 'Ctrl+N' }, { value: 'cerrar', label: 'Cerrar ventana', shortcut: 'Ctrl+W' }] },
       { label: 'Edición', items: [{ value: 'deshacer', label: 'Deshacer', shortcut: 'Ctrl+Z' }, '-', { value: 'copiar', label: 'Copiar', shortcut: 'Ctrl+C' }, { value: 'pegar', label: 'Pegar', shortcut: 'Ctrl+V', disabled: true }] },
       { label: 'Ver', items: [{ value: 'orden', label: 'Ordenar por', items: [{ value: 'fecha', label: 'Fecha', checked: true, radio: true }, { value: 'precio', label: 'Precio', checked: false, radio: true }] }, { value: 'pagados', label: 'Solo los pagados', checked: false }] },
       { label: 'Ventana', items: APPS.map(function (a) { return { value: 'v-' + a.id, label: a.label, checked: !!ab[0][a.id] && !mi[0][a.id], onSelect: function () { abrir(a.id); } }; }) },
       { label: 'Ayuda', items: [{ value: 'ayuda', label: 'Ayuda de Viajes' }] }];
-    return h(A.Desktop, { label: 'Escritorio de muestra', style: { height: '660px', borderRadius: 'var(--radius-panel)', border: '1px solid var(--border-subtle)' }, wallpaper: h(Fondo),
+    return h(A.Desktop, { label: 'Escritorio de muestra', style: { height: '660px', borderRadius: 'var(--radius-panel)', border: '1px solid var(--border-subtle)' }, wallpaper: h(Fondo, { estado: ia[0] ? 'reposo' : 'fondo' }),
       menuBar: h(A.MenuBar, { appName: 'Viajes', menus: menus, extras: [{ icon: 'notification', label: 'Avisos', onPress: function () {} }, { text: 'mar 31 · 08:12', label: 'Fecha y hora' }] }),
       dock: h(A.Dock, { label: 'Aplicaciones', items: APPS.map(function (a) { return { id: a.id, label: a.label, icon: a.icon, running: !!ab[0][a.id], onOpen: function () { abrir(a.id); },
         menu: [{ value: 'abrir', label: ab[0][a.id] ? 'Mostrar' : 'Abrir', onSelect: function () { abrir(a.id); } }, { value: 'salir', label: 'Salir', disabled: !ab[0][a.id], onSelect: function () { cerrar(a.id); } }] }; }) }) },
       APPS.filter(function (a) { return ab[0][a.id]; }).map(function (a, i) { var C = CUERPO[a.id];
         return h(A.Window, { key: a.id, frontKey: frente[0] && frente[0].id === a.id ? frente[0].n : 0, title: a.label, minimized: !!mi[0][a.id], defaultPosition: { x: 40 + i * 220, y: 32 + i * 48 }, defaultSize: { w: a.id === 'asistente' ? 380 : 420, h: a.id === 'notas' ? 240 : 360 },
-          onClose: function () { cerrar(a.id); }, onMinimize: function () { minimizar(a.id); }, bottomBar: a.id === 'viajes' ? '2 viajes' : null }, h(C)); }));
+          onActiveChange: a.id === 'asistente' ? ia[1] : undefined, onClose: function () { cerrar(a.id); }, onMinimize: function () { minimizar(a.id); }, bottomBar: a.id === 'viajes' ? '2 viajes' : null }, h(C)); }));
   }
   ReactDOM.createRoot(document.getElementById('root')).render(h(App));
 </script>

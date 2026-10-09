@@ -254,13 +254,22 @@ Cómo elegir entre Modal, Sheet, Alert y Popover.
 
 ### Confirmar una acción destructiva
 
-1. `Alert` con el título como pregunta concreta: «¿Eliminar la tarjeta terminada en 4821?».
-2. Botones «Cancelar» y el verbo del título: «Eliminar».
-3. El botón destructivo en rojo solo si la persona no eligió esa acción deliberadamente.
+Depende de quién empezó.
+
+| La persona | Usa | Por qué |
+|---|---|---|
+| Eligió la acción: tocó «Eliminar» en un menú o en una fila. | `ActionSheet` | Responde a algo que hizo. Aparece en otro lugar y hay que cerrarlo a propósito. |
+| No la eligió: el sistema avisa de algo que va a perderse. | `Alert` | Llega sin que la pida, y por eso interrumpe más. |
+
+En los dos casos:
+
+1. El título es una pregunta concreta: «¿Eliminar la tarjeta terminada en 4821?».
+2. Los botones son «Cancelar» y el verbo del título: «Eliminar».
+3. **La acción que destruye nunca es la más visible.** Va en rojo y con poco peso; «Cancelar» recibe el foco, y Enter no borra nada.
 
 ### Relacionados
 
-`Modal` · `Sheet` · `Alert` · `Popover` · `Tooltip`.
+`Modal` · `Sheet` · `Alert` · `ActionSheet` · `Popover` · `Tooltip` · Menús · Jerarquía.
 
 ## Acciones
 
@@ -271,14 +280,16 @@ Cómo ordenar los botones: prominencia, cantidad y posición.
 | Estilo | Para |
 |---|---|
 | `filled` | La acción más probable. **1 o 2 por vista.** |
-| `tinted` | Acciones importantes, pero no la principal. |
-| `gray` | Acciones secundarias; «Cancelar». |
-| `plain` | Acciones terciarias o en barras de herramientas. |
+| `tinted` | La segunda acción que importa. |
+| `gray` | Lo neutro: «Cancelar», «Volver». Es el de menos peso entre los que tienen fondo. |
+| `plain` | Lo menor y lo repetido: en filas y en barras de herramientas. |
 | `tertiary` | Contorno, del theme de origen de Cordura. |
 
-El rol cambia el significado, no la prominencia: `destructive` pinta de rojo cualquier estilo.
+El orden de peso es ese: `filled`, `tinted`, `gray`, `plain`. El detalle está en el patrón **Jerarquía**.
 
-![Una vista de pasaje con una acción filled «Pagar $7.000», dos gray «Cambiar asiento» y «Compartir», y el menú «Más» abierto con «Anular pasaje» al final, separada y en rojo.](assets/Patrones/acciones-prominencia.png)
+El rol cambia el significado, no la prominencia: `destructive` pinta de rojo cualquier estilo. Una acción que destruye nunca va en `filled`.
+
+![Una vista de pasaje con una acción filled «Pagar $7.000», una tinted «Cambiar asiento», una gray «Compartir», y el menú «Más» abierto con «Anular pasaje» al final, separada y en rojo.](assets/Patrones/acciones-prominencia.png)
 
 ### Cantidad
 
@@ -811,7 +822,7 @@ Un ajuste es una decisión que el diseño no tomó. Antes de agregar uno, busca 
 
 | El ajuste es | Control |
 |---|---|
-| Sí o no | `Switch` |
+| Sí o no | Una fila de `List` con su interruptor (`switch`) |
 | Una de dos a cuatro opciones cortas | `SegmentedControl` |
 | Una de muchas | `PopUpButton` |
 | Un valor en un rango | `Slider` |
@@ -820,7 +831,7 @@ Un ajuste es una decisión que el diseño no tomó. Antes de agregar uno, busca 
 
 ### Cuándo se aplica
 
-- **Al tiro, sin «Guardar»:** un `Switch`, una opción, un `Slider`. El cambio se ve de inmediato y se deshace volviendo a tocar.
+- **Al tiro, sin «Guardar»:** un interruptor, una opción, un `Slider`. El cambio se ve de inmediato y se deshace volviendo a tocar.
 - **Con «Guardar»:** lo que se escribe (nombre, correo, clave) y lo que tiene consecuencias (cambiar de plan). Ahí va un formulario, con «Guardar» y «Cancelar».
 - No mezcles las dos formas en un mismo grupo.
 
@@ -1116,6 +1127,8 @@ Un ítem puede ser un atributo que está puesto o no, con un visto delante.
 - **Cuando ayuda ver los dos estados**, muestra los dos ítems y deja disponible solo el que aplica.
 - Si se pueden marcar varios, ofrece uno que los quite todos: «Sin filtros».
 
+![Un PullDownButton «Ver» abierto, con el título «Mis viajes». El ítem «Ordenar por» tiene una flecha y su submenú abierto al lado, con «Fecha» marcada. Debajo, «Solo los pagados» con un visto, un separador y «Actualizar» con su atajo Ctrl+R a la derecha.](assets/Componentes/pull-down-button-submenu.png)
+
 ### Atajos de teclado
 
 - Se muestran a la derecha del ítem, en los menús de un botón y en la barra de menús.
@@ -1256,9 +1269,13 @@ La guía Interfaces de IA pide una sola luz por pantalla. En el entorno hay tres
 
 | Lugar | Qué | Cuándo |
 |---|---|---|
-| **El fondo del escritorio** | El escenario: Velo y Halo, detrás de todo. | Cuando la IA es el centro del entorno. El Halo dice su estado. |
+| **El fondo del escritorio** | El escenario: el Velo, detrás de todo, y el Halo sobre él cuando la IA pasa al frente. | Cuando la IA es el centro del entorno. El Halo dice su estado. |
 | **Un extra de la barra** | La figura: el Halo pequeño, o el ícono `ai-label`. | Cuando el fondo es otro. Abre el asistente. |
 | **Una ventana** | El asistente: `ChatMessage` y `PromptInput`. | Donde se conversa. |
+
+![El mismo escritorio dos veces. Arriba, «De fondo»: la ventana «Viajes» está al frente y detrás de todo solo hay un velo de luz tenue. Abajo, «Al frente»: la ventana «Asistente» pasó adelante y, sobre el velo, apareció el Halo, un anillo de luz.](assets/Patrones/entorno-ia.png)
+
+**El Halo es de primer plano.** Mientras la IA está de fondo, su luz es solo el Velo: quieto, tenue y barato de dibujar. Cuando la ventana del asistente pasa al frente, el Halo aparece sobre el Velo; cuando deja de estarlo, se retira. `Window` avisa con `onActiveChange`.
 
 Si el fondo ya es la luz de la IA, el extra de la barra es solo el ícono. Nunca dos luces.
 
@@ -1301,6 +1318,8 @@ Qué se lee primero: los niveles del texto, el peso de los botones y los márgen
 ### Para qué
 
 Una pantalla se entiende cuando se nota qué es lo principal, qué lo acompaña y qué va junto. Eso lo dicen tres cosas, antes que cualquier adorno: **el color del texto, el peso de los botones y los márgenes**. Cuando están bien, nadie las ve. Cuando están mal, todo pesa lo mismo.
+
+![Una tarjeta de viaje con sus niveles numerados. El título «Santiago → Viña del Mar» y los valores «08:30» y «Andén 4», en texto principal (1). La bajada y los nombres de los datos, «Sale», «Desde» y «Llega», en secundario (2). La hora de llegada, que todavía no está, «Por confirmar», en terciario (3). Abajo, los cuatro pesos de botón en una fila, de más a menos: «Pagar» relleno, «Guardar» con el acento tenue, «Volver» en gris tenue y «Ver detalle» solo texto.](assets/Patrones/jerarquia-niveles.png)
 
 ### Los niveles del texto
 
@@ -1386,3 +1405,148 @@ Reglas:
 ### Referencias
 
 - Apple, Human Interface Guidelines: Layout, Typography, Color, Buttons, Materials.
+
+## Elegir un componente
+
+Cuál usar cuando varios se parecen: una tabla por familia.
+
+### Para qué
+
+ALMA tiene 75 componentes, y varios hacen cosas parecidas. Esta página dice cuál va en cada caso. Se entra por lo que necesitas, no por el nombre de la pieza.
+
+### Mostrar avance, o una medida
+
+| Necesitas | Usa |
+|---|---|
+| Decir que algo carga, sin saber cuánto falta | `ActivityIndicator` |
+| Mostrar cuánto falta de una tarea | `ProgressBar` |
+| Mostrar la forma de lo que va a llegar | `Skeleton` |
+| Decir en qué paso de un flujo se está | `ProgressIndicator` |
+| Un avance fino, pegado a un borde | `ProgressLine` |
+| Un valor dentro de un rango: cuánto hay, dónde está | `Gauge` |
+| Seguir algo que dura, fuera de su app | `LiveActivity` |
+
+La diferencia que más se confunde: **`ProgressBar` mide algo que está pasando; `Gauge`, algo que es.**
+
+### Detener, preguntar, confirmar
+
+| Necesitas | Usa |
+|---|---|
+| Avisar de algo que la persona no esperaba | `Alert` |
+| Ofrecer cómo seguir una acción que la persona inició | `ActionSheet` |
+| Una tarea corta que pide atención completa | `Modal` |
+| Una tarea que acompaña a la pantalla, o en un teléfono | `Sheet` |
+| El permiso de un agente de IA antes de actuar | `Snippet`, de confirmación |
+| Algo que se puede deshacer | Nada de lo anterior: actúa y ofrece «Deshacer» en `ToastRegion` |
+
+### Avisar sin detener
+
+| Necesitas | Usa |
+|---|---|
+| Un aviso que pertenece a un lugar de la página | `InlineNotification` |
+| Un aviso breve de algo que acaba de pasar | `ToastRegion` |
+| Una pantalla sin contenido todavía | `EmptyState` |
+| El estado de un ítem | `Tag` |
+
+### Explicar algo junto a un control
+
+| Necesitas | Usa |
+|---|---|
+| El nombre de un botón que solo tiene ícono | `Tooltip` |
+| Una explicación con texto, enlaces o un botón | `Popover` |
+| Enseñar una función nueva, una vez | `Tip` |
+| Decir que algo lo generó una IA, y explicarlo | `AILabel` |
+
+### Elegir una opción
+
+| Necesitas | Usa |
+|---|---|
+| Sí o no, con efecto inmediato | Una fila de `List` con su interruptor |
+| Sí o no, dentro de un formulario que se envía | `Checkbox` |
+| Una de dos a cuatro, todas a la vista y cortas | `SegmentedControl` |
+| Una de tres a cinco, con texto que explicar | `RadioGroup` |
+| Una de muchas | `PopUpButton` |
+| Una de muchísimas, escribiendo para encontrarla | `Combobox` |
+| Varias, de una lista corta | `Checkbox` en grupo, o `List` con vistos |
+| Varias, escribiéndolas | `TokenField` |
+| Un número, de a pasos | `Stepper` |
+| Un valor aproximado en un rango | `Slider` |
+| Una opinión | `Rating` |
+
+### Escribir
+
+| Necesitas | Usa |
+|---|---|
+| Un dato corto | `TextInput` |
+| Un texto largo | `Textarea` |
+| Buscar | `SearchField` |
+| Un código de verificación | `DigitEntry` |
+| Una fecha, o una hora | `DatePicker`, `TimePicker` |
+| Pedirle algo a una IA | `PromptInput` |
+
+### Ofrecer acciones
+
+| Necesitas | Usa |
+|---|---|
+| La acción principal, a la vista | `Button` |
+| Ir a otra parte | `Link` |
+| Varias acciones de un botón | `PullDownButton` |
+| Las acciones de un ítem, sin ocupar lugar | `ContextMenu`, y también en otro lugar a la vista |
+| Acciones sobre un texto seleccionado | `EditMenu` |
+| Todos los comandos de una app, en un escritorio | `MenuBar` |
+
+### Moverse
+
+| Necesitas | Usa |
+|---|---|
+| Las secciones de una app, en un teléfono | `TabBar` |
+| Las secciones de una app, en pantalla ancha | `Sidebar` |
+| Vistas de un mismo contenido | `Tabs` |
+| El título y las acciones de una pantalla | `Toolbar` |
+| Mostrar el camino hasta aquí | `Breadcrumb` |
+| Pasar entre páginas de resultados | `Pagination` |
+| Pasar entre pocas pantallas, deslizando | `PageControl` |
+
+### Mostrar una jerarquía
+
+| Necesitas | Usa |
+|---|---|
+| Hasta dos niveles, para navegar una app | `Sidebar` |
+| Varios niveles que se abren y se cierran | `Outline` |
+| Muchos niveles, viendo por dónde se vino | `ColumnView` |
+| Una lista y el detalle de lo elegido | `SplitView` |
+| Partes de un contenido que se despliegan | `Accordion` |
+
+### Agrupar contenido
+
+| Necesitas | Usa |
+|---|---|
+| Un tema, con su título y sus acciones | `Card` |
+| Un producto, con precio | `ProductCard` |
+| Un medio de pago | `PaymentCard` |
+| Filas de texto | `List` |
+| Datos que se comparan en columnas | `Table` |
+| Ítems que se miran más que se leen | `Collection` |
+| Un poco de una app, fuera de ella | `Widget` |
+| La respuesta de una IA como tarjeta | `Snippet` |
+
+La regla general: **texto en filas, imágenes en grilla, números en tabla.**
+
+### Mostrar datos
+
+| La pregunta | Usa |
+|---|---|
+| ¿Cuánto es? | El número, grande |
+| ¿Cuál es mayor? | `BarChart` |
+| ¿Cómo cambió? | `LineChart` |
+| ¿Se relacionan? | `ScatterChart` |
+| ¿Cuánto hay de un total? | `Gauge` |
+| ¿Cuál es el valor exacto? | `Table` |
+
+### Si ninguno calza
+
+Antes de crear uno nuevo: ¿se resuelve con uno de estos y un patrón? Casi siempre sí. Si de verdad falta, se propone como una pieza de ALMA, no como algo de una sola pantalla.
+
+### Relacionados
+
+Jerarquía · Menús · Diálogos · Acciones · Formularios · Notificaciones · Carga · Entorno · Gráficos de datos.

@@ -8,69 +8,53 @@
  },
  "vidrio": true,
  "fechaLarga": "2 de junio de 1984, 08:00, Cupertino, California",
- "aviso": "Borrador automático. Estos textos se escribieron solos a partir de la carta de ORCA (2 de junio de 1984, 08:00, Cupertino, California). Lo que viene de la carta, como los principios, la voz, la letra, el color y el movimiento, ya es suyo. Los ejemplos de producto son genéricos, sobre proyectos: falta reemplazarlos por los de su oficio.",
- "borrador": {
-  "fecha": "2026-10-09",
-  "revisar": [
-   "aviso",
-   "muestra",
-   "inicio",
-   "puntoDeVista",
-   "tono",
-   "escritura",
-   "ilustracion",
-   "fotografia",
-   "datos",
-   "producto",
-   "comunicacion"
-  ]
- },
+ "aviso": "ORCA es una entidad ficticia, un ejercicio de diseño hecho con ALMA. Nació de buscar una fecha cuya carta diera un lenguaje cercano al de Apple, que usamos de referencia para aprender de sus detalles: los márgenes, los niveles del texto, el peso de los botones y el vidrio. No es Apple, no está afiliada a Apple y no usa su logo, sus textos ni su tipografía.",
  "muestra": {
-  "eyebrow": "Proyectos",
-  "titulo": "Proyecto de ejemplo, versión 2",
-  "texto": "Te recomendamos revisar el total antes de pagar.",
-  "primaria": "Abrir proyecto",
+  "eyebrow": "Documentos",
+  "titulo": "Informe de marzo, versión 2",
+  "texto": "Te recomendamos revisar los cambios antes de compartirlo.",
+  "primaria": "Abrir documento",
   "secundaria": "Ahora no",
-  "parrafo": "Sugerimos y orientamos; no ordenamos. La última palabra siempre es de la persona. Damos las opciones y sus razones. Decidir es más fácil cuando se puede comparar y conversar.",
+  "parrafo": "Tu escritorio guarda cada versión de lo que escribes. Puedes comparar dos, volver a una anterior o pedirle al asistente que te diga qué cambió. Nada se pierde y nada se decide por ti.",
   "enfasis": [
-   "El proyecto tiene ",
-   "3 tareas",
-   " pendientes."
+   "El informe tiene ",
+   "3 cambios",
+   " sin revisar."
   ]
  },
  "inicio": {
   "titulo": "Buscar → Sostener → Verificar",
-  "lede": "Este es el ethos detrás de nuestra filosofía y de cada uno de nuestros principios. Creemos en buscar experiencias, y en que para eso hace falta sostener un ritmo."
+  "lede": "Este es el ethos detrás de nuestra filosofía y de cada uno de nuestros principios. Hacemos un lugar para trabajar: donde se puede probar algo nuevo sin perder lo que ya estaba, y donde lo que se afirma se puede comprobar."
  },
  "puntoDeVista": {
-  "lede": "Lo que creemos define lo que hacemos. Esta es la base de todo lo que diseñamos, desde un botón hasta una marca entera.",
+  "lede": "Lo que creemos define lo que hacemos. Esta es la base de todo lo que diseñamos, desde el borde de una ventana hasta el entorno entero.",
   "bloques": [
    {
-    "p": "Existimos para buscar experiencias. Es lo que buscamos en cada cosa que hacemos, y la medida con la que revisamos lo que ya hicimos."
+    "p": "Creemos que una herramienta buena desaparece. Lo que la persona vino a hacer, su documento, su foto, su idea, ocupa el centro; todo lo nuestro se corre hacia los bordes y espera ahí."
    },
    {
-    "p": "Lo que nos sostiene es sostener un ritmo. Sin eso, lo primero se queda en intención."
+    "p": "Por eso el contenido va primero y los controles flotan sobre él, en vidrio. El vidrio no es un adorno: dice qué está encima de qué, y deja ver que lo de abajo sigue ahí."
    },
    {
-    "s": "Probar lo nuevo."
+    "s": "El contenido\nprimero."
    },
    {
-    "p": "Hay dos cosas que no elegimos y que igual nos mueven: verificar y dar sentido al pasado. Se notan más en cómo trabajamos que en lo que decimos."
+    "p": "Nos mueve probar. Un entorno que no deja experimentar se vuelve una oficina; uno que deja experimentar sin red se vuelve un riesgo. El nuestro guarda cada versión, deja deshacer cada paso y nunca cambia algo de lugar sin avisar."
    },
    {
-    "p": "Nos toca guiar. Miramos con atención, recomendamos con fundamento y esperamos a que nos inviten: una buena guía no empuja."
+    "p": "Y dudamos, empezando por nosotros. Cuando el asistente responde, muestra de dónde lo sacó. Cuando no sabe, lo dice. Una respuesta sin fuente es una opinión, y la tratamos como tal."
    },
    {
     "s": "Buscar → Sostener"
    },
    {
-    "p": "Decidimos conversando. Explicamos las opciones, las comparamos y dejamos que la persona las comente con quien quiera antes de elegir."
+    "p": "Guiamos, no empujamos. Miramos con atención lo que la persona hace, recomendamos con fundamento y esperamos a que nos inviten. El asistente vive al fondo, como una luz tenue, y pasa al frente solo cuando lo llaman."
    },
    {
     "p": "Todo lo que hacemos es esto. Todo lo que diseñamos también."
    },
    {
-    "q": "Toda experiencia con nosotros debería sentirse curiosa, escéptica y clara."
+    "q": "Toda experiencia con nosotros debería sentirse como un lugar propio: ordenado, tranquilo y listo para probar algo."
    }
   ],
   "origen": "La cruz {cruz}: buscar experiencias (35), sostener un ritmo (5), verificar (63), dar sentido al pasado (64). Autoridad mental: la claridad llega al conversar."
@@ -80,43 +64,46 @@
   "items": [
    {
     "t": "Probar lo nuevo",
-    "p": "Nuestro propósito pasa por buscar experiencias. En la interfaz: novedades que invitan a probar.",
+    "p": "Un entorno sirve si invita a experimentar. Cada cosa nueva llega como una invitación, se puede probar sin compromiso y se puede dejar sin perder nada. Guardamos las versiones para que probar nunca cueste lo que ya estaba hecho.",
     "q": [
-     "¿Esto ayuda a buscar experiencias?",
-     "¿Una persona que llega por primera vez lo nota?",
+     "¿La persona puede probar esto y volver atrás sin perder nada?",
+     "¿Lo nuevo se ofrece, o se impone?",
+     "¿Hay una versión anterior a la vista?",
      "¿Qué quitaríamos si este fuera nuestro único principio?"
     ]
    },
    {
     "t": "Claridad que irrumpe",
-    "p": "Quitar lo que sobra y ver lo que otros no ven. En la interfaz: cada pantalla con lo mínimo necesario. Ideas nuevas bien explicadas.",
+    "p": "Quitamos lo que sobra hasta que se ve lo que importa. Una ventana muestra su contenido y poco más; los controles aparecen cuando hacen falta y se van cuando no. Lo que queda tiene que explicarse solo.",
     "q": [
-     "¿Esto ayuda a simplificar?",
-     "¿Esto ayuda a ver lo nuevo?",
-     "¿Una persona que llega por primera vez lo nota?",
-     "¿Qué quitaríamos si este fuera nuestro único principio?"
+     "¿Qué es lo primero que se ve, y es lo que la persona vino a hacer?",
+     "¿Algún control podría esperar hasta que se necesite?",
+     "¿Los tres niveles de texto están cada uno en su trabajo?",
+     "¿Se entiende sin leer una ayuda?"
     ]
    },
    {
     "t": "Respetar el ritmo",
-    "p": "Nuestro propósito pasa por sostener un ritmo. En la interfaz: patrones predecibles: nada cambia de lugar sin aviso.",
+    "p": "La gente aprende dónde está cada cosa: el menú arriba, el dock abajo, cerrar a la izquierda. Mover algo sin aviso rompe un acuerdo. Preferimos que cada versión se sienta como la anterior, solo que mejor.",
     "q": [
-     "¿Esto ayuda a sostener un ritmo?",
-     "¿Una persona que llega por primera vez lo nota?",
-     "¿Qué quitaríamos si este fuera nuestro único principio?"
+     "¿Algo cambió de lugar sin aviso?",
+     "¿Este gesto hace lo mismo que en el resto del entorno?",
+     "¿El movimiento explica algo, o solo llama la atención?",
+     "¿Hay alguna urgencia que no sea real?"
     ]
    },
    {
     "t": "Verificar antes de afirmar",
-    "p": "Nuestro propósito pasa por verificar. En la interfaz: la evidencia a la vista.",
+    "p": "Lo que decimos se puede comprobar. El asistente cita sus fuentes, una cifra dice de cuándo es, y lo generado por una IA lleva su marca. Si no estamos seguros, lo decimos con esas palabras.",
     "q": [
-     "¿Esto ayuda a verificar?",
-     "¿Una persona que llega por primera vez lo nota?",
-     "¿Qué quitaríamos si este fuera nuestro único principio?"
+     "¿Cada respuesta del asistente muestra de dónde sale?",
+     "¿Lo generado por IA está marcado?",
+     "¿Decimos «no lo sé» cuando corresponde?",
+     "¿La persona puede revisar antes de que algo se envíe o se borre?"
     ]
    }
   ],
-  "cierre": "Una prueba final: después de usarnos, ¿la persona nos describiría como curiosos, escépticos y claros?"
+  "cierre": "Una prueba final: sin logo ni nombre, solo la pantalla. ¿Se ve primero el contenido, se entiende qué se puede hacer y se puede deshacer?"
  },
  "prisma": {
   "lede": "Nuestras seis caras, ordenadas en el prisma de identidad: lo que mostramos y lo que llevamos dentro, lo que emitimos y lo que provocamos en quien nos recibe.",
@@ -204,9 +191,9 @@
   "quien": "Hablamos en plural, como el equipo que está detrás de cada pantalla, y tratamos de tú. Nunca hablamos de nosotros en tercera persona.",
   "ex": {
    "si": {
-    "title": "No pudimos guardar el proyecto",
-    "message": "No se guardó porque se perdió la conexión. Revisa la red y vuelve a intentarlo.",
-    "cap": "Así suena un error nuestro: la claridad llega al conversar."
+    "title": "No pudimos guardar el documento",
+    "message": "No se guardó porque se perdió la conexión. Tus cambios siguen aquí: revisa la red y vuelve a intentarlo.",
+    "cap": "Qué pasó, por qué, y que nada se perdió."
    },
    "no": {
     "title": "¡Ups! Algo salió mal.",
@@ -222,13 +209,13 @@
     "Bienvenida",
     "Animado",
     "Lo mínimo",
-    "Aún no hay informes. Importa el primero para tener una base."
+    "Tu escritorio está vacío. Crea tu primer documento o trae uno que ya tengas."
    ],
    [
     "Acción principal",
     "Claro",
     "Qué va a pasar",
-    "Te recomendamos revisar el total antes de pagar."
+    "Te recomendamos revisar los cambios antes de compartirlo."
    ],
    [
     "Error",
@@ -240,30 +227,30 @@
     "Acción irreversible",
     "Firme",
     "Todo, sin presión",
-    "Se eliminarán el proyecto y sus 12 tareas. No se podrán recuperar. Compara antes de decidir."
+    "Se eliminarán el documento y sus 4 versiones. No se podrán recuperar."
    ],
    [
     "Éxito",
     "Sobrio",
     "Una línea",
-    "Listo. El proyecto quedó guardado."
+    "Listo. El documento quedó guardado."
    ],
    [
-    "Anuncio",
-    "Propio",
-    "Qué cambia y para quién",
-    "Probar lo nuevo: lo nuevo de junio."
+    "El asistente",
+    "Fundado",
+    "La respuesta y su fuente",
+    "El informe cambió en 3 lugares desde la versión 1. Lo tomé del historial del documento."
    ]
   ],
   "cuanto": "Mientras más está en juego, más exactos somos. En un éxito basta una línea; en un error decimos qué pasó y cómo se arregla; antes de algo irreversible decimos exactamente qué se pierde. Nunca usamos el tono para presionar.",
   "ex": {
    "si": {
     "eyebrow": "Acción irreversible",
-    "title": "Eliminar el proyecto",
-    "body": "Se eliminarán el proyecto y sus 12 tareas. No se podrán recuperar.",
-    "primary": "Eliminar proyecto",
+    "title": "Eliminar el documento",
+    "body": "Se eliminarán «Informe de marzo» y sus 4 versiones. No se podrán recuperar.",
+    "primary": "Eliminar documento",
     "secondary": "Cancelar",
-    "cap": "Firme y exacto: qué se pierde, y una salida."
+    "cap": "Firme y exacto: qué se pierde, y una salida. El botón que destruye nunca es el más visible."
    },
    "no": {
     "eyebrow": "¡Atención!",
@@ -276,6 +263,7 @@
   "nunca": [
    "Nunca des una sola opción cuando hay dos.",
    "Nunca dejes un error sin su causa y su salida.",
+   "Nunca presentes una respuesta del asistente sin su fuente.",
    "Que ser curiosos nunca nos vuelva dispersos.",
    "Evita las exclamaciones y los emojis en un error o una advertencia."
   ]
@@ -285,8 +273,13 @@
   "reglas": [
    [
     "Botones con verbo y objeto",
-    "Abrir proyecto · Invitar al equipo",
+    "Abrir documento · Compartir informe",
     "La acción se entiende sin leer nada más."
+   ],
+   [
+    "Menús con verbo solo",
+    "Copiar · Duplicar · Mover a…",
+    "En un menú el objeto ya está a la vista. Los tres puntos dicen que falta un paso."
    ],
    [
     "Sugerir, no ordenar",
@@ -294,9 +287,9 @@
     "La decisión es de la persona."
    ],
    [
-    "Con fundamento",
-    "Aún no hay informes. Importa el primero para tener una base",
-    "Damos el dato y la fuente antes de la opinión."
+    "Con su fuente",
+    "Según el historial del documento…",
+    "Damos el dato y de dónde sale antes de la opinión."
    ],
    [
     "La causa, no el síntoma",
@@ -305,8 +298,8 @@
    ],
    [
     "Cifras exactas",
-    "3 de 12 tareas",
-    "«Varias» no le sirve a nadie."
+    "3 cambios · 4 versiones",
+    "«Varios» no le sirve a nadie."
    ],
    [
     "Tuteo, sin exclamaciones",
@@ -315,16 +308,16 @@
    ],
    [
     "Mayúscula solo al inicio",
-    "Proyecto de ejemplo · Ver la versión anterior",
+    "Informe de marzo · Ver la versión anterior",
     "Leemos más rápido en tipo oración."
    ]
   ],
   "ex": {
    "si": {
-    "title": "3 tareas pendientes en el proyecto",
-    "body": "Dos son de esta semana y una está atrasada. Puedes verlas en cualquier orden.",
-    "primary": "Ver 3 tareas",
-    "cap": "Cifra exacta, de qué son y el control en manos de la persona."
+    "title": "3 cambios sin revisar en el informe",
+    "body": "Dos son de hoy y uno de ayer. Puedes verlos en cualquier orden, o pedirle un resumen al asistente.",
+    "primary": "Ver 3 cambios",
+    "cap": "Cifra exacta, de cuándo son y el control en manos de la persona."
    },
    "no": {
     "title": "¡Tienes cosas pendientes!",
@@ -345,6 +338,14 @@
    [
     "3 de 12, el 4 de mayo",
     "Varios, pronto"
+   ],
+   [
+    "Generado por IA",
+    "Mágico, inteligente"
+   ],
+   [
+    "No lo sé, no encontré",
+    "Quizás, podría ser"
    ]
   ],
   "formatos": [
@@ -354,15 +355,19 @@
    ],
    [
     "Horas.",
-    "Formato de 24 horas: 12:00, 18:30."
+    "Formato de 24 horas: 08:00, 18:30."
    ],
    [
     "Unidades.",
-    "Con espacio: 18 %, 12 px, 320 tareas."
+    "Con espacio: 18 %, 12 px, 320 documentos."
    ],
    [
     "Números grandes.",
-    "Con punto de miles: 2.026 proyectos."
+    "Con punto de miles: 2.026 documentos."
+   ],
+   [
+    "Atajos.",
+    "Con el signo más y sin espacios: Ctrl+C, Ctrl+Mayús+N."
    ]
   ]
  },
@@ -445,11 +450,15 @@
  },
  "ilustracion": {
   "lede": "Ilustramos para explicar. Un dibujo nuestro muestra una estructura, un cambio o un proceso que no se ve a simple vista.",
-  "puntoDeVista": "Si la fotografía muestra a las personas, la ilustración muestra las ideas. Cada ilustración explica una sola idea y deja espacio alrededor.",
+  "puntoDeVista": "Si la fotografía muestra a las personas, la ilustración muestra las ideas: cómo se ordenan las capas de una pantalla, qué cambió entre dos versiones, por dónde pasa un dato. Cada ilustración explica una sola idea y deja espacio alrededor.",
   "estilos": [
    {
     "t": "Línea",
     "p": "El estilo principal. Trazos de grosor uniforme con esquinas amables, sobre la grilla de 8 px. Ideal para estructuras y procesos."
+   },
+   {
+    "t": "Capas",
+    "p": "Planos de vidrio uno sobre otro, para mostrar qué está encima de qué. Es nuestra manera de dibujar la profundidad: nunca con sombras pesadas."
    },
    {
     "t": "Interfaz",
@@ -460,10 +469,11 @@
     "p": "Nuestros personajes. Cada uno son dos formas redondas y dos ojos, con los colores de la paleta, y el mismo nombre da siempre la misma criatura. Sirven de avatar, de mascota de una pieza y, amontonadas, de textura."
    }
   ],
-  "personas": "Cuando dibujamos personas, las mostramos haciendo algo, concentradas. Siluetas simples y diversas, sin caricatura.",
+  "personas": "Cuando dibujamos personas, las mostramos haciendo algo, concentradas: escribiendo, comparando, ordenando. Siluetas simples y diversas, sin caricatura.",
   "color": "El azul para lo que importa, negro y neutros para el resto, {secundario} y {terciario} solo como apoyo. Una ilustración nunca usa más de tres colores de la paleta. Las criaturas son la excepción: una sola lleva dos colores sobre negro, y una textura de criaturas puede usar la paleta completa.",
   "avoid": [
-   "Evita las metáforas gastadas: bombillas, cohetes, apretones de manos.",
+   "Evita las metáforas gastadas: bombillas, cohetes, cerebros y chispas para hablar de IA.",
+   "Evita darle cara o cuerpo al asistente: su presencia es una luz, no un personaje.",
    "Evita que una criatura dé un error, un aviso o una instrucción: eso va con texto y un icono.",
    "Evita los personajes ajenos y los que imitan a una persona real.",
    "Evita ilustrar lo que una frase ya explica."
@@ -484,36 +494,36 @@
     "Diego Vidal"
    ],
    "conceptos": [
-    "proyecto",
-    "idea",
-    "equipo",
+    "documento",
     "versión",
+    "ventana",
+    "capa",
     "pregunta",
-    "avance",
-    "acuerdo",
-    "entrega",
-    "comienzo",
-    "detalle",
+    "fuente",
+    "borrador",
+    "nota",
+    "carpeta",
     "ritmo",
+    "prueba",
     "cierre"
    ]
   }
  },
  "fotografia": {
-  "lede": "Nuestras imágenes muestran el trabajo de verdad: personas, manos, mesas y herramientas, tal como son.",
-  "puntoDeVista": "Fotografiamos el proceso antes que el resultado. Una buena imagen nuestra muestra a alguien haciendo algo que le importa, sin posar.",
+  "lede": "Nuestras imágenes muestran dónde y cómo se trabaja de verdad: una mesa, una ventana, unas manos, la luz de la mañana.",
+  "puntoDeVista": "Fotografiamos el lugar antes que el aparato. Una buena imagen nuestra muestra a alguien concentrado en lo suyo; la pantalla, si aparece, es una cosa más sobre la mesa.",
   "tipos": [
    {
-    "t": "Oficio: el trabajo en proceso",
-    "p": "La mayor parte de nuestras imágenes. Lo que se está haciendo, a medio camino."
+    "t": "Lugar: donde se trabaja",
+    "p": "La mayor parte de nuestras imágenes. Mesas reales, con sus cosas, a la hora en que se usan."
    },
    {
     "t": "Personas: la atención",
     "p": "Personas trabajando, fotografiadas sin interrumpir. La concentración es el tema."
    },
    {
-    "t": "Detalle: lo exacto",
-    "p": "Un gesto o un objeto de cerca, con foco exacto."
+    "t": "Detalle: el material",
+    "p": "Vidrio, papel, luz que atraviesa algo. De cerca y con foco exacto: es de donde sale nuestra forma."
    }
   ],
   "tecnica": [
@@ -523,7 +533,7 @@
    ],
    [
     "Luz.",
-    "Natural y lateral. Sin flashes ni luces de colores."
+    "Natural y lateral, de ventana. Sin flashes ni luces de colores."
    ],
    [
     "Color.",
@@ -536,12 +546,13 @@
   ],
   "avoid": [
    "Evita las fotos de banco con sonrisas a cámara.",
+   "Evita las pantallas con interfaces inventadas o de otros.",
    "Evita las imágenes de estrés o de fecha límite.",
    "Evita los montajes y los fondos inventados."
   ]
  },
  "datos": {
-  "lede": "Mostramos los datos para que la persona vea lo que no se ve a simple vista: cuánto, dónde y cómo cambió.",
+  "lede": "Mostramos los datos para que la persona vea lo que no se ve a simple vista: cuánto, desde cuándo y cómo cambió.",
   "criterios": [
    {
     "t": "Exactas",
@@ -552,8 +563,8 @@
     "p": "Comparamos con el período anterior. Un dato sin su antes no dice si algo mejoró."
    },
    {
-    "t": "Sin alarma",
-    "p": "Un problema se marca con su ícono y su palabra, nunca solo con un color."
+    "t": "De un vistazo",
+    "p": "En un widget cabe un dato, no un informe. El número grande, su nombre en secundario y de cuándo es."
    },
    {
     "t": "En tus manos",
@@ -561,7 +572,7 @@
    }
   ],
   "ejemplo": {
-   "titulo": "Tareas resueltas por semana",
+   "titulo": "Documentos editados por semana",
    "barras": [
     [
      "Sem. 1",
@@ -581,12 +592,12 @@
      true
     ]
    ],
-   "fuente": "Fuente: proyecto de ejemplo. Sem. 4: semana en curso."
+   "fuente": "Fuente: historial del escritorio. Sem. 4: semana en curso."
   },
   "avoid": [
    "No cortes un eje para exagerar una diferencia.",
    "No uses el color solo para decir que algo está mal.",
-   "No muestres una cifra sin decir de dónde sale."
+   "No muestres una cifra sin decir de cuándo es y de dónde sale."
   ],
   "origen": "Puerta 35 (buscar experiencias), puerta 5 (sostener un ritmo)."
  },
@@ -633,21 +644,21 @@
   "origen": "Proyector · autoridad mental: la claridad llega al conversar."
  },
  "producto": {
-  "lede": "Una pantalla de proyectos con nuestro lenguaje. Solo componentes de ALMA: lo que cambia son los tokens y las palabras.",
+  "lede": "Una ventana de documentos con nuestro lenguaje. Solo componentes de ALMA: lo que cambia son los tokens y las palabras.",
   "pantalla": {
-   "titulo": "Proyectos",
+   "titulo": "Documentos",
    "secundaria": "Ahora no",
-   "primaria": "Ver 3 tareas",
+   "primaria": "Ver 3 cambios",
    "aviso": {
     "status": "info",
-    "title": "El proyecto de ejemplo tiene 3 tareas pendientes",
-    "message": "Dos son de esta semana y una está atrasada. Puedes verlas en cualquier orden."
+    "title": "«Informe de marzo» tiene 3 cambios sin revisar",
+    "message": "Dos son de hoy y uno de ayer. Puedes verlos en cualquier orden."
    },
-   "tabla": "Proyectos",
+   "tabla": "Documentos",
    "columnas": [
     {
      "key": "p",
-     "label": "Proyecto"
+     "label": "Documento"
     },
     {
      "key": "e",
@@ -659,49 +670,49 @@
     },
     {
      "key": "f",
-     "label": "Tareas"
+     "label": "Cambios"
     }
    ],
    "filas": [
     {
-     "p": "Proyecto uno",
-     "e": "Terminado",
+     "p": "Notas de la reunión",
+     "e": "Revisado",
      "v": "4",
      "f": "0"
     },
     {
-     "p": "Proyecto dos",
-     "e": "Terminado",
+     "p": "Presupuesto 2026",
+     "e": "Revisado",
      "v": "3",
      "f": "0"
     },
     {
-     "p": "Proyecto de ejemplo",
-     "e": "Con tareas",
+     "p": "Informe de marzo",
+     "e": "Con cambios",
      "v": "2",
      "f": "3"
     },
     {
-     "p": "Proyecto cuatro",
+     "p": "Ideas sueltas",
      "e": "Recién creado",
      "v": "1",
      "f": "—"
     }
    ],
-   "pie": "Entre la versión 1 y la 2 del proyecto de ejemplo se resolvieron 9 de 12 tareas."
+   "pie": "Entre la versión 1 y la 2 de «Informe de marzo» se revisaron 9 de 12 cambios."
   },
   "mapa": [
    [
-    "El número exacto de tareas",
-    "Probar lo nuevo: la cifra y de qué son."
+    "El número exacto de cambios",
+    "Verificar antes de afirmar: la cifra y de cuándo son."
    ],
    [
     "«Ahora no» junto a la acción principal",
     "Proyector: guiar, no empujar."
    ],
    [
-    "La nota sobre lo resuelto entre versiones",
-    "Verificar antes de afirmar: mostrar el avance."
+    "La nota sobre lo revisado entre versiones",
+    "Probar lo nuevo: cada versión se guarda."
    ],
    [
     "Una sola acción principal",
@@ -713,13 +724,13 @@
   "lede": "Cuando anunciamos algo: la firma más la voz, en tres formatos.",
   "portada": {
    "eyebrow": "Lo nuevo de junio",
-   "titulo": "Probar lo nuevo",
-   "texto": "Novedades que invitan a probar. Patrones predecibles: nada cambia de lugar sin aviso.",
+   "titulo": "Un lugar para probar",
+   "texto": "Cada versión se guarda sola. Prueba una idea, compárala con la anterior y quédate con la que funcione.",
    "boton": "Conocer lo nuevo"
   },
   "cuadrado": {
-   "titulo": "Probar lo nuevo.",
-   "texto": "Sostener un ritmo."
+   "titulo": "El contenido primero.",
+   "texto": "Todo lo demás, en vidrio."
   },
   "historia": {
    "titulo": "Buscar.",

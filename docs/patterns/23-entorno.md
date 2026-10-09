@@ -97,9 +97,13 @@ La guía Interfaces de IA pide una sola luz por pantalla. En el entorno hay tres
 
 | Lugar | Qué | Cuándo |
 |---|---|---|
-| **El fondo del escritorio** | El escenario: Velo y Halo, detrás de todo. | Cuando la IA es el centro del entorno. El Halo dice su estado. |
+| **El fondo del escritorio** | El escenario: el Velo, detrás de todo, y el Halo sobre él cuando la IA pasa al frente. | Cuando la IA es el centro del entorno. El Halo dice su estado. |
 | **Un extra de la barra** | La figura: el Halo pequeño, o el ícono `ai-label`. | Cuando el fondo es otro. Abre el asistente. |
 | **Una ventana** | El asistente: `ChatMessage` y `PromptInput`. | Donde se conversa. |
+
+![El mismo escritorio dos veces. Arriba, «De fondo»: la ventana «Viajes» está al frente y detrás de todo solo hay un velo de luz tenue. Abajo, «Al frente»: la ventana «Asistente» pasó adelante y, sobre el velo, apareció el Halo, un anillo de luz.](assets/Patrones/entorno-ia.png)
+
+**El Halo es de primer plano.** Mientras la IA está de fondo, su luz es solo el Velo: quieto, tenue y barato de dibujar. Cuando la ventana del asistente pasa al frente, el Halo aparece sobre el Velo; cuando deja de estarlo, se retira. `Window` avisa con `onActiveChange`.
 
 Si el fondo ya es la luz de la IA, el extra de la barra es solo el ícono. Nunca dos luces.
 

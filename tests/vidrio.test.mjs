@@ -45,3 +45,26 @@ test('lo que flota es de vidrio sobre su propio color, con el grosor de su nivel
   const css = readFileSync('dist/css/alma.css', 'utf8');
   for (const t of ['menu-bg', 'popover-bg', 'toolbar-bg', 'tab-bar-bg', 'modal-bg', 'alert-bg']) assert.match(css, new RegExp(`--${t}: var\\(--ui-0[12]\\)`), t);
 });
+
+// The ground of an entity «all in glass» is the Velo, as strong as --glass-ground says. The Velo paints, at most, the
+// page's colour mixed that much towards its light — the accent, or the accent pulled 45 % to the text's colour.
+test('sobre el suelo de Velo de una entidad en vidrio, los tres niveles de texto siguen en 4,5:1', async () => {
+  const { sistema } = await import('../scripts/lib/documentacion.mjs');
+  const { readdirSync } = await import('node:fs');
+  const hoja = readFileSync('entidades/vidrio.css', 'utf8'), mix = (a, b, k) => a.map((v, i) => v + (b[i] - v) * k);
+  const fuerza = { dark: Number(/\[data-theme="dark"\] \{ --glass-ground: ([\d.]+)/.exec(hoja)[1]), light: Number(/\[data-theme="light"\] \{ --glass-ground: ([\d.]+)/.exec(hoja)[1]) };
+  assert.match(hoja, /\[data-theme\$="-hc"\] \{ --glass-ground: 0; \}/, 'en alto contraste no hay suelo');
+  const conVidrio = readdirSync('entidades/lenguajes').map((f) => f.replace(/\.json$/, '')).filter((id) => JSON.parse(readFileSync(`entidades/lenguajes/${id}.json`, 'utf8')).vidrio);
+  assert.ok(conVidrio.length > 0, 'ninguna entidad pide vidrio');
+  for (const id of conVidrio) {
+    const S = await sistema(id);
+    for (const tema of ['dark', 'light']) {
+      const b = bloque(tema), de = (n) => rgb(String(S.color[tema][n] || '').startsWith('#') ? S.color[tema][n] : valor(b, n));
+      const suelo = de('ui-02'), uno = de('interactive-01'), dos = de('text-01');
+      for (const luz of [uno, mix(uno, dos, 0.45)]) {
+        const peor = mix(suelo, luz, fuerza[tema]);
+        for (const t of ['text-01', 'text-02', 'text-03']) { const c = contraste(de(t), peor); assert.ok(c >= 4.5, `${id} · ${tema} · ${t} sobre el Velo: ${c.toFixed(2)}:1`); }
+      }
+    }
+  }
+});

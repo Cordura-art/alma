@@ -39,7 +39,8 @@
     "figura": "node scripts/build-figura.mjs",
     "figuras:revisar": "node scripts/revisar-figuras.mjs",
     "escaneo": "node scripts/build-escaneo.mjs",
-    "mundo": "node scripts/build-mundo.mjs"
+    "mundo": "node scripts/build-mundo.mjs",
+    "test:componentes": "node --test tests/navegador/*.test.mjs"
   },
   "engines": {
     "node": ">=20"

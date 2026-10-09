@@ -33,7 +33,7 @@ Antes de usarlo, lee el patrón **Entorno**.
 ### El fondo
 
 - Es decoración: no lleva texto ni controles.
-- Puede ser un efecto de ALMA. Si es la presencia de una IA (Velo y Halo), es la única luz del entorno.
+- Puede ser un efecto de ALMA. Si es la presencia de una IA, es la única luz del entorno: el Velo mientras la IA está de fondo, y el Halo sobre él cuando su ventana pasa al frente.
 - Las ventanas y las barras son de vidrio sobre él: se leen igual con cualquier fondo.
 
 ### El orden de las ventanas
@@ -120,15 +120,22 @@ Dale un alto: el escritorio no crece con lo que lleva dentro.
 ### El fondo con la presencia de una IA
 
 ```js
-function Fondo() {
-  var ref = React.useRef(null);
+function Fondo(props) {
+  var ref = React.useRef(null), luz = React.useRef(null);
   React.useEffect(function () {
-    var luz = AlmaEfectos.presencia(ref.current, 'reposo');
-    return function () { if (luz) luz.quita(); };
+    luz.current = AlmaEfectos.presencia(ref.current, 'fondo');
+    return function () { if (luz.current) luz.current.quita(); };
   }, []);
+  React.useEffect(function () { if (luz.current) luz.current.estado(props.estado); }, [props.estado]);
   return h('div', { ref: ref });
 }
+
+// En el escritorio: el Halo aparece cuando la ventana del asistente está al frente
+h(A.Desktop, { wallpaper: h(Fondo, { estado: alFrente ? 'reposo' : 'fondo' }) },
+  h(A.Window, { title: 'Asistente', onActiveChange: setAlFrente }, …));
 ```
+
+La IA de fondo es solo el Velo. El Halo cuesta más de dibujar: aparece cuando la IA pasa al frente y se retira cuando deja de estarlo.
 
 ## Accesibilidad
 

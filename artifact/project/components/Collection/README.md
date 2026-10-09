@@ -26,6 +26,15 @@
 | **Grilla** | `grid` | Verlos todos. Las columnas se acomodan solas al ancho. |
 | **Fila** | `row` | Una muestra, dentro de una página con más cosas. Se desplaza hacia el lado. |
 
+![Dos colecciones de destinos. Arriba, en grilla: seis tarjetas iguales en tres columnas, cada una con su distancia y su nombre. Abajo, en fila: las mismas tarjetas en una sola línea que sigue más allá del borde, con la última cortada para mostrar que hay más.](assets/Componentes/collection-formas.png)
+
+### Qué va en una celda
+
+- **Una sola pieza por celda:** una `Card`, una `ImageView`, un `Widget`. La colección ordena; no dibuja.
+- **Todas del mismo tipo.** Si una celda es distinta de las demás, no es parte de la colección.
+- **El ancho mínimo manda** (`minItemWidth`): la colección pone tantas columnas como quepan y reparte lo que sobra. No fijes un número de columnas.
+- **En fila, la última celda se corta** a propósito: dice que hay más hacia el lado.
+
 ### Reglas
 
 - **El mismo tamaño de celda**, o el doble para lo destacado. Tamaños arbitrarios desordenan.
