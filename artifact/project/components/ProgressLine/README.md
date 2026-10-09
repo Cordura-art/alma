@@ -40,7 +40,7 @@ Una línea azul que indica una espera de marca y termina en verde.
 
 | Elemento | Propiedad | Token |
 |---|---|---|
-| Brillo (cargando) | color | `progress-line-loading` (`brand-lime`) |
+| Brillo (cargando) | color | `progress-line-loading` (`brand-accent`) |
 | Línea (terminada) | color | `progress-line-success` |
 
 ### Estructura

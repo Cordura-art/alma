@@ -99,3 +99,13 @@ test('el color de un papel es un paso de una rampa; los que no, están contados 
   assert.equal(nuevos.length, 0, 'colores sueltos nuevos:\n' + nuevos.join('\n'));
   assert.ok(hoy.length <= contados.size);
 });
+
+// A token is named for what it is for, or for the colour it really holds. `brand-lime` held ALMA's blue for a while,
+// after the accent stopped being lime: it is `brand-accent` now, and the old name does not come back.
+test('ningún token lleva el nombre de un color que ya no guarda', () => {
+  const css = readFileSync('dist/css/alma.css', 'utf8');
+  assert.doesNotMatch(css, /--brand-lime\b/, 'brand-lime volvió: el color de marca es brand-accent');
+  assert.match(css, /--brand-accent:/);
+  for (const th of ['dark', 'light', 'dark-hc', 'light-hc']) { const F = JSON.stringify(JSON.parse(readFileSync(`tokens/themes/${th}.json`, 'utf8')));
+    assert.equal(/"brand-lime"|color\.brand-lime/.test(F), false, th); }
+});

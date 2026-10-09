@@ -12,7 +12,7 @@ enum AlmaTheme { dark, light, darkHc, lightHc }
 @immutable
 class AlmaColors extends ThemeExtension<AlmaColors> {
   const AlmaColors({
-    required this.brandLime,
+    required this.brandAccent,
     required this.brandInk,
     required this.brandBlack,
     required this.brandWhite,
@@ -519,8 +519,8 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     required this.figuraAcento,
   });
 
-  /// Azul ALMA: el color de la acción principal y de los acentos. El token conserva el nombre que tenía cuando el acento era lima.
-  final Color brandLime;
+  /// El color de marca: la acción principal y los acentos. En ALMA es el azul; cada entidad pone aquí el suyo.
+  final Color brandAccent;
   /// Tinta de marca: un negro apenas levantado. Fondos de piezas de marca y superficies oscuras.
   final Color brandInk;
   /// Negro de marca. Fondo de página del tema oscuro.
@@ -573,7 +573,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   final Color text02;
   /// Uso (Cordura): Texto de ejemplo (placeholder). Placeholder, sobre ui-02 y field-01. Accesible: en claro se oscureció de #CBDEE6 (Figma, 1.3:1) a #566980. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29.
   final Color text03;
-  /// Uso (Cordura): Texto sobre colores interactivos. Texto sobre colores interactivos (sobre brand-lime en oscuro). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29.
+  /// Uso (Cordura): Texto sobre colores interactivos. Texto sobre colores interactivos (sobre brand-accent en oscuro). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29.
   final Color text04;
   /// Uso (Cordura): Texto terciario; texto de ayuda. Texto terciario y de ayuda. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29.
   final Color text05;
@@ -1323,7 +1323,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   final Color paymentCardActive;
   /// PaymentCard: el estado en curso (pendiente, activando).
   final Color paymentCardChipActivating;
-  /// ProgressLine cargando: brillo. Token de componente: alias de brand-lime.
+  /// ProgressLine cargando: brillo. Token de componente: alias de brand-accent.
   final Color progressLineLoading;
   /// ProgressLine completa. Token de componente: alias de success-400.
   final Color progressLineSuccess;
@@ -1531,7 +1531,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   final Color figuraAcento;
 
   static const AlmaColors dark = AlmaColors(
-    brandLime: Color(0xFF2667F2),
+    brandAccent: Color(0xFF2667F2),
     brandInk: Color(0xFF191919),
     brandBlack: Color(0xFF000000),
     brandWhite: Color(0xFFFFFFFF),
@@ -2039,7 +2039,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   );
 
   static const AlmaColors light = AlmaColors(
-    brandLime: Color(0xFF2667F2),
+    brandAccent: Color(0xFF2667F2),
     brandInk: Color(0xFF191919),
     brandBlack: Color(0xFF000000),
     brandWhite: Color(0xFFFFFFFF),
@@ -2547,7 +2547,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   );
 
   static const AlmaColors darkHc = AlmaColors(
-    brandLime: Color(0xFFA6C5FD),
+    brandAccent: Color(0xFFA6C5FD),
     brandInk: Color(0xFF191919),
     brandBlack: Color(0xFF000000),
     brandWhite: Color(0xFFFFFFFF),
@@ -3055,7 +3055,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   );
 
   static const AlmaColors lightHc = AlmaColors(
-    brandLime: Color(0xFF0032A3),
+    brandAccent: Color(0xFF0032A3),
     brandInk: Color(0xFF191919),
     brandBlack: Color(0xFF000000),
     brandWhite: Color(0xFFFFFFFF),
@@ -3577,7 +3577,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
 
   @override
   AlmaColors copyWith({
-    Color? brandLime,
+    Color? brandAccent,
     Color? brandInk,
     Color? brandBlack,
     Color? brandWhite,
@@ -4084,7 +4084,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
     Color? figuraAcento,
   }) {
     return AlmaColors(
-      brandLime: brandLime ?? this.brandLime,
+      brandAccent: brandAccent ?? this.brandAccent,
       brandInk: brandInk ?? this.brandInk,
       brandBlack: brandBlack ?? this.brandBlack,
       brandWhite: brandWhite ?? this.brandWhite,
@@ -4596,7 +4596,7 @@ class AlmaColors extends ThemeExtension<AlmaColors> {
   AlmaColors lerp(ThemeExtension<AlmaColors>? other, double t) {
     if (other is! AlmaColors) return this;
     return AlmaColors(
-      brandLime: Color.lerp(brandLime, other.brandLime, t)!,
+      brandAccent: Color.lerp(brandAccent, other.brandAccent, t)!,
       brandInk: Color.lerp(brandInk, other.brandInk, t)!,
       brandBlack: Color.lerp(brandBlack, other.brandBlack, t)!,
       brandWhite: Color.lerp(brandWhite, other.brandWhite, t)!,

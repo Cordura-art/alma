@@ -1,0 +1,299 @@
+{
+  "$description": "La matriz de color: cada token es un casillero, una familia y un paso. P es Primary (la marca), S es Secondary (el neutro, teñido con el tono de la acción), T es Tertiary (la acción); W es blanco y K es negro. Cada casillero trae su paso para el tema claro y para el oscuro. Los del claro vienen del estudio de color de Cordura; los del oscuro se fijaron el 2026-10-09. Todavía no gobierna los tokens: es la regla acordada, y tests/matriz.test.mjs cuida que cumpla el contraste.",
+  "tinte": 1,
+  "casilleros": {
+    "interactive-01": [
+      "P500",
+      "P500"
+    ],
+    "hover-primary": [
+      "P600",
+      "P600"
+    ],
+    "active-primary": [
+      "P700",
+      "P700"
+    ],
+    "interactive-02": [
+      "S500",
+      "S600"
+    ],
+    "hover-secondary": [
+      "S600",
+      "S500"
+    ],
+    "active-secondary": [
+      "S700",
+      "S400"
+    ],
+    "interactive-03": [
+      "W",
+      "T400"
+    ],
+    "hover-tertiary": [
+      "T600",
+      "T300"
+    ],
+    "active-tertiary": [
+      "T700",
+      "T200"
+    ],
+    "interactive-04": [
+      "T500",
+      "T400"
+    ],
+    "link-01": [
+      "T500",
+      "T400"
+    ],
+    "visited-link": [
+      "T400",
+      "T200"
+    ],
+    "inverse-link": [
+      "T300",
+      "T500"
+    ],
+    "focus": [
+      "T400",
+      "T300"
+    ],
+    "nav-selected": [
+      "T600",
+      "T300"
+    ],
+    "control-on": [
+      "T500",
+      "T400"
+    ],
+    "button-tinted-text": [
+      "T600",
+      "T300"
+    ],
+    "button-plain-text": [
+      "T600",
+      "T300"
+    ],
+    "field-border-active": [
+      "T500",
+      "T400"
+    ],
+    "ui-01": [
+      "S50",
+      "S1000"
+    ],
+    "ui-02": [
+      "W",
+      "K"
+    ],
+    "ui-03": [
+      "S100",
+      "S950"
+    ],
+    "ui-04": [
+      "S300",
+      "S900"
+    ],
+    "ui-05": [
+      "S900",
+      "S100"
+    ],
+    "text-01": [
+      "S900",
+      "S50"
+    ],
+    "text-02": [
+      "S800",
+      "S300"
+    ],
+    "text-03": [
+      "S700",
+      "S500"
+    ],
+    "text-04": [
+      "T50",
+      "T900"
+    ],
+    "text-05": [
+      "T600",
+      "T300"
+    ],
+    "icon-01": [
+      "S900",
+      "S50"
+    ],
+    "icon-02": [
+      "S600",
+      "S400"
+    ],
+    "field-01": [
+      "T50",
+      "T900"
+    ],
+    "field-02": [
+      "W",
+      "K"
+    ],
+    "hover-row": [
+      "T50",
+      "T900"
+    ],
+    "highlight": [
+      "T50",
+      "T900"
+    ],
+    "hover-ui": [
+      "T100",
+      "T800"
+    ],
+    "selected-ui": [
+      "T100",
+      "T800"
+    ],
+    "active-ui": [
+      "T100",
+      "T800"
+    ],
+    "hover-selected-ui": [
+      "S200",
+      "S800"
+    ],
+    "disabled-01": [
+      "S50",
+      "S1000"
+    ],
+    "disabled-02": [
+      "S200",
+      "S800"
+    ],
+    "disabled-03": [
+      "S400",
+      "S700"
+    ],
+    "skeleton-01": [
+      "S50",
+      "S1000"
+    ],
+    "skeleton-02": [
+      "S100",
+      "S950"
+    ],
+    "inverse-01": [
+      "W",
+      "K"
+    ],
+    "inverse-02": [
+      "S800",
+      "S200"
+    ],
+    "inverse-hover-ui": [
+      "S600",
+      "S400"
+    ],
+    "border-subtle": [
+      "S200",
+      "S900"
+    ],
+    "border-control": [
+      "S500",
+      "S600"
+    ]
+  },
+  "pares": [
+    {
+      "texto": "text-01",
+      "fondo": "ui-02",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-02",
+      "fondo": "ui-02",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-03",
+      "fondo": "ui-02",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-01",
+      "fondo": "ui-01",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-02",
+      "fondo": "ui-01",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-03",
+      "fondo": "ui-01",
+      "minimo": 4.5
+    },
+    {
+      "texto": "link-01",
+      "fondo": "ui-02",
+      "minimo": 4.5
+    },
+    {
+      "texto": "link-01",
+      "fondo": "ui-01",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-on-interactive",
+      "fondo": "interactive-01",
+      "minimo": 4.5
+    },
+    {
+      "texto": "button-tinted-text",
+      "fondo": "ui-01",
+      "minimo": 4.5
+    },
+    {
+      "texto": "nav-selected",
+      "fondo": "selected-ui",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-01",
+      "fondo": "hover-ui",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-01",
+      "fondo": "field-01",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-02",
+      "fondo": "field-01",
+      "minimo": 4.5
+    },
+    {
+      "texto": "text-05",
+      "fondo": "ui-02",
+      "minimo": 4.5
+    },
+    {
+      "texto": "interactive-04",
+      "fondo": "ui-02",
+      "minimo": 3
+    },
+    {
+      "texto": "focus",
+      "fondo": "ui-02",
+      "minimo": 3
+    },
+    {
+      "texto": "control-on",
+      "fondo": "ui-02",
+      "minimo": 3
+    },
+    {
+      "texto": "border-control",
+      "fondo": "ui-02",
+      "minimo": 3
+    }
+  ]
+}

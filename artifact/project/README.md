@@ -23,7 +23,7 @@ Guían a cualquier persona que diseñe, o apruebe un diseño, en nombre de Cordu
 
 ## Principios de interfaz
 
-- **Un acento, bien usado.** `interactive-01`, el azul, es la acción principal y el foco de la pieza. Si todo es azul, nada lo es. (`brand-lime` guarda el mismo color: conserva el nombre de cuando el acento era lima.)
+- **Un acento, bien usado.** `interactive-01`, el azul, es la acción principal y el foco de la pieza. Si todo es azul, nada lo es. (`brand-accent` es el color base que lo alimenta.)
 - **El espacio agrupa.** El espacio en blanco relaciona elementos. Con una separación normada no hacen falta divisores ni contenedores: el usuario entiende qué va junto.
 - **Cuanto más grande el objeto, más espacio alrededor.** Titulares `web-display-*` respiran con `space-56` a `space-80`. Controles con `space-8` a `space-24`.
 - **Todo en múltiplos de 8.** Usa `space-4`, `space-2` y `space-0` solo dentro de componentes compactos como los inputs.
@@ -52,7 +52,7 @@ Guían a cualquier persona que diseñe, o apruebe un diseño, en nombre de Cordu
 ### Tres capas de color
 
 Como en IBM Carbon, el color va en tres capas:
-1. **Base:** rampas y colores de marca (`primary-500`, `brand-lime`). No se usan directo en componentes.
+1. **Base:** rampas y colores de marca (`primary-500`, `brand-accent`). No se usan directo en componentes.
 2. **Semántica:** el rol en la interfaz (`interactive-01`, `ui-01`, `text-01`, `focus`). Cambia con el tema.
 3. **Componente:** `<componente>-<parte>-<estado>`, por ejemplo `button-filled-bg-hover`, `field-border-error`, `table-row-bg-selected`, `tooltip-bg`. Son alias de la capa semántica y su nota dice de cuál. Hay 126, uno por decisión de cada componente.
 

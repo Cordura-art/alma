@@ -1,0 +1,158 @@
+<title>Matriz de color</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght,GRAD,XTRA@8..144,25..151,100..1000,-200..150,323..603&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+/*ALMA*/
+/* Layout: controls on top, then summary, the three ramps, the same screen twice (today | matrix), and the tables. All ALMA tokens. */
+:root { color-scheme: dark; }
+:root[data-theme="light"], :root[data-theme="light-hc"] { color-scheme: light; }
+body { background: var(--ui-02); color: var(--text-01); font-family: var(--font-flex), system-ui, sans-serif; font-stretch: calc(var(--font-width) * 1%); font-variation-settings: 'GRAD' var(--font-grade); font-size: 0.875rem; line-height: 1.72; }
+.pg { max-width: 76rem; margin: 0 auto; padding-inline: var(--space-16); padding-block: var(--space-32) var(--space-64); display: grid; gap: var(--space-40); }
+.pg > * { min-width: 0; }
+h1, h2, h3, p { margin: 0; } h1 { text-wrap: balance; }
+.lede { color: var(--text-02); max-width: 44rem; }
+.cap { color: var(--text-02); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: var(--z-header); display: flex; flex-wrap: wrap; gap: var(--space-16) var(--space-24); align-items: end; padding: var(--space-16); border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); background: var(--ui-01); }
+.ctl { display: grid; gap: var(--space-4); min-width: 0; }
+.seg { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.seg button { min-height: var(--size-touch-min); padding: 0 var(--space-16); border: 1px solid var(--border-control); border-radius: var(--radius-button); background: transparent; color: var(--text-01); font: inherit; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--interactive-01); border-color: var(--interactive-01); color: var(--text-on-interactive); }
+.seg button:focus-visible, input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+input[type="range"] { width: 12rem; max-width: 100%; accent-color: var(--interactive-01); }
+.chk { display: flex; gap: var(--space-8); align-items: center; min-height: var(--size-touch-min); }
+.nums { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--space-16); }
+.num { padding: var(--space-16) var(--space-24); border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); background: var(--ui-01); display: grid; gap: var(--space-4); }
+.num b { font-size: 2rem; line-height: 1.2; font-weight: var(--font-weight-heading); font-variant-numeric: tabular-nums; }
+.sec { display: grid; gap: var(--space-16); }
+.ramp { display: grid; gap: var(--space-4); }
+.ramp__row { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--space-2); }
+.ramp__row > span { display: block; height: var(--space-48); border-radius: var(--radius-chip); position: relative; }
+.ramp__row--hoy > span { height: var(--space-16); }
+.ramp__row > span[data-anchor]::after { content: ""; position: absolute; left: 50%; bottom: var(--space-4); width: var(--space-8); height: var(--space-8); margin-left: calc(var(--space-8) / -2); border-radius: var(--radius-pill); background: var(--on); }
+.ramp__lab { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--space-2); font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; font-size: 0.6875rem; color: var(--text-02); text-align: center; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--space-24); }
+/* The sample screen: every colour comes from the map it is given (today's, or the matrix's). */
+.mock { background: var(--m-ui-02); color: var(--m-text-01); border: 1px solid var(--border-control); border-radius: var(--radius-panel); padding: var(--space-24); display: grid; gap: var(--space-16); }
+.mock__card { background: var(--m-ui-01); border: 1px solid var(--m-border-subtle); border-radius: var(--radius-panel); padding: var(--space-24); display: grid; gap: var(--space-16); }
+.mock h3 { font-size: 1.125rem; line-height: 1.4; font-weight: var(--font-weight-heading); }
+.mock p { color: var(--m-text-02); } .mock a { color: var(--m-link-01); text-underline-offset: 0.2em; } .mock .ph { color: var(--m-text-03); }
+.mock__rows { display: grid; gap: var(--space-2); }
+.mock__rows > div { padding: var(--space-8) var(--space-16); border-radius: var(--radius-nav); display: flex; justify-content: space-between; gap: var(--space-16); }
+.mock__rows .is-hover { background: var(--m-hover-ui); } .mock__rows .is-sel { background: var(--m-selected-ui); color: var(--m-nav-selected); box-shadow: inset 2px 0 0 var(--m-interactive-04); }
+.mock__rows span + span { color: var(--m-text-02); font-size: 0.75rem; }
+.mock__field { background: var(--m-field-01); border: 1px solid var(--m-border-control); border-radius: var(--radius-field); padding: var(--space-8) var(--space-16); outline: 2px solid var(--m-focus); outline-offset: 2px; }
+.mock__btns { display: flex; flex-wrap: wrap; gap: var(--space-8); align-items: center; }
+.mock__btns span { display: inline-flex; align-items: center; min-height: var(--size-touch-min); padding: 0 var(--space-16); border-radius: var(--radius-button); }
+.b-fill { background: var(--m-interactive-01); color: var(--m-text-on-interactive); }
+.b-tint { background: color-mix(in srgb, var(--m-button-tinted-text) 14%, transparent); color: var(--m-button-tinted-text); }
+.b-gray { background: color-mix(in srgb, var(--m-text-01) 10%, transparent); color: var(--m-text-01); }
+.b-plain { color: var(--m-button-plain-text); }
+.sw { width: var(--space-48); height: var(--space-24); border-radius: var(--radius-pill); background: var(--m-control-on); position: relative; display: inline-block; }
+.sw::after { content: ""; position: absolute; top: var(--space-2); right: var(--space-2); width: calc(var(--space-24) - var(--space-4)); height: calc(var(--space-24) - var(--space-4)); border-radius: var(--radius-pill); background: var(--m-ui-02); }
+.tw { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: var(--space-8) var(--space-16); border-bottom: 1px solid var(--border-subtle); white-space: nowrap; }
+th { color: var(--text-02); font-weight: var(--font-weight-body); background: var(--ui-01); }
+tr:last-child td { border-bottom: 0; }
+td code, .mono { font-family: var(--font-mono); font-stretch: 100%; font-variation-settings: normal; font-size: 0.75rem; }
+.chip { display: inline-block; width: var(--space-24); height: var(--space-24); border-radius: var(--radius-chip); border: 1px solid var(--border-control); vertical-align: middle; margin-right: var(--space-8); }
+.ok { color: var(--text-success, var(--support-02)); } .no { color: var(--text-error); }
+@media (prefers-reduced-motion: no-preference) { .mock, .ramp__row > span { transition: background-color var(--duration-fast-02) var(--easing-standard-productive); } }
+</style>
+<div class="pg">
+  <header class="sec">
+    <h1 class="web-h3">Matriz de color</h1>
+    <p class="lede">Cada token es un casillero: una familia y un paso. Aquí se ven los colores de hoy junto a los que salen de la matriz, para ALMA y sus cuatro entidades. La matriz usa tres rampas: Primary es la marca, Tertiary es la acción y Secondary es el neutro, teñido con el tono de la acción.</p>
+  </header>
+
+  <div class="bar" role="group" aria-label="Qué se compara">
+    <div class="ctl"><span class="cap web-label-s" id="l-sis">Sistema</span><div class="seg" id="sis" role="group" aria-labelledby="l-sis"></div></div>
+    <div class="ctl"><span class="cap web-label-s" id="l-tema">Tema de la muestra</span><div class="seg" id="tema" role="group" aria-labelledby="l-tema"></div></div>
+    <div class="ctl"><label class="cap web-label-s" for="tinte">Tinte del neutro: <span id="tinte-v"></span></label><input type="range" id="tinte" min="0" max="100" step="5"></div>
+    <label class="chk" for="solo"><input type="checkbox" id="solo"> Solo lo que cambia</label>
+  </div>
+
+  <section class="nums" id="nums" aria-label="Resumen"></section>
+
+  <section class="sec">
+    <h2 class="web-h5">Las tres rampas</h2>
+    <p class="cap">Arriba, en franja delgada, la rampa de hoy. Abajo, la de la matriz. El punto marca el paso 500: el color de marca en Primary y el color de acción en Tertiary.</p>
+    <div id="rampas" class="sec"></div>
+  </section>
+
+  <section class="sec">
+    <h2 class="web-h5">La misma pantalla, dos veces</h2>
+    <div class="two">
+      <div class="sec"><h3 class="web-label-l">Hoy</h3><div class="mock" id="m-hoy"></div></div>
+      <div class="sec"><h3 class="web-label-l">Con la matriz</h3><div class="mock" id="m-nuevo"></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="web-h5">Contraste</h2>
+    <p class="cap">Cada par tiene que alcanzar su mínimo. Un casillero que no pasa necesita otro paso antes de quedar fijo.</p>
+    <div class="tw"><table id="t-con"></table></div>
+  </section>
+
+  <section class="sec">
+    <h2 class="web-h5">Token por token</h2>
+    <p class="cap">El casillero es familia y paso: P es Primary, S es Secondary, T es Tertiary. La diferencia es qué tan distinto se ve el color nuevo del de hoy: bajo 2 no se nota, sobre 10 es otro color.</p>
+    <div class="tw"><table id="t-tok"></table></div>
+  </section>
+
+  <p class="cap">Los pasos para el tema claro son los de tu estudio en Figma. Los del tema oscuro se fijaron el 9 de octubre de 2026: el espejo de los claros, ajustado para acercarse a los valores de hoy. Las rampas de la matriz se calculan aquí, ancladas en el color de marca y en el color de acción de cada sistema.</p>
+</div>
+<script>
+var HOY = /*DATA*/;
+/*LIB*/
+// ---------- the slots: [light, dark]. P Primary · S Secondary · T Tertiary · W white · K black
+var REGLA = /*REGLA*/, CASILLEROS = REGLA.casilleros, PARES = REGLA.pares.map(function (p) { return [p.texto, p.fondo, p.minimo]; });
+var NOMBRE_PAR = { 'text-01': 'Texto principal', 'text-02': 'Texto secundario', 'text-03': 'Texto terciario', 'link-01': 'Enlace', 'text-on-interactive': 'Texto del botón principal', 'button-tinted-text': 'Texto del botón tenue', 'nav-selected': 'Navegación elegida', 'text-05': 'Texto de ayuda', 'interactive-04': 'Marca de lo elegido', 'focus': 'Foco', 'control-on': 'Control encendido', 'border-control': 'Borde de un control',
+  'ui-02': 'la página', 'ui-01': 'un contenedor', 'interactive-01': 'el botón principal', 'selected-ui': 'una fila elegida', 'hover-ui': 'una fila con el cursor', 'field-01': 'un campo' };
+// ---------- state
+var E = { sis: 'alma', tema: 'light', tinte: { alma: REGLA.tinte, automata: REGLA.tinte, cordura: REGLA.tinte, ensayo: REGLA.tinte, orca: REGLA.tinte }, solo: false };
+function deSistema(sis, tema) { var H = HOY[sis]; return matriz({ marca: H.light['brand-accent'], accion: H.light['link-01'] }, tema, REGLA, E.tinte[sis]); }
+function el(tag, attrs, kids) { var e = document.createElement(tag); Object.keys(attrs || {}).forEach(function (k) { if (k === 'text') e.textContent = attrs[k]; else if (k === 'style') e.setAttribute('style', attrs[k]); else e.setAttribute(k, attrs[k]); }); (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }); return e; }
+function esHex(v) { return /^#[0-9A-Fa-f]{6}$/.test(v || ''); }
+function botones(id, ops, valor, alElegir) { var g = document.getElementById(id); g.textContent = ''; ops.forEach(function (o) { var b = el('button', { type: 'button', 'aria-pressed': String(o[0] === valor), text: o[1] }); b.addEventListener('click', function () { alElegir(o[0]); }); g.appendChild(b); }); }
+function muestra(caja, mapa) {
+  caja.setAttribute('style', Object.keys(mapa).filter(function (k) { return esHex(mapa[k]); }).map(function (k) { return '--m-' + k + ':' + mapa[k]; }).join(';'));
+  caja.textContent = '';
+  caja.appendChild(el('div', { class: 'mock__card' }, [el('h3', { text: 'Santiago → Viña del Mar' }), el('p', {}, ['Tu bus sale el martes 31 de marzo a las 08:30. ', el('a', { href: '#', text: 'Ver las condiciones' }), '.']), el('p', { class: 'ph', text: 'Por confirmar: el andén.' }),
+    el('div', { class: 'mock__rows' }, [el('div', {}, [el('span', { text: 'Semicama' }), el('span', { text: '$7.000' })]), el('div', { class: 'is-hover' }, [el('span', { text: 'Salón cama' }), el('span', { text: '$12.000' })]), el('div', { class: 'is-sel' }, [el('span', { text: 'Premium' }), el('span', { text: '$18.000' })])]),
+    el('div', { class: 'mock__field', text: 'camila@correo.cl' }),
+    el('div', { class: 'mock__btns' }, [el('span', { class: 'b-fill', text: 'Pagar' }), el('span', { class: 'b-tint', text: 'Guardar' }), el('span', { class: 'b-gray', text: 'Volver' }), el('span', { class: 'b-plain', text: 'Ver detalle' }), el('span', { class: 'sw', role: 'img', 'aria-label': 'Un interruptor encendido' })])]));
+}
+function pinta() {
+  var H = HOY[E.sis][E.tema], M = deSistema(E.sis, E.tema), m = M.m;
+  botones('sis', Object.keys(HOY).map(function (k) { return [k, HOY[k].nombre]; }), E.sis, function (v) { E.sis = v; pinta(); });
+  botones('tema', [['light', 'Claro'], ['dark', 'Oscuro']], E.tema, function (v) { E.tema = v; pinta(); });
+  document.getElementById('tinte').value = Math.round(E.tinte[E.sis] * 100); document.getElementById('tinte-v').textContent = Math.round(E.tinte[E.sis] * 100) + ' %';
+  // ramps
+  var R = document.getElementById('rampas'); R.textContent = '';
+  [['Primary · la marca', 'primary', M.P, PASOS], ['Secondary · el neutro', 'secondary', M.S, NEUTRO], ['Tertiary · la acción', 'tertiary', M.T, PASOS]].forEach(function (r) {
+    R.appendChild(el('div', { class: 'ramp' }, [el('span', { class: 'web-label-m', text: r[0] }),
+      el('div', { class: 'ramp__row ramp__row--hoy', role: 'img', 'aria-label': 'La rampa de hoy' }, r[3].map(function (s) { var v = HOY[E.sis].light[r[1] + '-' + s]; return el('span', { style: 'background:' + (v || 'transparent') }); })),
+      el('div', { class: 'ramp__row', role: 'img', 'aria-label': 'La rampa de la matriz' }, r[3].map(function (s) { return el('span', Object.assign({ style: 'background:' + r[2][s] + ';--on:' + (con('#FFFFFF', r[2][s]) >= 3 ? '#FFFFFF' : '#000000'), title: r[2][s] }, s === 500 && r[1] !== 'secondary' ? { 'data-anchor': '' } : {})); })),
+      el('div', { class: 'ramp__lab', 'aria-hidden': 'true' }, r[3].map(function (s) { return el('span', { text: String(s) }); }))]));
+  });
+  muestra(document.getElementById('m-hoy'), H); muestra(document.getElementById('m-nuevo'), Object.assign({}, H, m));
+  // contrast
+  var tc = document.getElementById('t-con'); tc.textContent = ''; tc.appendChild(el('tr', {}, ['Qué', 'Sobre', 'Mínimo', 'Hoy', 'Con la matriz'].map(function (t) { return el('th', { scope: 'col', text: t }); })));
+  var pasaH = 0, pasaM = 0, total = 0;
+  PARES.forEach(function (p) { var a = H[p[0]], b = H[p[1]]; if (!esHex(a) || !esHex(b)) return; total++; var ch = con(a, b), cm = con(m[p[0]], m[p[1]]), oh = ch >= p[2], om = cm >= p[2]; if (oh) pasaH++; if (om) pasaM++;
+    var celda = function (c, ok) { return el('td', { class: ok ? 'ok' : 'no', text: c.toFixed(2).replace('.', ',') + ' : 1 · ' + (ok ? 'pasa' : 'no pasa') }); };
+    tc.appendChild(el('tr', {}, [el('td', { text: NOMBRE_PAR[p[0]] }), el('td', { text: NOMBRE_PAR[p[1]] }), el('td', { text: String(p[2]).replace('.', ',') + ' : 1' }), celda(ch, oh), celda(cm, om)])); });
+  // tokens
+  var tt = document.getElementById('t-tok'); tt.textContent = ''; tt.appendChild(el('tr', {}, ['Token', 'Casillero', 'Hoy', 'Con la matriz', 'Diferencia'].map(function (t) { return el('th', { scope: 'col', text: t }); })));
+  var cambian = 0, lista = Object.keys(m).filter(function (n) { return esHex(H[n]); });
+  lista.forEach(function (n) { var d = dif(H[n], m[n]), cambia = d >= 2; if (cambia) cambian++; if (E.solo && !cambia) return; var c = CASILLEROS[n] ? CASILLEROS[n][E.tema === 'light' ? 0 : 1] : 'el que se lea';
+    c = c === 'W' ? 'blanco' : c === 'K' ? 'negro' : c;
+    tt.appendChild(el('tr', {}, [el('td', {}, [el('code', { text: n })]), el('td', { class: 'mono', text: c }), el('td', {}, [el('span', { class: 'chip', style: 'background:' + H[n] }), el('span', { class: 'mono', text: H[n].toUpperCase() })]), el('td', {}, [el('span', { class: 'chip', style: 'background:' + m[n] }), el('span', { class: 'mono', text: m[n] })]),
+      el('td', { text: d < 2 ? 'No se nota' : d.toFixed(0) + (d >= 10 ? ' · otro color' : ' · se nota') })])); });
+  var N = document.getElementById('nums'); N.textContent = '';
+  [[cambian + ' de ' + lista.length, 'tokens cambian a la vista en ' + HOY[E.sis].nombre + ', tema ' + (E.tema === 'light' ? 'claro' : 'oscuro')], [pasaH + ' de ' + total, 'pares pasan el contraste hoy'], [pasaM + ' de ' + total, 'pares pasan con la matriz']].forEach(function (x) { N.appendChild(el('div', { class: 'num' }, [el('b', { text: x[0] }), el('span', { class: 'cap', text: x[1] })])); });
+}
+document.getElementById('tinte').addEventListener('input', function (e) { E.tinte[E.sis] = Number(e.target.value) / 100; pinta(); });
+document.getElementById('solo').addEventListener('change', function (e) { E.solo = e.target.checked; pinta(); });
+pinta();
+</script>

@@ -19,13 +19,13 @@ Como en IBM Carbon, los tokens de color van en tres capas. Cada capa apunta a la
 
 | Capa | Qué nombra | Ejemplos | Se usa en |
 |---|---|---|---|
-| **Base** | Los colores disponibles: marca y rampas de 50 a 900. | `brand-lime`, `primary-500`, `secondary-700`, `blue-60` | Solo dentro de las otras capas. Nunca directo en una interfaz. |
+| **Base** | Los colores disponibles: marca y rampas de 50 a 900. | `brand-accent`, `primary-500`, `secondary-700`, `blue-60` | Solo dentro de las otras capas. Nunca directo en una interfaz. |
 | **Semántica** | El papel en la interfaz. Cambia con el tema. | `ui-01`, `text-01`, `interactive-01`, `focus`, `support-01` | Pantallas, maquetas y componentes nuevos. |
 | **Componente** | Una decisión de un componente, en un estado. | `button-filled-bg-hover`, `field-border-error`, `table-row-bg-selected` | Dentro de cada componente. |
 
 Para ajustar un componente, cambia su token de componente, nunca el semántico: el cambio queda en ese componente y el resto del sistema no se entera.
 
-![Las tres capas de tokens de color: el color base brand-lime alimenta al rol semántico interactive-01, que alimenta al token de componente button-filled-bg, el fondo del botón principal.](assets/Fundamentos/color-tres-capas.png)
+![Las tres capas de tokens de color: el color base brand-accent alimenta al rol semántico interactive-01, que alimenta al token de componente button-filled-bg, el fondo del botón principal.](assets/Fundamentos/color-tres-capas.png)
 
 ### Los roles semánticos
 

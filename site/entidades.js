@@ -120,7 +120,7 @@
   // ---------- Color: every entity builds its own palette in OKLCH; only the steps that pass WCAG AA are used.
   function lum(hex) { var v = [1, 3, 5].map(function (i) { var c = parseInt(hex.substr(i, 2), 16) / 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }); return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]; }
   function contrast(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
-  function ramp(name, step) { if (name === 'lime') return step <= 300 ? D.brand['brand-lime'] : D.base.accent.hover; return D.ramps[name][step]; }
+  function ramp(name, step) { if (name === 'lime') return step <= 300 ? D.brand['brand-accent'] : D.base.accent.hover; return D.ramps[name][step]; }
   function oklch(L, C, H) {
     var a = C * Math.cos(H * Math.PI / 180), b = C * Math.sin(H * Math.PI / 180);
     var l = Math.pow(L + 0.3963377774 * a + 0.2158037573 * b, 3), m = Math.pow(L - 0.1055613458 * a - 0.0638541728 * b, 3), s = Math.pow(L - 0.0894841775 * a - 1.2914855480 * b, 3);
@@ -220,10 +220,10 @@
       ramp: pal[0].name, action: RO.action,
       // ALMA's own accent is deep (white text): a luminous accent also says what goes on it when pressed, and its
       // active field border, so ALMA's values for a deep accent do not show through.
-      dark: Object.assign({}, RO.dark, { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': i,
+      dark: Object.assign({}, RO.dark, { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-accent': i, 'text-on-interactive': INK, 'nav-selected': i,
         'button-filled-text-active': D.brand['brand-black'], 'field-border-active': P0[500],
         'field-border': i, 'field-border-hover': P0[400], 'field-label': i, 'button-tinted-text': i, 'button-tinted-bg': rgba(i, 0.16), 'button-tinted-bg-hover': rgba(i, 0.24), 'button-plain-text': i, 'control-on': i }),
-      light: Object.assign({}, RO.light, { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-lime': i, 'text-on-interactive': INK, 'nav-selected': navLight,
+      light: Object.assign({}, RO.light, { 'interactive-01': i, 'hover-primary': P0[400], 'active-primary': P0[500], 'brand-accent': i, 'text-on-interactive': INK, 'nav-selected': navLight,
         'button-filled-text-active': D.brand['brand-black'], 'field-border-active': P0[500],
         'button-tinted-bg': rgba(i, 0.45), 'button-tinted-bg-hover': rgba(i, 0.65), 'button-plain-text': navLight, 'control-on': onLight }),
       lightHc: Object.assign({}, RO.lightHc, { 'nav-selected': P0[900] }), darkHc: RO.darkHc
@@ -257,7 +257,7 @@
     // One-hue series: the brand ramp. The largest value is the darkest step on light themes and the lightest on dark ones.
     [200, 400, 600, 700, 900].forEach(function (st, n) { vizLight['viz-seq-' + (n + 1)] = P0[st]; });
     [800, 700, 500, 300, 100].forEach(function (st, n) { vizDark['viz-seq-' + (n + 1)] = P0[st]; });
-    var shared = { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-lime': i, 'text-on-interactive': WHITE, 'field-label-float-text': INK };
+    var shared = { 'interactive-01': i, 'hover-primary': hv, 'active-primary': pr, 'button-filled-text-active': WHITE, 'brand-accent': i, 'text-on-interactive': WHITE, 'field-label-float-text': INK };
     return {
       ramp: pal[0].name, deep: true, action: RO.action,
       dark: Object.assign({}, RO.dark, shared, vizDark, { 'nav-selected': navDark, 'field-border-active': navDark,

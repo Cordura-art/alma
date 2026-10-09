@@ -1,9 +1,9 @@
 {
   "color": {
-    "brand-lime": {
+    "brand-accent": {
       "$type": "color",
       "$value": "#2667F2",
-      "$description": "Azul ALMA: el color de la acción principal y de los acentos. El token conserva el nombre que tenía cuando el acento era lima."
+      "$description": "El color de marca: la acción principal y los acentos. En ALMA es el azul; cada entidad pone aquí el suyo."
     },
     "brand-ink": {
       "$type": "color",
@@ -138,7 +138,7 @@
     "text-04": {
       "$type": "color",
       "$value": "#191919",
-      "$description": "Uso (Cordura): Texto sobre colores interactivos. Texto sobre colores interactivos (sobre brand-lime en oscuro). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
+      "$description": "Uso (Cordura): Texto sobre colores interactivos. Texto sobre colores interactivos (sobre brand-accent en oscuro). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "text-05": {
       "$type": "color",
@@ -2012,8 +2012,8 @@
     },
     "progress-line-loading": {
       "$type": "color",
-      "$value": "{color.brand-lime}",
-      "$description": "ProgressLine cargando: brillo. Token de componente: alias de brand-lime."
+      "$value": "{color.brand-accent}",
+      "$description": "ProgressLine cargando: brillo. Token de componente: alias de brand-accent."
     },
     "progress-line-success": {
       "$type": "color",

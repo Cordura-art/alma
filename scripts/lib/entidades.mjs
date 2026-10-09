@@ -11,7 +11,7 @@ export function datos() {
   const colT = (n, th) => { const t = tok.color.tokens.find((x) => x.name === n); return t && (typeof t.value === 'string' ? t.value : t.value[th]); };
   const ramps = {};
   for (const r of ['red', 'yellow', 'magenta', 'purple', 'blue', 'cyan', 'teal', 'green', 'coolgray', 'gray', 'danger']) { ramps[r] = {}; for (const s of [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]) ramps[r][s] = col(`${r}-${s}`); }
-  const brand = Object.fromEntries(['brand-lime', 'brand-ink', 'brand-black', 'brand-white', 'brand-steel', 'secondary-500', 'secondary-600', 'secondary-700'].map((n) => [n, col(n)]));
+  const brand = Object.fromEntries(['brand-accent', 'brand-ink', 'brand-black', 'brand-white', 'brand-steel', 'secondary-500', 'secondary-600', 'secondary-700'].map((n) => [n, col(n)]));
   const fam = (f) => Object.fromEntries(tok[f].tokens.map((t) => [t.name, t.value]));
   const fw = fam('fontWeight');
   const base = {
@@ -20,7 +20,7 @@ export function datos() {
     // Every token an entity may set, with ALMA's own value: the "ALMA hoy" panels reset them inside an entity's page.
     extra: Object.fromEntries(['dark', 'light'].map((th) => [th, Object.fromEntries(['field-border', 'field-border-hover', 'field-border-active', 'field-label', 'button-tinted-text', 'button-tinted-bg', 'button-tinted-bg-hover', 'button-plain-text', 'control-on',
       'button-gray-text', 'text-on-interactive', 'field-label-float-text', 'button-inverse-text', 'button-inverse-text-active', 'button-inverse-bg-hover', 'button-inverse-bg-active', 'button-ghost-text-active', 'button-filled-text-active',
-      'active-primary', 'brand-lime', 'interactive-02', 'hover-secondary', 'active-secondary', 'interactive-03', 'interactive-04', 'hover-tertiary', 'active-tertiary', 'focus', 'button-destructive-gray-text', 'button-destructive-gray-bg-hover',
+      'active-primary', 'brand-accent', 'interactive-02', 'hover-secondary', 'active-secondary', 'interactive-03', 'interactive-04', 'hover-tertiary', 'active-tertiary', 'focus', 'button-destructive-gray-text', 'button-destructive-gray-bg-hover',
       ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => `viz-cat-0${n}`), ...[1, 2, 3, 4, 5].map((n) => `viz-seq-${n}`)].map((n) => [n, String(colT(n, th)).replace(/^\{(.+)\}$/, 'var(--$1)')]))])),
     accent: { interactive: col('interactive-01'), hover: col('hover-primary'), navDark: colT('nav-selected', 'dark'), navLight: colT('nav-selected', 'light'), navLightHc: colT('nav-selected', 'light-hc'), linkDark: colT('link-01', 'dark'), linkLight: colT('link-01', 'light'), linkLightHc: colT('link-01', 'light-hc'), linkDarkHc: colT('link-01', 'dark-hc'), ui01Dark: colT('ui-01', 'dark'), ui01Light: colT('ui-01', 'light') }
   };
@@ -29,7 +29,7 @@ export function datos() {
 
 // Aliases that point at the accent tokens are resolved where they are declared (:root), so re-declare them on the entity scope.
 export function rebind(alma) {
-  const ACC = /var\(--(interactive-01|interactive-02|interactive-03|interactive-04|hover-primary|active-primary|hover-secondary|active-secondary|hover-tertiary|active-tertiary|brand-lime|text-on-interactive|nav-selected|link-01|field-border|field-border-hover|field-label|button-tinted-text|button-tinted-bg|button-tinted-bg-hover|button-plain-text|control-on)\)/;
+  const ACC = /var\(--(interactive-01|interactive-02|interactive-03|interactive-04|hover-primary|active-primary|hover-secondary|active-secondary|hover-tertiary|active-tertiary|brand-accent|text-on-interactive|nav-selected|link-01|field-border|field-border-hover|field-label|button-tinted-text|button-tinted-bg|button-tinted-bg-hover|button-plain-text|control-on)\)/;
   let css = '';
   for (const [, sel, body] of alma.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     const th = /data-theme="([a-z-]+)"/.exec(sel); const theme = th ? th[1] : (/:root/.test(sel) ? 'dark' : null);

@@ -2,11 +2,26 @@
 
 Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detalle de cada cambio está en el historial del repositorio.
 
-## 8 de octubre de 2026
+## 9 de octubre de 2026
+
+### La matriz de color, escrita como regla
+
+- Cada token de color pasa a tener un casillero: una familia y un paso, para el tema claro y para el oscuro. Están en `tokens/matriz.json`. Las familias son tres: Primary es la marca, Tertiary es la acción (enlaces, foco, lo elegido) y Secondary es el neutro, teñido con el tono de la acción.
+- Los casilleros del tema claro vienen del estudio de color de Cordura. Los del oscuro se fijaron hoy. El foco va en Tertiary 400, y el tinte del neutro, en 100.
+- La matriz todavía no gobierna los tokens: es la regla acordada. Una prueba cuida que cumpla el contraste en ALMA y en las cuatro entidades, en los dos temas.
+- `npm run matriz` arma una página que compara los colores de hoy con los de la matriz.
+
+### brand-lime pasa a llamarse brand-accent
+
+- El token `brand-lime` guardaba el azul de ALMA desde que el acento dejó de ser lima, y solo conservaba el nombre. Ahora es `brand-accent`: el color de marca, que en ALMA es el azul y en cada entidad el suyo. El valor no cambia.
+- Los demás colores de marca ya se llamaban por lo que son: `brand-ink`, `brand-black`, `brand-white` y `brand-steel`.
+- Quien use `var(--brand-lime)` fuera de este repositorio tiene que cambiarlo: el nombre antiguo ya no existe.
 
 ### Las figuras de línea tienen su página
 
 - Un fundamento nuevo, Figuras de línea: para qué sirven, sus reglas, sus tonos y cómo montarlas. Su pestaña Catálogo muestra las 28, en vivo. Hasta ahora solo se veían en el Lenguaje de cada entidad.
+
+## 8 de octubre de 2026
 
 ### ProductCard y PaymentCard, rehechas
 

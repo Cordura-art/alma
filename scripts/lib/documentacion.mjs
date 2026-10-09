@@ -37,7 +37,7 @@ export async function sistema(id) {
 // Token notes written for Cordura (its lime, its Figma file) do not hold for another entity: keep the sentences that do.
 const AJENO = /\blima\b|oliva|Figma|Cordura|piezas de marca|ALMA usa/i;
 const USO = {
-  'brand-lime': 'Color de marca de la entidad; el token conserva el nombre que tiene en ALMA. Acción primaria y acentos.',
+  'brand-accent': 'Color de marca de la entidad. Acción primaria y acentos.',
   'interactive-01': 'Color interactivo principal: botón primario.',
   'hover-primary': 'Encima (hover) de interactive-01.',
   'active-primary': 'Presionado de interactive-01.',
@@ -284,6 +284,6 @@ export function origen(S, cambios) {
   const col = cambios.filter((x) => x.familia === 'color');
   md += `### Color\n\nValores del tema oscuro y del claro. Los de alto contraste están en la pestaña **Tokens** de la página Color.\n\n| Token | ALMA, oscuro | Entidad, oscuro | ALMA, claro | Entidad, claro |\n|---|---|---|---|---|\n`;
   md += col.map((x) => `| ${c(x.name)} | ${v(x.antes.dark)} | ${v(x.ahora.dark)} | ${v(x.antes.light)} | ${v(x.ahora.light)} |`).join('\n') + '\n\n';
-  md += `## Lo que no cambia\n\n- **Los nombres de los tokens.** Incluso ${c('brand-lime')}: aquí guarda el color de marca de la entidad.\n- **Los neutros.** Fondos, capas, texto y bordes son los de ALMA.\n- **Los componentes.** Los mismos componentes, con el mismo código y la misma accesibilidad.\n- **El espacio, la grilla y los íconos.** Múltiplos de 8, la misma grilla y los mismos íconos.\n- **Los colores de estado.** Error, éxito, advertencia e información.\n`;
+  md += `## Lo que no cambia\n\n- **Los nombres de los tokens.** ${c('brand-accent')} guarda aquí el color de marca de la entidad.\n- **Los neutros.** Fondos, capas, texto y bordes son los de ALMA.\n- **Los componentes.** Los mismos componentes, con el mismo código y la misma accesibilidad.\n- **El espacio, la grilla y los íconos.** Múltiplos de 8, la misma grilla y los mismos íconos.\n- **Los colores de estado.** Error, éxito, advertencia e información.\n`;
   return md;
 }

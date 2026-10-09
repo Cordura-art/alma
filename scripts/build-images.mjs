@@ -39,7 +39,7 @@ const family = (f) => Object.fromEntries(tok[f].tokens.map((t) => [t.name, t.val
 const DATA = {
   themes: tok.color.themes, icons: Object.fromEntries(ICONS.filter((n) => catalog[n]).map((n) => [n, catalog[n]])),
   easing: family('easing'), duration: family('duration'), fontAxis: family('fontAxis'),
-  swatch: Object.fromEntries(['brand-lime', 'interactive-01', 'button-filled-bg'].map((n) => [n, color(n)]))
+  swatch: Object.fromEntries(['brand-accent', 'interactive-01', 'button-filled-bg'].map((n) => [n, color(n)]))
 };
 
 // Shared look of every scene: the ALMA page color, Roboto Flex with ALMA's axes, token names in mono.
@@ -117,7 +117,7 @@ function textOf(el) { var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT
 function all(s) { return [].slice.call(document.querySelectorAll(s)); }
 // A brand illustration for media slots (cards): pills in the brand colors, read from the tokens at run time.
 function brandArt() { var cs = getComputedStyle(document.documentElement), c = function (n) { return cs.getPropertyValue('--' + n).trim(); };
-  var pills = [[40, 60, 220, c('brand-lime')], [290, 60, 140, c('brand-steel')], [40, 130, 120, c('brand-steel')], [190, 130, 260, c('brand-lime')], [40, 200, 300, c('brand-steel')]];
+  var pills = [[40, 60, 220, c('brand-accent')], [290, 60, 140, c('brand-steel')], [40, 130, 120, c('brand-steel')], [190, 130, 260, c('brand-accent')], [40, 200, 300, c('brand-steel')]];
   var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270"><rect width="480" height="270" fill="' + c('brand-ink') + '"/>' + pills.map(function (p) { return '<rect x="' + p[0] + '" y="' + p[1] + '" width="' + p[2] + '" height="44" rx="22" fill="' + p[3] + '"/>'; }).join('') + '</svg>';
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); }
 function themes(ids, render, o) { o = o || {};
@@ -146,7 +146,7 @@ export const scenes = [
     })));`,
     css: `.scr { width: 17rem; padding: var(--space-24); gap: var(--space-16); border-radius: var(--radius-panel); background: var(--ui-02); color: var(--text-01); border: 1px solid var(--border-subtle); }` },
 
-  { file: 'Fundamentos/color-tres-capas', alt: 'Las tres capas de tokens de color: el color base brand-lime alimenta al rol semántico interactive-01, que alimenta al token de componente button-filled-bg, el fondo del botón principal.',
+  { file: 'Fundamentos/color-tres-capas', alt: 'Las tres capas de tokens de color: el color base brand-accent alimenta al rol semántico interactive-01, que alimenta al token de componente button-filled-bg, el fondo del botón principal.',
     js: `var S = D.swatch, th = 'dark';
     function node(layer, name, note, extra) {
       var t = S[name], v = typeof t.value === 'string' ? t.value : t.value[th];
@@ -156,7 +156,7 @@ export const scenes = [
     }
     function arrow() { return h('div', { className: 'arr' }, h(A.Icon, { name: 'arrow--right', size: 32 })); }
     mount(h('div', { className: 'row', style: { alignItems: 'center' } },
-      node('Base', 'brand-lime', 'El color disponible. Nunca directo en una interfaz.'), arrow(),
+      node('Base', 'brand-accent', 'El color disponible. Nunca directo en una interfaz.'), arrow(),
       node('Semántica', 'interactive-01', 'El papel: la acción principal. Cambia con el tema.'), arrow(),
       node('Componente', 'button-filled-bg', 'Una decisión de un componente.', h('div', null, h(A.Button, { variant: 'filled', role: 'primary' }, 'Pagar $7.000')))));`,
     css: `.node { width: 14rem; } .sw { height: 5rem; border-radius: var(--radius-panel); box-shadow: inset 0 0 0 1px var(--border-subtle); } .arr { color: var(--text-02); padding-top: var(--space-8); }` },
