@@ -109,7 +109,7 @@ td code, .mono { font-family: var(--font-mono); font-stretch: 100%; font-variati
     <div class="tw"><table id="t-tok"></table></div>
   </section>
 
-  <p class="cap">Los pasos para el tema claro son los de tu estudio en Figma. Los del tema oscuro se fijaron el 9 de octubre de 2026: el espejo de los claros, ajustado para acercarse a los valores de hoy. Las rampas de la matriz se calculan aquí, ancladas en el color de marca y en el color de acción de cada sistema.</p>
+  <p class="cap">Los pasos para el tema claro son los de tu estudio en Figma. Los de alto contraste parten del valor que cada token ya tenía: su paso más cercano; ahí el texto tiene que alcanzar 7 a 1. Los del tema oscuro se fijaron el 9 de octubre de 2026: el espejo de los claros, ajustado para acercarse a los valores de hoy. Las rampas de la matriz se calculan aquí, ancladas en el color de marca y en el color de acción de cada sistema.</p>
 </div>
 <script>
 var HOY = /*DATA*/;
@@ -121,6 +121,7 @@ var NOMBRE_PAR = { 'text-01': 'Texto principal', 'text-02': 'Texto secundario', 
   'notification-error-bg': 'un aviso de error', 'notification-success-bg': 'un aviso de éxito', 'notification-warning-bg': 'un aviso de advertencia', 'notification-info-bg': 'un aviso de información',
   'ui-02': 'la página', 'ui-01': 'un contenedor', 'interactive-01': 'el botón principal', 'selected-ui': 'una fila elegida', 'hover-ui': 'una fila con el cursor', 'field-01': 'un campo' };
 // ---------- state
+var IDX = { light: 0, dark: 1, 'light-hc': 2, 'dark-hc': 3 }, NOMBRE_TEMA = { light: 'claro', dark: 'oscuro', 'light-hc': 'claro de alto contraste', 'dark-hc': 'oscuro de alto contraste' };
 var E = { sis: 'alma', tema: 'light', tinte: { alma: REGLA.tinte, automata: REGLA.tinte, cordura: REGLA.tinte, ensayo: REGLA.tinte, orca: REGLA.tinte }, solo: false };
 function rampasDe(sis) { var o = {}; Object.keys(HOY[sis].light).forEach(function (n) { var m = /^([a-z]+)-(\d+)$/.exec(n); if (m && HOY[sis].light[n]) (o[m[1]] = o[m[1]] || {})[m[2]] = HOY[sis].light[n]; }); return o; }
 function deSistema(sis, tema) { var H = HOY[sis]; return matriz({ marca: H.light['brand-accent'], accion: H.light['link-01'], rampas: rampasDe(sis) }, tema, REGLA, E.tinte[sis]); }
@@ -142,11 +143,11 @@ function muestra(caja, mapa) {
 function pinta() {
   var H0 = HOY[E.sis][E.tema], H = {}, M = deSistema(E.sis, E.tema), m = M.m; Object.keys(H0).forEach(function (n) { H[n] = solido(H0[n], H0['ui-01']); });
   botones('sis', Object.keys(HOY).map(function (k) { return [k, HOY[k].nombre]; }), E.sis, function (v) { E.sis = v; pinta(); });
-  botones('tema', [['light', 'Claro'], ['dark', 'Oscuro']], E.tema, function (v) { E.tema = v; pinta(); });
+  botones('tema', [['light', 'Claro'], ['dark', 'Oscuro'], ['light-hc', 'Claro, alto contraste'], ['dark-hc', 'Oscuro, alto contraste']], E.tema, function (v) { E.tema = v; pinta(); });
   document.getElementById('tinte').value = Math.round(E.tinte[E.sis] * 100); document.getElementById('tinte-v').textContent = Math.round(E.tinte[E.sis] * 100) + ' %';
   // the matrix: every ramp, and under each step the tokens that live in that slot in this theme
   var R = document.getElementById('rampas'); R.textContent = '';
-  var idx = E.tema === 'light' ? 0 : 1, enCasillero = {}, RA = rampasDe(E.sis);
+  var idx = IDX[E.tema], enCasillero = {}, RA = rampasDe(E.sis);
   Object.keys(CASILLEROS).forEach(function (n) { var c = CASILLEROS[n][idx]; (enCasillero[c] = enCasillero[c] || []).push(n); });
   function fila(titulo, clave, pasos, color) {
     var tarjetas = pasos.map(function (s) { var c = clave + s, v = color(s), toks = enCasillero[c] || [];
@@ -167,19 +168,19 @@ function pinta() {
   // contrast
   var tc = document.getElementById('t-con'); tc.textContent = ''; tc.appendChild(el('tr', {}, ['Qué', 'Sobre', 'Mínimo', 'Hoy', 'Con la matriz'].map(function (t) { return el('th', { scope: 'col', text: t }); })));
   var pasaH = 0, pasaM = 0, total = 0;
-  PARES.forEach(function (p) { var a = H[p[0]], b = H[p[1]]; if (!esHex(a) || !esHex(b)) return; total++; var ch = con(a, b), cm = con(m[p[0]], m[p[1]]), oh = ch >= p[2], om = cm >= p[2]; if (oh) pasaH++; if (om) pasaM++;
+  PARES.forEach(function (p) { var a = H[p[0]], b = H[p[1]]; if (!esHex(a) || !esHex(b)) return; total++; var pide = /-hc$/.test(E.tema) && p[2] >= 4.5 ? 7 : p[2], ch = con(a, b), cm = con(m[p[0]], m[p[1]]), oh = ch >= pide, om = cm >= pide; if (oh) pasaH++; if (om) pasaM++;
     var celda = function (c, ok) { return el('td', { class: ok ? 'ok' : 'no', text: c.toFixed(2).replace('.', ',') + ' : 1 · ' + (ok ? 'pasa' : 'no pasa') }); };
     var nom = function (n) { var g = /^tag-([a-z]+)-(text|bg)$/.exec(n); return g ? (g[2] === 'text' ? 'Texto de la etiqueta ' : 'su fondo, ') + g[1] : NOMBRE_PAR[n] || n; };
-    tc.appendChild(el('tr', {}, [el('td', { text: nom(p[0]) }), el('td', { text: nom(p[1]) }), el('td', { text: String(p[2]).replace('.', ',') + ' : 1' }), celda(ch, oh), celda(cm, om)])); });
+    tc.appendChild(el('tr', {}, [el('td', { text: nom(p[0]) }), el('td', { text: nom(p[1]) }), el('td', { text: String(pide).replace('.', ',') + ' : 1' }), celda(ch, oh), celda(cm, om)])); });
   // tokens
   var tt = document.getElementById('t-tok'); tt.textContent = ''; tt.appendChild(el('tr', {}, ['Token', 'Casillero', 'Hoy', 'Con la matriz', 'Diferencia'].map(function (t) { return el('th', { scope: 'col', text: t }); })));
   var cambian = 0, lista = Object.keys(m).filter(function (n) { return esHex(H[n]); });
-  lista.forEach(function (n) { var d = dif(H[n], m[n]), cambia = d >= 2; if (cambia) cambian++; if (E.solo && !cambia) return; var c = CASILLEROS[n] ? CASILLEROS[n][E.tema === 'light' ? 0 : 1] : 'el que se lea';
+  lista.forEach(function (n) { var d = dif(H[n], m[n]), cambia = d >= 2; if (cambia) cambian++; if (E.solo && !cambia) return; var c = CASILLEROS[n] ? CASILLEROS[n][IDX[E.tema]] : 'el que se lea';
     c = c === 'W' ? 'blanco' : c === 'K' ? 'negro' : c;
     tt.appendChild(el('tr', {}, [el('td', {}, [el('code', { text: n })]), el('td', { class: 'mono', text: c }), el('td', {}, [el('span', { class: 'chip', style: 'background:' + H[n] }), el('span', { class: 'mono', text: H[n].toUpperCase() })]), el('td', {}, [el('span', { class: 'chip', style: 'background:' + m[n] }), el('span', { class: 'mono', text: m[n] })]),
       el('td', { text: d < 2 ? 'No se nota' : d.toFixed(0) + (d >= 10 ? ' · otro color' : ' · se nota') })])); });
   var N = document.getElementById('nums'); N.textContent = '';
-  [[cambian + ' de ' + lista.length, 'tokens cambian a la vista en ' + HOY[E.sis].nombre + ', tema ' + (E.tema === 'light' ? 'claro' : 'oscuro')], [pasaH + ' de ' + total, 'pares pasan el contraste hoy'], [pasaM + ' de ' + total, 'pares pasan con la matriz']].forEach(function (x) { N.appendChild(el('div', { class: 'num' }, [el('b', { text: x[0] }), el('span', { class: 'cap', text: x[1] })])); });
+  [[cambian + ' de ' + lista.length, 'tokens cambian a la vista en ' + HOY[E.sis].nombre + ', tema ' + NOMBRE_TEMA[E.tema]], [pasaH + ' de ' + total, 'pares pasan el contraste hoy'], [pasaM + ' de ' + total, 'pares pasan con la matriz']].forEach(function (x) { N.appendChild(el('div', { class: 'num' }, [el('b', { text: x[0] }), el('span', { class: 'cap', text: x[1] })])); });
 }
 document.getElementById('tinte').addEventListener('input', function (e) { E.tinte[E.sis] = Number(e.target.value) / 100; pinta(); });
 document.getElementById('solo').addEventListener('change', function (e) { E.solo = e.target.checked; pinta(); });

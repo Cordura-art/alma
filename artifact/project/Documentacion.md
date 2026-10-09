@@ -12,9 +12,9 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 - Las entidades también: su carta entrega dos colores, la marca y la acción, y todo lo demás sale de la matriz. En Cordura y en Ensayo, la navegación elegida, los interruptores y el texto de los botones tenue y plano pasan al azul de acción; la marca queda en el botón principal.
 - El neutro (Secondary) cubre ahora todo el rango, del blanco al negro, con dos pasos nuevos para las superficies oscuras: `secondary-950` y `secondary-1000`.
 - `interactive-02` y sus estados son pasos del neutro. El botón fantasma tiene sus dos tonos propios, ya no cruzados.
-- Los colores de papel que no son un paso de una rampa bajaron de 36 a 20, y en claro y oscuro queda uno solo.
+- Los colores de papel que no son un paso de una rampa bajaron de 36 a 2.
 - El fundamento Color tiene una pestaña nueva, Matriz, que explica la regla.
-- Los temas de alto contraste conservan sus valores.
+- Los dos temas de alto contraste también salen de la matriz: cada token tiene cuatro casilleros, uno por tema. Los de alto contraste se fijaron en el paso más cercano al valor que cada uno ya tenía, y ahí el texto alcanza 7 a 1.
 
 #### La matriz de color, escrita como regla
 

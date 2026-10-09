@@ -7,6 +7,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { matriz, con, PASOS, NEUTRO } from '../scripts/lib/matriz.mjs';
 import { sistema, valor } from '../scripts/lib/documentacion.mjs';
 
+const TEMAS = ['light', 'dark', 'light-hc', 'dark-hc'];
 const regla = JSON.parse(readFileSync('tokens/matriz.json', 'utf8')), tok = JSON.parse(readFileSync('dist/json/tokens.json', 'utf8'));
 // The two colours a system gives the matrix: its brand, and its action (the colour of its links on light).
 async function sistemas() {
@@ -19,31 +20,34 @@ async function sistemas() {
 }
 
 test('cada casillero es una familia y un paso que existen, en claro y en oscuro', () => {
-  for (const [n, par] of Object.entries(regla.casilleros)) { assert.equal(par.length, 2, n);
+  for (const [n, par] of Object.entries(regla.casilleros)) { assert.equal(par.length, 4, `${n}: un paso por tema, los cuatro`);
     for (const c of par) { if (c === 'W' || c === 'K') continue; const m = /^([PST]|[a-z]+)(\d+)$/.exec(c); assert.ok(m, `${n}: «${c}» no es un casillero`);
       assert.ok((m[1] === 'S' ? NEUTRO : PASOS).includes(Number(m[2])), `${n}: la rampa ${m[1]} no tiene el paso ${m[2]}`);
       if (/^[a-z]/.test(m[1])) assert.doesNotThrow(() => valor(tok, `${m[1]}-${m[2]}`, 'light'), `${n}: no existe la rampa ${m[1]}`); } }
   assert.ok(regla.tinte >= 0 && regla.tinte <= 1);
 });
 
-test('con la matriz, cada par alcanza su contraste en ALMA y en todas las entidades, en claro y en oscuro', async () => {
+test('con la matriz, cada par alcanza su contraste en ALMA y en todas las entidades, en los cuatro temas', async () => {
   const S = await sistemas(), mal = [];
-  for (const [id, s] of Object.entries(S)) for (const tema of ['light', 'dark']) { const m = matriz(s, tema, regla).m;
-    for (const p of regla.pares) { const c = con(m[p.texto], m[p.fondo]); if (c < p.minimo) mal.push(`${id} · ${tema} · ${p.texto} sobre ${p.fondo}: ${c.toFixed(2)}:1, y necesita ${p.minimo}:1`); } }
+  // (in high contrast, what has to read at 4.5:1 has to read at 7:1)
+  for (const [id, s] of Object.entries(S)) for (const tema of TEMAS) { const m = matriz(s, tema, regla).m;
+    for (const p of regla.pares) { const pide = tema.endsWith('-hc') && p.minimo >= 4.5 ? 7 : p.minimo, c = con(m[p.texto], m[p.fondo]); if (c < pide) mal.push(`${id} · ${tema} · ${p.texto} sobre ${p.fondo}: ${c.toFixed(2)}:1, y necesita ${pide}:1`); } }
   assert.equal(mal.length, 0, mal.join('\n'));
 });
 
 test('la marca queda en su casillero: el botón principal es el color de marca tal cual', async () => {
   const S = await sistemas();
   for (const [id, s] of Object.entries(S)) for (const tema of ['light', 'dark']) assert.equal(matriz(s, tema, regla).m['interactive-01'], s.marca.toUpperCase(), `${id} · ${tema}`);
+  // (in high contrast the brand moves along its own ramp, to read against the page)
+  for (const [id, s] of Object.entries(S)) for (const tema of ['light-hc', 'dark-hc']) { const M = matriz(s, tema, regla); assert.ok(Object.values(M.P).includes(M.m['interactive-01']), `${id} · ${tema}`); }
 });
 
 // Since 2026-10-09 the matrix governs: in the light theme and in the dark one, ALMA's tokens are what their slots say,
 // and the three ramps in tokens/themes are the ones the matrix makes. `npm run matriz:aplicar` puts them back in line.
-test('los tokens de ALMA son los de la matriz, en claro y en oscuro', () => {
+test('los tokens de ALMA son los de la matriz, en los cuatro temas', () => {
   const marca = valor(tok, 'brand-accent', 'light'), mal = [];
   const rampas = Object.fromEntries([...new Set(Object.values(regla.casilleros).flat().map((c) => (/^([a-z]+)\d+$/.exec(c) || [])[1]).filter(Boolean))].map((r) => [r, Object.fromEntries(PASOS.map((s) => [s, valor(tok, `${r}-${s}`, 'light')]))]));
-  for (const tema of ['light', 'dark']) { const M = matriz({ marca, accion: marca, rampas }, tema, regla);
+  for (const tema of TEMAS) { const M = matriz({ marca, accion: marca, rampas }, tema, regla);
     for (const [n, v] of Object.entries(M.m)) { let hoy; try { hoy = valor(tok, n, tema); } catch { continue; } if (hoy.toUpperCase() !== v.toUpperCase()) mal.push(`${tema} · ${n}: ${hoy}, y su casillero dice ${v}`); }
     for (const s of PASOS) for (const [r, R] of [['primary', M.P], ['tertiary', M.T]]) if (valor(tok, `${r}-${s}`, tema).toUpperCase() !== R[s]) mal.push(`${tema} · ${r}-${s}`);
     for (const s of NEUTRO) if (valor(tok, `secondary-${s}`, tema).toUpperCase() !== M.S[s]) mal.push(`${tema} · secondary-${s}`); }

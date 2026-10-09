@@ -11,7 +11,7 @@ const hoy = {};
 for (const id of ['alma', ...readdirSync('entidades/lenguajes').map((f) => f.replace(/\.json$/, '')).sort()]) {
   const S = id === 'alma' ? null : await sistema(id);
   hoy[id] = { nombre: S ? S.L.nombre : 'ALMA' };
-  for (const th of ['light', 'dark']) {
+  for (const th of ['light', 'dark', 'light-hc', 'dark-hc']) {
     // (an entity's value may point at another token: follow it to the colour)
     const res = (n, d = 0) => { if (d > 12) return null; let v = S && S.color && S.color[th] && S.color[th][n]; if (v == null) { try { v = valor(tok, n, th); } catch { return null; } }
       const m = /^var\(--([a-z0-9-]+)\)$/.exec(v) || /^\{(?:color\.)?([a-z0-9-]+)\}$/.exec(v); return m ? res(m[1], d + 1) : v; };

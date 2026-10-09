@@ -77,7 +77,7 @@
     },
     "ui-01": {
       "$type": "color",
-      "$value": "#111111",
+      "$value": "#131415",
       "$description": "Segunda capa: contenedores (tarjetas, alertas, menús, tablas y paneles) sobre la página ui-02. En claro es blanco sobre una página gris muy clara. En oscuro simula elevación: blanco al 4 % sobre la página (6 % en alto contraste), guardado como color sólido."
     },
     "ui-02": {
@@ -87,12 +87,12 @@
     },
     "ui-03": {
       "$type": "color",
-      "$value": "#202020",
+      "$value": "#232425",
       "$description": "Tercera capa: paneles anidados dentro de un contenedor ui-01. Para bordes usa border-subtle."
     },
     "ui-04": {
       "$type": "color",
-      "$value": "#303030",
+      "$value": "#232425",
       "$description": "Cuarta capa: zonas anidadas dentro de un panel ui-03, donde van las acciones (interactive-01 y interactive-02). Para bordes usa border-subtle o border-control."
     },
     "ui-05": {
@@ -137,7 +137,7 @@
     },
     "text-04": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#131415",
       "$description": "Uso (Cordura): Texto sobre colores interactivos. Texto sobre colores interactivos (sobre brand-accent en oscuro). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "text-05": {
@@ -152,7 +152,7 @@
     },
     "text-on-interactive": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#000000",
       "$description": "Texto e íconos sobre interactive-01, interactive-02, hover-secondary, brand-white y etiquetas. Accesible: brand-ink en lugar de #3A4660 de Figma, que fallaba en hover (4.3:1)."
     },
     "text-on-pressed": {
@@ -242,7 +242,7 @@
     },
     "status-icon-success": {
       "$type": "color",
-      "$value": "#87CB9A",
+      "$value": "#7FC894",
       "$description": "Ícono y borde de notificaciones de éxito. En claro, verde más oscuro que support-02 para llegar a 3:1 sobre su fondo."
     },
     "status-icon-warning": {
@@ -252,7 +252,7 @@
     },
     "status-icon-info": {
       "$type": "color",
-      "$value": "#B4CEFE",
+      "$value": "#B0C6F2",
       "$description": "Ícono y borde de notificaciones informativas."
     },
     "border-control": {
@@ -267,7 +267,7 @@
     },
     "visited-link": {
       "$type": "color",
-      "$value": "#E6E6E7",
+      "$value": "#D8E6FF",
       "$description": "Uso (Cordura): Enlaces visitados. Enlaces visitados. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "inverse-link": {
@@ -312,17 +312,17 @@
     },
     "interactive-02": {
       "$type": "color",
-      "$value": "#2F4265",
+      "$value": "#3C3D3E",
       "$description": "Uso (Cordura): Color interactivo secundario; botones secundarios. Color interactivo secundario: botón secundario."
     },
     "hover-secondary": {
       "$type": "color",
-      "$value": "#3B4E73",
+      "$value": "#525254",
       "$description": "Uso (Cordura): Hover de interactive-02."
     },
     "active-secondary": {
       "$type": "color",
-      "$value": "#435678",
+      "$value": "#525254",
       "$description": "Uso (Cordura): Activo de interactive-02 y de inverse-01. Activo de interactive-02 e inverse-01."
     },
     "interactive-03": {
@@ -347,17 +347,17 @@
     },
     "field-01": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#131415",
       "$description": "Uso (Cordura): Campos por defecto; color de campo sobre fondos ui. Fondo de campos sobre ui-02. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "field-02": {
       "$type": "color",
-      "$value": "#1A1A1A",
+      "$value": "#131415",
       "$description": "Uso (Cordura): Color de campo sobre fondos ui-02. Fondo de campos sobre ui-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "inverse-01": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#131415",
       "$description": "Uso (Cordura): Texto e íconos inversos. Texto e íconos inversos (sobre inverse-02). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "inverse-02": {
@@ -407,12 +407,12 @@
     },
     "hover-row": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#131415",
       "$description": "Uso (Cordura): Hover de fila. Hover de fila seleccionada. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "disabled-01": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#131415",
       "$description": "Uso (Cordura): Campos, fondos y bordes deshabilitados. Campos, fondos y bordes deshabilitados. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "disabled-02": {
@@ -427,7 +427,7 @@
     },
     "skeleton-01": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#131415",
       "$description": "Uso (Cordura): Estado de carga de gráficos. Esqueleto de gráficos. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "skeleton-02": {
@@ -452,7 +452,7 @@
     },
     "active-danger": {
       "$type": "color",
-      "$value": "#3D0D0D",
+      "$value": "#2B0910",
       "$description": "Uso (Cordura): Activo de peligro y de support-01. Activo de peligro / support-01."
     },
     "support-02": {
@@ -492,22 +492,22 @@
     },
     "notification-error-bg": {
       "$type": "color",
-      "$value": "rgba(235,97,97,0.16)",
+      "$value": "#2B0910",
       "$description": "Uso (Cordura): Fondo de aviso de error. Fondo de notificación de error. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "notification-success-bg": {
       "$type": "color",
-      "$value": "rgba(89,184,116,0.16)",
+      "$value": "#092118",
       "$description": "Uso (Cordura): Fondo de aviso de éxito. Fondo de notificación de éxito. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "notification-warning-bg": {
       "$type": "color",
-      "$value": "rgba(241,194,27,0.16)",
+      "$value": "#32280F",
       "$description": "Uso (Cordura): Fondo de aviso de advertencia. Fondo de notificación de advertencia. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "notification-info-bg": {
       "$type": "color",
-      "$value": "rgba(115,152,228,0.16)",
+      "$value": "#020E33",
       "$description": "Uso (Cordura): Fondo de aviso informativo. Fondo de notificación informativa. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "tag-red-bg": {
@@ -1587,7 +1587,7 @@
     },
     "danger": {
       "$type": "color",
-      "$value": "{color.support-01}",
+      "$value": "#EB6161",
       "$description": "Uso (Cordura): Fondo del botón de peligro (contraste 3:1)."
     },
     "viz-cat-01": {

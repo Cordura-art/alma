@@ -61,7 +61,9 @@ test('tres colores en la Entidad Autómata: marca, marca muy oscura y el color d
   aplicar(tok, S);
   const v = (n, th) => valor(tok, n, th);
   // Primary: the same brand step in every theme. Secondary: the brand at its darkest. Tertiary: the action color, here the brand itself.
-  for (const th of THEMES) assert.equal(v('button-filled-bg', th), '#1D62FF', th);
+  for (const th of ['light', 'dark']) assert.equal(v('button-filled-bg', th), '#1D62FF', th);
+  // (in high contrast the brand moves along its own ramp, to read against the page)
+  assert.equal(v('button-filled-bg', 'light-hc'), v('primary-900', 'light-hc')); assert.equal(v('button-filled-bg', 'dark-hc'), v('primary-200', 'dark-hc'));
   // With the colour matrix (tokens/matriz.json): interactive-02 is a step of the neutral, which carries only a trace of
   // the action's hue; the outline of the tertiary button and the links are the action colour, here the brand itself.
   for (const th of ['light', 'dark']) { const [, c] = S.En.fromHex(v('interactive-02', th)); assert.ok(c < 0.02, `${th}: interactive-02 es un neutro (saturación ${c.toFixed(3)})`); }
@@ -122,7 +124,7 @@ test('la plantilla escribe lo que la carta decidió, y falla ante una marca que 
   // A line that only opens or closes a condition leaves no empty line behind.
   assert.equal(plantilla('a\n{si heredado}\nb\n{fin}\nc', automata, ti), 'a\nc');
   assert.equal(plantilla('{L:grilla.forma:1}', automata, ti), 'Nuestros ángulos son rectos.');
-  assert.match(plantilla('{tabla:rampa}', automata, ti), /\| `primary-500` \| `#1D62FF` \| `interactive-01` en los cuatro temas/);
+  assert.match(plantilla('{tabla:rampa}', automata, ti), /\| `primary-500` \| `#1D62FF` \| `interactive-01` en /);
   assert.throws(() => plantilla('{si inventada}x{fin}', automata, ti), /Condición desconocida/);
   assert.throws(() => plantilla('{v:inventada}', automata, ti), /Palabra desconocida/);
   assert.throws(() => plantilla('{L:no.existe}', automata, ti), /le falta "no.existe"/);

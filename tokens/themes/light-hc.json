@@ -87,12 +87,12 @@
     },
     "ui-03": {
       "$type": "color",
-      "$value": "#EFEFEF",
+      "$value": "#F3F3F4",
       "$description": "Tercera capa: paneles anidados dentro de un contenedor ui-01. Para bordes usa border-subtle."
     },
     "ui-04": {
       "$type": "color",
-      "$value": "#E2E2E2",
+      "$value": "#E6E6E7",
       "$description": "Cuarta capa: zonas anidadas dentro de un panel ui-03, donde van las acciones (interactive-01 y interactive-02). Para bordes usa border-subtle o border-control."
     },
     "ui-05": {
@@ -127,7 +127,7 @@
     },
     "text-02": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#131415",
       "$description": "Uso (Cordura): Texto secundario; etiquetas de campos. Texto secundario y etiquetas de input, sobre ui-02 y ui-01. Accesible: en claro se oscureció de #7A94A7 (Figma, 3:1) a #566980 (5.4:1). Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "text-03": {
@@ -187,7 +187,7 @@
     },
     "button-tinted-text": {
       "$type": "color",
-      "$value": "#191919",
+      "$value": "#001762",
       "$description": "Texto del botón tinted sobre button-tinted-bg."
     },
     "button-plain-text": {
@@ -242,17 +242,17 @@
     },
     "status-icon-success": {
       "$type": "color",
-      "$value": "#135727",
+      "$value": "#166130",
       "$description": "Ícono y borde de notificaciones de éxito. En claro, verde más oscuro que support-02 para llegar a 3:1 sobre su fondo."
     },
     "status-icon-warning": {
       "$type": "color",
-      "$value": "#5C4A0B",
+      "$value": "#624E12",
       "$description": "Ícono y borde de advertencias. En claro, el amarillo de Figma daba 1.6:1; se usa el texto de etiqueta amarilla."
     },
     "status-icon-info": {
       "$type": "color",
-      "$value": "#0A3CA7",
+      "$value": "#0036A7",
       "$description": "Ícono y borde de notificaciones informativas."
     },
     "border-control": {
@@ -292,7 +292,7 @@
     },
     "interactive-01": {
       "$type": "color",
-      "$value": "#0A3CA7",
+      "$value": "#001762",
       "$description": "Uso (Cordura): Color interactivo principal; botones primarios. Color interactivo principal: botón primario, borde de input."
     },
     "hover-primary": {
@@ -302,7 +302,7 @@
     },
     "active-primary": {
       "$type": "color",
-      "$value": "#00164F",
+      "$value": "#001762",
       "$description": "Uso (Cordura): Activo de interactive-01. Estado activo (presionado) de interactive-01. text-04 encima da ~2.4:1 (valor de Figma)."
     },
     "hover-primary-text": {
@@ -312,17 +312,17 @@
     },
     "interactive-02": {
       "$type": "color",
-      "$value": "#192A4C",
+      "$value": "#232425",
       "$description": "Uso (Cordura): Color interactivo secundario; botones secundarios. Color interactivo secundario: botón secundario."
     },
     "hover-secondary": {
       "$type": "color",
-      "$value": "#243658",
+      "$value": "#3C3D3E",
       "$description": "Uso (Cordura): Hover de interactive-02."
     },
     "active-secondary": {
       "$type": "color",
-      "$value": "#435678",
+      "$value": "#525254",
       "$description": "Uso (Cordura): Activo de interactive-02 y de inverse-01. Activo de interactive-02 e inverse-01."
     },
     "interactive-03": {
@@ -332,7 +332,7 @@
     },
     "hover-tertiary": {
       "$type": "color",
-      "$value": "#1658E2",
+      "$value": "#1851CC",
       "$description": "Uso (Cordura): Hover de interactive-03 y de inverse-01. Hover de interactive-03 e inverse-01. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "active-tertiary": {
@@ -407,7 +407,7 @@
     },
     "hover-row": {
       "$type": "color",
-      "$value": "#F3F3F4",
+      "$value": "#E9F1FF",
       "$description": "Uso (Cordura): Hover de fila. Hover de fila seleccionada. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "disabled-01": {
@@ -432,7 +432,7 @@
     },
     "skeleton-02": {
       "$type": "color",
-      "$value": "#E6E6E6",
+      "$value": "#E6E6E7",
       "$description": "Uso (Cordura): Estado de carga de texto. Esqueleto de texto. Oscuro: derivado de las piezas de marca; aprobado el 2026-09-29."
     },
     "overlay-01": {
@@ -452,7 +452,7 @@
     },
     "active-danger": {
       "$type": "color",
-      "$value": "#3D0D0D",
+      "$value": "#2B0910",
       "$description": "Uso (Cordura): Activo de peligro y de support-01. Activo de peligro / support-01."
     },
     "support-02": {
@@ -1587,7 +1587,7 @@
     },
     "danger": {
       "$type": "color",
-      "$value": "{color.support-01}",
+      "$value": "#E52F2F",
       "$description": "Uso (Cordura): Fondo del botón de peligro (contraste 3:1)."
     },
     "viz-cat-01": {
@@ -1877,7 +1877,7 @@
     },
     "field-border-active": {
       "$type": "color",
-      "$value": "{color.field-border}",
+      "$value": "#002784",
       "$description": "TextInput: borde al presionar. Token de componente: alias de active-primary; en alto contraste, de field-border."
     },
     "field-border-error": {

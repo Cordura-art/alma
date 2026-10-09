@@ -1,412 +1,616 @@
 {
-  "$description": "La matriz de color: cada token es un casillero, una familia y un paso. P es Primary (la marca), S es Secondary (el neutro, teñido con el tono de la acción), T es Tertiary (la acción); W es blanco y K es negro. Las demás familias se nombran por su rampa: red200, danger500. Cada casillero trae su paso para el tema claro y para el oscuro. Los del claro vienen del estudio de color de Cordura; los del oscuro se fijaron el 2026-10-09. La luz ordena las capas en los dos temas: la página es la capa más profunda y cada capa sobre ella es más clara. Gobierna los temas claro y oscuro de ALMA (npm run matriz:aplicar) y de las entidades; tests/matriz.test.mjs cuida que cumpla el contraste y que los tokens no se separen de ella.",
+  "$description": "La matriz de color: cada token es un casillero, una familia y un paso. P es Primary (la marca), S es Secondary (el neutro, teñido con el tono de la acción), T es Tertiary (la acción); W es blanco y K es negro. Las demás familias se nombran por su rampa: red200, danger500. Cada casillero trae cuatro pasos, en este orden: claro, oscuro, claro de alto contraste y oscuro de alto contraste. Los del claro vienen del estudio de color de Cordura; los del oscuro se fijaron el 2026-10-09. La luz ordena las capas en los dos temas: la página es la capa más profunda y cada capa sobre ella es más clara. Los de alto contraste se fijaron el 2026-10-09, cada uno en el paso más cercano al valor que ya tenía. Gobierna los cuatro temas de ALMA (npm run matriz:aplicar) y de las entidades; tests/matriz.test.mjs cuida que cumpla el contraste y que los tokens no se separen de ella.",
   "tinte": 0.05,
   "casilleros": {
     "interactive-01": [
       "P500",
-      "P500"
+      "P500",
+      "P900",
+      "P200"
     ],
     "hover-primary": [
       "P600",
-      "P600"
+      "P600",
+      "P900",
+      "P100"
     ],
     "active-primary": [
       "P700",
-      "P700"
+      "P700",
+      "P900",
+      "P50"
     ],
     "interactive-02": [
       "S500",
-      "S600"
+      "S600",
+      "S900",
+      "S800"
     ],
     "hover-secondary": [
       "S600",
-      "S500"
+      "S500",
+      "S800",
+      "S700"
     ],
     "active-secondary": [
       "S700",
-      "S400"
+      "S400",
+      "S700",
+      "S700"
     ],
     "interactive-03": [
       "W",
-      "T400"
+      "T400",
+      "W",
+      "T50"
     ],
     "hover-tertiary": [
+      "T600",
+      "T300",
       "T600",
       "T300"
     ],
     "active-tertiary": [
       "T700",
+      "T200",
+      "T700",
       "T200"
     ],
     "interactive-04": [
       "T500",
+      "T400",
+      "T900",
       "T400"
     ],
     "link-01": [
       "T500",
-      "T400"
+      "T400",
+      "T900",
+      "T50"
     ],
     "visited-link": [
       "T400",
-      "T200"
+      "T200",
+      "T800",
+      "T100"
     ],
     "inverse-link": [
       "T300",
-      "T500"
+      "T500",
+      "T400",
+      "T600"
     ],
     "focus": [
       "T400",
-      "T300"
+      "T300",
+      "T900",
+      "W"
     ],
     "nav-selected": [
       "T600",
-      "T300"
+      "T300",
+      "T900",
+      "T50"
     ],
     "control-on": [
       "T500",
-      "T400"
+      "T400",
+      "T700",
+      "T100"
     ],
     "button-tinted-text": [
       "T600",
-      "T300"
+      "T300",
+      "T900",
+      "T100"
     ],
     "button-plain-text": [
       "T600",
-      "T300"
+      "T300",
+      "T700",
+      "T100"
     ],
     "field-border-active": [
       "T500",
-      "T400"
+      "T400",
+      "T800",
+      "T50"
     ],
     "ui-01": [
       "W",
-      "S1000"
+      "S1000",
+      "W",
+      "S950"
     ],
     "ui-02": [
+      "S50",
+      "K",
       "S50",
       "K"
     ],
     "ui-03": [
       "S100",
-      "S950"
+      "S950",
+      "S100",
+      "S900"
     ],
     "ui-04": [
       "S300",
+      "S900",
+      "S200",
       "S900"
     ],
     "ui-05": [
       "S900",
-      "S100"
+      "S100",
+      "S800",
+      "S300"
     ],
     "text-01": [
       "S900",
+      "S50",
+      "K",
       "S50"
     ],
     "text-02": [
       "S800",
-      "S300"
+      "S300",
+      "S950",
+      "S200"
     ],
     "text-03": [
       "S700",
-      "S500"
+      "S500",
+      "S800",
+      "S300"
     ],
     "text-04": [
       "T50",
-      "S900"
+      "S900",
+      "T200",
+      "S950"
     ],
     "text-05": [
       "T600",
-      "T300"
+      "T300",
+      "T800",
+      "T200"
     ],
     "icon-01": [
       "S900",
+      "S50",
+      "K",
       "S50"
     ],
     "icon-02": [
       "S600",
-      "S400"
+      "S400",
+      "S800",
+      "S200"
     ],
     "field-01": [
       "T50",
+      "S950",
+      "T200",
       "S950"
     ],
     "field-02": [
       "W",
-      "K"
+      "K",
+      "W",
+      "S950"
     ],
     "hover-row": [
+      "T50",
+      "S950",
       "T50",
       "S950"
     ],
     "highlight": [
       "T50",
-      "S900"
+      "S900",
+      "T200",
+      "S800"
     ],
     "hover-ui": [
       "T100",
-      "S900"
+      "S900",
+      "T200",
+      "S800"
     ],
     "selected-ui": [
       "T100",
+      "S800",
+      "T200",
       "S800"
     ],
     "active-ui": [
       "T100",
-      "S800"
+      "S800",
+      "T200",
+      "S600"
     ],
     "hover-selected-ui": [
       "S200",
-      "S800"
+      "S800",
+      "S200",
+      "S600"
     ],
     "disabled-01": [
       "S50",
-      "S1000"
+      "S1000",
+      "S50",
+      "S950"
     ],
     "disabled-02": [
+      "S200",
+      "S800",
       "S200",
       "S800"
     ],
     "disabled-03": [
       "S400",
-      "S700"
-    ],
-    "skeleton-01": [
-      "S50",
-      "S1000"
-    ],
-    "skeleton-02": [
-      "S100",
-      "S950"
-    ],
-    "inverse-01": [
-      "W",
-      "K"
-    ],
-    "inverse-02": [
-      "S800",
-      "S200"
-    ],
-    "inverse-hover-ui": [
+      "S700",
       "S600",
       "S400"
     ],
+    "skeleton-01": [
+      "S50",
+      "S1000",
+      "S50",
+      "S950"
+    ],
+    "skeleton-02": [
+      "S100",
+      "S950",
+      "S200",
+      "S800"
+    ],
+    "inverse-01": [
+      "W",
+      "K",
+      "W",
+      "S950"
+    ],
+    "inverse-02": [
+      "S800",
+      "S200",
+      "S800",
+      "S50"
+    ],
+    "inverse-hover-ui": [
+      "S600",
+      "S400",
+      "S500",
+      "S200"
+    ],
     "border-subtle": [
       "S200",
-      "S900"
+      "S900",
+      "S300",
+      "S600"
     ],
     "border-control": [
       "S600",
-      "S600"
+      "S600",
+      "S800",
+      "S400"
     ],
     "tag-green-bg": [
+      "green200",
+      "green200",
       "green200",
       "green200"
     ],
     "tag-green-hover": [
       "green300",
+      "green300",
+      "green300",
       "green300"
     ],
     "tag-green-text": [
       "green700",
-      "green700"
+      "green700",
+      "green800",
+      "green800"
     ],
     "tag-yellow-bg": [
+      "yellow200",
+      "yellow200",
       "yellow200",
       "yellow200"
     ],
     "tag-yellow-hover": [
       "yellow300",
+      "yellow300",
+      "yellow300",
       "yellow300"
     ],
     "tag-yellow-text": [
+      "yellow800",
+      "yellow800",
       "yellow800",
       "yellow800"
     ],
     "tag-red-bg": [
       "red200",
+      "red200",
+      "red200",
       "red200"
     ],
     "tag-red-hover": [
+      "red300",
+      "red300",
       "red300",
       "red300"
     ],
     "tag-red-text": [
       "red700",
-      "red700"
+      "red700",
+      "red800",
+      "red800"
     ],
     "tag-magenta-bg": [
+      "magenta200",
+      "magenta200",
       "magenta200",
       "magenta200"
     ],
     "tag-magenta-hover": [
       "magenta300",
+      "magenta300",
+      "magenta300",
       "magenta300"
     ],
     "tag-magenta-text": [
       "magenta700",
-      "magenta700"
+      "magenta700",
+      "magenta800",
+      "magenta800"
     ],
     "tag-purple-bg": [
+      "purple200",
+      "purple200",
       "purple200",
       "purple200"
     ],
     "tag-purple-hover": [
       "purple300",
+      "purple300",
+      "purple300",
       "purple300"
     ],
     "tag-purple-text": [
       "purple700",
-      "purple700"
+      "purple700",
+      "purple800",
+      "purple800"
     ],
     "tag-blue-bg": [
+      "blue200",
+      "blue200",
       "blue200",
       "blue200"
     ],
     "tag-blue-hover": [
       "blue300",
+      "blue300",
+      "blue300",
       "blue300"
     ],
     "tag-blue-text": [
       "blue700",
-      "blue700"
+      "blue700",
+      "blue800",
+      "blue800"
     ],
     "tag-cyan-bg": [
+      "cyan200",
+      "cyan200",
       "cyan200",
       "cyan200"
     ],
     "tag-cyan-hover": [
       "cyan300",
+      "cyan300",
+      "cyan300",
       "cyan300"
     ],
     "tag-cyan-text": [
       "cyan700",
-      "cyan700"
+      "cyan700",
+      "cyan800",
+      "cyan800"
     ],
     "tag-teal-bg": [
+      "teal200",
+      "teal200",
       "teal200",
       "teal200"
     ],
     "tag-teal-hover": [
       "teal300",
+      "teal300",
+      "teal300",
       "teal300"
     ],
     "tag-teal-text": [
       "teal700",
-      "teal700"
+      "teal700",
+      "teal800",
+      "teal800"
     ],
     "tag-warmgray-bg": [
+      "warmgray200",
+      "warmgray200",
       "warmgray200",
       "warmgray200"
     ],
     "tag-warmgray-hover": [
       "warmgray300",
+      "warmgray300",
+      "warmgray300",
       "warmgray300"
     ],
     "tag-warmgray-text": [
       "warmgray700",
-      "warmgray700"
+      "warmgray700",
+      "warmgray800",
+      "warmgray800"
     ],
     "tag-coolgray-bg": [
+      "coolgray200",
+      "coolgray200",
       "coolgray200",
       "coolgray200"
     ],
     "tag-coolgray-hover": [
       "coolgray300",
+      "coolgray300",
+      "coolgray300",
       "coolgray300"
     ],
     "tag-coolgray-text": [
       "coolgray700",
-      "coolgray700"
+      "coolgray700",
+      "coolgray800",
+      "coolgray800"
     ],
     "tag-gray-bg": [
+      "gray200",
+      "gray200",
       "gray200",
       "gray200"
     ],
     "tag-gray-hover": [
       "gray300",
+      "gray300",
+      "gray300",
       "gray300"
     ],
     "tag-gray-text": [
       "gray700",
-      "gray700"
+      "gray700",
+      "gray800",
+      "gray800"
     ],
     "support-01": [
+      "danger500",
+      "danger400",
       "danger500",
       "danger400"
     ],
     "danger": [
       "danger500",
+      "danger400",
+      "danger500",
       "danger400"
     ],
     "text-error": [
       "danger600",
-      "danger400"
+      "danger400",
+      "danger700",
+      "danger200"
     ],
     "inverse-support-01": [
+      "danger400",
+      "danger500",
       "danger400",
       "danger500"
     ],
     "hover-danger": [
       "danger600",
-      "danger600"
-    ],
-    "active-danger": [
+      "danger600",
       "danger700",
       "danger700"
     ],
+    "active-danger": [
+      "danger700",
+      "danger700",
+      "danger900",
+      "danger900"
+    ],
     "support-02": [
+      "success500",
+      "success400",
       "success500",
       "success400"
     ],
     "inverse-support-02": [
       "success400",
+      "success500",
+      "success400",
       "success500"
     ],
     "support-03": [
+      "warning500",
+      "warning500",
       "warning500",
       "warning500"
     ],
     "inverse-support-03": [
       "warning500",
+      "warning500",
+      "warning500",
       "warning500"
     ],
     "support-04": [
+      "info500",
+      "info400",
       "info500",
       "info400"
     ],
     "inverse-support-04": [
       "info400",
+      "info500",
+      "info400",
       "info500"
     ],
     "status-icon-error": [
       "danger500",
-      "danger400"
+      "danger400",
+      "danger600",
+      "danger200"
     ],
     "status-icon-success": [
       "success600",
-      "success400"
+      "success400",
+      "success700",
+      "success300"
     ],
     "status-icon-warning": [
       "warning700",
+      "warning500",
+      "warning800",
       "warning500"
     ],
     "status-icon-info": [
       "info500",
-      "info400"
+      "info400",
+      "info600",
+      "info200"
     ],
     "notification-error-bg": [
+      "danger50",
+      "danger900",
       "danger50",
       "danger900"
     ],
     "notification-success-bg": [
       "success50",
+      "success900",
+      "success50",
       "success900"
     ],
     "notification-warning-bg": [
       "warning50",
+      "warning900",
+      "warning50",
       "warning900"
     ],
     "notification-info-bg": [
+      "info50",
+      "info900",
       "info50",
       "info900"
     ]

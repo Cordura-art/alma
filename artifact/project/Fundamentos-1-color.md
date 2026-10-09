@@ -241,7 +241,22 @@ Un contenedor más claro que su fondo se despega solo, sin borde. En claro la re
 
 `npm run matriz` arma una página con la matriz completa, sistema por sistema.
 
+### Alto contraste
+
+Los dos temas de alto contraste tienen sus propios casilleros. Parten de la misma matriz y empujan cada cosa hacia el extremo de su rampa:
+
+| Qué | Claro | Claro, alto contraste | Oscuro | Oscuro, alto contraste |
+|---|---|---|---|---|
+| Texto principal | Secondary 900 | Negro | Secondary 50 | Secondary 50 |
+| Texto secundario | Secondary 800 | Secondary 950 | Secondary 300 | Secondary 200 |
+| Botón principal | Primary 500 | Primary 900 | Primary 500 | Primary 200 |
+| Enlace | Tertiary 500 | Tertiary 900 | Tertiary 400 | Tertiary 50 |
+| Borde de un control | Secondary 600 | Secondary 800 | Secondary 600 | Secondary 400 |
+
+- **El texto tiene que alcanzar 7 a 1,** no 4,5.
+- **La marca se mueve por su propia rampa:** en claro baja al paso más oscuro y en oscuro sube a uno claro, para leerse contra la página. El texto del botón es blanco o negro, el que se lea.
+- **Las capas siguen la misma regla de la luz:** página teñida y contenedor blanco en claro; página negra y capas que suben en oscuro.
+
 ### Lo que la matriz no cubre
 
-- Los dos temas de alto contraste, que conservan sus valores propios.
 - Los colores de los gráficos.
