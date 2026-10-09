@@ -51,6 +51,7 @@ Cuando no se puede comprar, la acción se reemplaza por un texto que dice por qu
 - **La insignia es una palabra,** y pocas tarjetas la llevan. Si todas son «Nuevo», ninguna lo es.
 - **Todas las tarjetas de una grilla miden lo mismo** y llevan las mismas partes, aunque alguna quede vacía.
 - **La imagen muestra el producto,** sobre un fondo parejo. Su texto alternativo dice qué es.
+- **Sin fotos, usa una figura de línea** (`media`): toma los tonos de línea del tema y el acento de la entidad, y no hay que rehacerla para cada una. Dentro de la tarjeta queda quieta: lo que responde es la tarjeta.
 
 ### Relacionados
 
@@ -119,6 +120,7 @@ h(A.ProductCard, {
 | `title` | texto | — | El nombre del producto. Obligatorio. |
 | `href`, `onPress` | texto, función | — | Adónde lleva la tarjeta, o qué hace al tocarla. Toda la tarjeta responde. |
 | `image`, `imageAlt` | texto | — | La imagen y su texto alternativo. |
+| `media` | contenido | — | Algo dibujado en lugar de la imagen: una figura de línea de ALMA. Va en vez de `image`. |
 | `badge` | texto | — | La insignia sobre la imagen. |
 | `eyebrow` | texto | — | La categoría. |
 | `description` | texto | — | Una frase. Se corta en dos líneas. |

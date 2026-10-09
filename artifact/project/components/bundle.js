@@ -366,7 +366,9 @@ function pictograma(G, clave, o = {}) {
     var id = useId(props.id), Hd = 'h' + (props.headingLevel || 3), r = props.rating, off = props.unavailable, a = props.action;
     return h('article', { className: 'alma-pcard' + (props.layout === 'horizontal' ? ' alma-pcard--row' : '') + (off ? ' is-off' : '') + (props.href || props.onPress ? ' is-link' : '') + (props.className ? ' ' + props.className : ''), 'aria-labelledby': id + '-t' },
       h('div', { className: 'alma-pcard__media' },
-        props.image ? h('img', { className: 'alma-pcard__img', src: props.image, alt: props.imageAlt || '', loading: 'lazy' }) : null,
+        // media: something drawn in place of a picture — one of ALMA's line figures, which takes the entity's colours
+        props.media ? h('div', { className: 'alma-pcard__img alma-pcard__img--media' }, props.media)
+          : props.image ? h('img', { className: 'alma-pcard__img', src: props.image, alt: props.imageAlt || '', loading: 'lazy' }) : null,
         props.badge ? h('span', { className: 'alma-pcard__badge' }, props.badge) : null),
       h('div', { className: 'alma-pcard__body' },
         props.eyebrow ? h('p', { className: 'alma-pcard__eyebrow' }, props.eyebrow) : null,

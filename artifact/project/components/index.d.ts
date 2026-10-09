@@ -146,6 +146,8 @@ export interface ProductCardProps {
   onPress?: () => void;
   image?: string;
   imageAlt?: string;
+  /** Drawn in place of the picture: one of ALMA's line figures. */
+  media?: any;
   badge?: string;
   eyebrow?: string;
   description?: string;

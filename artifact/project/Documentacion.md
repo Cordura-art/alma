@@ -9,6 +9,7 @@ Lo último que cambió en ALMA, de lo más reciente a lo más antiguo. El detall
 #### ProductCard y PaymentCard, rehechas
 
 - `ProductCard` es ahora una tarjeta de producto de verdad: imagen, insignia, categoría, nombre, descripción, valoración, precio con su rebaja y su nota, y una acción. Va en grilla o en fila, y sabe decir «Agotado». La tarjeta desplegable de color que había antes ya no existe: ese uso es de `Accordion`.
+- Las muestras de `ProductCard` llevan figuras de línea en lugar de dibujos de relleno: un portátil, un teléfono y un router. `ProductCard` acepta `media` para poner una figura donde iría la imagen.
 - `PaymentCard` es una tarjeta como se tiene en la mano: emisor, estado con ícono y palabra, número, titular, vencimiento y CVV. Los datos parten ocultos y se muestran al pedirlo; copiar lo confirma con texto. Suma el estado «Bloqueada» y un tamaño chico para listas. Su radio sigue al de la entidad.
 - La imagen de alineación de botones mostraba «Anular» como botón relleno. Ahora es `tinted` destructivo, como dice la regla.
 - Salen los tokens `product-card-*` y tres de `payment-card-*` que ya no se usan.

@@ -9,6 +9,9 @@ import { dirname } from 'node:path';
 import { generadorNavegador } from './lib/generativo.mjs';
 import { allScenes, cssEscenas, ayudantes, docDispositivo, datosEscenas, fuentesEscenas } from './build-images.mjs';
 import { sistema, aplicar, css as cssEntidad, palabras, restos, portada, origen, conValores } from './lib/documentacion.mjs';
+import { figurasNavegador } from './lib/figuras.mjs';
+const figuras = figurasNavegador();
+if (/<\/script|<!--/i.test(figuras)) throw new Error('figuras contiene una secuencia que cerraría la etiqueta en línea');
 const TOKENS = JSON.parse(await readFile('dist/json/tokens.json', 'utf8'));
 
 const args = process.argv.slice(2), ei = args.indexOf('--entidad');
@@ -192,6 +195,9 @@ ${campoPortada.replace(/^<\/script>\n<script>\n/, '')}${await read('site/escenas
 </script>
 <script id="alma-efectos">
 ${motorEfectos}
+</script>
+<script id="alma-figuras">
+${figuras}
 </script>
 <script type="application/json" id="alma-escenas">${escenas}</script>
 <script type="application/json" id="alma-content">${json}</script>

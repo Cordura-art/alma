@@ -57,7 +57,7 @@
   function escenaHtml(id, n) {
     var cssSistema = SIS ? textoDe('style[data-sistema="' + sisId + '"]') : textoDe('#alma-entidad');
     return window.__ESCENA_DOC({ fuentes: ESC.fuentes, css: textoDe('#alma-css') + '\n' + cssSistema + '\n' + ESC.base, bundle: textoDe('#alma-bundle'), libs: ESC.libs,
-      helpers: ESC.helpers, doc: ESC.doc, datos: Object.assign({ icons: ESC.iconos }, C.escena), escena: ESC.lista[id], vivo: n, motor: textoDe('#alma-efectos') });
+      helpers: ESC.helpers, doc: ESC.doc, datos: Object.assign({ icons: ESC.iconos }, C.escena), escena: ESC.lista[id], vivo: n, motor: textoDe('#alma-efectos'), figuras: textoDe('#alma-figuras') });
   }
   // A scene starts when it comes near the screen. Nothing inside it can be reached: it is a picture, named by its text.
   function encender(el) {

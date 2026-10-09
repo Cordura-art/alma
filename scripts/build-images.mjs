@@ -4,6 +4,7 @@
 // With --entidad <id> the same scenes are drawn with that entity's tokens, into build/documentacion-<id>/assets/.
 // Only the scenes that changed are drawn again (see "The cache" below); --forzar draws them all, --paralelo N sets how
 // many are drawn at once (4 by default).
+import { figurasNavegador } from './lib/figuras.mjs';
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -392,7 +393,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const comun = sha([bundle, sinValores, HELPERS, DEPS, DOC, FONTS, libs, JSON.stringify(DATA.icons), JSON.stringify(DATA.themes)].join('\u0000'));
   // The effects a scene may show (site/efectos): only those scenes are drawn again when an effect changes.
   const motor = (await Promise.all(['site/reloj.js', 'site/partitura.js', 'site/efectos.js', ...(await readdir('site/efectos')).filter((f) => f.endsWith('.js')).sort().map((f) => `site/efectos/${f}`)].map(read))).join('\n');
-  const fuente = (s) => { const code = [s.js, s.after, s.css, s.click, s.efectos ? motor : ''].join('\u0000'); return sha([comun, s.file, code, ...['easing', 'duration', 'fontAxis', 'swatch'].filter((k) => code.includes(k)).map((k) => JSON.stringify(DATA[k]))].join('\u0000')); };
+  const figuras = figurasNavegador();
+  const fuente = (s) => { const code = [s.js, s.after, s.css, s.click, s.efectos ? motor : '', s.figuras ? figuras : ''].join('\u0000'); return sha([comun, s.file, code, ...['easing', 'duration', 'fontAxis', 'swatch'].filter((k) => code.includes(k)).map((k) => JSON.stringify(DATA[k]))].join('\u0000')); };
   const llave = (src, deps) => sha(src + deps.map((n) => THEMES.map((th) => resolve(n, th)).join('|')).join('\n'));
 
   const queue = [];
@@ -421,7 +423,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
             await page.setContent('<button style="position:fixed;left:0;top:0;width:40px;height:40px"></button>');
             await page.mouse.click(20, 20);
             await page.mouse.move(0, 0);
-            const html = escenaDoc({ fuentes: FONTS, css, bundle, libs, helpers: HELPERS, doc: DOC, deps: DEPS, datos: DATA, escena: s, motor });
+            const html = escenaDoc({ fuentes: FONTS, css, bundle, libs, helpers: HELPERS, doc: DOC, deps: DEPS, datos: DATA, escena: s, motor, figuras });
             await page.setContent(html, { waitUntil: 'networkidle' });
             await page.evaluate(() => document.fonts.ready);
             await page.waitForTimeout(250);

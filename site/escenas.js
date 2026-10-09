@@ -4,7 +4,8 @@
 // needs no pictures of its own. No DOM here: it only joins strings.
 // o: { fuentes (stylesheet URL), css, bundle, libs (script tags), helpers, doc (the function device() frames use),
 //      deps (optional), datos (the scene's D), escena: { js, css, after, click, efectos }, vivo: an id when the site shows it,
-//      motor (the effects' code, loaded only by a scene that says efectos: true) }
+//      motor (the effects' code, loaded only by a scene that says efectos: true),
+//      figuras (the line figures' code, loaded only by a scene that says figuras: true) }
 window.__ESCENA_DOC = function (o) {
   var s = o.escena, fin = '</scr' + 'ipt>', ini = '<scr' + 'ipt>';
   var head = '<link rel="stylesheet" href="' + o.fuentes + '"><style>' + o.css + '</style>';
@@ -23,5 +24,5 @@ window.__ESCENA_DOC = function (o) {
   return '<!doctype html><html lang="es" data-theme="dark"><head><meta charset="utf-8">' + head + '<style>' + (s.css || '') + '</style>\n' + textos + '</head>\n' +
     '<body><div id="shot"><div id="app"></div></div>' + o.libs + ini + o.bundle + fin + '\n' +
     ini + 'var D = ' + JSON.stringify(o.datos) + ';\nwindow.__LIBS = ' + JSON.stringify(o.libs).replace(/<\//g, '<\\/') + ';\n' + o.doc + '\n' + (o.deps || '') + '\n' + o.helpers +
-    '\nstateCss(); A.registerIcons({ icons: D.icons });\n' + fin + (s.efectos && o.motor ? ini + o.motor + fin : '') + ini + s.js + fin + vivo + '</body></html>';
+    '\nstateCss(); A.registerIcons({ icons: D.icons });\n' + fin + (s.efectos && o.motor ? ini + o.motor + fin : '') + (s.figuras && o.figuras ? ini + o.figuras + fin : '') + ini + s.js + fin + vivo + '</body></html>';
 };
