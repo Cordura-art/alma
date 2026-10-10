@@ -55,7 +55,7 @@ ${DATOS.map((d) => `      <li class="escaneo__dato">${d}</li>`).join('\n')}
     </ul>
   </div>
 </section>`;
-const EFECTOS = ['velo', 'halo', 'desvelar', 'contar', 'inclinar', 'reticula', 'hilos'], FIGURAS = ['sello', 'matriz', 'lupa', 'portatil', 'cinta', 'terminal'];
+const EFECTOS = ['velo', 'halo', 'desvelar', 'contar', 'inclinar', 'reticula', 'hilos', 'aparecer', 'escalonar'], FIGURAS = ['sello', 'matriz', 'lupa', 'portatil', 'cinta', 'terminal'];
 const efectos = [read('site/efectos.js'), ...EFECTOS.map((e) => read(`site/efectos/${e}.js`))].join('\n'), figuras = ['motor', ...FIGURAS].map((n) => read(`figuras/${n}.js`)).join('\n');
 const escaneo = `.escaneo { --escaneo-1: ${G.pieza.acento}; --escaneo-2: ${G.pieza.tinta}; --escaneo-3: ${G.pieza.barras[2]}; }
 [data-theme="light"] .escaneo, [data-theme="light-hc"] .escaneo { --escaneo-1: ${G.pieza.barras[1]}; --escaneo-2: ${G.fondo.light.tinta}; --escaneo-3: ${G.pieza.barras[3]}; }`;

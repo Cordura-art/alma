@@ -81,8 +81,8 @@
   function Sec(p) {
     return h('section', { className: 'sec', id: p.id, 'aria-labelledby': p.id + '-t' },
       h('div', { className: 'sec__head' },
-        h('h2', { className: 'web-h2 sec__title', id: p.id + '-t', tabIndex: -1 }, p.title),
-        p.lede ? h('p', { className: 'web-body-l sec__lede' }, p.lede) : null),
+        h(Efecto, { id: 'escalonar', como: 'h2', className: 'web-h2 sec__title', attrs: { id: p.id + '-t', tabIndex: -1 } }, p.title),
+        p.lede ? h(Entra, { como: 'p', className: 'web-body-l sec__lede' }, p.lede) : null),
       p.children);
   }
 
@@ -142,8 +142,10 @@
   function Efecto(p) {
     var ref = useRef(null);
     useEffect(function () { var e = null; try { e = window.AlmaEfectos.monta(p.id, ref.current, p.valores); } catch (x) { /* the page is whole without it */ } return function () { if (e && e.quita) e.quita(); }; }, []);
-    return h(p.como || 'div', { ref: ref, className: p.className }, p.children);
+    return h(p.como || 'div', Object.assign({ ref: ref, className: p.className }, p.attrs), p.children);
   }
+  // What comes into view as the page is scrolled: ALMA's «aparecer» (from blurred to sharp, rising a little), once.
+  function Entra(p) { return h(Efecto, { id: 'aparecer', como: p.como, className: p.className, attrs: p.attrs }, p.children); }
   // One of ALMA's line figures (figuras/), with Cordura's own traits.
   function Figura(p) {
     var ref = useRef(null);
@@ -154,7 +156,7 @@
   // The essay: a narrow column of our own words. A string is a paragraph; { f } opens it louder, { s } closes it.
   function Texto(p) {
     return h('div', { className: 'texto' }, p.parrafos.map(function (x, i) {
-      return typeof x === 'string' ? h('p', { className: 'web-body-l', key: i }, x) : x.f ? h('p', { className: 'web-h4 texto__f', key: i }, x.f) : h(Efecto, { id: 'desvelar', como: 'p', className: 'web-h3 texto__s', key: i }, x.s);
+      return typeof x === 'string' ? h(Entra, { como: 'p', className: 'web-body-l', key: i }, x) : x.f ? h(Entra, { como: 'p', className: 'web-h4 texto__f', key: i }, x.f) : h(Efecto, { id: 'desvelar', como: 'p', className: 'web-h3 texto__s', key: i }, x.s);
     }));
   }
 
@@ -252,7 +254,7 @@
           'Este es el mismo pedido, dos veces: una sin nada a la vista, y otra con nuestro sistema.'] }),
 
         h('section', { className: 'demo', 'aria-label': 'El mismo pedido, sin el sistema y con el sistema' },
-          h(Pedido),
+          h(Entra, null, h(Pedido)),
           h('p', { className: 'web-body-s demo__pie' }, 'Mueve el control. La pantalla «sin el sistema» es una maqueta de lo que sale por defecto; la otra usa nuestros componentes.')),
 
         h(Texto, { parrafos: [
@@ -261,48 +263,48 @@
           { s: 'La marca se escribe para que cualquiera pueda decidir bien una pantalla que nadie dibujó todavía.' }] }),
 
         h('section', { className: 'cap', id: 'sistema', 'aria-labelledby': 'sistema-t' },
-          h('h2', { className: 'web-h2 sec__title cap__t', id: 'sistema-t', tabIndex: -1 }, 'Qué es el sistema'),
+          h(Efecto, { id: 'escalonar', como: 'h2', className: 'web-h2 sec__title cap__t', attrs: { id: 'sistema-t', tabIndex: -1 } }, 'Qué es el sistema'),
           h(Efecto, { id: 'reticula', className: 'portada' }, h('div', { className: 'portada__in' }, h(Mapa, { wide: wide[0] }))),
           h(Texto, { parrafos: [
             'Guías, piezas y código que una persona puede recorrer y un agente puede leer: la voz y los principios de tu marca, sus reglas de color, letra, forma y movimiento, y los componentes con que se construye lo nuevo.',
             'Cada regla dice dónde aplica y por qué. La del lima está escrita así: va solo en el botón principal; los enlaces son azules; los fondos y los textos, neutros. El código usa esa regla tal cual.'] })),
 
         h('section', { className: 'demo', 'aria-label': 'Archivos del sistema de Cordura' },
-          h(Archivos),
+          h(Entra, null, h(Archivos)),
           h('p', { className: 'web-body-s demo__pie' }, 'Archivos del sistema de Cordura, recortados. Ninguno se escribió para esta página.')),
 
         h(Texto, { parrafos: [
           'Las piezas siguen conectadas. El color de un botón no es un valor suelto: es un lugar en una tabla. Si la marca cambia de tono, cambia la tabla y todo lo demás la sigue.',
           'No todo se actualiza solo. Hay pruebas que avisan, y alguien tiene que mirar cómo queda. Ese alguien somos nosotros, contigo.'] }),
 
-        h('dl', { className: 'cifras' }, [[HECHOS.componentes, 'componentes'], [HECHOS.temas, 'temas'], [HECHOS.pares, 'combinaciones de texto y fondo, medidas']].map(function (c) { return h('div', { key: c[1] }, h(Efecto, { id: 'contar', como: 'dd', className: 'web-display-m cifras__n' }, String(c[0])), h('dt', { className: 'web-body-m' }, c[1])); })),
+        h('dl', { className: 'cifras' }, [[HECHOS.componentes, 'componentes'], [HECHOS.temas, 'temas'], [HECHOS.pares, 'combinaciones de texto y fondo, medidas']].map(function (c) { return h(Entra, { key: c[1] }, h(Efecto, { id: 'contar', como: 'dd', className: 'web-display-m cifras__n' }, String(c[0])), h('dt', { className: 'web-body-m' }, c[1])); })),
 
         h(Sec, { id: 'consistencia', title: 'Un sistema, muchas salidas', lede: 'Cambia el tema o sube de nivel, del token más chico al entorno completo. Es el sistema funcionando, no una imagen.' },
           h('div', { className: 'mesa' },
             h('div', { className: 'mesa__nivel' }, h(A.SegmentedControl, { label: 'Nivel', options: NIVELES, value: N, onChange: nivel[1] })),
             h(A.SegmentedControl, { label: 'Tema', options: [{ value: 'dark', label: 'Oscuro' }, { value: 'light', label: 'Claro' }], value: claro ? 'light' : 'dark', onChange: function (v) { pon(v === 'light', alto); } }),
             h(A.Checkbox, { label: 'Alto contraste', checked: alto, onChange: function (v) { pon(claro, v); } })),
-          h('div', { className: 'tarima' },
+          h(Entra, { className: 'tarima' },
             h('p', { className: 'web-body-m tarima__que', 'aria-live': 'polite' }, QUE[N]),
             escena),
           null),
 
         h(Sec, { id: 'soportes', title: 'En cada soporte', lede: 'La misma propuesta en un teléfono, en un documento y en un anuncio.' },
           h('div', { className: 'soportes' },
-            h('figure', { className: 'soporte' },
+            h(Entra, { como: 'figure', className: 'soporte' },
               h('div', { className: 'marco marco--tel' },
                 h('h3', { className: 'web-h4' }, 'Propuestas'),
                 h(A.List, { 'aria-label': 'Propuestas, en un teléfono', items: FILAS.slice(0, 3).map(function (r) { return { id: r.id, title: r.p, subtitle: r.e, trailing: r.f }; }) }),
                 h(A.Button, { variant: 'filled', size: 'sm' }, 'Revisar 2 propuestas')),
               h('figcaption', { className: 'web-body-s' }, 'Teléfono')),
-            h('figure', { className: 'soporte' },
+            h(Entra, { como: 'figure', className: 'soporte' },
               h('div', { className: 'marco marco--hoja' },
                 h('p', { className: 'web-label-m eyebrow' }, 'Propuesta · 9 de octubre de 2026'),
                 h('h3', { className: 'web-h3' }, 'Identidad de marca, versión 2'),
                 h('p', { className: 'web-body-m note' }, 'Esta versión recoge los cambios que pidió tu equipo el 30 de septiembre. Revísala con calma: vence el 15 de octubre y nada se aprueba sin ti.'),
                 h('p', { className: 'web-body-s hoja__firma' }, 'Cordura · Santiago de Chile')),
               h('figcaption', { className: 'web-body-s' }, 'Documento')),
-            h('figure', { className: 'soporte' },
+            h(Entra, { como: 'figure', className: 'soporte' },
               h('div', { className: 'marco' },
                 h(Campo, { clave: 'sitio', anda: false, label: 'Campo de Cordura: emblemas lima, blancos y verdes sobre negro tinta.' }),
                 h('div', { className: 'anuncio' },
@@ -313,16 +315,16 @@
               h('figcaption', { className: 'web-body-s' }, 'Anuncio')))),
 
         h(Sec, { id: 'recibes', title: 'Lo que construimos contigo', lede: 'Seis piezas que salen de las mismas decisiones. Por eso calzan.' },
-          h('div', { className: 'piezas' }, PIEZAS.map(function (x) { return h('article', { key: x.t, className: 'pieza' }, h(Efecto, { id: 'inclinar', className: 'pieza__marco' }, h(Figura, { nombre: x.fig, etiqueta: x.et })), h('h3', { className: 'web-h5' }, x.t), h('p', { className: 'web-body-m note' }, x.p)); })),
+          h('div', { className: 'piezas' }, PIEZAS.map(function (x) { return h(Entra, { como: 'article', key: x.t, className: 'pieza' }, h(Efecto, { id: 'inclinar', className: 'pieza__marco' }, h(Figura, { nombre: x.fig, etiqueta: x.et })), h('h3', { className: 'web-h5' }, x.t), h('p', { className: 'web-body-m note' }, x.p)); })),
           h('p', { className: 'web-body-s demo__pie' }, 'Cifras al ' + HECHOS.fecha.split('-').reverse().join('-') + ', contadas en el sistema que usa esta página.')),
 
         h(Sec, { id: 'relacion', title: 'Una relación, no una entrega', lede: 'Un sistema así no se entrega y se deja: se sostiene. Por eso no vendemos un proyecto. Entramos como tu socio de diseño, al modo de una aceleradora: nos va bien si a ti te va bien.' },
-          h('ol', { className: 'pasos' }, PASOS.map(function (x) { return h('li', { key: x.t }, h('span', { className: 'pasos__c', 'aria-hidden': 'true' }, h(A.Pictogram, { name: x.t, kind: 'creature', size: 32 })), h('h3', { className: 'web-h5' }, x.t), h('p', { className: 'web-body-m' }, x.p)); }))),
+          h('ol', { className: 'pasos' }, PASOS.map(function (x) { return h(Entra, { como: 'li', key: x.t }, h('span', { className: 'pasos__c', 'aria-hidden': 'true' }, h(A.Pictogram, { name: x.t, kind: 'creature', size: 32 })), h('h3', { className: 'web-h5' }, x.t), h('p', { className: 'web-body-m' }, x.p)); }))),
 
         h(Sec, { id: 'preguntas', title: 'Preguntas', lede: 'Las que nos haríamos nosotros antes de decidir.' },
-          h('div', { className: 'preguntas' }, h(A.Accordion, { headingLevel: 3, items: PREGUNTAS }))),
+          h(Entra, { className: 'preguntas' }, h(A.Accordion, { headingLevel: 3, items: PREGUNTAS }))),
 
-        h('section', { className: 'closing', 'aria-labelledby': 'conversar-t' }, h(Efecto, { id: 'hilos', className: 'closing__hilos' }), h('div', { className: 'closing__in', id: 'conversar' },
+        h('section', { className: 'closing', 'aria-labelledby': 'conversar-t' }, h(Efecto, { id: 'hilos', className: 'closing__hilos' }), h(Entra, { className: 'closing__in', attrs: { id: 'conversar' } },
           h('h2', { className: (wide[0] ? 'web-display-s' : 'web-h2') + ' closing__t', id: 'conversar-t', tabIndex: -1 }, 'Conversemos cuando quieras.'),
           h('p', { className: 'web-body-l closing__p' }, 'Escríbenos un correo. Te mostramos el sistema con tu caso a la vista. Si no es el momento, esta página sigue aquí.'),
           CONTACTO ? h('p', { className: 'web-h4 contacto' }, CONTACTO) : h('p', { className: 'web-body-m note' }, 'Borrador: falta la dirección de correo.')))),
